@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directx11_2d", "directx11_2
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "engine_source", "engine_source\engine_source.vcxproj", "{62D8C5BF-1991-41D7-B3AA-064505782575}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader_source", "shader_source\shader_source.vcxitems", "{DC0F5A8B-46B7-4AFC-85CB-C68ED8DBE10C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
