@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "engine_source", "engine_sou
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "editor_source", "editor_source\editor_source.vcxitems", "{2689F715-9806-41E1-AC45-7665FFDFD731}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader_source", "shader_source\shader_source.vcxitems", "{DC0F5A8B-46B7-4AFC-85CB-C68ED8DBE10C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
