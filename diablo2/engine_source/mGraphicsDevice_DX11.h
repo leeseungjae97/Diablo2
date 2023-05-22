@@ -7,9 +7,9 @@ namespace m::graphics{
 		GraphicsDevice_DX11();
 		~GraphicsDevice_DX11();
 
-		//bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC desc);
+		bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC _swapChainDesc);
 		//bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* initial_data, ID3D11Buffer** buffer);
-		//bool CreateTexture(const D3D11_TEXTURE2D_DESC* pDesc, D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D);
+		bool CreateTexture(const D3D11_TEXTURE2D_DESC* pDesc/*, D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D*/);
 		//bool CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView);
 		//bool CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView);
 		//bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
@@ -55,7 +55,7 @@ namespace m::graphics{
 
 		//void Clear();
 		//void AdjustViewport();
-		//void Draw(UINT VertexCount, UINT StartVertexLocation);
+		void Draw(/*UINT VertexCount, UINT StartVertexLocation*/);
 		//void DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
 		//void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
 		//void Present();

@@ -9,7 +9,9 @@ namespace m {
 	Application::~Application() {
 	}
 	void Application::Run() {
-
+		Update();
+		LateUpdate();
+		Render();
 	}
 	void Application::Initialize() {
 	}
@@ -18,6 +20,7 @@ namespace m {
 	void Application::LateUpdate() {
 	}
 	void Application::Render() {
+		graphicsDevice->Draw();
 	}
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height) {
 		if (nullptr == graphicsDevice) {
@@ -26,8 +29,6 @@ namespace m {
 			mHeight = height;
 
 			graphicsDevice = std::make_unique<m::graphics::GraphicsDevice_DX11>();
-
-
 		}
 		RECT rt = { 0, 0, (LONG)width , (LONG)height };
 		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
