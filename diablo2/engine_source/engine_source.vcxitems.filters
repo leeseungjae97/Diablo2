@@ -54,11 +54,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,11 +84,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mEnums.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphics.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mEnums.cpp">
+      <Filter>Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

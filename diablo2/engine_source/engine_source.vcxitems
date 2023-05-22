@@ -20,6 +20,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mEnums.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphics.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
