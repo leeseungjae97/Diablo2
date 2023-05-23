@@ -10,14 +10,8 @@
     <Filter Include="High Level Interface">
       <UniqueIdentifier>{b9cc7ba7-ad15-4605-8b1c-c7c87a92884a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity">
-      <UniqueIdentifier>{dbdf6c7e-2e3f-4c08-9f39-932a73e65a08}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{99dc2561-bcbb-44f3-9f19-c2947f892c2e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Time">
-      <UniqueIdentifier>{92ccfb63-914a-4190-9d33-e5fbf594b365}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{b0452ee8-cefd-4c1f-b234-effd0b71e283}</UniqueIdentifier>
@@ -25,11 +19,14 @@
     <Filter Include="Resources\Resource">
       <UniqueIdentifier>{c0a5a99e-f750-4e81-9ced-fa9224f19d6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{cb7cd00a-9151-4cef-99c0-70788519fa15}</UniqueIdentifier>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{a9ff588f-d08f-4b5a-ab2e-222cbc072eca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Enums">
-      <UniqueIdentifier>{025b1dc2-1d69-4f4f-b5c5-830b617303e8}</UniqueIdentifier>
+    <Filter Include="Common\Time">
+      <UniqueIdentifier>{92ccfb63-914a-4190-9d33-e5fbf594b365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Entity">
+      <UniqueIdentifier>{dbdf6c7e-2e3f-4c08-9f39-932a73e65a08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,7 +40,7 @@
       <Filter>High Level Interface</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\Engine\mTime.h">
-      <Filter>Time</Filter>
+      <Filter>Common\Time</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h">
       <Filter>Resources</Filter>
@@ -51,21 +48,23 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h">
       <Filter>Resources\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h">
-      <Filter>Enums</Filter>
+      <Filter>Common\Entity</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +72,7 @@
       <Filter>High Level Interface</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\Engine\mTime.cpp">
-      <Filter>Time</Filter>
+      <Filter>Common\Time</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp">
       <Filter>Resources</Filter>
@@ -81,21 +80,22 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp">
       <Filter>Resources\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mGraphics.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mEnums.cpp">
-      <Filter>Enums</Filter>
+      <Filter>Common\Entity</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)mMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
   </ItemGroup>
 </Project>

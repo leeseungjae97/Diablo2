@@ -1,6 +1,9 @@
 #pragma once
 #include "_Engine.h"
+#include <math.h>
 
+
+//https://github.com/microsoft/DirectXMath
 #if __has_include("DirectXMath.h")
 // In this case, DirectXMath is coming from Windows SDK.
 //	It is better to use this on Windows as some Windows libraries could depend on the same 
@@ -15,7 +18,8 @@
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
-namespace m::math {
+namespace m::math
+{
     struct Vector2;
     struct Vector4;
     struct Matrix;
@@ -24,7 +28,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // 2D rectangle
-    struct Rectangle {
+    struct Rectangle
+    {
         long x;
         long y;
         long width;
@@ -88,7 +93,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // 2D vector
-    struct Vector2 : public XMFLOAT2 {
+    struct Vector2 : public XMFLOAT2
+    {
         Vector2() noexcept : XMFLOAT2(0.f, 0.f) {}
         constexpr explicit Vector2(float ix) noexcept : XMFLOAT2(ix, ix) {}
         constexpr Vector2(float ix, float iy) noexcept : XMFLOAT2(ix, iy) {}
@@ -200,7 +206,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // 3D vector
-    struct Vector3 : public XMFLOAT3 {
+    struct Vector3 : public XMFLOAT3
+    {
         Vector3() noexcept : XMFLOAT3(0.f, 0.f, 0.f) {}
         constexpr explicit Vector3(float ix) noexcept : XMFLOAT3(ix, ix, ix) {}
         constexpr Vector3(float ix, float iy, float iz) noexcept : XMFLOAT3(ix, iy, iz) {}
@@ -319,7 +326,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // 4D vector
-    struct Vector4 : public XMFLOAT4 {
+    struct Vector4 : public XMFLOAT4
+    {
         Vector4() noexcept : XMFLOAT4(0.f, 0.f, 0.f, 0.f) {}
         constexpr explicit Vector4(float ix) noexcept : XMFLOAT4(ix, ix, ix, ix) {}
         constexpr Vector4(float ix, float iy, float iz, float iw) noexcept : XMFLOAT4(ix, iy, iz, iw) {}
@@ -432,13 +440,14 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // 4x4 Matrix (assumes right-handed cooordinates)
-    struct Matrix : public XMFLOAT4X4 {
+    struct Matrix : public XMFLOAT4X4
+    {
         Matrix() noexcept
             : XMFLOAT4X4(1.f, 0, 0, 0,
                 0, 1.f, 0, 0,
                 0, 0, 1.f, 0,
-                0, 0, 0, 1.f) {
-        }
+                0, 0, 0, 1.f)
+        {}
         constexpr Matrix(float m00, float m01, float m02, float m03,
             float m10, float m11, float m12, float m13,
             float m20, float m21, float m22, float m23,
@@ -446,20 +455,20 @@ namespace m::math {
             : XMFLOAT4X4(m00, m01, m02, m03,
                 m10, m11, m12, m13,
                 m20, m21, m22, m23,
-                m30, m31, m32, m33) {
-        }
+                m30, m31, m32, m33)
+        {}
         explicit Matrix(const Vector3& r0, const Vector3& r1, const Vector3& r2) noexcept
             : XMFLOAT4X4(r0.x, r0.y, r0.z, 0,
                 r1.x, r1.y, r1.z, 0,
                 r2.x, r2.y, r2.z, 0,
-                0, 0, 0, 1.f) {
-        }
+                0, 0, 0, 1.f)
+        {}
         explicit Matrix(const Vector4& r0, const Vector4& r1, const Vector4& r2, const Vector4& r3) noexcept
             : XMFLOAT4X4(r0.x, r0.y, r0.z, r0.w,
                 r1.x, r1.y, r1.z, r1.w,
                 r2.x, r2.y, r2.z, r2.w,
-                r3.x, r3.y, r3.z, r3.w) {
-        }
+                r3.x, r3.y, r3.z, r3.w)
+        {}
         Matrix(const XMFLOAT4X4& M) noexcept { memcpy(this, &M, sizeof(XMFLOAT4X4)); }
         Matrix(const XMFLOAT3X3& M) noexcept;
         Matrix(const XMFLOAT4X3& M) noexcept;
@@ -554,16 +563,17 @@ namespace m::math {
 
         static Matrix CreatePerspectiveFieldOfViewRH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
         static Matrix CreatePerspectiveRH(float width, float height, float nearPlane, float farPlane) noexcept;
-        static Matrix CreatePerspectiveFieldOfViewLH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
-        static Matrix CreatePerspectiveLH(float width, float height, float nearPlane, float farPlane) noexcept;
-        static Matrix CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveOffCenterRH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;
         static Matrix CreateOrthographicRH(float width, float height, float zNearPlane, float zFarPlane) noexcept;
         static Matrix CreateOrthographicOffCenterRH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept;
+
+        static Matrix CreatePerspectiveFieldOfViewLH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveLH(float width, float height, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveOffCenterLH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;
         static Matrix CreateOrthographicLH(float width, float height, float zNearPlane, float zFarPlane) noexcept;
         static Matrix CreateOrthographicOffCenterLH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept;
 
-        static Matrix CreateLookAtRH(const Vector3& position, const Vector3& target, const Vector3& up) noexcept;
-        static Matrix CreateLookAtLH(const Vector3& position, const Vector3& target, const Vector3& up) noexcept;
+        static Matrix CreateLookAt(const Vector3& position, const Vector3& target, const Vector3& up) noexcept;
         static Matrix CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up) noexcept;
 
         static Matrix CreateFromQuaternion(const Quaternion& quat) noexcept;
@@ -601,7 +611,8 @@ namespace m::math {
 
     //-----------------------------------------------------------------------------
     // Plane
-    struct Plane : public XMFLOAT4 {
+    struct Plane : public XMFLOAT4
+    {
         Plane() noexcept : XMFLOAT4(0.f, 1.f, 0.f, 0.f) {}
         constexpr Plane(float ix, float iy, float iz, float iw) noexcept : XMFLOAT4(ix, iy, iz, iw) {}
         Plane(const Vector3& normal, float d) noexcept : XMFLOAT4(normal.x, normal.y, normal.z, d) {}
@@ -654,7 +665,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // Quaternion
-    struct Quaternion : public XMFLOAT4 {
+    struct Quaternion : public XMFLOAT4
+    {
         Quaternion() noexcept : XMFLOAT4(0, 0, 0, 1.f) {}
         constexpr Quaternion(float ix, float iy, float iz, float iw) noexcept : XMFLOAT4(ix, iy, iz, iw) {}
         Quaternion(const Vector3& v, float scalar) noexcept : XMFLOAT4(v.x, v.y, v.z, scalar) {}
@@ -750,7 +762,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // Color
-    struct Color : public XMFLOAT4 {
+    struct Color : public XMFLOAT4
+    {
         Color() noexcept : XMFLOAT4(0, 0, 0, 1.f) {}
         constexpr Color(float _r, float _g, float _b) noexcept : XMFLOAT4(_r, _g, _b, 1.f) {}
         constexpr Color(float _r, float _g, float _b, float _a) noexcept : XMFLOAT4(_r, _g, _b, _a) {}
@@ -847,7 +860,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // Ray
-    class Ray {
+    class Ray
+    {
     public:
         Vector3 position;
         Vector3 direction;
@@ -874,7 +888,8 @@ namespace m::math {
 
     //------------------------------------------------------------------------------
     // Viewport
-    class Viewport {
+    class Viewport
+    {
     public:
         float x;
         float y;
@@ -884,25 +899,25 @@ namespace m::math {
         float maxDepth;
 
         Viewport() noexcept :
-            x(0.f), y(0.f), width(0.f), height(0.f), minDepth(0.f), maxDepth(1.f) {
-        }
+            x(0.f), y(0.f), width(0.f), height(0.f), minDepth(0.f), maxDepth(1.f)
+        {}
         constexpr Viewport(float ix, float iy, float iw, float ih, float iminz = 0.f, float imaxz = 1.f) noexcept :
-            x(ix), y(iy), width(iw), height(ih), minDepth(iminz), maxDepth(imaxz) {
-        }
+            x(ix), y(iy), width(iw), height(ih), minDepth(iminz), maxDepth(imaxz)
+        {}
         explicit Viewport(const RECT& rct) noexcept :
             x(float(rct.left)), y(float(rct.top)),
             width(float(rct.right - rct.left)),
             height(float(rct.bottom - rct.top)),
-            minDepth(0.f), maxDepth(1.f) {
-        }
+            minDepth(0.f), maxDepth(1.f)
+        {}
 
 #if defined(__d3d11_h__) || defined(__d3d11_x_h__)
         // Direct3D 11 interop
         explicit Viewport(const D3D11_VIEWPORT& vp) noexcept :
             x(vp.TopLeftX), y(vp.TopLeftY),
             width(vp.Width), height(vp.Height),
-            minDepth(vp.MinDepth), maxDepth(vp.MaxDepth) {
-        }
+            minDepth(vp.MinDepth), maxDepth(vp.MaxDepth)
+        {}
 
         operator D3D11_VIEWPORT() noexcept { return *reinterpret_cast<const D3D11_VIEWPORT*>(this); }
         const D3D11_VIEWPORT* Get11() const noexcept { return reinterpret_cast<const D3D11_VIEWPORT*>(this); }
@@ -914,8 +929,8 @@ namespace m::math {
         explicit Viewport(const D3D12_VIEWPORT& vp) noexcept :
             x(vp.TopLeftX), y(vp.TopLeftY),
             width(vp.Width), height(vp.Height),
-            minDepth(vp.MinDepth), maxDepth(vp.MaxDepth) {
-        }
+            minDepth(vp.MinDepth), maxDepth(vp.MaxDepth)
+        {}
 
         operator D3D12_VIEWPORT() noexcept { return *reinterpret_cast<const D3D12_VIEWPORT*>(this); }
         const D3D12_VIEWPORT* Get12() const noexcept { return reinterpret_cast<const D3D12_VIEWPORT*>(this); }
@@ -956,5 +971,5 @@ namespace m::math {
         static RECT __cdecl ComputeTitleSafeArea(UINT backBufferWidth, UINT backBufferHeight) noexcept;
     };
 
-    //#include "yaMath.inl"
+#include "mMath.inl"
 }

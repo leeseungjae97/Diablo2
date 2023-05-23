@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader_source", "shader_source\shader_source.vcxitems", "{DC0F5A8B-46B7-4AFC-85CB-C68ED8DBE10C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor_window", "Editor_window\Editor_window.vcxproj", "{DB742BF3-E3B3-4A4B-9849-DF3BE7AEE13E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{756911C1-85DD-4734-9DC7-1319CA4370AB} = {756911C1-85DD-4734-9DC7-1319CA4370AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{756911C1-85DD-4734-9DC7-1319CA4370AB}"
 EndProject

@@ -1,29 +1,37 @@
 #include "mApplication.h"
-namespace m {
-	//Application::Application(std::unique_ptr<m::graphics::GraphicsDevice_DX11> _graphicsDevice)
-	//	: graphicsDevice(_graphicsDevice) {
 
-	//}
-	Application::Application() {
+namespace m
+{
+	Application::Application()
+		: graphicsDevice(nullptr)
+		, mHwnd(NULL)
+		, mWidth(-1)
+		, mHeight(-1)
+	{
+
 	}
-	Application::~Application() {
-	}
-	void Application::Run() {
+	Application::~Application()
+	{}
+	void Application::Run()
+	{
 		Update();
 		LateUpdate();
 		Render();
 	}
-	void Application::Initialize() {
-	}
-	void Application::Update() {
-	}
-	void Application::LateUpdate() {
-	}
-	void Application::Render() {
+	void Application::Initialize()
+	{}
+	void Application::Update()
+	{}
+	void Application::LateUpdate()
+	{}
+	void Application::Render()
+	{
 		graphicsDevice->Draw();
 	}
-	void Application::SetWindow(HWND hwnd, UINT width, UINT height) {
-		if (nullptr == graphicsDevice) {
+	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
+	{
+		if (nullptr == graphicsDevice)
+		{
 			mHwnd = hwnd;
 			mWidth = width;
 			mHeight = height;

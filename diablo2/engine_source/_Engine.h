@@ -18,6 +18,7 @@
 #include <limits>
 #include <memory>
 #include <filesystem>
+#include <wrl.h>
 
 #include "Commoninclude.h"
 #include "mMath.h"
@@ -32,5 +33,3 @@ using std::make_pair;
 using std::move;
 using std::function;
 using std::queue;
-
-#define LAYER_COLLISION_MAX 16

@@ -17,8 +17,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\Engine\mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mEnums.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mGraphics.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
@@ -38,5 +36,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)mMath.inl" />
   </ItemGroup>
 </Project>

@@ -1,51 +1,70 @@
 #pragma once
 #include "_Engine.h"
-namespace m {
 
-	enum class KEYCODE_TYPE {
-		NUM_0, NUM_1, NUM_2, NUM_3, NUM_4,
-		NUM_5, NUM_6, NUM_7, NUM_8, NUM_9,
+namespace m
+{
+	using namespace m::math;
+	enum class eKeyCode
+	{
 		Q, W, E, R, T, Y, U, I, O, P,
 		A, S, D, F, G, H, J, K, L,
 		Z, X, C, V, B, N, M,
-		ALT,
-		CTRL,
-		LSHIFT,
-		SPACE,
-		ENTER,
-		ESC,
-		LBTN,
-		RBTN,
+
+		UP, DOWN, LEFT, RIGHT, SPACE,
+		LBUTTON, RBUTTON,
 		END,
 	};
 
-	enum class KEY_STATE {
-		DOWN,
-		PRESSED,
-		UP,
-		CLICKED,
-		NONE,
+	enum class eKeyState
+	{
+		Down,
+		Pressed,
+		Up,
+		None,
 	};
 
-	class Input {
+	class Input
+	{
 	public:
-		struct Key {
-			KEYCODE_TYPE key;
-			KEY_STATE state;
+		struct Key
+		{
+			eKeyCode key;
+			eKeyState state;
 			bool bPressed;
 		};
 
 		static void Initialize();
 		static void Update();
 		static void Render(HDC hdc);
-		inline static KEY_STATE GetKeyState(KEYCODE_TYPE keyCode) {
+
+		inline static eKeyState GetKeyState(eKeyCode keyCode)
+		{
 			return mKeys[(UINT)keyCode].state;
 		};
 
-		static Vector2 GetMousePos() { return mCurMousePos; }
+		//GetKey()		키를 누르는 시간만큼 true를 반환
+		//GetKeyDown()	키를 눌렀을 때, 딱 한번 true를 반환
+		//GetKeyUp()	키를 누르다 땠을 때, 딱 한번 true를 반환
+
+		static __forceinline bool GetKey(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Pressed;
+		}
+
+		static __forceinline bool GetKeyDown(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Down;
+		}
+
+		static __forceinline bool GetKeyUp(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
+		}
+
+		static __forceinline Vector2 GetMousePos() { return mMousePos; }
 
 	private:
-		static vector<Key> mKeys;
-		static Vector2 mCurMousePos;
+		static std::vector<Key> mKeys;
+		static Vector2 mMousePos;
 	};
 }

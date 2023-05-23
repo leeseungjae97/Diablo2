@@ -5,9 +5,9 @@
 #include "Editor_window.h"
 #include "mApplication.h"
 
+m::Application application;
 
 #define MAX_LOADSTRING 100
-m::Application application;
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -47,9 +47,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     while (true) {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
             if (WM_QUIT == msg.message) {
-                //m::SceneManager::Release();
-                //m::Resources::Release();
-                //m::Camera::Release();
                 break;
             }
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
@@ -109,7 +106,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+       CW_USEDEFAULT, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
