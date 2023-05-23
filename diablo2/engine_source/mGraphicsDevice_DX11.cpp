@@ -25,24 +25,6 @@ namespace m::graphics
 		swapChainDesc.BufferDesc.Width = application.GetWidth();
 		swapChainDesc.BufferDesc.Height = application.GetHeight();
 
-		//swapChainDesc.BufferCount = 2;
-		//swapChainDesc.BufferDesc.Width = application.GetWidth();
-		//swapChainDesc.BufferDesc.Height = application.GetHeight();
-
-		//swapChainDesc.Windowed = true;								// 윈도우, 전체화면 모드
-		//swapChainDesc.OutputWindow = application.GetHwnd();	    // Front Buffer 를 출력시킬 윈도우 핸들
-		//swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;	// 이전 프레임 장면을 유지하지 않는다.
-
-		//swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		//swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		//swapChainDesc.BufferDesc.RefreshRate.Numerator = 144;
-		//swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
-		//swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;					// 그래픽 
-		//swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// 이미지 생성 방향.
-
-		//swapChainDesc.SampleDesc.Count = 1;
-		//swapChainDesc.SampleDesc.Quality = 0;
-
 		// 스왑체인에 대한 값 설정
 
 		if (!CreateSwapChain(&swapChainDesc, hWnd))
@@ -79,9 +61,10 @@ namespace m::graphics
 
 		DXGI_SWAP_CHAIN_DESC dxgiDesc = {};
 
-		dxgiDesc.OutputWindow = hWnd;
-		dxgiDesc.Windowed = true;
+		dxgiDesc.OutputWindow = hWnd;										// Front Buffer 를 출력시킬 윈도우 핸들
+		dxgiDesc.Windowed = true;											// 윈도우, 전체화면 모드
 		dxgiDesc.BufferCount = desc->BufferCount;
+		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;				// 이전 프레임 장면을 유지하지 않는다.
 		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
 		dxgiDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -90,8 +73,8 @@ namespace m::graphics
 		dxgiDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
 		dxgiDesc.BufferDesc.RefreshRate.Numerator = 240;
 		dxgiDesc.BufferDesc.RefreshRate.Denominator = 1;
-		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
-		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;							// 그래픽 
+		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// 이미지 생성 방향.
 
 		dxgiDesc.SampleDesc.Count = 1;
 		dxgiDesc.SampleDesc.Quality = 0;
@@ -129,12 +112,10 @@ namespace m::graphics
 		dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
 		dxgiDesc.SampleDesc.Quality = 0;
 
-		dxgiDesc.MipLevels = desc->MipLevels;
+		dxgiDesc.MipLevels = desc->MipLevels; // 미리 텍스쳐 사이즈를 크기별로 만들어놓은 경우 레벨 사이즈를 정함.
 		dxgiDesc.MiscFlags = desc->MiscFlags;
 
-		// 미리 텍스쳐 사이즈를 크기별로 만들어놓은
-		// 레벨을 정해줌.
-		////D3D11_SUBRESOURCE_DATA data;
+		//D3D11_SUBRESOURCE_DATA data; // 데이터 넘겨줄때 form
 		if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
 			return false;
 

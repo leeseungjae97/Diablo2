@@ -11,7 +11,8 @@ namespace m
 
 	}
 	Application::~Application()
-	{}
+	{
+	}
 	void Application::Run()
 	{
 		Update();
@@ -19,11 +20,14 @@ namespace m
 		Render();
 	}
 	void Application::Initialize()
-	{}
+	{
+	}
 	void Application::Update()
-	{}
+	{
+	}
 	void Application::LateUpdate()
-	{}
+	{
+	}
 	void Application::Render()
 	{
 		graphicsDevice->Draw();

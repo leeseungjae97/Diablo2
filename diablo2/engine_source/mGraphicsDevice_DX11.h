@@ -6,8 +6,10 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-namespace m::graphics{
-	class GraphicsDevice_DX11 {
+namespace m::graphics
+{
+	class GraphicsDevice_DX11
+	{
 	public:
 		GraphicsDevice_DX11();
 		~GraphicsDevice_DX11();
