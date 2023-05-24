@@ -14,27 +14,29 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\Engine\mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\Engine\mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicsDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,13 +8,16 @@
 
 namespace m::graphics
 {
-	class GraphicsDevice_DX11
+	class GraphicDevice_DX11
 	{
 	public:
-		GraphicsDevice_DX11();
-		~GraphicsDevice_DX11();
+		GraphicDevice_DX11();
+		~GraphicDevice_DX11();
 
 		bool CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd);
+		bool CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data);
+		bool CreateShader();
+
 		bool CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data);
 		void Draw();
 
@@ -27,4 +30,10 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	mDepthStencilView;
 		Microsoft::WRL::ComPtr<IDXGISwapChain>			mSwapChain;
 	};
+
+	inline GraphicDevice_DX11*& GetDevice()
+	{
+		static GraphicDevice_DX11* device = nullptr;
+		return device;
+	}
 }
