@@ -1,12 +1,11 @@
-#include "mGraphicDevice_DX11.h"
+#include "mGraphicsDevice_DX11.h"
 #include "mApplication.h"
-#include "mRenderer.h"
 
 extern m::Application application;
 
 namespace m::graphics
 {
-	GraphicDevice_DX11::GraphicDevice_DX11()
+	GraphicsDevice_DX11::GraphicsDevice_DX11()
 	{
 		// Device, Context »ý¼º
 		HWND hWnd = application.GetHwnd();
@@ -53,11 +52,11 @@ namespace m::graphics
 			return;
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
-	GraphicDevice_DX11::~GraphicDevice_DX11()
+	GraphicsDevice_DX11::~GraphicsDevice_DX11()
 	{
 
 	}
-	bool GraphicDevice_DX11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
+	bool GraphicsDevice_DX11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
 
 		DXGI_SWAP_CHAIN_DESC dxgiDesc = {};
@@ -98,40 +97,7 @@ namespace m::graphics
 
 		return true;
 	}
-	bool GraphicDevice_DX11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
-	{
-		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
-			return false;
-
-		return true;
-	}
-	bool GraphicDevice_DX11::CreateShader()
-	{
-		ID3DBlob* vsBlob = nullptr;
-		std::filesystem::path shaderPath
-			= std::filesystem::current_path().parent_path();
-		shaderPath += L"\\Shader_SOURCE\\";
-
-		std::filesystem::path vsPath(shaderPath.c_str());
-		vsPath += L"TriangleVS.hlsl";
-
-		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "main", "vs_5_0", 0, 0, &m::renderer::triangleVSBlob, &m::renderer::errorBlob);
-
-		// error message
-		if (m::renderer::errorBlob)
-		{
-			OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
-			m::renderer::errorBlob->Release();
-		}
-
-		mDevice->CreateVertexShader(m::renderer::triangleVSBlob->GetBufferPointer()
-			, m::renderer::triangleVSBlob->GetBufferSize()
-			, nullptr, &m::renderer::triangleVSShader);
-
-		return true;
-	}
-	bool GraphicDevice_DX11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
+	bool GraphicsDevice_DX11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{
 		D3D11_TEXTURE2D_DESC dxgiDesc = {};
 		dxgiDesc.BindFlags = desc->BindFlags;
@@ -158,7 +124,7 @@ namespace m::graphics
 
 		return true;
 	}
-	void GraphicDevice_DX11::Draw()
+	void GraphicsDevice_DX11::Draw()
 	{
 		FLOAT bgColor[4] = { 0.2f,0.2f, 0.2f, 0.2f };
 

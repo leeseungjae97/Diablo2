@@ -1,6 +1,6 @@
 #pragma once
 #include "_Engine.h"
-#include "mGraphicDevice_DX11.h"
+#include "mGraphicsDevice_DX11.h"
 namespace m
 {
 	class Application
@@ -26,7 +26,7 @@ namespace m
 		bool mbInitialize = false;
 
 		// 스마트 포인터 하나의 객체만 생성됨 (static)
-		std::unique_ptr<m::graphics::GraphicDevice_DX11> graphicDevice;
+		std::unique_ptr<m::graphics::GraphicsDevice_DX11> graphicsDevice;
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
