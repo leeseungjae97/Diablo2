@@ -40,17 +40,35 @@ namespace m::graphics
 
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
-		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+		depthStencilDesc.CPUAccessFlags = 0;
+
+		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Width = application.GetWidth();
 		depthStencilDesc.Height = application.GetHeight();
 		depthStencilDesc.ArraySize = 1;
+
 		depthStencilDesc.SampleDesc.Count = 1;
+		depthStencilDesc.SampleDesc.Quality = 0;
+
+		depthStencilDesc.MipLevels = 0;
 		depthStencilDesc.MiscFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA data;
 		if (!CreateTexture(&depthStencilDesc, &data))
 			return;
+
+		RECT winRect = {};
+		GetClientRect(hWnd, &winRect);
+
+		mViewPort = 
+		{
+			0.0f, 0.0f
+			,(float)(winRect.right - winRect.left)
+			,(float)(winRect.bottom- winRect.top)
+			,0.0f, 1.0f
+		};
+		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
 	GraphicDevice_DX11::~GraphicDevice_DX11()
@@ -65,7 +83,6 @@ namespace m::graphics
 		dxgiDesc.OutputWindow = hWnd;										// Front Buffer 를 출력시킬 윈도우 핸들
 		dxgiDesc.Windowed = true;											// 윈도우, 전체화면 모드
 		dxgiDesc.BufferCount = desc->BufferCount;
-		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;				// 이전 프레임 장면을 유지하지 않는다.
 		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
 		dxgiDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -107,7 +124,6 @@ namespace m::graphics
 	}
 	bool GraphicDevice_DX11::CreateShader()
 	{
-		ID3DBlob* vsBlob = nullptr;
 		std::filesystem::path shaderPath
 			= std::filesystem::current_path().parent_path();
 		shaderPath += L"\\Shader_SOURCE\\";
@@ -128,6 +144,44 @@ namespace m::graphics
 		mDevice->CreateVertexShader(m::renderer::triangleVSBlob->GetBufferPointer()
 			, m::renderer::triangleVSBlob->GetBufferSize()
 			, nullptr, &m::renderer::triangleVSShader);
+
+		std::filesystem::path psPath(shaderPath.c_str());
+		psPath += L"TrianglePS.hlsl";
+
+		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, "main", "ps_5_0", 0, 0, &m::renderer::trianglePSBlob, &m::renderer::errorBlob);
+
+		// error message
+		if (m::renderer::errorBlob)
+		{
+			OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
+			m::renderer::errorBlob->Release();
+		}
+
+		mDevice->CreatePixelShader(m::renderer::trianglePSBlob->GetBufferPointer()
+			, m::renderer::trianglePSBlob->GetBufferSize()
+			, nullptr, &m::renderer::trianglePSShader);
+
+		D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
+
+		arrLayout[0].AlignedByteOffset = 0;
+		arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		arrLayout[0].InputSlot = 0;
+		arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayout[0].SemanticName = "POSITION";
+		arrLayout[0].SemanticIndex = 0;
+
+		arrLayout[1].AlignedByteOffset = 12;
+		arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		arrLayout[1].InputSlot = 0;
+		arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayout[1].SemanticName = "COLOR";
+		arrLayout[1].SemanticIndex = 0;
+
+		mDevice->CreateInputLayout(arrLayout, 2
+			, renderer::triangleVSBlob->GetBufferPointer()
+			, renderer::triangleVSBlob->GetBufferSize()
+			, &renderer::triangleLayout);
 
 		return true;
 	}
@@ -158,11 +212,43 @@ namespace m::graphics
 
 		return true;
 	}
+	void GraphicDevice_DX11::BindViewPort(D3D11_VIEWPORT* viewPort)
+	{
+		mContext->RSSetViewports(1, viewPort);
+	}
 	void GraphicDevice_DX11::Draw()
 	{
-		FLOAT bgColor[4] = { 0.2f,0.2f, 0.2f, 0.2f };
+		FLOAT bgColor[4] = { 0.2f,0.2f, 0.2f, 1.0f };
 
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
+		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D10_CLEAR_STENCIL, 1.0f, 0.0f);
+
+		HWND hWnd = application.GetHwnd();
+		RECT winRect = {};
+		GetClientRect(hWnd, &winRect);
+
+		mViewPort =
+		{
+			0.0f, 0.0f
+			,(float)(winRect.right - winRect.left)
+			,(float)(winRect.bottom - winRect.top)
+			,0.0f, 1.0f
+		};
+		BindViewPort(&mViewPort);
+		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
+		UINT vertexsize = sizeof(renderer::Vertex);
+		UINT offset = 0;
+
+		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
+		mContext->IASetInputLayout(renderer::triangleLayout);
+		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		mContext->VSSetShader(renderer::triangleVSShader, 0, 0);
+		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
+
+
+		mContext->Draw(3, 0);
 
 		mSwapChain->Present(0, 0);
 	}

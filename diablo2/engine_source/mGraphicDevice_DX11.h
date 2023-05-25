@@ -19,6 +19,9 @@ namespace m::graphics
 		bool CreateShader();
 
 		bool CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data);
+
+		void BindViewPort(D3D11_VIEWPORT* viewPort);
+
 		void Draw();
 
 	private:
@@ -29,6 +32,7 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>			mDepthStencilBuffer;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	mDepthStencilView;
 		Microsoft::WRL::ComPtr<IDXGISwapChain>			mSwapChain;
+		D3D11_VIEWPORT									mViewPort;
 	};
 
 	inline GraphicDevice_DX11*& GetDevice()

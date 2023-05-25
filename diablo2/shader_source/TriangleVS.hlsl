@@ -1,10 +1,3 @@
-
-//struct Vertex[3]
-//{
-//    Vector3 pos;
-//    Vector4 color;
-//};
-
 struct VSIn
 {
     float3 Pos : POSITION;
