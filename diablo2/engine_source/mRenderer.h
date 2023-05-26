@@ -11,7 +11,9 @@ namespace m::renderer
 		Vector4 color;
 	};
 
-	extern Vertex vertexes[];
+	extern vector<Vertex> vertexes;
+	extern vector<UINT> indexes;
+	extern Vertex triangleVertex[];
 	extern ID3D11InputLayout* triangleLayout;
 	extern ID3D11Buffer* triangleBuffer;
 	extern ID3DBlob* errorBlob;
@@ -19,7 +21,7 @@ namespace m::renderer
 	extern ID3D11VertexShader* triangleVSShader;
 	extern ID3DBlob* trianglePSBlob;
 	extern ID3D11PixelShader* trianglePSShader;
-
+	extern ID3D11Buffer* indexBuffer;
 
 	void Initialize();
 }
