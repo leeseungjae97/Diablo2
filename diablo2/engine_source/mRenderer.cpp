@@ -70,8 +70,9 @@ namespace m::renderer
 
 	void Initialize()
 	{
+		// triangle
 		//vertexes.resize(3);
-		
+		//
 		//vertexes[0].pos = Vector3(0.0f, 0.1f, 0.0f);
 		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -81,6 +82,30 @@ namespace m::renderer
 		//vertexes[2].pos = Vector3(-0.1f, -0.1f, 0.0f);
 		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
+		// rhombus
+		//vertexes.resize(4);
+		//
+		//vertexes[0].pos = Vector3(0.0f, 0.1f, 0.0f);
+		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+		//vertexes[1].pos = Vector3(0.1f, -0.1f, 0.0f);
+		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+
+		//vertexes[2].pos = Vector3(-0.1f, -0.1f, 0.0f);
+		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		//
+		//vertexes[3].pos = Vector3(0.0f, -0.3f, 0.0f);
+		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		//indexes.push_back(3);
+		//indexes.push_back(2);
+		//indexes.push_back(1);
+
+		//indexes.push_back(0);
+		//indexes.push_back(1);
+		//indexes.push_back(2);
+		 
+		// rect
 		//vertexes.resize(4);
 
 		//vertexes[0].pos = Vector3(-0.1f, 0.1f, 0.0f);
@@ -104,7 +129,8 @@ namespace m::renderer
 		//indexes.push_back(2);
 
 
-		Vertex center = {
+		// circle, polygon
+		/*Vertex center = {
 			Vector3(0.0f, 0.0f, 0.0f) ,
 			Vector4(0.0f, 1.0f, 0.0f, 1.0f)
 		};
@@ -141,7 +167,7 @@ namespace m::renderer
 				i++;
 			}
 		}
-		indexes.push_back(1);
+		indexes.push_back(1);*/
 
 		SetupState();
 		LoadBuffer();
