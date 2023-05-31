@@ -19,6 +19,12 @@ namespace m::renderer
 	// Vertex Buffer
 	ID3D11Buffer* triangleBuffer = nullptr;
 
+	// Constant Buffer
+	ID3D11Buffer* triangleConstantBuffer = nullptr;
+
+	// Index Buffer
+	ID3D11Buffer* triangleIndexBuffer = nullptr;
+
 	// Vertex Shader code -> Binary Code
 	ID3DBlob* triangleVSBlob = nullptr;
 
@@ -31,8 +37,7 @@ namespace m::renderer
 	// Pixel Shader
 	ID3D11PixelShader* trianglePSShader = nullptr;
 
-	// Index Buffer
-	ID3D11Buffer* indexBuffer = nullptr;
+	
 
 	void SetupState()
 	{
@@ -50,17 +55,26 @@ namespace m::renderer
 		D3D11_SUBRESOURCE_DATA triangleData = {};
 		triangleData.pSysMem = vertexes.data();
 
-		D3D11_BUFFER_DESC indexDesc = {};
-		indexDesc.ByteWidth = sizeof(Vertex) * indexes.size();
-		indexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		indexDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		indexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		D3D11_SUBRESOURCE_DATA indexData = {};
-		indexData.pSysMem = indexes.data();
-
 		m::graphics::GetDevice()->CreateBuffer(&triangleBuffer, &triangleDesc, &triangleData);
-		m::graphics::GetDevice()->CreateBuffer(&indexBuffer, &indexDesc, &indexData);
+
+		D3D11_BUFFER_DESC triangleindexDesc = {};
+		triangleindexDesc.ByteWidth = sizeof(Vertex) * indexes.size();
+		triangleindexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
+		triangleindexDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
+		triangleindexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+		D3D11_SUBRESOURCE_DATA triangleIndexData = {};
+		triangleIndexData.pSysMem = indexes.data();
+		
+		m::graphics::GetDevice()->CreateBuffer(&triangleIndexBuffer, &triangleindexDesc, &triangleIndexData);
+
+		D3D11_BUFFER_DESC triangleCSDesc = {};
+		triangleCSDesc.ByteWidth = sizeof(Vector4);
+		triangleCSDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
+		triangleCSDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
+		triangleCSDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+		m::graphics::GetDevice()->CreateBuffer(&triangleConstantBuffer, &triangleCSDesc, nullptr);
 	}
 
 	void LoadShader()
@@ -71,16 +85,20 @@ namespace m::renderer
 	void Initialize()
 	{
 		// triangle
-		//vertexes.resize(3);
-		//
-		//vertexes[0].pos = Vector3(0.0f, 0.1f, 0.0f);
-		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes.resize(3);
+		
+		vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		//vertexes[1].pos = Vector3(0.1f, -0.1f, 0.0f);
-		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
-		//vertexes[2].pos = Vector3(-0.1f, -0.1f, 0.0f);
-		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
 
 		// rhombus
 		//vertexes.resize(4);

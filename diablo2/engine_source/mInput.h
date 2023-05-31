@@ -1,5 +1,6 @@
 #pragma once
 #include "_Engine.h"
+#include "mMath.h"
 
 namespace m
 {

@@ -30,12 +30,38 @@ namespace m
 		Input::Initialize();
 
 		renderer::Initialize();
+
+		tempPos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
+		// Scene -> Layer -> Entity
+		Vector4 pos = tempPos;
+		if (KEY_PRESSED(eKeyCode::UP))
+		{
+			pos.y += 0.1f * (float)Time::DeltaTime();
+		}
+		if (KEY_PRESSED(eKeyCode::DOWN))
+		{
+			pos.y -= 0.1f * (float)Time::DeltaTime();
+		}
+		if (KEY_PRESSED(eKeyCode::LEFT))
+		{
+			pos.x -= 0.1f * (float)Time::DeltaTime();
+		}
+		if (KEY_PRESSED(eKeyCode::RIGHT))
+		{
+			pos.x += 0.1f * (float)Time::DeltaTime();
+		}
+		if (pos != tempPos)
+		{
+			tempPos = pos;
+			m::graphics::GetDevice()->SetConstantBuffer(renderer::triangleConstantBuffer, &tempPos, sizeof(Vector4));
+			m::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer);
+		}
 	}
 
 	void Application::LateUpdate()

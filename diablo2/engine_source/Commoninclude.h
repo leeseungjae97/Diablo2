@@ -5,6 +5,7 @@
 #include <cstring>
 #include <cstdint>
 #include <type_traits>
+#include "mInput.h"
 
 #define arraysize(a) (sizeof(a) / sizeof(a[0]))
 
@@ -78,3 +79,5 @@ constexpr bool has_flag(E lhs, E rhs)
 {
 	return (lhs & rhs) == rhs;
 }
+
+#define KEY_PRESSED(KEY)	m::eKeyState::Pressed == m::Input::GetKeyState(KEY)

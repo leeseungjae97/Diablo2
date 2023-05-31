@@ -27,6 +27,7 @@ namespace m
 
 		// 스마트 포인터 하나의 객체만 생성됨 (static)
 		std::unique_ptr<m::graphics::GraphicDevice_DX11> graphicDevice;
+		Vector4 tempPos;
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;

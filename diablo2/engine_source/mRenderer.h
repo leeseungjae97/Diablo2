@@ -21,7 +21,8 @@ namespace m::renderer
 	extern ID3D11VertexShader* triangleVSShader;
 	extern ID3DBlob* trianglePSBlob;
 	extern ID3D11PixelShader* trianglePSShader;
-	extern ID3D11Buffer* indexBuffer;
+	extern ID3D11Buffer* triangleConstantBuffer;
+	extern ID3D11Buffer* triangleIndexBuffer;
 
 	void Initialize();
 }
