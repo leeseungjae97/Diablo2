@@ -191,6 +191,35 @@ namespace m::renderer
 		LoadBuffer();
 		LoadShader();
 	}
+	void Release()
+	{
+		if (triangleLayout != nullptr)
+			triangleLayout->Release();
+
+		if (triangleBuffer != nullptr)
+			triangleBuffer->Release();
+
+		if (triangleIndexBuffer != nullptr)
+			triangleIndexBuffer->Release();
+
+		if (triangleConstantBuffer != nullptr)
+			triangleConstantBuffer->Release();
+
+		if (errorBlob != nullptr)
+			errorBlob->Release();
+
+		if (triangleVSBlob != nullptr)
+			triangleVSBlob->Release();
+
+		if (triangleVSShader != nullptr)
+			triangleVSShader->Release();
+
+		if (trianglePSBlob != nullptr)
+			trianglePSBlob->Release();
+
+		if (trianglePSShader != nullptr)
+			trianglePSShader->Release();
+	}
 }
 
 

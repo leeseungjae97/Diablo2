@@ -25,4 +25,5 @@ namespace m::renderer
 	extern ID3D11Buffer* triangleIndexBuffer;
 
 	void Initialize();
+	void Release();
 }

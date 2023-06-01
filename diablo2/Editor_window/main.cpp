@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Editor_window.h"
 #include "mApplication.h"
+#include "mRenderer.h"
 
 m::Application application;
 
@@ -59,7 +60,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-
+    m::renderer::Release();
     return (int) msg.wParam;
 }
 
