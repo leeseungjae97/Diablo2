@@ -1,6 +1,7 @@
 #include "mGraphicDevice_DX11.h"
 #include "mApplication.h"
 #include "mRenderer.h"
+#include "mMesh.h"
 
 extern m::Application application;
 
@@ -124,43 +125,43 @@ namespace m::graphics
 	}
 	bool GraphicDevice_DX11::CreateShader()
 	{
-		std::filesystem::path shaderPath
-			= std::filesystem::current_path().parent_path();
-		shaderPath += L"\\Shader_SOURCE\\";
+		//std::filesystem::path shaderPath
+		//	= std::filesystem::current_path().parent_path();
+		//shaderPath += L"\\Shader_SOURCE\\";
 
-		std::filesystem::path vsPath(shaderPath.c_str());
-		vsPath += L"TriangleVS.hlsl";
+		//std::filesystem::path vsPath(shaderPath.c_str());
+		//vsPath += L"TriangleVS.hlsl";
 
-		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "main", "vs_5_0", 0, 0, &m::renderer::triangleVSBlob, &m::renderer::errorBlob);
+		//D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		//	, "main", "vs_5_0", 0, 0, &m::renderer::triangleVSBlob, &m::renderer::errorBlob);
 
-		// error message
-		if (m::renderer::errorBlob)
-		{
-			OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
-			m::renderer::errorBlob->Release();
-		}
+		//// error message
+		//if (m::renderer::errorBlob)
+		//{
+		//	OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
+		//	m::renderer::errorBlob->Release();
+		//}
 
-		mDevice->CreateVertexShader(m::renderer::triangleVSBlob->GetBufferPointer()
-			, m::renderer::triangleVSBlob->GetBufferSize()
-			, nullptr, &m::renderer::triangleVSShader);
+		//mDevice->CreateVertexShader(m::renderer::triangleVSBlob->GetBufferPointer()
+		//	, m::renderer::triangleVSBlob->GetBufferSize()
+		//	, nullptr, &m::renderer::triangleVSShader);
 
-		std::filesystem::path psPath(shaderPath.c_str());
-		psPath += L"TrianglePS.hlsl";
+		//std::filesystem::path psPath(shaderPath.c_str());
+		//psPath += L"TrianglePS.hlsl";
 
-		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "main", "ps_5_0", 0, 0, &m::renderer::trianglePSBlob, &m::renderer::errorBlob);
+		//D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		//	, "main", "ps_5_0", 0, 0, &m::renderer::trianglePSBlob, &m::renderer::errorBlob);
 
-		// error message
-		if (m::renderer::errorBlob)
-		{
-			OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
-			m::renderer::errorBlob->Release();
-		}
+		//// error message
+		//if (m::renderer::errorBlob)
+		//{
+		//	OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
+		//	m::renderer::errorBlob->Release();
+		//}
 
-		mDevice->CreatePixelShader(m::renderer::trianglePSBlob->GetBufferPointer()
-			, m::renderer::trianglePSBlob->GetBufferSize()
-			, nullptr, &m::renderer::trianglePSShader);
+		//mDevice->CreatePixelShader(m::renderer::trianglePSBlob->GetBufferPointer()
+		//	, m::renderer::trianglePSBlob->GetBufferSize()
+		//	, nullptr, &m::renderer::trianglePSShader);
 
 		D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
 
@@ -178,10 +179,39 @@ namespace m::graphics
 		arrLayout[1].SemanticName = "COLOR";
 		arrLayout[1].SemanticIndex = 0;
 
-		mDevice->CreateInputLayout(arrLayout, 2
-			, renderer::triangleVSBlob->GetBufferPointer()
-			, renderer::triangleVSBlob->GetBufferSize()
-			, &renderer::triangleLayout);
+		//mDevice->CreateInputLayout(arrLayout, 2
+		//	, renderer::triangleVSBlob->GetBufferPointer()
+		//	, renderer::triangleVSBlob->GetBufferSize()
+		//	, &renderer::triangleLayout);
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
+	{
+		ID3DBlob* errorBlob = nullptr;
+		D3DCompileFromFile(fileName.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, funcName.c_str(), version.c_str(), 0, 0, ppCode, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA((char*)(errorBlob->GetBufferPointer()));
+			errorBlob->Release();
+			errorBlob = nullptr;
+		}
+
+		return false;
+	}
+	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader)
+	{
+		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, nullptr, ppVertexShader)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11PixelShader** ppPixelShader)
+	{
+		if (FAILED(mDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, nullptr, ppPixelShader)))
+			return false;
 
 		return true;
 	}
@@ -215,6 +245,31 @@ namespace m::graphics
 	void GraphicDevice_DX11::BindViewPort(D3D11_VIEWPORT* viewPort)
 	{
 		mContext->RSSetViewports(1, viewPort);
+	}
+	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
+		, ID3D11Buffer* const* ppVertexBuffers
+		, const UINT* pStrides
+		, const UINT* pOffsets)
+	{
+		mContext->IASetVertexBuffers(StartSlot, 1, ppVertexBuffers, pStrides, pOffsets);
+	}
+
+	void GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer
+		, DXGI_FORMAT Format
+		, UINT Offset)
+	{
+		mContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
+	}
+
+	void GraphicDevice_DX11::BindVertexShader(ID3D11VertexShader* pVetexShader)
+	{
+		mContext->VSSetShader(pVetexShader, 0, 0);
+
+	}
+
+	void GraphicDevice_DX11::BindPixelShader(ID3D11PixelShader* pPixelShader)
+	{
+		mContext->PSSetShader(pPixelShader, 0, 0);
 	}
 	void GraphicDevice_DX11::SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
@@ -281,20 +336,28 @@ namespace m::graphics
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
-		UINT vertexsize = sizeof(renderer::Vertex);
-		UINT offset = 0;
+		//UINT vertexsize = sizeof(renderer::Vertex);
+		//UINT offset = 0;
 
-		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
-		mContext->IASetIndexBuffer(renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		//mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
+		//mContext->IASetIndexBuffer(renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+		renderer::mesh->BindBuffer();
+
 		mContext->IASetInputLayout(renderer::triangleLayout);
 
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		
-		mContext->VSSetShader(renderer::triangleVSShader, 0, 0);
-		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
 
-		mContext->DrawIndexed(renderer::indexes.size(), 0, 0);
+		//mContext->VSSetShader(renderer::triangleVSShader, 0, 0);
+		//mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
+
+		renderer::shader->Binds();
+
 		//mContext->Draw(renderer::vertexes.size(), 0);
+		//mContext->DrawIndexed(renderer::indexes.size(), 0, 0);
+		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
+		
 
 		mSwapChain->Present(0, 0);
 	}

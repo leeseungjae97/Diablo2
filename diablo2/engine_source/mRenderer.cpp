@@ -4,38 +4,39 @@
 
 namespace m::renderer
 {
-	Vertex triangleVertex[7] = {};
-	Vertex rectVertex[7] = {};
 	vector<Vertex> vertexes;
 	vector<UINT> indexes;
 
 	// error blob
-	ID3DBlob* errorBlob = nullptr;
+	//ID3DBlob* errorBlob = nullptr;
 
+	m::Mesh* mesh = nullptr;
+	m::Shader* shader = nullptr;
 
 	// Input layout
 	ID3D11InputLayout* triangleLayout = nullptr;
-
-	// Vertex Buffer
-	ID3D11Buffer* triangleBuffer = nullptr;
-
-	// Constant Buffer
 	ID3D11Buffer* triangleConstantBuffer = nullptr;
 
+	// Vertex Buffer
+	//ID3D11Buffer* triangleBuffer = nullptr;
+
+	// Constant Buffer
+
+
 	// Index Buffer
-	ID3D11Buffer* triangleIndexBuffer = nullptr;
+	//ID3D11Buffer* triangleIndexBuffer = nullptr;
 
 	// Vertex Shader code -> Binary Code
-	ID3DBlob* triangleVSBlob = nullptr;
+	//ID3DBlob* triangleVSBlob = nullptr;
 
 	// Vertex Shader
-	ID3D11VertexShader* triangleVSShader = nullptr;
+	//ID3D11VertexShader* triangleVSShader = nullptr;
 
 	// Pixel Shader code -> Binary Code
-	ID3DBlob* trianglePSBlob = nullptr;
+	//ID3DBlob* trianglePSBlob = nullptr;
 
 	// Pixel Shader
-	ID3D11PixelShader* trianglePSShader = nullptr;
+	//ID3D11PixelShader* trianglePSShader = nullptr;
 
 	
 
@@ -46,27 +47,10 @@ namespace m::renderer
 
 	void LoadBuffer()
 	{
-		D3D11_BUFFER_DESC triangleDesc = {};
-		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.ByteWidth = sizeof(Vertex) * vertexes.size();
-		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		mesh = new m::Mesh();
+		mesh->CreateVertexBuffer(vertexes.data(), 4);
 
-		D3D11_SUBRESOURCE_DATA triangleData = {};
-		triangleData.pSysMem = vertexes.data();
-
-		m::graphics::GetDevice()->CreateBuffer(&triangleBuffer, &triangleDesc, &triangleData);
-
-		D3D11_BUFFER_DESC triangleindexDesc = {};
-		triangleindexDesc.ByteWidth = sizeof(Vertex) * indexes.size();
-		triangleindexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		triangleindexDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleindexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		D3D11_SUBRESOURCE_DATA triangleIndexData = {};
-		triangleIndexData.pSysMem = indexes.data();
-		
-		m::graphics::GetDevice()->CreateBuffer(&triangleIndexBuffer, &triangleindexDesc, &triangleIndexData);
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		D3D11_BUFFER_DESC triangleCSDesc = {};
 		triangleCSDesc.ByteWidth = sizeof(Vector4);
@@ -79,7 +63,10 @@ namespace m::renderer
 
 	void LoadShader()
 	{
-		m::graphics::GetDevice()->CreateShader();
+		//m::graphics::GetDevice()->CreateShader();
+		shader = new m::Shader();
+		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 	}
 
 	void Initialize()
@@ -196,29 +183,9 @@ namespace m::renderer
 		if (triangleLayout != nullptr)
 			triangleLayout->Release();
 
-		if (triangleBuffer != nullptr)
-			triangleBuffer->Release();
-
-		if (triangleIndexBuffer != nullptr)
-			triangleIndexBuffer->Release();
-
 		if (triangleConstantBuffer != nullptr)
 			triangleConstantBuffer->Release();
 
-		if (errorBlob != nullptr)
-			errorBlob->Release();
-
-		if (triangleVSBlob != nullptr)
-			triangleVSBlob->Release();
-
-		if (triangleVSShader != nullptr)
-			triangleVSShader->Release();
-
-		if (trianglePSBlob != nullptr)
-			trianglePSBlob->Release();
-
-		if (trianglePSShader != nullptr)
-			trianglePSShader->Release();
 	}
 }
 

@@ -19,9 +19,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,9 +35,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
   </ItemGroup>
