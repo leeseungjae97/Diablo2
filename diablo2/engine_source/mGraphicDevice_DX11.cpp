@@ -123,8 +123,8 @@ namespace m::graphics
 
 		return true;
 	}
-	bool GraphicDevice_DX11::CreateShader()
-	{
+	//bool GraphicDevice_DX11::CreateShader()
+	//{
 		//std::filesystem::path shaderPath
 		//	= std::filesystem::current_path().parent_path();
 		//shaderPath += L"\\Shader_SOURCE\\";
@@ -163,29 +163,29 @@ namespace m::graphics
 		//	, m::renderer::trianglePSBlob->GetBufferSize()
 		//	, nullptr, &m::renderer::trianglePSShader);
 
-		D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
+		//D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
 
-		arrLayout[0].AlignedByteOffset = 0;
-		arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-		arrLayout[0].InputSlot = 0;
-		arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		arrLayout[0].SemanticName = "POSITION";
-		arrLayout[0].SemanticIndex = 0;
+		//arrLayout[0].AlignedByteOffset = 0;
+		//arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		//arrLayout[0].InputSlot = 0;
+		//arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		//arrLayout[0].SemanticName = "POSITION";
+		//arrLayout[0].SemanticIndex = 0;
 
-		arrLayout[1].AlignedByteOffset = 12;
-		arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		arrLayout[1].InputSlot = 0;
-		arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		arrLayout[1].SemanticName = "COLOR";
-		arrLayout[1].SemanticIndex = 0;
+		//arrLayout[1].AlignedByteOffset = 12;
+		//arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		//arrLayout[1].InputSlot = 0;
+		//arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		//arrLayout[1].SemanticName = "COLOR";
+		//arrLayout[1].SemanticIndex = 0;
 
 		//mDevice->CreateInputLayout(arrLayout, 2
 		//	, renderer::triangleVSBlob->GetBufferPointer()
 		//	, renderer::triangleVSBlob->GetBufferSize()
 		//	, &renderer::triangleLayout);
 
-		return true;
-	}
+		//return true;
+	//}
 	bool GraphicDevice_DX11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;

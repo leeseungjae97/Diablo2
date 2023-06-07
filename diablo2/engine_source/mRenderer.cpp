@@ -1,7 +1,6 @@
 #include "mRenderer.h"
 
 
-
 namespace m::renderer
 {
 	vector<Vertex> vertexes;
