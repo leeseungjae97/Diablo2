@@ -123,69 +123,6 @@ namespace m::graphics
 
 		return true;
 	}
-	//bool GraphicDevice_DX11::CreateShader()
-	//{
-		//std::filesystem::path shaderPath
-		//	= std::filesystem::current_path().parent_path();
-		//shaderPath += L"\\Shader_SOURCE\\";
-
-		//std::filesystem::path vsPath(shaderPath.c_str());
-		//vsPath += L"TriangleVS.hlsl";
-
-		//D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//	, "main", "vs_5_0", 0, 0, &m::renderer::triangleVSBlob, &m::renderer::errorBlob);
-
-		//// error message
-		//if (m::renderer::errorBlob)
-		//{
-		//	OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
-		//	m::renderer::errorBlob->Release();
-		//}
-
-		//mDevice->CreateVertexShader(m::renderer::triangleVSBlob->GetBufferPointer()
-		//	, m::renderer::triangleVSBlob->GetBufferSize()
-		//	, nullptr, &m::renderer::triangleVSShader);
-
-		//std::filesystem::path psPath(shaderPath.c_str());
-		//psPath += L"TrianglePS.hlsl";
-
-		//D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//	, "main", "ps_5_0", 0, 0, &m::renderer::trianglePSBlob, &m::renderer::errorBlob);
-
-		//// error message
-		//if (m::renderer::errorBlob)
-		//{
-		//	OutputDebugStringA((char*)m::renderer::errorBlob->GetBufferPointer());
-		//	m::renderer::errorBlob->Release();
-		//}
-
-		//mDevice->CreatePixelShader(m::renderer::trianglePSBlob->GetBufferPointer()
-		//	, m::renderer::trianglePSBlob->GetBufferSize()
-		//	, nullptr, &m::renderer::trianglePSShader);
-
-		//D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
-
-		//arrLayout[0].AlignedByteOffset = 0;
-		//arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-		//arrLayout[0].InputSlot = 0;
-		//arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayout[0].SemanticName = "POSITION";
-		//arrLayout[0].SemanticIndex = 0;
-
-		//arrLayout[1].AlignedByteOffset = 12;
-		//arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		//arrLayout[1].InputSlot = 0;
-		//arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayout[1].SemanticName = "COLOR";
-		//arrLayout[1].SemanticIndex = 0;
-
-		//mDevice->CreateInputLayout(arrLayout, 2
-		//	, renderer::triangleVSBlob->GetBufferPointer()
-		//	, renderer::triangleVSBlob->GetBufferSize()
-		//	, &renderer::triangleLayout);
-
-		//return true;
-	//}
 	bool GraphicDevice_DX11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;
@@ -215,6 +152,14 @@ namespace m::graphics
 
 		return true;
 	}
+	void GraphicDevice_DX11::BindInputLayout(ID3D11InputLayout* pInputLayout)
+	{
+		mContext->IASetInputLayout(pInputLayout);
+	}
+	void GraphicDevice_DX11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology)
+	{
+		mContext->IASetPrimitiveTopology(Topology);
+	}
 	bool GraphicDevice_DX11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{
 		D3D11_TEXTURE2D_DESC dxgiDesc = {};
@@ -238,6 +183,16 @@ namespace m::graphics
 			return false;
 
 		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, ID3DBlob* byteCode, ID3D11InputLayout** ppInputLayout)
+	{
+		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
+			, byteCode->GetBufferPointer()
+			, byteCode->GetBufferSize()
+			, ppInputLayout)))
 			return false;
 
 		return true;
@@ -336,29 +291,14 @@ namespace m::graphics
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
-		//UINT vertexsize = sizeof(renderer::Vertex);
-		//UINT offset = 0;
-
-		//mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
-		//mContext->IASetIndexBuffer(renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-
 		renderer::mesh->BindBuffer();
 
-		mContext->IASetInputLayout(renderer::triangleLayout);
-
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		mContext->IASetInputLayout(renderer::shader->GetInputLayout());
 		
-
-		//mContext->VSSetShader(renderer::triangleVSShader, 0, 0);
-		//mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
-
 		renderer::shader->Binds();
 
-		//mContext->Draw(renderer::vertexes.size(), 0);
-		//mContext->DrawIndexed(renderer::indexes.size(), 0, 0);
 		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
 		
-
 		mSwapChain->Present(0, 0);
 	}
 }

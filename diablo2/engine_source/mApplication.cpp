@@ -59,8 +59,9 @@ namespace m
 		if (pos != tempPos)
 		{
 			tempPos = pos;
-			m::graphics::GetDevice()->SetConstantBuffer(renderer::triangleConstantBuffer, &tempPos, sizeof(Vector4));
-			m::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer);
+
+			//constantBuffer->SetData(&tempPos);
+			//constantBuffer->Bind(eShaderStage::VS);
 		}
 	}
 

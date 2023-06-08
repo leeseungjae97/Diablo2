@@ -18,7 +18,6 @@
 #include <limits>
 #include <memory>
 #include <filesystem>
-#include <wrl.h>
 
 #include "Commoninclude.h"
 #include "mMath.h"

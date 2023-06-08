@@ -15,8 +15,24 @@ namespace m
 
 		bool Create(const eShaderStage stage, const std::wstring& fileName, const std::string& funcName);
 		void Binds();
+		ID3DBlob* GetVSCode()
+		{
+			return mVSBlob.Get();
+		}
 
+		ID3D11InputLayout* GetInputLayout()
+		{
+			return mInputLayout;
+		}
+
+		ID3D11InputLayout** GetInputLayoutAddressOf()
+		{
+			return &mInputLayout;
+		}
 	private:
+		ID3D11InputLayout* mInputLayout;
+		D3D11_PRIMITIVE_TOPOLOGY mTopology;
+
 		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mDSBlob;
