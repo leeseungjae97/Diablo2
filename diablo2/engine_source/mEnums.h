@@ -11,4 +11,10 @@ namespace m::enums
 		Script,
 		End,
 	};
+	enum class eGameObjectType
+	{
+		Player,
+		Food,
+		End,
+	};
 }

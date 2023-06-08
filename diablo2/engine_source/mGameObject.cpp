@@ -1,22 +1,24 @@
 #include "mGameObject.h"
-#include "mRenderer.h"
 #include "mGraphicDevice_DX11.h"
+#include "mConstantBuffer.h"
 #include "mTime.h"
 #include "mInput.h"
+#include "mScene.h"
 
 namespace m
 {
-	GameObject::GameObject(Vector4 initPos, Vector4 initColor, bool _moveable)
+	GameObject::GameObject(Vector4 initPos
+		, Vector4 initColor
+		, enums::eGameObjectType objectType
+		, float _fSize
+		, Scene* scene)
 		: mState(eState::Active)
-		, moveable(_moveable)
+		, mObjectType(objectType)
+		, fSize(_fSize)
+		, onwerScene(scene)
 	{
 		mVertexInfo.pos = initPos;
 		mVertexInfo.color = initColor;
-		constantBuffer = new m::graphics::ConstantBuffer(eCBType::Transform);
-		constantBuffer->Create(sizeof(Vertex));
-
-		constantBuffer->SetData(&mVertexInfo);
-		constantBuffer->Bind(eShaderStage::VS);
 	}
 
 	GameObject::~GameObject()
@@ -29,8 +31,28 @@ namespace m
 
 	void GameObject::Update()
 	{
-		// 공 움직임 구현
-		if (moveable)
+
+		if (mObjectType == enums::eGameObjectType::Player)
+		{
+			float ratio = 16.f / 9.f;
+			for (GameObject* gameObj : onwerScene->GetGameObjects())
+			{
+				if (gameObj->GetGameObjectType() == enums::eGameObjectType::Player) continue;
+
+				if (fabs(mVertexInfo.pos.x - gameObj->GetPos().x) < (fSize / ratio + gameObj->GetSize() / ratio)
+					&& fabs(mVertexInfo.pos.y - gameObj->GetPos().y) < (fSize + gameObj->GetSize()))
+				{
+					if (gameObj->GetState() != eState::Dead)
+					{
+						fSize += 0.01f;
+					}
+					gameObj->SetState(eState::Dead);
+				}
+			}
+		}
+		
+
+		if (mObjectType == enums::eGameObjectType::Player)
 		{
 			Vector4 pos = mVertexInfo.pos;
 			if (KEY_PRESSED(eKeyCode::UP))
@@ -63,12 +85,42 @@ namespace m
 
 	void GameObject::Render()
 	{
-		//상수버퍼로 위치정보 크기정보, 색깔, 업데이트 해줘야한다.
-		constantBuffer->SetData(&mVertexInfo);
-		constantBuffer->Bind(eShaderStage::VS);
+		vector<renderer::Vertex> vertexes;
+		vector<UINT> indexes;
 
-		renderer::mesh->BindBuffer();
+		vertexes.resize(4);
+		float ratio = 16.f / 9.f;
+		vertexes[0].pos = Vector4(-fSize / ratio, fSize, 0.0f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+		vertexes[1].pos = Vector4(fSize / ratio, fSize, 0.0f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+
+		vertexes[2].pos = Vector4(fSize / ratio, -fSize, 0.0f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		vertexes[3].pos = Vector4(-fSize / ratio, -fSize, 0.0f, 0.0f);
+		vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
+
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+
+		mesh = new m::Mesh();
+
+		mesh->CreateVertexBuffer(vertexes.data(), 4);
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		renderer::constantBuffers[(UINT)eCBType::Transform]->SetData(&mVertexInfo);
+		renderer::constantBuffers[(UINT)eCBType::Transform]->Bind(eShaderStage::VS);
+
+		mesh->BindBuffer();
+		//renderer::mesh->BindBuffer();
 		renderer::shader->Binds();
-		graphics::GetDevice()->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
+		graphics::GetDevice()->DrawIndexed(mesh->GetIndexCount(), 0, 0);
 	}
 }

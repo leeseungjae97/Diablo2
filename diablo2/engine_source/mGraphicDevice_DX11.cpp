@@ -295,8 +295,8 @@ namespace m::graphics
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
-		renderer::mesh->BindBuffer();
-		renderer::shader->Binds();
+		//renderer::mesh->BindBuffer();
+		//renderer::shader->Binds();
 	}
 	void GraphicDevice_DX11::Present()
 	{

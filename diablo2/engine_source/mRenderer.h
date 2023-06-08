@@ -10,7 +10,7 @@ namespace m::renderer
 {
 	struct Vertex
 	{
-		Vector3 pos;
+		Vector4 pos;
 		Vector4 color;
 	};
 
@@ -19,7 +19,7 @@ namespace m::renderer
 
 	extern m::Mesh* mesh;
 	extern m::Shader* shader;
-	extern m::graphics::ConstantBuffer* constantBuffer;
+	extern m::graphics::ConstantBuffer* constantBuffers[];
 
 	void Initialize();
 	void Release();

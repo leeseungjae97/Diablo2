@@ -1,17 +1,14 @@
 #pragma once
 #include "mEntity.h"
-#include "mConstantBuffer.h"
-namespace m
-{
-    class GameObject :
-        public Entity
+#include "mMesh.h"
+#include "mShader.h"
+#include "mRenderer.h"
+
+namespace m {
+	class Scene;
+    class GameObject : public Entity
     {
 	public:
-		struct Vertex
-		{
-			Vector4 pos;
-			Vector4 color;
-		};
 		enum eState
 		{
 			Active,
@@ -19,7 +16,7 @@ namespace m
 			Dead,
 		};
 
-		GameObject(Vector4 initPos, Vector4 initColor, bool _moveable);
+		GameObject(Vector4 initPos, Vector4 initColor, enums::eGameObjectType objectType, float _iSize, Scene* scene);
 		virtual ~GameObject();
 
 		virtual void Initialize();
@@ -27,11 +24,21 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 
+		Vector4 GetPos() { return mVertexInfo.pos; }
+		float GetSize() { return fSize; }
+
+		void SetState(eState state) { mState = state; }
+		eState GetState() { return mState; }
+		enums::eGameObjectType GetGameObjectType() { return mObjectType; }
 	private:
 		eState mState;
-		m::graphics::ConstantBuffer* constantBuffer = nullptr;
-		Vertex mVertexInfo;
-		bool moveable;
+		renderer::Vertex mVertexInfo;
+
+		Mesh* mesh;
+
+		float fSize;
+		enums::eGameObjectType mObjectType;
+		Scene* onwerScene;
 		//std::vector<Component*> mComponents;
 		//int y;
 		//int x;
