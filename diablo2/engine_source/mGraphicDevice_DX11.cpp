@@ -270,6 +270,10 @@ namespace m::graphics
 		mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);
 		mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
 	}
+	void GraphicDevice_DX11::DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
+	{
+		mContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
+	}
 	void GraphicDevice_DX11::Draw()
 	{
 		FLOAT bgColor[4] = { 0.2f,0.2f, 0.2f, 1.0f };
@@ -292,13 +296,10 @@ namespace m::graphics
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
 		renderer::mesh->BindBuffer();
-
-		mContext->IASetInputLayout(renderer::shader->GetInputLayout());
-		
 		renderer::shader->Binds();
-
-		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
-		
+	}
+	void GraphicDevice_DX11::Present()
+	{
 		mSwapChain->Present(0, 0);
 	}
 }

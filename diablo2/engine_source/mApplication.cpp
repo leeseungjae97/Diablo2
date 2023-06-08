@@ -32,6 +32,9 @@ namespace m
 		renderer::Initialize();
 
 		tempPos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+
+		mScene = new Scene();
+		mScene->Initialize();
 	}
 
 	void Application::Update()
@@ -63,6 +66,8 @@ namespace m
 			//constantBuffer->SetData(&tempPos);
 			//constantBuffer->Bind(eShaderStage::VS);
 		}
+
+		mScene->Update();
 	}
 
 	void Application::LateUpdate()
@@ -73,6 +78,8 @@ namespace m
 		Time::Render();
 
 		graphicDevice->Draw();
+		mScene->Render();
+		graphicDevice->Present();
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)

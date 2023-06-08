@@ -7,9 +7,4 @@ namespace m {
 
 	Entity::~Entity() {
 	}
-
-	void Entity::Update()
-	{
-	}
-
 }

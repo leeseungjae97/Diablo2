@@ -1,6 +1,7 @@
 #pragma once
 #include "_Engine.h"
 #include "mGraphicDevice_DX11.h"
+#include "mScene.h"
 namespace m
 {
 	class Application
@@ -31,6 +32,8 @@ namespace m
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+
+		Scene* mScene;
 	};
 }
 
