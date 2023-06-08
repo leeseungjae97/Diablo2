@@ -43,12 +43,12 @@ namespace m::renderer
 
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
-		constantBuffer = new m::graphics::ConstantBuffer(eCBType::Transform);
-		constantBuffer->Create(sizeof(Vector4));
+		//constantBuffer = new m::graphics::ConstantBuffer(eCBType::Transform);
+		//constantBuffer->Create(sizeof(Vector4));
 
-		Vector4 pos(0.2f, 0.0f, 0.0f, 1.0f);
-		constantBuffer->SetData(&pos);
-		constantBuffer->Bind(eShaderStage::VS);
+		//Vector4 pos(0.2f, 0.0f, 0.0f, 1.0f);
+		//constantBuffer->SetData(&pos);
+		//constantBuffer->Bind(eShaderStage::VS);
 	}
 
 	void LoadShader()
@@ -62,20 +62,20 @@ namespace m::renderer
 	void Initialize()
 	{
 		// triangle
-		vertexes.resize(3);
-		
-		vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
-		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		//vertexes.resize(3);
+		//
+		//vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
+		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		//vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
+		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
-		vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		//vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
-		indexes.push_back(0);
-		indexes.push_back(1);
-		indexes.push_back(2);
+		//indexes.push_back(0);
+		//indexes.push_back(1);
+		//indexes.push_back(2);
 
 		// rhombus
 		//vertexes.resize(4);
@@ -101,27 +101,27 @@ namespace m::renderer
 		//indexes.push_back(2);
 		 
 		// rect
-		//vertexes.resize(4);
+		vertexes.resize(4);
 
-		//vertexes[0].pos = Vector3(-0.1f, 0.1f, 0.0f);
-		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[0].pos = Vector3(-0.1f, 0.1f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		//vertexes[1].pos = Vector3(0.1f, 0.1f, 0.0f);
-		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].pos = Vector3(0.1f, 0.1f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
-		//vertexes[2].pos = Vector3(0.1f, -0.1f, 0.0f);
-		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].pos = Vector3(0.1f, -0.1f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
-		//vertexes[3].pos = Vector3(-0.1f, -0.1f, 0.0f);
-		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[3].pos = Vector3(-0.1f, -0.1f, 0.0f);
+		vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
-		//indexes.push_back(0);
-		//indexes.push_back(2);
-		//indexes.push_back(3);
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
 
-		//indexes.push_back(0);
-		//indexes.push_back(1);
-		//indexes.push_back(2);
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
 
 
 		// circle, polygon

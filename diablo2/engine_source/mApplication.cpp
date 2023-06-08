@@ -31,8 +31,6 @@ namespace m
 
 		renderer::Initialize();
 
-		tempPos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-
 		mScene = new Scene();
 		mScene->Initialize();
 	}
@@ -42,30 +40,6 @@ namespace m
 		Time::Update();
 		Input::Update();
 		// Scene -> Layer -> Entity
-		Vector4 pos = tempPos;
-		if (KEY_PRESSED(eKeyCode::UP))
-		{
-			pos.y += 0.1f * (float)Time::DeltaTime();
-		}
-		if (KEY_PRESSED(eKeyCode::DOWN))
-		{
-			pos.y -= 0.1f * (float)Time::DeltaTime();
-		}
-		if (KEY_PRESSED(eKeyCode::LEFT))
-		{
-			pos.x -= 0.1f * (float)Time::DeltaTime();
-		}
-		if (KEY_PRESSED(eKeyCode::RIGHT))
-		{
-			pos.x += 0.1f * (float)Time::DeltaTime();
-		}
-		if (pos != tempPos)
-		{
-			tempPos = pos;
-
-			//constantBuffer->SetData(&tempPos);
-			//constantBuffer->Bind(eShaderStage::VS);
-		}
 
 		mScene->Update();
 	}
