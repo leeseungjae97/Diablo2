@@ -9,7 +9,7 @@ namespace m
 			, 0.1
 			, this));
 		srand((unsigned int)time(NULL));
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			int randX = rand() % 50;
 			int randY = rand() % 50;
@@ -33,7 +33,12 @@ namespace m
 	}
 	Scene::~Scene()
 	{
-
+		vector<GameObject*>::iterator iter = mGameObjects.begin();
+		while (iter != mGameObjects.end())
+		{
+			iter = mGameObjects.erase(iter);
+			iter++;
+		}
 	}
 
 	void Scene::Initialize()
@@ -42,11 +47,24 @@ namespace m
 	}
 	void Scene::Update()
 	{
+		std::vector<GameObject*> deleteObjects;
+		vector<GameObject*>::iterator iter = mGameObjects.begin();
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if(gameObj->GetState() != GameObject::eState::Dead)
+			if (gameObj->GetState() == GameObject::eState::Active)
+			{
 				gameObj->Update();
+				iter++;
+			}
+			else
+			{
+				deleteObjects.push_back(gameObj);
+				iter = mGameObjects.erase(iter);
+			}
 		}
+
+
+		for (GameObject* gameObj : deleteObjects) delete gameObj;
 	}
 
 	void Scene::LateUpdate()
@@ -56,7 +74,7 @@ namespace m
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if (gameObj->GetState() != GameObject::eState::Dead)
+			if (gameObj->GetState() == GameObject::eState::Active)
 				gameObj->Render();
 		}
 	}

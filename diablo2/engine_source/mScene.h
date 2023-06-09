@@ -13,6 +13,7 @@ namespace m
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
+
 		vector<GameObject*>& GetGameObjects() { return mGameObjects; }
 	private:
 		std::vector<GameObject*> mGameObjects;

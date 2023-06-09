@@ -19,10 +19,12 @@ namespace m
 	{
 		mVertexInfo.pos = initPos;
 		mVertexInfo.color = initColor;
+		mesh = new m::Mesh();
 	}
 
 	GameObject::~GameObject()
 	{
+		if (mesh) delete mesh;
 	}
 
 	void GameObject::Initialize()
@@ -109,8 +111,6 @@ namespace m
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
-
-		mesh = new m::Mesh();
 
 		mesh->CreateVertexBuffer(vertexes.data(), 4);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
