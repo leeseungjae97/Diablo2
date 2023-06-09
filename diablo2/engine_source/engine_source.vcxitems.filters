@@ -105,6 +105,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h">
       <Filter>Scene\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp">
       <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
