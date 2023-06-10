@@ -73,8 +73,11 @@ namespace m::graphics
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
 	GraphicDevice_DX11::~GraphicDevice_DX11()
-	{
-
+	{	
+		//Microsoft::WRL::ComPtr<ID3D11Debug> debug;
+		//mDevice.As(&debug);
+		////debug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+		//debug->ReportLiveDeviceObjects(D3D11_RLDO_SUMMARY | D3D11_RLDO_DETAIL);
 	}
 	bool GraphicDevice_DX11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
@@ -294,9 +297,6 @@ namespace m::graphics
 		};
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
-
-		//renderer::mesh->BindBuffer();
-		//renderer::shader->Binds();
 	}
 	void GraphicDevice_DX11::Present()
 	{

@@ -22,15 +22,15 @@ namespace m
 
 		ID3D11InputLayout* GetInputLayout()
 		{
-			return mInputLayout;
+			return mInputLayout.Get();
 		}
 
 		ID3D11InputLayout** GetInputLayoutAddressOf()
 		{
-			return &mInputLayout;
+			return mInputLayout.GetAddressOf();
 		}
 	private:
-		ID3D11InputLayout* mInputLayout;
+		Microsoft::WRL::ComPtr <ID3D11InputLayout> mInputLayout;
 		D3D11_PRIMITIVE_TOPOLOGY mTopology;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;

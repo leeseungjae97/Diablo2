@@ -33,12 +33,7 @@ namespace m
 	}
 	Scene::~Scene()
 	{
-		vector<GameObject*>::iterator iter = mGameObjects.begin();
-		while (iter != mGameObjects.end())
-		{
-			iter = mGameObjects.erase(iter);
-			iter++;
-		}
+		//for (GameObject* gameObj : mGameObjects) delete gameObj;
 	}
 
 	void Scene::Initialize()
@@ -65,6 +60,7 @@ namespace m
 
 
 		for (GameObject* gameObj : deleteObjects) delete gameObj;
+		deleteObjects.clear();
 	}
 
 	void Scene::LateUpdate()

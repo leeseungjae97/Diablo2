@@ -112,15 +112,118 @@ namespace m
 		indexes.push_back(1);
 		indexes.push_back(2);
 
+		// triangle
+		//vertexes.resize(3);
+		//
+		//vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
+		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+		//vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
+		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+
+		//vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		//indexes.push_back(0);
+		//indexes.push_back(1);
+		//indexes.push_back(2);
+
+		// rhombus
+		//vertexes.resize(4);
+		//
+		//vertexes[0].pos = Vector3(0.0f, 0.1f, 0.0f);
+		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+		//vertexes[1].pos = Vector3(0.1f, -0.1f, 0.0f);
+		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+
+		//vertexes[2].pos = Vector3(-0.1f, -0.1f, 0.0f);
+		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		//
+		//vertexes[3].pos = Vector3(0.0f, -0.3f, 0.0f);
+		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		//indexes.push_back(3);
+		//indexes.push_back(2);
+		//indexes.push_back(1);
+
+		//indexes.push_back(0);
+		//indexes.push_back(1);
+		//indexes.push_back(2);
+
+		// rect
+		//vertexes.resize(4);
+
+		//vertexes[0].pos = Vector4(-0.1f, 0.1f, 0.0f, 0.0f);
+		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+		//vertexes[1].pos = Vector4(0.1f, 0.1f, 0.0f, 0.0f);
+		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+
+		//vertexes[2].pos = Vector4(0.1f, -0.1f, 0.0f, 0.0f);
+		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		//vertexes[3].pos = Vector4(-0.1f, -0.1f, 0.0f, 0.0f);
+		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		//indexes.push_back(0);
+		//indexes.push_back(2);
+		//indexes.push_back(3);
+
+		//indexes.push_back(0);
+		//indexes.push_back(1);
+		//indexes.push_back(2);
+
+
+		// circle, polygon
+		/*Vertex center = {
+			Vector3(0.0f, 0.0f, 0.0f) ,
+			Vector4(0.0f, 1.0f, 0.0f, 1.0f)
+		};
+
+		vertexes.push_back(center);
+
+
+		int iSlice = 80;
+		float fRadius = 0.5f;
+		float fTheta = (3.14159f * 2.f) / (float)iSlice;
+
+
+		for (float i = 0; i < iSlice; i++)
+		{
+			Vertex circleLine = {
+				Vector3(fRadius * cosf(fTheta * i)
+					, fRadius * sinf(fTheta * i)
+					, 0.0f),
+				Vector4(0.0f, 1.0f, 0.0f, 1.f)
+			};
+			circleLine.pos.x -= (fRadius * cosf(fTheta * i)) / 2;
+			vertexes.push_back(circleLine);
+		}
+
+		int j = 0;
+		for (int i = vertexes.size() - 1; i >= 0; --i)
+		{
+			j++;
+			indexes.push_back(i + 1);
+			if (j == 2)
+			{
+				j = 0;
+				indexes.push_back(1);
+				i++;
+			}
+		}
+		indexes.push_back(1);*/
+
 		mesh->CreateVertexBuffer(vertexes.data(), 4);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
-
-		renderer::constantBuffers[(UINT)eCBType::Transform]->SetData(&mVertexInfo);
-		renderer::constantBuffers[(UINT)eCBType::Transform]->Bind(eShaderStage::VS);
-
 		mesh->BindBuffer();
-		//renderer::mesh->BindBuffer();
 		renderer::shader->Binds();
+
+		std::shared_ptr<class m::graphics::ConstantBuffer> cb = renderer::constantBuffers[(UINT)eCBType::Transform];
+		cb->SetData(&mVertexInfo);
+		cb->Bind(eShaderStage::VS);
+		
 		graphics::GetDevice()->DrawIndexed(mesh->GetIndexCount(), 0, 0);
 	}
 }

@@ -3,13 +3,9 @@
 
 namespace m::renderer
 {
-	vector<Vertex> vertexes;
-	vector<UINT> indexes;
-
-	m::Mesh* mesh = nullptr;
 	m::Shader* shader = nullptr;
 
-	m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
+	std::shared_ptr<class m::graphics::ConstantBuffer> constantBuffers[(UINT)eCBType::END];
 
 	void SetupState()
 	{
@@ -38,25 +34,12 @@ namespace m::renderer
 
 	void LoadBuffer()
 	{
-		//mesh = new m::Mesh();
-		//mesh->CreateVertexBuffer(vertexes.data(), 4);
-
-		//mesh->CreateIndexBuffer(indexes.data(), indexes.size());
-
-		constantBuffers[(UINT)eCBType::Transform] = new m::graphics::ConstantBuffer(eCBType::Transform);
+		constantBuffers[(UINT)eCBType::Transform] = std::make_shared<m::graphics::ConstantBuffer>(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(Vertex));
-
-		//constantBuffers[(UINT)eCBType::Color] = new m::graphics::ConstantBuffer(eCBType::Color);
-		//constantBuffers[(UINT)eCBType::Color]->Create(sizeof(Vector4));
-
-		//Vector4 pos(0.2f, 0.0f, 0.0f, 1.0f);
-		//constantBuffer->SetData(&pos);
-		//constantBuffer->Bind(eShaderStage::VS);
 	}
 
 	void LoadShader()
 	{
-		//m::graphics::GetDevice()->CreateShader();
 		shader = new m::Shader();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
@@ -64,121 +47,16 @@ namespace m::renderer
 
 	void Initialize()
 	{
-		// triangle
-		//vertexes.resize(3);
-		//
-		//vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
-		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		//vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		//vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		//indexes.push_back(0);
-		//indexes.push_back(1);
-		//indexes.push_back(2);
-
-		// rhombus
-		//vertexes.resize(4);
-		//
-		//vertexes[0].pos = Vector3(0.0f, 0.1f, 0.0f);
-		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		//vertexes[1].pos = Vector3(0.1f, -0.1f, 0.0f);
-		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		//vertexes[2].pos = Vector3(-0.1f, -0.1f, 0.0f);
-		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		//
-		//vertexes[3].pos = Vector3(0.0f, -0.3f, 0.0f);
-		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		//indexes.push_back(3);
-		//indexes.push_back(2);
-		//indexes.push_back(1);
-
-		//indexes.push_back(0);
-		//indexes.push_back(1);
-		//indexes.push_back(2);
-		 
-		// rect
-		//vertexes.resize(4);
-
-		//vertexes[0].pos = Vector4(-0.1f, 0.1f, 0.0f, 0.0f);
-		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		//vertexes[1].pos = Vector4(0.1f, 0.1f, 0.0f, 0.0f);
-		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		//vertexes[2].pos = Vector4(0.1f, -0.1f, 0.0f, 0.0f);
-		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		//vertexes[3].pos = Vector4(-0.1f, -0.1f, 0.0f, 0.0f);
-		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		//indexes.push_back(0);
-		//indexes.push_back(2);
-		//indexes.push_back(3);
-
-		//indexes.push_back(0);
-		//indexes.push_back(1);
-		//indexes.push_back(2);
-
-
-		// circle, polygon
-		/*Vertex center = {
-			Vector3(0.0f, 0.0f, 0.0f) ,
-			Vector4(0.0f, 1.0f, 0.0f, 1.0f)
-		};
-
-		vertexes.push_back(center);
-
-
-		int iSlice = 80;
-		float fRadius = 0.5f;
-		float fTheta = (3.14159f * 2.f) / (float)iSlice;
-
-
-		for (float i = 0; i < iSlice; i++)
-		{
-			Vertex circleLine = {
-				Vector3(fRadius * cosf(fTheta * i)
-					, fRadius * sinf(fTheta * i)
-					, 0.0f),
-				Vector4(0.0f, 1.0f, 0.0f, 1.f)
-			};
-			circleLine.pos.x -= (fRadius * cosf(fTheta * i)) / 2;
-			vertexes.push_back(circleLine);
-		}
-
-		int j = 0;
-		for (int i = vertexes.size() - 1; i >= 0; --i)
-		{
-			j++;
-			indexes.push_back(i + 1);
-			if (j == 2)
-			{
-				j = 0;
-				indexes.push_back(1);
-				i++;
-			}
-		}
-		indexes.push_back(1);*/
-
 		LoadBuffer();
 		LoadShader();
 		SetupState();
 	}
 	void Release()
 	{
-		delete mesh;
 		delete shader;
 
-		for(UINT i = 0 ; i < (UINT)eCBType::END; i++)
-			delete constantBuffers[i];
-
+		//for(UINT i = 0 ; i < (UINT)eCBType::END; i++)
+		//	delete constantBuffers[i];
 	}
 }
 

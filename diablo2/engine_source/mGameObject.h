@@ -39,9 +39,6 @@ namespace m {
 		float fSize;
 		enums::eGameObjectType mObjectType;
 		Scene* onwerScene;
-		//std::vector<Component*> mComponents;
-		//int y;
-		//int x;
     };
 }
 

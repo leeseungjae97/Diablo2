@@ -7,7 +7,6 @@ namespace m
 	{}
 	Shader::~Shader()
 	{
-		mInputLayout->Release();
 	}
 	HRESULT Shader::Load(const std::wstring& path)
 	{
@@ -44,7 +43,7 @@ namespace m
 	void Shader::Binds()
 	{
 		GetDevice()->BindPrimitiveTopology(mTopology);
-		GetDevice()->BindInputLayout(mInputLayout);
+		GetDevice()->BindInputLayout(mInputLayout.Get());
 
 		GetDevice()->BindVertexShader(mVS.Get());
 		GetDevice()->BindPixelShader(mPS.Get());

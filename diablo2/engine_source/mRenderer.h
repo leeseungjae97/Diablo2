@@ -13,13 +13,8 @@ namespace m::renderer
 		Vector4 pos;
 		Vector4 color;
 	};
-
-	extern vector<Vertex> vertexes;
-	extern vector<UINT> indexes;
-
-	extern m::Mesh* mesh;
 	extern m::Shader* shader;
-	extern m::graphics::ConstantBuffer* constantBuffers[];
+	extern std::shared_ptr<class m::graphics::ConstantBuffer> constantBuffers[];
 
 	void Initialize();
 	void Release();
