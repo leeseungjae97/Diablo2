@@ -30,6 +30,9 @@ namespace m {
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }
 		enums::eGameObjectType GetGameObjectType() { return mObjectType; }
+
+		vector<Vector4>& GetCircleIndexes() { return circleIndexes; };
+		bool CrossCircleLine(GameObject* other);
 	private:
 		eState mState;
 		renderer::Vertex mVertexInfo;
@@ -39,6 +42,8 @@ namespace m {
 		float fSize;
 		enums::eGameObjectType mObjectType;
 		Scene* onwerScene;
+		vector<Vector4> circleIndexes;
+		float ratioX;
     };
 }
 

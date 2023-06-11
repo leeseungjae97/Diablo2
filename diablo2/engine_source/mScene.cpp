@@ -59,8 +59,8 @@ namespace m
 		}
 
 
-		for (GameObject* gameObj : deleteObjects) delete gameObj;
-		deleteObjects.clear();
+		//for (GameObject* gameObj : deleteObjects) delete gameObj;
+		//deleteObjects.clear();
 	}
 
 	void Scene::LateUpdate()

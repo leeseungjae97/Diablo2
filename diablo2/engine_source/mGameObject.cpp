@@ -30,19 +30,66 @@ namespace m
 	void GameObject::Initialize()
 	{
 	}
+	bool GameObject::CrossCircleLine(GameObject* other)
+	{
+		float dX = mVertexInfo.pos.x - other->GetPos().x;
+		float dY = mVertexInfo.pos.y - other->GetPos().y;
 
+		float length = sqrt(dX * dX + dY * dY);
+
+		for (Vector4 vIndexPos : other->GetCircleIndexes())
+		{
+			float length2 = vIndexPos.Length();
+
+			for (Vector4 vMIndexPos : circleIndexes)
+			{
+				//if (vIndexPos + other->GetPos() == vMIndexPos + mVertexInfo.pos)
+				//{
+				//	return true;
+				//}
+
+				//float length3 = vMIndexPos.Length();
+				//if (length <= length2 + length3)
+				//{
+				//	return true;
+				//}
+
+				if (fSize + other->GetSize() >= length)
+				{
+					return true;
+				}
+			}
+			
+		}
+		return false;
+	}
 	void GameObject::Update()
 	{
 
 		if (mObjectType == enums::eGameObjectType::Player)
 		{
-			float ratio = 16.f / 9.f;
+			//check rect 
+			//float ratio = 16.f / 9.f;
+			//for (GameObject* gameObj : onwerScene->GetGameObjects())
+			//{
+			//	if (gameObj->GetGameObjectType() == enums::eGameObjectType::Player) continue;
+
+			//	if (fabs(mVertexInfo.pos.x - gameObj->GetPos().x) < (fSize / ratio + gameObj->GetSize() / ratio)
+			//		&& fabs(mVertexInfo.pos.y - gameObj->GetPos().y) < (fSize + gameObj->GetSize()))
+			//	{
+			//		if (gameObj->GetState() != eState::Dead)
+			//		{
+			//			fSize += 0.01f;
+			//		}
+			//		gameObj->SetState(eState::Dead);
+			//	}
+			//}
+
 			for (GameObject* gameObj : onwerScene->GetGameObjects())
 			{
 				if (gameObj->GetGameObjectType() == enums::eGameObjectType::Player) continue;
 
-				if (fabs(mVertexInfo.pos.x - gameObj->GetPos().x) < (fSize / ratio + gameObj->GetSize() / ratio)
-					&& fabs(mVertexInfo.pos.y - gameObj->GetPos().y) < (fSize + gameObj->GetSize()))
+				if (CrossCircleLine(gameObj))
 				{
 					if (gameObj->GetState() != eState::Dead)
 					{
@@ -90,27 +137,27 @@ namespace m
 		vector<renderer::Vertex> vertexes;
 		vector<UINT> indexes;
 
-		vertexes.resize(4);
-		float ratio = 16.f / 9.f;
-		vertexes[0].pos = Vector4(-fSize / ratio, fSize, 0.0f, 0.0f);
-		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		//vertexes.resize(4);
+		//float ratio = 16.f / 9.f;
+		//vertexes[0].pos = Vector4(-fSize / ratio, fSize, 0.0f, 0.0f);
+		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		vertexes[1].pos = Vector4(fSize / ratio, fSize, 0.0f, 0.0f);
-		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		//vertexes[1].pos = Vector4(fSize / ratio, fSize, 0.0f, 0.0f);
+		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
-		vertexes[2].pos = Vector4(fSize / ratio, -fSize, 0.0f, 0.0f);
-		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		//vertexes[2].pos = Vector4(fSize / ratio, -fSize, 0.0f, 0.0f);
+		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
-		vertexes[3].pos = Vector4(-fSize / ratio, -fSize, 0.0f, 0.0f);
-		vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		//vertexes[3].pos = Vector4(-fSize / ratio, -fSize, 0.0f, 0.0f);
+		//vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
-		indexes.push_back(0);
-		indexes.push_back(2);
-		indexes.push_back(3);
+		//indexes.push_back(0);
+		//indexes.push_back(2);
+		//indexes.push_back(3);
 
-		indexes.push_back(0);
-		indexes.push_back(1);
-		indexes.push_back(2);
+		//indexes.push_back(0);
+		//indexes.push_back(1);
+		//indexes.push_back(2);
 
 		// triangle
 		//vertexes.resize(3);
@@ -176,28 +223,29 @@ namespace m
 
 
 		// circle, polygon
-		/*Vertex center = {
-			Vector3(0.0f, 0.0f, 0.0f) ,
+		circleIndexes.clear();
+
+		renderer::Vertex center = {
+			Vector4(0.0f, 0.0f, 0.0f, 0.0f) ,
 			Vector4(0.0f, 1.0f, 0.0f, 1.0f)
 		};
 
 		vertexes.push_back(center);
-
+		
 
 		int iSlice = 80;
-		float fRadius = 0.5f;
 		float fTheta = (3.14159f * 2.f) / (float)iSlice;
-
-
+		
 		for (float i = 0; i < iSlice; i++)
 		{
-			Vertex circleLine = {
-				Vector3(fRadius * cosf(fTheta * i)
-					, fRadius * sinf(fTheta * i)
-					, 0.0f),
+			renderer::Vertex circleLine = {
+				Vector4(fSize * cosf(fTheta * i)
+					, fSize * sinf(fTheta * i)
+					, 0.0f, 0.0f),
 				Vector4(0.0f, 1.0f, 0.0f, 1.f)
 			};
-			circleLine.pos.x -= (fRadius * cosf(fTheta * i)) / 2;
+			circleLine.pos.x -= (fSize * cosf(fTheta * i)) / 2;
+			circleIndexes.push_back(circleLine.pos);
 			vertexes.push_back(circleLine);
 		}
 
@@ -213,9 +261,9 @@ namespace m
 				i++;
 			}
 		}
-		indexes.push_back(1);*/
+		indexes.push_back(1);
 
-		mesh->CreateVertexBuffer(vertexes.data(), 4);
+		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size() - 1);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 		mesh->BindBuffer();
 		renderer::shader->Binds();
