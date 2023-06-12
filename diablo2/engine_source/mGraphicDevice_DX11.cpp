@@ -70,6 +70,7 @@ namespace m::graphics
 			,0.0f, 1.0f
 		};
 		BindViewPort(&mViewPort);
+
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
 	GraphicDevice_DX11::~GraphicDevice_DX11()
@@ -232,6 +233,7 @@ namespace m::graphics
 	void GraphicDevice_DX11::SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE subRes = {};
+
 		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);
 		memcpy(subRes.pData, data, size);
 		mContext->Unmap(buffer, 0);

@@ -244,7 +244,7 @@ namespace m
 					, 0.0f, 0.0f),
 				Vector4(0.0f, 1.0f, 0.0f, 1.f)
 			};
-			circleLine.pos.x -= (fSize * cosf(fTheta * i)) / 2;
+			//circleLine.pos.x -= (fSize * cosf(fTheta * i)) / 2;
 			circleIndexes.push_back(circleLine.pos);
 			vertexes.push_back(circleLine);
 		}
@@ -269,8 +269,17 @@ namespace m
 		renderer::shader->Binds();
 
 		std::shared_ptr<class m::graphics::ConstantBuffer> cb = renderer::constantBuffers[(UINT)eCBType::Transform];
+		//cb->SetProjectionMatrix(Matrix::CreateOrthographicLH(1600.f, 900.f, 1.f, 1000.f));
+		cb->SetProjectionMatrix(Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, (16.f / 9.f), 1.f, 1000.f));
+		cb->SetView(Matrix::Identity, Vector3(mVertexInfo.pos.x, mVertexInfo.pos.y, mVertexInfo.pos.z));
+
 		cb->SetData(&mVertexInfo);
 		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::HS);
+		cb->Bind(eShaderStage::DS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
 		
 		graphics::GetDevice()->DrawIndexed(mesh->GetIndexCount(), 0, 0);
 	}

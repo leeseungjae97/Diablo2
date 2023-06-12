@@ -12,9 +12,18 @@ namespace m::graphics
 		void SetData(void* data);
 		void Bind(eShaderStage stage);
 
+		void SetProjectionMatrix(XMMATRIX matrix) { mProjectionMatrix = matrix; }
+		void SetView(XMMATRIX view, Vector3 pos) { 
+			mView = view;
+			mView *= Matrix::CreateTranslation(-pos);
+		}
 	private:
 		const eCBType mType;
+		XMMATRIX mProjectionMatrix;
+		XMMATRIX mView;
+
 	};
+
 }
 
 
