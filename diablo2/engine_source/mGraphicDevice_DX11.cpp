@@ -297,6 +297,7 @@ namespace m::graphics
 
 		renderer::mesh->BindBuffer();
 		renderer::shader->Binds();
+		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
 	}
 	void GraphicDevice_DX11::Present()
 	{
