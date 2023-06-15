@@ -1,9 +1,10 @@
 #pragma once
 #include "_Engine.h"
 #include "mGraphicDevice_DX11.h"
-#include "mScene.h"
+
 namespace m
 {
+	class Scene;
 	class Application
 	{
 	public:

@@ -2,6 +2,7 @@
 #include "mInput.h"
 #include "mTime.h"
 #include "mRenderer.h"
+#include "mScene.h"
 
 namespace m
 {

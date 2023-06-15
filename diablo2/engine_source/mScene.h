@@ -1,8 +1,9 @@
 #pragma once
 #include "mEntity.h"
-#include "mLayer.h"
+
 namespace m
 {
+	class Layer;
 	class Scene : public Entity
 	{
 	public:
