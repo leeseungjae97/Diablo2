@@ -1,7 +1,7 @@
 #pragma once
-#include "mGameObject.h"
 namespace m
 {
+	class GameObject;
 	class Layer
 	{
 	public:
@@ -12,6 +12,8 @@ namespace m
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
+
+		void AddGameObject(GameObject* gameObj);
 
 	private:
 		std::vector<GameObject*> mGameObjects;

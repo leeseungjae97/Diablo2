@@ -1,16 +1,24 @@
 #pragma once
-#include "mScene.h"
+#include "mComponent.h"
 namespace m
 {
-	class PlayScene : public Scene
-	{
+	class Mesh;
+	class Shader;
+    class MeshRenderer :
+        public Component
+    {
 	public:
+		MeshRenderer();
+		~MeshRenderer();
+
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
-	private:
-	};
-}
 
+	private:
+		Mesh* mMesh;
+		Shader* mShader;
+    };
+}
 

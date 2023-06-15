@@ -24,6 +24,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
@@ -31,6 +33,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
@@ -46,6 +49,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
@@ -53,6 +58,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
   </ItemGroup>
   <ItemGroup>

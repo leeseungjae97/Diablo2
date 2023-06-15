@@ -1,8 +1,8 @@
 #include "mComponent.h"
 namespace m
 {
-	Component::Component()
-		: mType(eComponentType::End)
+	Component::Component(eComponentType type)
+		: mType(type)
 	{
 
 	}

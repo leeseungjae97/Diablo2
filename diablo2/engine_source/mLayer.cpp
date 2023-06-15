@@ -1,4 +1,5 @@
 #include "mLayer.h"
+#include "mGameObject.h"
 namespace m
 {
 	Layer::Layer()
@@ -27,5 +28,9 @@ namespace m
 		{
 			gameObj->Render();
 		}
+	}
+	void Layer::AddGameObject(GameObject* gameObj)
+	{
+		mGameObjects.push_back(gameObj);
 	}
 }

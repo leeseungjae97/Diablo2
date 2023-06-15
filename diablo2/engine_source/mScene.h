@@ -3,7 +3,9 @@
 
 namespace m
 {
+	using namespace m::enums;
 	class Layer;
+	class GameObject;
 	class Scene : public Entity
 	{
 	public:
@@ -15,8 +17,10 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 
+		void AddGameObject(eLayerType type, GameObject* gameObj);
+
 	private:
-		std::vector<Layer*> mLayers;
+		std::vector<Layer> mLayers;
 	};
 }
 

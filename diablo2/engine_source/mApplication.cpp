@@ -3,6 +3,7 @@
 #include "mTime.h"
 #include "mRenderer.h"
 #include "mScene.h"
+#include "mSceneManager.h"
 
 namespace m
 {
@@ -31,11 +32,7 @@ namespace m
 		Input::Initialize();
 
 		renderer::Initialize();
-
-		tempPos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-
-		mScene = new Scene();
-		mScene->Initialize();
+		SceneManager::Initialize();
 	}
 
 	void Application::Update()
@@ -44,42 +41,21 @@ namespace m
 		Input::Update();
 		// Scene -> Layer -> Entity
 		Vector4 pos = tempPos;
-		if (KEY_PRESSED(eKeyCode::UP))
-		{
-			pos.y += 0.1f * (float)Time::DeltaTime();
-		}
-		if (KEY_PRESSED(eKeyCode::DOWN))
-		{
-			pos.y -= 0.1f * (float)Time::DeltaTime();
-		}
-		if (KEY_PRESSED(eKeyCode::LEFT))
-		{
-			pos.x -= 0.1f * (float)Time::DeltaTime();
-		}
-		if (KEY_PRESSED(eKeyCode::RIGHT))
-		{
-			pos.x += 0.1f * (float)Time::DeltaTime();
-		}
-		if (pos != tempPos)
-		{
-			tempPos = pos;
-
-			//constantBuffer->SetData(&tempPos);
-			//constantBuffer->Bind(eShaderStage::VS);
-		}
-
-		mScene->Update();
+		SceneManager::Update();
 	}
 
 	void Application::LateUpdate()
-	{}
+	{
+		SceneManager::LateUpdate();
+	}
 
 	void Application::Render()
 	{
 		Time::Render();
 
-		graphicDevice->Draw();
-		mScene->Render();
+		graphicDevice->ClearTarget();
+		graphicDevice->UpdateViewPort();
+		SceneManager::Render();
 		graphicDevice->Present();
 	}
 

@@ -4,10 +4,12 @@
 namespace m
 {
 	using namespace m::enums;
+	using namespace m::math;
+	class GameObject;
 	class Component : public Entity
 	{
 	public:
-		Component();
+		Component(eComponentType type);
 		~Component();
 
 		virtual void Initialize();
@@ -15,8 +17,11 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 
+		void SetOwner(GameObject* owner) { mOwner = owner; }
+		GameObject* GetOwner() { return mOwner; }
 	private:
 		const eComponentType mType;
+		GameObject* mOwner;
 	};
 
 }
