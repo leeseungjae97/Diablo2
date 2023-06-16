@@ -17,6 +17,9 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 
+		virtual void OnExit();
+		virtual void OnEnter();
+
 		void AddGameObject(eLayerType type, GameObject* gameObj);
 
 	private:

@@ -38,4 +38,8 @@ namespace m
 	{
 		mLayers[(int)type].AddGameObject(gameObj);
 	}
+	void Scene::OnExit()
+	{}
+	void Scene::OnEnter()
+	{}
 }

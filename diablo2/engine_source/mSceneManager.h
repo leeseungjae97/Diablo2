@@ -1,8 +1,7 @@
 #pragma once
-#include "mScene.h"
-
 namespace m
 {
+	class mScene;
 	class SceneManager
 	{
 	public:
@@ -11,10 +10,11 @@ namespace m
 		static void LateUpdate();
 		static void Render();
 
+		static Scene* GetActiveScene() { return mActiveScene; }
+		static Scene* LoadScene(std::wstring name);
 
 	private:
 		static Scene* mActiveScene;
+		static std::map<std::wstring, Scene*> mScenes;
 	};
-
 }
-

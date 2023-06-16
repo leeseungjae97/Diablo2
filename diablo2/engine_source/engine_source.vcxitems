@@ -32,6 +32,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
   </ItemGroup>
@@ -57,6 +58,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />

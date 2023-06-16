@@ -27,6 +27,7 @@ namespace m::graphics
 		void SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindsConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
+		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
 
 		void BindViewPort(D3D11_VIEWPORT* viewPort);
 
@@ -35,6 +36,8 @@ namespace m::graphics
 		void UpdateViewPort();
 		void Draw();
 		void Present();
+
+		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device>			mDevice;
