@@ -1,7 +1,5 @@
 #include "mMeshRenderer.h"
-#include "mTransform.h"
-#include "mRenderer.h"
-#include "mGameObject.h"
+
 namespace m
 {
 	MeshRenderer::MeshRenderer()
@@ -20,11 +18,8 @@ namespace m
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->BindConstantBuffer();
 
-		//mMesh->BindBuffer();
-		//mShader->Binds();
-
-		renderer::mesh->BindBuffer();
-		renderer::shader->Binds();
-		GetDevice()->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
+		mMesh->BindBuffer();
+		mMaterial->Binds();
+		mMesh->Render();
 	}
 }

@@ -1,9 +1,13 @@
 #pragma once
 #include "mComponent.h"
+#include "mMesh.h"
+#include "mMaterial.h"
+#include "mTransform.h"
+#include "mRenderer.h"
+#include "mGameObject.h"
+
 namespace m
 {
-	class Mesh;
-	class Shader;
     class MeshRenderer :
         public Component
     {
@@ -16,9 +20,12 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void SetMesh(Mesh* mesh) { mMesh = mesh; }
+		void SetMaterial(Material* material) { mMaterial = material; }
+
 	private:
 		Mesh* mMesh;
-		Shader* mShader;
+		Material* mMaterial;
     };
 }
 

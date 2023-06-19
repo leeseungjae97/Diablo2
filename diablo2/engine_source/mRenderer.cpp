@@ -1,16 +1,15 @@
 #include "mRenderer.h"
 #include "mResources.h"
 #include "mTexture.h"
+#include "mMaterial.h"
 
 namespace m::renderer
 {
 	vector<Vertex> vertexes;
 	vector<UINT> indexes;
 
-	m::Mesh* mesh = nullptr;
-	m::Shader* shader = nullptr;
-
-	m::graphics::ConstantBuffer* constantBuffer = nullptr;
+	m::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::END] = {};
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
 
 	void SetupState()
 	{
@@ -39,28 +38,62 @@ namespace m::renderer
 		arrLayout[2].SemanticIndex = 0;
 
 
+		Shader* shader = m::Resources::Find<Shader>(L"TriangleShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
+
+		shader = m::Resources::Find<Shader>(L"SpriteShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		//Sampler State
+		D3D11_SAMPLER_DESC desc = {};
+		desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		GetDevice()->CreateSampler(&desc, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
+		GetDevice()->BindSampler(eShaderStage::PS, 0, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
+
+		desc.Filter = D3D11_FILTER_ANISOTROPIC;
+		GetDevice()->CreateSampler(&desc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		GetDevice()->BindSampler(eShaderStage::PS, 1, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 	}
 
 	void LoadBuffer()
 	{
-		mesh = new m::Mesh();
-		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		Mesh* mesh = new m::Mesh();
+		Resources::Insert(L"RectMesh", mesh);
 
+		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
-		constantBuffer = new m::graphics::ConstantBuffer(eCBType::Transform);
-		constantBuffer->Create(sizeof(Vector4));
+		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
+		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(Vector4));
 	}
 
 	void LoadShader()
 	{
 		//m::graphics::GetDevice()->CreateShader();
-		shader = new m::Shader();
+		Shader* shader = new m::Shader();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
+		m::Resources::Insert(L"TriangleShader", shader);
+
+		Shader* spriteShader = new m::Shader();
+		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		m::Resources::Insert(L"SpriteShader", spriteShader);
+
+		Texture* texture
+			= Resources::Load<Texture>(L"Link", L"..\\Resources\\texture\\character\\amazon_attack1.png");
+
+		Material* spriteMateiral = new m::graphics::Material();
+		spriteMateiral->SetShader(spriteShader);
+		spriteMateiral->SetTexture(texture);
+		Resources::Insert(L"SpriteMaterial", spriteMateiral);
 	}
 
 	void Initialize()
@@ -95,17 +128,17 @@ namespace m::renderer
 		LoadBuffer();
 		LoadShader();
 		SetupState();
-
-		Texture* texture
-			= Resources::Load<Texture>(L"Smile", L"..\\Resources\\texture\\character\\amazon_attack1.png");
-
-		texture->BindShader(eShaderStage::PS, 0);
 	}
 	void Release()
 	{
-		delete mesh;
-		delete shader;
-		delete constantBuffer;
+		for (ConstantBuffer* buff : constantBuffer)
+		{
+			if (buff == nullptr)
+				continue;
+
+			delete buff;
+			buff = nullptr;
+		}
 	}
 }
 

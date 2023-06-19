@@ -22,6 +22,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />

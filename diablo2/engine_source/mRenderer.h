@@ -6,6 +6,7 @@
 #include "mConstantBuffer.h"
 
 using namespace m::math;
+using namespace m::graphics;
 namespace m::renderer
 {
 	struct Vertex
@@ -18,9 +19,7 @@ namespace m::renderer
 	extern vector<Vertex> vertexes;
 	extern vector<UINT> indexes;
 
-	extern m::Mesh* mesh;
-	extern m::Shader* shader;
-	extern m::graphics::ConstantBuffer* constantBuffer;
+	extern m::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::END];
 
 	void Initialize();
 	void Release();

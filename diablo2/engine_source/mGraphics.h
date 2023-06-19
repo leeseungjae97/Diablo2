@@ -16,9 +16,17 @@ enum class eShaderStage
 	END,
 };
 
+enum class eSamplerType
+{
+	Point,
+	Anisotropic,
+	End,
+};
+
 enum class eCBType
 {
 	Transform,
+	Material,
 	END,
 };
 
