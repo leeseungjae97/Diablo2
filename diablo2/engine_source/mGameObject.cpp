@@ -2,6 +2,7 @@
 #include "mRenderer.h"
 #include "mGraphicDevice_DX11.h"
 #include "mTransform.h"
+#include "mScript.h"
 namespace m
 {
 	GameObject::GameObject()
@@ -20,6 +21,14 @@ namespace m
 			delete comp;
 			comp = nullptr;
 		}
+		for (Script* script : mScripts)
+		{
+			if (script == nullptr)
+				continue;
+
+			delete script;
+			script = nullptr;
+		}
 	}
 
 	void GameObject::Initialize()
@@ -32,6 +41,10 @@ namespace m
 		{
 			comp->Update();
 		}
+		for (Script* script : mScripts)
+		{
+			script->Update();
+		}
 	}
 
 	void GameObject::LateUpdate()
@@ -40,6 +53,10 @@ namespace m
 		{
 			comp->LateUpdate();
 		}
+		for (Script* script : mScripts)
+		{
+			script->LateUpdate();
+		}
 	}
 
 	void GameObject::Render()
@@ -47,6 +64,10 @@ namespace m
 		for (Component* comp : mComponents)
 		{
 			comp->Render();
+		}
+		for (Script* script : mScripts)
+		{
+			script->Render();
 		}
 	}
 }

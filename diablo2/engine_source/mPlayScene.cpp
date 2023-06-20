@@ -3,6 +3,7 @@
 #include "mMeshRenderer.h"
 #include "mTransform.h"
 #include "mResources.h"
+#include "mCameraScript.h"
 
 namespace m
 {
@@ -17,6 +18,7 @@ namespace m
 		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+		player->AddComponent<CameraScript>();
 
 		//GameObject* player2 = new GameObject();
 		//AddGameObject(eLayerType::Player, player2);

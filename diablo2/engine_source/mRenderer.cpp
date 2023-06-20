@@ -38,7 +38,7 @@ namespace m::renderer
 		arrLayout[2].SemanticIndex = 0;
 
 
-		Shader* shader = m::Resources::Find<Shader>(L"TriangleShader");
+		std::shared_ptr<Shader> shader = m::Resources::Find<Shader>(L"TriangleShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -64,7 +64,7 @@ namespace m::renderer
 
 	void LoadBuffer()
 	{
-		Mesh* mesh = new m::Mesh();
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", mesh);
 
 		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
@@ -77,20 +77,20 @@ namespace m::renderer
 	void LoadShader()
 	{
 		//m::graphics::GetDevice()->CreateShader();
-		Shader* shader = new m::Shader();
+		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 		m::Resources::Insert(L"TriangleShader", shader);
 
-		Shader* spriteShader = new m::Shader();
+		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		m::Resources::Insert(L"SpriteShader", spriteShader);
 
-		Texture* texture
+		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Link", L"..\\Resources\\texture\\character\\amazon_attack1.png");
 
-		Material* spriteMateiral = new m::graphics::Material();
+		std::shared_ptr<Material> spriteMateiral = std::make_shared<m::graphics::Material>();
 		spriteMateiral->SetShader(spriteShader);
 		spriteMateiral->SetTexture(texture);
 		Resources::Insert(L"SpriteMaterial", spriteMateiral);

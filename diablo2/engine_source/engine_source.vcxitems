@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
@@ -32,6 +33,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
@@ -40,6 +42,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />
@@ -59,6 +62,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />

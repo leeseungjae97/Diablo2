@@ -33,6 +33,12 @@ namespace m
 				if (component != nullptr)
 					return component;
 			}
+			for (Script* script : mScripts)
+			{
+				component = dynamic_cast<T*>(script);
+				if (component != nullptr)
+					return component;
+			}
 
 			return nullptr;
 		}
@@ -44,12 +50,17 @@ namespace m
 
 			Component* buff
 				= dynamic_cast<Component*>(comp);
+			Script* script
+				= dynamic_cast<Script*>(buff);
 
 			if (buff == nullptr)
 				return nullptr;
 
-			mComponents.push_back(buff);
-			buff->SetOwner(this);
+			if (script == nullptr)
+				mComponents.push_back(buff);
+			else
+				mScripts.push_back(script);
+			comp->SetOwner(this);
 
 			return comp;
 		}
@@ -57,8 +68,7 @@ namespace m
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
-		//int y;
-		//int x;
+		std::vector<Script*> mScripts;
     };
 }
 

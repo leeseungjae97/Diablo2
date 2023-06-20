@@ -40,6 +40,12 @@
     <Filter Include="Scene\Layer">
       <UniqueIdentifier>{4f844798-6bba-4ecd-ba8b-6f0d66df0f30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{d8166686-f955-4502-b52b-26cd1e5dbca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CameraScript">
+      <UniqueIdentifier>{e63dfbb0-ca19-4d8e-ad78-8ebc0b5566a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -120,6 +126,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h">
       <Filter>Resources\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -188,6 +198,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp">
       <Filter>Resources\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

@@ -1,4 +1,4 @@
 #include "mResources.h"
 namespace m {
-	map<wstring, Resource*> Resources::mResources = {};
+	map<wstring, std::shared_ptr<Resource>> Resources::mResources = {};
 }
