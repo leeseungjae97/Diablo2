@@ -16,6 +16,13 @@ namespace m::renderer
 		Vector2 uv;
 	};
 
+	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
+	{
+		Matrix mWorld;
+		Matrix mView;
+		Matrix mProjection;
+	};
+
 	extern vector<Vertex> vertexes;
 	extern vector<UINT> indexes;
 

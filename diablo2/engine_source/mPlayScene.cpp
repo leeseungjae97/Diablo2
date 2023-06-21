@@ -18,7 +18,10 @@ namespace m
 		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		player->AddComponent<CameraScript>();
+
+		Transform* tr = player->GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.5f, 0.5f, 0.0f));
+		//player->AddComponent<CameraScript>();
 
 		//GameObject* player2 = new GameObject();
 		//AddGameObject(eLayerType::Player, player2);

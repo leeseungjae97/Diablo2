@@ -130,6 +130,7 @@
       <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -202,6 +203,7 @@
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

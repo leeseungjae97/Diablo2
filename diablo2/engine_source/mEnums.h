@@ -10,6 +10,7 @@ namespace m::enums
 		Particle,
 		MeshRenderer,
 		Script,
+		Camera,
 		End,
 	};
 	enum class eLayerType
