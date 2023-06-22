@@ -1,5 +1,7 @@
 #include "mSceneManager.h"
 #include "mPlayScene.h"
+#include "mSelectCharacterScene.h"
+#include "mMainMenuScene.h"
 #include "mScene.h"
 
 namespace m
@@ -8,8 +10,12 @@ namespace m
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-		mActiveScene = new PlayScene();
-		mScenes.insert(std::make_pair(L"PlayScene", mActiveScene));
+		mScenes.insert(std::make_pair(L"PlayScene", new PlayScene()));
+		mScenes.insert(std::make_pair(L"SelectCharacterScene", new SelectCharacterScene()));
+		mScenes.insert(std::make_pair(L"MainMenuScene", new MainMenuScene()));
+
+		mActiveScene = LoadScene(L"MainMenuScene");
+		
 		mActiveScene->Initialize();
 	}
 	void SceneManager::Update()
@@ -41,9 +47,12 @@ namespace m
 		if (iter == mScenes.end())
 			return nullptr;
 
-		mActiveScene->OnExit();
-		mActiveScene = iter->second;
-		mActiveScene->OnEnter();
+		if (nullptr != mActiveScene)
+		{
+			mActiveScene->OnExit();
+			mActiveScene = iter->second;
+			mActiveScene->OnEnter();
+		}
 
 		return iter->second;
 	}

@@ -23,14 +23,14 @@ cbuffer Transform : register(b0)
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
-    //Out.Pos = float4(In.Pos, 1.0f);
-    //Out.Pos.x += Pos.x;
-    //Out.Pos.y += Pos.y;
     
     float4 world = mul(float4(In.Pos, 1.0f), mWorld);
-    Out.Pos = world;
-    Out.UV = In.UV;
+    float4 view = mul(world, mView);
+    float4 proj = mul(view, mProjection);
+    
+    Out.Pos = proj;
     Out.Color = In.Color;
+    Out.UV = In.UV;
 
     return Out;
 }

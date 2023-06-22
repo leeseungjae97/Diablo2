@@ -1,6 +1,7 @@
 #pragma once
 #include "mEntity.h"
 #include "mComponent.h"
+#include "mScript.h"
 
 namespace m
 {
@@ -60,6 +61,7 @@ namespace m
 				mComponents.push_back(buff);
 			else
 				mScripts.push_back(script);
+
 			comp->SetOwner(this);
 
 			return comp;

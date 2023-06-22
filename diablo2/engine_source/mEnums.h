@@ -15,6 +15,7 @@ namespace m::enums
 	};
 	enum class eLayerType
 	{
+		//Camera,
 		Player,
 		Monster,
 		UI,

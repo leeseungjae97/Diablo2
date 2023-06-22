@@ -26,6 +26,10 @@ namespace m
 	}
 	void Scene::LateUpdate()
 	{
+		for (Layer& layer : mLayers)
+		{
+			layer.LateUpdate();
+		}
 	}
 	void Scene::Render()
 	{

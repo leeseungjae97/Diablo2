@@ -3,8 +3,10 @@
 #include "mTexture.h"
 #include "mMaterial.h"
 
-namespace m::renderer
+namespace renderer
 {
+	using namespace m;
+	using namespace m::graphics;
 	vector<Vertex> vertexes;
 	vector<UINT> indexes;
 
@@ -86,14 +88,24 @@ namespace m::renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		m::Resources::Insert(L"SpriteShader", spriteShader);
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"amazon_attack1", L"..\\Resources\\texture\\character\\amazon_attack1.png");
 
-		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"Link", L"..\\Resources\\texture\\character\\amazon_attack1.png");
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"amazonAttack1", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"amazon_walk", L"..\\Resources\\texture\\character\\amazon_walk.png");
 
-		std::shared_ptr<Material> spriteMateiral = std::make_shared<m::graphics::Material>();
-		spriteMateiral->SetShader(spriteShader);
-		spriteMateiral->SetTexture(texture);
-		Resources::Insert(L"SpriteMaterial", spriteMateiral);
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"amazonWalk", spriteMateiral);
+		}
 	}
 
 	void Initialize()

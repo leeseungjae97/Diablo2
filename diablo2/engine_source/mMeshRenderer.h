@@ -2,9 +2,6 @@
 #include "mComponent.h"
 #include "mMesh.h"
 #include "mMaterial.h"
-#include "mTransform.h"
-#include "mRenderer.h"
-#include "mGameObject.h"
 
 namespace m
 {

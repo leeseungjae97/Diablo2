@@ -6,8 +6,7 @@
 #include "mConstantBuffer.h"
 
 using namespace m::math;
-using namespace m::graphics;
-namespace m::renderer
+namespace renderer
 {
 	struct Vertex
 	{

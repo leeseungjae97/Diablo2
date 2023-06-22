@@ -1,4 +1,6 @@
 #include "mMeshRenderer.h"
+#include "mTransform.h"
+#include "mGameObject.h"
 
 namespace m
 {
@@ -21,5 +23,7 @@ namespace m
 		mMesh->BindBuffer();
 		mMaterial->Binds();
 		mMesh->Render();
+
+		mMaterial->Clear();
 	}
 }

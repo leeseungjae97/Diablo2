@@ -46,6 +46,15 @@
     <Filter Include="Script\CameraScript">
       <UniqueIdentifier>{e63dfbb0-ca19-4d8e-ad78-8ebc0b5566a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\MainMenuScene">
+      <UniqueIdentifier>{cedeac89-d2cf-4548-a069-e6855e2e7a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SelectCharacterScene">
+      <UniqueIdentifier>{447f23b9-fa03-4be3-abf7-a600a462953b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScene">
+      <UniqueIdentifier>{1d58a62b-7635-4e56-b112-ebe5d9da7f56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -108,9 +117,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h">
       <Filter>Scene\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
@@ -129,8 +135,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h">
+      <Filter>Script\CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayScene.h">
+      <Filter>Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSelectCharacterScene.h">
+      <Filter>Scene\SelectCharacterScene</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMainMenuScene.h">
+      <Filter>Scene\MainMenuScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -181,9 +200,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp">
       <Filter>Scene\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
@@ -202,8 +218,21 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp">
+      <Filter>Script\CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayScene.cpp">
+      <Filter>Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSelectCharacterScene.cpp">
+      <Filter>Scene\SelectCharacterScene</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMainMenuScene.cpp">
+      <Filter>Scene\MainMenuScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

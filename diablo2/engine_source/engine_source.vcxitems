@@ -24,6 +24,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMainMenuScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSelectCharacterScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
@@ -54,6 +56,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMainMenuScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
@@ -65,6 +68,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSelectCharacterScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
