@@ -15,6 +15,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mBackground.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mComponent.cpp" />
@@ -45,6 +47,8 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mBackground.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mComponent.h" />

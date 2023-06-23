@@ -22,8 +22,8 @@ namespace renderer
 		Matrix mProjection;
 	};
 
-	extern vector<Vertex> vertexes;
-	extern vector<UINT> indexes;
+	extern vector<Vertex> fullSizeRectVertex;
+	extern vector<UINT> rectIndexes;
 
 	extern m::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::END];
 

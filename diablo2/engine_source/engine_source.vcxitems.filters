@@ -55,6 +55,15 @@
     <Filter Include="Scene\PlayScene">
       <UniqueIdentifier>{1d58a62b-7635-4e56-b112-ebe5d9da7f56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{c5257a4b-a956-44f6-bf06-d11108482096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Background">
+      <UniqueIdentifier>{08732f37-2449-47b8-8047-9fc393fb9c0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Button">
+      <UniqueIdentifier>{3afa3028-5ca2-43ef-a5d6-d95827d6b5c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -150,6 +159,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMainMenuScene.h">
       <Filter>Scene\MainMenuScene</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mBackground.h">
+      <Filter>Contents\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -233,6 +246,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMainMenuScene.cpp">
       <Filter>Scene\MainMenuScene</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mBackground.cpp">
+      <Filter>Contents\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
