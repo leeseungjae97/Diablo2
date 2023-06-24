@@ -116,7 +116,7 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"main_menu_1", L"..\\Resources\\texture\\main\\back\\mainMenu1.png");
+				= Resources::Load<Texture>(L"main_menu_1", L"..\\Resources\\texture\\ui\\mainMenu\\trademarkscreenEXP.bmp");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -131,6 +131,15 @@ namespace renderer
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"mButtonBlank", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"tab_bt", L"..\\Resources\\texture\\ui\\tabbt.bmp");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"tabBt", spriteMateiral);
 		}
 	}
 
@@ -188,7 +197,6 @@ namespace renderer
 		fullSizeRectIndexes.push_back(0);
 		fullSizeRectIndexes.push_back(2);
 		fullSizeRectIndexes.push_back(3);
-
 
 		LoadBuffer();
 		LoadShader();
