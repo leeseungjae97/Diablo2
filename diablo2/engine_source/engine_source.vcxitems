@@ -31,6 +31,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mPlayScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mPlayScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />

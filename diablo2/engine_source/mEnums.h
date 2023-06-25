@@ -18,6 +18,7 @@ namespace m::enums
 		//Camera,
 		Player,
 		Monster,
+		Tile,
 		UI,
 		End,
 	};

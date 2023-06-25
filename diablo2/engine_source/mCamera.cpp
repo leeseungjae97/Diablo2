@@ -10,11 +10,11 @@ namespace m
 	Matrix Camera::mProjection = Matrix::Identity;
 	Camera::Camera()
 		: Component(eComponentType::Camera)
-		, mType(eProjectionType::Perspective)
+		, mType(eProjectionType::Orthorgaphic)
 		, mAspectRatio(1.0f)
 		, mNear(1.0f)
 		, mFar(1000.f)
-		, mSize(5.0f)
+		, mSize(1.0f)
 	{}
 	Camera::~Camera()
 	{}

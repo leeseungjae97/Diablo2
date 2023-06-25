@@ -12,7 +12,7 @@ namespace renderer
 	vector<UINT> rectIndexes;
 	vector<UINT> fullSizeRectIndexes;
 
-	m::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::END] = {};
+	m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
 
 	void SetupState()
@@ -80,8 +80,11 @@ namespace renderer
 		fullMesh->CreateVertexBuffer(fullSizeRectVertex.data(), fullSizeRectVertex.size());
 		fullMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
 
-		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
-		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
+		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+
+		//constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Animator);
+		//constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(AnimatorCB));
 	}
 
 	void LoadShader()
@@ -125,12 +128,30 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"main_menu_2_1", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2_1.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mainMenu2_1", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"characterSelect1", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"charactercreation_test", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreation_.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"charactercreationTest", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -158,6 +179,24 @@ namespace renderer
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"townFloors", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"test_tile", L"..\\Resources\\texture\\tile1.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"testTile", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"test_amazon", L"..\\Resources\\texture\\amazon_test.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"testAmazon", spriteMateiral);
 		}
 
 		//std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
@@ -220,13 +259,13 @@ namespace renderer
 		fullSizeRectIndexes.push_back(2);
 		fullSizeRectIndexes.push_back(3);
 
-		LoadBuffer();
 		LoadShader();
 		SetupState();
+		LoadBuffer();
 	}
 	void Release()
 	{
-		for (ConstantBuffer* buff : constantBuffer)
+		for (ConstantBuffer* buff : constantBuffers)
 		{
 			if (buff == nullptr)
 				continue;

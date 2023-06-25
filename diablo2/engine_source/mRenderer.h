@@ -21,11 +21,20 @@ namespace renderer
 		Matrix mView;
 		Matrix mProjection;
 	};
+	CBUFFER(AnimatorCB, CBSLOT_ANIMATOR)
+	{
+		Vector2 leftTop;
+		Vector2 size;
+		Vector2 offset;
+		Vector2 atlasSize;
+
+		UINT type;
+	};
 
 	extern vector<Vertex> fullSizeRectVertex;
 	extern vector<UINT> rectIndexes;
 
-	extern m::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::END];
+	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
 
 	void Initialize();
 	void Release();

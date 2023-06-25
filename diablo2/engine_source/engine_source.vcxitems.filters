@@ -163,6 +163,7 @@
       <Filter>Contents\Background</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -250,6 +251,7 @@
       <Filter>Contents\Background</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

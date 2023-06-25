@@ -19,6 +19,7 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
+		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT startSlot);
 		void Clear();
@@ -26,7 +27,10 @@ namespace m::graphics
 	private:
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
-		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	mSRV;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      mRTV;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      mDSV;
+		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>   mUAV;
 		D3D11_TEXTURE2D_DESC mDesc;
 	};
 }

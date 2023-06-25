@@ -18,19 +18,17 @@ namespace m
 		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
-		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.f));
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
-		camera->AddComponent<CameraScript>();
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
 		back->AddComponent<MeshRenderer>();
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"fullRectMesh"));
-		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mainMenu2"));
+		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mainMenu2_1"));
 
-		back->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 0.0f));
-		back->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0, 0.0f));
-		//back->GetComponent<Transform>()->SetScale(Vector3(4.f, 2.6f, 1.0f));
+		//back->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 1.5f));
+		back->GetComponent<Transform>()->SetScale(Vector3(1600.f / 2.f , 900.f / 2.f, 0.f));
 
 		//Button* btn1 = new Button();
 		//AddGameObject(eLayerType::UI, btn1);

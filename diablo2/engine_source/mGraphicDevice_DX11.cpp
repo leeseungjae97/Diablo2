@@ -123,6 +123,20 @@ namespace m::graphics
 
 		return true;
 	}
+	bool GraphicDevice_DX11::CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
+	{
+		if (FAILED(mDevice->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
+	{
+		if (FAILED(mDevice->CreateRenderTargetView(pResource, pDesc, ppRTView)))
+			return false;
+
+		return true;
+	}
 	bool GraphicDevice_DX11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;
@@ -137,6 +151,20 @@ namespace m::graphics
 		}
 
 		return false;
+	}
+	bool GraphicDevice_DX11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView)
+	{
+		if (FAILED(mDevice->CreateShaderResourceView(pResource, pDesc, ppSRView)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView)
+	{
+		if (FAILED(mDevice->CreateUnorderedAccessView(pResource, pDesc, ppUAView)))
+			return false;
+
+		return true;
 	}
 	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader)
 	{
@@ -167,7 +195,14 @@ namespace m::graphics
 	{
 		mContext->IASetPrimitiveTopology(Topology);
 	}
-	bool GraphicDevice_DX11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
+	bool GraphicDevice_DX11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D)
+	{
+		if (FAILED(mDevice->CreateTexture2D(desc, pInitialData, ppTexture2D)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, D3D11_SUBRESOURCE_DATA* pInitialData)
 	{
 		D3D11_TEXTURE2D_DESC dxgiDesc = {};
 		dxgiDesc.BindFlags = desc->BindFlags;
@@ -339,7 +374,7 @@ namespace m::graphics
 	}
 	void GraphicDevice_DX11::ClearTarget()
 	{
-		FLOAT bgColor[4] = { 0.2f,0.2f, 0.2f, 1.0f };
+		FLOAT bgColor[4] = { 1.f, 1.f, 1.f, 1.0f };
 
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D10_CLEAR_STENCIL, 1.0f, 0.0f);

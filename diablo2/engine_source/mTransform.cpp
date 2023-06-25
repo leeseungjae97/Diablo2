@@ -57,7 +57,7 @@ namespace m
 		trCB.mView = Camera::GetViewMatrix();
 		trCB.mProjection = Camera::GetProjectionMatrix();
 
-		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Transform];
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
 		
 		cb->SetData(&trCB);
 		cb->Bind(eShaderStage::VS);
