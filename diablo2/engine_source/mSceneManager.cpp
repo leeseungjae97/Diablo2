@@ -10,13 +10,21 @@ namespace m
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-		mScenes.insert(std::make_pair(L"PlayScene", new PlayScene()));
-		mScenes.insert(std::make_pair(L"SelectCharacterScene", new SelectCharacterScene()));
-		mScenes.insert(std::make_pair(L"MainMenuScene", new MainMenuScene()));
+		mScenes.insert(std::make_pair(wsScenes[(UINT)eSceneType::MainMenuScene], new MainMenuScene()));
+		mScenes.insert(std::make_pair(wsScenes[(UINT)eSceneType::SelectCharacterScene], new SelectCharacterScene()));
+		mScenes.insert(std::make_pair(wsScenes[(UINT)eSceneType::PlayScene], new PlayScene()));
 
-		mActiveScene = LoadScene(L"MainMenuScene");
-		
-		mActiveScene->Initialize();
+		std::map<std::wstring, Scene*>::iterator iter = mScenes.begin();
+		while (iter != mScenes.end())
+		{
+			if (nullptr != iter->second)
+			{
+				iter->second->Initialize();
+				iter++;
+			}
+		}
+
+		mActiveScene = LoadScene(wsScenes[(UINT)eSceneType::MainMenuScene]);
 	}
 	void SceneManager::Update()
 	{

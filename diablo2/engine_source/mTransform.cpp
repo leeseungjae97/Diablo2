@@ -10,6 +10,9 @@ namespace m
 		, mPosition(Vector3::Zero)
 		, mRotation(Vector3::Zero)
 		, mScale(Vector3::One)
+		, mFoward(Vector3::Forward)
+		, mRight(Vector3::Right)
+		, mUp(Vector3::Up)
 	{}
 
 	Transform::~Transform()
@@ -58,5 +61,10 @@ namespace m
 		
 		cb->SetData(&trCB);
 		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::HS);
+		cb->Bind(eShaderStage::DS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
 	}
 }

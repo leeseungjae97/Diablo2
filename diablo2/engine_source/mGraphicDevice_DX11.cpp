@@ -90,7 +90,7 @@ namespace m::graphics
 		dxgiDesc.BufferDesc.Width = desc->BufferDesc.Width;
 		dxgiDesc.BufferDesc.Height = desc->BufferDesc.Height;
 		dxgiDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
-		dxgiDesc.BufferDesc.RefreshRate.Numerator = 240;
+		dxgiDesc.BufferDesc.RefreshRate.Numerator = 144;
 		dxgiDesc.BufferDesc.RefreshRate.Denominator = 1;
 		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;							// 그래픽 
 		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// 이미지 생성 방향.
@@ -354,8 +354,8 @@ namespace m::graphics
 		mViewPort =
 		{
 			0.0f, 0.0f
-			,(float)(winRect.right - winRect.left)
-			,(float)(winRect.bottom - winRect.top)
+			,(FLOAT)(winRect.right - winRect.left)
+			,(FLOAT)(winRect.bottom - winRect.top)
 			,0.0f, 1.0f
 		};
 		BindViewPort(&mViewPort);

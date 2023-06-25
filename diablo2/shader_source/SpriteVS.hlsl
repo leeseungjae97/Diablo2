@@ -1,6 +1,6 @@
 struct VSIn
 {
-    float3 Pos : POSITION;
+    float4 Pos : POSITION;
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
@@ -24,9 +24,9 @@ VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
     
-    float4 world = mul(float4(In.Pos, 1.0f), mWorld);
-    float4 view = mul(world, mView);
-    float4 proj = mul(view, mProjection);
+    float4 world = mul(float4(In.Pos), mWorld);
+    float4 view = mul(float4(world), mView);
+    float4 proj = mul(float4(view), mProjection);
     
     Out.Pos = proj;
     Out.Color = In.Color;

@@ -53,15 +53,15 @@ namespace m
 	{
 		RECT rect = {};
 		GetClientRect(application.GetHwnd(), &rect);
-		float width = rect.right - rect.left;
-		float height = rect.bottom - rect.top;
+		float width = (rect.right - rect.left) * mSize;
+		float height = (rect.bottom - rect.top) * mSize;
 		mAspectRatio = width / height;
 
 		if (type == eProjectionType::Orthorgaphic)
 		{
-			float orthographicRatio = mSize / 1000.f;
-			width *= orthographicRatio;
-			height *= orthographicRatio;
+			//float orthographicRatio = mSize;
+			//width *= orthographicRatio;
+			//height *= orthographicRatio;
 
 			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 		}

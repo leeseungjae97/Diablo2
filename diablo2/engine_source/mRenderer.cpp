@@ -116,12 +116,21 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"main_menu_1", L"..\\Resources\\texture\\ui\\mainMenu\\trademarkscreenEXP.bmp");
+				= Resources::Load<Texture>(L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mainMenu1", spriteMateiral);
+			Resources::Insert(L"mainMenu2", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"characterSelect1", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -141,6 +150,19 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"tabBt", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"townFloors", spriteMateiral);
+		}
+
+		//std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		//uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		//Resources::Insert(L"UAVTexture", uavTexture);
 	}
 
 	void Initialize()
