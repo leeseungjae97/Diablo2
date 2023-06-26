@@ -6,7 +6,7 @@ namespace m
         public GameObject
     {
     public:
-        Player();
+        Player(Vector3 iniPos);
         virtual ~Player();
 
         virtual void Initialize();
@@ -15,6 +15,13 @@ namespace m
         virtual void Render();
 
     private:
+        Vector3 prevPosition;
+        Vector3 destPosition;
+        Vector3 vDirection;
+        Vector3 vS;
+        float fRemainDistance;
+        float fStartDistance;
+        float fSpeed;
     };
 }
 

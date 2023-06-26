@@ -9,6 +9,7 @@
 #include "mBackground.h"
 #include "mRenderer.h"
 #include "mPlayer.h"
+#include "mTile.h"
 
 namespace m
 {
@@ -22,53 +23,46 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
 
-		float TILE_SIZE_X = 160.f;
-		float TILE_SIZE_Y = 80.f;
+		float TILE_SIZE_X = 80.f;
+		float TILE_SIZE_Y = 40.f;
 
 
 		float mX = (10.f * (TILE_SIZE_X / 2.f));
 		float mY = TILE_SIZE_Y / 4.f;
 
-		float camerafX = (float)(mX);
-		float camerafY = (float)(TILE_SIZE_Y * 4 + mY);
+		float camerafX = mX;
+		float camerafY = (float)(TILE_SIZE_Y * 5 + mY);
 
 		camera->GetComponent<Transform>()->SetPosition(Vector3(camerafX, camerafY, -1.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		camera->AddComponent<CameraScript>();
 
-		for (int y = 4; y >= 0; y--)
+		tiles.resize(5 * 5);
+
+		for (int y = 0; y < 5; y++)
 		{
-			for (int x = 4; x >= 0; x--)
+			for (int x = 0; x < 5; x++)
 			{
-				
-				Background* tile = new Background();
+				float fX = (float)(TILE_SIZE_X * (x - y) + mX);
+				float fY = (float)(TILE_SIZE_Y * (x + y) + mY);
+
+				Tile* tile = new Tile(Vector3(fX, fY, 0.f), Vector2(x, y));
+
 				AddGameObject(eLayerType::Tile, tile);
-				tile->AddComponent<MeshRenderer>();
 				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"fullRectMesh"));
 				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
-				tile->GetComponent<Transform>()->SetScale(Vector3(160.f, 80.f, 0.f));
+				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X, TILE_SIZE_Y, 0.f));
 
-				float fX = (float)((TILE_SIZE_X) * (x - y) + mX);
-				float fY = (float)((TILE_SIZE_Y) * (x + y) + mY);
-
-				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, 0.f));
+				tiles.push_back(tile);
 			}
 		}
 
-
-		Player* player = new Player();
+		Player* player = new Player(Vector3(camerafX, camerafY, 0.f));
 		//player->SetName(L"Player");
 		AddGameObject(eLayerType::Player, player);
-		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"testAmazon"));
-		player->GetComponent<Transform>()->SetPosition(Vector3(camerafX, camerafY, 0.f));
+		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 		player->GetComponent<Transform>()->SetScale(Vector3(31.f * 2, 81.f * 2, 0.f));
-
-		
-
-		// 800 / 5
-		// 2959 / 37
 	}
 	void PlayScene::Update()
 	{

@@ -64,6 +64,15 @@
     <Filter Include="Contents\Button">
       <UniqueIdentifier>{3afa3028-5ca2-43ef-a5d6-d95827d6b5c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Player">
+      <UniqueIdentifier>{43d84328-0940-49dc-85d4-91b4e63e83bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster">
+      <UniqueIdentifier>{45379f2d-e347-4a20-97fa-e6b562a6b3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Button">
+      <UniqueIdentifier>{ae2697cf-5858-4255-84d3-6385e0459911}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -162,8 +171,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mBackground.h">
       <Filter>Contents\Background</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayer.h">
+      <Filter>GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMonster.h">
+      <Filter>GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h">
+      <Filter>Button</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -250,8 +267,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mBackground.cpp">
       <Filter>Contents\Background</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayer.cpp">
+      <Filter>GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMonster.cpp">
+      <Filter>GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp">
+      <Filter>Button</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
