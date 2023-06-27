@@ -7,16 +7,21 @@ namespace renderer
 {
 	using namespace m;
 	using namespace m::graphics;
-	vector<Vertex> fullSizeRectVertex;
+	vector<Vertex> doubleSizeRectVertex;
+	vector<Vertex> halfSizeRectVertex;
 	vector<Vertex> rectVertex;
 	vector<UINT> rectIndexes;
-	vector<UINT> fullSizeRectIndexes;
 
 	m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
 
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRSType::End] = {};
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
+	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
+
 	void SetupState()
 	{
+#pragma region InputLayout
 		// Input layout 정점 구조 정보를 넘겨줘야한다.
 		D3D11_INPUT_ELEMENT_DESC arrLayout[3] = {};
 
@@ -51,33 +56,136 @@ namespace renderer
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
-
+#pragma endregion
+#pragma region Sampler State
 		//Sampler State
-		D3D11_SAMPLER_DESC desc = {};
-		desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-		GetDevice()->CreateSampler(&desc, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
+		D3D11_SAMPLER_DESC samplerDesc = {};
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
 		GetDevice()->BindSampler(eShaderStage::PS, 0, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
 
-		desc.Filter = D3D11_FILTER_ANISOTROPIC;
-		GetDevice()->CreateSampler(&desc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+		GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 		GetDevice()->BindSampler(eShaderStage::PS, 1, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+#pragma endregion
+#pragma region Rasterizer State
+		D3D11_RASTERIZER_DESC rasterizerDesc = {};
+		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+		GetDevice()->CreateRasterizeState(&rasterizerDesc
+			, rasterizerStates[(UINT)eRSType::SolidBack].GetAddressOf());
+
+		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
+		GetDevice()->CreateRasterizeState(&rasterizerDesc
+			, rasterizerStates[(UINT)eRSType::SolidFront].GetAddressOf());
+
+		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		GetDevice()->CreateRasterizeState(&rasterizerDesc
+			, rasterizerStates[(UINT)eRSType::SolidNone].GetAddressOf());
+
+		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		GetDevice()->CreateRasterizeState(&rasterizerDesc
+			, rasterizerStates[(UINT)eRSType::WireframeNone].GetAddressOf());
+#pragma endregion
+#pragma region Depth Stencil State
+		D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
+
+		//less
+		depthStencilDesc.DepthEnable = true;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		depthStencilDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&depthStencilDesc
+			, depthStencilStates[(UINT)eDSType::Less].GetAddressOf());
+
+		//Greater
+		depthStencilDesc.DepthEnable = true;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		depthStencilDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&depthStencilDesc
+			, depthStencilStates[(UINT)eDSType::Greater].GetAddressOf());
+
+		//No Write
+		depthStencilDesc.DepthEnable = true;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		depthStencilDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&depthStencilDesc
+			, depthStencilStates[(UINT)eDSType::NoWrite].GetAddressOf());
+
+		//None
+		depthStencilDesc.DepthEnable = false;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		depthStencilDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&depthStencilDesc
+			, depthStencilStates[(UINT)eDSType::None].GetAddressOf());
+#pragma endregion
+#pragma region Blend State
+		D3D11_BLEND_DESC blendDesc = {};
+
+		//default
+		blendStates[(UINT)eBSType::Default] = nullptr;
+
+		// Alpha Blend
+		blendDesc.AlphaToCoverageEnable = false;
+		blendDesc.IndependentBlendEnable = false;
+		blendDesc.RenderTarget[0].BlendEnable = true;
+		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		GetDevice()->CreateBlendState(&blendDesc
+			, blendStates[(UINT)eBSType::AlphaBlend].GetAddressOf());
+
+		// one one
+		blendDesc.AlphaToCoverageEnable = false;
+		blendDesc.IndependentBlendEnable = false;
+
+		blendDesc.RenderTarget[0].BlendEnable = true;
+		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		GetDevice()->CreateBlendState(&blendDesc
+			, blendStates[(UINT)eBSType::OneOne].GetAddressOf());
+
+#pragma endregion
 	}
 
 	void LoadBuffer()
 	{
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		Resources::Insert(L"RectMesh", mesh);
+		std::shared_ptr<Mesh> halfMesh = std::make_shared<Mesh>();
+		Resources::Insert(L"halfRectMesh", halfMesh);
 
-		mesh->CreateVertexBuffer(rectVertex.data(), rectVertex.size());
-		mesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
+		halfMesh->CreateVertexBuffer(halfSizeRectVertex.data(), halfSizeRectVertex.size());
+		halfMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
+
+		std::shared_ptr<Mesh> doubleMesh = std::make_shared<Mesh>();
+		Resources::Insert(L"doubleRectMesh", doubleMesh);
+
+		doubleMesh->CreateVertexBuffer(doubleSizeRectVertex.data(), doubleSizeRectVertex.size());
+		doubleMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
 
 		std::shared_ptr<Mesh> fullMesh = std::make_shared<Mesh>();
-		Resources::Insert(L"fullRectMesh", fullMesh);
+		Resources::Insert(L"RectMesh", fullMesh);
 
-		fullMesh->CreateVertexBuffer(fullSizeRectVertex.data(), fullSizeRectVertex.size());
+		fullMesh->CreateVertexBuffer(rectVertex.data(), rectVertex.size());
 		fullMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
 
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
@@ -99,6 +207,7 @@ namespace renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		m::Resources::Insert(L"SpriteShader", spriteShader);
+#pragma region Characters
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"amazon_attack1", L"..\\Resources\\texture\\character\\amazon_attack1.png");
@@ -117,6 +226,8 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"amazonWalk", spriteMateiral);
 		}
+#pragma endregion
+#pragma region Background
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png");
@@ -155,12 +266,41 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"m_button_blank", L"..\\Resources\\texture\\ui\\MediumButtonBlank.png");
+				= Resources::Load<Texture>(L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mButtonBlank", spriteMateiral);
+			Resources::Insert(L"testLogo", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Buttons
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\MediumButtonBlank.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mMediumButtonBlank", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"m_button_blank", L"..\\Resources\\texture\\ui\\widebuttonblank.bmp");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mWideButtonBlank", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"m_button_blank", L"..\\Resources\\texture\\ui\\widebuttonblank02.bmp");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mWideButtonBlankClick", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -171,6 +311,8 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"tabBt", spriteMateiral);
 		}
+#pragma endregion
+#pragma region Tiles
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png");
@@ -189,6 +331,8 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"testTile", spriteMateiral);
 		}
+#pragma endregion
+#pragma region ETC
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"test_amazon", L"..\\Resources\\texture\\amazon_test.png");
@@ -198,30 +342,61 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"testAmazon", spriteMateiral);
 		}
-
-		//std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
-		//uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
-		//Resources::Insert(L"UAVTexture", uavTexture);
+#pragma endregion
 	}
 
 	void Initialize()
 	{
 		// triangle
+		halfSizeRectVertex.resize(4);
+		doubleSizeRectVertex.resize(4);
 		rectVertex.resize(4);
+
+		halfSizeRectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
+		halfSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		halfSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
+
+		halfSizeRectVertex[1].pos = Vector3(0.5f, 0.0f, 0.0f);
+		halfSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		halfSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
+
+		halfSizeRectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		halfSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		halfSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
+
+		halfSizeRectVertex[3].pos = Vector3(0.0f, -0.5f, 0.0f);
+		halfSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		halfSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
+
+		doubleSizeRectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
+		doubleSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		doubleSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
+
+		doubleSizeRectVertex[1].pos = Vector3(2.0f, 0.0f, 0.0f);
+		doubleSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		doubleSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
+
+		doubleSizeRectVertex[2].pos = Vector3(2.f, -2.0f, 0.0f);
+		doubleSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		doubleSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
+
+		doubleSizeRectVertex[3].pos = Vector3(0.0f, -2.0f, 0.0f);
+		doubleSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		doubleSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
 
 		rectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
 		rectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		rectVertex[0].uv = Vector2(0.0f, 0.0f);
 
-		rectVertex[1].pos = Vector3(0.5f, 0.0f, 0.0f);
+		rectVertex[1].pos = Vector3(1.f, 0.0f, 0.0f);
 		rectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		rectVertex[1].uv = Vector2(1.0f, 0.0f);
 
-		rectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		rectVertex[2].pos = Vector3(1.f, -1.0f, 0.0f);
 		rectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		rectVertex[2].uv = Vector2(1.0f, 1.0f);
 
-		rectVertex[3].pos = Vector3(0.0f, -0.5f, 0.0f);
+		rectVertex[3].pos = Vector3(0.0f, -1.0f, 0.0f);
 		rectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		rectVertex[3].uv = Vector2(0.0f, 1.0f);
 
@@ -233,35 +408,9 @@ namespace renderer
 		rectIndexes.push_back(2);
 		rectIndexes.push_back(3);
 
-		fullSizeRectVertex.resize(4);
-
-		fullSizeRectVertex[0].pos = Vector3(-1.0f, 1.0f, 0.0f);
-		fullSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		fullSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
-
-		fullSizeRectVertex[1].pos = Vector3(1.f, 1.0f, 0.0f);
-		fullSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		fullSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
-
-		fullSizeRectVertex[2].pos = Vector3(1.f, -1.f, 0.0f);
-		fullSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		fullSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
-
-		fullSizeRectVertex[3].pos = Vector3(-1.0f, -1.0f, 0.0f);
-		fullSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		fullSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
-
-		fullSizeRectIndexes.push_back(0);
-		fullSizeRectIndexes.push_back(1);
-		fullSizeRectIndexes.push_back(2);
-
-		fullSizeRectIndexes.push_back(0);
-		fullSizeRectIndexes.push_back(2);
-		fullSizeRectIndexes.push_back(3);
-
+		LoadBuffer();
 		LoadShader();
 		SetupState();
-		LoadBuffer();
 	}
 	void Release()
 	{

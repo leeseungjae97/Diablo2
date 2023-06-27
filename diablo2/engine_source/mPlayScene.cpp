@@ -23,8 +23,8 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
 
-		float TILE_SIZE_X = 80.f;
-		float TILE_SIZE_Y = 40.f;
+		float TILE_SIZE_X = 160.f;
+		float TILE_SIZE_Y = 80.f;
 
 
 		float mX = (10.f * (TILE_SIZE_X / 2.f));
@@ -33,36 +33,41 @@ namespace m
 		float camerafX = mX;
 		float camerafY = (float)(TILE_SIZE_Y * 5 + mY);
 
-		camera->GetComponent<Transform>()->SetPosition(Vector3(camerafX, camerafY, -1.f));
+		Vector2 ccp = Camera::GetCameraCenter();
+
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -1.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		camera->AddComponent<CameraScript>();
 
 		tiles.resize(5 * 5);
 
-		for (int y = 0; y < 5; y++)
+		float z = 5;
+
+		for (int y = 0; y < 5; ++y)
 		{
-			for (int x = 0; x < 5; x++)
+			for (int x = 0; x < 5; ++x)
 			{
 				float fX = (float)(TILE_SIZE_X * (x - y) + mX);
 				float fY = (float)(TILE_SIZE_Y * (x + y) + mY);
 
-				Tile* tile = new Tile(Vector3(fX, fY, 0.f), Vector2(x, y));
+				Tile* tile = new Tile(Vector3(fX, fY, z -= 0.01f), Vector2(x, y));
 
-				AddGameObject(eLayerType::Tile, tile);
-				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"fullRectMesh"));
+				AddGameObject(eLayerType::Player, tile);
+				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
 				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X, TILE_SIZE_Y, 0.f));
-
 				tiles.push_back(tile);
 			}
 		}
 
-		Player* player = new Player(Vector3(camerafX, camerafY, 0.f));
+		Player* player = new Player(Vector3(camerafX, camerafY, 6.f));
 		//player->SetName(L"Player");
 		AddGameObject(eLayerType::Player, player);
+		player->AddComponent<MeshRenderer>();
 		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 		player->GetComponent<Transform>()->SetScale(Vector3(31.f * 2, 81.f * 2, 0.f));
+		//player->SetState();
 	}
 	void PlayScene::Update()
 	{
@@ -70,6 +75,10 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(wsScenes[(UINT)eSceneType::MainMenuScene]);
+		}
+		if (Input::GetKeyDown(eKeyCode::M))
+		{
+			
 		}
 	}
 	void PlayScene::LateUpdate()

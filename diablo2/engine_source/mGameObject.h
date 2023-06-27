@@ -24,6 +24,7 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 
+		eState GetState() { return mState; }
 		template <typename T>
 		T* GetComponent()
 		{

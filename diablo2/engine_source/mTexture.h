@@ -19,12 +19,16 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
-		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT startSlot);
 		void Clear();
 
+		static float GetWidRatio() { return fWidRatio; }
+		static float GetHeiRatio() { return fHeiRatio; }
+
 	private:
+		static float fWidRatio;
+		static float fHeiRatio;
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	mSRV;

@@ -8,6 +8,8 @@ namespace m
 {
 	Matrix Camera::mView = Matrix::Identity;
 	Matrix Camera::mProjection = Matrix::Identity;
+	Vector2 Camera::mCameraCenter = Vector2(800.f , -450.f);
+
 	Camera::Camera()
 		: Component(eComponentType::Camera)
 		, mType(eProjectionType::Orthorgaphic)

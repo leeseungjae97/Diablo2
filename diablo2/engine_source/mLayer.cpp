@@ -21,21 +21,24 @@ namespace m
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			gameObj->Update();
+			if(gameObj->GetState() == GameObject::eState::Active)
+				gameObj->Update();
 		}
 	}
 	void Layer::LateUpdate()
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			gameObj->LateUpdate();
+			if (gameObj->GetState() == GameObject::eState::Active)
+				gameObj->LateUpdate();
 		}
 	}
 	void Layer::Render()
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			gameObj->Render();
+			if (gameObj->GetState() == GameObject::eState::Active)
+				gameObj->Render();
 		}
 	}
 	void Layer::AddGameObject(GameObject* gameObj)

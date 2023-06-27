@@ -1,24 +1,31 @@
 #pragma once
 #include "mBackground.h"
+#include "mMaterial.h"
 namespace m
 {
-    class Button :
-        public Background
-    {
-    public:
-        Button();
-        ~Button();
+	class Button :
+		public Background
+	{
+	public:
+		Button();
+		~Button();
 
-        virtual void Initialize();
-        virtual void Update();
-        virtual void LateUpdate();
-        virtual void Render();
+		virtual void Initialize();
+		virtual void Update();
+		virtual void LateUpdate();
+		virtual void Render();
 
-        bool GetHover() { return bHover; }
-        bool GetClick() { return bClick; }
-    private:
-        bool bHover;
-        bool bClick;
-    };
+		bool GetHover() { return bHover; }
+		bool GetClick() { return bClick; }
+
+		void SetClickMaterial(std::shared_ptr<Material> material) { mClickedMaterial = material; }
+		void SetNormalMaterial(std::shared_ptr<Material> material) { mNormalMaterial = material; }
+
+	private:
+		bool bHover;
+		bool bClick;
+		std::shared_ptr<Material> mNormalMaterial;
+		std::shared_ptr<Material> mClickedMaterial;
+	};
 }
 

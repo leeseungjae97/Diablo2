@@ -31,10 +31,15 @@ namespace renderer
 		UINT type;
 	};
 
-	extern vector<Vertex> fullSizeRectVertex;
+	extern vector<Vertex> doubleSizeRectVertex;
 	extern vector<UINT> rectIndexes;
 
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
+
+	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[];
+	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[];
+	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
+	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
 	void Initialize();
 	void Release();

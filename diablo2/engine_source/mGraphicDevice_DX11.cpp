@@ -123,20 +123,6 @@ namespace m::graphics
 
 		return true;
 	}
-	bool GraphicDevice_DX11::CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
-	{
-		if (FAILED(mDevice->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView)))
-			return false;
-
-		return true;
-	}
-	bool GraphicDevice_DX11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
-	{
-		if (FAILED(mDevice->CreateRenderTargetView(pResource, pDesc, ppRTView)))
-			return false;
-
-		return true;
-	}
 	bool GraphicDevice_DX11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;
@@ -152,20 +138,6 @@ namespace m::graphics
 
 		return false;
 	}
-	bool GraphicDevice_DX11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView)
-	{
-		if (FAILED(mDevice->CreateShaderResourceView(pResource, pDesc, ppSRView)))
-			return false;
-
-		return true;
-	}
-	bool GraphicDevice_DX11::CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView)
-	{
-		if (FAILED(mDevice->CreateUnorderedAccessView(pResource, pDesc, ppUAView)))
-			return false;
-
-		return true;
-	}
 	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader)
 	{
 		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, nullptr, ppVertexShader)))
@@ -180,9 +152,30 @@ namespace m::graphics
 
 		return true;
 	}
-	bool GraphicDevice_DX11::CreateSampler(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	bool GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
 	{
 		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateRasterizeState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
+	{
+		if (FAILED(mDevice->CreateRasterizerState(pRasterizerDesc, ppRasterizerState)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState)
+	{
+		if (FAILED(mDevice->CreateDepthStencilState(pDepthStencilDesc, ppDepthStencilState)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState)
+	{
+		if (FAILED(mDevice->CreateBlendState(pBlendStateDesc, ppBlendState)))
 			return false;
 
 		return true;
@@ -243,6 +236,18 @@ namespace m::graphics
 	{
 		mContext->RSSetViewports(1, viewPort);
 	}
+	void GraphicDevice_DX11::BindRasterizeState(ID3D11RasterizerState* pRasterizerState)
+	{
+		mContext->RSSetState(pRasterizerState);
+	}
+	void GraphicDevice_DX11::BindDepthStencilState(ID3D11DepthStencilState * pDepthStencilState)
+	{
+		mContext->OMSetDepthStencilState(pDepthStencilState, 0);
+	}
+	void GraphicDevice_DX11::BindBlendState(ID3D11BlendState * pBlendState)
+	{
+		mContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
+	}
 	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
 		, ID3D11Buffer* const* ppVertexBuffers
 		, const UINT* pStrides
@@ -261,7 +266,6 @@ namespace m::graphics
 	void GraphicDevice_DX11::BindVertexShader(ID3D11VertexShader* pVetexShader)
 	{
 		mContext->VSSetShader(pVetexShader, 0, 0);
-
 	}
 
 	void GraphicDevice_DX11::BindPixelShader(ID3D11PixelShader* pPixelShader)
@@ -374,7 +378,7 @@ namespace m::graphics
 	}
 	void GraphicDevice_DX11::ClearTarget()
 	{
-		FLOAT bgColor[4] = { 1.f, 1.f, 1.f, 1.0f };
+		FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D10_CLEAR_STENCIL, 1.0f, 0.0f);

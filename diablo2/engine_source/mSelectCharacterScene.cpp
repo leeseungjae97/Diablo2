@@ -16,19 +16,21 @@ namespace m
 	{}
 	void SelectCharacterScene::Initialize()
 	{
+		Vector2 ccp = Camera::GetCameraCenter();
+
 		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.0f));
+		camera->GetComponent<Transform>()->SetPosition(Vector3(ccp.x, ccp.y, -1.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
 		back->AddComponent<MeshRenderer>();
-		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"fullRectMesh"));
+		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"charactercreationTest"));
-
-		back->GetComponent<Transform>()->SetScale(Vector3(1600.f / 2.f, 900.f / 2.f, 0.f));
+		back->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 0.f));
+		back->GetComponent<Transform>()->SetUseRatio(false);
 	}
 	void SelectCharacterScene::Update()
 	{

@@ -4,9 +4,9 @@
 namespace m
 {
 	using namespace graphics;
-    class Shader :
-        public Resource
-    {
+	class Shader :
+		public Resource
+	{
 	public:
 		Shader();
 		~Shader();
@@ -15,20 +15,13 @@ namespace m
 
 		bool Create(const eShaderStage stage, const std::wstring& fileName, const std::string& funcName);
 		void Binds();
-		ID3DBlob* GetVSCode()
-		{
-			return mVSBlob.Get();
-		}
+		ID3DBlob* GetVSCode() { return mVSBlob.Get(); }
+		ID3D11InputLayout* GetInputLayout() { return mInputLayout; }
+		ID3D11InputLayout** GetInputLayoutAddressOf() { return &mInputLayout; }
 
-		ID3D11InputLayout* GetInputLayout()
-		{
-			return mInputLayout;
-		}
-
-		ID3D11InputLayout** GetInputLayoutAddressOf()
-		{
-			return &mInputLayout;
-		}
+		void SetRSState(eRSType type) { mRSType = type; }
+		void SetDSState(eDSType type) { mDSType = type; }
+		void SetBSState(eBSType type) { mBSType = type; }
 	private:
 		ID3D11InputLayout* mInputLayout;
 		D3D11_PRIMITIVE_TOPOLOGY mTopology;
@@ -44,7 +37,11 @@ namespace m
 		Microsoft::WRL::ComPtr<ID3D11DomainShader> mDS;
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
-    };
+
+		eRSType mRSType;
+		eDSType mDSType;
+		eBSType mBSType;
+	};
 }
 
 

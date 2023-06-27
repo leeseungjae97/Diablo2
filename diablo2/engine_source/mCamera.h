@@ -15,7 +15,7 @@ namespace m
 		};
 		static Matrix GetViewMatrix() { return mView; }
 		static Matrix GetProjectionMatrix() { return mProjection; }
-
+		static Vector2 GetCameraCenter() { return mCameraCenter; }
 		Camera();
 		~Camera();
 
@@ -27,9 +27,11 @@ namespace m
 		bool CreateViewMatrix();
 		bool CreateProjectionMatrix(eProjectionType type);
 
+
 	private:
 		static Matrix mView;
 		static Matrix mProjection;
+		static Vector2 mCameraCenter;
 
 		eProjectionType mType;
 		float mAspectRatio;

@@ -14,7 +14,6 @@ namespace m
 		, fRemainDistance(0.f)
 	{
 		GetComponent<Transform>()->SetPosition(iniPos);
-		AddComponent<MeshRenderer>();
 	}
 	Player::~Player()
 	{}
