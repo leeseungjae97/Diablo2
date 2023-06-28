@@ -40,7 +40,6 @@ namespace m
 		Time::Update();
 		Input::Update();
 		// Scene -> Layer -> Entity
-		Vector4 pos = tempPos;
 		SceneManager::Update();
 	}
 

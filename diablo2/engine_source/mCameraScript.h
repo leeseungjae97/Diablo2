@@ -1,5 +1,6 @@
 #pragma once
 #include "mScript.h"
+
 namespace m
 {
     class CameraScript :

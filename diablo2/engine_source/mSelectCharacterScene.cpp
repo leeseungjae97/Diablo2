@@ -7,6 +7,7 @@
 #include "mBackground.h"
 #include "mMeshRenderer.h"
 #include "mResources.h"
+#include "mButton.h"
 
 namespace m
 {
@@ -28,9 +29,36 @@ namespace m
 		AddGameObject(eLayerType::UI, back);
 		back->AddComponent<MeshRenderer>();
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"charactercreationTest"));
+		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
+		back->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		back->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 0.f));
-		back->GetComponent<Transform>()->SetUseRatio(false);
+
+		Background* fire = new Background();
+		AddGameObject(eLayerType::UI, fire);
+		fire->AddComponent<MeshRenderer>();
+		fire->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		fire->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
+		fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		fire->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
+
+		Background* amazon = new Background();
+		AddGameObject(eLayerType::UI, amazon);
+		amazon->AddComponent<MeshRenderer>();
+		amazon->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		amazon->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
+		amazon->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		amazon->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
+
+		Button* exitBtn = new Button();
+		AddGameObject(eLayerType::UI, exitBtn);
+		exitBtn->AddComponent<MeshRenderer>();
+		exitBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		exitBtn->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
+		exitBtn->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
+		exitBtn->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
+
+		exitBtn->GetComponent<Transform>()->SetPosition(Vector3(20.f, -870.f + 40.f * Texture::GetHeiRatio(), 0.998f));
+		exitBtn->GetComponent<Transform>()->SetScale(Vector3(130.f * Texture::GetWidRatio(), 40.f * Texture::GetHeiRatio(), 0.0f));
 	}
 	void SelectCharacterScene::Update()
 	{

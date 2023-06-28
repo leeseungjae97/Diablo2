@@ -12,7 +12,6 @@ namespace m
 		, mFoward(Vector3::Forward)
 		, mRight(Vector3::Right)
 		, mUp(Vector3::Up)
-		, bSetRatio(true)
 	{}
 
 	Transform::~Transform()

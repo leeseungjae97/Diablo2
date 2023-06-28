@@ -6,6 +6,7 @@ namespace m::graphics
 		: Resource(m::enums::eResourceType::Material)
 		, mShader(nullptr)
 		, mTexture(nullptr)
+		, mMode(eRenderingMode::Opaque)
 	{
 
 	}

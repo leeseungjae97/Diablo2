@@ -2,9 +2,36 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="mPlayScene.cpp">
+      <Filter>Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="mCameraScript.cpp">
+      <Filter>Script\CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mMainMenuScene.cpp">
+      <Filter>Scene\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="mSelectCharacterScene.cpp">
+      <Filter>Scene\SelectCharacterScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadScenes.h">
+      <Filter>Load</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mPlayScene.h">
+      <Filter>Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="mCameraScript.h">
+      <Filter>Script\CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mMainMenuScene.h">
+      <Filter>Scene\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="mSelectCharacterScene.h">
+      <Filter>Scene\SelectCharacterScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -12,6 +39,24 @@
     </Filter>
     <Filter Include="Layer">
       <UniqueIdentifier>{15bfba6b-8a12-4b28-93b3-845d6c822bf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{1911ea2b-855b-494d-bcd2-d2f42ad0e9c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\MainMenuScene">
+      <UniqueIdentifier>{253022ac-672b-46dc-a5e6-479b589eb7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SelectCharacterScene">
+      <UniqueIdentifier>{e0536c3e-e9fe-4b3d-89d9-82526a709aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScene">
+      <UniqueIdentifier>{751c22a1-cf6b-4714-bf37-3362d1a76e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CameraScript">
+      <UniqueIdentifier>{cb627aab-61d1-41ce-8f98-30d703939720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Load">
+      <UniqueIdentifier>{25a16faf-5125-443c-bcdc-7f251fd2de2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

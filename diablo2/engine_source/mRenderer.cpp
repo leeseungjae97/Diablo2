@@ -19,6 +19,8 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	std::vector<m::Camera*> cameras = {};
+
 	void SetupState()
 	{
 #pragma region InputLayout
@@ -295,7 +297,7 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"m_button_blank", L"..\\Resources\\texture\\ui\\widebuttonblank02.bmp");
+				= Resources::Load<Texture>(L"m_button_blank_02", L"..\\Resources\\texture\\ui\\widebuttonblank02.bmp");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -412,6 +414,20 @@ namespace renderer
 		LoadShader();
 		SetupState();
 	}
+
+	void Render()
+	{
+		for (Camera* cam : cameras)
+		{
+			if (cam == nullptr)
+				continue;
+
+			cam->Render();
+		}
+
+		cameras.clear();
+	}
+
 	void Release()
 	{
 		for (ConstantBuffer* buff : constantBuffers)

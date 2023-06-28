@@ -6,6 +6,7 @@
 #include "mApplication.h"
 #include "mRenderer.h"
 #include "mSceneManager.h"
+//#include "LoadScenes.h"
 
 m::Application application;
 
@@ -121,6 +122,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
    application.Initialize();
+   //m::InitializeScenes();
 
    return TRUE;
 }

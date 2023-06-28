@@ -1,5 +1,5 @@
 #include "mLayer.h"
-#include "mGameObject.h"
+
 namespace m
 {
 	Layer::Layer()

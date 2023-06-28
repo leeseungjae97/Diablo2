@@ -1,7 +1,7 @@
 #pragma once
+#include "mGameObject.h"
 namespace m
 {
-	class GameObject;
 	class Layer
 	{
 	public:

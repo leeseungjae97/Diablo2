@@ -2,7 +2,7 @@
 #include "mComponent.h"
 namespace m
 {
-	using namespace m::graphics;
+	//using namespace m::graphics;
     class Transform :
         public Component
     {
@@ -24,7 +24,6 @@ namespace m
 		void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
 		void SetRotation(float x, float y, float z) { mRotation = Vector3(x, y, z); }
 		void SetScale(float x, float y, float z) { mScale = Vector3(x, y, z); }
-		void SetUseRatio(bool use) { bSetRatio = use; }
 
 		Vector3 GetPosition() { return mPosition; }
 		Vector3 GetRotation() { return mRotation; }
@@ -44,8 +43,6 @@ namespace m
 		Vector3 mRight;
 
 		Matrix mWorld;
-
-		bool bSetRatio;
     };
 }
 

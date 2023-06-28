@@ -35,7 +35,7 @@ namespace m
 
 		Vector2 ccp = Camera::GetCameraCenter();
 
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -1.f));
+		camera->GetComponent<Transform>()->SetPosition(Vector3(camerafX, camerafY, -1.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		camera->AddComponent<CameraScript>();
 
@@ -55,7 +55,7 @@ namespace m
 				AddGameObject(eLayerType::Player, tile);
 				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
-				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X, TILE_SIZE_Y, 0.f));
+				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X * Texture::GetWidRatio(), TILE_SIZE_Y * Texture::GetHeiRatio(), 0.f));
 				tiles.push_back(tile);
 			}
 		}
@@ -66,7 +66,7 @@ namespace m
 		player->AddComponent<MeshRenderer>();
 		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
-		player->GetComponent<Transform>()->SetScale(Vector3(31.f * 2, 81.f * 2, 0.f));
+		player->GetComponent<Transform>()->SetScale(Vector3(31.f * Texture::GetWidRatio(), 81.f * Texture::GetHeiRatio(), 0.f));
 		//player->SetState();
 	}
 	void PlayScene::Update()
@@ -78,7 +78,7 @@ namespace m
 		}
 		if (Input::GetKeyDown(eKeyCode::M))
 		{
-			
+
 		}
 	}
 	void PlayScene::LateUpdate()

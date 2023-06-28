@@ -16,4 +16,3 @@ namespace m
     private:
     };
 }
-

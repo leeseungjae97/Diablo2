@@ -2,7 +2,6 @@
 #include "mPlayScene.h"
 #include "mSelectCharacterScene.h"
 #include "mMainMenuScene.h"
-#include "mScene.h"
 
 namespace m
 {
@@ -10,9 +9,9 @@ namespace m
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-		mScenes.insert(std::make_pair(wsScenes[(UINT)eSceneType::MainMenuScene], new MainMenuScene()));
-		mScenes.insert(std::make_pair(wsScenes[(UINT)eSceneType::SelectCharacterScene], new SelectCharacterScene()));
-		mScenes.insert(std::make_pair(wsScenes[(UINT)eSceneType::PlayScene], new PlayScene()));
+		SceneManager::CreateScene<PlayScene>(wsScenes[(UINT)eSceneType::PlayScene]);
+		SceneManager::CreateScene<SelectCharacterScene>(wsScenes[(UINT)eSceneType::SelectCharacterScene]);
+		SceneManager::CreateScene<MainMenuScene>(wsScenes[(UINT)eSceneType::MainMenuScene]);
 
 		std::map<std::wstring, Scene*>::iterator iter = mScenes.begin();
 		while (iter != mScenes.end())
@@ -28,11 +27,13 @@ namespace m
 	}
 	void SceneManager::Update()
 	{
-		mActiveScene->Update();
+		if(mActiveScene)
+			mActiveScene->Update();
 	}
 	void SceneManager::LateUpdate()
 	{
-		mActiveScene->LateUpdate();
+		if (mActiveScene)
+			mActiveScene->LateUpdate();
 	}
 	void SceneManager::Release()
 	{
@@ -44,8 +45,9 @@ namespace m
 	}
 
 	void SceneManager::Render()
-	{
-		mActiveScene->Render();
+	{	
+		if (mActiveScene)
+			mActiveScene->Render();
 	}
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{

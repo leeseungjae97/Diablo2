@@ -2,9 +2,9 @@
 #include "mScene.h"
 namespace m
 {
-    class MainMenuScene :
-        public Scene
-    {
+	class MainMenuScene :
+		public Scene
+	{
 	public:
 		MainMenuScene();
 		virtual ~MainMenuScene();
@@ -14,6 +14,5 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 	private:
-    };
+	};
 }
-

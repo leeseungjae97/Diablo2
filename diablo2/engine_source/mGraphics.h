@@ -60,6 +60,13 @@ enum class eBSType
 	OneOne,
 	End,
 };
+enum class eRenderingMode
+{
+	Opaque,
+	CutOut,
+	Transparent,
+	End,
+};
 
 struct GpuBuffer
 {
