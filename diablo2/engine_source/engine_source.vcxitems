@@ -15,10 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mBackground.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
@@ -26,34 +23,25 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMainMenuScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMonster.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mPlayScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mSelectCharacterScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTile.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mBackground.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />
@@ -63,24 +51,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMainMenuScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMonster.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mPlayScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mSelectCharacterScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTile.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />

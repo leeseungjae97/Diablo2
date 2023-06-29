@@ -17,6 +17,21 @@
     <ClCompile Include="LoadScenes.h">
       <Filter>Load</Filter>
     </ClCompile>
+    <ClCompile Include="mPlayer.cpp">
+      <Filter>Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="mTile.cpp">
+      <Filter>UI\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="mButton.cpp">
+      <Filter>UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="mMonster.cpp">
+      <Filter>Objects\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="mBackground.cpp">
+      <Filter>UI\Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -31,6 +46,21 @@
     </ClInclude>
     <ClInclude Include="mSelectCharacterScene.h">
       <Filter>Scene\SelectCharacterScene</Filter>
+    </ClInclude>
+    <ClInclude Include="mPlayer.h">
+      <Filter>Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="mTile.h">
+      <Filter>UI\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="mButton.h">
+      <Filter>UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="mMonster.h">
+      <Filter>Objects\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="mBackground.h">
+      <Filter>UI\Background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +87,27 @@
     </Filter>
     <Filter Include="Load">
       <UniqueIdentifier>{25a16faf-5125-443c-bcdc-7f251fd2de2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{3dcacb21-58c8-48da-b1f7-880b74ce9e8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Player">
+      <UniqueIdentifier>{1077f175-2fa4-4a11-8912-a40dd7b3b999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Monster">
+      <UniqueIdentifier>{7c75bba4-cfeb-4748-b7f7-182ea3234505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{506e4790-2e12-4946-8770-f915f868481d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Tile">
+      <UniqueIdentifier>{4707dc1c-4491-4f9f-afa5-9eca68be4657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Background">
+      <UniqueIdentifier>{a43b512a-ce67-47f7-b20d-53b7e1fefbe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Button">
+      <UniqueIdentifier>{4ae38d2e-eba7-41f4-beee-2d720c198739}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

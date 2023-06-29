@@ -1,20 +1,20 @@
 #pragma once
-#include "mGameObject.h"
+#include "..\engine_source\mGameObject.h"
 namespace m
 {
-    class Monster :
+    class Tile :
         public GameObject
     {
     public:
-        Monster(Vector3 iniPos);
-        virtual ~Monster();
+        Tile(Vector2 coord);
+        virtual ~Tile();
 
         virtual void Initialize();
         virtual void Update();
         virtual void LateUpdate();
         virtual void Render();
     private:
-
+        Vector2 mCoord;
     };
 }
 

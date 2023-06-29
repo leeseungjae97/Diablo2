@@ -13,8 +13,8 @@ namespace m
 			Orthorgaphic,
 			None,
 		};
-		static Matrix GetViewMatrix() { return mView; }
-		static Matrix GetProjectionMatrix() { return mProjection; }
+		static Matrix GetViewMatrix() { return View; }
+		static Matrix GetProjectionMatrix() { return Projection; }
 		static Vector2 GetCameraCenter() { return mCameraCenter; }
 		Camera();
 		~Camera();
@@ -38,8 +38,12 @@ namespace m
 		void RenderTransparent();
 
 	private:
-		static Matrix mView;
-		static Matrix mProjection;
+		static Matrix View;
+		static Matrix Projection;
+
+		Matrix mView;
+		Matrix mProjection;
+
 		static Vector2 mCameraCenter;
 
 		eProjectionType mType;

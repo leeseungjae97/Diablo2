@@ -39,27 +39,25 @@ namespace m
 		Vector3 curPosition = tr->GetPosition();
 		Vector3 scale = tr->GetScale();
 		Vector2 mousePos = Input::GetMousePos();
-		//Vector3 mousePos3 = Vector3(cameraPos.x + mousePos.x, cameraPos.y + mousePos.y, 0.f);
+		Vector3 mousePos3 = Vector3(mousePos.x, mousePos.y, 0.f);
 
-		float fWorldX = mousePos.x - 800.f;
-		float fWorldY = mousePos.y - 450.f;
-		fWorldX += cameraPos.x;
-		fWorldY += cameraPos.y;
+		//float fWorldX = mousePos.x - 800.f;
+		//float fWorldY = mousePos.y - 450.f;
+		//fWorldX += cameraPos.x;
+		//fWorldY += cameraPos.y;
 
-		Vector2 worldMousePos = Vector2(fWorldX, fWorldY);
+		//Vector2 worldMousePos = Vector2(fWorldX, fWorldY);
 
 		//mousePos3 = viewport.Project(mousePos3, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
 
-
-
-		//Vector3 unpojection = viewport.Unproject(tr->GetPosition(), Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
+		Vector3 unprojMousePos = viewport.Unproject(mousePos3, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
 
 		if (Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			prevPosition = tr->GetPosition();
-			
+
 			//destPosition = Vector3(mousePos3.x - vS.x, 900.f - mousePos3.y - vS.y, 0.f);
-			destPosition = Vector3(worldMousePos.x, worldMousePos.y, destPosition.z);
+			destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
 			fStartDistance = abs((destPosition - prevPosition).Length());
 
@@ -68,14 +66,14 @@ namespace m
 		}
 
 		fRemainDistance = abs((curPosition - prevPosition).Length());
-		
+
 		if (fRemainDistance <= fStartDistance)
 		{
 			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::DeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::DeltaTime());
 			tr->SetPosition(Vector3(fMoveX, fMoveY, curPosition.z));
 		}
-		
+
 		GameObject::Update();
 	}
 	void Player::LateUpdate()

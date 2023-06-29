@@ -19,8 +19,8 @@ namespace renderer
 	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
 	{
 		Matrix mWorld;
-		Matrix mView;
-		Matrix mProjection;
+		Matrix View;
+		Matrix Projection;
 	};
 	CBUFFER(AnimatorCB, CBSLOT_ANIMATOR)
 	{

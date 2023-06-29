@@ -53,8 +53,8 @@ namespace m
 	{
 		renderer::TransformCB trCB = {};
 		trCB.mWorld = mWorld;
-		trCB.mView = Camera::GetViewMatrix();
-		trCB.mProjection = Camera::GetProjectionMatrix();
+		trCB.View = Camera::GetViewMatrix();
+		trCB.Projection = Camera::GetProjectionMatrix();
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
 		

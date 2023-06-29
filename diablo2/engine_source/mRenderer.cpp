@@ -107,6 +107,15 @@ namespace renderer
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
 			, depthStencilStates[(UINT)eDSType::Less].GetAddressOf());
 
+		//less eqauls
+		depthStencilDesc.DepthEnable = true;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		depthStencilDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&depthStencilDesc
+			, depthStencilStates[(UINT)eDSType::LessQua].GetAddressOf());
+
 		//Greater
 		depthStencilDesc.DepthEnable = true;
 		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
@@ -322,6 +331,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
+			//spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"townFloors", spriteMateiral);
 		}
 		{
@@ -331,6 +341,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
+			//spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"testTile", spriteMateiral);
 		}
 #pragma endregion

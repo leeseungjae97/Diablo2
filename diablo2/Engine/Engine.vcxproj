@@ -146,18 +146,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mBackground.h" />
+    <ClInclude Include="mButton.h" />
     <ClInclude Include="mCameraScript.h" />
     <ClInclude Include="mMainMenuScene.h" />
+    <ClInclude Include="mMonster.h" />
+    <ClInclude Include="mPlayer.h" />
     <ClInclude Include="mPlayScene.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
+    <ClInclude Include="mTile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="LoadScenes.h" />
+    <ClCompile Include="mBackground.cpp" />
+    <ClCompile Include="mButton.cpp" />
     <ClCompile Include="mCameraScript.cpp" />
     <ClCompile Include="mMainMenuScene.cpp" />
+    <ClCompile Include="mMonster.cpp" />
+    <ClCompile Include="mPlayer.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
+    <ClCompile Include="mTile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,7 @@
 #include "mTile.h"
-#include "mTransform.h"
-#include "mMeshRenderer.h"
+
+#include "..\engine_source\mTransform.h"
+#include "..\engine_source\mMeshRenderer.h"
 namespace m
 {
 	Tile::Tile(Vector2 coord)

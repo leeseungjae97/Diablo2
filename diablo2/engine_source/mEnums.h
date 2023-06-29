@@ -30,18 +30,4 @@ namespace m::enums
 		Mesh,
 		End,
 	};
-	enum class eSceneType
-	{
-		MainMenuScene,
-		SelectCharacterScene,
-		PlayScene,
-		End,
-	};
-
-	std::wstring wsScenes[(UINT)eSceneType::End] =
-	{
-		L"MainMenuScene",
-		L"SelectCharacterScene",
-		L"PlayScene",
-	};
 }

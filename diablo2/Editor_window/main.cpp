@@ -3,9 +3,16 @@
 
 #include "framework.h"
 #include "Editor_window.h"
-#include "mApplication.h"
-#include "mRenderer.h"
-#include "mSceneManager.h"
+#include "..\engine_source\mApplication.h"
+#include "..\engine_source\mRenderer.h"
+#include "..\engine_source\mSceneManager.h"
+#include "LoadScenes.h"
+
+#ifdef _DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\Engine.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\Engine.lib")
+#endif
 //#include "LoadScenes.h"
 
 m::Application application;
@@ -122,7 +129,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
    application.Initialize();
-   //m::InitializeScenes();
+   m::InitializeScenes();
 
    return TRUE;
 }

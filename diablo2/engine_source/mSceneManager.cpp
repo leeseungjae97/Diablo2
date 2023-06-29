@@ -1,7 +1,4 @@
 #include "mSceneManager.h"
-#include "mPlayScene.h"
-#include "mSelectCharacterScene.h"
-#include "mMainMenuScene.h"
 
 namespace m
 {
@@ -9,9 +6,6 @@ namespace m
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-		SceneManager::CreateScene<PlayScene>(wsScenes[(UINT)eSceneType::PlayScene]);
-		SceneManager::CreateScene<SelectCharacterScene>(wsScenes[(UINT)eSceneType::SelectCharacterScene]);
-		SceneManager::CreateScene<MainMenuScene>(wsScenes[(UINT)eSceneType::MainMenuScene]);
 
 		//std::map<std::wstring, Scene*>::iterator iter = mScenes.begin();
 		//while (iter != mScenes.end())
@@ -23,7 +17,7 @@ namespace m
 		//	}
 		//}
 
-		mActiveScene = LoadScene(wsScenes[(UINT)eSceneType::PlayScene]);
+		mActiveScene = LoadScene(L"PlayScene");
 	}
 	void SceneManager::Update()
 	{
