@@ -6,7 +6,7 @@ namespace m
         public GameObject
     {
     public:
-        Tile(Vector3 iniPos, Vector2 coord);
+        Tile(Vector2 coord);
         virtual ~Tile();
 
         virtual void Initialize();
@@ -15,7 +15,6 @@ namespace m
         virtual void Render();
     private:
         Vector2 mCoord;
-        Vector3 mPosition;
     };
 }
 

@@ -33,6 +33,8 @@ namespace m
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
 
+		Matrix GetWorld() { return mWorld; }
+
 	private:
 		Vector3 mPosition;
 		Vector3 mRotation;

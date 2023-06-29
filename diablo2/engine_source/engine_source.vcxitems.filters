@@ -49,17 +49,17 @@
     <Filter Include="Contents\Background">
       <UniqueIdentifier>{08732f37-2449-47b8-8047-9fc393fb9c0a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Button">
-      <UniqueIdentifier>{3afa3028-5ca2-43ef-a5d6-d95827d6b5c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Player">
-      <UniqueIdentifier>{43d84328-0940-49dc-85d4-91b4e63e83bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Monster">
+    <Filter Include="Contents\Monster">
       <UniqueIdentifier>{45379f2d-e347-4a20-97fa-e6b562a6b3cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Button">
+    <Filter Include="Contents\Player">
+      <UniqueIdentifier>{43d84328-0940-49dc-85d4-91b4e63e83bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Button">
       <UniqueIdentifier>{ae2697cf-5858-4255-84d3-6385e0459911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Tile">
+      <UniqueIdentifier>{9dc63346-e5e3-4731-8837-32704942c7d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,13 +148,13 @@
       <Filter>Contents\Background</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mPlayer.h">
-      <Filter>GameObject\Player</Filter>
+      <Filter>Contents\Player</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mMonster.h">
-      <Filter>GameObject\Monster</Filter>
+      <Filter>Contents\Monster</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mButton.h">
-      <Filter>Button</Filter>
+      <Filter>Contents\Button</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mCameraScript.h">
       <Filter>Contents</Filter>
@@ -169,7 +169,7 @@
       <Filter>Contents</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTile.h">
-      <Filter>Contents</Filter>
+      <Filter>Contents\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -246,13 +246,13 @@
       <Filter>Contents\Background</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mPlayer.cpp">
-      <Filter>GameObject\Player</Filter>
+      <Filter>Contents\Player</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mMonster.cpp">
-      <Filter>GameObject\Monster</Filter>
+      <Filter>Contents\Monster</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mButton.cpp">
-      <Filter>Button</Filter>
+      <Filter>Contents\Button</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mCameraScript.cpp">
       <Filter>Contents</Filter>
@@ -267,7 +267,7 @@
       <Filter>Contents</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTile.cpp">
-      <Filter>Contents</Filter>
+      <Filter>Contents\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

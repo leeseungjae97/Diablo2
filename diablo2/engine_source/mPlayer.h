@@ -14,6 +14,7 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
+        void SetCamera(GameObject* camera) { mCamera = camera; }
     private:
         Vector3 prevPosition;
         Vector3 destPosition;
@@ -22,6 +23,8 @@ namespace m
         float fRemainDistance;
         float fStartDistance;
         float fSpeed;
+
+        GameObject* mCamera;
     };
 }
 

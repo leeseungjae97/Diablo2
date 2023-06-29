@@ -3,11 +3,9 @@
 #include "mMeshRenderer.h"
 namespace m
 {
-	Tile::Tile(Vector3 iniPos, Vector2 coord)
-		: mPosition(iniPos)
-		, mCoord(coord)
+	Tile::Tile(Vector2 coord)
+		: mCoord(coord)
 	{
-		GetComponent<Transform>()->SetPosition(iniPos);
 		AddComponent<MeshRenderer>();
 	}
 	Tile::~Tile()

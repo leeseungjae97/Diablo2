@@ -13,17 +13,17 @@ namespace m
 		SceneManager::CreateScene<SelectCharacterScene>(wsScenes[(UINT)eSceneType::SelectCharacterScene]);
 		SceneManager::CreateScene<MainMenuScene>(wsScenes[(UINT)eSceneType::MainMenuScene]);
 
-		std::map<std::wstring, Scene*>::iterator iter = mScenes.begin();
-		while (iter != mScenes.end())
-		{
-			if (nullptr != iter->second)
-			{
-				iter->second->Initialize();
-				iter++;
-			}
-		}
+		//std::map<std::wstring, Scene*>::iterator iter = mScenes.begin();
+		//while (iter != mScenes.end())
+		//{
+		//	if (nullptr != iter->second)
+		//	{
+		//		iter->second->Initialize();
+		//		iter++;
+		//	}
+		//}
 
-		mActiveScene = LoadScene(wsScenes[(UINT)eSceneType::MainMenuScene]);
+		mActiveScene = LoadScene(wsScenes[(UINT)eSceneType::PlayScene]);
 	}
 	void SceneManager::Update()
 	{

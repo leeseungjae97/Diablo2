@@ -28,17 +28,16 @@ namespace m
 		//GetDevice()->GetD3D11Viewport();
 		//Viewport::Unproject();
 
-		Viewport viewport;
-		viewport.x = 0.f;
-		viewport.y = 0.f;
-		viewport.height = 900.f;
-		viewport.width = 1600.f;
-		viewport.maxDepth = 1.f;
-		viewport.minDepth = -1.f;
+		//Viewport viewport;
+		//viewport.x = 0.f;
+		//viewport.y = 0.f;
+		//viewport.height = 900.f;
+		//viewport.width = 1600.f;
+		//viewport.maxDepth = 1.f;
+		//viewport.minDepth = -1.f;
 
-		Vector3 unpojection = viewport.Unproject(tr->GetPosition(), Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
+		//Vector3 unpojection = viewport.Unproject(tr->GetPosition(), Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
 
-		int a = 0;
 		if ((fabs(trPos.x - mousePos.x)) <= mScale.x
 			&& (fabs(trPos.y - mousePos.y)) <= mScale.y)
 		{
