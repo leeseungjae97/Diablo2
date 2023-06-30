@@ -25,9 +25,10 @@ namespace m
 		camera->GetComponent<Transform>()->SetPosition(Vector3(ccp.x, ccp.y, -1.f));
 		camera->AddComponent<CameraScript>();
 		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp->TurnLayerMask(eLayerType::Player, true);
 
 		Background* back = new Background();
-		AddGameObject(eLayerType::UI, back);
+		AddGameObject(eLayerType::Player, back);
 		back->AddComponent<MeshRenderer>();
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mainMenu2"));
@@ -35,7 +36,7 @@ namespace m
 		back->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 0.f));
 
 		Background* logo = new Background();
-		AddGameObject(eLayerType::UI, logo);
+		AddGameObject(eLayerType::Player, logo);
 		logo->AddComponent<MeshRenderer>();
 		logo->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		logo->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testLogo"));
@@ -43,7 +44,7 @@ namespace m
 		logo->GetComponent<Transform>()->SetScale(Vector3(365.f * Texture::GetWidRatio(), 183.f * Texture::GetHeiRatio(), 0.f));
 
 		Button* btn1 = new Button();
-		AddGameObject(eLayerType::UI, btn1);
+		AddGameObject(eLayerType::Player, btn1);
 		btn1->AddComponent<MeshRenderer>();
 		btn1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		btn1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));

@@ -356,6 +356,19 @@ namespace renderer
 			Resources::Insert(L"testAmazon", spriteMateiral);
 		}
 #pragma endregion
+#pragma region User Interface
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"bottomUi", spriteMateiral);
+		}
+#pragma endregion
+
 	}
 
 	void Initialize()

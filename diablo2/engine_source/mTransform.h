@@ -33,6 +33,9 @@ namespace m
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
 
+		void SetParent(Transform* transform) { mParent = transform; }
+		Transform* GetParent() { return mParent; }
+
 		Matrix GetWorld() { return mWorld; }
 
 	private:
@@ -45,6 +48,8 @@ namespace m
 		Vector3 mRight;
 
 		Matrix mWorld;
+
+		Transform* mParent;
     };
 }
 

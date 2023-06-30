@@ -64,6 +64,7 @@ namespace m
 
 		camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 
 		Player* player = new Player(Vector3(0.f, 0.f, z - 0.01f));
@@ -74,6 +75,29 @@ namespace m
 		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 		player->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
+
+
+		GameObject* uiCamera = new GameObject();
+		uiCamera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.f));
+		Camera* cameraComp2 = uiCamera->AddComponent<Camera>();
+		cameraComp2->TurnLayerMask(eLayerType::Player, false);
+
+		AddGameObject(eLayerType::Player, uiCamera);
+
+		GameObject* uiHp = new GameObject();
+		AddGameObject(eLayerType::UI, uiHp);
+		uiHp->AddComponent<MeshRenderer>();
+		uiHp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		uiHp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"bottomUi"));
+		uiHp->GetComponent<Transform>()->SetScale(Vector3(1000.f, 100.f, 0.f));
+		uiHp->GetComponent<Transform>()->SetPosition(Vector3(-300.f, -350.f, -1.f));
+
+		//GameObject* uiMp = new GameObject();
+		//GameObject* uiShortCutItemsExBar = new GameObject();
+		//GameObject* uiBottomBar = new GameObject();
+		//GameObject* uiHp = new GameObject();
+
+
 		//player->SetState();
 	}
 	void PlayScene::Update()

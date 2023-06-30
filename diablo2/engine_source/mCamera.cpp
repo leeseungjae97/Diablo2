@@ -10,6 +10,14 @@
 extern m::Application application;
 namespace m
 {
+	bool CompareZSort(GameObject* a, GameObject* b)
+	{
+		if (a->GetComponent<Transform>()->GetPosition().z
+			< b->GetComponent<Transform>()->GetPosition().z)
+			return false;
+
+		return true;
+	}
 	Matrix Camera::View = Matrix::Identity;
 	Matrix Camera::Projection = Matrix::Identity;
 	Vector2 Camera::mCameraCenter = Vector2(800.f , -450.f);
@@ -46,19 +54,28 @@ namespace m
 	}
 	void Camera::Render()
 	{
-		SortGameObjects();
+		View = mView;
+		Projection = mProjection;
+
+		AlphaSortGameObject();
+		ZSortTransparencyGameObjects();
 
 		RenderOpaque();
+
+		DisableDepthStencilState();
+
 		RenderCutOut();
 		RenderTransparent();
+
+		EnableDepthStencilState();
 	}
 	bool Camera::CreateViewMatrix()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		View = Matrix::Identity;
-		View *= Matrix::CreateTranslation(-pos);
+		mView = Matrix::Identity;
+		mView *= Matrix::CreateTranslation(-pos);
 
 		Vector3 up = tr->Up();
 		Vector3 right = tr->Right();
@@ -68,7 +85,7 @@ namespace m
 		viewRotate._11 = right.x; viewRotate._12 = up.x; viewRotate._13 = foward.x;
 		viewRotate._21 = right.y; viewRotate._22 = up.y; viewRotate._23 = foward.y;
 		viewRotate._31 = right.z; viewRotate._32 = up.z; viewRotate._33 = foward.z;
-		View *= viewRotate;
+		mView *= viewRotate;
 
 		return true;
 	}
@@ -86,11 +103,11 @@ namespace m
 			//width *= orthographicRatio;
 			//height *= orthographicRatio;
 
-			Projection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 		}
 		else
 		{
-			Projection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
+			mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
 
 		}
 		return true;
@@ -105,7 +122,7 @@ namespace m
 		mLayerMask.set((UINT)type, enable);
 	}
 
-	void Camera::SortGameObjects()
+	void Camera::AlphaSortGameObject()
 	{
 		mOpaqueGameObjects.clear();
 		mCutOutGameObjects.clear();
@@ -120,35 +137,49 @@ namespace m
 				const std::vector<GameObject*> gameObjs
 					= layer.GetGameObjects();
 				// layer에 있는 게임오브젝트를 들고온다.
-
-				for (GameObject* obj : gameObjs)
-				{
-					//렌더러 컴포넌트가 없다면?
-					MeshRenderer* mr
-						= obj->GetComponent<MeshRenderer>();
-					if (mr == nullptr)
-						continue;
-
-					std::shared_ptr<Material> mt = mr->GetMaterial();
-					eRenderingMode mode = mt->GetRenderingMode();
-					switch (mode)
-					{
-					case eRenderingMode::Opaque:
-						mOpaqueGameObjects.push_back(obj);
-						break;
-					case eRenderingMode::CutOut:
-						mCutOutGameObjects.push_back(obj);
-						break;
-					case eRenderingMode::Transparent:
-						mTransparentGameObjects.push_back(obj);
-						break;
-					default:
-						break;
-					}
-				}
+				DivideAlphaBlendGameObjects(gameObjs);
 			}
 		}
+	}
 
+	void Camera::ZSortTransparencyGameObjects()
+	{
+		std::sort(mCutOutGameObjects.begin()
+			, mCutOutGameObjects.end()
+			, CompareZSort);
+		std::sort(mTransparentGameObjects.begin()
+			, mTransparentGameObjects.end()
+			, CompareZSort);
+	}
+
+	void Camera::DivideAlphaBlendGameObjects(const std::vector<GameObject*> gameObjs)
+	{
+
+		for (GameObject* obj : gameObjs)
+		{
+			//렌더러 컴포넌트가 없다면?
+			MeshRenderer* mr
+				= obj->GetComponent<MeshRenderer>();
+			if (mr == nullptr)
+				continue;
+
+			std::shared_ptr<Material> mt = mr->GetMaterial();
+			eRenderingMode mode = mt->GetRenderingMode();
+			switch (mode)
+			{
+			case eRenderingMode::Opaque:
+				mOpaqueGameObjects.push_back(obj);
+				break;
+			case eRenderingMode::CutOut:
+				mCutOutGameObjects.push_back(obj);
+				break;
+			case eRenderingMode::Transparent:
+				mTransparentGameObjects.push_back(obj);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	void Camera::RenderOpaque()
@@ -182,5 +213,18 @@ namespace m
 
 			gameObj->Render();
 		}
+	}
+	void Camera::EnableDepthStencilState()
+	{
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::Less];
+		GetDevice()->BindDepthStencilState(dsState.Get());
+	}
+
+	void Camera::DisableDepthStencilState()
+	{
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::None];
+		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 }
