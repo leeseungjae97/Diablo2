@@ -28,15 +28,6 @@ namespace m
 		float TILE_SIZE_X = 160.f;
 		float TILE_SIZE_Y = 80.f;
 
-
-		//float mX = (10.f * (TILE_SIZE_X / 2.f));
-		//float mY = TILE_SIZE_Y / 4.f;
-
-		//float camerafX = mX;
-		//float camerafY = (float)(TILE_SIZE_Y * 5 + mY);
-
-		//Vector2 ccp = Camera::GetCameraCenter();
-
 		float z = 5;
 
 		for (int y = 0; y < 5; ++y)
@@ -68,8 +59,7 @@ namespace m
 		camera->AddComponent<CameraScript>();
 
 		Player* player = new Player(Vector3(0.f, 0.f, z - 0.01f));
-		player->SetCamera(camera);
-		//player->SetName(L"Player");
+		player->SetCamera(cameraComp);
 		AddGameObject(eLayerType::Player, player);
 		player->AddComponent<MeshRenderer>();
 		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -84,21 +74,38 @@ namespace m
 
 		AddGameObject(eLayerType::Player, uiCamera);
 
+		GameObject* uiBottomBar = new GameObject();
+		AddGameObject(eLayerType::UI, uiBottomBar);
+		uiBottomBar->AddComponent<MeshRenderer>();
+		uiBottomBar->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		uiBottomBar->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"bottomUi"));
+		uiBottomBar->GetComponent<Transform>()->SetScale(Vector3(470.f * Texture::GetWidRatio()
+			, 104.f * Texture::GetHeiRatio(), 0.f));
+		uiBottomBar->GetComponent<Transform>()->SetPosition(Vector3(-470.f * Texture::GetWidRatio() / 2.f
+			, -450 + 104.f * Texture::GetHeiRatio(), -1.f));
+
+		GameObject* uiMp = new GameObject();
+		AddGameObject(eLayerType::UI, uiMp);
+		uiMp->AddComponent<MeshRenderer>();
+		uiMp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		uiMp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpUi"));
+		uiMp->GetComponent<Transform>()->SetScale(Vector3(128.f * Texture::GetWidRatio()
+													, 104.f * Texture::GetHeiRatio(), 0.f));
+		uiMp->GetComponent<Transform>()->SetPosition(Vector3(800.f - 117.f * Texture::GetWidRatio()
+			, -450.f + 104.f * Texture::GetHeiRatio(), -1.f));
+
+
 		GameObject* uiHp = new GameObject();
 		AddGameObject(eLayerType::UI, uiHp);
 		uiHp->AddComponent<MeshRenderer>();
 		uiHp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		uiHp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"bottomUi"));
-		uiHp->GetComponent<Transform>()->SetScale(Vector3(1000.f, 100.f, 0.f));
-		uiHp->GetComponent<Transform>()->SetPosition(Vector3(-300.f, -350.f, -1.f));
+		uiHp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpUi"));
+		uiHp->GetComponent<Transform>()->SetScale(Vector3(128.f * Texture::GetWidRatio()
+			, 104.f * Texture::GetHeiRatio(), 0.f));
+		uiHp->GetComponent<Transform>()->SetPosition(Vector3(-800.f
+			, -450.f + 104.f * Texture::GetHeiRatio(), -1.f));
 
-		//GameObject* uiMp = new GameObject();
 		//GameObject* uiShortCutItemsExBar = new GameObject();
-		//GameObject* uiBottomBar = new GameObject();
-		//GameObject* uiHp = new GameObject();
-
-
-		//player->SetState();
 	}
 	void PlayScene::Update()
 	{

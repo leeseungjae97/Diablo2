@@ -47,7 +47,7 @@ enum class eRSType
 enum class eDSType
 {
 	Less,
-	LessQua,
+	LessEqua,
 	Greater,
 	NoWrite,
 	None,

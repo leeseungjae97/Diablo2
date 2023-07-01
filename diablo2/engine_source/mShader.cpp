@@ -7,8 +7,8 @@ namespace m
 		: Resource(enums::eResourceType::Shader)
 		, mInputLayout(nullptr)
 		, mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
-		, mRSType(eRSType::SolidBack)
-		, mDSType(eDSType::Less)
+		, mRSType(eRSType::SolidNone)
+		, mDSType(eDSType::LessEqua)
 		, mBSType(eBSType::AlphaBlend)
 	{}
 	Shader::~Shader()

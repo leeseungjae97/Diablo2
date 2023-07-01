@@ -1,5 +1,6 @@
 #pragma once
 #include "..\engine_source\mGameObject.h"
+#include "..\engine_source\mCamera.h"
 namespace m
 {
     class Player :
@@ -14,7 +15,7 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
-        void SetCamera(GameObject* camera) { mCamera = camera; }
+        void SetCamera(Camera* camera) { mCamera = camera; }
     private:
         Vector3 prevPosition;
         Vector3 destPosition;
@@ -24,7 +25,7 @@ namespace m
         float fStartDistance;
         float fSpeed;
 
-        GameObject* mCamera;
+        Camera* mCamera;
     };
 }
 

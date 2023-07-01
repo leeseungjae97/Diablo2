@@ -114,7 +114,7 @@ namespace renderer
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
-			, depthStencilStates[(UINT)eDSType::LessQua].GetAddressOf());
+			, depthStencilStates[(UINT)eDSType::LessEqua].GetAddressOf());
 
 		//Greater
 		depthStencilDesc.DepthEnable = true;
@@ -366,6 +366,36 @@ namespace renderer
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"bottomUi", spriteMateiral);
+		}
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanellife.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"hpUi", spriteMateiral);
+		}
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mpUi", spriteMateiral);
+		}
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"ex_ui", L"..\\Resources\\texture\\ui\\play\\0000.bmp");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"exUi", spriteMateiral);
 		}
 #pragma endregion
 

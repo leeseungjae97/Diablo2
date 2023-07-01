@@ -15,6 +15,9 @@ namespace m
 		};
 		static Matrix GetViewMatrix() { return View; }
 		static Matrix GetProjectionMatrix() { return Projection; }
+
+		Matrix GetPrivateViewMatrix() { return mView; }
+		Matrix GetPrivateProjectionMatrix() { return mProjection; }
 		static Vector2 GetCameraCenter() { return mCameraCenter; }
 		Camera();
 		~Camera();
