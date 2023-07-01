@@ -14,7 +14,6 @@ namespace m
 		, fSpeed(300.f)
 		, fStartDistance(0.f)
 		, fRemainDistance(0.f)
-		, mCamera(nullptr)
 	{
 		GetComponent<Transform>()->SetPosition(iniPos);
 	}
@@ -38,7 +37,7 @@ namespace m
 		Vector2 mousePos = Input::GetMousePos();
 		Vector3 mousePos3 = Vector3(mousePos.x, mousePos.y, destPosition.z);
 
-		Vector3 unprojMousePos = viewport.Unproject(mousePos3, mCamera->GetPrivateProjectionMatrix(), mCamera->GetPrivateViewMatrix(), Matrix::Identity);
+		Vector3 unprojMousePos = viewport.Unproject(mousePos3, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix(), Matrix::Identity);
 
 		if (Input::GetKeyDown(eKeyCode::LBUTTON))
 		{

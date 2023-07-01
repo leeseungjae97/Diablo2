@@ -14,8 +14,6 @@ namespace m
         virtual void Update();
         virtual void LateUpdate();
         virtual void Render();
-
-        void SetCamera(Camera* camera) { mCamera = camera; }
     private:
         Vector3 prevPosition;
         Vector3 destPosition;
@@ -24,8 +22,6 @@ namespace m
         float fRemainDistance;
         float fStartDistance;
         float fSpeed;
-
-        Camera* mCamera;
     };
 }
 

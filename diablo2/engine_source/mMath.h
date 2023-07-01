@@ -114,6 +114,8 @@ namespace m::math
         // Comparison operators
         bool operator == (const Vector2& V) const noexcept;
         bool operator != (const Vector2& V) const noexcept;
+        bool operator <= (const Vector2& V) const noexcept;
+        bool operator >= (const Vector2& V) const noexcept;
 
         // Assignment operators
         Vector2& operator= (const XMVECTORF32& F) noexcept { x = F.f[0]; y = F.f[1]; return *this; }

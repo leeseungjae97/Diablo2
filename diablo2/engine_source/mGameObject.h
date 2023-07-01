@@ -2,6 +2,7 @@
 #include "mEntity.h"
 #include "mComponent.h"
 #include "mScript.h"
+#include "mCamera.h"
 
 namespace m
 {
@@ -68,10 +69,14 @@ namespace m
 			return comp;
 		}
 
+		void SetCamera(Camera* camera) { mCamera = camera; }
+		Camera* GetCamera() { return mCamera; }
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
+
+		Camera* mCamera;
     };
 }
 

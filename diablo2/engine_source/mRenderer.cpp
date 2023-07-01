@@ -356,9 +356,8 @@ namespace renderer
 			Resources::Insert(L"testAmazon", spriteMateiral);
 		}
 #pragma endregion
-#pragma region User Interface
+#pragma region Bottom User Interface
 		{
-
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png");
 
@@ -368,7 +367,6 @@ namespace renderer
 			Resources::Insert(L"bottomUi", spriteMateiral);
 		}
 		{
-
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"hp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanellife.png");
 
@@ -378,7 +376,6 @@ namespace renderer
 			Resources::Insert(L"hpUi", spriteMateiral);
 		}
 		{
-
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png");
 
@@ -388,16 +385,156 @@ namespace renderer
 			Resources::Insert(L"mpUi", spriteMateiral);
 		}
 		{
-
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"ex_ui", L"..\\Resources\\texture\\ui\\play\\0000.bmp");
+				= Resources::Load<Texture>(L"ex_pocket", L"..\\Resources\\texture\\ui\\play\\ex_pocket.bmp");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"exUi", spriteMateiral);
+			Resources::Insert(L"exPocket", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hp_t", L"..\\Resources\\texture\\ui\\play\\life.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"hp", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mp", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"hpOverlapHands", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mpOverlapHands", spriteMateiral);
 		}
 #pragma endregion
+#pragma region Skill User Interface
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"skill_panel_cold", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel_cold.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"skillPanelCold", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"skill_panel_light", L"..\\Resources\\texture\\ui\\skill\\orceress_skill_pannel\\sorceress_skill_pannel_light.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"skillPanelLight", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"skill_panel_fire", L"..\\Resources\\texture\\ui\\skill\\orceress_skill_pannel\\sorceress_skill_pannel_fire.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"skillPanelFire", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Skill icons
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"blaze_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blaze.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"blazeIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"blaze_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blaze_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"blazeClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"blizzard_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blizzard.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"blizzardIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"blizzard_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blizzard_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"blizzardClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frozen_orb_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\frozen_orb.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frozenOrbIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frozen_orb_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\frozen_orb_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frozenOrbClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\thunder_storm.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"thunderStormIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\thunder_storm_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"thunderStormClickicon", spriteMateiral);
+		}
+#pragma endregion
+
+
 
 	}
 

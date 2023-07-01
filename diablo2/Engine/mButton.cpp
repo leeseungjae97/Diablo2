@@ -21,26 +21,25 @@ namespace m
 		Transform* tr = GetComponent<Transform>();
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
 		Vector3 mScale = tr->GetScale();
-		Vector3 trPos = Vector3(tr->GetPosition().x, -tr->GetPosition().y, tr->GetPosition().z);
+		Vector3 trPos = Vector3(tr->GetPosition().x, tr->GetPosition().y, tr->GetPosition().z);
 
 		Vector2 mousePos = Input::GetMousePos();
 		Vector3 mousePos3 = Vector3(mousePos.x, mousePos.y, mScale.z);
 
-		//GetDevice()->GetD3D11Viewport();
-		//Viewport::Unproject();
+		Viewport viewport;
+		viewport.x = 0.f;
+		viewport.y = 0.f;
+		viewport.height = 900.f;
+		viewport.width = 1600.f;
+		viewport.maxDepth = 1000.f;
+		viewport.minDepth = -1.f;
 
-		//Viewport viewport;
-		//viewport.x = 0.f;
-		//viewport.y = 0.f;
-		//viewport.height = 900.f;
-		//viewport.width = 1600.f;
-		//viewport.maxDepth = 1.f;
-		//viewport.minDepth = -1.f;
+		Vector3 unprojMousePos = viewport.Unproject(mousePos3, GetCamera()->GetProjectionMatrix(), GetCamera()->GetViewMatrix(), Matrix::Identity);
 
-		//Vector3 unpojection = viewport.Unproject(tr->GetPosition(), Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
-
-		if ((fabs(trPos.x - mousePos.x)) <= mScale.x
-			&& (fabs(trPos.y - mousePos.y)) <= mScale.y)
+		Vector2 sp = Vector2(trPos.x, fabs(trPos.y));
+		Vector2 lp = Vector2(trPos.x + mScale.x, fabs(trPos.y) + mScale.y);
+		if (sp <= Vector2(unprojMousePos.x , fabs(unprojMousePos.y))
+			&& lp >= Vector2(unprojMousePos.x, fabs(unprojMousePos.y)))
 		{
 			bHover = true;
 		}

@@ -7,6 +7,7 @@ namespace m
 {
 	GameObject::GameObject()
 		: mState(eState::Active)
+		, mCamera(nullptr)
 	{
 		AddComponent<Transform>();
 	}

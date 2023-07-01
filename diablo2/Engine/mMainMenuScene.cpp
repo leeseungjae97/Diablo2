@@ -50,6 +50,7 @@ namespace m
 		btn1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		btn1->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
 		btn1->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
+		btn1->SetCamera(cameraComp);
 
 		btn1->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 272.f * Texture::GetWidRatio() / 2.f, -290.f * Texture::GetHeiRatio(), 0.998f));
 		btn1->GetComponent<Transform>()->SetScale(Vector3(272.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));

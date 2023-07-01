@@ -1,3 +1,4 @@
+#include "mMath.h"
 //-------------------------------------------------------------------------------------
 // SimpleMath.inl -- Simplified C++ Math wrapper for DirectXMath
 //
@@ -171,6 +172,30 @@ inline bool Vector2::operator != (const Vector2& V) const noexcept
     const XMVECTOR v2 = XMLoadFloat2(&V);
     return XMVector2NotEqual(v1, v2);
 }
+
+inline bool m::math::Vector2::operator<=(const Vector2& V) const noexcept
+{
+    using namespace DirectX;
+    const XMVECTOR v1 = XMLoadFloat2(this);
+    const XMVECTOR v2 = XMLoadFloat2(&V);
+    return XMVector2LessOrEqual(v1, v2);
+}
+
+inline bool m::math::Vector2::operator>=(const Vector2& V) const noexcept
+{
+    using namespace DirectX;
+    const XMVECTOR v1 = XMLoadFloat2(this);
+    const XMVECTOR v2 = XMLoadFloat2(&V);
+    return XMVector2GreaterOrEqual(v1, v2);
+}
+
+//inline bool Vector2::operator <= (const Vector2 & V) const noexcept
+//{
+//    using namespace DirectX;
+//    const XMVECTOR v1 = XMLoadFloat2(this);
+//    const XMVECTOR v2 = XMLoadFloat2(&V);
+//    return XMVector2GreaterOrEqualR(v1, v2);
+//}
 
 //------------------------------------------------------------------------------
 // Assignment operators
