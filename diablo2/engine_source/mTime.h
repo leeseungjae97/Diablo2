@@ -11,6 +11,7 @@ namespace m
 		static void Render();
 
 		__forceinline static double DeltaTime() { return mDeltaTime; }
+		__forceinline static float fDeltaTime() { return (float)mDeltaTime; }
 
 	private:
 		static double mDeltaTime;

@@ -12,14 +12,14 @@ namespace m
 	{}
 	void Background::Update()
 	{
-		GameObject::Update();
+		UI::Update();
 	}
 	void Background::LateUpdate()
 	{
-		GameObject::LateUpdate();
+		UI::LateUpdate();
 	}
 	void Background::Render()
 	{
-		GameObject::Render();
+		UI::Render();
 	}
 }

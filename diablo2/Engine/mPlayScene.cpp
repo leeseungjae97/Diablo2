@@ -7,6 +7,7 @@
 #include "..\engine_source\mCamera.h"
 #include "..\engine_source\mSceneManager.h"
 #include "..\engine_source\mRenderer.h"
+#include "..\engine_source\mApplication.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -14,6 +15,7 @@
 #include "mTile.h"
 #include "mButton.h"
 
+extern m::Application application;
 namespace m
 {
 	PlayScene::PlayScene()
@@ -31,9 +33,9 @@ namespace m
 
 		float z = 5;
 
-		for (int y = 0; y < 5; ++y)
+		for (int y = 0; y < 10; ++y)
 		{
-			for (int x = 0; x < 5; ++x)
+			for (int x = 0; x < 10; ++x)
 			{
 				float fX = (float)(TILE_SIZE_X * (x - y)) / 2.f;
 				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
@@ -46,8 +48,8 @@ namespace m
 				AddGameObject(eLayerType::Player, tile);
 				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
-				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X /** Texture::GetWidRatio()*/, TILE_SIZE_Y /** Texture::GetHeiRatio()*/, 0.f));
-				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, z -= 0.01f));
+				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X , TILE_SIZE_Y , 0.f));
+				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, 0.f));
 				tiles.push_back(tile);
 			}
 		}
@@ -57,9 +59,10 @@ namespace m
 		camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
+
 		camera->AddComponent<CameraScript>();
 
-		Player* player = new Player(Vector3(0.f, 0.f, z - 0.01f));
+		Player* player = new Player(Vector3(0.f, 0.f, z));
 		player->SetCamera(cameraComp);
 		AddGameObject(eLayerType::Player, player);
 		player->AddComponent<MeshRenderer>();
@@ -67,6 +70,21 @@ namespace m
 		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 		player->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
 
+		cameraComp->SetFollowObject(player);
+
+		GameObject* child = new GameObject();
+		child->SetCamera(cameraComp);
+		AddGameObject(eLayerType::Player, child);
+		child->AddComponent<MeshRenderer>();
+		child->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
+
+		//child->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
+		child->GetComponent<Transform>()->SetPosition(Vector3(1.f, 0.f, z));
+		child->GetComponent<Transform>()->SetParent(player->GetComponent<Transform>());
+
+		float radian = math::DegreeToRadian(90.f);
+		player->GetComponent<Transform>()->SetRotation(0.f, 0.f, radian);
 
 		GameObject* uiCamera = new GameObject();
 		uiCamera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.f));
@@ -75,7 +93,7 @@ namespace m
 
 		AddGameObject(eLayerType::Player, uiCamera);
 
-		GameObject* uiBottomBar = new GameObject();
+		UI* uiBottomBar = new UI();
 		AddGameObject(eLayerType::UI, uiBottomBar);
 		uiBottomBar->AddComponent<MeshRenderer>();
 		uiBottomBar->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -85,7 +103,7 @@ namespace m
 		uiBottomBar->GetComponent<Transform>()->SetPosition(Vector3(-470.f * Texture::GetWidRatio() / 2.f
 			, -450 + 104.f * Texture::GetHeiRatio(), -1.f));
 
-		GameObject* uiMp = new GameObject();
+		UI* uiMp = new UI();
 		AddGameObject(eLayerType::UI, uiMp);
 		uiMp->AddComponent<MeshRenderer>();
 		uiMp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -96,7 +114,7 @@ namespace m
 			, -450.f + 104.f * Texture::GetHeiRatio(), -1.f));
 
 	
-		GameObject* mp = new GameObject();
+		UI* mp = new UI();
 		AddGameObject(eLayerType::UI, mp);
 		mp->AddComponent<MeshRenderer>();
 		mp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -107,7 +125,7 @@ namespace m
 			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
 
 
-		GameObject* mpOverlapHands = new GameObject();
+		UI* mpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, mpOverlapHands);
 		mpOverlapHands->AddComponent<MeshRenderer>();
 		mpOverlapHands->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -118,7 +136,7 @@ namespace m
 			, -450.f + 98.f * Texture::GetHeiRatio(), -1.f));
 
 
-		GameObject* uiHp = new GameObject();
+		UI* uiHp = new UI();
 		AddGameObject(eLayerType::UI, uiHp);
 		uiHp->AddComponent<MeshRenderer>();
 		uiHp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -128,7 +146,7 @@ namespace m
 		uiHp->GetComponent<Transform>()->SetPosition(Vector3(-800.f
 			, -450.f + 104.f * Texture::GetHeiRatio(), -1.f));
 
-		GameObject* hp = new GameObject();
+		UI* hp = new UI();
 		AddGameObject(eLayerType::UI, hp);
 		hp->AddComponent<MeshRenderer>();
 		hp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -139,7 +157,7 @@ namespace m
 			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
 
 
-		GameObject* hpOverlapHands = new GameObject();
+		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);
 		hpOverlapHands->AddComponent<MeshRenderer>();
 		hpOverlapHands->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -148,13 +166,6 @@ namespace m
 			, 88.f * Texture::GetHeiRatio(), 0.f));
 		hpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 26.f * Texture::GetWidRatio()
 			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
-
-
-		//uiBottomBar->GetComponent<Transform>()->SetScale(Vector3(470.f * Texture::GetWidRatio()
-		//	, 104.f * Texture::GetHeiRatio(), 0.f));
-		//uiBottomBar->GetComponent<Transform>()->SetPosition(Vector3(-470.f * Texture::GetWidRatio() / 2.f
-		//	, -450 + 104.f * Texture::GetHeiRatio(), -1.f));
-
 
 		Button* skillShortCut1 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut1);
@@ -181,8 +192,6 @@ namespace m
 			, 48.f * Texture::GetHeiRatio(), 0.f));
 		skillShortCut2->GetComponent<Transform>()->SetPosition(Vector3(235.f * Texture::GetWidRatio()
 			, -450.f + 48.f * Texture::GetHeiRatio(), -1.f));
-
-		//GameObject* uiShortCutItemsExBar = new GameObject();
 	}
 	void PlayScene::Update()
 	{

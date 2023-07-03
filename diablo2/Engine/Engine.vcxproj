@@ -121,6 +121,13 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)\External\FW1FontWrapper\Library\Debug\FW1FontWrapper.dll" "$(SolutionDir)\x64\Debug\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -143,6 +150,13 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+     <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)\External\FW1FontWrapper\Library\Release\FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -151,6 +165,7 @@
     <ClInclude Include="mCameraScript.h" />
     <ClInclude Include="mMainMenuScene.h" />
     <ClInclude Include="mMonster.h" />
+    <ClInclude Include="mPanel.h" />
     <ClInclude Include="mPlayer.h" />
     <ClInclude Include="mPlayScene.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
@@ -164,6 +179,7 @@
     <ClCompile Include="mCameraScript.cpp" />
     <ClCompile Include="mMainMenuScene.cpp" />
     <ClCompile Include="mMonster.cpp" />
+    <ClCompile Include="mPanel.cpp" />
     <ClCompile Include="mPlayer.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />

@@ -5,10 +5,12 @@
 #include "..\engine_source\mMeshRenderer.h"
 #include "..\engine_source\mCamera.h"
 #include "..\engine_source\mSceneManager.h"
+#include "..\engine_source\mFontWrapper.h"
 
 #include "mCameraScript.h"
 #include "mButton.h"
 #include "mBackground.h"
+
 namespace m
 {
 	MainMenuScene::MainMenuScene()
@@ -53,7 +55,9 @@ namespace m
 		btn1->SetCamera(cameraComp);
 
 		btn1->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 272.f * Texture::GetWidRatio() / 2.f, -290.f * Texture::GetHeiRatio(), 0.998f));
-		btn1->GetComponent<Transform>()->SetScale(Vector3(272.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));
+		btn1->GetComponent<Transform>()->SetScale(Vector3(272.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));		
+
+		FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
 	}
 	void MainMenuScene::Update()
 	{

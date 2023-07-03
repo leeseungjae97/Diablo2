@@ -14,32 +14,32 @@ namespace m
 
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.z += 5.0f * Time::DeltaTime();
+			pos.z += 5.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::S))
 		{
-			pos.z -= 5.0f * Time::DeltaTime();
+			pos.z -= 5.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			pos.x -= 100.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			pos.x += 100.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::Q))
 		{
-			pos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 100.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::E))
 		{
-			pos.y += 100.0f * Time::DeltaTime();
+			pos.y += 100.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 	}

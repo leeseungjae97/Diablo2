@@ -190,6 +190,8 @@ namespace m::math
         static Vector2 TransformNormal(const Vector2& v, const Matrix& m) noexcept;
         static void TransformNormal(_In_reads_(count) const Vector2* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector2* resultArray) noexcept;
 
+        static bool OnMouseVector2Rect(Vector2 targetVector, Vector2 targetScale, Vector2 mousePos);
+
         // Constants
         static const Vector2 Zero;
         static const Vector2 One;
@@ -972,6 +974,9 @@ namespace m::math
 #endif
         static RECT __cdecl ComputeTitleSafeArea(UINT backBufferWidth, UINT backBufferHeight) noexcept;
     };
-
+    static inline float DegreeToRadian(float degree)
+    {
+        return XMConvertToRadians(degree);
+    }
 #include "mMath.inl"
 }

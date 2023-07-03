@@ -30,6 +30,19 @@ namespace m
 		Matrix scale = Matrix::CreateScale(mScale);
 
 		Matrix rotation;
+		//if (mParent)
+		//{
+		//	rotation = Matrix::CreateRotationX(mParent->mRotation.x);
+		//	rotation *= Matrix::CreateRotationY(mParent->mRotation.y);
+		//	rotation *= Matrix::CreateRotationZ(mParent->mRotation.z);
+		//}
+		//else
+		//{
+		//	rotation = Matrix::CreateRotationX(mRotation.x);
+		//	rotation *= Matrix::CreateRotationY(mRotation.y);
+		//	rotation *= Matrix::CreateRotationZ(mRotation.z);
+		//}
+
 		rotation = Matrix::CreateRotationX(mRotation.x);
 		rotation *= Matrix::CreateRotationY(mRotation.y);
 		rotation *= Matrix::CreateRotationZ(mRotation.z);

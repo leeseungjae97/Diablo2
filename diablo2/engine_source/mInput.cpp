@@ -33,7 +33,9 @@ namespace m
 
 	void Input::Update()
 	{
-		if (GetFocus())
+		
+		if (GetFocus() &&
+			GetFocus() == GetForegroundWindow())
 		{
 
 			for (UINT i = 0; i < (UINT)eKeyCode::END; i++)
@@ -69,6 +71,7 @@ namespace m
 		}
 		else
 		{
+			SetFocus(NULL);
 			for (UINT i = 0; i < (UINT)eKeyCode::END; i++)
 			{
 				if (eKeyState::Down == mKeys[i].state

@@ -58,7 +58,7 @@ namespace m
 		exitBtn->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		exitBtn->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
 		exitBtn->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
-
+		exitBtn->SetCamera(cameraComp);
 		exitBtn->GetComponent<Transform>()->SetPosition(Vector3(20.f, -870.f + 40.f * Texture::GetHeiRatio(), 0.998f));
 		exitBtn->GetComponent<Transform>()->SetScale(Vector3(130.f * Texture::GetWidRatio(), 40.f * Texture::GetHeiRatio(), 0.0f));
 	}

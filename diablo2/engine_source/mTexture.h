@@ -6,9 +6,9 @@
 #include "../External/DirectXTex/Include/DirectXTex.inl"
 
 #ifdef _DEBUG
-#pragma comment(lib, "..\\External\\DirectXTex\\Lib\\Debug\\DirectXTex.lib")
+#pragma comment(lib, "..\\External\\DirectXTex\\Library\\Debug\\DirectXTex.lib")
 #else
-#pragma comment(lib, "..\\External\\DirectXTex\\Lib\\Release\\DirectXTex.lib")
+#pragma comment(lib, "..\\External\\DirectXTex\\Library\\Release\\DirectXTex.lib")
 #endif
 
 namespace m::graphics

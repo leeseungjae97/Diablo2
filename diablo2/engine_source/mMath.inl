@@ -745,6 +745,18 @@ inline void Vector2::TransformNormal(const Vector2* varray, size_t count, const 
     XMVector2TransformNormalStream(resultArray, sizeof(XMFLOAT2), varray, sizeof(XMFLOAT2), count, M);
 }
 
+inline bool m::math::Vector2::OnMouseVector2Rect(Vector2 targetVector, Vector2 targetScale, Vector2 mousePos)
+{
+    Vector2 sp = Vector2(targetVector.x, fabs(targetVector.y));
+    Vector2 lp = Vector2(targetVector.x + targetScale.x, fabs(targetVector.y) + targetScale.y);
+    if (sp <= Vector2(mousePos.x, fabs(mousePos.y))
+        && lp >= Vector2(mousePos.x, fabs(mousePos.y)))
+    {
+        return true;
+    }
+    else return false;
+}
+
 
 /****************************************************************************
  *

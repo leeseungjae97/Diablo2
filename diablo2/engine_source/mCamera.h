@@ -43,8 +43,11 @@ namespace m
 		void RenderCutOut();
 		void RenderTransparent();
 
-		void EnableDepthStencilState();
-		void DisableDepthStencilState();
+		static void EnableDepthStencilState();
+		static void DisableDepthStencilState();
+
+		void SetFollowObject(GameObject* f) { mFollowObject = f; }
+		GameObject* GetFollowObject() { return mFollowObject; }
 
 	private:
 		static Matrix View;
@@ -65,6 +68,8 @@ namespace m
 		std::vector<GameObject*> mOpaqueGameObjects;
 		std::vector<GameObject*> mCutOutGameObjects;
 		std::vector<GameObject*> mTransparentGameObjects;
+
+		GameObject* mFollowObject;
 	};
 }
 

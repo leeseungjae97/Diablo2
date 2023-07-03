@@ -1,7 +1,6 @@
 #pragma once
 #include "_Engine.h"
 #include "mMath.h"
-
 namespace m
 {
 	using namespace m::math;
@@ -64,8 +63,15 @@ namespace m
 
 		static __forceinline Vector2 GetMousePos() { return mMousePos; }
 
+		static __forceinline Vector3 GetUnprojectionMousePos(float curDepth, Viewport viewport, Matrix projMat, Matrix view)
+		{
+			Vector3 mousePos3 = Vector3(mMousePos.x, mMousePos.y, curDepth);
+			return viewport.Unproject(mousePos3, projMat, view, Matrix::Identity);
+		}
+
 	private:
 		static std::vector<Key> mKeys;
 		static Vector2 mMousePos;
+
 	};
 }

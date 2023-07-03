@@ -47,6 +47,7 @@ namespace m::graphics
 
 		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }
 		D3D11_VIEWPORT GetD3D11Viewport() { return mViewPort; }
+		ID3D11DeviceContext* GetID3D11DeviceContext(){ return mContext.Get(); }
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device>			mDevice;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext>		mContext;

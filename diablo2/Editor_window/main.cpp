@@ -6,6 +6,8 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mRenderer.h"
 #include "..\engine_source\mSceneManager.h"
+#include "..\engine_source\mFontWrapper.h"
+
 #include "LoadScenes.h"
 
 #ifdef _DEBUG
@@ -73,6 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     m::SceneManager::Release();
+    m::FontWrapper::Release();
     return (int) msg.wParam;
 }
 
@@ -126,6 +129,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
    application.SetWindow(hWnd, 1600, 900);
+   application.SetViewport(1600, 900);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
    application.Initialize();

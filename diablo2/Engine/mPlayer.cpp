@@ -4,7 +4,10 @@
 #include "mMeshRenderer.h"
 #include "mTime.h"
 #include "mCamera.h"
+#include "mApplication.h"
+#include "mMouseManager.h"
 
+extern m::Application application;
 namespace m
 {
 	Player::Player(Vector3 iniPos)
@@ -23,23 +26,17 @@ namespace m
 	{}
 	void Player::Update()
 	{
-		Viewport viewport;
-		viewport.x = 0.f;
-		viewport.y = 0.f;
-		viewport.height = 900.f;
-		viewport.width = 1600.f;
-		viewport.maxDepth = 1000.f;
-		viewport.minDepth = -1.f;
-
 		Transform* tr = GetComponent<Transform>();
 
 		Vector3 curPosition = tr->GetPosition();
-		Vector2 mousePos = Input::GetMousePos();
-		Vector3 mousePos3 = Vector3(mousePos.x, mousePos.y, destPosition.z);
 
-		Vector3 unprojMousePos = viewport.Unproject(mousePos3, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix(), Matrix::Identity);
+		Viewport viewport = application.GetViewport();
 
-		if (Input::GetKeyDown(eKeyCode::LBUTTON))
+		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
+			, viewport, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+
+		if (Input::GetKeyDown(eKeyCode::LBUTTON)
+			&& !MouseManager::GetMouseOnUI())
 		{
 			prevPosition = tr->GetPosition();
 
@@ -55,8 +52,8 @@ namespace m
 
 		if (fRemainDistance <= fStartDistance)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::DeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::DeltaTime());
+			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			tr->SetPosition(Vector3(fMoveX, fMoveY, curPosition.z));
 		}
 

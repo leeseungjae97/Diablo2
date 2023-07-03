@@ -71,6 +71,7 @@ namespace m
 
 		void SetCamera(Camera* camera) { mCamera = camera; }
 		Camera* GetCamera() { return mCamera; }
+
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;

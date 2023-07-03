@@ -4,6 +4,8 @@
 #include "mRenderer.h"
 #include "mScene.h"
 #include "mSceneManager.h"
+#include "mMouseManager.h"
+#include "mFontWrapper.h"
 
 namespace m
 {
@@ -30,9 +32,10 @@ namespace m
 	{
 		Time::Initiailize();
 		Input::Initialize();
-
+		FontWrapper::Initialize();
 		renderer::Initialize();
 		SceneManager::Initialize();
+
 	}
 
 	void Application::Update()
@@ -41,6 +44,7 @@ namespace m
 		Input::Update();
 		// Scene -> Layer -> Entity
 		SceneManager::Update();
+		MouseManager::Update();
 	}
 
 	void Application::LateUpdate()
@@ -76,6 +80,16 @@ namespace m
 		SetWindowPos(mHwnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 		ShowWindow(mHwnd, true);
 		UpdateWindow(mHwnd);
+	}
+
+	void Application::SetViewport(UINT width, UINT height)
+	{
+		mViewport.x = 0.f;
+		mViewport.y = 0.f;
+		mViewport.height = height;
+		mViewport.width = width;
+		mViewport.maxDepth = 1000.f;
+		mViewport.minDepth = -1.f;
 	}
 
 }

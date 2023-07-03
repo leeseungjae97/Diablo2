@@ -32,6 +32,7 @@
     <ClCompile Include="mBackground.cpp">
       <Filter>UI\Background</Filter>
     </ClCompile>
+    <ClCompile Include="mPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="mBackground.h">
       <Filter>UI\Background</Filter>
     </ClInclude>
+    <ClInclude Include="mPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -108,6 +110,9 @@
     </Filter>
     <Filter Include="UI\Button">
       <UniqueIdentifier>{4ae38d2e-eba7-41f4-beee-2d720c198739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Panel">
+      <UniqueIdentifier>{ccbe0194-6931-44e2-b043-c73cb46ce8ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

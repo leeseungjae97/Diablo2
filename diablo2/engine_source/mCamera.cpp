@@ -45,7 +45,12 @@ namespace m
 		
 	}
 	void Camera::Update()
-	{}
+	{
+		if (mFollowObject)
+		{
+			GetOwner()->GetComponent<Transform>()->SetPosition(mFollowObject->GetComponent<Transform>()->GetPosition());
+		}
+	}
 	void Camera::LateUpdate()
 	{
 		CreateViewMatrix();
@@ -217,7 +222,7 @@ namespace m
 	void Camera::EnableDepthStencilState()
 	{
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
-			= renderer::depthStencilStates[(UINT)eDSType::Less];
+			= renderer::depthStencilStates[(UINT)eDSType::LessEqua];
 		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 
@@ -225,6 +230,6 @@ namespace m
 	{
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
 			= renderer::depthStencilStates[(UINT)eDSType::None];
-		GetDevice()->BindDepthStencilState(dsState.Get());
+		GetDevice()->BindDepthStencilState(nullptr);
 	}
 }

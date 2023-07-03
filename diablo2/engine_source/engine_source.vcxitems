@@ -19,6 +19,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
@@ -37,6 +39,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
@@ -46,6 +49,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
@@ -55,6 +59,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
@@ -65,6 +70,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
   </ItemGroup>
   <ItemGroup>

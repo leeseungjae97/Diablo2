@@ -1,9 +1,9 @@
 #pragma once
-#include "..\engine_source\mGameObject.h"
+#include "..\engine_source\mUI.h"
 namespace m
 {
     class Background :
-        public GameObject
+        public UI
     {
     public:
         Background();
