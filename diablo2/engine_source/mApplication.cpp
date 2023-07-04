@@ -32,7 +32,7 @@ namespace m
 	{
 		Time::Initiailize();
 		Input::Initialize();
-		FontWrapper::Initialize();
+		//FontWrapper::Initialize();
 		renderer::Initialize();
 		SceneManager::Initialize();
 	}
