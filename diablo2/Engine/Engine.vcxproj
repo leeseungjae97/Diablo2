@@ -126,7 +126,7 @@
       </Command>
     </PreLinkEvent>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\External\FW1FontWrapper\Library\Debug\FW1FontWrapper.dll" "$(SolutionDir)\x64\Debug\"</Command>
+      <!-- <Command>copy "$(SolutionDir)\External\FW1FontWrapper\Library\Debug\FW1FontWrapper.dll" "$(SolutionDir)\x64\Debug\"</Command> -->
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       </Command>
     </PreLinkEvent>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\External\FW1FontWrapper\Library\Release\FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"</Command>
+      <!-- <Command>copy "$(SolutionDir)\External\FW1FontWrapper\Library\Release\FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"</Command> -->
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
