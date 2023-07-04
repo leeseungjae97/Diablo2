@@ -17,13 +17,21 @@ namespace m
 	{}
 	void MeshRenderer::Render()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->BindConstantBuffer();
+		if (GetOwner()->GetState() != GameObject::eState::Active)
+		{
+			mMaterial->Clear();
+		}
+		else
+		{
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			tr->BindConstantBuffer();
 
-		mMesh->BindBuffer();
-		mMaterial->Binds();
-		mMesh->Render();
+			mMesh->BindBuffer();
+			mMaterial->Binds();
+			mMesh->Render();
 
-		mMaterial->Clear();
+			mMaterial->Clear();
+		}
+	
 	}
 }

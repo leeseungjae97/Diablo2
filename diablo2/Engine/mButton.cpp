@@ -6,6 +6,7 @@
 #include "..\engine_source\mInput.h"
 #include "..\engine_source\mMouseManager.h"
 #include "..\engine_source\mApplication.h"
+#include "..\engine_source\mSceneManager.h"
 
 extern m::Application application;
 namespace m
@@ -28,6 +29,11 @@ namespace m
 			{
 				bClick = true;
 				mr->SetMaterial(mClickedMaterial);
+			}
+			if (Input::GetKeyUp(eKeyCode::LBUTTON))
+			{
+				if (nullptr != fClickFunctionPtr)
+					fClickFunctionPtr();
 			}
 		}
 		if (Input::GetKeyUp(eKeyCode::LBUTTON))

@@ -13,6 +13,7 @@ namespace m
 		enum eState
 		{
 			Active,
+			Invisible,
 			Paused,
 			Dead,
 		};
@@ -26,6 +27,7 @@ namespace m
 		virtual void Render();
 
 		eState GetState() { return mState; }
+		void SetState(eState state) { mState = state; }
 		template <typename T>
 		T* GetComponent()
 		{
@@ -76,7 +78,7 @@ namespace m
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
-
+		
 		Camera* mCamera;
     };
 }

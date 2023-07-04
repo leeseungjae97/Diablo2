@@ -150,7 +150,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-     <PreLinkEvent>
+    <PreLinkEvent>
       <Command>
       </Command>
     </PreLinkEvent>
@@ -160,9 +160,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mInventory.h" />
     <ClInclude Include="mBackground.h" />
     <ClInclude Include="mButton.h" />
     <ClInclude Include="mCameraScript.h" />
+    <ClInclude Include="mInvenItem.h" />
     <ClInclude Include="mMainMenuScene.h" />
     <ClInclude Include="mMonster.h" />
     <ClInclude Include="mPanel.h" />
@@ -173,10 +176,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mInventory.cpp" />
     <ClCompile Include="LoadScenes.h" />
     <ClCompile Include="mBackground.cpp" />
     <ClCompile Include="mButton.cpp" />
     <ClCompile Include="mCameraScript.cpp" />
+    <ClCompile Include="mInvenItem.cpp" />
     <ClCompile Include="mMainMenuScene.cpp" />
     <ClCompile Include="mMonster.cpp" />
     <ClCompile Include="mPanel.cpp" />

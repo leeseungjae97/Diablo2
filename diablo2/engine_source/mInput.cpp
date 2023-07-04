@@ -34,8 +34,7 @@ namespace m
 	void Input::Update()
 	{
 		
-		if (GetFocus() &&
-			GetFocus() == GetForegroundWindow())
+		if (GetFocus())
 		{
 
 			for (UINT i = 0; i < (UINT)eKeyCode::END; i++)

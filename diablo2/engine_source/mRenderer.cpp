@@ -355,7 +355,65 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"testAmazon", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"panelBorderLeft", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"panelBorderRight", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"t1", L"..\\Resources\\texture\\move_scene_key_info.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"tt1", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"t2", L"..\\Resources\\texture\\inven_key_info.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"tt2", spriteMateiral);
+		}
+		//move_scene_key_info.png
 #pragma endregion
+#pragma region Items
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hp_posion_1", L"..\\Resources\\texture\\items\\posion\\hp_posion_1.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"hpPosion1", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"mp_posion_1", L"..\\Resources\\texture\\items\\posion\\mp_posion_1.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"mpPosion1", spriteMateiral);
+		}
+#pragma endregion
+
 #pragma region Bottom User Interface
 		{
 			std::shared_ptr<Texture> texture
@@ -531,6 +589,18 @@ namespace renderer
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"thunderStormClickicon", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Inventory
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"inventory_panel", L"..\\Resources\\texture\\ui\\play\\inventorypanel.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			//spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"inventoryPanel", spriteMateiral);
 		}
 #pragma endregion
 

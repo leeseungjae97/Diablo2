@@ -1,24 +1,20 @@
 #pragma once
-#include "..\engine_source\mScene.h"
+#include "..\engine_source\mUI.h"
 namespace m
 {
-    class Inventory;
-    class Tile;
-    class PlayScene :
-        public Scene
+    class InvenItem :
+        public UI
     {
     public:
-        PlayScene();
-        virtual ~PlayScene();
+        InvenItem();
+        virtual ~InvenItem();
 
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
     private:
-        std::vector<Tile*> tiles;
-        Inventory* inven;
+        bool bSetMouseFollow;
     };
 }
-
 

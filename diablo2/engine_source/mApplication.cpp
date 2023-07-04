@@ -35,7 +35,6 @@ namespace m
 		FontWrapper::Initialize();
 		renderer::Initialize();
 		SceneManager::Initialize();
-
 	}
 
 	void Application::Update()

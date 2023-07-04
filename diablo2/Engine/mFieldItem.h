@@ -1,24 +1,19 @@
 #pragma once
-#include "..\engine_source\mScene.h"
+#include "mGameObject.h"
 namespace m
 {
-    class Inventory;
-    class Tile;
-    class PlayScene :
-        public Scene
+    class FieldItem :
+        public GameObject
     {
     public:
-        PlayScene();
-        virtual ~PlayScene();
+        FieldItem();
+        virtual ~FieldItem();
 
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
     private:
-        std::vector<Tile*> tiles;
-        Inventory* inven;
     };
 }
-
 

@@ -16,29 +16,45 @@ namespace m
 		}
 	}
 	void Layer::Initialize()
-	{}
+	{
+		for (GameObject* gameObj : mGameObjects)
+		{
+			if (gameObj->GetState() == GameObject::eState::Dead)
+				continue;
+
+			gameObj->Initialize();
+		}
+	}
 	void Layer::Update()
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if(gameObj->GetState() == GameObject::eState::Active)
-				gameObj->Update();
+			if (gameObj->GetState() == GameObject::eState::Dead)
+				continue;
+
+			gameObj->Update();
 		}
 	}
 	void Layer::LateUpdate()
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if (gameObj->GetState() == GameObject::eState::Active)
-				gameObj->LateUpdate();
+			if (gameObj->GetState() == GameObject::eState::Dead)
+				continue;
+
+			gameObj->LateUpdate();
 		}
 	}
 	void Layer::Render()
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if (gameObj->GetState() == GameObject::eState::Active)
-				gameObj->Render();
+			if (gameObj->GetState() != GameObject::eState::Active
+				|| gameObj->GetState() != GameObject::eState::Invisible)
+				continue;
+
+			gameObj->Render();
+
 		}
 	}
 	void Layer::AddGameObject(GameObject* gameObj)

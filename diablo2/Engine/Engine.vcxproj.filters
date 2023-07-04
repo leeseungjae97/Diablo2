@@ -32,7 +32,18 @@
     <ClCompile Include="mBackground.cpp">
       <Filter>UI\Background</Filter>
     </ClCompile>
-    <ClCompile Include="mPanel.cpp" />
+    <ClCompile Include="mPanel.cpp">
+      <Filter>UI\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="mInventory.cpp">
+      <Filter>Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="mInvenItem.cpp">
+      <Filter>Inventory\InvenItem</Filter>
+    </ClCompile>
+    <ClCompile Include="mFieldItem.cpp">
+      <Filter>Inventory\FieldItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -63,7 +74,18 @@
     <ClInclude Include="mBackground.h">
       <Filter>UI\Background</Filter>
     </ClInclude>
-    <ClInclude Include="mPanel.h" />
+    <ClInclude Include="mPanel.h">
+      <Filter>UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="mInventory.h">
+      <Filter>Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="mInvenItem.h">
+      <Filter>Inventory\InvenItem</Filter>
+    </ClInclude>
+    <ClInclude Include="mFieldItem.h">
+      <Filter>Inventory\FieldItem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -113,6 +135,15 @@
     </Filter>
     <Filter Include="UI\Panel">
       <UniqueIdentifier>{ccbe0194-6931-44e2-b043-c73cb46ce8ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inventory">
+      <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inventory\InvenItem">
+      <UniqueIdentifier>{5ed54685-cb0f-4a40-88f7-9a72d7ad837d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inventory\FieldItem">
+      <UniqueIdentifier>{7a1c115a-e2a6-4a7e-a6f9-f98c845d5623}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

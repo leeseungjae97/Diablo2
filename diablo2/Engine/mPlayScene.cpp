@@ -14,16 +14,21 @@
 #include "mPlayer.h"
 #include "mTile.h"
 #include "mButton.h"
+#include "mInventory.h"
+#include "mInvenItem.h"
 
 extern m::Application application;
 namespace m
 {
 	PlayScene::PlayScene()
-	{}
+	{
+
+	}
 	PlayScene::~PlayScene()
 	{}
 	void PlayScene::Initialize()
 	{
+		Scene::Initialize();
 		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
@@ -92,6 +97,11 @@ namespace m
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
 
 		AddGameObject(eLayerType::Player, uiCamera);
+
+
+		inven = new Inventory(cameraComp2);
+		inven->SetState(GameObject::Invisible);
+		
 
 		UI* uiBottomBar = new UI();
 		AddGameObject(eLayerType::UI, uiBottomBar);
@@ -167,6 +177,16 @@ namespace m
 		hpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 26.f * Texture::GetWidRatio()
 			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
 
+		UI* info1 = new UI();
+		AddGameObject(eLayerType::UI, info1);
+		info1->AddComponent<MeshRenderer>();
+		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt2"));
+		info1->GetComponent<Transform>()->SetScale(Vector3(100.f * Texture::GetWidRatio()
+			, 50.f * Texture::GetHeiRatio(), 0.f));
+		info1->GetComponent<Transform>()->SetPosition(Vector3(-400.f
+			, -200.f, -1.f));
+
 		Button* skillShortCut1 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut1);
 		skillShortCut1->AddComponent<MeshRenderer>();
@@ -200,9 +220,9 @@ namespace m
 		{
 			SceneManager::LoadScene(L"MainMenuScene");
 		}
-		if (Input::GetKeyDown(eKeyCode::M))
+		if (Input::GetKeyDown(eKeyCode::I))
 		{
-
+			inven->SetState(inven->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
 		}
 	}
 	void PlayScene::LateUpdate()

@@ -26,6 +26,7 @@ namespace m
 		for (auto gameObj : gameObjs)
 		{
 			auto gameUI = dynamic_cast<UI*>(gameObj);
+			if (nullptr == gameUI) continue;
 			if (gameUI->GetHover())
 			{
 				mMouseOnUI = true;
