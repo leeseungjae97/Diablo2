@@ -48,7 +48,7 @@ namespace m
 				//float fX = (float)(TILE_SIZE_X * (x - y));
 				//float fY = (float)(TILE_SIZE_Y * (x + y)); 
 
-				Tile* tile = new Tile(Vector2(x, y));
+				Tile tile = new Tile(Vector2(x, y));
 
 				AddGameObject(eLayerType::Player, tile);
 				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));

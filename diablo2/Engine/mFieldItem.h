@@ -1,9 +1,9 @@
 #pragma once
-#include "mGameObject.h"
+#include "mItem.h"
 namespace m
 {
     class FieldItem :
-        public GameObject
+        public Item
     {
     public:
         FieldItem();

@@ -6,26 +6,26 @@
 extern m::Application application;
 namespace m
 {
-	InvenItem::InvenItem()
-		: bSetMouseFollow(false)
+	InvenItem::InvenItem(eItemType type)
+		: Item(type)
+		, bSetMouseFollow(false)
 	{
 	}
 	InvenItem::~InvenItem()
 	{}
 	void InvenItem::Initialize()
 	{
-		UI::Initialize();
+		Item::Initialize();
 	}
 	void InvenItem::Update()
 	{
-		UI::Update();
+		Item::Update();
 		if (GetHover())
 		{
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			{
 				bSetMouseFollow = bSetMouseFollow ? false : true;
 			}
-				
 		}
 		if (bSetMouseFollow)
 		{
@@ -40,10 +40,10 @@ namespace m
 	}
 	void InvenItem::LateUpdate()
 	{
-		UI::LateUpdate();
+		Item::LateUpdate();
 	}
 	void InvenItem::Render()
 	{
-		UI::Render();
+		Item::Render();
 	}
 }

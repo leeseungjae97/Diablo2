@@ -39,10 +39,13 @@
       <Filter>Inventory</Filter>
     </ClCompile>
     <ClCompile Include="mInvenItem.cpp">
-      <Filter>Inventory\InvenItem</Filter>
+      <Filter>Item\InvenItem</Filter>
     </ClCompile>
     <ClCompile Include="mFieldItem.cpp">
-      <Filter>Inventory\FieldItem</Filter>
+      <Filter>Item\FieldItem</Filter>
+    </ClCompile>
+    <ClCompile Include="mItem.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,10 +84,13 @@
       <Filter>Inventory</Filter>
     </ClInclude>
     <ClInclude Include="mInvenItem.h">
-      <Filter>Inventory\InvenItem</Filter>
+      <Filter>Item\InvenItem</Filter>
     </ClInclude>
     <ClInclude Include="mFieldItem.h">
-      <Filter>Inventory\FieldItem</Filter>
+      <Filter>Item\FieldItem</Filter>
+    </ClInclude>
+    <ClInclude Include="mItem.h">
+      <Filter>Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,11 +145,14 @@
     <Filter Include="Inventory">
       <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Inventory\InvenItem">
-      <UniqueIdentifier>{5ed54685-cb0f-4a40-88f7-9a72d7ad837d}</UniqueIdentifier>
+    <Filter Include="Item">
+      <UniqueIdentifier>{af605d61-ccd7-46ff-99a9-65a61f1a7a14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Inventory\FieldItem">
+    <Filter Include="Item\FieldItem">
       <UniqueIdentifier>{7a1c115a-e2a6-4a7e-a6f9-f98c845d5623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\InvenItem">
+      <UniqueIdentifier>{5ed54685-cb0f-4a40-88f7-9a72d7ad837d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

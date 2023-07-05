@@ -1,12 +1,12 @@
 #pragma once
-#include "..\engine_source\mUI.h"
+#include "mItem.h"
 namespace m
 {
     class InvenItem :
-        public UI
+        public Item
     {
     public:
-        InvenItem();
+        InvenItem(eItemType type);
         virtual ~InvenItem();
 
         virtual void Initialize() override;
