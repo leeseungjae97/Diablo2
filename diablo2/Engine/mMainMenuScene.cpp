@@ -48,7 +48,7 @@ namespace m
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mainMenu2"));
 		back->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 1.0f));
-		back->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 0.f));
+		back->GetComponent<Transform>()->SetScale(Vector3(RESOL_WID, RESOL_HEI, 0.f));
 
 		Background* logo = new Background();
 		AddGameObject(eLayerType::UI, logo);

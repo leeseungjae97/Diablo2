@@ -203,7 +203,7 @@ namespace m
 		Button* skillShortCut2 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut2);
 		skillShortCut2->AddComponent<MeshRenderer>();
-		skillShortCut2->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		skillShortCut2->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"halfRectMesh"));
 		skillShortCut2->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"thunderStormIcon"));
 		skillShortCut2->SetClickMaterial(Resources::Find<Material>(L"thunderStormClickicon"));
 		skillShortCut2->SetNormalMaterial(Resources::Find<Material>(L"thunderStormIcon"));

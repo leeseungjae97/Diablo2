@@ -3,8 +3,8 @@
 
 namespace m::graphics
 {
-	float Texture::fWidRatio = 1600.f / 800.f;
-	float Texture::fHeiRatio = 900.f / 600.f;
+	float Texture::fWidRatio = RESOL_WID / 800.f;
+	float Texture::fHeiRatio = RESOL_HEI / 600.f;
 	Texture::Texture()
 		: Resource(enums::eResourceType::Texture)
 		, mImage{}

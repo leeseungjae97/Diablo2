@@ -208,19 +208,19 @@ namespace renderer
 		halfSizeRectVertex[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		halfSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
 
-		doubleSizeRectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
+		doubleSizeRectVertex[0].pos = Vector3(-1.0f, 1.0f, 0.0f);
 		doubleSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		doubleSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
 
-		doubleSizeRectVertex[1].pos = Vector3(2.0f, 0.0f, 0.0f);
+		doubleSizeRectVertex[1].pos = Vector3(1.0f, 1.0f, 0.0f);
 		doubleSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		doubleSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
 
-		doubleSizeRectVertex[2].pos = Vector3(2.f, -2.0f, 0.0f);
+		doubleSizeRectVertex[2].pos = Vector3(1.0f, -1.0f, 0.0f);
 		doubleSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		doubleSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
 
-		doubleSizeRectVertex[3].pos = Vector3(0.0f, -2.0f, 0.0f);
+		doubleSizeRectVertex[3].pos = Vector3(1.0f, -1.0f, 0.0f);
 		doubleSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		doubleSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
 
