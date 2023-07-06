@@ -10,6 +10,7 @@
 #include "mCameraScript.h"
 #include "mButton.h"
 #include "mBackground.h"
+#include "mGridScript.h"
 
 namespace m
 {
@@ -25,10 +26,21 @@ namespace m
 		AddGameObject(eLayerType::UI, camera);
 
 		Vector2 ccp = Camera::GetCameraCenter();
-		camera->GetComponent<Transform>()->SetPosition(Vector3(ccp.x, ccp.y, -1.f));
+		camera->GetComponent<Transform>()->SetPosition(Vector3(ccp.x, ccp.y, -10.f));
+		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -1.f));
 		camera->AddComponent<CameraScript>();
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, true);
+
+		//GameObject* grid = new GameObject();
+		//grid->SetName(L"Grid");
+		//AddGameObject(eLayerType::Grid, grid);
+		//MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+		//grid->GetComponent<Transform>()->SetPosition(Vector3(-800.f, -450.f, 0.999f));
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		//GridScript* gridSc = grid->AddComponent<GridScript>();
+		//gridSc->SetCamera(cameraComp);
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
@@ -43,7 +55,7 @@ namespace m
 		logo->AddComponent<MeshRenderer>();
 		logo->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		logo->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testLogo"));
-		logo->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 365.f * Texture::GetWidRatio() / 2.f, 0.f, 0.999f));
+		logo->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 365.f * Texture::GetWidRatio() / 2.f, 0.f, 1.f));
 		logo->GetComponent<Transform>()->SetScale(Vector3(365.f * Texture::GetWidRatio(), 183.f * Texture::GetHeiRatio(), 0.f));
 
 		UI* info1 = new UI();
@@ -67,7 +79,7 @@ namespace m
 		btn1->SetClickFunction(
 			[]() { SceneManager::LoadScene(L"SelectCharacterScene"); }
 		);
-		btn1->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 272.f * Texture::GetWidRatio() / 2.f, -290.f * Texture::GetHeiRatio(), 0.998f));
+		btn1->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 272.f * Texture::GetWidRatio() / 2.f, -290.f * Texture::GetHeiRatio(), 1.f));
 		btn1->GetComponent<Transform>()->SetScale(Vector3(272.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));		
 
 		//FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));

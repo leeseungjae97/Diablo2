@@ -10,6 +10,7 @@ namespace m
     public:
         enum class eItemType
         {
+            None,
             Weapon,
             Ring,
             Amulet,
@@ -24,6 +25,7 @@ namespace m
         };
 
         Item(eItemType type);
+        Item();
         virtual ~Item();
 
         virtual void Initialize() override;

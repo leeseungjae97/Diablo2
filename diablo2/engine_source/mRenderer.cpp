@@ -32,8 +32,8 @@ namespace renderer
 		arrLayout[0].InputSlot = 0;
 		arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 		arrLayout[0].SemanticName = "POSITION";
-		arrLayout[0].SemanticIndex = 0;
 
+		arrLayout[0].SemanticIndex = 0;
 		arrLayout[1].AlignedByteOffset = 12;
 		arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		arrLayout[1].InputSlot = 0;
@@ -49,15 +49,22 @@ namespace renderer
 		arrLayout[2].SemanticIndex = 0;
 
 
-		std::shared_ptr<Shader> shader = m::Resources::Find<Shader>(L"TriangleShader");
-		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
 
-		shader = m::Resources::Find<Shader>(L"SpriteShader");
+		//int iNumElement = sizeof(arrLayout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
+		std::shared_ptr<Shader> triangleShader = m::Resources::Find<Shader>(L"TriangleShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+			, triangleShader->GetVSCode()
+			, triangleShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, spriteShader->GetVSCode()
+			, spriteShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> gridShader = m::Resources::Find<Shader>(L"GridShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, gridShader->GetVSCode()
+			, gridShader->GetInputLayoutAddressOf());
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -179,28 +186,91 @@ namespace renderer
 #pragma endregion
 	}
 
-	void LoadBuffer()
+	void LoadMesh()
 	{
+		halfSizeRectVertex.resize(4);
+		doubleSizeRectVertex.resize(4);
+		rectVertex.resize(4);
+
+		halfSizeRectVertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		halfSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		halfSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
+
+		halfSizeRectVertex[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		halfSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		halfSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
+
+		halfSizeRectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		halfSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		halfSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
+
+		halfSizeRectVertex[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		halfSizeRectVertex[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		halfSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
+
+		doubleSizeRectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
+		doubleSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		doubleSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
+
+		doubleSizeRectVertex[1].pos = Vector3(2.0f, 0.0f, 0.0f);
+		doubleSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		doubleSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
+
+		doubleSizeRectVertex[2].pos = Vector3(2.f, -2.0f, 0.0f);
+		doubleSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		doubleSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
+
+		doubleSizeRectVertex[3].pos = Vector3(0.0f, -2.0f, 0.0f);
+		doubleSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		doubleSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
+
+		rectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
+		rectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		rectVertex[0].uv = Vector2(0.0f, 0.0f);
+
+		rectVertex[1].pos = Vector3(1.f, 0.0f, 0.0f);
+		rectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		rectVertex[1].uv = Vector2(1.0f, 0.0f);
+
+		rectVertex[2].pos = Vector3(1.f, -1.0f, 0.0f);
+		rectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		rectVertex[2].uv = Vector2(1.0f, 1.0f);
+
+		rectVertex[3].pos = Vector3(0.0f, -1.0f, 0.0f);
+		rectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		rectVertex[3].uv = Vector2(0.0f, 1.0f);
+
+		rectIndexes.push_back(0);
+		rectIndexes.push_back(1);
+		rectIndexes.push_back(2);
+
+		rectIndexes.push_back(0);
+		rectIndexes.push_back(2);
+		rectIndexes.push_back(3);
+
 		std::shared_ptr<Mesh> halfMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"halfRectMesh", halfMesh);
-
 		halfMesh->CreateVertexBuffer(halfSizeRectVertex.data(), halfSizeRectVertex.size());
 		halfMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
 
 		std::shared_ptr<Mesh> doubleMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"doubleRectMesh", doubleMesh);
-
 		doubleMesh->CreateVertexBuffer(doubleSizeRectVertex.data(), doubleSizeRectVertex.size());
 		doubleMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
 
 		std::shared_ptr<Mesh> fullMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", fullMesh);
-
 		fullMesh->CreateVertexBuffer(rectVertex.data(), rectVertex.size());
 		fullMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
+	}
 
+	void LoadBuffer()
+	{
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+
+		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
 
 		//constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Animator);
 		//constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(AnimatorCB));
@@ -218,6 +288,16 @@ namespace renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		m::Resources::Insert(L"SpriteShader", spriteShader);
+
+		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
+		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		m::Resources::Insert(L"GridShader", gridShader);
+	}
+
+	void LoadMaterial()
+	{
+		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
 #pragma region Characters
 		{
 			std::shared_ptr<Texture> texture
@@ -603,77 +683,27 @@ namespace renderer
 			Resources::Insert(L"inventoryPanel", spriteMateiral);
 		}
 #pragma endregion
+#pragma region Grid
+		{
+			std::shared_ptr<Material> gridMateiral = std::make_shared<Material>();
+			std::shared_ptr<Shader> gridShader
+				= Resources::Find<Shader>(L"GridShader");
 
-
+			gridMateiral->SetShader(gridShader);
+			//gridMateiral->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"GridMaterial", gridMateiral);
+		}
+#pragma endregion
 
 	}
 
 	void Initialize()
 	{
-		// triangle
-		halfSizeRectVertex.resize(4);
-		doubleSizeRectVertex.resize(4);
-		rectVertex.resize(4);
-
-		halfSizeRectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
-		halfSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		halfSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
-
-		halfSizeRectVertex[1].pos = Vector3(0.5f, 0.0f, 0.0f);
-		halfSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		halfSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
-
-		halfSizeRectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		halfSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		halfSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
-
-		halfSizeRectVertex[3].pos = Vector3(0.0f, -0.5f, 0.0f);
-		halfSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		halfSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
-
-		doubleSizeRectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
-		doubleSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		doubleSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
-
-		doubleSizeRectVertex[1].pos = Vector3(2.0f, 0.0f, 0.0f);
-		doubleSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		doubleSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
-
-		doubleSizeRectVertex[2].pos = Vector3(2.f, -2.0f, 0.0f);
-		doubleSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		doubleSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
-
-		doubleSizeRectVertex[3].pos = Vector3(0.0f, -2.0f, 0.0f);
-		doubleSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		doubleSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
-
-		rectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
-		rectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		rectVertex[0].uv = Vector2(0.0f, 0.0f);
-
-		rectVertex[1].pos = Vector3(1.f, 0.0f, 0.0f);
-		rectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		rectVertex[1].uv = Vector2(1.0f, 0.0f);
-
-		rectVertex[2].pos = Vector3(1.f, -1.0f, 0.0f);
-		rectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		rectVertex[2].uv = Vector2(1.0f, 1.0f);
-
-		rectVertex[3].pos = Vector3(0.0f, -1.0f, 0.0f);
-		rectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		rectVertex[3].uv = Vector2(0.0f, 1.0f);
-
-		rectIndexes.push_back(0);
-		rectIndexes.push_back(1);
-		rectIndexes.push_back(2);
-
-		rectIndexes.push_back(0);
-		rectIndexes.push_back(2);
-		rectIndexes.push_back(3);
-
-		LoadBuffer();
 		LoadShader();
 		SetupState();
+		LoadBuffer();
+		LoadMesh();
+		LoadMaterial();
 	}
 
 	void Render()

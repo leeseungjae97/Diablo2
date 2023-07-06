@@ -16,6 +16,7 @@
 #include "mButton.h"
 #include "mInventory.h"
 #include "mInvenItem.h"
+#include "mGridScript.h"
 
 extern m::Application application;
 namespace m
@@ -36,8 +37,6 @@ namespace m
 		float TILE_SIZE_X = 160.f;
 		float TILE_SIZE_Y = 80.f;
 
-		float z = 5;
-
 		for (int y = 0; y < 10; ++y)
 		{
 			for (int x = 0; x < 10; ++x)
@@ -48,13 +47,13 @@ namespace m
 				//float fX = (float)(TILE_SIZE_X * (x - y));
 				//float fY = (float)(TILE_SIZE_Y * (x + y)); 
 
-				Tile tile = new Tile(Vector2(x, y));
+				Tile* tile = new Tile(Vector2(x, y));
 
 				AddGameObject(eLayerType::Player, tile);
 				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
 				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X , TILE_SIZE_Y , 0.f));
-				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, 0.f));
+				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, 1.f));
 				tiles.push_back(tile);
 			}
 		}
@@ -62,12 +61,13 @@ namespace m
 		Vector3 cenVec = tiles[12]->GetComponent<Transform>()->GetPosition();
 
 		camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
+		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-
 		camera->AddComponent<CameraScript>();
+		//camera->AddComponent<GridScript>();
 
-		Player* player = new Player(Vector3(0.f, 0.f, z));
+		Player* player = new Player(Vector3(0.f, 0.f, -1.f));
 		player->SetCamera(cameraComp);
 		AddGameObject(eLayerType::Player, player);
 		player->AddComponent<MeshRenderer>();
@@ -85,7 +85,7 @@ namespace m
 		child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 
 		//child->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
-		child->GetComponent<Transform>()->SetPosition(Vector3(1.f, 0.f, z));
+		child->GetComponent<Transform>()->SetPosition(Vector3(1.f, 0.f, -1.f));
 		child->GetComponent<Transform>()->SetParent(player->GetComponent<Transform>());
 
 		float radian = math::DegreeToRadian(90.f);
@@ -177,15 +177,15 @@ namespace m
 		hpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 26.f * Texture::GetWidRatio()
 			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
 
-		UI* info1 = new UI();
-		AddGameObject(eLayerType::UI, info1);
-		info1->AddComponent<MeshRenderer>();
-		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt2"));
-		info1->GetComponent<Transform>()->SetScale(Vector3(100.f * Texture::GetWidRatio()
-			, 50.f * Texture::GetHeiRatio(), 0.f));
-		info1->GetComponent<Transform>()->SetPosition(Vector3(-400.f
-			, -200.f, -1.f));
+		//UI* info1 = new UI();
+		//AddGameObject(eLayerType::UI, info1);
+		//info1->AddComponent<MeshRenderer>();
+		//info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt2"));
+		//info1->GetComponent<Transform>()->SetScale(Vector3(100.f * Texture::GetWidRatio()
+		//	, 50.f * Texture::GetHeiRatio(), 0.f));
+		//info1->GetComponent<Transform>()->SetPosition(Vector3(-400.f
+		//	, -200.f, -1.f));
 
 		Button* skillShortCut1 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut1);
@@ -212,6 +212,24 @@ namespace m
 			, 48.f * Texture::GetHeiRatio(), 0.f));
 		skillShortCut2->GetComponent<Transform>()->SetPosition(Vector3(235.f * Texture::GetWidRatio()
 			, -450.f + 48.f * Texture::GetHeiRatio(), -1.f));
+
+
+		//GameObject* gridCamera = new GameObject();
+		//gridCamera->GetComponent<Transform>()->SetPosition(Vector3(Camera::GetCameraCenter().x, Camera::GetCameraCenter().y, -1.f));
+		//Camera* cameraComp3 = gridCamera->AddComponent<Camera>();
+		//cameraComp3->DisableLayerMasks();
+		//cameraComp3->TurnLayerMask(eLayerType::Grid, true);
+
+		//AddGameObject(eLayerType::UI, gridCamera);
+
+		GameObject* grid = new GameObject();
+		grid->SetName(L"Grid");
+		AddGameObject(eLayerType::Grid, grid);
+		MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"halfRectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		GridScript* gridSc = grid->AddComponent<GridScript>();
+		gridSc->SetCamera(cameraComp);
 	}
 	void PlayScene::Update()
 	{

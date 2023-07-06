@@ -84,7 +84,7 @@ namespace m::graphics
 		dxgiDesc.OutputWindow = hWnd;										// Front Buffer 를 출력시킬 윈도우 핸들
 		dxgiDesc.Windowed = true;											// 윈도우, 전체화면 모드
 		dxgiDesc.BufferCount = desc->BufferCount;
-		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
+		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
 		dxgiDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		dxgiDesc.BufferDesc.Width = desc->BufferDesc.Width;

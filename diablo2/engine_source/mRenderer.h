@@ -22,15 +22,21 @@ namespace renderer
 		Matrix View;
 		Matrix Projection;
 	};
-	CBUFFER(AnimatorCB, CBSLOT_ANIMATOR)
+	CBUFFER(GridCB, CBSLOT_GRID)
 	{
-		Vector2 leftTop;
-		Vector2 size;
-		Vector2 offset;
-		Vector2 atlasSize;
-
-		UINT type;
+		Vector4 CameraPosition;
+		Vector2 CameraScale;
+		Vector2 Resolution;
 	};
+	//CBUFFER(AnimatorCB, CBSLOT_ANIMATOR)
+	//{
+	//	Vector2 leftTop;
+	//	Vector2 size;
+	//	Vector2 offset;
+	//	Vector2 atlasSize;
+
+	//	UINT type;
+	//};
 
 	extern vector<Vertex> doubleSizeRectVertex;
 	extern vector<UINT> rectIndexes;

@@ -8,6 +8,7 @@
 #include "..\engine_source\mSceneManager.h"
 
 #include "mInvenItem.h"
+#include "mItem.h"
 
 #define INVEN_X_SIZE 30
 #define INVEN_Y_SIZE 30
@@ -34,7 +35,7 @@ namespace m
 
 		Transform* invenTr = GetComponent<Transform>();
 		{
-			InvenItem* hpPosion = new InvenItem();
+			InvenItem* hpPosion = new InvenItem(Item::eItemType::Posion);
 			hpPosion->SetState(GameObject::Invisible);
 			hpPosion->SetCamera(GetCamera());
 			MeshRenderer* mr = hpPosion->AddComponent<MeshRenderer>();

@@ -25,7 +25,7 @@ namespace m
 	{
 		std::filesystem::path shaderPath
 			= std::filesystem::current_path().parent_path();
-		shaderPath += L"\\Shader_SOURCE\\";
+		shaderPath += L"\\shader_source\\";
 
 		std::filesystem::path fullPath(shaderPath.c_str());
 		fullPath += fileName;
@@ -45,7 +45,7 @@ namespace m
 		}
 
 
-		return true;;
+		return true;
 	}
 	void Shader::Binds()
 	{

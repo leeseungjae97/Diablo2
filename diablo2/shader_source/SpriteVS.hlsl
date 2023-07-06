@@ -1,3 +1,4 @@
+#include "global.hlsli"
 struct VSIn
 {
     float4 Pos : POSITION;
@@ -11,14 +12,6 @@ struct VSOut
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
-
-cbuffer Transform : register(b0)
-{
-    //float4 Pos;
-    row_major matrix mWorld;
-    row_major matrix mView;
-    row_major matrix mProjection;
-}
 
 VSOut main(VSIn In)
 {

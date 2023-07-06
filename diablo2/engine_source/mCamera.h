@@ -49,6 +49,8 @@ namespace m
 		void SetFollowObject(GameObject* f) { mFollowObject = f; }
 		GameObject* GetFollowObject() { return mFollowObject; }
 
+		float GetSize() { return mSize; }
+
 	private:
 		static Matrix View;
 		static Matrix Projection;

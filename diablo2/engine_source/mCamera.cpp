@@ -100,11 +100,13 @@ namespace m
 		GetClientRect(application.GetHwnd(), &rect);
 		float width = (rect.right - rect.left) * mSize;
 		float height = (rect.bottom - rect.top) * mSize;
+		//float width = (rect.right - rect.left);
+		//float height = (rect.bottom - rect.top);
 		mAspectRatio = width / height;
 
 		if (type == eProjectionType::Orthorgaphic)
 		{
-			//float orthographicRatio = mSize;
+			//float orthographicRatio = mSize / 1000.f;
 			//width *= orthographicRatio;
 			//height *= orthographicRatio;
 

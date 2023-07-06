@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mInventory.h" />
     <ClInclude Include="mBackground.h" />
     <ClInclude Include="mButton.h" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mInventory.cpp" />
     <ClCompile Include="LoadScenes.h" />
     <ClCompile Include="mBackground.cpp" />
