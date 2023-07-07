@@ -132,7 +132,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
    application.SetWindow(hWnd, 1600, 900);
-   application.SetViewport(1600, 900);
+   //application.SetViewport(1600, 900);
 
    //application.SetWindow(hWnd, 800, 600);
    //application.SetViewport(800, 600);

@@ -19,7 +19,7 @@ namespace m
 		virtual void OnEnter();
 
 		void AddGameObject(eLayerType type, GameObject* gameObj);
-
+		Layer& GetGameObjects(eLayerType type);
 		template <typename T>
 		std::vector<T*> FindObjectsOfType()
 		{

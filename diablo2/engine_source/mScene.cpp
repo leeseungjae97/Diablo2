@@ -41,6 +41,10 @@ namespace m
 	{
 		mLayers[(int)type].AddGameObject(gameObj);
 	}
+	Layer& Scene::GetGameObjects(eLayerType type)
+	{
+		return mLayers[(int)type];
+	}
 	void Scene::OnExit()
 	{}
 	void Scene::OnEnter()

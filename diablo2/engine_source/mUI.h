@@ -15,10 +15,10 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		bool GetHover() { return bHover; }
+		//bool GetHover() { return bHover; }
 
 	private:
-		bool bHover;
+		//bool bHover;
 	};
 }
 

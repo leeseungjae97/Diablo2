@@ -38,6 +38,8 @@ namespace m
 
 	void GameObject::Update()
 	{
+		MousePosHoverGameObject();
+
 		for (Component* comp : mComponents)
 		{
 			comp->Update();
@@ -69,6 +71,40 @@ namespace m
 		for (Script* script : mScripts)
 		{
 			script->Render();
+		}
+
+	}
+	void GameObject::MousePosHoverGameObject()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector3 mPos = tr->GetPosition();
+		Vector3 mScale = tr->GetScale();
+
+		Matrix proj = Matrix::Identity;
+		Matrix view = Matrix::Identity;
+
+		if (nullptr == GetCamera())
+		{
+			proj = Camera::GetProjectionMatrix();
+			view = Camera::GetViewMatrix();
+		}
+		else
+		{
+			proj = GetCamera()->GetPrivateProjectionMatrix();
+			view = GetCamera()->GetPrivateViewMatrix();
+		}
+
+		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(mPos.z, proj, view);
+
+		if (Vector2::OnMouseVector2Rect(Vector2(tr->GetPosition().x, tr->GetPosition().y)
+			, Vector2(mScale.x, mScale.y)
+			, Vector2(unprojMousePos.x, unprojMousePos.y)))
+		{
+			bHover = true;
+		}
+		else
+		{
+			bHover = false;
 		}
 	}
 }

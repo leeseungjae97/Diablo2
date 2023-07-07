@@ -747,10 +747,10 @@ inline void Vector2::TransformNormal(const Vector2* varray, size_t count, const 
 
 inline bool m::math::Vector2::OnMouseVector2Rect(Vector2 targetVector, Vector2 targetScale, Vector2 mousePos)
 {
-    Vector2 sp = Vector2(targetVector.x, fabs(targetVector.y));
-    Vector2 lp = Vector2(targetVector.x + targetScale.x, fabs(targetVector.y) + targetScale.y);
-    if (sp <= Vector2(mousePos.x, fabs(mousePos.y))
-        && lp >= Vector2(mousePos.x, fabs(mousePos.y)))
+    Vector2 sp = Vector2(targetVector.x - targetScale.x / 2.f , targetVector.y + targetScale.y / 2.f);
+    Vector2 lp = Vector2(targetVector.x + targetScale.x / 2.f,  targetVector.y - targetScale.y / 2.f);
+    if ((sp.x <= mousePos.x && sp.y >= mousePos.y)
+     && (lp.x >= mousePos.x && lp.y <= mousePos.y))
     {
         return true;
     }

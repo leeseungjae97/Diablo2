@@ -36,11 +36,11 @@ namespace m
         void SetItemType(eItemType type) { mType = type; }
         eItemType GetItemType() { return mType; }
 
-        bool GetHover() { return bHover; }
-        void SetHover(bool hover) { bHover = hover; }
+        //bool GetHover() { return bHover; }
+        //void SetHover(bool hover) { bHover = hover; }
 
     private:
-        bool bHover;
+        //bool bHover;
         eItemType mType;
         int iSpaceInvenX;
         int iSpaceInvenY;

@@ -60,14 +60,14 @@ namespace m
 
 		Vector3 cenVec = tiles[12]->GetComponent<Transform>()->GetPosition();
 
-		camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
-		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
+		//camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 		//camera->AddComponent<GridScript>();
 
-		Player* player = new Player(Vector3(0.f, 0.f, -1.f));
+		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
 		player->SetCamera(cameraComp);
 		AddGameObject(eLayerType::Player, player);
 		player->AddComponent<MeshRenderer>();
@@ -77,19 +77,19 @@ namespace m
 
 		cameraComp->SetFollowObject(player);
 
-		GameObject* child = new GameObject();
-		child->SetCamera(cameraComp);
-		AddGameObject(eLayerType::Player, child);
-		child->AddComponent<MeshRenderer>();
-		child->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
+		//GameObject* child = new GameObject();
+		//child->SetCamera(cameraComp);
+		//AddGameObject(eLayerType::Player, child);
+		//child->AddComponent<MeshRenderer>();
+		//child->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 
 		//child->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
-		child->GetComponent<Transform>()->SetPosition(Vector3(1.f, 0.f, -1.f));
-		child->GetComponent<Transform>()->SetParent(player->GetComponent<Transform>());
+		//child->GetComponent<Transform>()->SetPosition(Vector3(1.f, 0.f, -1.f));
+		//child->GetComponent<Transform>()->SetParent(player->GetComponent<Transform>());
 
-		float radian = math::DegreeToRadian(90.f);
-		player->GetComponent<Transform>()->SetRotation(0.f, 0.f, radian);
+		//float radian = math::DegreeToRadian(90.f);
+		//player->GetComponent<Transform>()->SetRotation(0.f, 0.f, radian);
 
 		GameObject* uiCamera = new GameObject();
 		uiCamera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.f));
@@ -101,7 +101,6 @@ namespace m
 
 		inven = new Inventory(cameraComp2);
 		inven->SetState(GameObject::Invisible);
-		
 
 		UI* uiBottomBar = new UI();
 		AddGameObject(eLayerType::UI, uiBottomBar);
@@ -110,18 +109,18 @@ namespace m
 		uiBottomBar->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"bottomUi"));
 		uiBottomBar->GetComponent<Transform>()->SetScale(Vector3(470.f * Texture::GetWidRatio()
 			, 104.f * Texture::GetHeiRatio(), 0.f));
-		uiBottomBar->GetComponent<Transform>()->SetPosition(Vector3(-470.f * Texture::GetWidRatio() / 2.f
-			, -450 + 104.f * Texture::GetHeiRatio(), -1.f));
+		uiBottomBar->GetComponent<Transform>()->SetPosition(Vector3(0.f
+			, -450 + 104.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 		UI* uiMp = new UI();
 		AddGameObject(eLayerType::UI, uiMp);
 		uiMp->AddComponent<MeshRenderer>();
 		uiMp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiMp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpUi"));
-		uiMp->GetComponent<Transform>()->SetScale(Vector3(128.f * Texture::GetWidRatio()
+		uiMp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
 													, 104.f * Texture::GetHeiRatio(), 0.f));
-		uiMp->GetComponent<Transform>()->SetPosition(Vector3(800.f - 117.f * Texture::GetWidRatio()
-			, -450.f + 104.f * Texture::GetHeiRatio(), -1.f));
+		uiMp->GetComponent<Transform>()->SetPosition(Vector3(800.f - 117.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 104.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 	
 		UI* mp = new UI();
@@ -131,8 +130,8 @@ namespace m
 		mp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mp"));
 		mp->GetComponent<Transform>()->SetScale(Vector3(80.f * Texture::GetWidRatio()
 			, 80.f * Texture::GetHeiRatio(), 0.f));
-		mp->GetComponent<Transform>()->SetPosition(Vector3(800.f - 110.f * Texture::GetWidRatio()
-			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
+		mp->GetComponent<Transform>()->SetPosition(Vector3(800.f - 140.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 105.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 
 		UI* mpOverlapHands = new UI();
@@ -142,8 +141,8 @@ namespace m
 		mpOverlapHands->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpOverlapHands"));
 		mpOverlapHands->GetComponent<Transform>()->SetScale(Vector3(82.f * Texture::GetWidRatio()
 			, 88.f * Texture::GetHeiRatio(), 0.f));
-		mpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(800.f - 110.f * Texture::GetWidRatio()
-			, -450.f + 98.f * Texture::GetHeiRatio(), -1.f));
+		mpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(800.f - 135.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 105.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 
 		UI* uiHp = new UI();
@@ -151,10 +150,10 @@ namespace m
 		uiHp->AddComponent<MeshRenderer>();
 		uiHp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiHp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpUi"));
-		uiHp->GetComponent<Transform>()->SetScale(Vector3(128.f * Texture::GetWidRatio()
+		uiHp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
 			, 104.f * Texture::GetHeiRatio(), 0.f));
-		uiHp->GetComponent<Transform>()->SetPosition(Vector3(-800.f
-			, -450.f + 104.f * Texture::GetHeiRatio(), -1.f));
+		uiHp->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 117.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 105.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 		UI* hp = new UI();
 		AddGameObject(eLayerType::UI, hp);
@@ -163,8 +162,8 @@ namespace m
 		hp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hp"));
 		hp->GetComponent<Transform>()->SetScale(Vector3(80.f * Texture::GetWidRatio()
 			, 80.f * Texture::GetHeiRatio(), 0.f));
-		hp->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 28.f * Texture::GetWidRatio()
-			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
+		hp->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 138.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 105.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 
 		UI* hpOverlapHands = new UI();
@@ -174,8 +173,8 @@ namespace m
 		hpOverlapHands->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpOverlapHands"));
 		hpOverlapHands->GetComponent<Transform>()->SetScale(Vector3(82.f * Texture::GetWidRatio()
 			, 88.f * Texture::GetHeiRatio(), 0.f));
-		hpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 26.f * Texture::GetWidRatio()
-			, -450.f + 94.f * Texture::GetHeiRatio(), -1.f));
+		hpOverlapHands->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 137.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 97.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 		//UI* info1 = new UI();
 		//AddGameObject(eLayerType::UI, info1);
@@ -197,21 +196,21 @@ namespace m
 		skillShortCut1->SetCamera(cameraComp2);
 		skillShortCut1->GetComponent<Transform>()->SetScale(Vector3(48.f * Texture::GetWidRatio()
 			, 48.f* Texture::GetHeiRatio(), 0.f));
-		skillShortCut1->GetComponent<Transform>()->SetPosition(Vector3(-470.f - 48.f * Texture::GetWidRatio()
-			, -450.f + 48.f * Texture::GetHeiRatio(), -1.f));
+		skillShortCut1->GetComponent<Transform>()->SetPosition(Vector3(-470.f - 48.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 48.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 		Button* skillShortCut2 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut2);
 		skillShortCut2->AddComponent<MeshRenderer>();
-		skillShortCut2->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"halfRectMesh"));
+		skillShortCut2->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		skillShortCut2->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"thunderStormIcon"));
 		skillShortCut2->SetClickMaterial(Resources::Find<Material>(L"thunderStormClickicon"));
 		skillShortCut2->SetNormalMaterial(Resources::Find<Material>(L"thunderStormIcon"));
 		skillShortCut2->SetCamera(cameraComp2);
 		skillShortCut2->GetComponent<Transform>()->SetScale(Vector3(48.f * Texture::GetWidRatio()
 			, 48.f * Texture::GetHeiRatio(), 0.f));
-		skillShortCut2->GetComponent<Transform>()->SetPosition(Vector3(235.f * Texture::GetWidRatio()
-			, -450.f + 48.f * Texture::GetHeiRatio(), -1.f));
+		skillShortCut2->GetComponent<Transform>()->SetPosition(Vector3(470.f + 48.f * Texture::GetWidRatio() / 2.f
+			, -450.f + 48.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 
 		//GameObject* gridCamera = new GameObject();
@@ -226,7 +225,7 @@ namespace m
 		grid->SetName(L"Grid");
 		AddGameObject(eLayerType::Grid, grid);
 		MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"halfRectMesh"));
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(cameraComp);

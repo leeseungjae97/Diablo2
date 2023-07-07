@@ -19,12 +19,12 @@ namespace m
 		void Render();
 
 		void SetWindow(HWND hwnd, UINT width, UINT height);
-		void SetViewport(UINT width, UINT height);
+		//void SetViewport(UINT width, UINT height);
 
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
 		HWND GetHwnd() { return mHwnd; }
-		Viewport GetViewport() { return mViewport; }
+		//Viewport GetViewport() { return mViewport; }
 
 	private:
 		bool mbInitialize = false;
@@ -34,7 +34,7 @@ namespace m
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
-		Viewport mViewport;
+		//Viewport mViewport;
 	};
 }
 

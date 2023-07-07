@@ -81,14 +81,14 @@ namespace m
 		UpdateWindow(mHwnd);
 	}
 
-	void Application::SetViewport(UINT width, UINT height)
-	{
-		mViewport.x = 0.f;
-		mViewport.y = 0.f;
-		mViewport.height = height;
-		mViewport.width = width;
-		mViewport.maxDepth = 1000.f;
-		mViewport.minDepth = -1.f;
-	}
+	//void Application::SetViewport(UINT width, UINT height)
+	//{
+	//	mViewport.x = 0.f;
+	//	mViewport.y = 0.f;
+	//	mViewport.height = height;
+	//	mViewport.width = width;
+	//	mViewport.maxDepth = 1000.f;
+	//	mViewport.minDepth = -1.f;
+	//}
 
 }

@@ -3,13 +3,17 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mTransform.h"
 
-extern m::Application application;
+#include "mInventory.h"
+
 namespace m
 {
-	InvenItem::InvenItem(eItemType type)
+	InvenItem::InvenItem(eItemType type, Inventory *inventory, Vector3 pos)
 		: Item(type)
+		, mInventory(inventory)
 		, bSetMouseFollow(false)
-	{
+	{		
+		prevPosition = pos;
+		GetComponent<Transform>()->SetPosition(prevPosition);
 	}
 	InvenItem::~InvenItem()
 	{}
@@ -25,17 +29,28 @@ namespace m
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			{
 				bSetMouseFollow = bSetMouseFollow ? false : true;
-			}
-		}
-		if (bSetMouseFollow)
-		{
-			Viewport viewport = application.GetViewport();
 
-			Vector3 unprojMousePos = Input::GetUnprojectionMousePos(-1.f
-				, viewport, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
-			unprojMousePos.x -= GetComponent<Transform>()->GetScale().x / 2.f;
-			unprojMousePos.y += GetComponent<Transform>()->GetScale().y / 2.f;
-			GetComponent<Transform>()->SetPosition(Vector3(unprojMousePos));
+				bool deploy = false;
+				for (UI* inven : mInventory->GetInvens())
+				{
+					if (inven->GetHover())
+					{
+						GetComponent<Transform>()->SetPosition(inven->GetComponent<Transform>()->GetPosition());
+						prevPosition = inven->GetComponent<Transform>()->GetPosition();
+						deploy = true;
+					}
+				}
+				if (!deploy)
+					GetComponent<Transform>()->SetPosition(prevPosition);
+			}
+			if (bSetMouseFollow)
+			{
+				Vector3 pos = GetComponent<Transform>()->GetPosition();
+				Vector3 unprojMousePos = Input::GetUnprojectionMousePos(pos.z
+					, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+				unprojMousePos.z = pos.z;
+				GetComponent<Transform>()->SetPosition(Vector3(unprojMousePos));
+			}
 		}
 	}
 	void InvenItem::LateUpdate()

@@ -26,7 +26,7 @@ namespace m
 		AddGameObject(eLayerType::UI, camera);
 
 		Vector2 ccp = Camera::GetCameraCenter();
-		camera->GetComponent<Transform>()->SetPosition(Vector3(ccp.x, ccp.y, -10.f));
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
 		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -1.f));
 		camera->AddComponent<CameraScript>();
 		Camera* cameraComp = camera->AddComponent<Camera>();
@@ -47,26 +47,17 @@ namespace m
 		back->AddComponent<MeshRenderer>();
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mainMenu2"));
-		back->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 1.0f));
-		back->GetComponent<Transform>()->SetScale(Vector3(RESOL_WID, RESOL_HEI, 0.f));
+		back->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.0f));
+		//back->GetComponent<Transform>()->SetScale(Vector3(800.f * Texture::GetWidRatio(), 600.f * Texture::GetHeiRatio(), 0.f));
+		back->GetComponent<Transform>()->SetScale(Vector3(RESOL_WID, RESOL_HEI, 0.f));					 
 
 		Background* logo = new Background();
 		AddGameObject(eLayerType::UI, logo);
 		logo->AddComponent<MeshRenderer>();
 		logo->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		logo->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testLogo"));
-		logo->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 365.f * Texture::GetWidRatio() / 2.f, 0.f, 1.f));
+		logo->GetComponent<Transform>()->SetPosition(Vector3(0.f, 450.f - (183.f * Texture::GetHeiRatio() / 2.f), 1.f));
 		logo->GetComponent<Transform>()->SetScale(Vector3(365.f * Texture::GetWidRatio(), 183.f * Texture::GetHeiRatio(), 0.f));
-
-		UI* info1 = new UI();
-		AddGameObject(eLayerType::UI, info1);
-		info1->AddComponent<MeshRenderer>();
-		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt1"));
-		info1->GetComponent<Transform>()->SetScale(Vector3(150.f * Texture::GetWidRatio()
-			, 40.f * Texture::GetHeiRatio(), 0.f));
-		info1->GetComponent<Transform>()->SetPosition(Vector3(10.f
-			, -10.f, 1.f));
 
 		Button* btn1 = new Button();
 		AddGameObject(eLayerType::UI, btn1);
@@ -76,11 +67,21 @@ namespace m
 		btn1->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
 		btn1->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		btn1->SetCamera(cameraComp);
-		btn1->SetClickFunction(
+		btn1->OrderClickItem(
 			[]() { SceneManager::LoadScene(L"SelectCharacterScene"); }
 		);
-		btn1->GetComponent<Transform>()->SetPosition(Vector3(ccp.x - 272.f * Texture::GetWidRatio() / 2.f, -290.f * Texture::GetHeiRatio(), 1.f));
+		btn1->GetComponent<Transform>()->SetPosition(Vector3(0.f, 450.f - (288.f * Texture::GetHeiRatio()) , 1.f));
 		btn1->GetComponent<Transform>()->SetScale(Vector3(272.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));		
+
+		UI* info1 = new UI();
+		AddGameObject(eLayerType::UI, info1);
+		info1->AddComponent<MeshRenderer>();
+		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt1"));
+		info1->GetComponent<Transform>()->SetScale(Vector3(150.f * Texture::GetWidRatio()
+			, 40.f * Texture::GetHeiRatio(), 0.f));
+		info1->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 150.f * Texture::GetWidRatio() / 2.f
+			, 450.f - 40.f * Texture::GetHeiRatio(), 1.f));
 
 		//FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
 	}

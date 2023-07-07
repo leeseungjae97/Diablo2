@@ -22,6 +22,7 @@
 #include "Commoninclude.h"
 #include "mMath.h"
 #include "mEnums.h"
+#include "SystemDefine.h"
 
 using std::vector;
 using std::map;

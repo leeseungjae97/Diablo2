@@ -61,4 +61,39 @@ namespace m
 	{
 		mGameObjects.push_back(gameObj);
 	}
+	void Layer::ChangeOrderGameObject(GameObject* gameObj)
+	{
+		//if (gameObj == nullptr) return;
+		//std::vector<GameObject*>::iterator iter = mGameObjects.begin();
+		//int index = 0;
+		//while (iter != mGameObjects.end())
+		//{
+		//	if ((*iter) == gameObj)
+		//	{
+		//		//iter = mGameObjects.erase(iter);
+		//		GameObject* tmp = mGameObjects[mGameObjects.size() - 1];
+		//		mGameObjects[mGameObjects.size() - 1] = (*iter);
+		//		mGameObjects[index] = tmp;
+
+		//		break;
+		//	}
+		//	else
+		//	{
+		//		iter++;
+		//		index++;
+		//	}
+		//}
+		if (gameObj == nullptr) return;
+		vector<GameObject*>::iterator iter = mGameObjects.begin();
+		while (iter != mGameObjects.end())
+		{
+			if ((*iter) == gameObj)
+			{
+				iter = mGameObjects.erase(iter);
+				break;
+			}
+			else iter++;
+		}
+		mGameObjects.push_back(gameObj);
+	}
 }

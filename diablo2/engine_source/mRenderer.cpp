@@ -8,7 +8,6 @@ namespace renderer
 	using namespace m;
 	using namespace m::graphics;
 	vector<Vertex> doubleSizeRectVertex;
-	vector<Vertex> halfSizeRectVertex;
 	vector<Vertex> rectVertex;
 	vector<UINT> rectIndexes;
 
@@ -188,25 +187,24 @@ namespace renderer
 
 	void LoadMesh()
 	{
-		halfSizeRectVertex.resize(4);
-		doubleSizeRectVertex.resize(4);
 		rectVertex.resize(4);
+		doubleSizeRectVertex.resize(4);
 
-		halfSizeRectVertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		halfSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		halfSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
+		rectVertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		rectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		rectVertex[0].uv = Vector2(0.0f, 0.0f);
 
-		halfSizeRectVertex[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		halfSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		halfSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
+		rectVertex[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		rectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		rectVertex[1].uv = Vector2(1.0f, 0.0f);
 
-		halfSizeRectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		halfSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		halfSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
+		rectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		rectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		rectVertex[2].uv = Vector2(1.0f, 1.0f);
 
-		halfSizeRectVertex[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		halfSizeRectVertex[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		halfSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
+		rectVertex[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		rectVertex[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		rectVertex[3].uv = Vector2(0.0f, 1.0f);
 
 		doubleSizeRectVertex[0].pos = Vector3(-1.0f, 1.0f, 0.0f);
 		doubleSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -220,25 +218,9 @@ namespace renderer
 		doubleSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		doubleSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
 
-		doubleSizeRectVertex[3].pos = Vector3(1.0f, -1.0f, 0.0f);
+		doubleSizeRectVertex[3].pos = Vector3(-1.0f, -1.0f, 0.0f);
 		doubleSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		doubleSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
-
-		rectVertex[0].pos = Vector3(0.0f, 0.0f, 0.0f);
-		rectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		rectVertex[0].uv = Vector2(0.0f, 0.0f);
-
-		rectVertex[1].pos = Vector3(1.f, 0.0f, 0.0f);
-		rectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		rectVertex[1].uv = Vector2(1.0f, 0.0f);
-
-		rectVertex[2].pos = Vector3(1.f, -1.0f, 0.0f);
-		rectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		rectVertex[2].uv = Vector2(1.0f, 1.0f);
-
-		rectVertex[3].pos = Vector3(0.0f, -1.0f, 0.0f);
-		rectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		rectVertex[3].uv = Vector2(0.0f, 1.0f);
 
 		rectIndexes.push_back(0);
 		rectIndexes.push_back(1);
@@ -247,11 +229,6 @@ namespace renderer
 		rectIndexes.push_back(0);
 		rectIndexes.push_back(2);
 		rectIndexes.push_back(3);
-
-		std::shared_ptr<Mesh> halfMesh = std::make_shared<Mesh>();
-		Resources::Insert(L"halfRectMesh", halfMesh);
-		halfMesh->CreateVertexBuffer(halfSizeRectVertex.data(), halfSizeRectVertex.size());
-		halfMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
 
 		std::shared_ptr<Mesh> doubleMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"doubleRectMesh", doubleMesh);
@@ -471,6 +448,15 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"tt2", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"testDebugRect", spriteMateiral);
+		}
 		//move_scene_key_info.png
 #pragma endregion
 #pragma region Items
@@ -493,7 +479,6 @@ namespace renderer
 			Resources::Insert(L"mpPosion1", spriteMateiral);
 		}
 #pragma endregion
-
 #pragma region Bottom User Interface
 		{
 			std::shared_ptr<Texture> texture

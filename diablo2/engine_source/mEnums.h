@@ -21,6 +21,7 @@ namespace m::enums
 		Monster,
 		Tile,
 		UI,
+		Item,
 		End,
 	};
 	enum class eResourceType

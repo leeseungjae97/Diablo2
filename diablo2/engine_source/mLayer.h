@@ -14,6 +14,7 @@ namespace m
 		virtual void Render();
 
 		void AddGameObject(GameObject* gameObj);
+		void ChangeOrderGameObject(GameObject* gameObj);
 		const std::vector<GameObject*> GetGameObjects() { return mGameObjects; }
 
 	private:

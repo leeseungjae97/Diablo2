@@ -12,7 +12,7 @@ namespace m
 	{}
 	void Background::Update()
 	{
-		UI::Update();
+		//UI::Update();
 	}
 	void Background::LateUpdate()
 	{

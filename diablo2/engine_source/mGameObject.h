@@ -74,12 +74,16 @@ namespace m
 		void SetCamera(Camera* camera) { mCamera = camera; }
 		Camera* GetCamera() { return mCamera; }
 
+		void MousePosHoverGameObject();
+		bool GetHover() { return bHover; }
+
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
 		
 		Camera* mCamera;
+		bool bHover;
     };
 }
 

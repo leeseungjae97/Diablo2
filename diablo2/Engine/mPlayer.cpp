@@ -30,10 +30,8 @@ namespace m
 
 		Vector3 curPosition = tr->GetPosition();
 
-		Viewport viewport = application.GetViewport();
-
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-			, viewport, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
 
 		if (Input::GetKeyDown(eKeyCode::LBUTTON)
 			&& !MouseManager::GetMouseOnUI())
@@ -42,15 +40,45 @@ namespace m
 
 			destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
-			fStartDistance = abs((destPosition - prevPosition).Length());
+			float maxX = max(destPosition.x, prevPosition.x);
+			float maxY = max(destPosition.y, prevPosition.y);
+
+			float minX = min(destPosition.x, prevPosition.x);
+			float minY = min(destPosition.y, prevPosition.y);
+
+			//float dX = destPosition.x < 0 ? fabs(destPosition.x * 2) : destPosition.x;
+			//float dY = destPosition.y < 0 ? fabs(destPosition.y * 2) : destPosition.y;
+
+			//float pX = prevPosition.x < 0 ? fabs(prevPosition.x * 2) : prevPosition.x;
+			//float pY = prevPosition.y < 0 ? fabs(prevPosition.y * 2) : prevPosition.y;
+
+			//fStartDistance = (Vector2(dX, dY) - Vector2(pX, pY)).Length();
+
+			fStartDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
+
+			
 
 			vDirection = destPosition - curPosition;
 			vDirection.Normalize();
 		}
 
-		fRemainDistance = abs((curPosition - prevPosition).Length());
+		float maxX = max(curPosition.x, prevPosition.x);
+		float maxY = max(curPosition.y, prevPosition.y);
 
-		if (fRemainDistance <= fStartDistance)
+		float minX = min(curPosition.x, prevPosition.x);
+		float minY = min(curPosition.y, prevPosition.y);
+
+		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
+
+		//float dX = curPosition.x < 0 ? fabs(curPosition.x * 2) : curPosition.x;
+		//float dY = curPosition.y < 0 ? fabs(curPosition.y * 2) : curPosition.y;
+
+		//float pX = prevPosition.x < 0 ? fabs(prevPosition.x * 2) : prevPosition.x;
+		//float pY = prevPosition.y < 0 ? fabs(prevPosition.y * 2) : prevPosition.y;
+
+		//fRemainDistance = (Vector2(pX, pY) - Vector2(dX, dY)).Length();
+
+		if (fRemainDistance < fStartDistance)
 		{
 			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
