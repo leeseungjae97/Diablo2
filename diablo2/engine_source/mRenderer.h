@@ -38,8 +38,8 @@ namespace renderer
 	//	UINT type;
 	//};
 
-	extern vector<Vertex> doubleSizeRectVertex;
-	extern vector<UINT> rectIndexes;
+	extern std::vector<Vertex> doubleSizeRectVertex;
+	extern std::vector<UINT> rectIndexes;
 
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
 

@@ -6,19 +6,10 @@ namespace m
 {
 	Item::Item(eItemType type)
 		: mType(type)
-		//, bHover(false)
 		, mInvenMaterial()
 		, mFieldMaterial()
-		, iSpaceInvenX(0)
-		, iSpaceInvenY(0)
-	{}
-	Item::Item()
-		: mType(eItemType::None)
-		//, bHover(false)
-		, mInvenMaterial()
-		, mFieldMaterial()
-		, iSpaceInvenX(0)
-		, iSpaceInvenY(0)
+		, iInvenXSpace(0)
+		, iInvenYSpace(0)
 	{}
 	Item::~Item()
 	{}

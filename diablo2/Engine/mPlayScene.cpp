@@ -63,7 +63,8 @@ namespace m
 		//camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
 		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraComp->DisableLayerMasks();
+		cameraComp->TurnLayerMask(eLayerType::Player, true);
 		camera->AddComponent<CameraScript>();
 		//camera->AddComponent<GridScript>();
 
@@ -95,8 +96,10 @@ namespace m
 		uiCamera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.f));
 		Camera* cameraComp2 = uiCamera->AddComponent<Camera>();
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
+		//cameraComp2->TurnLayerMask(eLayerType::UI, true);
+		//cameraComp2->TurnLayerMask(eLayerType::Item, true);
 
-		AddGameObject(eLayerType::Player, uiCamera);
+		AddGameObject(eLayerType::UI, uiCamera);
 
 
 		inven = new Inventory(cameraComp2);

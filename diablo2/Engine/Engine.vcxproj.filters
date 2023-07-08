@@ -50,6 +50,9 @@
     <ClCompile Include="mGridScript.cpp">
       <Filter>Script\GridScript</Filter>
     </ClCompile>
+    <ClCompile Include="mInven.cpp">
+      <Filter>Inventory\Inven</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="mGridScript.h">
       <Filter>Script\GridScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mInven.h">
+      <Filter>Inventory\Inven</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +168,9 @@
     </Filter>
     <Filter Include="Script\GridScript">
       <UniqueIdentifier>{dd83b7bb-6cbf-4147-ae4c-afb0b2d880cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inventory\Inven">
+      <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

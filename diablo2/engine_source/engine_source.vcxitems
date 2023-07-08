@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mComponent.h" />

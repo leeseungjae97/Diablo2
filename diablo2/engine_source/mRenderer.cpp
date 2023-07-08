@@ -2,14 +2,15 @@
 #include "mResources.h"
 #include "mTexture.h"
 #include "mMaterial.h"
+#include "ItemLookUpTables.h"
 
 namespace renderer
 {
 	using namespace m;
 	using namespace m::graphics;
-	vector<Vertex> doubleSizeRectVertex;
-	vector<Vertex> rectVertex;
-	vector<UINT> rectIndexes;
+	std::vector<Vertex> doubleSizeRectVertex;
+	std::vector<Vertex> rectVertex;
+	std::vector<UINT> rectIndexes;
 
 	m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
@@ -457,26 +458,44 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"testDebugRect", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"invenRect", spriteMateiral);
+		}
 		//move_scene_key_info.png
 #pragma endregion
 #pragma region Items
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"hp_posion_1", L"..\\Resources\\texture\\items\\posion\\hp_posion_1.png");
+				= Resources::Load<Texture>(L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"hpPosion1", spriteMateiral);
+			Resources::Insert(itemNameTable[hpPosion1], spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"mp_posion_1", L"..\\Resources\\texture\\items\\posion\\mp_posion_1.png");
+				= Resources::Load<Texture>(L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mpPosion1", spriteMateiral);
+			Resources::Insert(itemNameTable[mpPosion1], spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(itemNameTable[jaredsStone], spriteMateiral);
 		}
 #pragma endregion
 #pragma region Bottom User Interface

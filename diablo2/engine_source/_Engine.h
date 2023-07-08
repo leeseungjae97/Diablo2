@@ -23,13 +23,3 @@
 #include "mMath.h"
 #include "mEnums.h"
 #include "SystemDefine.h"
-
-using std::vector;
-using std::map;
-using std::wstring;
-using std::list;
-using std::pair;
-using std::make_pair;
-using std::move;
-using std::function;
-using std::queue;

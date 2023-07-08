@@ -11,7 +11,7 @@ namespace m
         public Item
     {
     public:
-        InvenItem(eItemType type, Inventory* inventory, Vector3 pos);
+        InvenItem(eItem item, Inventory* inventory);
         virtual ~InvenItem();
 
         virtual void Initialize() override;
@@ -24,6 +24,7 @@ namespace m
         bool bSetMouseFollow;
         Vector3 prevPosition;
         Inventory* mInventory;
+        eItem mItem;
     };
 }
 

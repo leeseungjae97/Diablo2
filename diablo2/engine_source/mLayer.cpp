@@ -84,7 +84,7 @@ namespace m
 		//	}
 		//}
 		if (gameObj == nullptr) return;
-		vector<GameObject*>::iterator iter = mGameObjects.begin();
+		std::vector<GameObject*>::iterator iter = mGameObjects.begin();
 		while (iter != mGameObjects.end())
 		{
 			if ((*iter) == gameObj)

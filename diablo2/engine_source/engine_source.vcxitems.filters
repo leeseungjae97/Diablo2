@@ -46,6 +46,9 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{b93bd2f9-5bcd-4588-a00d-790acf7fbd92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{3e2c6742-6a99-4425-a4ac-e219a1acf00e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -129,7 +132,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h">
       <Filter>Manager</Filter>
@@ -139,6 +141,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mObject.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,10 +219,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

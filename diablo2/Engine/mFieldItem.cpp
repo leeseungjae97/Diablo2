@@ -1,7 +1,8 @@
 #include "mFieldItem.h"
 namespace m
 {
-	FieldItem::FieldItem()
+	FieldItem::FieldItem(eItem item)
+		: Item(itemTypeTable[item])
 	{}
 	FieldItem::~FieldItem()
 	{}

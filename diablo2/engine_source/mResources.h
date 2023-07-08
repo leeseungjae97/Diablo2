@@ -6,7 +6,7 @@ namespace m
 	{
 	public:
 		template <typename T>
-		static std::shared_ptr<T> Find(const wstring& key)
+		static std::shared_ptr<T> Find(const std::wstring& key)
 		{
 			// 리소스맵에서 데이터 탐색
 			std::map<std::wstring, std::shared_ptr<Resource>>::iterator iter = mResources.find(key);
@@ -43,6 +43,6 @@ namespace m
 			mResources.insert(std::make_pair(key, resource));
 		}
 	private:
-		static std::map<wstring, std::shared_ptr<Resource>> mResources;
+		static std::map<std::wstring, std::shared_ptr<Resource>> mResources;
 	};
 }

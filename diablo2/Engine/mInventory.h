@@ -1,6 +1,7 @@
 #pragma once
 #include "..\engine_source\mUI.h"
 #include "mInvenItem.h"
+#include "mInven.h"
 namespace m
 {
     class Inventory :
@@ -15,11 +16,12 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        std::vector<UI*> GetInvens() { return invens; }
+        std::vector<Inven*> GetInvens() { return invens; }
+        std::vector<InvenItem*> GetInvenItems() { return invenItems; }
     private:
                                             // x * 10 y * 4
                                             // x + 18 y - 319
-        std::vector<UI*> invens;
+        std::vector<Inven*> invens;
         std::vector<InvenItem*> invenItems; // x 28 y 28
         UI* invenWeapon1Left;   // x 60 y 117
         UI* invenWeapon1Right;  // x 60 y 117

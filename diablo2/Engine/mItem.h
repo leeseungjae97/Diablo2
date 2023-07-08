@@ -1,6 +1,7 @@
 #pragma once
 #include "..\engine_source\mGameObject.h"
 #include "..\engine_source\mMaterial.h"
+#include "..\engine_source\ItemLookUpTables.h"
 
 namespace m
 {
@@ -8,24 +9,8 @@ namespace m
         public GameObject
     {
     public:
-        enum class eItemType
-        {
-            None,
-            Weapon,
-            Ring,
-            Amulet,
-            Belt,
-            Helmet,
-            Shoes,
-            Glove,
-            Armor,
-            Posion,
-            Scroll,
-            END,
-        };
 
         Item(eItemType type);
-        Item();
         virtual ~Item();
 
         virtual void Initialize() override;
@@ -36,14 +21,19 @@ namespace m
         void SetItemType(eItemType type) { mType = type; }
         eItemType GetItemType() { return mType; }
 
-        //bool GetHover() { return bHover; }
-        //void SetHover(bool hover) { bHover = hover; }
+        void SetInvenXSpace(int spaceX) { iInvenXSpace = spaceX; }
+        void SetInvenYSpace(int spaceY) { iInvenYSpace = spaceY; }
+
+        int GetInvenXSpace() { return iInvenXSpace; }
+        int GetInvenYSpace() { return iInvenYSpace; }
 
     private:
-        //bool bHover;
         eItemType mType;
-        int iSpaceInvenX;
-        int iSpaceInvenY;
+        int iInvenXSpace;
+        int iInvenYSpace;
+
+        float fFieldXSpace;
+        float fFieldYSpace;
 
         std::shared_ptr<Material> mInvenMaterial;
         std::shared_ptr<Material> mFieldMaterial;

@@ -6,6 +6,7 @@
 #include "..\engine_source\mResources.h"
 #include "..\engine_source\mTexture.h"
 #include "..\engine_source\mSceneManager.h"
+#include "..\engine_source\ItemLookUpTables.h"
 
 #include "mInvenItem.h"
 #include "mItem.h"
@@ -37,17 +38,14 @@ namespace m
 		{
 			for (int x = 0; x < 10; x++)
 			{
-				UI* inven = new UI();
+				Inven* inven = new Inven();
+				
 				Transform* invenTr = inven->GetComponent<Transform>();
-				invenTr->SetPosition(Vector3(63.f + ((291.f / 10.f) * Texture::GetWidRatio() * x)
-					, -180.f + ((117.f / 4.f) * Texture::GetHeiRatio() * y), tr->GetPosition().z));
+				invenTr->SetPosition(Vector3(65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
+					, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y), tr->GetPosition().z));
 
-				invenTr->SetScale(Vector3((291.f / 10.f) * Texture::GetWidRatio()
-					, (117.f / 4.f) * Texture::GetHeiRatio(), 0.f));
-
-				MeshRenderer* invenMr = inven->AddComponent<MeshRenderer>();
-				invenMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				invenMr->SetMaterial(Resources::Find<Material>(L"testDebugRect"));
+				invenTr->SetScale(Vector3((288.f / 10.f) * Texture::GetWidRatio()
+					, (114.f / 4.f) * Texture::GetHeiRatio(), 0.f));
 
 				curScene->AddGameObject(eLayerType::UI, inven);
 
@@ -56,38 +54,30 @@ namespace m
 		}
 
 		{
-			InvenItem* hpPosion = new InvenItem(Item::eItemType::Posion, this
-				, invens[0]->GetComponent<Transform>()->GetPosition());
-			hpPosion->SetState(GameObject::Active);
-			hpPosion->SetCamera(GetCamera());
-			hpPosion->SetName(L"hpPosion");
-			MeshRenderer* mr = hpPosion->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"hpPosion1"));
+			InvenItem* hpPosion = new InvenItem(hpPosion1, this);
 
-			Transform* oTr = hpPosion->GetComponent<Transform>();
-			oTr->SetScale(Vector3(28.f * Texture::GetWidRatio(), 28.f* Texture::GetHeiRatio(), 0.f));
+			hpPosion->SetCamera(GetCamera());
 
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
 			invenItems.push_back(hpPosion);
 		}
 		{
-			InvenItem* mpPosion = new InvenItem(Item::eItemType::Posion, this
-				, invens[1]->GetComponent<Transform>()->GetPosition());
-			mpPosion->SetState(GameObject::Active);
-			mpPosion->SetCamera(GetCamera());
-			mpPosion->SetName(L"mpPosion");
-			MeshRenderer* mr = mpPosion->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"mpPosion1"));
+			InvenItem* mpPosion = new InvenItem(mpPosion1, this);
 
-			Transform* oTr = mpPosion->GetComponent<Transform>();
-			oTr->SetScale(Vector3(28.f * Texture::GetWidRatio(), 28.f * Texture::GetHeiRatio(), 0.f));
+			mpPosion->SetCamera(GetCamera());
 
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
 			invenItems.push_back(mpPosion);
 		}
-		
+		{
+			InvenItem* orb1 = new InvenItem(jaredsStone, this);
+
+			orb1->SetCamera(GetCamera());
+
+			curScene->AddGameObject(eLayerType::Item, orb1);
+			invenItems.push_back(orb1);
+		}
+
 		
 	}
 	Inventory::~Inventory()
