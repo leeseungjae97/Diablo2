@@ -175,6 +175,7 @@
     <ClInclude Include="mPlayer.h" />
     <ClInclude Include="mPlayScene.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
+    <ClInclude Include="mSkillUp.h" />
     <ClInclude Include="mTile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +196,7 @@
     <ClCompile Include="mPlayer.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
+    <ClCompile Include="mSkillUp.cpp" />
     <ClCompile Include="mTile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -35,9 +35,6 @@
     <ClCompile Include="mPanel.cpp">
       <Filter>UI\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="mInventory.cpp">
-      <Filter>Inventory</Filter>
-    </ClCompile>
     <ClCompile Include="mInvenItem.cpp">
       <Filter>Item\InvenItem</Filter>
     </ClCompile>
@@ -51,8 +48,12 @@
       <Filter>Script\GridScript</Filter>
     </ClCompile>
     <ClCompile Include="mInven.cpp">
-      <Filter>Inventory\Inven</Filter>
+      <Filter>UI\Inventory\Inven</Filter>
     </ClCompile>
+    <ClCompile Include="mInventory.cpp">
+      <Filter>UI\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -86,9 +87,6 @@
     <ClInclude Include="mPanel.h">
       <Filter>UI\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="mInventory.h">
-      <Filter>Inventory</Filter>
-    </ClInclude>
     <ClInclude Include="mInvenItem.h">
       <Filter>Item\InvenItem</Filter>
     </ClInclude>
@@ -102,8 +100,12 @@
       <Filter>Script\GridScript</Filter>
     </ClInclude>
     <ClInclude Include="mInven.h">
-      <Filter>Inventory\Inven</Filter>
+      <Filter>UI\Inventory\Inven</Filter>
     </ClInclude>
+    <ClInclude Include="mInventory.h">
+      <Filter>UI\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillUp.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -154,9 +156,6 @@
     <Filter Include="UI\Panel">
       <UniqueIdentifier>{ccbe0194-6931-44e2-b043-c73cb46ce8ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Inventory">
-      <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Item">
       <UniqueIdentifier>{af605d61-ccd7-46ff-99a9-65a61f1a7a14}</UniqueIdentifier>
     </Filter>
@@ -169,8 +168,14 @@
     <Filter Include="Script\GridScript">
       <UniqueIdentifier>{dd83b7bb-6cbf-4147-ae4c-afb0b2d880cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Inventory\Inven">
+    <Filter Include="UI\Inventory">
+      <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Inventory\Inven">
       <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Skill">
+      <UniqueIdentifier>{70d998e3-38f7-4f8f-a6e1-92c1d0f994d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -600,6 +600,15 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"skillPanelFire", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"skill_deactive_btn", L"..\\Resources\\texture\\ui\\skill\\orceress_skill_pannel\\skill_deactive_btn.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"skillDeactiveBtn", spriteMateiral);
+		}
 #pragma endregion
 #pragma region Skill icons
 		{

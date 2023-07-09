@@ -23,26 +23,30 @@ namespace m
 
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(Vector3(28.f * itemInvenDisplayScale[item][0] * Texture::GetWidRatio(), 28.f * itemInvenDisplayScale[item][1] * Texture::GetHeiRatio(), 0.f));
+		Vector3 scale = tr->GetScale();
 
 		std::vector<Inven*> invens = mInventory->GetInvens();
-		bool deploy = true;
-
+		
 		for (int i = 0; i < invens.size(); ++i)
 		{
 			int dx = (i % 10) + (int)itemInvenDisplayScale[mItem][0] - 1;
 			int dy = (i / 10) + (int)itemInvenDisplayScale[mItem][1] - 1;
 
-			if (dx < 0 || dx > 9 || dy < 0 || dy > 4) continue;
+			if (dx < 0 || dx > 9 || dy < 0 || dy > 3) continue;
 
+			
+			bool deploy = true;
 			for (int y = i / 10; y <= dy; ++y)
 			{
 				for (int x = i % 10; x <= dx; ++x)
 				{
-					if (invens[y + x]->GetFill())
+					if (invens[y * 10 + x]->GetFill())
 					{
 						deploy = false;
+						break;
 					}
 				}
+				if (!deploy) break;
 			}
 			if (deploy)
 			{
@@ -50,11 +54,12 @@ namespace m
 				{
 					for (int x = i % 10; x <= dx; ++x)
 					{
-						invens[y + x]->SetFill(true);
+						invens[y * 10 + x]->SetFill(true);
 					}
 				}
-				GetComponent<Transform>()->SetPosition(invens[i]->GetComponent<Transform>()->GetPosition());
 				prevPosition = invens[i]->GetComponent<Transform>()->GetPosition();
+				curInvenIndex = i;
+				GetComponent<Transform>()->SetPosition(prevPosition);
 				break;
 			}
 		}
@@ -74,7 +79,7 @@ namespace m
 			{
 				bSetMouseFollow = bSetMouseFollow ? false : true;
 
-				bool deployed = false;
+				
 				std::vector<Inven*> invens = mInventory->GetInvens();
 				std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
 
@@ -85,35 +90,49 @@ namespace m
 						int dx = (i % 10) + (int)itemInvenDisplayScale[mItem][0] - 1;
 						int dy = (i / 10) + (int)itemInvenDisplayScale[mItem][1] - 1;
 
-						if (dx < 0 || dx > 9 || dy < 0 || dy > 4) continue;
+						if (dx < 0 || dx > 9 || dy < 0 || dy > 3) continue;
 
-						for (int y = i / 10; y <= dy; ++y)
-						{
-							for (int x = i % 10; x <= dx; ++x)
-							{
-								if (!invens[y + x]->GetFill())
-								{
-									deployed = true;
-								}
-							}		
-						}
+						bool deployed = true;
+
+						//for (int y = i / 10; y <= dy; ++y)
+						//{
+						//	for (int x = i % 10; x <= dx; ++x)
+						//	{
+						//		if (invens[y * 10 + x]->GetFill())
+						//		{
+						//			deployed = false;
+						//		}
+						//	}		
+						//}
 						if (deployed)
 						{
 							for (int y = i / 10; y <= dy; ++y)
 							{
 								for (int x = i % 10; x <= dx; ++x)
 								{
-									invens[y + x]->SetFill(true);
+									invens[y * 10 + x]->SetFill(true);
+								}
+							}
+
+							int dx_ = (curInvenIndex % 10) + (int)itemInvenDisplayScale[mItem][0] - 1;
+							int dy_ = (curInvenIndex / 10) + (int)itemInvenDisplayScale[mItem][1] - 1;
+
+							for (int y = curInvenIndex / 10; y <= dy_; ++y)
+							{
+								for (int x = curInvenIndex % 10; x <= dx_; ++x)
+								{
+									invens[y * 10 + x]->SetFill(false);
 								}
 							}
 							GetComponent<Transform>()->SetPosition(invens[i]->GetComponent<Transform>()->GetPosition());
 							prevPosition = invens[i]->GetComponent<Transform>()->GetPosition();
+							curInvenIndex = i;
 							break;
-						}						
+						}
+						else
+							GetComponent<Transform>()->SetPosition(prevPosition);
 					}
 				}
-				if (!deployed)
-					GetComponent<Transform>()->SetPosition(prevPosition);
 			}
 			if (bSetMouseFollow)
 			{

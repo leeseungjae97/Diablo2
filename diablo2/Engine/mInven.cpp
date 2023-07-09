@@ -5,6 +5,7 @@
 namespace m
 {
 	Inven::Inven()
+		: bFill(false)
 	{
 		MeshRenderer* invenMr = AddComponent<MeshRenderer>();
 		invenMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));

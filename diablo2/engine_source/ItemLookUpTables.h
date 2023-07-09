@@ -52,9 +52,9 @@ namespace m
 	};
 	// 28.f, 28.f = one inven = 1.f, 1.f
 	float itemInvenDisplayScale[eItem::END][2] = {
-		{1.f,1.f},
-		{1.f,1.f},
-		
+		{1.f, 1.f},
+		{1.f, 1.f},
+
 		{1.f, 3.f},
 	};
 }
