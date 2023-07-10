@@ -13,7 +13,8 @@ namespace m
 {
 	Button::Button()
 		: bClick(false)
-	{}
+	{
+	}
 	Button::~Button()
 	{}
 	void Button::Initialize()
@@ -21,6 +22,9 @@ namespace m
 	void Button::Update()
 	{
 		UI::Update();
+
+		if (GetState() != GameObject::Active) return;
+
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
 
 		if (GetHover())
@@ -28,18 +32,21 @@ namespace m
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			{
 				bClick = true;
-				mr->SetMaterial(mClickedMaterial);
+
+				if(mClickedMaterial)
+					mr->SetMaterial(mClickedMaterial);
 			}
 			if (Input::GetKeyUp(eKeyCode::LBUTTON))
 			{
-				if (nullptr != fClickFunctionPtr)
+				if (fClickFunctionPtr)
 					fClickFunctionPtr();
 			}
 		}
 		if (Input::GetKeyUp(eKeyCode::LBUTTON))
 		{
 			bClick = false;
-			mr->SetMaterial(mNormalMaterial);
+			if(mNormalMaterial)
+				mr->SetMaterial(mNormalMaterial);
 		}
 	}
 	void Button::LateUpdate()

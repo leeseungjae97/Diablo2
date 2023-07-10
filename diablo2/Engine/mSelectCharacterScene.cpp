@@ -30,31 +30,27 @@ namespace m
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
-		back->AddComponent<MeshRenderer>();
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
 		back->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		back->GetComponent<Transform>()->SetScale(Vector3(RESOL_WID, RESOL_HEI, 0.f));
 
-		Background* fire = new Background();
-		AddGameObject(eLayerType::UI, fire);
-		fire->AddComponent<MeshRenderer>();
-		fire->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		fire->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
-		fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
-		fire->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
+		//Background* fire = new Background();
+		//AddGameObject(eLayerType::UI, fire);
+		//fire->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//fire->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
+		//fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		//fire->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
 
-		Background* amazon = new Background();
-		AddGameObject(eLayerType::UI, amazon);
-		amazon->AddComponent<MeshRenderer>();
-		amazon->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		amazon->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
-		amazon->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
-		amazon->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
+		//Background* amazon = new Background();
+		//AddGameObject(eLayerType::UI, amazon);
+		//amazon->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//amazon->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
+		//amazon->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		//amazon->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
 
 		UI* info1 = new UI();
 		AddGameObject(eLayerType::UI, info1);
-		info1->AddComponent<MeshRenderer>();
 		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt1"));
 		info1->GetComponent<Transform>()->SetScale(Vector3(150.f * Texture::GetWidRatio()
@@ -64,12 +60,11 @@ namespace m
 
 		Button* exitBtn = new Button();
 		AddGameObject(eLayerType::UI, exitBtn);
-		exitBtn->AddComponent<MeshRenderer>();
 		exitBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		exitBtn->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		exitBtn->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
 		exitBtn->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
-		exitBtn->OrderClickItem( []() { SceneManager::LoadScene(L"PlayScene"); });
+		exitBtn->SetClickFunction( []() { SceneManager::LoadScene(L"PlayScene"); });
 		exitBtn->SetCamera(cameraComp);
 		exitBtn->GetComponent<Transform>()->SetPosition(Vector3(34.f + -800.f + 126.f * Texture::GetWidRatio() / 2.f, 27.f + -450.f + 35.f * Texture::GetHeiRatio() / 2.f, 1.f));
 		exitBtn->GetComponent<Transform>()->SetScale(Vector3(126.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));

@@ -7,7 +7,7 @@ namespace m
 	Inven::Inven()
 		: bFill(false)
 	{
-		MeshRenderer* invenMr = AddComponent<MeshRenderer>();
+		MeshRenderer* invenMr = GetComponent<MeshRenderer>();
 		invenMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		invenMr->SetMaterial(Resources::Find<Material>(L"invenRect"));
 	}

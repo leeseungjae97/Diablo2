@@ -20,7 +20,7 @@ namespace m
 	{
 		SetCamera(camera);
 		SetName(L"Inventory");
-		MeshRenderer* mr = AddComponent<MeshRenderer>();
+		MeshRenderer* mr = GetComponent<MeshRenderer>();
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"inventoryPanel"));
@@ -28,7 +28,7 @@ namespace m
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(Vector3(400.f * Texture::GetWidRatio()
 		, 555.f * Texture::GetHeiRatio(), 0.f));
-		tr->SetPosition(Vector3(0.0f + 400.f * Texture::GetWidRatio() / 2.f
+		tr->SetPosition(Vector3(400.f * Texture::GetWidRatio() / 2.f
 			, 450.f - 555.f * Texture::GetHeiRatio() / 2.f, -1.0f));
 
 		Scene* curScene = SceneManager::GetActiveScene();
@@ -54,7 +54,7 @@ namespace m
 		}
 
 		{
-			InvenItem* hpPosion = new InvenItem(hpPosion1, this);
+			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1, this);
 
 			hpPosion->SetCamera(GetCamera());
 
@@ -62,7 +62,7 @@ namespace m
 			invenItems.push_back(hpPosion);
 		}
 		{
-			InvenItem* mpPosion = new InvenItem(mpPosion1, this);
+			InvenItem* mpPosion = new InvenItem(eItem::mpPosion1, this);
 
 			mpPosion->SetCamera(GetCamera());
 
@@ -70,7 +70,7 @@ namespace m
 			invenItems.push_back(mpPosion);
 		}
 		{
-			InvenItem* orb1 = new InvenItem(jaredsStone, this);
+			InvenItem* orb1 = new InvenItem(eItem::jaredsStone, this);
 
 			orb1->SetCamera(GetCamera());
 
@@ -95,7 +95,7 @@ namespace m
 			{
 				if (ii->GetHover() && !ii->MouseFollow())
 				{
-					ii->OrderClickItem();
+					ii->SetClickFunction();
 				}
 			}
 		}

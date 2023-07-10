@@ -73,6 +73,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SkillLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemDefine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
   </ItemGroup>

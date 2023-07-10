@@ -17,6 +17,7 @@
 #include "mInventory.h"
 #include "mInvenItem.h"
 #include "mGridScript.h"
+#include "mSkillUp.h"
 
 extern m::Application application;
 namespace m
@@ -105,9 +106,11 @@ namespace m
 		inven = new Inventory(cameraComp2);
 		inven->SetState(GameObject::Invisible);
 
+		skillUp = new SkillUp(cameraComp2);
+		//skillUp->SetState(GameObject::Invisible);
+
 		UI* uiBottomBar = new UI();
 		AddGameObject(eLayerType::UI, uiBottomBar);
-		uiBottomBar->AddComponent<MeshRenderer>();
 		uiBottomBar->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiBottomBar->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"bottomUi"));
 		uiBottomBar->GetComponent<Transform>()->SetScale(Vector3(470.f * Texture::GetWidRatio()
@@ -117,7 +120,6 @@ namespace m
 
 		UI* uiMp = new UI();
 		AddGameObject(eLayerType::UI, uiMp);
-		uiMp->AddComponent<MeshRenderer>();
 		uiMp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiMp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpUi"));
 		uiMp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
@@ -128,7 +130,6 @@ namespace m
 	
 		UI* mp = new UI();
 		AddGameObject(eLayerType::UI, mp);
-		mp->AddComponent<MeshRenderer>();
 		mp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mp"));
 		mp->GetComponent<Transform>()->SetScale(Vector3(80.f * Texture::GetWidRatio()
@@ -139,7 +140,6 @@ namespace m
 
 		UI* mpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, mpOverlapHands);
-		mpOverlapHands->AddComponent<MeshRenderer>();
 		mpOverlapHands->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mpOverlapHands->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpOverlapHands"));
 		mpOverlapHands->GetComponent<Transform>()->SetScale(Vector3(82.f * Texture::GetWidRatio()
@@ -150,7 +150,6 @@ namespace m
 
 		UI* uiHp = new UI();
 		AddGameObject(eLayerType::UI, uiHp);
-		uiHp->AddComponent<MeshRenderer>();
 		uiHp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiHp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpUi"));
 		uiHp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
@@ -160,7 +159,6 @@ namespace m
 
 		UI* hp = new UI();
 		AddGameObject(eLayerType::UI, hp);
-		hp->AddComponent<MeshRenderer>();
 		hp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		hp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hp"));
 		hp->GetComponent<Transform>()->SetScale(Vector3(80.f * Texture::GetWidRatio()
@@ -171,7 +169,6 @@ namespace m
 
 		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);
-		hpOverlapHands->AddComponent<MeshRenderer>();
 		hpOverlapHands->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		hpOverlapHands->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpOverlapHands"));
 		hpOverlapHands->GetComponent<Transform>()->SetScale(Vector3(82.f * Texture::GetWidRatio()
@@ -191,7 +188,6 @@ namespace m
 
 		Button* skillShortCut1 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut1);
-		skillShortCut1->AddComponent<MeshRenderer>();
 		skillShortCut1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		skillShortCut1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"frozenOrbIcon"));
 		skillShortCut1->SetClickMaterial(Resources::Find<Material>(L"frozenOrbClickIcon"));
@@ -204,7 +200,6 @@ namespace m
 
 		Button* skillShortCut2 = new Button();
 		AddGameObject(eLayerType::UI, skillShortCut2);
-		skillShortCut2->AddComponent<MeshRenderer>();
 		skillShortCut2->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		skillShortCut2->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"thunderStormIcon"));
 		skillShortCut2->SetClickMaterial(Resources::Find<Material>(L"thunderStormClickicon"));
@@ -243,6 +238,10 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::I))
 		{
 			inven->SetState(inven->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
+		}
+		if (Input::GetKeyDown(eKeyCode::T))
+		{
+			skillUp->SetState(skillUp->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
 		}
 	}
 	void PlayScene::LateUpdate()

@@ -467,6 +467,15 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"invenRect", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"none", L"..\\Resources\\texture\\none.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"noneRect", spriteMateiral);
+		}
 		//move_scene_key_info.png
 #pragma endregion
 #pragma region Items
@@ -477,7 +486,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(itemNameTable[hpPosion1], spriteMateiral);
+			Resources::Insert(itemNameTable[(int)eItem::hpPosion1], spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -486,7 +495,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(itemNameTable[mpPosion1], spriteMateiral);
+			Resources::Insert(itemNameTable[(int)eItem::mpPosion1], spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -495,7 +504,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(itemNameTable[jaredsStone], spriteMateiral);
+			Resources::Insert(itemNameTable[(int)eItem::jaredsStone], spriteMateiral);
 		}
 #pragma endregion
 #pragma region Bottom User Interface
@@ -575,7 +584,7 @@ namespace renderer
 #pragma region Skill User Interface
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"skill_panel_cold", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel_cold.png");
+				= Resources::Load<Texture>(L"skill_panel_cold", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel\\sorceress_skill_pannel_cold.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -584,7 +593,7 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"skill_panel_light", L"..\\Resources\\texture\\ui\\skill\\orceress_skill_pannel\\sorceress_skill_pannel_light.png");
+				= Resources::Load<Texture>(L"skill_panel_light", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel\\sorceress_skill_pannel_light.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -593,7 +602,7 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"skill_panel_fire", L"..\\Resources\\texture\\ui\\skill\\orceress_skill_pannel\\sorceress_skill_pannel_fire.png");
+				= Resources::Load<Texture>(L"skill_panel_fire", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel\\sorceress_skill_pannel_fire.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -602,7 +611,7 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"skill_deactive_btn", L"..\\Resources\\texture\\ui\\skill\\orceress_skill_pannel\\skill_deactive_btn.png");
+				= Resources::Load<Texture>(L"skill_deactive_btn", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel\\skill_deactive_btn.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -610,34 +619,102 @@ namespace renderer
 			Resources::Insert(L"skillDeactiveBtn", spriteMateiral);
 		}
 #pragma endregion
-#pragma region Skill icons
+#pragma region Skill Cold
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"blaze_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blaze.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"blazeIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"blaze_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blaze_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"blazeClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"blizzard_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blizzard.png");
+				= Resources::Load<Texture>(L"blizzard_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\blizzard.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"blizzardIcon", spriteMateiral);
 		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"chilling_armor_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\chilling_armor.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"chillingArmorIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"clacial_spike_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\clacial_spike.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"clacialSpikeIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"cold_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\cold_mastery.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"coldMasteryIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frost_nova_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\frost_nova.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frostNovaIcon", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frozen_armor_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\frozen_armor.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frozenArmorIcon", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frozen_orb_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\frozen_orb.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frozenOrbIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"ice_blast_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\ice_blast.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"iceBlastIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"ice_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\ice_bolt.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"iceBoltIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"shiver_armor_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\shiver_armor.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"shiverArmorIcon", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Skill Click Cold
+
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"blizzard_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blizzard_c.png");
@@ -649,7 +726,54 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"frozen_orb_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\frozen_orb.png");
+				= Resources::Load<Texture>(L"chilling_armor_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\chilling_armor_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"chillingArmorIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"clacial_spike_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\clacial_spike_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"clacialSpikeIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"cold_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\cold_mastery_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"coldMasteryIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frost_nova_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\frost_nova_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frostNovaIcon", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frozen_armor_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\frozen_armor_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"frozenArmorIcon", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"frozen_orb_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\frozen_orb_c.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -658,30 +782,398 @@ namespace renderer
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"frozen_orb_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\frozen_orb_c.png");
+				= Resources::Load<Texture>(L"ice_blast_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\ice_blast_c.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"frozenOrbClickIcon", spriteMateiral);
+			Resources::Insert(L"iceBlastIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\thunder_storm.png");
+				= Resources::Load<Texture>(L"ice_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\ice_bolt_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"iceBoltIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"shiver_armor_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\shiver_armor_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"shiverArmorIcon", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Skill Fire
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"blaze_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\blaze.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"blazeIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"enchant_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\enchant.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"enchantIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_ball_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_ball.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireBallIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_bolt.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireBoltIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_mastery.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireMasteryIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_wall_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_wall.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireWallIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hydra_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\hydra.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"hydraIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"inferno_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\inferno.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"infernoIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"meteor_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\meteor.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"meteorIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"warmth_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\warmth.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"warmthIcon", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Skill Click Fire
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"blaze_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blaze_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"blazeClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"enchant_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\enchant_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"enchantClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_ball_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_ball_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireBallClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_bolt_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireBoltClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_mastery_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireMasteryClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fire_wall_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\fire_wall_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"fireWallClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hydra_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\hydra_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"hydraClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"inferno_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\inferno_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"infernoClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"meteor_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\meteor_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"meteorClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"warmth_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\warmth_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"warmthClickIcon", spriteMateiral);
+		}
+#pragma endregion
+#pragma region Skill Lightning
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"chain_lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"chainLightningIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"charged_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"chargedBoltIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"energy_shield_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"energyShieldIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"lightningIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"lightning_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"lightningMasteryIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"nove_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"noveIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"static_field_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"staticFieldIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"telekinesis_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"telekinesisIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"teleport_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"teleportIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
 			Resources::Insert(L"thunderStormIcon", spriteMateiral);
 		}
+#pragma endregion
+#pragma region Skill Click Lightning
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\thunder_storm_c.png");
+				= Resources::Load<Texture>(L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"thunderStormClickicon", spriteMateiral);
+			Resources::Insert(L"chainLightningClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"chargedBoltClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"energyShieldClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"lightningClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"lightningMasteryClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"noveClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"staticFieldClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"telekinesisClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"teleportClickIcon", spriteMateiral);
+		}
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png");
+
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"thunderStormClickIcon", spriteMateiral);
 		}
 #pragma endregion
 #pragma region Inventory

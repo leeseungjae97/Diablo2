@@ -11,7 +11,7 @@
 namespace m
 {
 	InvenItem::InvenItem(eItem item, Inventory* inventory)
-		: Item(itemTypeTable[item])
+		: Item(itemTypeTable[(int)item])
 		, mInventory(inventory)
 		, bSetMouseFollow(false)
 		, mItem(item)
@@ -19,18 +19,18 @@ namespace m
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(itemNameTable[item]));
+		mr->SetMaterial(Resources::Find<Material>(itemNameTable[(int)mItem]));
 
 		Transform* tr = GetComponent<Transform>();
-		tr->SetScale(Vector3(28.f * itemInvenDisplayScale[item][0] * Texture::GetWidRatio(), 28.f * itemInvenDisplayScale[item][1] * Texture::GetHeiRatio(), 0.f));
+		tr->SetScale(Vector3(28.f * itemInvenDisplayScale[(int)mItem][0] * Texture::GetWidRatio(), 28.f * itemInvenDisplayScale[(int)mItem][1] * Texture::GetHeiRatio(), 0.f));
 		Vector3 scale = tr->GetScale();
 
 		std::vector<Inven*> invens = mInventory->GetInvens();
 		
 		for (int i = 0; i < invens.size(); ++i)
 		{
-			int dx = (i % 10) + (int)itemInvenDisplayScale[mItem][0] - 1;
-			int dy = (i / 10) + (int)itemInvenDisplayScale[mItem][1] - 1;
+			int dx = (i % 10) + (int)itemInvenDisplayScale[(int)mItem][0] - 1;
+			int dy = (i / 10) + (int)itemInvenDisplayScale[(int)mItem][1] - 1;
 
 			if (dx < 0 || dx > 9 || dy < 0 || dy > 3) continue;
 
@@ -87,8 +87,8 @@ namespace m
 				{
 					if (invens[i]->GetHover())
 					{
-						int dx = (i % 10) + (int)itemInvenDisplayScale[mItem][0] - 1;
-						int dy = (i / 10) + (int)itemInvenDisplayScale[mItem][1] - 1;
+						int dx = (i % 10) + (int)itemInvenDisplayScale[(int)mItem][0] - 1;
+						int dy = (i / 10) + (int)itemInvenDisplayScale[(int)mItem][1] - 1;
 
 						if (dx < 0 || dx > 9 || dy < 0 || dy > 3) continue;
 
@@ -114,8 +114,8 @@ namespace m
 								}
 							}
 
-							int dx_ = (curInvenIndex % 10) + (int)itemInvenDisplayScale[mItem][0] - 1;
-							int dy_ = (curInvenIndex / 10) + (int)itemInvenDisplayScale[mItem][1] - 1;
+							int dx_ = (curInvenIndex % 10) + (int)itemInvenDisplayScale[(int)mItem][0] - 1;
+							int dy_ = (curInvenIndex / 10) + (int)itemInvenDisplayScale[(int)mItem][1] - 1;
 
 							for (int y = curInvenIndex / 10; y <= dy_; ++y)
 							{

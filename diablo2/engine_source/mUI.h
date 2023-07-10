@@ -14,11 +14,7 @@ namespace m
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
-
-		//bool GetHover() { return bHover; }
-
 	private:
-		//bool bHover;
 	};
 }
 

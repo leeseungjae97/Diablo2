@@ -19,7 +19,7 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
         bool MouseFollow() { return bSetMouseFollow; }
-        void OrderClickItem() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item).ChangeOrderGameObject(this); }
+        void SetClickFunction() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item).ChangeOrderGameObject(this); }
     private:
         bool bSetMouseFollow;
         int curInvenIndex;

@@ -53,7 +53,9 @@
     <ClCompile Include="mInventory.cpp">
       <Filter>UI\Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillUp.cpp" />
+    <ClCompile Include="mSkillUp.cpp">
+      <Filter>UI\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -105,7 +107,9 @@
     <ClInclude Include="mInventory.h">
       <Filter>UI\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillUp.h" />
+    <ClInclude Include="mSkillUp.h">
+      <Filter>UI\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -176,6 +180,9 @@
     </Filter>
     <Filter Include="UI\Skill">
       <UniqueIdentifier>{70d998e3-38f7-4f8f-a6e1-92c1d0f994d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Button\SkillButton">
+      <UniqueIdentifier>{28a42525-9aa3-41f5-bb42-5287cb25ee30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

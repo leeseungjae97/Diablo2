@@ -3,6 +3,7 @@
 namespace m
 {
     class Inventory;
+    class SkillUp;
     class Tile;
     class PlayScene :
         public Scene
@@ -18,6 +19,7 @@ namespace m
     private:
         std::vector<Tile*> tiles;
         Inventory* inven;
+        SkillUp* skillUp;
     };
 }
 

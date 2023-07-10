@@ -18,7 +18,7 @@ namespace m
 		END,
 	};
 
-	enum eItem
+	enum class eItem
 	{
 		hpPosion1,
 		mpPosion1,
@@ -27,7 +27,7 @@ namespace m
 		END
 	};
 	//std::wstring 
-	std::wstring itemNameTable[eItem::END] = {
+	std::wstring itemNameTable[(int)eItem::END] = {
 		// posions
 		L"hpPosion1",
 		L"mpPosion1",
@@ -35,23 +35,23 @@ namespace m
 		//weapons
 		L"jaredsStone",
 	};
-	eItemType itemTypeTable[eItem::END] = {
+	eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
 		eItemType::Posion,
 
 		eItemType::Weapon,
 	};
-	int itemInvenSpaceTable[eItem::END][2] = {
+	int itemInvenSpaceTable[(int)eItem::END][2] = {
 		{1,1},
 		{1,1},
 
 		{1,3},
 	};
-	float itemFieldSpaceTable[eItem::END][2] = {
+	float itemFieldSpaceTable[(int)eItem::END][2] = {
 
 	};
 	// 28.f, 28.f = one inven = 1.f, 1.f
-	float itemInvenDisplayScale[eItem::END][2] = {
+	float itemInvenDisplayScale[(int)eItem::END][2] = {
 		{1.f, 1.f},
 		{1.f, 1.f},
 

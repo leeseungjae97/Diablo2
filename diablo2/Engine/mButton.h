@@ -4,6 +4,7 @@
 #include "..\engine_source\mUI.h"
 namespace m
 {
+	typedef void (*func)();
 	class Button :
 		public UI
 	{
@@ -17,8 +18,8 @@ namespace m
 		virtual void Render();
 
 		bool GetClick() { return bClick; }
-		void OrderClickItem(void (*ccf)()) { fClickFunctionPtr = ccf; }
-
+		virtual void SetClickFunction(void (*fptr)()) { fClickFunctionPtr = fptr; }
+		func GetClickFunction() { return fClickFunctionPtr; }
 		void SetClickMaterial(std::shared_ptr<Material> material) { mClickedMaterial = material; }
 		void SetNormalMaterial(std::shared_ptr<Material> material) { mNormalMaterial = material; }
 
