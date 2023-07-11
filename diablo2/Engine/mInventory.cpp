@@ -39,7 +39,8 @@ namespace m
 			for (int x = 0; x < 10; x++)
 			{
 				Inven* inven = new Inven();
-				
+				inven->SetState(eState::Invisible);
+
 				Transform* invenTr = inven->GetComponent<Transform>();
 				invenTr->SetPosition(Vector3(65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
 					, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y), tr->GetPosition().z));
@@ -103,6 +104,13 @@ namespace m
 		if (GetState() != invenItems[0]->GetState())
 		{
 			for (InvenItem* ii : invenItems)
+			{
+				ii->SetState(GetState());
+			}
+		}
+		if (GetState() != invens[0]->GetState())
+		{
+			for (Inven* ii : invens)
 			{
 				ii->SetState(GetState());
 			}

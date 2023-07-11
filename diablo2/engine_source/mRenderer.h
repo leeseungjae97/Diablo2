@@ -38,9 +38,6 @@ namespace renderer
 	//	UINT type;
 	//};
 
-	extern std::vector<Vertex> doubleSizeRectVertex;
-	extern std::vector<UINT> rectIndexes;
-
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
 
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[];
@@ -49,8 +46,11 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
 	extern std::vector<m::Camera*> cameras;
+	extern std::vector<DebugMesh> debugMeshs;
 
 	void Initialize();
 	void Render();
 	void Release();
+
+	void PushDebugMeshAttribute(DebugMesh& mesh);
 }

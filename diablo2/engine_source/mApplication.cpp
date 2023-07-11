@@ -59,6 +59,9 @@ namespace m
 		graphicDevice->UpdateViewPort();
 		//SceneManager::Render();
 		renderer::Render();
+	}
+	void Application::Present()
+	{
 		graphicDevice->Present();
 	}
 

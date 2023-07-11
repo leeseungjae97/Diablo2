@@ -8,9 +8,6 @@ namespace renderer
 {
 	using namespace m;
 	using namespace m::graphics;
-	std::vector<Vertex> doubleSizeRectVertex;
-	std::vector<Vertex> rectVertex;
-	std::vector<UINT> rectIndexes;
 
 	m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
@@ -20,6 +17,7 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
 	std::vector<m::Camera*> cameras = {};
+	std::vector<DebugMesh> debugMeshs = {};
 
 	void SetupState()
 	{
@@ -51,20 +49,26 @@ namespace renderer
 
 
 		//int iNumElement = sizeof(arrLayout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
-		std::shared_ptr<Shader> triangleShader = m::Resources::Find<Shader>(L"TriangleShader");
+		std::shared_ptr<Shader> shader = m::Resources::Find<Shader>(L"TriangleShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, triangleShader->GetVSCode()
-			, triangleShader->GetInputLayoutAddressOf());
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
+		shader = m::Resources::Find<Shader>(L"SpriteShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, spriteShader->GetVSCode()
-			, spriteShader->GetInputLayoutAddressOf());
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> gridShader = m::Resources::Find<Shader>(L"GridShader");
+		shader = m::Resources::Find<Shader>(L"GridShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, gridShader->GetVSCode()
-			, gridShader->GetInputLayoutAddressOf());
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = m::Resources::Find<Shader>(L"DebugShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -188,60 +192,102 @@ namespace renderer
 
 	void LoadMesh()
 	{
-		rectVertex.resize(4);
-		doubleSizeRectVertex.resize(4);
+		std::vector<Vertex> vertexes;
+		std::vector<UINT> indexes;
 
-		rectVertex[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		rectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		rectVertex[0].uv = Vector2(0.0f, 0.0f);
+		vertexes.resize(4);
 
-		rectVertex[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		rectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		rectVertex[1].uv = Vector2(1.0f, 0.0f);
+		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
 
-		rectVertex[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		rectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		rectVertex[2].uv = Vector2(1.0f, 1.0f);
+		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		rectVertex[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		rectVertex[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		rectVertex[3].uv = Vector2(0.0f, 1.0f);
+		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
 
-		doubleSizeRectVertex[0].pos = Vector3(-1.0f, 1.0f, 0.0f);
-		doubleSizeRectVertex[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		doubleSizeRectVertex[0].uv = Vector2(0.0f, 0.0f);
+		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
-		doubleSizeRectVertex[1].pos = Vector3(1.0f, 1.0f, 0.0f);
-		doubleSizeRectVertex[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		doubleSizeRectVertex[1].uv = Vector2(1.0f, 0.0f);
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
 
-		doubleSizeRectVertex[2].pos = Vector3(1.0f, -1.0f, 0.0f);
-		doubleSizeRectVertex[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		doubleSizeRectVertex[2].uv = Vector2(1.0f, 1.0f);
-
-		doubleSizeRectVertex[3].pos = Vector3(-1.0f, -1.0f, 0.0f);
-		doubleSizeRectVertex[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		doubleSizeRectVertex[3].uv = Vector2(0.0f, 1.0f);
-
-		rectIndexes.push_back(0);
-		rectIndexes.push_back(1);
-		rectIndexes.push_back(2);
-
-		rectIndexes.push_back(0);
-		rectIndexes.push_back(2);
-		rectIndexes.push_back(3);
-
-		std::shared_ptr<Mesh> doubleMesh = std::make_shared<Mesh>();
-		Resources::Insert(L"doubleRectMesh", doubleMesh);
-		doubleMesh->CreateVertexBuffer(doubleSizeRectVertex.data(), doubleSizeRectVertex.size());
-		doubleMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
 
 		std::shared_ptr<Mesh> fullMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", fullMesh);
-		fullMesh->CreateVertexBuffer(rectVertex.data(), rectVertex.size());
-		fullMesh->CreateIndexBuffer(rectIndexes.data(), rectIndexes.size());
-	}
+		fullMesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		fullMesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
+		indexes.clear();
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+		indexes.push_back(3);
+		indexes.push_back(0);
+
+		std::shared_ptr<Mesh> rectDebug = std::make_shared<Mesh>();
+		Resources::Insert(L"DebugRect", rectDebug);
+		rectDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		rectDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		// Circle Debug Mesh
+		vertexes.clear();
+
+		Vertex center = {};
+		center.pos = Vector3(0.0f, 0.0f, 0.0f);
+		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes.push_back(center);
+
+		int iSlice = 40;
+		float fRadius = 0.5f;
+		float fTheta = XM_2PI / (float)iSlice;
+
+		for (int i = 0; i < iSlice; ++i)
+		{
+			center.pos = Vector3(fRadius * cosf(fTheta * (float)i)
+				, fRadius * sinf(fTheta * (float)i)
+				, 0.0f);
+			center.color = Vector4(0.0f, 1.0f, 0.0f, 1.f);
+			vertexes.push_back(center);
+		}
+
+		//for (UINT i = 0; i < (UINT)iSlice; ++i)
+		//{
+		//	indexes.push_back(0);
+		//	if (i == iSlice - 1)
+		//	{
+		//		indexes.push_back(1);
+		//	}
+		//	else
+		//	{
+		//		indexes.push_back(i + 2);
+		//	}
+		//	indexes.push_back(i + 1);
+		//}
+
+		for (int i = 0; i < vertexes.size() - 2; ++i)
+		{
+			indexes.push_back(i + 1);
+		}
+		indexes.push_back(1);
+
+		std::shared_ptr<Mesh> circleDebug = std::make_shared<Mesh>();
+		Resources::Insert(L"DebugCircle", circleDebug);
+		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+	}
+	void PushDebugMeshAttribute(DebugMesh& mesh)
+	{
+		debugMeshs.push_back(mesh);
+	}
 	void LoadBuffer()
 	{
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
@@ -271,6 +317,14 @@ namespace renderer
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
 		m::Resources::Insert(L"GridShader", gridShader);
+
+		std::shared_ptr<Shader> debugShader = std::make_shared<Shader>();
+		debugShader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
+		debugShader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
+		debugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		debugShader->SetRSState(eRSType::SolidNone);
+		//debugShader->SetDSState(eDSType::NoWrite);
+		m::Resources::Insert(L"DebugShader", debugShader);
 	}
 
 	void LoadMaterial()
@@ -717,7 +771,7 @@ namespace renderer
 
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"blizzard_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blizzard_c.png");
+				= Resources::Load<Texture>(L"blizzard_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\blizzard_c.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -903,7 +957,7 @@ namespace renderer
 #pragma region Skill Click Fire
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"blaze_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\blaze_c.png");
+				= Resources::Load<Texture>(L"blaze_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\fire\\blaze_c.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
@@ -1199,7 +1253,15 @@ namespace renderer
 			Resources::Insert(L"GridMaterial", gridMateiral);
 		}
 #pragma endregion
+		{
+			std::shared_ptr<Shader> debugShader
+				= Resources::Find<Shader>(L"DebugShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
 
+			material = std::make_shared<Material>();
+			material->SetShader(debugShader);
+			Resources::Insert(L"DebugMaterial", material);
+		}
 	}
 
 	void Initialize()
@@ -1210,7 +1272,10 @@ namespace renderer
 		LoadMesh();
 		LoadMaterial();
 	}
-
+	void PushDebugMeshInfo(DebugMesh& mesh)
+	{
+		debugMeshs.push_back(mesh);
+	}
 	void Render()
 	{
 		for (Camera* cam : cameras)

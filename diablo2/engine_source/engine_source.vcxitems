@@ -16,6 +16,8 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
@@ -46,6 +48,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />

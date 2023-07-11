@@ -7,6 +7,7 @@
 #include "..\engine_source\mRenderer.h"
 #include "..\engine_source\mSceneManager.h"
 #include "..\engine_source\mFontWrapper.h"
+#include "guiEditor.h"
 
 #include "LoadScenes.h"
 
@@ -70,12 +71,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else {
             application.Run();
+            gui::Editor::Run();
+            application.Present();
         }
     }
 
     renderer::Release();
     m::SceneManager::Release();
     //m::FontWrapper::Release();
+    gui::Editor::Release();
     return (int) msg.wParam;
 }
 
@@ -141,7 +145,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
    application.Initialize();
    m::InitializeScenes();
-
+   gui::Editor::Initialize();
    return TRUE;
 }
 

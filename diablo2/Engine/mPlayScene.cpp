@@ -51,8 +51,8 @@ namespace m
 				Tile* tile = new Tile(Vector2(x, y));
 
 				AddGameObject(eLayerType::Player, tile);
-				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
+				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRect"));
+				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));
 				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X , TILE_SIZE_Y , 0.f));
 				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, 1.f));
 				tiles.push_back(tile);
@@ -67,6 +67,7 @@ namespace m
 		cameraComp->DisableLayerMasks();
 		cameraComp->TurnLayerMask(eLayerType::Player, true);
 		camera->AddComponent<CameraScript>();
+		renderer::cameras.push_back(cameraComp);
 		//camera->AddComponent<GridScript>();
 
 		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
@@ -107,7 +108,7 @@ namespace m
 		inven->SetState(GameObject::Invisible);
 
 		skillUp = new SkillUp(cameraComp2);
-		//skillUp->SetState(GameObject::Invisible);
+		skillUp->SetState(GameObject::Invisible);
 
 		UI* uiBottomBar = new UI();
 		AddGameObject(eLayerType::UI, uiBottomBar);
@@ -219,14 +220,14 @@ namespace m
 
 		//AddGameObject(eLayerType::UI, gridCamera);
 
-		GameObject* grid = new GameObject();
-		grid->SetName(L"Grid");
-		AddGameObject(eLayerType::Grid, grid);
-		MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		GridScript* gridSc = grid->AddComponent<GridScript>();
-		gridSc->SetCamera(cameraComp);
+		//GameObject* grid = new GameObject();
+		//grid->SetName(L"Grid");
+		//AddGameObject(eLayerType::Grid, grid);
+		//MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		//GridScript* gridSc = grid->AddComponent<GridScript>();
+		//gridSc->SetCamera(cameraComp);
 	}
 	void PlayScene::Update()
 	{

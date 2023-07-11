@@ -6,6 +6,9 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
+#include "mEnums.h"
+#include "mMath.h"
+
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 
 
@@ -83,4 +86,15 @@ struct GpuBuffer
 
 	}
 	virtual ~GpuBuffer() = default;
+};
+struct DebugMesh
+{
+	m::enums::eColliderType type;
+	m::math::Vector3 position;
+	m::math::Vector3 rotation;
+	m::math::Vector3 scale;
+
+	float radius;
+	float duration;
+	float time;
 };

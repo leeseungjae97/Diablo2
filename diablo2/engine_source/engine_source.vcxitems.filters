@@ -49,6 +49,27 @@
     <Filter Include="UI">
       <UniqueIdentifier>{3e2c6742-6a99-4425-a4ac-e219a1acf00e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Camera">
+      <UniqueIdentifier>{83812eaf-3ef8-4275-b1b9-bf53c537a0c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\MeshRenderer">
+      <UniqueIdentifier>{2d3d8354-259f-4c9f-9bae-d496bf2becfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Transform">
+      <UniqueIdentifier>{82ab5a5e-8bfb-4bd0-adca-bceefe7e8abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Collider">
+      <UniqueIdentifier>{ea47ef6f-4836-4cf1-b8c3-bcc0687f768c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\CollisionManager">
+      <UniqueIdentifier>{b64f8ed7-fd32-412d-9b08-da4c609a0669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MouseManager">
+      <UniqueIdentifier>{329da398-4eea-4e32-af1c-1b3fa94aaf00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SceneManager">
+      <UniqueIdentifier>{298d7060-a8c5-4719-950a-86b155ea6d2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -108,12 +129,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h">
       <Filter>Scene\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h">
       <Filter>Resources\Resource</Filter>
     </ClInclude>
@@ -126,16 +141,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemDefine.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -150,6 +156,27 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillLookUpTables.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h">
+      <Filter>GameObject\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h">
+      <Filter>GameObject\Component\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h">
+      <Filter>GameObject\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCollider2D.h">
+      <Filter>GameObject\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCollisionManager.h">
+      <Filter>Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h">
+      <Filter>Manager\MouseManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h">
+      <Filter>Manager\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -198,12 +225,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp">
       <Filter>Scene\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp">
       <Filter>Resources\Resource</Filter>
     </ClCompile>
@@ -216,18 +237,30 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp">
+      <Filter>GameObject\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp">
+      <Filter>GameObject\Component\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp">
+      <Filter>GameObject\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCollider2D.cpp">
+      <Filter>GameObject\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCollisionManager.cpp">
+      <Filter>Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp">
+      <Filter>Manager\MouseManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp">
+      <Filter>Manager\SceneManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

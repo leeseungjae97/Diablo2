@@ -4,6 +4,7 @@
 
 namespace m
 {
+    class SkillButton;
     class Button;
     class SkillUp :
         public UI
@@ -33,9 +34,14 @@ namespace m
         UI* remainPointer;
         int iRemainPointer;
 
-        std::vector<Button*> skills;
-
+        std::vector<SkillButton*> coldSkills;
+        std::vector<SkillButton*> fireSkills;
+        std::vector<SkillButton*> lightSkills;
+        std::vector<SkillButton*> skills;
+        
         std::vector<UI*> nums;
+
+        int* learnSkills;
     };
 }
 

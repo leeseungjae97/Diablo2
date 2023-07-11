@@ -56,6 +56,8 @@
     <ClCompile Include="mSkillUp.cpp">
       <Filter>UI\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillButton.cpp" />
+    <ClCompile Include="mPlayerInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -110,6 +112,8 @@
     <ClInclude Include="mSkillUp.h">
       <Filter>UI\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="mSkillButton.h" />
+    <ClInclude Include="mPlayerInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
