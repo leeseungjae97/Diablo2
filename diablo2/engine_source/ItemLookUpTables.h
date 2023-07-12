@@ -1,5 +1,4 @@
 #pragma once
-
 namespace m
 {
 	enum class eItemType

@@ -26,10 +26,16 @@ namespace m
 		if (GetState() != GameObject::Active) return;
 
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
-
 		if (GetHover())
 		{
-			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			if (Input::GetKeyUp(eKeyCode::LBUTTON))
+			{
+				bOneClick = true;
+			}
+		}
+		if (GetHover())
+		{
+			if (Input::GetKey(eKeyCode::LBUTTON))
 			{
 				bClick = true;
 
@@ -42,7 +48,7 @@ namespace m
 					fClickFunctionPtr();
 			}
 		}
-		if (Input::GetKeyUp(eKeyCode::LBUTTON))
+		if (!Input::GetKey(eKeyCode::LBUTTON))
 		{
 			bClick = false;
 			if(mNormalMaterial)

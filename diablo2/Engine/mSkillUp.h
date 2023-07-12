@@ -18,6 +18,8 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
+        void GetSkillTree(int(* _skillTree)[10]);
+
         std::shared_ptr<Material> GetSkillP1() { return skillP1; }
         std::shared_ptr<Material> GetSkillP2() { return skillP2; }
         std::shared_ptr<Material> GetSkillP3() { return skillP3; }
@@ -41,7 +43,8 @@ namespace m
         
         std::vector<UI*> nums;
 
-        int* learnSkills;
+        int skillSetNum;
+        int skillTree[10][10];
     };
 }
 

@@ -1,5 +1,6 @@
 #include "mSkillButton.h"
 #include "..\engine_source\mTransform.h"
+#include "..\engine_source\mMeshRenderer.h"
 namespace m
 {
 	SkillButton::SkillButton(int _indexX, int _indexY
@@ -27,6 +28,13 @@ namespace m
 	void SkillButton::Update()
 	{
 		Button::Update();
+		MeshRenderer* mr = GetComponent<MeshRenderer>();
+
+		if (bCanClick)
+		{
+			mr->SetMaterial(DeClickMaterial);
+			if(GetHover()) mr->SetMaterial(DeClickMaterial);
+		}
 	}
 	void SkillButton::LateUpdate()
 	{

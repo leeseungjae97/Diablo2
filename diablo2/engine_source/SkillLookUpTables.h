@@ -1,4 +1,6 @@
 #pragma once
+#ifndef SKILLLOOKUPTABLES_H
+#define SKILLLOOKUPTABLES_H
 
 namespace m
 {
@@ -199,3 +201,4 @@ namespace m
 	};
 	
 }
+#endif

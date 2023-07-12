@@ -8,7 +8,7 @@
 #include "..\engine_source\mSceneManager.h"
 #include "..\engine_source\mFontWrapper.h"
 #include "guiEditor.h"
-
+#include "mPlayerInfo.h"
 #include "LoadScenes.h"
 
 #ifdef _DEBUG
@@ -146,6 +146,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    application.Initialize();
    m::InitializeScenes();
    gui::Editor::Initialize();
+   m::PlayerInfo::Initialize();
    return TRUE;
 }
 

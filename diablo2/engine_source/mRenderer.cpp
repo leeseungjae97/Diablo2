@@ -785,7 +785,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"chillingArmorIcon", spriteMateiral);
+			Resources::Insert(L"chillingArmorClickIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -794,7 +794,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"clacialSpikeIcon", spriteMateiral);
+			Resources::Insert(L"clacialSpikeClickIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -803,7 +803,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"coldMasteryIcon", spriteMateiral);
+			Resources::Insert(L"coldMasteryClickIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -812,7 +812,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"frostNovaIcon", spriteMateiral);
+			Resources::Insert(L"frostNovaClickIcon", spriteMateiral);
 		}
 
 		{
@@ -822,7 +822,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"frozenArmorIcon", spriteMateiral);
+			Resources::Insert(L"frozenArmorClickIcon", spriteMateiral);
 		}
 
 		{
@@ -832,7 +832,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"frozenOrbIcon", spriteMateiral);
+			Resources::Insert(L"frozenOrbClickIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -841,7 +841,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"iceBlastIcon", spriteMateiral);
+			Resources::Insert(L"iceBlastClickIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -850,7 +850,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"iceBoltIcon", spriteMateiral);
+			Resources::Insert(L"iceBoltClickIcon", spriteMateiral);
 		}
 		{
 			std::shared_ptr<Texture> texture
@@ -859,7 +859,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"shiverArmorIcon", spriteMateiral);
+			Resources::Insert(L"shiverArmorClickIcon", spriteMateiral);
 		}
 #pragma endregion
 #pragma region Skill Fire
