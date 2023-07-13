@@ -11,10 +11,6 @@ namespace m
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
 	{
-		mMesh = new DebugMesh;
-		mMesh->type = eColliderType::Rect;
-
-		renderer::PushDebugMeshAttribute(mMesh);
 	}
 	Collider2D::~Collider2D()
 	{}
@@ -38,10 +34,14 @@ namespace m
 
 		mPosition = pos;
 
-		mMesh->position = pos;
-		mMesh->scale = scale;
-		mMesh->rotation = tr->GetRotation();
-		mMesh->type = eColliderType::Rect;
+		DebugMesh debugMesh = {};
+
+		debugMesh.position = pos;
+		debugMesh.scale = scale;
+		debugMesh.rotation = tr->GetRotation();
+		debugMesh.type = eColliderType::Rect;
+
+		renderer::PushDebugMeshAttribute(debugMesh);
 	}
 	void Collider2D::Render()
 	{}

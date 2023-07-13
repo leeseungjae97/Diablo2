@@ -1,4 +1,4 @@
-#include "mInventory.h"
+#include "mItemPlaced.h"
 #include "..\engine_source\mComponent.h"
 #include "..\engine_source\mMeshRenderer.h"
 #include "..\engine_source\mTransform.h"
@@ -58,7 +58,6 @@ namespace m
 			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1, this);
 
 			hpPosion->SetCamera(GetCamera());
-
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
 			invenItems.push_back(hpPosion);
 		}

@@ -3,6 +3,7 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mTransform.h"
 #include "..\engine_source\mMeshRenderer.h"
+#include "..\engine_source\mCollider2D.h"
 
 #include "mInventory.h"
 #include "mInven.h"
@@ -16,6 +17,7 @@ namespace m
 		, bSetMouseFollow(false)
 		, mItem(item)
 	{
+		AddComponent<Collider2D>();
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));

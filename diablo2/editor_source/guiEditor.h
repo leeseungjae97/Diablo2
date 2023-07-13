@@ -21,7 +21,7 @@ namespace gui
 		static void Render();
 		static void Release();
 
-		static void DebugRender(DebugMesh* mesh);
+		static void DebugRender(const DebugMesh& mesh);
 
 	private:
 		static std::vector<Widget*> mWidgets;

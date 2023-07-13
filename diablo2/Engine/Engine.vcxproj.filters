@@ -48,10 +48,10 @@
       <Filter>Script\GridScript</Filter>
     </ClCompile>
     <ClCompile Include="mInven.cpp">
-      <Filter>UI\Inventory\Inven</Filter>
+      <Filter>UI\ItemPlaced\Inven</Filter>
     </ClCompile>
-    <ClCompile Include="mInventory.cpp">
-      <Filter>UI\Inventory</Filter>
+    <ClCompile Include="mItemPlaced.cpp">
+      <Filter>UI\ItemPlaced</Filter>
     </ClCompile>
     <ClCompile Include="mSkillUp.cpp">
       <Filter>UI\Skill</Filter>
@@ -104,10 +104,10 @@
       <Filter>Script\GridScript</Filter>
     </ClInclude>
     <ClInclude Include="mInven.h">
-      <Filter>UI\Inventory\Inven</Filter>
+      <Filter>UI\ItemPlaced\Inven</Filter>
     </ClInclude>
-    <ClInclude Include="mInventory.h">
-      <Filter>UI\Inventory</Filter>
+    <ClInclude Include="mItemPlaced.h">
+      <Filter>UI\ItemPlaced</Filter>
     </ClInclude>
     <ClInclude Include="mSkillUp.h">
       <Filter>UI\Skill</Filter>
@@ -176,17 +176,20 @@
     <Filter Include="Script\GridScript">
       <UniqueIdentifier>{dd83b7bb-6cbf-4147-ae4c-afb0b2d880cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\Inventory">
-      <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI\Inventory\Inven">
-      <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI\Skill">
       <UniqueIdentifier>{70d998e3-38f7-4f8f-a6e1-92c1d0f994d3}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\Button\SkillButton">
       <UniqueIdentifier>{28a42525-9aa3-41f5-bb42-5287cb25ee30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ItemPlaced">
+      <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ItemPlaced\Inven">
+      <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ItemPlaced\Inventory">
+      <UniqueIdentifier>{ccfd0c92-cbcc-40b4-b2a9-08bd1f06b386}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

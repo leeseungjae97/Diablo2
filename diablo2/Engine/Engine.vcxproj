@@ -163,7 +163,7 @@
     <ClInclude Include="mFieldItem.h" />
     <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mInven.h" />
-    <ClInclude Include="mInventory.h" />
+    <ClInclude Include="mItemPlaced.h" />
     <ClInclude Include="mBackground.h" />
     <ClInclude Include="mButton.h" />
     <ClInclude Include="mCameraScript.h" />
@@ -185,7 +185,7 @@
     <ClCompile Include="mFieldItem.cpp" />
     <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mInven.cpp" />
-    <ClCompile Include="mInventory.cpp" />
+    <ClCompile Include="mItemPlaced.cpp" />
     <ClCompile Include="LoadScenes.h" />
     <ClCompile Include="mBackground.cpp" />
     <ClCompile Include="mButton.cpp" />

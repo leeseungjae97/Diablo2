@@ -5,6 +5,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/mRenderer.h"
+#include "../engine_source/mSceneManager.h"
 
 #include "mGridScript.h"
 namespace gui
@@ -40,6 +41,8 @@ namespace gui
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(renderer::cameras[0]);
 
+		SceneManager::GetActiveScene();
+
 		mEditorObjects.push_back(grid);
 	}
 	void Editor::Run()
@@ -73,10 +76,11 @@ namespace gui
 			obj->Render();
 		}
 
-		for (DebugMesh* mesh : renderer::debugMeshs)
+		for (const DebugMesh& mesh : renderer::debugMeshs)
 		{
 			DebugRender(mesh);
 		}
+		renderer::debugMeshs.clear();
 	}
 	void Editor::Release()
 	{
@@ -99,21 +103,21 @@ namespace gui
 		}
 	}
 
-	void Editor::DebugRender(DebugMesh* mesh)
+	void Editor::DebugRender(const DebugMesh& mesh)
 	{
-		DebugObject* debugObj = mDebugObjects[(UINT)mesh->type];
+		DebugObject* debugObj = mDebugObjects[(UINT)mesh.type];
 
 
 		// 위치 크기 회전 정보를 받아와서
 		// 해당 게임오브젝트위에 그려주면된다.
 		Transform* tr = debugObj->GetComponent<Transform>();
 
-		Vector3 pos = mesh->position;
+		Vector3 pos = mesh.position;
 		pos.z -= 0.01f;
 
 		tr->SetPosition(pos);
-		tr->SetScale(mesh->scale);
-		tr->SetRotation(mesh->rotation);
+		tr->SetScale(mesh.scale);
+		tr->SetRotation(mesh.rotation);
 
 		Camera* mainCamara = renderer::mainCamera;
 		Camera::SetViewMatrix(mainCamara->GetPrivateViewMatrix());

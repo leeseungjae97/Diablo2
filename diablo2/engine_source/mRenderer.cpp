@@ -18,7 +18,7 @@ namespace renderer
 
 	m::Camera* mainCamera = nullptr;
 	std::vector<m::Camera*> cameras = {};
-	std::vector<DebugMesh*> debugMeshs = {};
+	std::vector<DebugMesh> debugMeshs = {};
 
 
 	void SetupState()
@@ -286,7 +286,7 @@ namespace renderer
 		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 	}
-	void PushDebugMeshAttribute(DebugMesh* mesh)
+	void PushDebugMeshAttribute(DebugMesh& mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}
@@ -1274,10 +1274,6 @@ namespace renderer
 		LoadMesh();
 		LoadMaterial();
 	}
-	void PushDebugMeshInfo(DebugMesh* mesh)
-	{
-		debugMeshs.push_back(mesh);
-	}
 	void Render()
 	{
 		for (Camera* cam : cameras)
@@ -1293,14 +1289,6 @@ namespace renderer
 
 	void Release()
 	{
-		for (DebugMesh* mesh : debugMeshs)
-		{
-			if (mesh == nullptr)
-				continue;
-
-			delete mesh;
-			mesh = nullptr;
-		}
 		for (ConstantBuffer* buff : constantBuffers)
 		{
 			if (buff == nullptr)
