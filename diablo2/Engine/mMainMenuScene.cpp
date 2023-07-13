@@ -6,6 +6,8 @@
 #include "..\engine_source\mCamera.h"
 #include "..\engine_source\mSceneManager.h"
 #include "..\engine_source\mFontWrapper.h"
+#include "..\engine_source\mRenderer.h"
+
 
 #include "mCameraScript.h"
 #include "mButton.h"
@@ -29,8 +31,8 @@ namespace m
 		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
 		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -1.f));
 		camera->AddComponent<CameraScript>();
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, true);
+		SetSceneMainCamera(camera->AddComponent<Camera>());
+		GetSceneMainCamera()->TurnLayerMask(eLayerType::UI, true);
 
 		//GameObject* grid = new GameObject();
 		//grid->SetName(L"Grid");
@@ -63,7 +65,7 @@ namespace m
 		btn1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		btn1->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
 		btn1->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
-		btn1->SetCamera(cameraComp);
+		btn1->SetCamera(GetSceneMainCamera());
 		btn1->SetClickFunction(
 			[]() { SceneManager::LoadScene(L"SelectCharacterScene"); }
 		);

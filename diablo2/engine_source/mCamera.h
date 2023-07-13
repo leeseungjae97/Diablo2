@@ -13,11 +13,13 @@ namespace m
 			Orthorgaphic,
 			None,
 		};
-		static Matrix GetViewMatrix() { return View; }
-		static Matrix GetProjectionMatrix() { return Projection; }
+		static Matrix& GetViewMatrix() { return View; }
+		static Matrix& GetProjectionMatrix() { return Projection; }
+		static void SetViewMatrix(Matrix view) { View = view; }
+		static void SetProjectionMatrix(Matrix proj) { Projection = proj; }
 
-		Matrix GetPrivateViewMatrix() { return mView; }
-		Matrix GetPrivateProjectionMatrix() { return mProjection; }
+		Matrix& GetPrivateViewMatrix() { return mView; }
+		Matrix& GetPrivateProjectionMatrix() { return mProjection; }
 		static Vector2 GetCameraCenter() { return mCameraCenter; }
 		Camera();
 		~Camera();

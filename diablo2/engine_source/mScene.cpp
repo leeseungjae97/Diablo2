@@ -1,4 +1,5 @@
 #include "mScene.h"
+#include "mRenderer.h"
 
 namespace m
 {
@@ -14,6 +15,10 @@ namespace m
 	void Scene::Initialize()
 	{
 		// 여기서 초기 게임 맵데이터를 세팅해줘야 한다.
+		for (Layer& layer : mLayers)
+		{
+			layer.Initialize();
+		}
 	}
 
 	void Scene::Update()
@@ -48,5 +53,7 @@ namespace m
 	void Scene::OnExit()
 	{}
 	void Scene::OnEnter()
-	{}
+	{
+		renderer::mainCamera = GetSceneMainCamera();
+	}
 }

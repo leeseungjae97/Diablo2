@@ -22,7 +22,8 @@ namespace m
 	private:
 		eColliderType mType;
 		Transform* mTransform;
-
+		DebugMesh* mMesh;
+		Vector3 mPosition;
 		Vector2 mSize;
 		Vector2 mCenter;
 	};

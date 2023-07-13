@@ -1,19 +1,25 @@
 #include "guiDebugObject.h"
-
-gui::DebugObject::DebugObject()
-{}
-
-gui::DebugObject::~DebugObject()
-{}
-
-void gui::DebugObject::Initialize()
-{}
-
-void gui::DebugObject::Update()
-{}
-
-void gui::DebugObject::LateUpdate()
-{}
-
-void gui::DebugObject::Render()
-{}
+namespace gui
+{
+	DebugObject::DebugObject()
+	{
+	}
+	DebugObject::~DebugObject()
+	{
+	}
+	void DebugObject::Initialize()
+	{
+	}
+	void DebugObject::Update()
+	{
+		GameObject::Update();
+	}
+	void DebugObject::LateUpdate()
+	{
+		GameObject::LateUpdate();
+	}
+	void DebugObject::Render()
+	{
+		GameObject::Render();
+	}
+}

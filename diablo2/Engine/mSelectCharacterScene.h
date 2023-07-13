@@ -2,6 +2,7 @@
 #include "..\engine_source\mScene.h"
 namespace m
 {
+    class Camera;
     class SelectCharacterScene :
         public Scene
     {

@@ -18,6 +18,7 @@
 #include "mInvenItem.h"
 #include "mGridScript.h"
 #include "mSkillUp.h"
+#include "mCollider2D.h"
 
 extern m::Application application;
 namespace m
@@ -51,8 +52,9 @@ namespace m
 				Tile* tile = new Tile(Vector2(x, y));
 
 				AddGameObject(eLayerType::Player, tile);
-				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRect"));
-				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));
+				//tile->AddComponent<Collider2D>();
+				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
 				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X , TILE_SIZE_Y , 0.f));
 				tile->GetComponent<Transform>()->SetPosition(Vector3(fX, fY, 1.f));
 				tiles.push_back(tile);
@@ -63,22 +65,24 @@ namespace m
 
 		//camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
 		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		cameraComp->DisableLayerMasks();
-		cameraComp->TurnLayerMask(eLayerType::Player, true);
+		SetSceneMainCamera(camera->AddComponent<Camera>());
+
+		GetSceneMainCamera()->DisableLayerMasks();
+		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
 		camera->AddComponent<CameraScript>();
-		renderer::cameras.push_back(cameraComp);
+		renderer::cameras.push_back(GetSceneMainCamera());
 		//camera->AddComponent<GridScript>();
 
 		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
-		player->SetCamera(cameraComp);
+		player->SetCamera(GetSceneMainCamera());
 		AddGameObject(eLayerType::Player, player);
+		player->AddComponent<Collider2D>();
 		player->AddComponent<MeshRenderer>();
 		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 		player->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
 
-		cameraComp->SetFollowObject(player);
+		GetSceneMainCamera()->SetFollowObject(player);
 
 		//GameObject* child = new GameObject();
 		//child->SetCamera(cameraComp);
@@ -232,6 +236,7 @@ namespace m
 	void PlayScene::Update()
 	{
 		Scene::Update();
+		
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(L"MainMenuScene");

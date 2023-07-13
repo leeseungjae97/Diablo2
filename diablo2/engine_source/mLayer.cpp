@@ -17,13 +17,7 @@ namespace m
 	}
 	void Layer::Initialize()
 	{
-		for (GameObject* gameObj : mGameObjects)
-		{
-			if (gameObj->GetState() == GameObject::eState::Dead)
-				continue;
 
-			gameObj->Initialize();
-		}
 	}
 	void Layer::Update()
 	{

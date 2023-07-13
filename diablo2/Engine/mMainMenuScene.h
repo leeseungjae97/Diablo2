@@ -3,6 +3,7 @@
 
 namespace m
 {
+	class Camera;
 	class MainMenuScene :
 		public Scene
 	{

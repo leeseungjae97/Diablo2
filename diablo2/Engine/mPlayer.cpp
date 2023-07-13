@@ -26,6 +26,7 @@ namespace m
 	{}
 	void Player::Update()
 	{
+		GameObject::Update();
 		Transform* tr = GetComponent<Transform>();
 
 		Vector3 curPosition = tr->GetPosition();
@@ -84,8 +85,6 @@ namespace m
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			tr->SetPosition(Vector3(fMoveX, fMoveY, curPosition.z));
 		}
-
-		GameObject::Update();
 	}
 	void Player::LateUpdate()
 	{

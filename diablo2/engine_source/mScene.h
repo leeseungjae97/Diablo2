@@ -4,6 +4,7 @@
 
 namespace m
 {
+	class Camera;
 	class Scene : public Entity
 	{
 	public:
@@ -37,7 +38,10 @@ namespace m
 			return findObjs;
 		}
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
+		void SetSceneMainCamera(Camera* camera) { sceneMainCamera = camera; }
+		Camera* GetSceneMainCamera() { return sceneMainCamera; }
 	private:
+		Camera* sceneMainCamera;
 		std::vector<Layer> mLayers;
 	};
 }

@@ -26,7 +26,7 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::UI, camera);
 		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.0f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		SetSceneMainCamera(camera->AddComponent<Camera>());
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
@@ -65,7 +65,7 @@ namespace m
 		exitBtn->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
 		exitBtn->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		exitBtn->SetClickFunction( []() { SceneManager::LoadScene(L"PlayScene"); });
-		exitBtn->SetCamera(cameraComp);
+		exitBtn->SetCamera(GetSceneMainCamera());
 		exitBtn->GetComponent<Transform>()->SetPosition(Vector3(34.f + -800.f + 126.f * Texture::GetWidRatio() / 2.f, 27.f + -450.f + 35.f * Texture::GetHeiRatio() / 2.f, 1.f));
 		exitBtn->GetComponent<Transform>()->SetScale(Vector3(126.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));
 	}

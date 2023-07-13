@@ -16,8 +16,10 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	m::Camera* mainCamera = nullptr;
 	std::vector<m::Camera*> cameras = {};
-	std::vector<DebugMesh> debugMeshs = {};
+	std::vector<DebugMesh*> debugMeshs = {};
+
 
 	void SetupState()
 	{
@@ -284,7 +286,7 @@ namespace renderer
 		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 	}
-	void PushDebugMeshAttribute(DebugMesh& mesh)
+	void PushDebugMeshAttribute(DebugMesh* mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}
@@ -1272,7 +1274,7 @@ namespace renderer
 		LoadMesh();
 		LoadMaterial();
 	}
-	void PushDebugMeshInfo(DebugMesh& mesh)
+	void PushDebugMeshInfo(DebugMesh* mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}
@@ -1291,6 +1293,14 @@ namespace renderer
 
 	void Release()
 	{
+		for (DebugMesh* mesh : debugMeshs)
+		{
+			if (mesh == nullptr)
+				continue;
+
+			delete mesh;
+			mesh = nullptr;
+		}
 		for (ConstantBuffer* buff : constantBuffers)
 		{
 			if (buff == nullptr)
