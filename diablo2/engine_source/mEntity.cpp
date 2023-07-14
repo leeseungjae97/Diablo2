@@ -2,7 +2,10 @@
 
 
 namespace m {
-	Entity::Entity() {
+	Entity::Entity() 
+		:mName(L"")
+		, mColliderID((UINT64)this)
+	{
 	}
 
 	Entity::~Entity() {

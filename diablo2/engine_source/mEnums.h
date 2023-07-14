@@ -18,12 +18,12 @@ namespace m::enums
 	{
 		//Camera,
 		Grid,
+		Tile,
 		Player,
 		Monster,
-		Tile,
 		UI,
 		Item,
-		End,
+		End = 16,
 	};
 	enum class eResourceType
 	{
@@ -39,6 +39,13 @@ namespace m::enums
 		Circle,
 		Sphere,
 		Cube,
+		End,
+	};
+	enum class eColor
+	{
+		Red,
+		Green,
+		Blue,
 		End,
 	};
 }

@@ -8,6 +8,7 @@
 
 #include "mEnums.h"
 #include "mMath.h"
+#include "mCamera.h"
 
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 
@@ -38,6 +39,7 @@ enum class eCBType
 	Transform,
 	Material,
 	Grid,
+	Vertex,
 	END,
 };
 enum class eRSType
@@ -93,7 +95,11 @@ struct DebugMesh
 	m::math::Vector3 position;
 	m::math::Vector3 rotation;
 	m::math::Vector3 scale;
+	m::math::Matrix view;
+	m::math::Matrix projection;
+	m::enums::eColor color;
 
+	bool visible;
 	float radius;
 	float duration;
 	float time;

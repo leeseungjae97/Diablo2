@@ -6,12 +6,12 @@
 
 namespace m
 {
-    class Inventory;
+    class ItemPlaced;
     class InvenItem :
         public Item
     {
     public:
-        InvenItem(eItem item, Inventory* inventory);
+        InvenItem(eItem item, ItemPlaced* inventory);
         virtual ~InvenItem();
 
         virtual void Initialize() override;
@@ -24,7 +24,7 @@ namespace m
         bool bSetMouseFollow;
         int curInvenIndex;
         Vector3 prevPosition;
-        Inventory* mInventory;
+        ItemPlaced* mInventory;
         eItem mItem;
     };
 }

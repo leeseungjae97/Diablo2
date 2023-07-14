@@ -5,12 +5,19 @@
 
 namespace m
 {
+	UINT Collider2D::mColliderNumber = 0;
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider2D)
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
+		, mScale(Vector3::One)
+		, mType(eColliderType::Rect)
+		, mColor(eColor::Green)
 	{
+		mColliderNumber++;
+		mColliderID = mColliderNumber;
+	
 	}
 	Collider2D::~Collider2D()
 	{}
@@ -28,21 +35,60 @@ namespace m
 		scale.x *= mSize.x;
 		scale.y *= mSize.y;
 
+		mRotation = tr->GetRotation();
+		mScale = scale;
+
 		Vector3 pos = tr->GetPosition();
-		//pos.x += mCenter.x;
-		//pos.y += mCenter.y;
+		pos.x += mCenter.x;
+		pos.y += mCenter.y;
 
 		mPosition = pos;
 
-		DebugMesh debugMesh = {};
+		Camera* camera = GetOwner()->GetCamera();
 
+		DebugMesh debugMesh = {};
 		debugMesh.position = pos;
 		debugMesh.scale = scale;
-		debugMesh.rotation = tr->GetRotation();
-		debugMesh.type = eColliderType::Rect;
+		debugMesh.rotation = mRotation;
+		debugMesh.type = mType;
+		debugMesh.view = camera->GetPrivateViewMatrix();
+		debugMesh.projection = camera->GetPrivateProjectionMatrix();
+		debugMesh.color = mColor;
+		GetOwner()->GetState() != GameObject::Active ? debugMesh.visible = false : debugMesh.visible = true;
 
 		renderer::PushDebugMeshAttribute(debugMesh);
 	}
 	void Collider2D::Render()
 	{}
+
+	void Collider2D::OnCollisionEnter(Collider2D* other)
+	{
+		const std::vector<Script*>& scripts
+			= GetOwner()->GetScripts();
+
+		for (Script* script : scripts)
+		{
+			script->OnCollisionEnter(other);
+		}
+	}
+	void Collider2D::OnCollisionStay(Collider2D* other)
+	{
+		const std::vector<Script*>& scripts
+			= GetOwner()->GetScripts();
+
+		for (Script* script : scripts)
+		{
+			script->OnCollisionStay(other);
+		}
+	}
+	void Collider2D::OnCollisionExit(Collider2D* other)
+	{
+		const std::vector<Script*>& scripts
+			= GetOwner()->GetScripts();
+
+		for (Script* script : scripts)
+		{
+			script->OnCollisionExit(other);
+		}
+	}
 }

@@ -105,8 +105,9 @@ namespace gui
 
 	void Editor::DebugRender(const DebugMesh& mesh)
 	{
-		DebugObject* debugObj = mDebugObjects[(UINT)mesh.type];
+		if (!mesh.visible) return;
 
+		DebugObject* debugObj = mDebugObjects[(UINT)mesh.type];
 
 		// 위치 크기 회전 정보를 받아와서
 		// 해당 게임오브젝트위에 그려주면된다.
@@ -118,17 +119,21 @@ namespace gui
 		tr->SetPosition(pos);
 		tr->SetScale(mesh.scale);
 		tr->SetRotation(mesh.rotation);
+		if (mesh.color == eColor::Red)
+		{
+			debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRedRect"));
+		}
+		if (mesh.color == eColor::Green)
+		{
+			debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRect"));
+		}
 
 		Camera* mainCamara = renderer::mainCamera;
-		Camera::SetViewMatrix(mainCamara->GetPrivateViewMatrix());
-		Camera::SetProjectionMatrix(mainCamara->GetPrivateProjectionMatrix());
+		Camera::SetViewMatrix(mesh.view);
+		Camera::SetProjectionMatrix(mesh.projection);
 
 		tr->LateUpdate();
 
-		/*ya::MeshRenderer * mr
-			= debugObj->GetComponent<ya::MeshRenderer>();*/
-			// main camera
-		
 		debugObj->Render();
 	}
 }

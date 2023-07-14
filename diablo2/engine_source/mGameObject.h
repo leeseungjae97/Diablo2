@@ -6,9 +6,9 @@
 
 namespace m
 {
-    class GameObject :
-        public Entity
-    {
+	class GameObject :
+		public Entity
+	{
 	public:
 		enum eState
 		{
@@ -70,35 +70,44 @@ namespace m
 
 			return comp;
 		}
-		template <typename T>
-		std::vector<T*> GetComponents()
-		{
-			std::vector<T*> comps;
+		//template <typename T>
+		//const std::vector<T*>& GetComponents()
+		//{
+		//	std::vector<T*> comps;
 
-			T* component;
-			for (Component* comp : mComponents)
-			{
-				component = dynamic_cast<T*>(comp);
-				if (component != nullptr)
-					comps.push_back(component);
-			}
+		//	T* component;
+		//	for (Component* comp : mComponents)
+		//	{
+		//		component = dynamic_cast<T*>(comp);
+		//		if (component != nullptr)
+		//			comps.push_back(component);
+		//	}
+		//	for (Script* script : mScripts)
+		//	{
+		//		component = static_cast<T*>(script);
+		//		if (component != nullptr)
+		//			comps.push_back(component);
+		//	}
 
-			return comps;
-		}
+		//	return comps;
+		//}
+
 		void SetCamera(Camera* camera) { mCamera = camera; }
 		Camera* GetCamera() { return mCamera; }
 
+
 		void MousePosHoverGameObject();
 		bool GetHover() { return bHover; }
-
+		std::vector<Script*>& GetScripts() { return mScripts; }
+		std::vector<Component*> GetComponents() { return mComponents; }
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
-		
+
 		Camera* mCamera;
 		bool bHover;
-    };
+	};
 }
 
 

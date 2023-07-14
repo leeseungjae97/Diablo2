@@ -8,17 +8,20 @@
 #include "..\engine_source\mSceneManager.h"
 #include "..\engine_source\mRenderer.h"
 #include "..\engine_source\mApplication.h"
+#include "..\engine_source\mCollisionManager.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
 #include "mPlayer.h"
+#include "mMonster.h"
 #include "mTile.h"
 #include "mButton.h"
-#include "mInventory.h"
+#include "mItemPlaced.h"
 #include "mInvenItem.h"
 #include "mGridScript.h"
 #include "mSkillUp.h"
 #include "mCollider2D.h"
+#include "mPlayerScript.h"
 
 extern m::Application application;
 namespace m
@@ -77,12 +80,30 @@ namespace m
 		player->SetCamera(GetSceneMainCamera());
 		AddGameObject(eLayerType::Player, player);
 		player->AddComponent<Collider2D>();
+		player->AddComponent<PlayerScript>();
 		player->AddComponent<MeshRenderer>();
 		player->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		player->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
 		player->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
 
+		float rad = math::DegreeToRadian(45.f);
+
+		player->GetComponent<Transform>()->SetRotation(Vector3(0.f, 0.f, rad));
+
 		GetSceneMainCamera()->SetFollowObject(player);
+
+		Monster* monster = new Monster(Vector3(10.f, 10.f, 1.f));
+
+		monster->SetCamera(GetSceneMainCamera());
+		AddGameObject(eLayerType::Player, monster);
+		monster->AddComponent<Collider2D>();
+		monster->AddComponent<MeshRenderer>();
+		monster->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		monster->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
+		monster->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
+
+
+
 
 		//GameObject* child = new GameObject();
 		//child->SetCamera(cameraComp);
@@ -108,7 +129,7 @@ namespace m
 		AddGameObject(eLayerType::UI, uiCamera);
 
 
-		inven = new Inventory(cameraComp2);
+		inven = new ItemPlaced(cameraComp2);
 		inven->SetState(GameObject::Invisible);
 
 		skillUp = new SkillUp(cameraComp2);
@@ -232,6 +253,8 @@ namespace m
 		//mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
 		//GridScript* gridSc = grid->AddComponent<GridScript>();
 		//gridSc->SetCamera(cameraComp);
+
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 	}
 	void PlayScene::Update()
 	{

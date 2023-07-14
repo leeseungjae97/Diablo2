@@ -16,7 +16,7 @@
 
 namespace m
 {
-	Inventory::Inventory(Camera* camera)
+	ItemPlaced::ItemPlaced(Camera* camera)
 	{
 		SetCamera(camera);
 		SetName(L"Inventory");
@@ -58,12 +58,14 @@ namespace m
 			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1, this);
 
 			hpPosion->SetCamera(GetCamera());
+			hpPosion->SetState(GameObject::Invisible);
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
 			invenItems.push_back(hpPosion);
 		}
 		{
 			InvenItem* mpPosion = new InvenItem(eItem::mpPosion1, this);
 
+			mpPosion->SetState(GameObject::Invisible);
 			mpPosion->SetCamera(GetCamera());
 
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
@@ -72,6 +74,7 @@ namespace m
 		{
 			InvenItem* orb1 = new InvenItem(eItem::jaredsStone, this);
 
+			orb1->SetState(GameObject::Invisible);
 			orb1->SetCamera(GetCamera());
 
 			curScene->AddGameObject(eLayerType::Item, orb1);
@@ -80,13 +83,13 @@ namespace m
 
 		
 	}
-	Inventory::~Inventory()
+	ItemPlaced::~ItemPlaced()
 	{}
-	void Inventory::Initialize()
+	void ItemPlaced::Initialize()
 	{
 		UI::Initialize();
 	}
-	void Inventory::Update()
+	void ItemPlaced::Update()
 	{
 		UI::Update();
 		if (Input::GetKeyDown(eKeyCode::LBUTTON))
@@ -115,11 +118,11 @@ namespace m
 			}
 		}
 	}
-	void Inventory::LateUpdate()
+	void ItemPlaced::LateUpdate()
 	{
 		UI::LateUpdate();
 	}
-	void Inventory::Render()
+	void ItemPlaced::Render()
 	{
 		UI::Render();
 	}

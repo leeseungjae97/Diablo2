@@ -19,11 +19,32 @@ namespace m
 		void SetType(eColliderType type) { mType = type; }
 		void SetSize(Vector2 size) { mSize = size; }
 		void SetCenter(Vector2 size) { mCenter = size; }
+
+		void OnCollisionEnter(Collider2D* other);
+		void OnCollisionStay(Collider2D* other);
+		void OnCollisionExit(Collider2D* other);
+
+		UINT GetColliderID() { return mColliderID; }
+
+		Vector3 GetPosition() { return mPosition; }
+		Vector3 GetScale() { return mScale; }
+		Vector3 GetRotation() { return mRotation; }
+
+		Vector2 GetSize() { return mSize; }
+		Vector2 GetCenter() { return mCenter; }
+		eColliderType GetType() { return mType; }
+		void SetRectColor(eColor color) { mColor = color; }
 	private:
+		static UINT mColliderNumber;
+		UINT mColliderID;
 		eColliderType mType;
+		eColor mColor;
 		Transform* mTransform;
-		DebugMesh* mMesh;
+
 		Vector3 mPosition;
+		Vector3 mScale;
+		Vector3 mRotation;
+
 		Vector2 mSize;
 		Vector2 mCenter;
 	};

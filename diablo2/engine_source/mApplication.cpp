@@ -5,6 +5,7 @@
 #include "mScene.h"
 #include "mSceneManager.h"
 #include "mMouseManager.h"
+#include "mCollisionManager.h"
 #include "mFontWrapper.h"
 
 namespace m
@@ -44,6 +45,7 @@ namespace m
 		// Scene -> Layer -> Entity
 		SceneManager::Update();
 		MouseManager::Update();
+		CollisionManager::Update();
 	}
 
 	void Application::LateUpdate()

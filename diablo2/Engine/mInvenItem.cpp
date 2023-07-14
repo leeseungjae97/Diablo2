@@ -5,13 +5,13 @@
 #include "..\engine_source\mMeshRenderer.h"
 #include "..\engine_source\mCollider2D.h"
 
-#include "mInventory.h"
+#include "mItemPlaced.h"
 #include "mInven.h"
 
 
 namespace m
 {
-	InvenItem::InvenItem(eItem item, Inventory* inventory)
+	InvenItem::InvenItem(eItem item, ItemPlaced* inventory)
 		: Item(itemTypeTable[(int)item])
 		, mInventory(inventory)
 		, bSetMouseFollow(false)

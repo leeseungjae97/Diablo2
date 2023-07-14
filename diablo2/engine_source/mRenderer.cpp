@@ -200,7 +200,7 @@ namespace renderer
 		vertexes.resize(4);
 
 		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[0].uv = Vector2(0.0f, 0.0f);
 
 		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
@@ -208,11 +208,11 @@ namespace renderer
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
 		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[2].uv = Vector2(1.0f, 1.0f);
 
 		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[3].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
 		indexes.push_back(0);
@@ -239,6 +239,27 @@ namespace renderer
 		Resources::Insert(L"DebugRect", rectDebug);
 		rectDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		rectDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
+
+		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexes[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+
+		std::shared_ptr<Mesh> rectRedDebug = std::make_shared<Mesh>();
+		Resources::Insert(L"DebugRedRect", rectRedDebug);
+		rectRedDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		rectRedDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		// Circle Debug Mesh
 		vertexes.clear();
@@ -286,10 +307,12 @@ namespace renderer
 		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 	}
+
 	void PushDebugMeshAttribute(DebugMesh& mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}
+
 	void LoadBuffer()
 	{
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
@@ -297,6 +320,9 @@ namespace renderer
 
 		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
+
+		constantBuffers[(UINT)eCBType::Vertex] = new ConstantBuffer(eCBType::Vertex);
+		constantBuffers[(UINT)eCBType::Vertex]->Create(sizeof(Vertex));
 
 		//constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Animator);
 		//constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(AnimatorCB));
@@ -1274,6 +1300,7 @@ namespace renderer
 		LoadMesh();
 		LoadMaterial();
 	}
+
 	void Render()
 	{
 		for (Camera* cam : cameras)

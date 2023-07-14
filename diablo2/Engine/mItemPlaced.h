@@ -4,12 +4,12 @@
 #include "mInven.h"
 namespace m
 {
-    class Inventory :
+    class ItemPlaced :
         public UI
     {
     public:
-        Inventory(Camera* camera);
-        virtual ~Inventory();
+        ItemPlaced(Camera* camera);
+        virtual ~ItemPlaced();
 
         virtual void Initialize() override;
         virtual void Update() override;
