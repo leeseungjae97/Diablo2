@@ -104,3 +104,9 @@ struct DebugMesh
 	float duration;
 	float time;
 };
+struct Vertex
+{
+	m::math::Vector3 pos;
+	m::math::Vector4 color;
+	m::math::Vector2 uv;
+};

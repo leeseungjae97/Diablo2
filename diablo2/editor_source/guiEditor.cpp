@@ -32,6 +32,14 @@ namespace gui
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 
+		mesh = Resources::Find<Mesh>(L"DebugCircle");
+		material = Resources::Find<Material>(L"DebugMaterial");
+
+		mDebugObjects[(UINT)eColliderType::Circle] = new DebugObject();
+		mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<Transform>();
+		mr = mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
+		mr->SetMaterial(material);
+		mr->SetMesh(mesh);
 
 		EditorObject* grid = new EditorObject();
 		grid->SetName(L"Grid");
@@ -119,14 +127,29 @@ namespace gui
 		tr->SetPosition(pos);
 		tr->SetScale(mesh.scale);
 		tr->SetRotation(mesh.rotation);
-		if (mesh.color == eColor::Red)
+		if (mesh.type == eColliderType::Rect)
 		{
-			debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRedRect"));
+			if (mesh.color == eColor::Red)
+			{
+				debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRedRect"));
+			}
+			else if (mesh.color == eColor::Green)
+			{
+				debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRect"));
+			}
 		}
-		if (mesh.color == eColor::Green)
+		else
 		{
-			debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRect"));
+			if (mesh.color == eColor::Red)
+			{
+				debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRedCircle"));
+			}
+			else if (mesh.color == eColor::Green)
+			{
+				debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugCircle"));
+			}
 		}
+		
 
 		Camera* mainCamara = renderer::mainCamera;
 		Camera::SetViewMatrix(mesh.view);

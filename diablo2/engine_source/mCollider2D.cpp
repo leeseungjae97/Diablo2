@@ -9,7 +9,7 @@ namespace m
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider2D)
 		, mTransform(nullptr)
-		, mSize(Vector2::One)
+		, mSize(Vector3::One)
 		, mCenter(Vector2::Zero)
 		, mScale(Vector3::One)
 		, mType(eColliderType::Rect)
@@ -32,6 +32,10 @@ namespace m
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 scale = tr->GetScale();
+		if (mType == eColliderType::Circle)
+		{
+			scale.x = scale.y;
+		}
 		scale.x *= mSize.x;
 		scale.y *= mSize.y;
 

@@ -20,7 +20,6 @@ namespace renderer
 	std::vector<m::Camera*> cameras = {};
 	std::vector<DebugMesh> debugMeshs = {};
 
-
 	void SetupState()
 	{
 #pragma region InputLayout
@@ -225,6 +224,7 @@ namespace renderer
 
 		std::shared_ptr<Mesh> fullMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", fullMesh);
+		fullMesh->SetVertexes(vertexes);
 		fullMesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		fullMesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
@@ -237,32 +237,22 @@ namespace renderer
 
 		std::shared_ptr<Mesh> rectDebug = std::make_shared<Mesh>();
 		Resources::Insert(L"DebugRect", rectDebug);
+		rectDebug->SetVertexes(vertexes);
 		rectDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		rectDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 
-		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexes[0].uv = Vector2(0.0f, 0.0f);
+		for (int i = 0; i < vertexes.size(); ++i)
+			vertexes[i].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexes[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexes[1].uv = Vector2(1.0f, 0.0f);
-
-		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[2].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexes[2].uv = Vector2(1.0f, 1.0f);
-
-		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexes[3].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexes[3].uv = Vector2(0.0f, 1.0f);
-
-		std::shared_ptr<Mesh> rectRedDebug = std::make_shared<Mesh>();
-		Resources::Insert(L"DebugRedRect", rectRedDebug);
-		rectRedDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
-		rectRedDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+		rectDebug = std::make_shared<Mesh>();
+		Resources::Insert(L"DebugRedRect", rectDebug);
+		rectDebug->SetVertexes(vertexes);
+		rectDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		rectDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		// Circle Debug Mesh
 		vertexes.clear();
+		indexes.clear();
 
 		Vertex center = {};
 		center.pos = Vector3(0.0f, 0.0f, 0.0f);
@@ -282,20 +272,6 @@ namespace renderer
 			vertexes.push_back(center);
 		}
 
-		//for (UINT i = 0; i < (UINT)iSlice; ++i)
-		//{
-		//	indexes.push_back(0);
-		//	if (i == iSlice - 1)
-		//	{
-		//		indexes.push_back(1);
-		//	}
-		//	else
-		//	{
-		//		indexes.push_back(i + 2);
-		//	}
-		//	indexes.push_back(i + 1);
-		//}
-
 		for (int i = 0; i < vertexes.size() - 2; ++i)
 		{
 			indexes.push_back(i + 1);
@@ -304,6 +280,16 @@ namespace renderer
 
 		std::shared_ptr<Mesh> circleDebug = std::make_shared<Mesh>();
 		Resources::Insert(L"DebugCircle", circleDebug);
+		circleDebug->SetVertexes(vertexes);
+		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		for (int i = 0; i < vertexes.size(); ++i)
+			vertexes[i].color = Vector4(1.f, 0.f, 0.f, 1.f);
+
+		circleDebug = std::make_shared<Mesh>();
+		Resources::Insert(L"DebugRedCircle", circleDebug);
+		circleDebug->SetVertexes(vertexes);
 		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 	}

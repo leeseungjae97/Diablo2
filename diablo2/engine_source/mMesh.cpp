@@ -18,7 +18,7 @@ namespace m
 	}
 	bool Mesh::CreateVertexBuffer(void* data, UINT Count)
 	{
-		mVBDesc.ByteWidth = sizeof(renderer::Vertex) * Count;
+		mVBDesc.ByteWidth = sizeof(Vertex) * Count;
 		mVBDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
 		mVBDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
 		mVBDesc.CPUAccessFlags = 0; // NONE
@@ -49,7 +49,7 @@ namespace m
 	}
 	void Mesh::BindBuffer()
 	{
-		UINT stride = sizeof(renderer::Vertex);
+		UINT stride = sizeof(Vertex);
 		UINT offset = 0;
 
 		GetDevice()->BindVertexBuffer(0, mVertexBuffer.GetAddressOf(), &stride, &offset);

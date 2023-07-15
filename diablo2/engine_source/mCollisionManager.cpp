@@ -1,5 +1,6 @@
 #include "mCollisionManager.h"
 #include "mSceneManager.h"
+#include "mMeshRenderer.h"
 namespace m
 {
 	std::bitset<LAYER_MAX> CollisionManager::mMatrix[LAYER_MAX] = {};
@@ -88,41 +89,16 @@ namespace m
 			iter->second = false;
 		}
 	}
-	CollisionManager::MinMax loop(Vector2 axis, std::vector<Vector2> vertex)
-	{
-		float fMin = axis.Dot(vertex[0]);
-		float fMax = fMin;
-
-		for (Vector2 index : vertex)
-		{
-			float dot = axis.Dot(index);
-			fMin = min(fMin, dot);
-			fMax = max(fMax, dot);
-		}
-
-		return CollisionManager::MinMax{fMin, fMax};
-	}
-	Vector2 axisP(std::vector<Vector2> vertex, int i)
-	{
-		Vector2 p1 = vertex[i];
-		Vector2 p2 = i == vertex.size() - 1 ? vertex[0] : vertex[i + 1];
-
-		Vector2 _axis = Vector2(-(p2.y - p1.y), p2.x - p1.x);
-		
-		_axis.Normalize();
-
-		return _axis;
-	}
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 	{
 		Vector3 leftHalfScale = left->GetScale() / 2.f;
 		Vector3 rightHalfScale = right->GetScale() / 2.f;
 
-		Vector3 leftScale = left->GetScale();
-		Vector3 rightScale = right->GetScale();
-
 		Vector3 leftPos = left->GetPosition();
 		Vector3 rightPos = right->GetPosition();
+
+		Vector3 leftScale = left->GetSize();
+		Vector3 rightScale = right->GetSize();
 
 		Vector3 leftRotation = left->GetRotation();
 		Vector3 rightRotation = right->GetRotation();
@@ -134,67 +110,68 @@ namespace m
 			if (leftRotation != Vector3::Zero
 				|| rightRotation != Vector3::Zero)
 			{
+				std::vector<Vertex> leftVertexes =
+					left->GetOwner()->GetComponent<MeshRenderer>()->GetMesh()->GetVertexes();
+				std::vector<Vertex> rightVertexes =
+					right->GetOwner()->GetComponent<MeshRenderer>()->GetMesh()->GetVertexes();
 
-				Vector3 arrLocalPos[4] =
-				{
-				   Vector3{-0.5f, 0.5f, 0.0f}
-				   ,Vector3{0.5f, 0.5f, 0.0f}
-				   ,Vector3{0.5f, -0.5f, 0.0f}
-				   ,Vector3{-0.5f, -0.5f, 0.0f}
-				};
+				//Vector3 arrLocalPos[4] =
+				//{
+				//   Vector3{-0.5f, 0.5f, 0.0f}
+				//   ,Vector3{0.5f, 0.5f, 0.0f}
+				//   ,Vector3{0.5f, -0.5f, 0.0f}
+				//   ,Vector3{-0.5f, -0.5f, 0.0f}
+				//};
 
 				Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
 				Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
 
-				Matrix leftMat = leftTr->GetWorld();
-				Matrix rightMat = rightTr->GetWorld();
+				Matrix leftScaleMatrix = Matrix::CreateScale(leftScale);
+				Matrix rightScaleMatrix = Matrix::CreateScale(rightScale);
+
+				Matrix leftMatrix = leftTr->GetWorld() * leftScaleMatrix;
+				Matrix rightMatrix = rightTr->GetWorld() * rightScaleMatrix;
+
+				//Vector3 Axis[4] = {};
+				Vector3 leftAxis[2] = {};
+				Vector3 rightAxis[2] = {};
+
+				leftAxis[0] = Vector3::Transform(leftVertexes[1].pos, leftMatrix);
+				//leftAxis[0] = Vector3(leftAxis[0].x, leftAxis[0].y, 0.0f);
+				leftAxis[0] -= Vector3::Transform(leftVertexes[0].pos, leftMatrix);
+
+				leftAxis[1] = Vector3::Transform(leftVertexes[3].pos, leftMatrix);
+				//leftAxis[1] = Vector3(leftAxis[1].x, leftAxis[1].y, 0.0f);
+				leftAxis[1] -= Vector3::Transform(leftVertexes[0].pos, leftMatrix);
+
+				rightAxis[0] = Vector3::Transform(rightVertexes[1].pos, rightMatrix);
+				//rightAxis[0] = Vector3(rightAxis[0].x, rightAxis[0].y, rightAxis[0].z);
+				rightAxis[0] -= Vector3::Transform(rightVertexes[0].pos, rightMatrix);
+
+				rightAxis[1] = Vector3::Transform(rightVertexes[3].pos, rightMatrix);
+				//rightAxis[1] = Vector3(rightAxis[1].x, rightAxis[1].y, 0.0f);
+				rightAxis[1] -= Vector3::Transform(rightVertexes[0].pos, rightMatrix);
 
 
+				Vector3 vDistance = leftTr->GetPosition() - rightTr->GetPosition();
+				vDistance.z = 0.0f;
 
-				// 분리축 벡터 4개 구하기
-				Vector3 Axis[4] = {};
-
-				Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
-
-				Matrix finalLeft = Matrix::CreateScale(leftScale);
-				finalLeft *= leftMat;
-
-				Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
-				Matrix finalRight = Matrix::CreateScale(rightScale);
-				finalRight *= rightMat;
-
-				Axis[0] = Vector3::Transform(arrLocalPos[1], finalLeft);
-				Axis[1] = Vector3::Transform(arrLocalPos[3], finalLeft);
-				Axis[2] = Vector3::Transform(arrLocalPos[1], finalRight);
-				Axis[3] = Vector3::Transform(arrLocalPos[3], finalRight);
-
-				Axis[0] -= Vector3::Transform(arrLocalPos[0], finalLeft);
-				Axis[1] -= Vector3::Transform(arrLocalPos[0], finalLeft);
-				Axis[2] -= Vector3::Transform(arrLocalPos[0], finalRight);
-				Axis[3] -= Vector3::Transform(arrLocalPos[0], finalRight);
-
-				for (size_t i = 0; i < 4; i++)
-					Axis[i].z = 0.0f;
-
-				Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
-				vc.z = 0.0f;
-
-				Vector3 centerDir = vc;
-				for (size_t i = 0; i < 4; i++)
+				for (int i = 0; i < 2; i++)
 				{
-					Vector3 vA = Axis[i];
-					//vA.Normalize();
+					Vector3 leftTransVertex = leftAxis[i];
+					Vector3 rightTransVertex = rightAxis[i];
 
-					float projDist = 0.0f;
-					for (size_t j = 0; j < 4; j++)
+					float leftDist = 0.0f;
+					float rightDist = 0.0f;
+					for (int j = 0; j < 2; j++)
 					{
-						projDist += fabsf(Axis[j].Dot(vA) / 2.0f);
+						leftDist += fabs(leftAxis[j].Dot(leftTransVertex));
+						rightDist += fabs(rightAxis[j].Dot(rightTransVertex));
 					}
 
-					if (projDist < fabsf(centerDir.Dot(vA)))
-					{
+					if (leftDist + rightDist < fabs(vDistance.Dot(leftTransVertex))
+						|| leftDist + rightDist < fabs(vDistance.Dot(rightTransVertex)))
 						return false;
-					}
 				}
 				return true;
 				/*leftPos *= leftRotation;
@@ -259,11 +236,8 @@ namespace m
 
 			float length = sqrt(dX * dX + dY * dY);
 
-			if (leftScale.x + rightScale.x >= length)
-			{
+			if (leftHalfScale.x + rightHalfScale.x >= length)
 				return true;
-			}
-			return false;
 		}
 		return false;
 	}
