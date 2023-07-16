@@ -129,12 +129,12 @@ namespace m
 				// leftMatrix의 축
 				axes.push_back(Vector3(leftMatrix.m[0][0], leftMatrix.m[0][1], leftMatrix.m[0][2]));
 				axes.push_back(Vector3(leftMatrix.m[1][0], leftMatrix.m[1][1], leftMatrix.m[1][2]));
-				//axes.push_back(Vector3(leftMatrix.m[2][0], leftMatrix.m[2][1], leftMatrix.m[2][2]));
+				axes.push_back(Vector3(leftMatrix.m[2][0], leftMatrix.m[2][1], leftMatrix.m[2][2]));
 
 				// rightMatrix의 축
 				axes.push_back(Vector3(rightMatrix.m[0][0], rightMatrix.m[0][1], rightMatrix.m[0][2]));
 				axes.push_back(Vector3(rightMatrix.m[1][0], rightMatrix.m[1][1], rightMatrix.m[1][2]));
-				//axes.push_back(Vector3(rightMatrix.m[2][0], rightMatrix.m[2][1], rightMatrix.m[2][2]));
+				axes.push_back(Vector3(rightMatrix.m[2][0], rightMatrix.m[2][1], rightMatrix.m[2][2]));
 
 				// 0 ~ 2 : left, 3 ~ 5 : right
 				// cross product를 사용하여 추가 축 계산
@@ -187,6 +187,7 @@ namespace m
 						return false;
 					}
 				}
+
 				// 모든 축에서 겹침이 있음
 				return true;
 			}
