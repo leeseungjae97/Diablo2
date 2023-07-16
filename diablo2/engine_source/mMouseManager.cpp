@@ -28,7 +28,7 @@ namespace m
 			auto gameUI = dynamic_cast<UI*>(gameObj);
 			if (nullptr == gameUI ||
 				gameUI->GetState() != GameObject::eState::Active) continue;
-
+			 
 			if (gameUI->GetHover())
 			{
 				mMouseOnUI = true;

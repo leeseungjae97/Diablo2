@@ -38,6 +38,8 @@ namespace m
 		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
+		SetSceneMainCamera(camera->AddComponent<Camera>());
 
 		float TILE_SIZE_X = 160.f;
 		float TILE_SIZE_Y = 80.f;
@@ -56,6 +58,7 @@ namespace m
 
 				AddGameObject(eLayerType::Player, tile);
 				//tile->AddComponent<Collider2D>();
+				tile->SetCamera(GetSceneMainCamera());
 				tile->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				tile->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testTile"));
 				tile->GetComponent<Transform>()->SetScale(Vector3(TILE_SIZE_X , TILE_SIZE_Y , 0.f));
@@ -63,12 +66,8 @@ namespace m
 				tiles.push_back(tile);
 			}
 		}
-
-		Vector3 cenVec = tiles[12]->GetComponent<Transform>()->GetPosition();
-
 		//camera->GetComponent<Transform>()->SetPosition(Vector3(cenVec.x, cenVec.y, -1.f));
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
-		SetSceneMainCamera(camera->AddComponent<Camera>());
+		
 
 		GetSceneMainCamera()->DisableLayerMasks();
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
@@ -136,6 +135,8 @@ namespace m
 		skillUp->SetState(GameObject::Invisible);
 
 		UI* uiBottomBar = new UI();
+		uiBottomBar->SetName(L"uiBottom");
+		uiBottomBar->SetCamera(cameraComp2);
 		AddGameObject(eLayerType::UI, uiBottomBar);
 		uiBottomBar->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiBottomBar->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"bottomUi"));
@@ -146,6 +147,7 @@ namespace m
 
 		UI* uiMp = new UI();
 		AddGameObject(eLayerType::UI, uiMp);
+		uiMp->SetCamera(cameraComp2);
 		uiMp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiMp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpUi"));
 		uiMp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
@@ -156,6 +158,7 @@ namespace m
 	
 		UI* mp = new UI();
 		AddGameObject(eLayerType::UI, mp);
+		mp->SetCamera(cameraComp2);
 		mp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mp"));
 		mp->GetComponent<Transform>()->SetScale(Vector3(80.f * Texture::GetWidRatio()
@@ -176,6 +179,7 @@ namespace m
 
 		UI* uiHp = new UI();
 		AddGameObject(eLayerType::UI, uiHp);
+		uiHp->SetCamera(cameraComp2);
 		uiHp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		uiHp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpUi"));
 		uiHp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
@@ -185,6 +189,8 @@ namespace m
 
 		UI* hp = new UI();
 		AddGameObject(eLayerType::UI, hp);
+		hp->SetCamera(cameraComp2);
+		hp->SetName(L"hp");
 		hp->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		hp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hp"));
 		hp->GetComponent<Transform>()->SetScale(Vector3(80.f * Texture::GetWidRatio()
@@ -195,6 +201,7 @@ namespace m
 
 		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);
+		hpOverlapHands->SetCamera(cameraComp2);
 		hpOverlapHands->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		hpOverlapHands->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"hpOverlapHands"));
 		hpOverlapHands->GetComponent<Transform>()->SetScale(Vector3(82.f * Texture::GetWidRatio()
@@ -264,11 +271,11 @@ namespace m
 		{
 			SceneManager::LoadScene(L"MainMenuScene");
 		}
-		if (Input::GetKeyDown(eKeyCode::I))
+		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inven)
 		{
 			inven->SetState(inven->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
 		}
-		if (Input::GetKeyDown(eKeyCode::T))
+		if (Input::GetKeyDown(eKeyCode::T) && nullptr != skillUp)
 		{
 			skillUp->SetState(skillUp->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
 		}

@@ -30,6 +30,7 @@ namespace m
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
+		back->SetCamera(GetSceneMainCamera());
 		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
 		back->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
@@ -51,6 +52,7 @@ namespace m
 
 		UI* info1 = new UI();
 		AddGameObject(eLayerType::UI, info1);
+		info1->SetCamera(GetSceneMainCamera());
 		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt1"));
 		info1->GetComponent<Transform>()->SetScale(Vector3(150.f * Texture::GetWidRatio()
@@ -60,6 +62,7 @@ namespace m
 
 		Button* exitBtn = new Button();
 		AddGameObject(eLayerType::UI, exitBtn);
+		exitBtn->SetCamera(GetSceneMainCamera());
 		exitBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		exitBtn->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
 		exitBtn->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));

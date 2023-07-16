@@ -164,6 +164,7 @@ namespace m
 
 		for (GameObject* obj : gameObjs)
 		{
+			if (obj->GetCamera() != this) continue;
 			//렌더러 컴포넌트가 없다면?
 			MeshRenderer* mr
 				= obj->GetComponent<MeshRenderer>();
