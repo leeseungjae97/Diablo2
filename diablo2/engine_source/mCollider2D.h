@@ -24,6 +24,8 @@ namespace m
 		void OnCollisionStay(Collider2D* other);
 		void OnCollisionExit(Collider2D* other);
 
+		void SetRectColor(eColor color) { mColor = color; }
+
 		UINT GetColliderID() { return mColliderID; }
 
 		Vector3 GetPosition() { return mPosition; }
@@ -33,7 +35,10 @@ namespace m
 		Vector3 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
 		eColliderType GetType() { return mType; }
-		void SetRectColor(eColor color) { mColor = color; }
+
+		bool GetOnEnter() { return bOnEnter; }
+		bool GetOnStay() { return bOnStay; }
+		bool GetOnExit() { return bOnExit; }
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
@@ -47,6 +52,10 @@ namespace m
 
 		Vector3 mSize;
 		Vector2 mCenter;
+
+		bool bOnEnter;
+		bool bOnStay;
+		bool bOnExit;
 	};
 }
 

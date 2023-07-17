@@ -10,6 +10,7 @@
 
 #include "mInvenItem.h"
 #include "mItem.h"
+#include "mPlayerScript.h"
 
 #define INVEN_X_SIZE 30
 #define INVEN_Y_SIZE 30
@@ -34,6 +35,7 @@ namespace m
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameObject(eLayerType::UI, this);
 
+		float invenZ = tr->GetPosition().z;
 		for (int y = 0; y < 4; y++)
 		{
 			for (int x = 0; x < 10; x++)
@@ -43,7 +45,7 @@ namespace m
 
 				Transform* invenTr = inven->GetComponent<Transform>();
 				invenTr->SetPosition(Vector3(65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
-					, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y), tr->GetPosition().z));
+					, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y), invenZ));
 
 				invenTr->SetScale(Vector3((288.f / 10.f) * Texture::GetWidRatio()
 					, (114.f / 4.f) * Texture::GetHeiRatio(), 0.f));
@@ -53,12 +55,23 @@ namespace m
 				invens.push_back(inven);
 			}
 		}
+		//invensCollider = new GameObject();
+		//tr = invensCollider->GetComponent<Transform>();
+		//invensCollider->SetCamera(GetCamera());
+		//invensCollider->SetState(GameObject::Invisible);
+		//invensCollider->AddComponent<PlayerScript>();
+		//tr->SetScale(Vector3(300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio(), 1.f));
+		//tr->SetPosition(Vector3((15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (- 15.f + (-120.f / 2.f)) * Texture::GetHeiRatio(), invenZ));
+		//invensCollider->AddComponent<Collider2D>();
+		//curScene->AddGameObject(eLayerType::Item, invensCollider);
 
 		{
 			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1, this);
 
 			hpPosion->SetCamera(GetCamera());
+			hpPosion->SetName(L"1");
 			hpPosion->SetState(GameObject::Invisible);
+			hpPosion->AddComponent<PlayerScript>();
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
 			invenItems.push_back(hpPosion);
 		}
@@ -66,8 +79,9 @@ namespace m
 			InvenItem* mpPosion = new InvenItem(eItem::mpPosion1, this);
 
 			mpPosion->SetState(GameObject::Invisible);
+			mpPosion->SetName(L"2");
 			mpPosion->SetCamera(GetCamera());
-
+			mpPosion->AddComponent<PlayerScript>();
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
 			invenItems.push_back(mpPosion);
 		}
@@ -75,8 +89,9 @@ namespace m
 			InvenItem* orb1 = new InvenItem(eItem::jaredsStone, this);
 
 			orb1->SetState(GameObject::Invisible);
+			orb1->SetName(L"3");
 			orb1->SetCamera(GetCamera());
-
+			orb1->AddComponent<PlayerScript>();
 			curScene->AddGameObject(eLayerType::Item, orb1);
 			invenItems.push_back(orb1);
 		}
@@ -108,6 +123,7 @@ namespace m
 			for (InvenItem* ii : invenItems)
 			{
 				ii->SetState(GetState());
+				//invensCollider->SetState(GetState());
 			}
 		}
 		if (GetState() != invens[0]->GetState())

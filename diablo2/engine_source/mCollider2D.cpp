@@ -14,6 +14,9 @@ namespace m
 		, mScale(Vector3::One)
 		, mType(eColliderType::Rect)
 		, mColor(eColor::Green)
+		, bOnEnter(false)
+		, bOnStay(false)
+		, bOnExit(false)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
@@ -67,6 +70,8 @@ namespace m
 
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
+		bOnEnter = true;
+		bOnStay = bOnExit = false;
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetScripts();
 
@@ -77,6 +82,8 @@ namespace m
 	}
 	void Collider2D::OnCollisionStay(Collider2D* other)
 	{
+		bOnStay = true;
+		bOnEnter = bOnExit = false;
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetScripts();
 
@@ -87,6 +94,8 @@ namespace m
 	}
 	void Collider2D::OnCollisionExit(Collider2D* other)
 	{
+		bOnExit = true;
+		bOnStay = bOnEnter = false;
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetScripts();
 

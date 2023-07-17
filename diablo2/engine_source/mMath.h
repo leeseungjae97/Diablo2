@@ -191,7 +191,7 @@ namespace m::math
         static void TransformNormal(_In_reads_(count) const Vector2* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector2* resultArray) noexcept;
 
         static bool OnMouseVector2Rect(Vector2 targetVector, Vector2 targetScale, Vector2 mousePos);
-
+        static bool Vector2RectIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale);
         // Constants
         static const Vector2 Zero;
         static const Vector2 One;
@@ -304,7 +304,7 @@ namespace m::math
         static void TransformNormal(const Vector3& v, const Matrix& m, Vector3& result) noexcept;
         static Vector3 TransformNormal(const Vector3& v, const Matrix& m) noexcept;
         static void TransformNormal(_In_reads_(count) const Vector3* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector3* resultArray) noexcept;
-
+        static bool Vector2RectIntersectRect(Vector3 targetVector, Vector3 targetScale, Vector3 ohterVector, Vector3 otherScale);
         // Constants
         static const Vector3 Zero;
         static const Vector3 One;

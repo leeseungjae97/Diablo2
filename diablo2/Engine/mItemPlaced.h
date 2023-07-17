@@ -18,9 +18,11 @@ namespace m
 
         std::vector<Inven*> GetInvens() { return invens; }
         std::vector<InvenItem*> GetInvenItems() { return invenItems; }
+        GameObject* GetInvensCollider() { return invensCollider; }
     private:
                                             // x * 10 y * 4
                                             // x + 18 y - 319
+        GameObject* invensCollider;
         std::vector<Inven*> invens;
         std::vector<InvenItem*> invenItems; // x 28 y 28
         UI* invenWeapon1Left;   // x 60 y 117

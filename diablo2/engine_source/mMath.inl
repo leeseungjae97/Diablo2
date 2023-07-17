@@ -756,8 +756,15 @@ inline bool m::math::Vector2::OnMouseVector2Rect(Vector2 targetVector, Vector2 t
     }
     else return false;
 }
-
-
+inline bool m::math::Vector2::Vector2RectIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale)
+{
+    if (fabs(targetVector.x - ohterVector.x) < targetScale.x / 2.f + otherScale.x / 2.f
+        && fabs(targetVector.y - ohterVector.y) < targetScale.y / 2.f + otherScale.y / 2.f)
+    {
+        return true;
+    }
+    else return false;
+}
 /****************************************************************************
  *
  * Vector3
@@ -1336,6 +1343,15 @@ inline Vector3 Vector3::TransformNormal(const Vector3& v, const Matrix& m) noexc
     Vector3 result;
     XMStoreFloat3(&result, X);
     return result;
+}
+inline bool m::math::Vector3::Vector2RectIntersectRect(Vector3 targetVector, Vector3 targetScale, Vector3 ohterVector, Vector3 otherScale)
+{
+    if (fabs(targetVector.x - ohterVector.x) < targetScale.x / 2.f + otherScale.x / 2.f
+        && fabs(targetVector.y - ohterVector.y) < targetScale.y / 2.f + otherScale.y / 2.f)
+    {
+        return true;
+    }
+    else return false;
 }
 
 _Use_decl_annotations_

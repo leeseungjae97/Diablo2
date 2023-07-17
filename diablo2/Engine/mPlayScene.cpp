@@ -122,6 +122,7 @@ namespace m
 		uiCamera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -1.f));
 		Camera* cameraComp2 = uiCamera->AddComponent<Camera>();
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
+		
 		//cameraComp2->TurnLayerMask(eLayerType::UI, true);
 		//cameraComp2->TurnLayerMask(eLayerType::Item, true);
 
@@ -262,6 +263,7 @@ namespace m
 		//gridSc->SetCamera(cameraComp);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 	}
 	void PlayScene::Update()
 	{
