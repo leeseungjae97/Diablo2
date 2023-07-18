@@ -70,6 +70,21 @@
     <Filter Include="Manager\SceneManager">
       <UniqueIdentifier>{298d7060-a8c5-4719-950a-86b155ea6d2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Resource\Material">
+      <UniqueIdentifier>{c816c735-320e-4f4d-b69c-b5160cf655c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\Mesh">
+      <UniqueIdentifier>{b34ecede-aedb-410b-837b-b182026167c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\Texture">
+      <UniqueIdentifier>{8176868a-9e71-4c21-bb14-4c1bc6e52db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\Animation">
+      <UniqueIdentifier>{f4c34feb-3a3e-4b9d-98b1-2f62bdcdaa28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Animator">
+      <UniqueIdentifier>{d2f155f4-e152-4885-acaa-79649d4c9cf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -83,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h">
       <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h">
-      <Filter>Resources\Resource</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h">
       <Filter>Graphics</Filter>
@@ -129,15 +141,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mLayer.h">
       <Filter>Scene\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h">
-      <Filter>Resources\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h">
-      <Filter>Resources\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h">
-      <Filter>Resources\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h">
       <Filter>Script</Filter>
     </ClInclude>
@@ -178,6 +181,24 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h">
       <Filter>Manager\SceneManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h">
+      <Filter>Resources\Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h">
+      <Filter>Resources\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h">
+      <Filter>Resources\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h">
+      <Filter>Resources\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAnimator.h">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h">
+      <Filter>Resources\Resource\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -185,9 +206,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp">
       <Filter>Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp">
-      <Filter>Resources\Resource</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp">
       <Filter>Common\Entity</Filter>
@@ -225,15 +243,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mLayer.cpp">
       <Filter>Scene\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp">
-      <Filter>Resources\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp">
-      <Filter>Resources\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp">
-      <Filter>Resources\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
@@ -261,6 +270,24 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp">
       <Filter>Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp">
+      <Filter>Resources\Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp">
+      <Filter>Resources\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp">
+      <Filter>Resources\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp">
+      <Filter>Resources\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAnimator.cpp">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp">
+      <Filter>Resources\Resource\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

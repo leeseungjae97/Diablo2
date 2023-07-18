@@ -18,7 +18,9 @@ namespace m
 		, fStartDistance(0.f)
 		, fRemainDistance(0.f)
 	{
-		GetComponent<Transform>()->SetPosition(iniPos);
+		SET_POS_VEC_T(iniPos);
+		ADD_THIS_COMP(Collider2D);
+		ADD_THIS_COMP(MeshRenderer);
 	}
 	Player::~Player()
 	{}
@@ -27,9 +29,8 @@ namespace m
 	void Player::Update()
 	{
 		GameObject::Update();
-		Transform* tr = GetComponent<Transform>();
 
-		Vector3 curPosition = tr->GetPosition();
+		Vector3 curPosition = GET_THIS_POS;
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
 			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
@@ -37,7 +38,7 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::LBUTTON)
 			&& !MouseManager::GetMouseOnUI())
 		{
-			prevPosition = tr->GetPosition();
+			prevPosition = GET_THIS_POS;
 
 			destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
@@ -56,8 +57,6 @@ namespace m
 			//fStartDistance = (Vector2(dX, dY) - Vector2(pX, pY)).Length();
 
 			fStartDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
-
-			
 
 			vDirection = destPosition - curPosition;
 			vDirection.Normalize();
@@ -83,7 +82,7 @@ namespace m
 		{
 			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
-			tr->SetPosition(Vector3(fMoveX, fMoveY, curPosition.z));
+			SET_POS_XYZ_T(fMoveX, fMoveY, curPosition.z);
 		}
 	}
 	void Player::LateUpdate()

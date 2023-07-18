@@ -125,20 +125,20 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-       CW_USEDEFAULT, 0, 1540, 845, nullptr, nullptr, hInstance, nullptr);
-
    //HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-   //    CW_USEDEFAULT, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
+   //    CW_USEDEFAULT, 0, 1540, 845, nullptr, nullptr, hInstance, nullptr);
+
+   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+       CW_USEDEFAULT, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
       return FALSE;
    }
-   //application.SetWindow(hWnd, 1600, 900);
+   application.SetWindow(hWnd, 1600, 900);
    //application.SetViewport(1600, 900);
 
-   application.SetWindow(hWnd, 1540, 845);
+   //application.SetWindow(hWnd, 1540, 845);
    //application.SetViewport(1280, 800);
 
    ShowWindow(hWnd, nCmdShow);

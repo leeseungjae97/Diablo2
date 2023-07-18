@@ -20,21 +20,24 @@ namespace m
 	void SelectCharacterScene::Initialize()
 	{
 		Scene::Initialize();
+
+		SHARED_TEX tex;
+
 		Vector2 ccp = Camera::GetCameraCenter();
 
 		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::UI, camera);
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.0f));
+		SET_POS_XYZ(camera, 0.f, 0.f, -10.0f);
 		SetSceneMainCamera(camera->AddComponent<Camera>());
 
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
-		back->SetCamera(GetSceneMainCamera());
-		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"characterSelect1"));
-		back->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
-		back->GetComponent<Transform>()->SetScale(Vector3(RESOL_WID, RESOL_HEI, 0.f));
+		SET_MAIN_CAMERA(back);
+		SET_MESH(back, L"RectMesh");
+		SET_MATERIAL(back, L"characterSelect1");
+		SET_POS_XYZ(back, 0.f, 0.f, 1.f);
+		SET_SCALE_FULL(back, 0.f);
 
 		//Background* fire = new Background();
 		//AddGameObject(eLayerType::UI, fire);
@@ -50,27 +53,18 @@ namespace m
 		//amazon->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//amazon->GetComponent<Transform>()->SetScale(Vector3(0.f, 0.f, 0.f));
 
-		UI* info1 = new UI();
-		AddGameObject(eLayerType::UI, info1);
-		info1->SetCamera(GetSceneMainCamera());
-		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt1"));
-		info1->GetComponent<Transform>()->SetScale(Vector3(150.f * Texture::GetWidRatio()
-			, 40.f * Texture::GetHeiRatio(), 0.f));
-		info1->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 150.f * Texture::GetWidRatio() / 2.f
-			, 450.f - 40.f * Texture::GetHeiRatio(), 1.f));
-
 		Button* exitBtn = new Button();
 		AddGameObject(eLayerType::UI, exitBtn);
-		exitBtn->SetCamera(GetSceneMainCamera());
-		exitBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		exitBtn->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
-		exitBtn->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
-		exitBtn->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
+
+		SET_MAIN_CAMERA(exitBtn);
+		SET_MESH(exitBtn, L"RectMesh");
+		SET_MATERIAL(exitBtn, L"mWideButtonBlank");
+		GET_TEX_D(exitBtn, tex);
+		exitBtn->SetClickMaterial(RESOURCE_FIND(Material, L"mWideButtonBlankClick"));
+		exitBtn->SetNormalMaterial(RESOURCE_FIND(Material, L"mWideButtonBlank"));
 		exitBtn->SetClickFunction( []() { SceneManager::LoadScene(L"PlayScene"); });
-		exitBtn->SetCamera(GetSceneMainCamera());
-		exitBtn->GetComponent<Transform>()->SetPosition(Vector3(34.f + -800.f + 126.f * Texture::GetWidRatio() / 2.f, 27.f + -450.f + 35.f * Texture::GetHeiRatio() / 2.f, 1.f));
-		exitBtn->GetComponent<Transform>()->SetScale(Vector3(126.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));
+		SET_POS_XYZ(exitBtn, 34.f + -RESOL_H_WID + 126.f * Texture::GetWidRatio() / 2.f, 27.f + -RESOL_H_HEI + 35.f * Texture::GetHeiRatio() / 2.f, 1.f);
+		SET_SCALE_WIDTH_OH(exitBtn, 126.f ,tex, 0.0f);
 	}
 	void SelectCharacterScene::Update()
 	{

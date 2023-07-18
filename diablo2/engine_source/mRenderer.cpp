@@ -310,6 +310,9 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::Vertex] = new ConstantBuffer(eCBType::Vertex);
 		constantBuffers[(UINT)eCBType::Vertex]->Create(sizeof(Vertex));
 
+		constantBuffers[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
+		constantBuffers[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
+
 		//constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Animator);
 		//constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(AnimatorCB));
 	}
@@ -365,51 +368,11 @@ namespace renderer
 		}
 #pragma endregion
 #pragma region Background
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mainMenu2", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"main_menu_2_1", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2_1.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mainMenu2_1", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"characterSelect1", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"charactercreation_test", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreation_.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"charactercreationTest", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"testLogo", spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png", L"mainMenu2");
+		MAKE_MATERIAL(spriteShader, L"main_menu_2_1", L"..\\Resources\\texture\\ui\\mainMenu\\main_menu_2_1.png", L"mainMenu2_1");
+		MAKE_MATERIAL(spriteShader, L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png", L"characterSelect1");
+		MAKE_MATERIAL(spriteShader, L"charactercreation_test", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreation_.png", L"charactercreationTest");
+		MAKE_MATERIAL(spriteShader, L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png", L"testLogo");
 #pragma endregion
 #pragma region Buttons
 		{
@@ -450,100 +413,17 @@ namespace renderer
 		}
 #pragma endregion
 #pragma region Tiles
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			//spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"townFloors", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"test_tile", L"..\\Resources\\texture\\tile1.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			//spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"testTile", spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
+		MAKE_MATERIAL(spriteShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
 #pragma endregion
 #pragma region ETC
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"test_amazon", L"..\\Resources\\texture\\amazon_test.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"testAmazon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"panelBorderLeft", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"panelBorderRight", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"t1", L"..\\Resources\\texture\\move_scene_key_info.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"tt1", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"t2", L"..\\Resources\\texture\\inven_key_info.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"tt2", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"testDebugRect", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"invenRect", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"none", L"..\\Resources\\texture\\none.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"noneRect", spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
+		MAKE_MATERIAL(spriteShader, L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png", L"panelBorderLeft");
+		MAKE_MATERIAL(spriteShader, L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png", L"panelBorderRight");
+		MAKE_MATERIAL(spriteShader, L"t1", L"..\\Resources\\texture\\move_scene_key_info.png", L"tt1");
+		MAKE_MATERIAL(spriteShader, L"t2", L"..\\Resources\\texture\\inven_key_info.png", L"tt2");
+		MAKE_MATERIAL(spriteShader, L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png", L"testDebugRect");
+		MAKE_MATERIAL(spriteShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect");
 		//move_scene_key_info.png
 #pragma endregion
 #pragma region Items
@@ -576,78 +456,14 @@ namespace renderer
 		}
 #pragma endregion
 #pragma region Bottom User Interface
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"bottomUi", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"hp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanellife.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"hpUi", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mpUi", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"ex_pocket", L"..\\Resources\\texture\\ui\\play\\ex_pocket.bmp");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"exPocket", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"hp_t", L"..\\Resources\\texture\\ui\\play\\life.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"hp", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mp", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"hpOverlapHands", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mpOverlapHands", spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png", L"bottomUi");
+		MAKE_MATERIAL(spriteShader, L"hp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanellife.png", L"hpUi");
+		MAKE_MATERIAL(spriteShader, L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png", L"mpUi");
+		MAKE_MATERIAL(spriteShader, L"ex_pocket", L"..\\Resources\\texture\\ui\\play\\ex_pocket.png", L"exPocket");
+		MAKE_MATERIAL(spriteShader, L"hp_t", L"..\\Resources\\texture\\ui\\play\\life.png", L"hp");
+		MAKE_MATERIAL(spriteShader, L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png", L"mp");
+		MAKE_MATERIAL(spriteShader, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
+		MAKE_MATERIAL(spriteShader, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");
 #pragma endregion
 #pragma region Skill User Interface
 		{
@@ -1153,96 +969,17 @@ namespace renderer
 		}
 #pragma endregion
 #pragma region Skill Click Lightning
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"chainLightningClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"chargedBoltClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"energyShieldClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"lightningClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"lightningMasteryClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"noveClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"staticFieldClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"telekinesisClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"teleportClickIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"thunderStormClickIcon", spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png", L"chargedBoltClickIcon")
+		MAKE_MATERIAL(spriteShader, L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png", L"staticFieldClickIcon")
+		MAKE_MATERIAL(spriteShader, L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png", L"telekinesisClickIcon")
+		MAKE_MATERIAL(spriteShader, L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png", L"noveClickIcon")
+		MAKE_MATERIAL(spriteShader, L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png", L"lightningClickIcon")
+		MAKE_MATERIAL(spriteShader, L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png", L"chainLightningClickIcon")
+		MAKE_MATERIAL(spriteShader, L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png", L"teleportClickIcon")
+		MAKE_MATERIAL(spriteShader, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
+		MAKE_MATERIAL(spriteShader, L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png", L"energyShieldClickIcon")
+		MAKE_MATERIAL(spriteShader, L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png", L"lightningMasteryClickIcon")
+		MAKE_MATERIAL(spriteShader, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
 #pragma endregion
 #pragma region Inventory
 		{

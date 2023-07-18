@@ -58,6 +58,7 @@
     </ClCompile>
     <ClCompile Include="mSkillButton.cpp" />
     <ClCompile Include="mPlayerInfo.cpp" />
+    <ClCompile Include="mPlayerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -114,6 +115,7 @@
     </ClInclude>
     <ClInclude Include="mSkillButton.h" />
     <ClInclude Include="mPlayerInfo.h" />
+    <ClInclude Include="mPlayerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

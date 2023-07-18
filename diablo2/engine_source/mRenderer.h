@@ -21,15 +21,13 @@ namespace renderer
 		Vector2 CameraScale;
 		Vector2 Resolution;
 	};
-	//CBUFFER(AnimatorCB, CBSLOT_ANIMATOR)
-	//{
-	//	Vector2 leftTop;
-	//	Vector2 size;
-	//	Vector2 offset;
-	//	Vector2 atlasSize;
-
-	//	UINT type;
-	//};
+	CBUFFER(AnimatorCB, CBSLOT_ANIMATOR)
+	{
+		Vector2 spriteLeftTop;
+		Vector2 spriteSize;
+		Vector2 spriteOffset;
+		Vector2 atlasSize;
+	};
 
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
 

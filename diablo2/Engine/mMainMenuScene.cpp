@@ -28,10 +28,9 @@ namespace m
 		AddGameObject(eLayerType::UI, camera);
 
 		Vector2 ccp = Camera::GetCameraCenter();
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -10.f));
-		//camera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -1.f));
-		camera->AddComponent<CameraScript>();
-		SetSceneMainCamera(camera->AddComponent<Camera>());
+		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
+		ADD_COMP(camera, CameraScript);
+		SetSceneMainCamera(ADD_COMP(camera, Camera));
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::UI, true);
 
 		//GameObject* grid = new GameObject();
@@ -44,46 +43,40 @@ namespace m
 		//GridScript* gridSc = grid->AddComponent<GridScript>();
 		//gridSc->SetCamera(cameraComp);
 
+		SHARED_TEX tex;
 		Background* back = new Background();
 		AddGameObject(eLayerType::UI, back);
-		back->SetCamera(GetSceneMainCamera());
-		back->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		back->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mainMenu2"));
-		back->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.0f));
-		//back->GetComponent<Transform>()->SetScale(Vector3(800.f * Texture::GetWidRatio(), 600.f * Texture::GetHeiRatio(), 0.f));
-		back->GetComponent<Transform>()->SetScale(Vector3(RESOL_WID, RESOL_HEI, 0.f));					 
+		SET_MAIN_CAMERA(back);
+		SET_MESH(back, L"RectMesh");
+		SET_MATERIAL(back, L"mainMenu2");
+		SET_POS_XYZ(back, 0.f, 0.f, 1.0f);
+		SET_SCALE_FULL(back, 0.f);
 
 		Background* logo = new Background();
 		AddGameObject(eLayerType::UI, logo);
-		logo->SetCamera(GetSceneMainCamera());
-		logo->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		logo->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testLogo"));
-		logo->GetComponent<Transform>()->SetPosition(Vector3(0.f, 450.f - (183.f * Texture::GetHeiRatio() / 2.f), 1.f));
-		logo->GetComponent<Transform>()->SetScale(Vector3(365.f * Texture::GetWidRatio(), 183.f * Texture::GetHeiRatio(), 0.f));
+		SET_MAIN_CAMERA(logo);
+		SET_MESH(logo, L"RectMesh");
+		SET_MATERIAL(logo, L"testLogo");
+		GET_TEX_D(logo, tex);
+		SET_POS_XYZ(logo, 0.f, 0.f, 1.0f);
+		SET_SCALE_FULL(logo, 0.f);
+		SET_POS_XYZ(logo, 0.f, RESOL_H_HEI - (tex->GetHeight() * Texture::GetHeiRatio() / 2.f), 1.f);
+		SET_SCALE_OWN_SIZE(logo, tex, 0.f);
 
 		Button* btn1 = new Button();
 		AddGameObject(eLayerType::UI, btn1);
-		btn1->SetCamera(GetSceneMainCamera());
-		btn1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		btn1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
-		btn1->SetClickMaterial(Resources::Find<Material>(L"mWideButtonBlankClick"));
-		btn1->SetNormalMaterial(Resources::Find<Material>(L"mWideButtonBlank"));
-		btn1->SetCamera(GetSceneMainCamera());
+
+		SET_MAIN_CAMERA(btn1);
+		SET_MESH(btn1, L"RectMesh");
+		SET_MATERIAL(btn1, L"mWideButtonBlank");
+		GET_TEX_D(btn1, tex);
+		SET_POS_XYZ(btn1, 0.f, RESOL_H_HEI - (288.f * Texture::GetHeiRatio()), 1.f);
+		SET_SCALE_OWN_SIZE(btn1, tex, 0.0f);
+		btn1->SetClickMaterial(RESOURCE_FIND(Material, L"mWideButtonBlankClick"));
+		btn1->SetNormalMaterial(RESOURCE_FIND(Material, L"mWideButtonBlank"));
 		btn1->SetClickFunction(
 			[]() { SceneManager::LoadScene(L"SelectCharacterScene"); }
 		);
-		btn1->GetComponent<Transform>()->SetPosition(Vector3(0.f, 450.f - (288.f * Texture::GetHeiRatio()) , 1.f));
-		btn1->GetComponent<Transform>()->SetScale(Vector3(272.f * Texture::GetWidRatio(), 35.f * Texture::GetHeiRatio(), 0.0f));		
-
-		UI* info1 = new UI();
-		AddGameObject(eLayerType::UI, info1);
-		info1->SetCamera(GetSceneMainCamera());
-		info1->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		info1->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tt1"));
-		info1->GetComponent<Transform>()->SetScale(Vector3(150.f * Texture::GetWidRatio()
-			, 40.f * Texture::GetHeiRatio(), 0.f));
-		info1->GetComponent<Transform>()->SetPosition(Vector3(-800.f + 150.f * Texture::GetWidRatio() / 2.f
-			, 450.f - 40.f * Texture::GetHeiRatio(), 1.f));
 
 		//FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
 	}

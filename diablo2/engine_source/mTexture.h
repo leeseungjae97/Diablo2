@@ -26,6 +26,9 @@ namespace m::graphics
 		static float GetWidRatio() { return fWidRatio; }
 		static float GetHeiRatio() { return fHeiRatio; }
 
+		size_t GetWidth() { return mImage.GetMetadata().width; }
+		size_t GetHeight() { return mImage.GetMetadata().height; }
+
 	private:
 		static float fWidRatio;
 		static float fHeiRatio;
