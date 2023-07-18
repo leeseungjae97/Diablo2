@@ -153,8 +153,8 @@ namespace m
 		uiMp->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"mpUi"));
 		uiMp->GetComponent<Transform>()->SetScale(Vector3(117.f * Texture::GetWidRatio()
 													, 104.f * Texture::GetHeiRatio(), 0.f));
-		uiMp->GetComponent<Transform>()->SetPosition(Vector3(800.f - 117.f * Texture::GetWidRatio() / 2.f
-			, -450.f + 104.f * Texture::GetHeiRatio() / 2.f, -1.f));
+		uiMp->GetComponent<Transform>()->SetPosition(Vector3(RESOL_H_WID - 117.f * Texture::GetWidRatio() / 2.f
+			, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f, -1.f));
 
 	
 		UI* mp = new UI();

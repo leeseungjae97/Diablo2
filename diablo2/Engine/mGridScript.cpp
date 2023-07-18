@@ -5,6 +5,7 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mConstantBuffer.h"
 #include "..\engine_source\mRenderer.h"
+#include "..\engine_source\mTexture.h"
 
 extern m::Application application;
 
@@ -42,7 +43,7 @@ namespace m
 			= renderer::constantBuffers[(int)eCBType::Grid];
 
 		renderer::GridCB data;
-		data.CameraPosition = Vector4(pos.x - 800.f, pos.y - 450.f, pos.z, 1.0f);
+		data.CameraPosition = Vector4(pos.x - RESOL_WID / 2.f, pos.y - RESOL_HEI / 2.f, pos.z, 1.0f);
 		data.Resolution = resolution;
 		data.CameraScale = Vector2(scale, scale);
 
