@@ -55,15 +55,13 @@ namespace m
 				invens.push_back(inven);
 			}
 		}
-		//invensCollider = new GameObject();
-		//tr = invensCollider->GetComponent<Transform>();
-		//invensCollider->SetCamera(GetCamera());
-		//invensCollider->SetState(GameObject::Invisible);
-		//invensCollider->AddComponent<PlayerScript>();
-		//tr->SetScale(Vector3(300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio(), 1.f));
-		//tr->SetPosition(Vector3((15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (- 15.f + (-120.f / 2.f)) * Texture::GetHeiRatio(), invenZ));
-		//invensCollider->AddComponent<Collider2D>();
-		//curScene->AddGameObject(eLayerType::Item, invensCollider);
+		invensCollider = new GameObject();
+		tr = invensCollider->GetComponent<Transform>();
+		invensCollider->SetCamera(GetCamera());
+		invensCollider->SetState(GameObject::Invisible);
+		tr->SetScale(Vector3(300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio(), 1.f));
+		tr->SetPosition(Vector3((15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (- 15.f + (-120.f / 2.f)) * Texture::GetHeiRatio(), invenZ));
+		curScene->AddGameObject(eLayerType::Item, invensCollider);
 
 		{
 			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1, this);
@@ -123,7 +121,7 @@ namespace m
 			for (InvenItem* ii : invenItems)
 			{
 				ii->SetState(GetState());
-				//invensCollider->SetState(GetState());
+				invensCollider->SetState(GetState());
 			}
 		}
 		if (GetState() != invens[0]->GetState())

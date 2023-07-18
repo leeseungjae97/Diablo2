@@ -12,7 +12,7 @@
 namespace m
 {
 	InvenItem::InvenItem(eItem item, ItemPlaced* inventory)
-		: Item(itemTypeTable[(int)item])
+		: Item(itemTypeTable[(UINT)item])
 		, mInventory(inventory)
 		, bSetMouseFollow(false)
 		, mItem(item)
@@ -21,41 +21,58 @@ namespace m
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(itemNameTable[(int)mItem]));
+		mr->SetMaterial(Resources::Find<Material>(itemNameTable[(UINT)mItem]));
 
 		Transform* tr = GetComponent<Transform>();
-		tr->SetScale(Vector3(27.f * itemInvenDisplayScale[(int)mItem][0] * Texture::GetWidRatio(), 27.f * itemInvenDisplayScale[(int)mItem][1] * Texture::GetHeiRatio(), 0.f));
-		Vector3 scale = tr->GetScale();
+		tr->SetScale(Vector3(27.f * itemInvenDisplayScale[(UINT)mItem][0] * Texture::GetWidRatio(), 27.f * itemInvenDisplayScale[(UINT)mItem][1] * Texture::GetHeiRatio(), 0.f));
+
+		Vector2 thisPosV2 = Vector2(tr->GetPosition().x, tr->GetPosition().y);
+		Vector2 thisScaleV2 = Vector2(tr->GetScale().x, tr->GetScale().y);
 
 		std::vector<Inven*> invens = mInventory->GetInvens();
-		//GameObject* inC = mInventory->GetInvensCollider();
+
+		GameObject* inC = mInventory->GetInvensCollider();
+		std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+
+		Transform* incTr = inC->GetComponent<Transform>();
+		inventoryOutLinePos = Vector2(incTr->GetPosition().x, incTr->GetPosition().y);
+		inventoryOutLineScale = Vector2(incTr->GetScale().x, incTr->GetScale().y);
+
 		for (int i = 0; i < invens.size(); ++i)
 		{
-			int dx = (i % 10) + (int)itemInvenDisplayScale[(int)mItem][0] - 1;
-			int dy = (i / 10) + (int)itemInvenDisplayScale[(int)mItem][1] - 1;
-
-			if (dx < 0 || dx > 9 || dy < 0 || dy > 3) continue;
-			
 			bool deploy = true;
+			Vector3 invenV3 = invens[i]->GetComponent<Transform>()->GetPosition();
+			thisPosV2 = Vector2(invenV3.x , invenV3.y);
 
-			for (int y = i; y <= dy; ++y)
+			if (invens[i]->GetFill())
 			{
-				for (int x = i; x <= dx; ++x)
+				deploy = false;
+			}
+			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
+				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
+			{
+				if (Vector2::RectIndexesIntersectRectIndexes(inventoryOutLinePos, inventoryOutLineScale, thisPosV2, thisScaleV2))
 				{
-					if (invens[y * 10 + x]->GetFill()
-/*						|| inC->GetComponent<Collider2D>()->GetOnStay()
-						|| inC->GetComponent<Collider2D>()->GetOnEnter()*/ )
+					deploy = false;
+				}
+				for (InvenItem* item : invenItems)
+				{
+					Vector2 itemPosV2 = Vector2(item->GetComponent<Transform>()->GetPosition().x,
+											 item->GetComponent<Transform>()->GetPosition().y);
+					Vector2 itemScaleV2 = Vector2(item->GetComponent<Transform>()->GetScale().x,
+											 item->GetComponent<Transform>()->GetScale().y);
+
+					if (Vector2::RectIntersectRect(itemPosV2, itemScaleV2, thisPosV2, thisScaleV2))
 					{
 						deploy = false;
 						break;
 					}
 				}
-				if (!deploy) break;
+
 			}
 			if (deploy)
 			{
 				prevPosition = invens[i]->GetComponent<Transform>()->GetPosition();
-				curInvenIndex = i;
 				GetComponent<Transform>()->SetPosition(prevPosition);
 				for (int y = 0; y < 4; ++y)
 				{
@@ -66,7 +83,7 @@ namespace m
 						Vector3 thisPos = GetComponent<Transform>()->GetPosition();
 						Vector3 thisScale = GetComponent<Transform>()->GetScale();
 
-						if (Vector3::Vector2RectIntersectRect(invenPos, invenScale, thisPos, thisScale))
+						if (Vector3::RectIntersectRect(invenPos, invenScale, thisPos, thisScale))
 						{
 							invens[y * 10 + x]->SetFill(true);
 						}
@@ -92,34 +109,18 @@ namespace m
 			{
 				std::vector<Inven*> invens = mInventory->GetInvens();
 				std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
-				//GameObject* inC = mInventory->GetInvensCollider();
+				Vector2 thisPosV2 = Vector2(GetComponent<Transform>()->GetPosition().x,
+									GetComponent<Transform>()->GetPosition().y);
+				Vector2 thisScaleV2 = Vector2(GetComponent<Transform>()->GetScale().x,
+											GetComponent<Transform>()->GetScale().y);
 
 				for (int i = 0; i < invens.size(); ++i)
 				{
 					if (invens[i]->GetHover())
 					{
-						//int dx = (i % 10) + (int)itemInvenDisplayScale[(int)mItem][0] - 1;
-						//int dy = (i / 10) + (int)itemInvenDisplayScale[(int)mItem][1] - 1;
-
-						//if (dx < 0 || dx > 9 || dy < 0 || dy > 3) continue;
-
+						
 						bool deployed = true;
 
-						//for (int y = i / 10; y <= dy; ++y)
-						//{
-						//	for (int x = i % 10; x <= dx; ++x)
-						//	{
-						//		if (invens[y * 10 + x]->GetFill())
-						//		{
-						//			deployed = false;
-						//		}
-						//	}		
-						//}
-						//if (inC->GetComponent<Collider2D>()->GetOnStay()
-						//	|| inC->GetComponent<Collider2D>()->GetOnEnter())
-						//{
-						//	deployed = false;
-						//}
 						int intersectItemCnt = 0;
 						for (InvenItem* item : invenItems)
 						{
@@ -131,7 +132,14 @@ namespace m
 							if (intersectItemCnt > 2)
 							{
 								deployed = false;
-								break;
+							}
+						}
+						if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
+							|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
+						{
+							if (Vector2::RectIndexesIntersectRectIndexes(inventoryOutLinePos, inventoryOutLineScale, thisPosV2, thisScaleV2))
+							{
+								deployed = false;
 							}
 						}
 						if (deployed)
@@ -145,7 +153,7 @@ namespace m
 									Vector3 prevPos = prevPosition;
 									Vector3 thisScale = GetComponent<Transform>()->GetScale();
 
-									if (Vector3::Vector2RectIntersectRect(invenPos, invenScale, prevPos, thisScale))
+									if (Vector3::RectIntersectRect(invenPos, invenScale, prevPos, thisScale))
 									{
 										invens[y * 10 + x]->SetFill(false);
 									}
@@ -153,7 +161,6 @@ namespace m
 							}
 							GetComponent<Transform>()->SetPosition(invens[i]->GetComponent<Transform>()->GetPosition());
 							prevPosition = invens[i]->GetComponent<Transform>()->GetPosition();
-							curInvenIndex = i;
 
 							for (int y = 0; y < 4; ++y)
 							{
@@ -164,7 +171,7 @@ namespace m
 									Vector3 thisPos = GetComponent<Transform>()->GetScale();
 									Vector3 thisScale = GetComponent<Transform>()->GetScale();
 
-									if (Vector3::Vector2RectIntersectRect(invenPos, invenScale, thisPos, thisScale))
+									if (Vector3::RectIntersectRect(invenPos, invenScale, thisPos, thisScale))
 									{
 										invens[y * 10 + x]->SetFill(true);
 									}
@@ -176,10 +183,9 @@ namespace m
 						else
 						{
 							GetComponent<Transform>()->SetPosition(prevPosition);
+							break;
 						}
 					}
-					else
-						GetComponent<Transform>()->SetPosition(prevPosition);
 				}
 				bSetMouseFollow = bSetMouseFollow ? false : true;
 			}

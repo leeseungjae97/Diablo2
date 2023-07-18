@@ -745,18 +745,18 @@ inline void Vector2::TransformNormal(const Vector2* varray, size_t count, const 
     XMVector2TransformNormalStream(resultArray, sizeof(XMFLOAT2), varray, sizeof(XMFLOAT2), count, M);
 }
 
-inline bool m::math::Vector2::OnMouseVector2Rect(Vector2 targetVector, Vector2 targetScale, Vector2 mousePos)
+inline bool m::math::Vector2::PointIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 pointPos)
 {
     Vector2 sp = Vector2(targetVector.x - targetScale.x / 2.f , targetVector.y + targetScale.y / 2.f);
     Vector2 lp = Vector2(targetVector.x + targetScale.x / 2.f,  targetVector.y - targetScale.y / 2.f);
-    if ((sp.x <= mousePos.x && sp.y >= mousePos.y)
-     && (lp.x >= mousePos.x && lp.y <= mousePos.y))
+    if ((sp.x <= pointPos.x && sp.y >= pointPos.y)
+     && (lp.x >= pointPos.x && lp.y <= pointPos.y))
     {
         return true;
     }
     else return false;
 }
-inline bool m::math::Vector2::Vector2RectIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale)
+inline bool m::math::Vector2::RectIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale)
 {
     if (fabs(targetVector.x - ohterVector.x) < targetScale.x / 2.f + otherScale.x / 2.f
         && fabs(targetVector.y - ohterVector.y) < targetScale.y / 2.f + otherScale.y / 2.f)
@@ -764,6 +764,24 @@ inline bool m::math::Vector2::Vector2RectIntersectRect(Vector2 targetVector, Vec
         return true;
     }
     else return false;
+}
+inline bool m::math::Vector2::RectIndexesIntersectRectIndexes(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale)
+{
+    std::vector<Vector2> otherRectIndexes;
+    otherRectIndexes.push_back(Vector2(ohterVector.x - otherScale.x / 2.f, ohterVector.y + otherScale.y / 2.f));
+    otherRectIndexes.push_back(Vector2(ohterVector.x - otherScale.x / 2.f, ohterVector.y - otherScale.y / 2.f));
+    otherRectIndexes.push_back(Vector2(ohterVector.x + otherScale.x / 2.f, ohterVector.y + otherScale.y / 2.f));
+    otherRectIndexes.push_back(Vector2(ohterVector.x + otherScale.x / 2.f, ohterVector.y - otherScale.y / 2.f));
+
+    for (int i = 0; i < 4; ++i)
+    {
+        if (!PointIntersectRect(targetVector, targetScale, otherRectIndexes[i]))
+        {
+            return true;
+        }
+    }
+    return false;
+    
 }
 /****************************************************************************
  *
@@ -1344,7 +1362,7 @@ inline Vector3 Vector3::TransformNormal(const Vector3& v, const Matrix& m) noexc
     XMStoreFloat3(&result, X);
     return result;
 }
-inline bool m::math::Vector3::Vector2RectIntersectRect(Vector3 targetVector, Vector3 targetScale, Vector3 ohterVector, Vector3 otherScale)
+inline bool m::math::Vector3::RectIntersectRect(Vector3 targetVector, Vector3 targetScale, Vector3 ohterVector, Vector3 otherScale)
 {
     if (fabs(targetVector.x - ohterVector.x) < targetScale.x / 2.f + otherScale.x / 2.f
         && fabs(targetVector.y - ohterVector.y) < targetScale.y / 2.f + otherScale.y / 2.f)

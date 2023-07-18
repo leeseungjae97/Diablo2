@@ -84,6 +84,7 @@ namespace m
 			std::wstring skillName = wsColdSkillNames[i];
 			std::wstring clickSkillName = wsColdSkillClickNames[i];
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
+			skill->SetCamera(GetCamera());
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
 			skill->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
@@ -102,6 +103,7 @@ namespace m
 			std::wstring skillName = wsLightningSkillNames[i];
 			std::wstring clickSkillName = wsLightningSkillClickNames[i];
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
+			skill->SetCamera(GetCamera());
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
 			skill->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
@@ -120,6 +122,7 @@ namespace m
 			std::wstring skillName = wsFireSkillNames[i];
 			std::wstring clickSkillName = wsFireSkillClickNames[i];
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
+			skill->SetCamera(GetCamera());
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
 			skill->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));

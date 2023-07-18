@@ -22,8 +22,10 @@ namespace m
         void SetClickFunction() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item).ChangeOrderGameObject(this); }
     private:
         bool bSetMouseFollow;
-        int curInvenIndex;
         Vector3 prevPosition;
+
+        Vector2 inventoryOutLinePos;
+        Vector2 inventoryOutLineScale;
         ItemPlaced* mInventory;
         eItem mItem;
     };

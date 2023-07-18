@@ -100,7 +100,7 @@ namespace m
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(mPos.z, proj, view);
 
-		if (Vector2::OnMouseVector2Rect(Vector2(tr->GetPosition().x, tr->GetPosition().y)
+		if (Vector2::PointIntersectRect(Vector2(tr->GetPosition().x, tr->GetPosition().y)
 			, Vector2(mScale.x, mScale.y)
 			, Vector2(unprojMousePos.x, unprojMousePos.y)))
 		{
