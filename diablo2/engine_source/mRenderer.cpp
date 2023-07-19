@@ -376,11 +376,11 @@ namespace renderer
 #pragma endregion
 #pragma region Buttons
 		MAKE_MATERIAL(spriteShader, L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\buttons\\MediumButtonBlank.png", L"mMediumButtonBlank");
-		MAKE_MATERIAL(spriteShader, L"m_button_blank", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank.bmp", L"mWideButtonBlank");
-		MAKE_MATERIAL(spriteShader, L"m_button_blank_02", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank02.bmp", L"mWideButtonBlankClick");
-		MAKE_MATERIAL(spriteShader, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.bmp", L"tabBt");
-		MAKE_MATERIAL(spriteShader, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.bmp", L"closeBtn");
-		MAKE_MATERIAL(spriteShader, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.bmp", L"closeBtnClick");
+		MAKE_MATERIAL(spriteShader, L"m_button_blank", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank.png", L"mWideButtonBlank");
+		MAKE_MATERIAL(spriteShader, L"m_button_blank_02", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank02.png", L"mWideButtonBlankClick");
+		MAKE_MATERIAL(spriteShader, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.png", L"tabBt");
+		MAKE_MATERIAL(spriteShader, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.png", L"closeBtn");
+		MAKE_MATERIAL(spriteShader, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.png", L"closeBtnClick");
 #pragma endregion
 #pragma region Tiles
 		MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
@@ -397,33 +397,11 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png", L"invenRect");
 #pragma endregion
 #pragma region Items
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png");
 
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(itemNameTable[(int)eItem::hpPosion1], spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(itemNameTable[(int)eItem::mpPosion1], spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(itemNameTable[(int)eItem::jaredsStone], spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
+		MAKE_MATERIAL(spriteShader, L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png", itemNameTable[(int)eItem::mpPosion1]);
+		MAKE_MATERIAL(spriteShader, L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png", itemNameTable[(int)eItem::jaredsStone]);
+		MAKE_MATERIAL(spriteShader, L"leader_armor", L"..\\Resources\\texture\\inventory_items\\armor\\leader_armor.png", itemNameTable[(int)eItem::leaderArmor]);
 #pragma endregion
 #pragma region Bottom User Interface
 		MAKE_MATERIAL(spriteShader, L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png", L"bottomUi");

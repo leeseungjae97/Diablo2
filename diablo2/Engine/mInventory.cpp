@@ -42,13 +42,13 @@ namespace m
 			{
 				Inven* inven = new Inven();
 				inven->SetState(eState::Invisible);
-				//inven->SetCamera(GetCamera());
+				inven->SetCamera(GetCamera());
 				SET_POS_XYZ(inven, 65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
 						, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y), invenZ);
 				SET_SCALE_XYZ(inven, (288.f / 10.f) * Texture::GetWidRatio()
 							  , (114.f / 4.f) * Texture::GetHeiRatio(), 0.f);
 
-				//curScene->AddGameObject(eLayerType::UI, inven);
+				curScene->AddGameObject(eLayerType::UI, inven);
 
 				invens.push_back(inven);
 			}
@@ -96,20 +96,21 @@ namespace m
 		SET_POS_XYZ(invenGlove, (17.f * Texture::GetWidRatio()) + GET_SCALE(invenGlove).x / 2.f, (RESOL_H_HEI - 240.f * Texture::GetHeiRatio()) - GET_SCALE(invenGlove).y / 2.f, 0.0f);
 		SET_POS_XYZ(invenArmor, (132.f * Texture::GetWidRatio()) + GET_SCALE(invenArmor).x / 2.f, (RESOL_H_HEI - 138.f * Texture::GetHeiRatio()) - GET_SCALE(invenArmor).y / 2.f, 0.0f);
 
-		invens.push_back(invenWeapon1Left);
-		invens.push_back(invenWeapon1Right);
-		invens.push_back(invenRingLeft);
-		invens.push_back(invenRingRight);
-		invens.push_back(invenAmulet);
-		invens.push_back(invenBelt);
-		invens.push_back(invenHelmet);
-		invens.push_back(invenShoes);
-		invens.push_back(invenGlove);
-		invens.push_back(invenArmor);
+		equiments.push_back(invenWeapon1Left);
+		equiments.push_back(invenWeapon1Right);
+		equiments.push_back(invenRingLeft);
+		equiments.push_back(invenRingRight);
+		equiments.push_back(invenAmulet);
+		equiments.push_back(invenBelt);
+		equiments.push_back(invenHelmet);
+		equiments.push_back(invenShoes);
+		equiments.push_back(invenGlove);
+		equiments.push_back(invenArmor);
 
-		for (Inven* eq : invens)
+		for (Inven* eq : equiments)
 		{
 			eq->SetCamera(GetCamera());
+			eq->SetState(Invisible);
 			//ADD_COMP(eq, Collider2D);
 			curScene->AddGameObject(eLayerType::UI, eq);
 		}
@@ -117,18 +118,20 @@ namespace m
 		closeBtn = new Button();
 		curScene->AddGameObject(eLayerType::UI, closeBtn);
 		closeBtn->SetCamera(GetCamera());
+		closeBtn->SetName(L"closeButton");
+		closeBtn->SetState(Invisible);
 		SET_MESH(closeBtn, L"RectMesh");
 		SET_MATERIAL(closeBtn, L"closeBtn");
+		closeBtn->SetClickMaterial(RESOURCE_FIND(Material, L"closeBtnClick"));
+		closeBtn->SetNormalMaterial(RESOURCE_FIND(Material, L"closeBtn"));
 		GET_TEX(closeBtn, tex);
-		closeBtn->SetClickMaterial(RESOURCE_FIND(Material, L"closeBtn"));
-		closeBtn->SetNormalMaterial(RESOURCE_FIND(Material, L"closeBtnClick"));
-		SET_POS_XYZ(closeBtn, 0.f, (-RESOL_H_HEI + 74.f * Texture::GetHeiRatio()) + tex->GetHeight() / 2.f, 0.f);
-
 		SET_SCALE_TEX_SIZE_WITH_RAT(closeBtn, tex, 0.0f);
+		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetHeight() / 2.f), 0.f);
 
 		invensCollider = new GameObject();
 		invensCollider->SetCamera(GetCamera());
 		invensCollider->SetState(GameObject::Invisible);
+		ADD_COMP(invensCollider, Collider2D);
 		SET_SCALE_XYZ(invensCollider, 300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio(), 1.f);
 		SET_POS_XYZ(invensCollider, (15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (-15.f + (-120.f / 2.f)) * Texture::GetHeiRatio(), invenZ);
 		curScene->AddGameObject(eLayerType::Item, invensCollider);
@@ -163,6 +166,15 @@ namespace m
 			curScene->AddGameObject(eLayerType::Item, orb1);
 			invenItems.push_back(orb1);
 		}
+		{
+			InvenItem* leaderArmor = new InvenItem(eItem::leaderArmor, this);
+
+			leaderArmor->SetState(GameObject::Invisible);
+			leaderArmor->SetCamera(GetCamera());
+			ADD_COMP(leaderArmor, PlayerScript);
+			curScene->AddGameObject(eLayerType::Item, leaderArmor);
+			invenItems.push_back(leaderArmor);
+		}
 
 		
 	}
@@ -175,35 +187,32 @@ namespace m
 	void Inventory::Update()
 	{
 		UI::Update();
-		if (closeBtn->GetClick())
-		{
+		if (closeBtn->GetOneClick())
 			SetState(Invisible);
-		}
+
 		if (Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			for (InvenItem* ii : invenItems)
 			{
 				if (ii->GetHover() && !ii->GetMouseFollow())
-				{
 					ii->SetClickFunction();
-				}
 			}
 		}
 
 		if (GetState() != invenItems[0]->GetState())
 		{
+			invensCollider->SetState(GetState());
+			closeBtn->SetState(GetState());
+
 			for (InvenItem* ii : invenItems)
-			{
 				ii->SetState(GetState());
-				invensCollider->SetState(GetState());
-			}
+			for (Inven* ii : equiments)
+				ii->SetState(GetState());
 		}
 		if (GetState() != invens[0]->GetState())
 		{
 			for (Inven* ii : invens)
-			{
 				ii->SetState(GetState());
-			}
 		}
 	}
 	void Inventory::LateUpdate()

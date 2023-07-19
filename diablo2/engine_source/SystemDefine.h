@@ -58,3 +58,4 @@
 #define MAKE_VEC2_F_VEC3(vector2, vector3) Vector2 vector2; \
 										  vector2 = Vector2(vector3.x, vector3.y);
 #define GET_VEC2_F_VEC3(vector2, vector3) vector2 = Vector2(vector3.x, vector3.y);
+#define GET_VEC2_F_VEC3_D(vector3) Vector2(vector3.x, vector3.y)

@@ -23,6 +23,8 @@ namespace m
 		mpPosion1,
 
 		jaredsStone,
+
+		leaderArmor,
 		END
 	};
 	//std::wstring 
@@ -33,18 +35,26 @@ namespace m
 
 		//weapons
 		L"jaredsStone",
+
+		//armor
+		L"leaderArmor",
 	};
 	eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
 		eItemType::Posion,
 
 		eItemType::Weapon,
+
+		eItemType::Armor,
+
 	};
 	int itemInvenSpaceTable[(int)eItem::END][2] = {
 		{1,1},
 		{1,1},
 
 		{1,3},
+
+		{2,4},
 	};
 	float itemFieldSpaceTable[(int)eItem::END][2] = {
 
@@ -55,5 +65,6 @@ namespace m
 		{1.f, 1.f},
 
 		{1.f, 3.f},
+		{2.f, 4.f},
 	};
 }
