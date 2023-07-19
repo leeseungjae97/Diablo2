@@ -59,12 +59,12 @@ namespace m
 		SET_MAIN_CAMERA(exitBtn);
 		SET_MESH(exitBtn, L"RectMesh");
 		SET_MATERIAL(exitBtn, L"mWideButtonBlank");
-		GET_TEX_D(exitBtn, tex);
+		GET_TEX(exitBtn, tex);
 		exitBtn->SetClickMaterial(RESOURCE_FIND(Material, L"mWideButtonBlankClick"));
 		exitBtn->SetNormalMaterial(RESOURCE_FIND(Material, L"mWideButtonBlank"));
 		exitBtn->SetClickFunction( []() { SceneManager::LoadScene(L"PlayScene"); });
 		SET_POS_XYZ(exitBtn, 34.f + -RESOL_H_WID + 126.f * Texture::GetWidRatio() / 2.f, 27.f + -RESOL_H_HEI + 35.f * Texture::GetHeiRatio() / 2.f, 1.f);
-		SET_SCALE_WIDTH_OH(exitBtn, 126.f ,tex, 0.0f);
+		SET_SCALE_WIDTH_TH(exitBtn, 126.f * Texture::GetWidRatio(), tex, 0.0f);
 	}
 	void SelectCharacterScene::Update()
 	{

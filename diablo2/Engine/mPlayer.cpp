@@ -18,9 +18,9 @@ namespace m
 		, fStartDistance(0.f)
 		, fRemainDistance(0.f)
 	{
-		SET_POS_VEC_T(iniPos);
-		ADD_THIS_COMP(Collider2D);
-		ADD_THIS_COMP(MeshRenderer);
+		SET_POS_VEC(this, iniPos);
+		ADD_COMP(this, Collider2D);
+		ADD_COMP(this, MeshRenderer);
 	}
 	Player::~Player()
 	{}
@@ -30,7 +30,7 @@ namespace m
 	{
 		GameObject::Update();
 
-		Vector3 curPosition = GET_THIS_POS;
+		Vector3 curPosition = GET_POS(this);
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
 			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
@@ -38,7 +38,7 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::LBUTTON)
 			&& !MouseManager::GetMouseOnUI())
 		{
-			prevPosition = GET_THIS_POS;
+			prevPosition = GET_POS(this);
 
 			destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
@@ -82,7 +82,7 @@ namespace m
 		{
 			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
-			SET_POS_XYZ_T(fMoveX, fMoveY, curPosition.z);
+			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 	}
 	void Player::LateUpdate()

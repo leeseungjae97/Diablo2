@@ -4,12 +4,13 @@
 #include "mInven.h"
 namespace m
 {
-    class ItemPlaced :
+    class Button;
+    class Inventory :
         public UI
     {
     public:
-        ItemPlaced(Camera* camera);
-        virtual ~ItemPlaced();
+        Inventory(Camera* camera);
+        virtual ~Inventory();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -24,17 +25,19 @@ namespace m
                                             // x + 18 y - 319
         GameObject* invensCollider;
         std::vector<Inven*> invens;
+        std::vector<Inven*> equiments;
         std::vector<InvenItem*> invenItems; // x 28 y 28
-        UI* invenWeapon1Left;   // x 60 y 117
-        UI* invenWeapon1Right;  // x 60 y 117
-        UI* invenRingLeft;      // x 30 y 31
-        UI* invenRingRight;     // x 30 y 31
-        UI* invenAmulet;        // x 30 y 31
-        UI* invenBelt;          // x 60 y 31
-        UI* invenHelmet;        // x 60 y 60
-        UI* invenShoes;         // x 60 y 61
-        UI* invenGlove;         // x 60 y 61
-        UI* invenArmor;         // x 62 y 89
+        Inven* invenWeapon1Left;   // x 60 y 117
+        Inven* invenWeapon1Right;  // x 60 y 117
+        Inven* invenRingLeft;      // x 30 y 31
+        Inven* invenRingRight;     // x 30 y 31
+        Inven* invenAmulet;        // x 30 y 31
+        Inven* invenBelt;          // x 60 y 31
+        Inven* invenHelmet;        // x 60 y 60
+        Inven* invenShoes;         // x 60 y 61
+        Inven* invenGlove;         // x 60 y 61
+        Inven* invenArmor;         // x 62 y 89
+        Button* closeBtn;
     };                                  
 
 

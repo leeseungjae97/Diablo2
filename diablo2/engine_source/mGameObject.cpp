@@ -80,6 +80,11 @@ namespace m
 	}
 	void GameObject::MousePosHoverGameObject()
 	{
+		if (GetState() != eState::Active)
+		{
+			bHover = false;
+			return;
+		}
 		Transform* tr = GetComponent<Transform>();
 		Vector3 mPos = tr->GetPosition();
 		Vector3 mScale = tr->GetScale();

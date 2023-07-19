@@ -62,7 +62,31 @@ namespace m
 		{
 			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
 		}
+		static __forceinline bool GetKeyDownOne(eKeyCode keyCode)
+		{
+			bool syncClick = mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Down;
+			mKeys[static_cast<UINT>(keyCode)].state = eKeyState::None;
+			return syncClick;
+		}
+		static __forceinline bool GetKeyUpOne(eKeyCode keyCode)
+		{
+			bool syncClick = mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
+			mKeys[static_cast<UINT>(keyCode)].state = eKeyState::None;
+			return syncClick;
+		}
+		static __forceinline bool GetKeyOne(eKeyCode keyCode)
+		{
+			bool syncClick = mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Pressed;
+			mKeys[static_cast<UINT>(keyCode)].state = eKeyState::None;
+			return syncClick;
+		}
 
+		//bool GetOneClick()
+		//{
+		//	bool syncClick = bOneClick;
+		//	bOneClick = false;
+		//	return syncClick;
+		//}
 		static __forceinline Vector2 GetMousePos() { return mMousePos; }
 
 		static __forceinline Vector3 GetUnprojectionMousePos(float curDepth, Matrix projMat, Matrix view)

@@ -50,15 +50,15 @@
     <ClCompile Include="mInven.cpp">
       <Filter>UI\ItemPlaced\Inven</Filter>
     </ClCompile>
-    <ClCompile Include="mItemPlaced.cpp">
-      <Filter>UI\ItemPlaced</Filter>
-    </ClCompile>
     <ClCompile Include="mSkillUp.cpp">
       <Filter>UI\Skill</Filter>
     </ClCompile>
     <ClCompile Include="mSkillButton.cpp" />
     <ClCompile Include="mPlayerInfo.cpp" />
     <ClCompile Include="mPlayerScript.cpp" />
+    <ClCompile Include="mInventory.cpp">
+      <Filter>UI\ItemPlaced\Inventory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -107,15 +107,15 @@
     <ClInclude Include="mInven.h">
       <Filter>UI\ItemPlaced\Inven</Filter>
     </ClInclude>
-    <ClInclude Include="mItemPlaced.h">
-      <Filter>UI\ItemPlaced</Filter>
-    </ClInclude>
     <ClInclude Include="mSkillUp.h">
       <Filter>UI\Skill</Filter>
     </ClInclude>
     <ClInclude Include="mSkillButton.h" />
     <ClInclude Include="mPlayerInfo.h" />
     <ClInclude Include="mPlayerScript.h" />
+    <ClInclude Include="mInventory.h">
+      <Filter>UI\ItemPlaced\Inventory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

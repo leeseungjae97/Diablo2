@@ -375,42 +375,12 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png", L"testLogo");
 #pragma endregion
 #pragma region Buttons
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\MediumButtonBlank.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mMediumButtonBlank", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"m_button_blank", L"..\\Resources\\texture\\ui\\widebuttonblank.bmp");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mWideButtonBlank", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"m_button_blank_02", L"..\\Resources\\texture\\ui\\widebuttonblank02.bmp");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"mWideButtonBlankClick", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"tab_bt", L"..\\Resources\\texture\\ui\\tabbt.bmp");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"tabBt", spriteMateiral);
-		}
+		MAKE_MATERIAL(spriteShader, L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\buttons\\MediumButtonBlank.png", L"mMediumButtonBlank");
+		MAKE_MATERIAL(spriteShader, L"m_button_blank", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank.bmp", L"mWideButtonBlank");
+		MAKE_MATERIAL(spriteShader, L"m_button_blank_02", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank02.bmp", L"mWideButtonBlankClick");
+		MAKE_MATERIAL(spriteShader, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.bmp", L"tabBt");
+		MAKE_MATERIAL(spriteShader, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.bmp", L"closeBtn");
+		MAKE_MATERIAL(spriteShader, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.bmp", L"closeBtnClick");
 #pragma endregion
 #pragma region Tiles
 		MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
@@ -424,7 +394,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"t2", L"..\\Resources\\texture\\inven_key_info.png", L"tt2");
 		MAKE_MATERIAL(spriteShader, L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png", L"testDebugRect");
 		MAKE_MATERIAL(spriteShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect");
-		//move_scene_key_info.png
+		MAKE_MATERIAL(spriteShader, L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png", L"invenRect");
 #pragma endregion
 #pragma region Items
 		{

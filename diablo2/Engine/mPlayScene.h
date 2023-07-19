@@ -2,7 +2,7 @@
 #include "..\engine_source\mScene.h"
 namespace m
 {
-    class ItemPlaced;
+    class Inventory;
     class SkillUp;
     class Tile;
     class PlayScene :
@@ -18,7 +18,7 @@ namespace m
         virtual void Render() override;
     private:
         std::vector<Tile*> tiles;
-        ItemPlaced* inven;
+        Inventory* inven;
         SkillUp* skillUp;
     };
 }

@@ -57,11 +57,11 @@ namespace m
 		SET_MAIN_CAMERA(logo);
 		SET_MESH(logo, L"RectMesh");
 		SET_MATERIAL(logo, L"testLogo");
-		GET_TEX_D(logo, tex);
+		GET_TEX(logo, tex);
 		SET_POS_XYZ(logo, 0.f, 0.f, 1.0f);
 		SET_SCALE_FULL(logo, 0.f);
 		SET_POS_XYZ(logo, 0.f, RESOL_H_HEI - (tex->GetHeight() * Texture::GetHeiRatio() / 2.f), 1.f);
-		SET_SCALE_OWN_SIZE(logo, tex, 0.f);
+		SET_SCALE_TEX_SIZE_WITH_RAT(logo, tex, 0.f);
 
 		Button* btn1 = new Button();
 		AddGameObject(eLayerType::UI, btn1);
@@ -69,9 +69,9 @@ namespace m
 		SET_MAIN_CAMERA(btn1);
 		SET_MESH(btn1, L"RectMesh");
 		SET_MATERIAL(btn1, L"mWideButtonBlank");
-		GET_TEX_D(btn1, tex);
+		GET_TEX(btn1, tex);
 		SET_POS_XYZ(btn1, 0.f, RESOL_H_HEI - (288.f * Texture::GetHeiRatio()), 1.f);
-		SET_SCALE_OWN_SIZE(btn1, tex, 0.0f);
+		SET_SCALE_TEX_SIZE_WITH_RAT(btn1, tex, 0.0f);
 		btn1->SetClickMaterial(RESOURCE_FIND(Material, L"mWideButtonBlankClick"));
 		btn1->SetNormalMaterial(RESOURCE_FIND(Material, L"mWideButtonBlank"));
 		btn1->SetClickFunction(
