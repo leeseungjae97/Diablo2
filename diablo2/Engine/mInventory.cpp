@@ -131,7 +131,7 @@ namespace m
 		invensCollider = new GameObject();
 		invensCollider->SetCamera(GetCamera());
 		invensCollider->SetState(GameObject::Invisible);
-		ADD_COMP(invensCollider, Collider2D);
+		//ADD_COMP(invensCollider, Collider2D);
 		SET_SCALE_XYZ(invensCollider, 300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio(), 1.f);
 		SET_POS_XYZ(invensCollider, (15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (-15.f + (-120.f / 2.f)) * Texture::GetHeiRatio(), invenZ);
 		curScene->AddGameObject(eLayerType::Item, invensCollider);

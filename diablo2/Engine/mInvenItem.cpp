@@ -69,15 +69,44 @@ namespace m
 
 		for (int i = 0; i < invens.size(); ++i)
 		{
-			if (invens[i]->GetFill()) continue;
+			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
+				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
+			{
+				MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
+				MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
+				Vector2 subScale = thisScaleV2 / 2.0f;
+				Vector2 leftTop = Vector2(thisPosV2.y + subScale.y, thisPosV2.x - subScale.x);
 
-			if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
-			if (!CheckItemSizeIntersectItem(GET_POS(invens[i]))) continue;
+				if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
+											   , GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
+											   , leftTop))
+				{
+					if (invens[i]->GetFill())
+					{
+						continue;
+					}
+				}
+				MAKE_VEC2_F_VEC3(sub1, GET_POS(invens[i]));
+				Vector3 subPos = Vector3(sub1.y - subScale.y, sub1.x + subScale.x, prevPosition.z);
+				prevPosition = subPos;
+				SET_POS_VEC(this, prevPosition);
+				ChangeBoolIntersectArea(prevPosition, true);
+				break;
+			}
+			else
+			{
+				if (invens[i]->GetFill()) continue;
 
-			prevPosition = GET_POS(invens[i]);
-			SET_POS_VEC(this, prevPosition);
-			ChangeBoolIntersectArea(prevPosition, true);
-			break;
+
+				if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
+				if (!CheckItemSizeIntersectItem(GET_POS(invens[i]))) continue;
+
+				prevPosition = GET_POS(invens[i]);
+				SET_POS_VEC(this, prevPosition);
+				ChangeBoolIntersectArea(prevPosition, true);
+				break;
+			}
+			
 		}
 	}
 	void InvenItem::ChangeBoolIntersectArea(Vector3 areaPos, bool _bV)
@@ -125,12 +154,24 @@ namespace m
 
 		for (int i = 0; i < invens.size(); ++i)
 		{
-			//GET_POS()invens[i]
+			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
+				|| itemInvenDisplayScale[(UINT)mItem][1] > 3.f)
+			{
+				MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
+				MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
+				Vector2 posSubVec = thisPosV2 - (thisScaleV2 / 1.5f);
 
-			if (Vector2::RectIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
-										   , GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
-										   , thisPosV2
-										   , thisScaleV2) )
+				if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
+												, GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
+												, posSubVec))
+				{
+					if (invens[i]->GetFill())
+					{
+						continue;
+					}
+				}
+			}
+			if (invens[i]->GetHover())
 			{
 				if (!CheckLimitIntersectItems(2)) continue;
 				if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
@@ -158,10 +199,6 @@ namespace m
 				}
 				return;
 			}
-			//if (invens[i]->GetHover())
-			//{
-			//	
-			//}
 		}
 
 		for (Inven* eq : mInventory->GetEquiments())
