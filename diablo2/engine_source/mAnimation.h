@@ -16,12 +16,14 @@ namespace m
 			Vector2 leftTop;
 			Vector2 size;
 			Vector2 offset;
+			Vector2 atlasSize;
 			float duration;
 
 			Sprite()
 				: leftTop(Vector2::Zero)
 				, size(Vector2::Zero)
 				, offset(Vector2::Zero)
+				, atlasSize(Vector2::Zero)
 				, duration(0.0f)
 			{
 
@@ -47,6 +49,8 @@ namespace m
 
 		void Binds();
 		void Reset();
+
+		bool IsComplete() { return mbComplete; }
 
 	private:
 		std::shared_ptr<graphics::Texture> mAtlas;

@@ -9,6 +9,7 @@
 #include "..\engine_source\mRenderer.h"
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mCollisionManager.h"
+#include "..\engine_source\mAnimator.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -74,11 +75,26 @@ namespace m
 		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
 		SET_MAIN_CAMERA(player);
 		AddGameObject(eLayerType::Player, player);
-		
-		ADD_COMP(player, PlayerScript);
 		SET_MESH(player, L"RectMesh");
-		SET_MATERIAL(player, L"testAmazon");
+		SET_MATERIAL(player, L"sorceressTownWalk");
 		SET_SCALE_XYZ(player, 31.f, 80.f, 0.f);
+		MAKE_TEX(player, tex1);
+		//SET_SCALE_TEX_SIZE(player, tex1, 0.0f);
+		ADD_COMP(player, PlayerScript);
+		Animator* animator = ADD_COMP(player, Animator);
+
+		animator->Create(
+			L"sorceressTownWalk_anim"
+			, tex1
+			, Vector2(0.0f, 0.0f)
+			, Vector2(2500.f / 20.f, 1263.f / 16.f)
+			, 20
+		);
+		// 2500, 1263
+		animator->PlayAnimation(L"sorceressTownWalk_anim", true);
+
+		
+		
 
 		//float rad = math::DegreeToRadian(45.f);
 		//SET_ROTATION_XYZ(player, 0.f, 0.f, rad);
