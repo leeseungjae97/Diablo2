@@ -170,6 +170,7 @@
     <ClInclude Include="mCameraScript.h" />
     <ClInclude Include="mInvenItem.h" />
     <ClInclude Include="mItem.h" />
+    <ClInclude Include="mItemScript.h" />
     <ClInclude Include="mMainMenuScene.h" />
     <ClInclude Include="mMonster.h" />
     <ClInclude Include="mPanel.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="mCameraScript.cpp" />
     <ClCompile Include="mInvenItem.cpp" />
     <ClCompile Include="mItem.cpp" />
+    <ClCompile Include="mItemScript.cpp" />
     <ClCompile Include="mMainMenuScene.cpp" />
     <ClCompile Include="mMonster.cpp" />
     <ClCompile Include="mPanel.cpp" />

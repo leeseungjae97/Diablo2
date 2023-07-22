@@ -10,7 +10,7 @@
 
 #include "mInvenItem.h"
 #include "mItem.h"
-#include "mPlayerScript.h"
+#include "mItemScript.h"
 #include "mButton.h"
 
 #define INVEN_X_SIZE 30
@@ -27,7 +27,7 @@ namespace m
 		SET_MATERIAL(this, L"inventoryPanel");
 
 		
-		MAKE_TEX(this, tex);
+		MAKE_GET_TEX(this, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(this, tex, 0.f);
 		SET_POS_XYZ(this, tex->GetWidth() * Texture::GetWidRatio() / 2.f
 					  , RESOL_H_HEI - tex->GetHeight()* Texture::GetHeiRatio() / 2.f, -1.0f);
@@ -142,7 +142,7 @@ namespace m
 			hpPosion->SetCamera(GetCamera());
 			hpPosion->SetName(L"1");
 			hpPosion->SetState(GameObject::Invisible);
-			ADD_COMP(hpPosion, PlayerScript);
+			ADD_COMP(hpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
 			invenItems.push_back(hpPosion);
 		}
@@ -152,7 +152,7 @@ namespace m
 			mpPosion->SetState(GameObject::Invisible);
 			mpPosion->SetName(L"2");
 			mpPosion->SetCamera(GetCamera());
-			ADD_COMP(mpPosion, PlayerScript);
+			ADD_COMP(mpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
 			invenItems.push_back(mpPosion);
 		}
@@ -162,7 +162,7 @@ namespace m
 			orb1->SetState(GameObject::Invisible);
 			orb1->SetName(L"3");
 			orb1->SetCamera(GetCamera());
-			ADD_COMP(orb1, PlayerScript);
+			ADD_COMP(orb1, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, orb1);
 			invenItems.push_back(orb1);
 		}
@@ -171,7 +171,7 @@ namespace m
 
 			leaderArmor->SetState(GameObject::Invisible);
 			leaderArmor->SetCamera(GetCamera());
-			ADD_COMP(leaderArmor, PlayerScript);
+			ADD_COMP(leaderArmor, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, leaderArmor);
 			invenItems.push_back(leaderArmor);
 		}

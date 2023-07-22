@@ -46,6 +46,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h" />

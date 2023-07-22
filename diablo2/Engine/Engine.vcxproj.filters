@@ -53,11 +53,18 @@
     <ClCompile Include="mSkillUp.cpp">
       <Filter>UI\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillButton.cpp" />
     <ClCompile Include="mPlayerInfo.cpp" />
-    <ClCompile Include="mPlayerScript.cpp" />
     <ClCompile Include="mInventory.cpp">
       <Filter>UI\ItemPlaced\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="mItemScript.cpp">
+      <Filter>Script\ItemScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mPlayerScript.cpp">
+      <Filter>Script\PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillButton.cpp">
+      <Filter>UI\SkillButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,11 +117,18 @@
     <ClInclude Include="mSkillUp.h">
       <Filter>UI\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillButton.h" />
     <ClInclude Include="mPlayerInfo.h" />
-    <ClInclude Include="mPlayerScript.h" />
     <ClInclude Include="mInventory.h">
       <Filter>UI\ItemPlaced\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="mItemScript.h">
+      <Filter>Script\ItemScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mPlayerScript.h">
+      <Filter>Script\PlayerScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillButton.h">
+      <Filter>UI\SkillButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +206,15 @@
     </Filter>
     <Filter Include="UI\ItemPlaced\Inventory">
       <UniqueIdentifier>{ccfd0c92-cbcc-40b4-b2a9-08bd1f06b386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\ItemScript">
+      <UniqueIdentifier>{c0a70499-c002-486c-a884-98bce4a22d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\PlayerScript">
+      <UniqueIdentifier>{2fc0cc0b-0808-4cbb-9f66-1e947a2725ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SkillButton">
+      <UniqueIdentifier>{786bec94-448f-4eb3-abd6-5c018920d610}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

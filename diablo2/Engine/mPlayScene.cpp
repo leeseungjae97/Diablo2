@@ -10,6 +10,7 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mCollisionManager.h"
 #include "..\engine_source\mAnimator.h"
+#include "..\engine_source\AnimLookUpTables.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -76,22 +77,36 @@ namespace m
 		SET_MAIN_CAMERA(player);
 		AddGameObject(eLayerType::Player, player);
 		SET_MESH(player, L"RectMesh");
-		SET_MATERIAL(player, L"sorceressTownWalk");
-		SET_SCALE_XYZ(player, 31.f, 80.f, 0.f);
-		MAKE_TEX(player, tex1);
+		SET_MATERIAL(player, L"AnimationMaterial");
+		SET_SCALE_XYZ(player, 48.f, 74.f, 0.f);
+		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressTownNatural");
+
+
+		SHARED_MAT tex3 = RESOURCE_FIND(Material, L"sorceressAttack1");
+		SHARED_MAT tex4 = RESOURCE_FIND(Material, L"sorceressAttack2");
+		SHARED_MAT tex5 = RESOURCE_FIND(Material, L"sorceressNatural");
+		
+		SHARED_MAT tex6 = RESOURCE_FIND(Material, L"sorceressRun");
+		SHARED_MAT tex7 = RESOURCE_FIND(Material, L"sorceressWalk");
+		SHARED_MAT tex8 = RESOURCE_FIND(Material, L"sorceressSpecialCast");
+		SHARED_MAT tex9 = RESOURCE_FIND(Material, L"sorceressGetHit");
+
 		//SET_SCALE_TEX_SIZE(player, tex1, 0.0f);
-		ADD_COMP(player, PlayerScript);
 		Animator* animator = ADD_COMP(player, Animator);
 
 		animator->Create(
-			L"sorceressTownWalk_anim"
-			, tex1
+			L"sorceressTownNatural_anim"
+			, tex1->GetTexture()
 			, Vector2(0.0f, 0.0f)
-			, Vector2(2500.f / 20.f, 1263.f / 16.f)
-			, 20
+			//, Vector2(2500.f / 20.f, 1263.f / 16.f)
+			, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
+			, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
+			, Vector2::Zero
+			, 0.1
 		);
 		// 2500, 1263
-		animator->PlayAnimation(L"sorceressTownWalk_anim", true);
+		animator->PlayAnimation(L"sorceressTownNatural_anim", true);
+		ADD_COMP(player, PlayerScript);
 
 		
 		
@@ -108,7 +123,7 @@ namespace m
 		ADD_COMP(monster, Collider2D);
 		ADD_COMP(monster, MeshRenderer);
 		SET_MESH(monster, L"RectMesh");
-		SET_MATERIAL(monster, L"testAmazon");
+		SET_MATERIAL(monster, L"testSc");
 		GET_TEX(monster, tex);
 		SET_SCALE_TEX_SIZE(monster, tex, 0.f);
 

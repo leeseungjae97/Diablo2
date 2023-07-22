@@ -3,6 +3,9 @@
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mConstantBuffer.h"
 #include "../engine_source/mRenderer.h"
+#include "../engine_source/mAnimator.h"
+#include "../engine_source/mResources.h"
+#include "../engine_source/mMaterial.h"
 
 namespace m
 {
@@ -14,6 +17,11 @@ namespace m
 	}
 	void PlayerScript::Initialize()
 	{
+		//Animator* at = GetOwner()->GetComponent<Animator>();
+		//at->CompleteEvent(L"sorceressTownWalk_anim") = std::bind(&PlayerScript::Complete, this);
+		walk = RESOURCE_FIND(Material, L"sorceressTownWalk");
+		GET_COMP(GetOwner(), mAnimator, Animator);
+
 	}
 	void PlayerScript::Update()
 	{
@@ -45,4 +53,8 @@ namespace m
 	{
 		GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Green);
 	}
-}
+	void PlayerScript::Complete()
+	{
+		int a = 0;
+	}
+};

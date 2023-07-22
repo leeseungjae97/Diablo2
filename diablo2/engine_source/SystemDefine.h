@@ -9,6 +9,7 @@
 #define RESOL_H_HEI RESOL_HEI / 2.f
 
 #define RESOURCE_FIND(type, name) Resources::Find<type>(name)
+#define RESOURCE_LOAD(type, name, path) Resources::Load<type>(name, path)
 #define GET_COMP(object, p, type) p = object->GetComponent<type>()
 #define GET_TRANS(object) object->GetComponent<Transform>()
 #define GET_MESHR(object) object->GetComponent<MeshRenderer>()
@@ -18,8 +19,9 @@
 #define SHARED_MAT std::shared_ptr<Material>
 
 #define GET_TEX(object, p) p = GET_MESHR(object)->GetMaterial()->GetTexture()
-#define MAKE_TEX(object, p) SHARED_TEX p; \
+#define MAKE_GET_TEX(object, p) SHARED_TEX p; \
 					GET_TEX(object, p);
+						  
 
 #define SET_SCALE_TEX_SIZE_WITH_RAT(object, tex, z) GET_TRANS(object)->SetScale(Vector3(tex->GetWidth() * Texture::GetWidRatio(), tex->GetHeight() * Texture::GetHeiRatio(), z))
 #define SET_SCALE_TEX_SIZE(object, tex, z) GET_TRANS(object)->SetScale(Vector3(tex->GetWidth(), tex->GetHeight(), z))

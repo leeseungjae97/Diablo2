@@ -70,6 +70,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"AnimationShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -342,11 +347,17 @@ namespace renderer
 		debugShader->SetRSState(eRSType::SolidNone);
 		//debugShader->SetDSState(eDSType::NoWrite);
 		m::Resources::Insert(L"DebugShader", debugShader);
+
+		std::shared_ptr<Shader> animationShader = std::make_shared<Shader>();
+		animationShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
+		animationShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
+		m::Resources::Insert(L"AnimationShader", animationShader);
 	}
 
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Shader> animShader = m::Resources::Find<Shader>(L"AnimationShader");
 #pragma region Characters
 		{
 			std::shared_ptr<Texture> texture
@@ -402,6 +413,7 @@ namespace renderer
 #pragma endregion
 #pragma region ETC
 		MAKE_MATERIAL(spriteShader, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
+		MAKE_MATERIAL(spriteShader, L"test_sc", L"..\\Resources\\texture\\sc_town_walk.png", L"testSc");
 		MAKE_MATERIAL(spriteShader, L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png", L"panelBorderLeft");
 		MAKE_MATERIAL(spriteShader, L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png", L"panelBorderRight");
 		MAKE_MATERIAL(spriteShader, L"t1", L"..\\Resources\\texture\\move_scene_key_info.png", L"tt1");
@@ -974,6 +986,16 @@ namespace renderer
 			material = std::make_shared<Material>();
 			material->SetShader(debugShader);
 			Resources::Insert(L"DebugMaterial", material);
+		}
+		{
+			spriteShader
+				= Resources::Find<Shader>(L"AnimationShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"AnimationMaterial", material);
 		}
 	}
 

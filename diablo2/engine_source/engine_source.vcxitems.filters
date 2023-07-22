@@ -199,6 +199,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h">
       <Filter>Resources\Resource\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
