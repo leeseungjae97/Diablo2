@@ -41,7 +41,7 @@ namespace m
 			for (int x = 0; x < 10; x++)
 			{
 				Inven* inven = new Inven();
-				inven->SetState(eState::Invisible);
+				inven->SetState(eState::NoRenderUpdate);
 				inven->SetCamera(GetCamera());
 				SET_POS_XYZ(inven, 65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
 						, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y), invenZ);
@@ -110,7 +110,7 @@ namespace m
 		for (Inven* eq : equiments)
 		{
 			eq->SetCamera(GetCamera());
-			eq->SetState(Invisible);
+			eq->SetState(NoRenderUpdate);
 			//ADD_COMP(eq, Collider2D);
 			curScene->AddGameObject(eLayerType::UI, eq);
 		}
@@ -119,7 +119,7 @@ namespace m
 		curScene->AddGameObject(eLayerType::UI, closeBtn);
 		closeBtn->SetCamera(GetCamera());
 		closeBtn->SetName(L"closeButton");
-		closeBtn->SetState(Invisible);
+		closeBtn->SetState(NoRenderUpdate);
 		SET_MESH(closeBtn, L"RectMesh");
 		SET_MATERIAL(closeBtn, L"closeBtn");
 		closeBtn->SetClickMaterial(RESOURCE_FIND(Material, L"closeBtnClick"));
@@ -130,7 +130,7 @@ namespace m
 
 		invensCollider = new GameObject();
 		invensCollider->SetCamera(GetCamera());
-		invensCollider->SetState(GameObject::Invisible);
+		invensCollider->SetState(GameObject::NoRenderUpdate);
 		//ADD_COMP(invensCollider, Collider2D);
 		SET_SCALE_XYZ(invensCollider, 300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio(), 1.f);
 		SET_POS_XYZ(invensCollider, (15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (-15.f + (-120.f / 2.f)) * Texture::GetHeiRatio(), invenZ);
@@ -141,7 +141,7 @@ namespace m
 
 			hpPosion->SetCamera(GetCamera());
 			hpPosion->SetName(L"1");
-			hpPosion->SetState(GameObject::Invisible);
+			hpPosion->SetState(GameObject::NoRenderUpdate);
 			ADD_COMP(hpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
 			invenItems.push_back(hpPosion);
@@ -149,7 +149,7 @@ namespace m
 		{
 			InvenItem* mpPosion = new InvenItem(eItem::mpPosion1, this);
 
-			mpPosion->SetState(GameObject::Invisible);
+			mpPosion->SetState(GameObject::NoRenderUpdate);
 			mpPosion->SetName(L"2");
 			mpPosion->SetCamera(GetCamera());
 			ADD_COMP(mpPosion, ItemScript);
@@ -159,7 +159,7 @@ namespace m
 		{
 			InvenItem* orb1 = new InvenItem(eItem::jaredsStone, this);
 
-			orb1->SetState(GameObject::Invisible);
+			orb1->SetState(GameObject::NoRenderUpdate);
 			orb1->SetName(L"3");
 			orb1->SetCamera(GetCamera());
 			ADD_COMP(orb1, ItemScript);
@@ -169,7 +169,7 @@ namespace m
 		{
 			InvenItem* leaderArmor = new InvenItem(eItem::leaderArmor, this);
 
-			leaderArmor->SetState(GameObject::Invisible);
+			leaderArmor->SetState(GameObject::NoRenderUpdate);
 			leaderArmor->SetCamera(GetCamera());
 			ADD_COMP(leaderArmor, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, leaderArmor);
@@ -188,7 +188,7 @@ namespace m
 	{
 		UI::Update();
 		if (closeBtn->GetOneClick())
-			SetState(Invisible);
+			SetState(NoRenderUpdate);
 
 		if (Input::GetKeyDown(eKeyCode::LBUTTON))
 		{

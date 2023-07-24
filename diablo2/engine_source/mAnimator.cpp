@@ -132,6 +132,15 @@ namespace m
 
 		mActiveAnimation->Binds();
 	}
+	void Animator::StopAnimation()
+	{
+		if (mActiveAnimation == nullptr)
+			return;
+
+		mActiveAnimation->Reset();
+		
+		mActiveAnimation = nullptr;
+	}
 	std::function<void()>& Animator::StartEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);

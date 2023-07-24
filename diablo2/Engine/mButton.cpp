@@ -23,7 +23,7 @@ namespace m
 	{
 		UI::Update();
 
-		if (GetState() != GameObject::Active) return;
+		if (GetState() != GameObject::RenderUpdate) return;
 
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
 		if (GetHover())

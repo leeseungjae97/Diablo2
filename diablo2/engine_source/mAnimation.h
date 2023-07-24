@@ -49,7 +49,10 @@ namespace m
 
 		void Binds();
 		void Reset();
+		void SetIndex(int index) { mIndex = index; }
+		const Sprite& GetCurrentSprite() { return mSprites[mIndex]; }
 
+		int GetIndex() { return mIndex; }
 		bool IsComplete() { return mbComplete; }
 
 	private:

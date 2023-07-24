@@ -6,7 +6,8 @@
 namespace m
 {
 	GameObject::GameObject()
-		: mState(eState::Active)
+		: mState(eState::RenderUpdate)
+		, mBattleState(eBattleState::Idle)
 		, mCamera(nullptr)
 	{
 		AddComponent<Transform>();
@@ -80,7 +81,7 @@ namespace m
 	}
 	void GameObject::MousePosHoverGameObject()
 	{
-		if (GetState() != eState::Active)
+		if (GetState() != eState::RenderUpdate)
 		{
 			bHover = false;
 			return;

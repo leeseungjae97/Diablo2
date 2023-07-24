@@ -62,6 +62,6 @@ namespace m::object
 
 	static __forceinline void Destroy(GameObject* gameObj)
 	{
-		gameObj->SetState(m::GameObject::eState::Dead);
+		gameObj->SetState(m::GameObject::eState::NoRenderNoUpdate);
 	}
 }

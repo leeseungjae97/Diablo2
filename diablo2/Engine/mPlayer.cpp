@@ -11,7 +11,7 @@ extern m::Application application;
 namespace m
 {
 	Player::Player(Vector3 iniPos)
-		: prevPosition(Vector3::Zero)
+		: prevPosition(iniPos)
 		, destPosition(iniPos)
 		, vS(iniPos)
 		, fSpeed(300.f)
@@ -30,6 +30,7 @@ namespace m
 	{
 		GameObject::Update();
 
+		if (GetBattleState() == Dead) return;
 		Vector3 curPosition = GET_POS(this);
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z

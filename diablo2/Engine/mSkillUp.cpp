@@ -92,7 +92,7 @@ namespace m
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
 			skill->SetDeClickMaterial(Resources::Find<Material>(L"testDebugRect"));
 			skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
-			skill->SetState(Invisible);
+			skill->SetState(NoRenderUpdate);
 			coldSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
 		}
@@ -111,7 +111,7 @@ namespace m
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
 			skill->SetDeClickMaterial(Resources::Find<Material>(L"testDebugRect"));
 			skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
-			skill->SetState(Invisible);
+			skill->SetState(NoRenderUpdate);
 			lightSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
 		}
@@ -130,7 +130,7 @@ namespace m
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
 			skill->SetDeClickMaterial(Resources::Find<Material>(L"testDebugRect"));
 			skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
-			skill->SetState(Invisible);
+			skill->SetState(NoRenderUpdate);
 			fireSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
 		}
@@ -169,7 +169,7 @@ namespace m
 		if (coldBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP1);
-			for (SkillButton* btn : skills) btn->SetState(Invisible);
+			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
 			skills = coldSkills;
 			skillSetNum = 0;
 			GetSkillTree(iColdAdjacencyMatrix);
@@ -178,7 +178,7 @@ namespace m
 		if (lightBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP2);
-			for (SkillButton* btn : skills) btn->SetState(Invisible);
+			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
 			skills = lightSkills;
 			skillSetNum = 1;
 			GetSkillTree(iLightAdjacencyMatrix);
@@ -187,7 +187,7 @@ namespace m
 		if (fireBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP3);
-			for (SkillButton* btn : skills) btn->SetState(Invisible);
+			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
 			skills = fireSkills;
 			skillSetNum = 2;
 			GetSkillTree(iFireAdjacencyMatrix);

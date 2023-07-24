@@ -27,7 +27,7 @@ namespace m
 		{
 			auto gameUI = dynamic_cast<UI*>(gameObj);
 			if (nullptr == gameUI ||
-				gameUI->GetState() != GameObject::eState::Active) continue;
+				gameUI->GetState() != GameObject::eState::RenderUpdate) continue;
 			 
 			if (gameUI->GetHover())
 			{

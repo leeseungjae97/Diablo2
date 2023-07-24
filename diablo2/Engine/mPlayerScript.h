@@ -1,5 +1,6 @@
 #pragma once
 #include "../engine_source/mScript.h"
+#include "../engine_source/AnimLookUpTables.h"
 
 namespace m
 {
@@ -17,13 +18,15 @@ namespace m
         virtual void Render() override;
 
         void Complete();
-
+        void AttackStart();
+        void AttackComplete();
         virtual void OnCollisionEnter(Collider2D* other) override;
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
     private:
-        SHARED_MAT walk;
-
+        Animator* mAnimator;
+        eCharacterDirection mDirection;
+        eSorceressAnimationType mAnimationType;
     };
 }
 

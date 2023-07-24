@@ -35,14 +35,14 @@ namespace m
 		{
 			Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
 			if (nullptr == leftCol) continue;
-			if (leftObj->GetState() != GameObject::Active) continue;
+			if (leftObj->GetState() != GameObject::RenderUpdate) continue;
 
 			for (GameObject* rightObj : rights)
 			{
 				Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
 				if (nullptr == rightCol) continue;
 				if (leftObj == rightObj) continue;
-				if (rightObj->GetState() != GameObject::Active) continue;
+				if (rightObj->GetState() != GameObject::RenderUpdate) continue;
 
 				ColliderCollision(leftCol, rightCol);
 			}

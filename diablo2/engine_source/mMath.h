@@ -979,5 +979,9 @@ namespace m::math
     {
         return XMConvertToRadians(degree);
     }
+    static inline float RadianToDegree(float radian)
+    {
+        return XMConvertToDegrees(radian);
+    }
 #include "mMath.inl"
 }

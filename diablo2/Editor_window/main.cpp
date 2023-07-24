@@ -78,7 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     m::SceneManager::Release();
-    //m::FontWrapper::Release();
+    m::FontWrapper::Release();
     gui::Editor::Release();
     return (int) msg.wParam;
 }

@@ -383,14 +383,17 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"sorceress_town_walk", L"..\\Resources\\texture\\character\\sorceress\\town_walk.png", L"sorceressTownWalk");
 
 		// battle field
-
 		MAKE_MATERIAL(spriteShader, L"sorceress_attack_1", L"..\\Resources\\texture\\character\\sorceress\\attack_1.png", L"sorceressAttack1");
 		MAKE_MATERIAL(spriteShader, L"sorceress_attack_2", L"..\\Resources\\texture\\character\\sorceress\\attack_2.png", L"sorceressAttack2");
+		MAKE_MATERIAL(spriteShader, L"sorceress_block", L"..\\Resources\\texture\\character\\sorceress\\block.png", L"sorceressBlock");
+		MAKE_MATERIAL(spriteShader, L"sorceress_get_hit", L"..\\Resources\\texture\\character\\sorceress\\get_hit.png", L"sorceressGetHit");
+		MAKE_MATERIAL(spriteShader, L"sorceress_kick", L"..\\Resources\\texture\\character\\sorceress\\kick.png", L"sorceressKick");
 		MAKE_MATERIAL(spriteShader, L"sorceress_natural", L"..\\Resources\\texture\\character\\sorceress\\natural.png", L"sorceressNatural");
 		MAKE_MATERIAL(spriteShader, L"sorceress_run", L"..\\Resources\\texture\\character\\sorceress\\run.png", L"sorceressRun");
-		MAKE_MATERIAL(spriteShader, L"sorceress_walk", L"..\\Resources\\texture\\character\\sorceress\\walk.png", L"sorceressWalk");
+		MAKE_MATERIAL(spriteShader, L"sorceress_special_1", L"..\\Resources\\texture\\character\\sorceress\\special1.png", L"sorceressSpecial1");
 		MAKE_MATERIAL(spriteShader, L"sorceress_special_cast", L"..\\Resources\\texture\\character\\sorceress\\special_cast.png", L"sorceressSpecialCast");
-		MAKE_MATERIAL(spriteShader, L"sorceress_get_hit", L"..\\Resources\\texture\\character\\sorceress\\get_hit.png", L"sorceressGetHit");
+		MAKE_MATERIAL(spriteShader, L"sorceress_walk", L"..\\Resources\\texture\\character\\sorceress\\walk.png", L"sorceressWalk");
+		MAKE_MATERIAL(spriteShader, L"sorceress_dead", L"..\\Resources\\texture\\character\\sorceress\\dead.png", L"sorceressDead");
 #pragma endregion
 #pragma region Background
 		MAKE_MATERIAL(spriteShader, L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png", L"mainMenu2");

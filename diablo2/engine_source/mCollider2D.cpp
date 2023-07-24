@@ -61,7 +61,7 @@ namespace m
 		debugMesh.view = camera->GetPrivateViewMatrix();
 		debugMesh.projection = camera->GetPrivateProjectionMatrix();
 		debugMesh.color = mColor;
-		GetOwner()->GetState() != GameObject::Active ? debugMesh.visible = false : debugMesh.visible = true;
+		GetOwner()->GetState() != GameObject::RenderUpdate ? debugMesh.visible = false : debugMesh.visible = true;
 
 		renderer::PushDebugMeshAttribute(debugMesh);
 	}

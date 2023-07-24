@@ -11,6 +11,7 @@
 #include "..\engine_source\mCollisionManager.h"
 #include "..\engine_source\mAnimator.h"
 #include "..\engine_source\AnimLookUpTables.h"
+#include "..\engine_source\mFontWrapper.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -73,49 +74,6 @@ namespace m
 		renderer::cameras.push_back(GetSceneMainCamera());
 		//camera->AddComponent<GridScript>();
 
-		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
-		SET_MAIN_CAMERA(player);
-		AddGameObject(eLayerType::Player, player);
-		SET_MESH(player, L"RectMesh");
-		SET_MATERIAL(player, L"AnimationMaterial");
-		SET_SCALE_XYZ(player, 48.f, 74.f, 0.f);
-		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressTownNatural");
-
-
-		SHARED_MAT tex3 = RESOURCE_FIND(Material, L"sorceressAttack1");
-		SHARED_MAT tex4 = RESOURCE_FIND(Material, L"sorceressAttack2");
-		SHARED_MAT tex5 = RESOURCE_FIND(Material, L"sorceressNatural");
-		
-		SHARED_MAT tex6 = RESOURCE_FIND(Material, L"sorceressRun");
-		SHARED_MAT tex7 = RESOURCE_FIND(Material, L"sorceressWalk");
-		SHARED_MAT tex8 = RESOURCE_FIND(Material, L"sorceressSpecialCast");
-		SHARED_MAT tex9 = RESOURCE_FIND(Material, L"sorceressGetHit");
-
-		//SET_SCALE_TEX_SIZE(player, tex1, 0.0f);
-		Animator* animator = ADD_COMP(player, Animator);
-
-		animator->Create(
-			L"sorceressTownNatural_anim"
-			, tex1->GetTexture()
-			, Vector2(0.0f, 0.0f)
-			//, Vector2(2500.f / 20.f, 1263.f / 16.f)
-			, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
-			, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
-			, Vector2::Zero
-			, 0.1
-		);
-		// 2500, 1263
-		animator->PlayAnimation(L"sorceressTownNatural_anim", true);
-		ADD_COMP(player, PlayerScript);
-
-		
-		
-
-		//float rad = math::DegreeToRadian(45.f);
-		//SET_ROTATION_XYZ(player, 0.f, 0.f, rad);
-
-		GetSceneMainCamera()->SetFollowObject(player);
-
 		Monster* monster = new Monster(Vector3(10.f, 10.f, 1.f));
 
 		SET_MAIN_CAMERA(monster);
@@ -126,8 +84,44 @@ namespace m
 		SET_MATERIAL(monster, L"testSc");
 		GET_TEX(monster, tex);
 		SET_SCALE_TEX_SIZE(monster, tex, 0.f);
+		Animator* animator = ADD_COMP(monster, Animator);
+		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressTownNatural");
+		animator->Create(
+			L"sorceressTownNatural_anim"
+			, tex1->GetTexture()
+			, Vector2(0.0f, 0.0f)
+			//, Vector2(2500.f / 20.f, 1263.f / 16.f)
+			, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
+			, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
+			, Vector2::Zero
+			, 0.1
+		);
 
+		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
+		SET_MAIN_CAMERA(player);
+		AddGameObject(eLayerType::Player, player);
+		SET_MESH(player, L"RectMesh");
+		SET_MATERIAL(player, L"AnimationMaterial");
+		SET_SCALE_XYZ(player, 48.f, 74.f, 0.f);
+		//SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressTownNatural");;
 
+		//SET_SCALE_TEX_SIZE(player, tex1, 0.0f);
+		ADD_COMP(player, Animator);
+
+		//animator->Create(
+		//	L"sorceressTownNatural_anim"
+		//	, tex1->GetTexture()
+		//	, Vector2(0.0f, 0.0f)
+		//	, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
+		//	, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
+		//	, Vector2::Zero
+		//	, 0.1
+		//);
+		//animator->PlayAnimation(L"sorceressTownNatural_anim", true);
+		PlayerScript* ps = ADD_COMP(player, PlayerScript);
+		ps->SetPlayer(player);
+
+		GetSceneMainCamera()->SetFollowObject(player);
 		//GameObject* child = new GameObject();
 		//child->SetCamera(cameraComp);
 		//AddGameObject(eLayerType::Player, child);
@@ -151,10 +145,10 @@ namespace m
 
 
 		inven = new Inventory(cameraComp2);
-		inven->SetState(GameObject::Invisible);
+		inven->SetState(GameObject::NoRenderUpdate);
 
 		skillUp = new SkillUp(cameraComp2);
-		skillUp->SetState(GameObject::Invisible);
+		skillUp->SetState(GameObject::NoRenderUpdate);
 
 		UI* uiBottomBar = new UI();
 		uiBottomBar->SetName(L"uiBottom");
@@ -267,11 +261,11 @@ namespace m
 		}
 		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inven)
 		{
-			inven->SetState(inven->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
+			inven->SetState(inven->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
 		}
 		if (Input::GetKeyDown(eKeyCode::T) && nullptr != skillUp)
 		{
-			skillUp->SetState(skillUp->GetState() != GameObject::eState::Active ? GameObject::eState::Active : GameObject::eState::Invisible);
+			skillUp->SetState(skillUp->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
 		}
 	}
 	void PlayScene::LateUpdate()

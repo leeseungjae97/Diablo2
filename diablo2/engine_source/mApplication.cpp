@@ -33,7 +33,7 @@ namespace m
 	{
 		Time::Initiailize();
 		Input::Initialize();
-		//FontWrapper::Initialize();
+		FontWrapper::Initialize();
 		renderer::Initialize();
 		SceneManager::Initialize();
 	}
@@ -59,6 +59,9 @@ namespace m
 
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
+
+//#define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
+//		FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
 		//SceneManager::Render();
 		renderer::Render();
 	}

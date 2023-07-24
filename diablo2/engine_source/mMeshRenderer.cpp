@@ -23,7 +23,7 @@ namespace m
 			animator->Binds();
 		}
 
-		if (GetOwner()->GetState() != GameObject::eState::Active)
+		if (GetOwner()->GetState() != GameObject::eState::RenderUpdate)
 		{
 			mMaterial->Clear();
 		}

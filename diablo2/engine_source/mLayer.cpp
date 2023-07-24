@@ -23,7 +23,7 @@ namespace m
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if (gameObj->GetState() == GameObject::eState::Dead)
+			if (gameObj->GetState() == GameObject::eState::NoRenderNoUpdate)
 				continue;
 
 			gameObj->Update();
@@ -33,7 +33,7 @@ namespace m
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if (gameObj->GetState() == GameObject::eState::Dead)
+			if (gameObj->GetState() == GameObject::eState::NoRenderNoUpdate)
 				continue;
 
 			gameObj->LateUpdate();
@@ -43,8 +43,8 @@ namespace m
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
-			if (gameObj->GetState() != GameObject::eState::Active
-				|| gameObj->GetState() != GameObject::eState::Invisible)
+			if (gameObj->GetState() != GameObject::eState::RenderUpdate
+				|| gameObj->GetState() != GameObject::eState::NoRenderUpdate)
 				continue;
 
 			gameObj->Render();

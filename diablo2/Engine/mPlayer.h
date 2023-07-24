@@ -14,6 +14,12 @@ namespace m
         virtual void Update();
         virtual void LateUpdate();
         virtual void Render();
+
+        Vector3 GetPrevPosition() { return prevPosition; }
+        Vector3 GetDestPosition() { return destPosition; }
+        Vector3 GetDirection() { return vDirection; }
+
+        bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
     private:
         Vector3 prevPosition;
         Vector3 destPosition;

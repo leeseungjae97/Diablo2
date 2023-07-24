@@ -12,9 +12,19 @@ namespace m
 	public:
 		enum eState
 		{
-			Active,
-			Invisible,
-			Paused,
+			RenderUpdate,
+			NoRenderUpdate,
+			RenderNoUpdate,
+			NoRenderNoUpdate,
+		};
+		enum eBattleState
+		{
+			Idle,
+			Attack,
+			Cast,
+			Run,
+			Walk,
+			TownWalk,
 			Dead,
 		};
 
@@ -28,6 +38,10 @@ namespace m
 
 		eState GetState() { return mState; }
 		void SetState(eState state) { mState = state; }
+
+		eBattleState GetBattleState() { return mBattleState; }
+		void SetBattleState(eBattleState state) { mBattleState = state; }
+
 		template <typename T>
 		T* GetComponent()
 		{
@@ -104,6 +118,7 @@ namespace m
 		std::vector<Component*> GetComponents() { return mComponents; }
 	private:
 		eState mState;
+		eBattleState mBattleState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
 
