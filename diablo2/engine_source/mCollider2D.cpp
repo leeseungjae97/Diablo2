@@ -17,6 +17,7 @@ namespace m
 		, bOnEnter(false)
 		, bOnStay(false)
 		, bOnExit(false)
+		, intersectColliderNumber(0)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
@@ -70,6 +71,7 @@ namespace m
 
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
+		intersectColliderNumber++;
 		bOnEnter = true;
 		bOnStay = bOnExit = false;
 		const std::vector<Script*>& scripts
@@ -94,6 +96,7 @@ namespace m
 	}
 	void Collider2D::OnCollisionExit(Collider2D* other)
 	{
+		intersectColliderNumber--;
 		bOnExit = true;
 		bOnStay = bOnEnter = false;
 		const std::vector<Script*>& scripts

@@ -18,7 +18,21 @@ cbuffer Animator : register(b3)
     float2 SpriteOffset;
     float2 AtlasSize;
     uint animationType;
+    float3 pad;
 }
+struct LightAttribute
+{
+    float4 color;
+    float4 position;
+    float4 direction;
+    
+    uint type;
+    float radius;
+    float angle;
+    int pad;
+};
+
+StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
 
 Texture2D albedoTexture : register(t0);
 Texture2D atlasTexture : register(t12);

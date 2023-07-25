@@ -1,4 +1,6 @@
 #include "mScript.h"
+#include "../engine_source/mGameObject.h"
+
 namespace m
 {
 	Script::Script()
@@ -23,11 +25,17 @@ namespace m
 
 	void Script::OnCollisionEnter(Collider2D* other)
 	{
+		int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
+		if (intersectNum > 0)
+			GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Red);
 	}
 	void Script::OnCollisionStay(Collider2D* other)
 	{
 	}
 	void Script::OnCollisionExit(Collider2D* other)
 	{
+		int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
+		if (intersectNum == 0)
+			GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Green);
 	}
 }

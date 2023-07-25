@@ -12,6 +12,7 @@ namespace m::enums
 		MeshRenderer,
 		Animator,
 		Script,
+		Light,
 		Camera,
 		End,
 	};
@@ -22,6 +23,7 @@ namespace m::enums
 		Tile,
 		Player,
 		Monster,
+		Light,
 		UI,
 		Item,
 		End = 16,
@@ -48,6 +50,13 @@ namespace m::enums
 		Red,
 		Green,
 		Blue,
+		End,
+	};
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
 		End,
 	};
 }

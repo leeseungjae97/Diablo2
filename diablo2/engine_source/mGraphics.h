@@ -76,6 +76,11 @@ enum class eRenderingMode
 	Transparent,
 	End,
 };
+enum class eSRVType
+{
+	None,
+	End,
+};
 
 struct GpuBuffer
 {
@@ -89,6 +94,17 @@ struct GpuBuffer
 
 	}
 	virtual ~GpuBuffer() = default;
+};
+struct LightAttribute
+{
+	m::math::Vector4 color;
+	m::math::Vector4 position;
+	m::math::Vector4 direction;
+
+	m::enums::eLightType type;
+	float radius;
+	float angle;
+	int pad;
 };
 struct DebugMesh
 {

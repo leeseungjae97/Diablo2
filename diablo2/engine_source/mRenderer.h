@@ -5,6 +5,7 @@
 #include "mMesh.h"
 #include "mConstantBuffer.h"
 #include "mCamera.h"
+#include "mLight.h"
 
 using namespace m::math;
 namespace renderer
@@ -37,11 +38,13 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
+	extern std::vector<m::Light*> lights;
 	extern m::Camera* mainCamera;
 	extern std::vector<m::Camera*> cameras;
 	extern std::vector<DebugMesh> debugMeshs;
 
 	void Initialize();
+	void BindLights();
 	void Render();
 	void Release();
 

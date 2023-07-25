@@ -39,6 +39,8 @@ namespace m
 		bool GetOnEnter() { return bOnEnter; }
 		bool GetOnStay() { return bOnStay; }
 		bool GetOnExit() { return bOnExit; }
+
+		int GetInsertsectColliderNumber() { return intersectColliderNumber; }
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
@@ -52,6 +54,8 @@ namespace m
 
 		Vector3 mSize;
 		Vector2 mCenter;
+
+		int intersectColliderNumber;
 
 		bool bOnEnter;
 		bool bOnStay;

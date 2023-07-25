@@ -202,6 +202,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AnimLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mLight.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -292,6 +294,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp">
       <Filter>Resources\Resource\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mLight.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

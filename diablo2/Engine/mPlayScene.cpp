@@ -49,9 +49,9 @@ namespace m
 		float TILE_SIZE_X = 160.f;
 		float TILE_SIZE_Y = 80.f;
 
-		for (int y = 0; y < 50; ++y)
+		for (int y = 0; y < 10; ++y)
 		{
-			for (int x = 0; x < 50; ++x)
+			for (int x = 0; x < 10; ++x)
 			{
 				float fX = (float)(TILE_SIZE_X * (x - y)) / 2.f;
 				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
@@ -96,28 +96,15 @@ namespace m
 			, Vector2::Zero
 			, 0.1
 		);
-
+		
 		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
 		SET_MAIN_CAMERA(player);
 		AddGameObject(eLayerType::Player, player);
 		SET_MESH(player, L"RectMesh");
 		SET_MATERIAL(player, L"AnimationMaterial");
 		SET_SCALE_XYZ(player, 48.f, 74.f, 0.f);
-		//SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressTownNatural");;
-
-		//SET_SCALE_TEX_SIZE(player, tex1, 0.0f);
 		ADD_COMP(player, Animator);
 
-		//animator->Create(
-		//	L"sorceressTownNatural_anim"
-		//	, tex1->GetTexture()
-		//	, Vector2(0.0f, 0.0f)
-		//	, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
-		//	, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
-		//	, Vector2::Zero
-		//	, 0.1
-		//);
-		//animator->PlayAnimation(L"sorceressTownNatural_anim", true);
 		PlayerScript* ps = ADD_COMP(player, PlayerScript);
 		ps->SetPlayer(player);
 
@@ -135,6 +122,13 @@ namespace m
 
 		//float radian = math::DegreeToRadian(90.f);
 		//player->GetComponent<Transform>()->SetRotation(0.f, 0.f, radian);
+
+		GameObject* light = new GameObject();
+		light->SetName(L"Smile");
+		AddGameObject(eLayerType::Light, light);
+		Light* lightComp = light->AddComponent<Light>();
+		lightComp->SetType(eLightType::Directional);
+		lightComp->SetColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
 
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);

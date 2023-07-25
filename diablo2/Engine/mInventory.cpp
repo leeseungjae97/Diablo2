@@ -156,16 +156,16 @@ namespace m
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
 			invenItems.push_back(mpPosion);
 		}
-		{
-			InvenItem* orb1 = new InvenItem(eItem::jaredsStone, this);
+		//{
+		//	InvenItem* orb1 = new InvenItem(eItem::jaredsStone, this);
 
-			orb1->SetState(GameObject::NoRenderUpdate);
-			orb1->SetName(L"3");
-			orb1->SetCamera(GetCamera());
-			ADD_COMP(orb1, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, orb1);
-			invenItems.push_back(orb1);
-		}
+		//	orb1->SetState(GameObject::NoRenderUpdate);
+		//	orb1->SetName(L"3");
+		//	orb1->SetCamera(GetCamera());
+		//	ADD_COMP(orb1, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, orb1);
+		//	invenItems.push_back(orb1);
+		//}
 		{
 			InvenItem* leaderArmor = new InvenItem(eItem::leaderArmor, this);
 
