@@ -6,7 +6,7 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mRenderer.h"
 #include "..\engine_source\mSceneManager.h"
-#include "..\engine_source\mFontWrapper.h"
+//#include "..\engine_source\mFontWrapper.h"
 #include "guiEditor.h"
 #include "mPlayerInfo.h"
 #include "LoadScenes.h"
@@ -78,7 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     m::SceneManager::Release();
-    m::FontWrapper::Release();
+    //m::FontWrapper::Release();
     gui::Editor::Release();
     return (int) msg.wParam;
 }

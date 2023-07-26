@@ -6,7 +6,7 @@
 #include "mSceneManager.h"
 #include "mMouseManager.h"
 #include "mCollisionManager.h"
-#include "mFontWrapper.h"
+//#include "mFontWrapper.h"
 
 namespace m
 {
@@ -33,7 +33,7 @@ namespace m
 	{
 		Time::Initiailize();
 		Input::Initialize();
-		FontWrapper::Initialize();
+		//FontWrapper::Initialize();
 		renderer::Initialize();
 		SceneManager::Initialize();
 	}

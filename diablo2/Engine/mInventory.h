@@ -21,9 +21,8 @@ namespace m
         std::vector<Inven*> GetEquiments() { return equiments; }
         std::vector<InvenItem*> GetInvenItems() { return invenItems; }
         GameObject* GetInvensCollider() { return invensCollider; }
+
     private:
-                                            // x * 10 y * 4
-                                            // x + 18 y - 319
         GameObject* invensCollider;
         std::vector<Inven*> invens;
         std::vector<Inven*> equiments;
@@ -39,26 +38,7 @@ namespace m
         Inven* invenGlove;         // x 60 y 61
         Inven* invenArmor;         // x 62 y 89
         Button* closeBtn;
-    };                                  
 
-
-    //inline Inventory* GetInventory()
-    //{
-    //    static Inventory inventory;
-    //    return &inventory;
-    //}
-
-    // ÀÎº¥Åä¸® 40Ä­
-    // ¹«±â 2Ä­
-    // ¸µ 2Ä­
-    // ¾Æ¹Ä·¿(¸ñ°ÉÀÌ) 1Ä­
-    // º§Æ® 1Ä­
-    // Åõ±¸ 1Ä­
-    // °©¿Ê 1Ä­
-    // ½Å¹ß 1Ä­
-    // Àå°© 1Ä­
-
-    // ¼Ò¼­¸®½º ¿Àºê
-
+    };
 }
 

@@ -87,13 +87,14 @@ namespace m
 				//	}
 				//}
 				//if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
-				if (CheckItemSizeIntersectItem(GET_POS(invens[i]))) continue;
-				//if (!CheckLimitIntersectItems(0)) continue;
-
 				MAKE_VEC2_F_VEC3(sub1, GET_POS(invens[i]));
 				sub1 += GET_VEC2_F_VEC3_D(GET_SCALE(invens[i])) / 2.f;
 
 				Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
+
+				if (CheckItemSizeIntersectItem(subPos)) continue;
+				//if (!CheckLimitIntersectItems(0)) continue;
+
 				prevPosition = subPos;
 				SET_POS_VEC(this, prevPosition);
 				ChangeBoolIntersectArea(prevPosition, true);
@@ -161,32 +162,26 @@ namespace m
 
 		for (int i = 0; i < invens.size(); ++i)
 		{
-			//if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
-			//	|| itemInvenDisplayScale[(UINT)mItem][1] > 3.f)
-			//{
-			//	MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
-			//	MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
-			//	Vector2 posSubVec = thisPosV2 - (thisScaleV2 / 1.5f);
-
-			//	if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
-			//									, GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
-			//									, posSubVec))
-			//	{
-			//		if (invens[i]->GetFill())
-			//		{
-			//			continue;
-			//		}
-			//	}
-			//}
-			if (invens[i]->GetHover())
+			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
+				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
+				MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
+				MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
+				Vector2 subScale = thisScaleV2 / 2.0f;
+				Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
+
+				MAKE_VEC2_F_VEC3(sub1, GET_POS(invens[i]));
+				sub1 += GET_VEC2_F_VEC3_D(GET_SCALE(invens[i])) / 2.f;
+
+				Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
+
 				if (!CheckLimitIntersectItems(2)) continue;
-				if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
+				if (CheckItemSizeIntersectItem(subPos)) continue;
 
 				ChangeBoolIntersectArea(prevPosition, false);
-				//SET_POS_VEC(this, GET_POS(invens[i]) - thisScaleV2 / 2.f);
-				//prevPosition = GET_POS(invens[i]);
-				ChangeBoolIntersectArea(GET_POS(this), true);
+				SET_POS_VEC(this, subPos);
+				prevPosition = subPos;
+				ChangeBoolIntersectArea(subPos, true);
 
 				if (bSetMouseFollow)
 				{
@@ -205,6 +200,37 @@ namespace m
 					}
 				}
 				return;
+			}
+			else
+			{
+				if (invens[i]->GetHover())
+				{
+					if (!CheckLimitIntersectItems(2)) continue;
+					if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
+
+					ChangeBoolIntersectArea(prevPosition, false);
+					SET_POS_VEC(this, GET_POS(invens[i]));
+					prevPosition = GET_POS(invens[i]);
+					ChangeBoolIntersectArea(GET_POS(this), true);
+
+					if (bSetMouseFollow)
+					{
+						std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+						for (int i = 0; i < invenItems.size(); ++i)
+						{
+							if (this != invenItems[i])
+							{
+								if (invenItems[i]->GetComponent<Collider2D>()->GetOnEnter() ||
+									invenItems[i]->GetComponent<Collider2D>()->GetOnStay())
+								{
+									invenItems[i]->SetMouseFollow(true);
+									SET_POS_VEC(invenItems[i], GET_POS(this));
+								}
+							}
+						}
+					}
+					return;
+				}
 			}
 		}
 
