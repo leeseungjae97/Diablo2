@@ -6,6 +6,7 @@
 
 namespace m
 {
+    class BottomUI;
     class Inventory;
     class InvenItem :
         public Item
@@ -35,6 +36,7 @@ namespace m
         Vector2 inventoryOutLinePos;
         Vector2 inventoryOutLineScale;
         Inventory* mInventory;
+        BottomUI* mBottomUI;
         eItem mItem;
     };
 }

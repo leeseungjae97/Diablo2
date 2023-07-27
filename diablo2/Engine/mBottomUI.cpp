@@ -24,14 +24,17 @@ namespace m
 
 		for (int i = 0; i < 4; ++i)
 		{
-			Inven* inventory = new Inven();
-			inventory->SetState(eState::RenderUpdate);
-			inventory->SetCamera(GetCamera());
-			SET_SCALE_XYZ(inventory, (288.f / 10.f) * Texture::GetWidRatio()
+			Inven* pocket = new Inven();
+			pocket->SetState(eState::RenderUpdate);
+			pocket->SetCamera(GetCamera());
+			SET_SCALE_XYZ(pocket, (288.f / 10.f) * Texture::GetWidRatio()
 						  , (114.f / 4.f) * Texture::GetHeiRatio(), 0.f);
-			SET_POS_XYZ(inventory, 10.f * Texture::GetWidRatio(), GET_POS(this).y, -1.f);
-			curScene->AddGameObject(eLayerType::UI, inventory);
-			pockets.push_back(inventory);
+			SET_POS_XYZ(pocket
+				, 90.f + (288.f / 10.f * i) * Texture::GetWidRatio()
+				, GET_POS(this).y - (114.f / 4.f) - 8.f * Texture::GetHeiRatio()
+				, -1.f);
+			curScene->AddGameObject(eLayerType::UI, pocket);
+			pockets.push_back(pocket);
 		}
 	}
 	BottomUI::~BottomUI()
@@ -44,6 +47,7 @@ namespace m
 	void BottomUI::Update()
 	{
 		UI::Update();
+
 	}
 	void BottomUI::LateUpdate()
 	{
