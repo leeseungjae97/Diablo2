@@ -66,7 +66,7 @@
     <ClCompile Include="mSkillButton.cpp">
       <Filter>UI\SkillButton</Filter>
     </ClCompile>
-    <ClCompile Include="mPocket.cpp" />
+    <ClCompile Include="mBottomUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -131,7 +131,7 @@
     <ClInclude Include="mSkillButton.h">
       <Filter>UI\SkillButton</Filter>
     </ClInclude>
-    <ClInclude Include="mPocket.h" />
+    <ClInclude Include="mBottomUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -218,8 +218,8 @@
     <Filter Include="UI\SkillButton">
       <UniqueIdentifier>{786bec94-448f-4eb3-abd6-5c018920d610}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\ItemPlaced\Pocket">
-      <UniqueIdentifier>{ad0e3e90-b630-488e-81cf-597d74e9390a}</UniqueIdentifier>
+    <Filter Include="UI\ItemPlaced\BottomUI">
+      <UniqueIdentifier>{ac5b8951-a5de-49bd-930c-e0971e42bd77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

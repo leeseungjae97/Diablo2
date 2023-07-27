@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mBottomUI.h" />
     <ClInclude Include="mFieldItem.h" />
     <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mInven.h" />
@@ -178,7 +179,6 @@
     <ClInclude Include="mPlayerInfo.h" />
     <ClInclude Include="mPlayerScript.h" />
     <ClInclude Include="mPlayScene.h" />
-    <ClInclude Include="mPocket.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
     <ClInclude Include="mSkillButton.h" />
     <ClInclude Include="mSkillUp.h" />
@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="mBottomUI.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
     <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mInven.cpp" />
@@ -204,7 +205,6 @@
     <ClCompile Include="mPlayerInfo.cpp" />
     <ClCompile Include="mPlayerScript.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
-    <ClCompile Include="mPocket.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
     <ClCompile Include="mSkillButton.cpp" />
     <ClCompile Include="mSkillUp.cpp" />

@@ -434,6 +434,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png", itemNameTable[(int)eItem::mpPosion1]);
 		MAKE_MATERIAL(spriteShader, L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png", itemNameTable[(int)eItem::jaredsStone]);
 		MAKE_MATERIAL(spriteShader, L"leader_armor", L"..\\Resources\\texture\\inventory_items\\armor\\leader_armor.png", itemNameTable[(int)eItem::leaderArmor]);
+		MAKE_MATERIAL(spriteShader, L"cap_", L"..\\Resources\\texture\\inventory_items\\armor\\cap.png", itemNameTable[(int)eItem::cap]);
 #pragma endregion
 #pragma region Bottom User Interface
 		MAKE_MATERIAL(spriteShader, L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png", L"bottomUi");

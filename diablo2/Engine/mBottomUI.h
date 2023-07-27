@@ -1,15 +1,14 @@
 #pragma once
-#include "..\engine_source\mUI.h"
-#include "mInvenItem.h"
-#include "mInven.h"
+#include "../engine_source/mUI.h"
 namespace m
 {
-    class Pocket :
+    class Inven;
+    class BottomUI :
         public UI
     {
     public:
-        Pocket();
-        virtual ~Pocket();
+        BottomUI(Camera* camera);
+        virtual ~BottomUI();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -17,10 +16,7 @@ namespace m
         virtual void Render() override;
 
     private:
-        std::vector<Inven*> defaultPocketInvens;
-        std::vector<Inven*> exPocketInvens;
-        bool bBelt;
+        std::vector<Inven*> pockets;
     };
 }
-
 

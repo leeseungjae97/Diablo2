@@ -25,6 +25,7 @@
 #include "mSkillUp.h"
 #include "mCollider2D.h"
 #include "mPlayerScript.h"
+#include "mBottomUI.h"
 
 extern m::Application application;
 namespace m
@@ -128,7 +129,7 @@ namespace m
 		AddGameObject(eLayerType::Light, light);
 		Light* lightComp = light->AddComponent<Light>();
 		lightComp->SetType(eLightType::Directional);
-		lightComp->SetColor(Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);
@@ -138,21 +139,20 @@ namespace m
 		AddGameObject(eLayerType::UI, uiCamera);
 
 
-		inven = new Inventory(cameraComp2);
-		inven->SetState(GameObject::NoRenderUpdate);
+		inventory = new Inventory(cameraComp2);
+		inventory->SetState(GameObject::NoRenderUpdate);
 
 		skillUp = new SkillUp(cameraComp2);
 		skillUp->SetState(GameObject::NoRenderUpdate);
 
-		UI* uiBottomBar = new UI();
-		uiBottomBar->SetName(L"uiBottom");
-		uiBottomBar->SetCamera(cameraComp2);
-		AddGameObject(eLayerType::UI, uiBottomBar);
-		SET_MESH(uiBottomBar, L"RectMesh");
-		SET_MATERIAL(uiBottomBar, L"bottomUi");
-		GET_TEX(uiBottomBar, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(uiBottomBar, tex, 0.f);
-		SET_POS_XYZ(uiBottomBar, 0.f, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f, -1.f);
+		uiBottomBar = new BottomUI(cameraComp2);
+
+		//AddGameObject(eLayerType::UI, uiBottomBar);
+		//SET_MESH(uiBottomBar, L"RectMesh");
+		//SET_MATERIAL(uiBottomBar, L"bottomUi");
+		//GET_TEX(uiBottomBar, tex);
+		//SET_SCALE_TEX_SIZE_WITH_RAT(uiBottomBar, tex, 0.f);
+		//SET_POS_XYZ(uiBottomBar, 0.f, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
 		UI* uiMp = new UI();
 		AddGameObject(eLayerType::UI, uiMp);
@@ -253,9 +253,9 @@ namespace m
 		{
 			SceneManager::LoadScene(L"MainMenuScene");
 		}
-		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inven)
+		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inventory)
 		{
-			inven->SetState(inven->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
+			inventory->SetState(inventory->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
 		}
 		if (Input::GetKeyDown(eKeyCode::T) && nullptr != skillUp)
 		{

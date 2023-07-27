@@ -3,8 +3,10 @@
 namespace m
 {
     class Inventory;
+    class Pocket;
     class SkillUp;
     class Tile;
+    class BottomUI;
     class PlayScene :
         public Scene
     {
@@ -18,8 +20,9 @@ namespace m
         virtual void Render() override;
     private:
         std::vector<Tile*> tiles;
-        Inventory* inven;
+        Inventory* inventory;
         SkillUp* skillUp;
+        BottomUI* uiBottomBar;
     };
 }
 

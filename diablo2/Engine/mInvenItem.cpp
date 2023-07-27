@@ -66,31 +66,28 @@ namespace m
 	void InvenItem::InvenItemInit()
 	{
 		std::vector<Inven*> invens = mInventory->GetInvens();
+		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
+		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
+		Vector2 subScale = thisScaleV2 / 2.0f;
 
 		for (int i = 0; i < invens.size(); ++i)
 		{
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
-				MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
-				MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
-				Vector2 subScale = thisScaleV2 / 2.0f;
-				Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
-
+				//Vector2 subScale = thisScaleV2 / 2.0f;
+				//Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
 				//if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
-				//							   , GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
-				//							   , leftTop))
+				//								, GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
+				//								, leftTop))
 				//{
-				//	if (invens[i]->GetFill())
-				//	{
-				//		continue;
-				//	}
+				//	
 				//}
-				//if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
 				MAKE_VEC2_F_VEC3(sub1, GET_POS(invens[i]));
 				sub1 += GET_VEC2_F_VEC3_D(GET_SCALE(invens[i])) / 2.f;
 
-				Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
+				Vector3 subPos = Vector3(sub1.x + subScale.x, sub1.y - subScale.y, prevPosition.z);
+				//Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
 
 				if (CheckItemSizeIntersectItem(subPos)) continue;
 				//if (!CheckLimitIntersectItems(0)) continue;
@@ -165,41 +162,45 @@ namespace m
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
-				MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
-				MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 				Vector2 subScale = thisScaleV2 / 2.0f;
 				Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
-
-				MAKE_VEC2_F_VEC3(sub1, GET_POS(invens[i]));
-				sub1 += GET_VEC2_F_VEC3_D(GET_SCALE(invens[i])) / 2.f;
-
-				Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
-
-				if (!CheckLimitIntersectItems(2)) continue;
-				if (CheckItemSizeIntersectItem(subPos)) continue;
-
-				ChangeBoolIntersectArea(prevPosition, false);
-				SET_POS_VEC(this, subPos);
-				prevPosition = subPos;
-				ChangeBoolIntersectArea(subPos, true);
-
-				if (bSetMouseFollow)
+				if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
+												, GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
+												, leftTop))
 				{
-					std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
-					for (int i = 0; i < invenItems.size(); ++i)
+					MAKE_VEC2_F_VEC3(invenPos, GET_POS(invens[i]));
+					Vector2 invenScale = GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]));
+					invenPos.x -= invenScale.x / 2.f;
+					invenPos.y += invenScale.y / 2.f;
+
+					Vector3 finalPos = Vector3(invenPos.x + thisScaleV2.x / 2.f, invenPos.y - thisScaleV2.y / 2.f, prevPosition.z);
+
+					if (!CheckLimitIntersectItems(2)) continue;
+					//if (CheckItemSizeIntersectItem(finalPos)) continue;
+
+					ChangeBoolIntersectArea(prevPosition, false);
+					SET_POS_VEC(this, finalPos);
+					prevPosition = finalPos;
+					ChangeBoolIntersectArea(finalPos, true);
+
+					if (bSetMouseFollow)
 					{
-						if (this != invenItems[i])
+						std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+						for (int i = 0; i < invenItems.size(); ++i)
 						{
-							if (invenItems[i]->GetComponent<Collider2D>()->GetOnEnter() ||
-								invenItems[i]->GetComponent<Collider2D>()->GetOnStay())
+							if (this != invenItems[i])
 							{
-								invenItems[i]->SetMouseFollow(true);
-								SET_POS_VEC(invenItems[i], GET_POS(this));
+								if (invenItems[i]->GetComponent<Collider2D>()->GetOnEnter() ||
+									invenItems[i]->GetComponent<Collider2D>()->GetOnStay())
+								{
+									invenItems[i]->SetMouseFollow(true);
+									SET_POS_VEC(invenItems[i], GET_POS(this));
+								}
 							}
 						}
 					}
+					return;
 				}
-				return;
 			}
 			else
 			{
