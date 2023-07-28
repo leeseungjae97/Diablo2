@@ -1,10 +1,12 @@
 #pragma once
 #include "../engine_source/mScript.h"
-#include "../engine_source/AnimLookUpTables.h"
 #include "../engine_source/mResources.h"
+#include "../engine_source/AnimLookUpTables.h"
+#include "../engine_source/mGameObject.h"
 
 namespace m
 {
+    class Monster;
     class Animator;
     template <typename T>
     class MonsterScript :
@@ -19,9 +21,16 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
+        //void SetMonster(Monster* monster)
+
+        void AnimationStart(GameObject::eBattleState state);
+        void AnimationComplete(GameObject::eBattleState state);
     private:
+        T curMonsterData;
         std::vector<SHARED_TEX> texs;
         Animator* mAnimator;
+        eMonsterDirection mDirection;
+        T::eAnimationType mAnimationType;
     };
 }
 

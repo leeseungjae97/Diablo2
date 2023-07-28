@@ -87,14 +87,13 @@ namespace m
 
 		SET_MAIN_CAMERA(monster);
 		AddGameObject(eLayerType::Monster, monster);
-		ADD_COMP(monster, Collider2D);
-		ADD_COMP(monster, MeshRenderer);
-		ADD_COMP(monster, Animator);
-		ADD_COMP(monster, MonsterScript<DiabloSt>);
 		SET_MESH(monster, L"RectMesh");
-		SET_MATERIAL(monster, L"testSc");
-		GET_TEX(monster, tex);
-		SET_SCALE_TEX_SIZE(monster, tex, 0.f);
+		SET_MATERIAL(monster, L"AnimationMaterial");
+		SET_SCALE_XYZ(monster, 48.f, 74.f, 1.f);
+		ADD_COMP(monster, Animator);
+		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
+		ms->SetMonster(monster);
+		
 		
 		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
 		SET_MAIN_CAMERA(player);
@@ -242,6 +241,7 @@ namespace m
 		skillShortCut2->SetNormalMaterial(RESOURCE_FIND(Material, L"thunderStormIcon"));
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 	}
 	void PlayScene::Update()

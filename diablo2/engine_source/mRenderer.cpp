@@ -267,7 +267,7 @@ namespace renderer
 		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes.push_back(center);
 
-		int iSlice = 40;
+		int iSlice = 80;
 		float fRadius = 0.5f;
 		float fTheta = XM_2PI / (float)iSlice;
 

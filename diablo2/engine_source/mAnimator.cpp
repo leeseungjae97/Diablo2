@@ -38,6 +38,13 @@ namespace m
 				events->completeEvent();
 			mActiveAnimation->Reset();
 		}
+		if (mActiveAnimation->IsComplete() && !mbLoop)
+		{
+			Events* events = FindEvents(mActiveAnimation->GetKey());
+			if (events)
+				events->endEvent();
+			mActiveAnimation->Reset();
+		}
 
 		mActiveAnimation->LateUpdate();
 	}

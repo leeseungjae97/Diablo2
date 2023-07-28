@@ -13,7 +13,7 @@ namespace m
 	bool CompareZSort(GameObject* a, GameObject* b)
 	{
 		if (a->GetComponent<Transform>()->GetPosition().z
-			< b->GetComponent<Transform>()->GetPosition().z)
+			<= b->GetComponent<Transform>()->GetPosition().z)
 			return false;
 
 		return true;

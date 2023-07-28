@@ -62,6 +62,7 @@ enum class eMonsterDirection
 	End
 };
 std::wstring characterDirectionString[(UINT)eCharacterDirection::End] = {
+	L"down",
 	L"left_down_1",
 	L"left_down_2",
 	L"left_down_3",
@@ -77,6 +78,16 @@ std::wstring characterDirectionString[(UINT)eCharacterDirection::End] = {
 	L"right_down_1",
 	L"right_down_2",
 	L"right_down_3",
+};
+std::wstring monsterDirectionString[(UINT)eCharacterDirection::End] = {
+	L"down",
+	L"left_down",
+	L"left",
+	L"left_up",
+	L"up",
+	L"right_up",
+	L"right",
+	L"right_down"
 };
 m::math::Vector2 sorceressAnimationSizes[(UINT)eSorceressAnimationType::End] = {
 	m::math::Vector2(2500.f / 20.f, 1263.f / 16.f),		// Attack1
@@ -135,13 +146,13 @@ struct DiabloSt : public Monster
 		End,
 	};
 	std::wstring textureString[(UINT)eAnimationType::End] = {
-		L"diabloNatural",
-		L"diabloWalk",
 		L"diabloAttack1",
 		L"diabloAttack2",
 		L"diabloBlock",
 		L"diabloHit",
+		L"diabloNatural",
 		L"diabloRun",
+		L"diabloWalk",
 		L"diabloSpecial_cast",
 		L"diabloSpecial1",
 		L"diabloSpecial2",
@@ -165,19 +176,19 @@ struct DiabloSt : public Monster
 		L"diabloDead",
 	};
 	m::math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
-		m::math::Vector2(4960.f / 20.f, 1791.f / 8.f),		// Attack1
-		m::math::Vector2(5760.f / 20.f, 2295.f / 8.f),		// Attack2
-		m::math::Vector2(2655.f / 9.f, 1551.f / 8.f),		// Block
-		m::math::Vector2(1853.f / 6.f, 1767.f / 8.f),		// Hit
-		m::math::Vector2(3156.f / 12.f, 1695.f / 8.f),		// Natural
-		m::math::Vector2(6798.f / 22.f, 1991.f / 8.f),		// Run
-		m::math::Vector2(3516.f / 14.f, 1503.f / 8.f),		// Walk
+		m::math::Vector2(4960.f / 20.f, 1791.f / 8.f),	// Attack1
+		m::math::Vector2(5760.f / 20.f, 2295.f / 8.f),	// Attack2
+		m::math::Vector2(2655.f / 9.f, 1551.f / 8.f),	// Block
+		m::math::Vector2(1853.f / 6.f, 1767.f / 8.f),	// Hit
+		m::math::Vector2(3156.f / 12.f, 1695.f / 8.f),	// Natural
+		m::math::Vector2(6798.f / 22.f, 1991.f / 8.f),	// Run
+		m::math::Vector2(3516.f / 14.f, 1503.f / 8.f),	// Walk
 		m::math::Vector2(4522.f / 17.f , 2055.f / 8.f),	// SpecialCast
 		m::math::Vector2(4986.f / 18.f , 1631.f / 8.f),	// Special1
 		m::math::Vector2(4608.f / 16.f , 1895.f / 8.f),	// Special2
 		m::math::Vector2(4979.f / 16.f , 2183.f / 8.f),	// Special3
 		m::math::Vector2(4605.f / 16.f , 1615.f / 8.f),	// Special4
-		m::math::Vector2(169.f, 147.f),				// Dead
+		m::math::Vector2(169.f, 147.f),					// Dead
 	};
 	int animationLength[(UINT)eAnimationType::End] = {
 		16,// Attack1

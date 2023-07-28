@@ -41,6 +41,8 @@ namespace m
 		bool GetOnExit() { return bOnExit; }
 
 		int GetInsertsectColliderNumber() { return intersectColliderNumber; }
+
+		Vector3 GetCollideredObjectPos() { return collideredObjectPos; }
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
@@ -54,6 +56,8 @@ namespace m
 
 		Vector3 mSize;
 		Vector2 mCenter;
+
+		Vector3 collideredObjectPos;
 
 		int intersectColliderNumber;
 

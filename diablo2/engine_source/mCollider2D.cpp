@@ -76,6 +76,7 @@ namespace m
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
 		intersectColliderNumber++;
+		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
 		bOnEnter = true;
 		bOnStay = bOnExit = false;
 		const std::vector<Script*>& scripts
@@ -88,6 +89,7 @@ namespace m
 	}
 	void Collider2D::OnCollisionStay(Collider2D* other)
 	{
+		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
 		bOnStay = true;
 		bOnEnter = bOnExit = false;
 		const std::vector<Script*>& scripts

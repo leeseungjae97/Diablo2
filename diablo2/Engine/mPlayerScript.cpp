@@ -1,6 +1,5 @@
 #include "mPlayerScript.h"
 
-#include "../engine_source/mGameObject.h"
 #include "../engine_source/mConstantBuffer.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mAnimator.h"
@@ -89,12 +88,15 @@ namespace m
 				, Vector2::Zero
 				, 0.05
 			);
-			//mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = std::bind(&PlayerScript::AnimationStart, this, GameObject::eBattleState::Attack);
-			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = [this]() { AnimationStart(GameObject::eBattleState::Attack); };
-			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) 
+				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
+			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
+				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
 
-			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) = [this]() { AnimationStart(GameObject::eBattleState::GetHit); };
-			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) = [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) 
+				= [this]() { AnimationStart(GameObject::eBattleState::Hit); };
+			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
+				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
 		}
 		
 		mDirection = eCharacterDirection::Down;
@@ -106,25 +108,27 @@ namespace m
 		if (nullptr == GetPlayer())
 			return;
 
-		SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
-
 		if (Input::GetKeyUpOne(eKeyCode::C))
 		{
 			mAnimationType = eSorceressAnimationType::Attack1;
-			//GetOwner()->SetBattleState(GameObject::Attack);
+			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
-				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
+				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
 		}
-		if (GetOwner()->GetBattleState() == GameObject::Attack)
-			return;
+
 		if (Input::GetKeyUpOne(eKeyCode::B))
 		{
 			mAnimationType = eSorceressAnimationType::GetHit;
-			//GetOwner()->SetBattleState(GameObject::Attack);
+			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
-				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
+				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
 		}
-		if (GetOwner()->GetBattleState() == GameObject::GetHit)
+
+		if (
+			GetOwner()->GetBattleState() != GameObject::Idle
+			&& 
+			GetOwner()->GetBattleState() != GameObject::Run
+			)
 			return;
 
 		if (GetPlayer()->Stop())
@@ -144,7 +148,7 @@ namespace m
 
 			float degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
 			float fDivideDegree = 180.f / 9.f;
-			mDirection = eCharacterDirection::Down;
+
 			if (	 degree > -fDivideDegree     && degree <  fDivideDegree    ) mDirection = eCharacterDirection::Up;
 			else if (degree < -fDivideDegree	 && degree > -fDivideDegree * 2) mDirection = eCharacterDirection::LeftUp3;
 			else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eCharacterDirection::LeftUp2;
@@ -162,11 +166,13 @@ namespace m
 			else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eCharacterDirection::RightUp3;
 			else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eCharacterDirection::RightUp2;
 			else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree	   ) mDirection = eCharacterDirection::RightUp1;
-			//else if( degree >-)	
+
 			mAnimationType = eSorceressAnimationType::Run;
 		}
+
 		if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
 		{
+			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			int prevIndex = mAnimator->GetAnimationIndex();
 			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
 			if(mAnimationType == eSorceressAnimationType::Run)

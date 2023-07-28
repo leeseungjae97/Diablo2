@@ -1,6 +1,7 @@
 #include "mCollisionManager.h"
 #include "mSceneManager.h"
 #include "mMeshRenderer.h"
+
 namespace m
 {
 	std::bitset<LAYER_MAX> CollisionManager::mMatrix[LAYER_MAX] = {};
@@ -33,19 +34,31 @@ namespace m
 
 		for (GameObject* leftObj : lefts)
 		{
-			Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
-			if (nullptr == leftCol) continue;
+			//Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
+			//if (nullptr == leftCol) continue;
 			if (leftObj->GetState() != GameObject::RenderUpdate) continue;
-
-			for (GameObject* rightObj : rights)
+			std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
+			if (!leftCols.empty())
 			{
-				Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
-				if (nullptr == rightCol) continue;
-				if (leftObj == rightObj) continue;
-				if (rightObj->GetState() != GameObject::RenderUpdate) continue;
-
-				ColliderCollision(leftCol, rightCol);
+				for (Collider2D* leftCol : leftCols)
+				{
+					for (GameObject* rightObj : rights)
+					{
+						//Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
+						//if (nullptr == rightCol) continue;
+						if (leftObj == rightObj) continue;
+						if (rightObj->GetState() != GameObject::RenderUpdate) continue;
+						std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
+						if (!rightCols.empty())
+						{
+							for (Collider2D* rightCol : rightCols)
+								ColliderCollision(leftCol, rightCol);
+						}
+						
+					}
+				}
 			}
+			
 		}
 	}
 	void CollisionManager::ColliderCollision(Collider2D* left, Collider2D* right)
@@ -94,11 +107,11 @@ namespace m
 		Vector3 leftScale = left->GetScale();
 		Vector3 rightScale = right->GetScale();
 
-		Vector3 leftPos = left->GetPosition();
-		Vector3 rightPos = right->GetPosition();
-
 		Vector3 leftSize = left->GetSize();
 		Vector3 rightSize = right->GetSize();
+
+		Vector3 leftPos = left->GetPosition();
+		Vector3 rightPos = right->GetPosition();
 
 		Vector3 leftRotation = left->GetRotation();
 		Vector3 rightRotation = right->GetRotation();
@@ -213,6 +226,60 @@ namespace m
 
 			if (leftScale.x / 2.f + rightScale.x / 2.f>= length)
 				return true;
+		}
+
+		if (left->GetType() == eColliderType::Circle
+			&& right->GetType() == eColliderType::Rect)
+		{
+			Vector2 corner[4] = {
+				Vector2(rightPos.x - rightScale.x / 2.f, rightPos.y + rightScale.y / 2.f),
+				Vector2(rightPos.x + rightScale.x / 2.f, rightPos.y + rightScale.y / 2.f),
+				Vector2(rightPos.x - rightScale.x / 2.f, rightPos.y - rightScale.y / 2.f),
+				Vector2(rightPos.x + rightScale.x / 2.f, rightPos.y - rightScale.y / 2.f),
+			};
+			for (int i = 0; i < 4; ++i)				  
+			{
+				float dX = leftPos.x - corner[i].x;
+				float dY = leftPos.y - corner[i].y;
+
+				float length = fabs(sqrt(dX * dX + dY * dY));
+
+				if (fabs(leftScale.x / 2.f) > length)
+					return true;
+			}
+			if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(rightPos),
+											Vector2(rightScale.x + leftScale.x / 2.f, rightScale.y + leftScale.x / 2.f),
+											GET_VEC2_F_VEC3_D(leftPos)))
+			{
+				return true;
+			}
+		}
+
+		if (left->GetType() == eColliderType::Rect
+			&& right->GetType() == eColliderType::Circle)
+		{
+			Vector2 corner[4] = {
+				Vector2(leftPos.x - leftScale.x / 2.f, leftPos.y + leftScale.y / 2.f),
+				Vector2(leftPos.x + leftScale.x / 2.f, leftPos.y + leftScale.y / 2.f),
+				Vector2(leftPos.x - leftScale.x / 2.f, leftPos.y - leftScale.y / 2.f),
+				Vector2(leftPos.x + leftScale.x / 2.f, leftPos.y - leftScale.y / 2.f),
+			};
+			for (int i = 0; i < 4; ++i)
+			{
+				float dX = rightPos.x - corner[i].x;
+				float dY = rightPos.y - corner[i].y;
+
+				float length = fabs(sqrt(dX * dX + dY * dY));
+
+				if (fabs(rightScale.x / 2.f) > length)
+					return true;
+			}
+			if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(leftPos),
+											Vector2(leftScale.x + rightScale.x / 2.f, leftScale.x + rightScale.y / 2.f),
+											GET_VEC2_F_VEC3_D(rightPos)))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

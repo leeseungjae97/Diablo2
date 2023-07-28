@@ -69,7 +69,9 @@
     <ClCompile Include="mBottomUI.cpp">
       <Filter>UI\ItemPlaced\BottomUI</Filter>
     </ClCompile>
-    <ClCompile Include="mMonsterScript.cpp" />
+    <ClCompile Include="mMonsterScript.cpp">
+      <Filter>Script\MonsterScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -137,7 +139,9 @@
     <ClInclude Include="mBottomUI.h">
       <Filter>UI\ItemPlaced\BottomUI</Filter>
     </ClInclude>
-    <ClInclude Include="mMonsterScript.h" />
+    <ClInclude Include="mMonsterScript.h">
+      <Filter>Script\MonsterScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

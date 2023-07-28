@@ -25,17 +25,31 @@ namespace m
 
 	void Script::OnCollisionEnter(Collider2D* other)
 	{
-		int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
-		if (intersectNum > 0)
-			GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Red);
+		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
+		for (Collider2D* col : cols)
+		{
+			int intersectNum = col->GetInsertsectColliderNumber();
+			if (intersectNum > 0)
+				col->SetRectColor(eColor::Red);
+		}
+		//int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
+		//if (intersectNum > 0)
+		//	GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Red);
 	}
 	void Script::OnCollisionStay(Collider2D* other)
 	{
 	}
 	void Script::OnCollisionExit(Collider2D* other)
 	{
-		int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
-		if (intersectNum == 0)
-			GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Green);
+		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
+		for (Collider2D* col : cols)
+		{
+			int intersectNum = col->GetInsertsectColliderNumber();
+			if (intersectNum == 0)
+				col->SetRectColor(eColor::Green);
+		}
+		//int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
+		//if (intersectNum == 0)
+		//	GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Green);
 	}
 }
