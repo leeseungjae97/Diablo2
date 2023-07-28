@@ -85,6 +85,24 @@
     <Filter Include="GameObject\Component\Animator">
       <UniqueIdentifier>{d2f155f4-e152-4885-acaa-79649d4c9cf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\ConstantBuffer">
+      <UniqueIdentifier>{80f794ab-a62e-4b35-b759-b94bb68e44f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Renderer">
+      <UniqueIdentifier>{e8cd7f1a-1819-47ef-8b7b-9e84449a4b3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shader">
+      <UniqueIdentifier>{55d3e8a5-d3c4-4721-a07f-36e6c333e491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\ComputeShader">
+      <UniqueIdentifier>{ace3d862-a0f0-440a-8b9a-ec473c08afe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Light">
+      <UniqueIdentifier>{63de8a78-e039-4136-b6eb-d00815379f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\StructedBuffer">
+      <UniqueIdentifier>{9ab7a41a-2e01-4625-919f-0702e988d3f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -119,15 +137,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h">
       <Filter>Common\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mGameObject.h">
       <Filter>GameObject</Filter>
@@ -202,8 +211,24 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AnimLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mLight.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h">
+      <Filter>Graphics\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h">
+      <Filter>Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mComputeShader.h">
+      <Filter>Resources\Resource\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mLight.h">
+      <Filter>GameObject\Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h">
+      <Filter>Graphics\StructedBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -226,15 +251,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp">
       <Filter>Common\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mGameObject.cpp">
       <Filter>GameObject</Filter>
@@ -294,8 +310,24 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp">
       <Filter>Resources\Resource\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mLight.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp">
+      <Filter>Graphics\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp">
+      <Filter>Graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mComputeShader.cpp">
+      <Filter>Resources\Resource\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mLight.cpp">
+      <Filter>GameObject\Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp">
+      <Filter>Graphics\StructedBuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

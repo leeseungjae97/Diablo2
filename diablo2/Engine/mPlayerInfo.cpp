@@ -5,8 +5,8 @@ namespace m
 {
 	int PlayerInfo::learnedSkill[3][10]= {};
 	int PlayerInfo::skillPoint = 0;
-	std::vector<InvenItem*> inventoryItems;
-	std::vector<InvenItem*> pocketPosions;
+	std::vector<InvenItem*> PlayerInfo::inventoryItems;
+	std::vector<InvenItem*> PlayerInfo::pocketPosions;
 
 	void PlayerInfo::PocketToInventory(InvenItem* item)
 	{

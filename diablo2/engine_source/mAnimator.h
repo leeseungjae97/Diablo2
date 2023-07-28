@@ -1,6 +1,7 @@
 #pragma once
 #include "mComponent.h"
 #include "mTexture.h"
+#include "mGameObject.h"
 
 namespace m
 {

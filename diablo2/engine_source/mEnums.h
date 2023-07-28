@@ -35,6 +35,7 @@ namespace m::enums
 		Material,
 		Mesh,
 		Animation,
+		ComputeShader,
 		End,
 	};
 	enum class eColliderType

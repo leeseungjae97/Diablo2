@@ -30,7 +30,10 @@ namespace m
 	{
 		GameObject::Update();
 
-		if (GetBattleState() == Dead) return;
+		if (GetBattleState() == Dead
+			|| GetBattleState() == Attack
+			|| GetBattleState() == Cast) return;
+
 		Vector3 curPosition = GET_POS(this);
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z

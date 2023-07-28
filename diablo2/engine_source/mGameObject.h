@@ -23,6 +23,7 @@ namespace m
 			Attack,
 			Cast,
 			Run,
+			GetHit,
 			Walk,
 			TownWalk,
 			Dead,

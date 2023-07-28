@@ -21,7 +21,6 @@ namespace m
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
-	
 	}
 	Collider2D::~Collider2D()
 	{}
@@ -33,18 +32,23 @@ namespace m
 	void Collider2D::LateUpdate()
 	{
 		Component::LateUpdate();
+		
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-
 		Vector3 scale = tr->GetScale();
-		if (mType == eColliderType::Circle)
+		if (mScale == Vector3::One)
 		{
-			scale.x = scale.y;
+			if (mType == eColliderType::Circle)
+			{
+				scale.x = scale.y;
+			}
+			scale.x *= mSize.x;
+			scale.y *= mSize.y;
+			mScale = scale;
 		}
-		scale.x *= mSize.x;
-		scale.y *= mSize.y;
-
+	
 		mRotation = tr->GetRotation();
-		mScale = scale;
+		
 
 		Vector3 pos = tr->GetPosition();
 		pos.x += mCenter.x;
@@ -56,7 +60,7 @@ namespace m
 
 		DebugMesh debugMesh = {};
 		debugMesh.position = pos;
-		debugMesh.scale = scale;
+		debugMesh.scale = mScale;
 		debugMesh.rotation = mRotation;
 		debugMesh.type = mType;
 		debugMesh.view = camera->GetPrivateViewMatrix();

@@ -72,16 +72,29 @@ namespace m
 			//	, 0.1
 			//);
 			mAnimator->Create(
+				sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]
+				, tex7->GetTexture()
+				, Vector2(0.0f, sorceressAnimationSizes[(UINT)eSorceressAnimationType::GetHit].y * i)
+				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::GetHit]
+				, sorceressAnimationLength[(UINT)eSorceressAnimationType::GetHit]
+				, Vector2::Zero
+				, 0.05
+			);
+			mAnimator->Create(
 				sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]
 				, tex1->GetTexture()
 				, Vector2(0.0f, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Attack1].y * i)
 				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Attack1]
 				, sorceressAnimationLength[(UINT)eSorceressAnimationType::Attack1]
 				, Vector2::Zero
-				, 0.07
+				, 0.05
 			);
-			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = std::bind(&PlayerScript::AttackStart, this);
-			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = std::bind(&PlayerScript::AttackComplete, this);
+			//mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = std::bind(&PlayerScript::AnimationStart, this, GameObject::eBattleState::Attack);
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = [this]() { AnimationStart(GameObject::eBattleState::Attack); };
+			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) = [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
+
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) = [this]() { AnimationStart(GameObject::eBattleState::GetHit); };
+			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) = [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
 		}
 		
 		mDirection = eCharacterDirection::Down;
@@ -103,6 +116,15 @@ namespace m
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
 		}
 		if (GetOwner()->GetBattleState() == GameObject::Attack)
+			return;
+		if (Input::GetKeyUpOne(eKeyCode::B))
+		{
+			mAnimationType = eSorceressAnimationType::GetHit;
+			//GetOwner()->SetBattleState(GameObject::Attack);
+			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
+				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
+		}
+		if (GetOwner()->GetBattleState() == GameObject::GetHit)
 			return;
 
 		if (GetPlayer()->Stop())
@@ -161,12 +183,12 @@ namespace m
 	void PlayerScript::Complete()
 	{
 	}
-	void PlayerScript::AttackStart()
+	void PlayerScript::AnimationStart(GameObject::eBattleState state)
 	{
-		GetOwner()->SetBattleState(GameObject::Attack);
+		GetOwner()->SetBattleState(state);
 	}
-	void PlayerScript::AttackComplete()
+	void PlayerScript::AnimationComplete(GameObject::eBattleState state)
 	{
-		GetOwner()->SetBattleState(GameObject::Idle);
+		GetOwner()->SetBattleState(state);
 	}
 };

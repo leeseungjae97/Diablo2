@@ -3,6 +3,7 @@
 #include "..\engine_source\mCamera.h"
 namespace m
 {
+    class Tile;
     class Player :
         public GameObject
     {
@@ -20,6 +21,8 @@ namespace m
         Vector3 GetDirection() { return vDirection; }
 
         bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
+
+        void SetTile(std::vector<Tile*> vec) { tiles = vec; }
     private:
         Vector3 prevPosition;
         Vector3 destPosition;
@@ -28,6 +31,8 @@ namespace m
         float fRemainDistance;
         float fStartDistance;
         float fSpeed;
+
+        std::vector<Tile*> tiles;
     };
 }
 

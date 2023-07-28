@@ -361,6 +361,22 @@ namespace renderer
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Shader> animShader = m::Resources::Find<Shader>(L"AnimationShader");
+#pragma region Monster
+		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");
+		MAKE_MATERIAL(spriteShader, L"diablo_walk", L"..\\Resources\\texture\\enemy\\diablo\\diablo_walk.png", L"diabloWalk");
+		MAKE_MATERIAL(spriteShader, L"diablo_attack1", L"..\\Resources\\texture\\enemy\\diablo\\diablo_attack1.png", L"diabloAttack1");
+		MAKE_MATERIAL(spriteShader, L"diablo_attack2", L"..\\Resources\\texture\\enemy\\diablo\\diablo_attack2.png", L"diabloAttack2");
+		MAKE_MATERIAL(spriteShader, L"diablo_block", L"..\\Resources\\texture\\enemy\\diablo\\diablo_block.png", L"diabloBlock");
+		MAKE_MATERIAL(spriteShader, L"diablo_hit", L"..\\Resources\\texture\\enemy\\diablo\\diablo_hit.png", L"diabloHit");
+		MAKE_MATERIAL(spriteShader, L"diablo_run", L"..\\Resources\\texture\\enemy\\diablo\\diablo_run.png", L"diabloRun");
+		MAKE_MATERIAL(spriteShader, L"diablo_special_cast", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special_cast.png", L"diabloSpecial_cast");
+		MAKE_MATERIAL(spriteShader, L"diablo_special1", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special1.png", L"diabloSpecial1");
+		MAKE_MATERIAL(spriteShader, L"diablo_special2", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special2.png", L"diabloSpecial2");
+		MAKE_MATERIAL(spriteShader, L"diablo_special3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special3.png", L"diabloSpecial3");
+		MAKE_MATERIAL(spriteShader, L"diablo_special4", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special4.png", L"diabloSpecial4");
+		MAKE_MATERIAL(spriteShader, L"diablo_dead", L"..\\Resources\\texture\\enemy\\diablo\\diablo_dead.png", L"diabloDead");
+#pragma endregion
+
 #pragma region Characters
 		{
 			std::shared_ptr<Texture> texture

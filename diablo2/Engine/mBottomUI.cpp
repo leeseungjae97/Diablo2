@@ -7,6 +7,7 @@
 namespace m
 {
 	BottomUI::BottomUI(Camera* camera)
+		: bBelt(false)
 	{
 		SetCamera(camera);
 
@@ -27,14 +28,29 @@ namespace m
 			Inven* pocket = new Inven();
 			pocket->SetState(eState::RenderUpdate);
 			pocket->SetCamera(GetCamera());
-			SET_SCALE_XYZ(pocket, (288.f / 10.f) * Texture::GetWidRatio()
-						  , (114.f / 4.f) * Texture::GetHeiRatio(), 0.f);
+			SET_SCALE_XYZ(pocket, 30.f * Texture::GetWidRatio()
+						  , 31.f* Texture::GetHeiRatio(), 0.f);
 			SET_POS_XYZ(pocket
-				, 90.f + (288.f / 10.f * i) * Texture::GetWidRatio()
-				, GET_POS(this).y - (114.f / 4.f) - 8.f * Texture::GetHeiRatio()
+				, GET_POS(this).x + 23.f * Texture::GetWidRatio() + (GET_SCALE(pocket).x / 2.f) + (30.f * i) * Texture::GetWidRatio()
+				, GET_POS(this).y - GET_SCALE(pocket).y / 2.f - 14.f * Texture::GetHeiRatio()
 				, -1.f);
 			curScene->AddGameObject(eLayerType::UI, pocket);
 			pockets.push_back(pocket);
+		}
+
+		for (int i = 0; i < 8; ++i)
+		{
+			Inven* pocket = new Inven();
+			pocket->SetState(eState::NoRenderNoUpdate);
+			pocket->SetCamera(GetCamera());
+			SET_SCALE_XYZ(pocket, 30.f * Texture::GetWidRatio()
+						  , 31.f * Texture::GetHeiRatio(), 0.f);
+			SET_POS_XYZ(pocket
+						, GET_POS(this).x + 23.f * Texture::GetWidRatio() + (GET_SCALE(pocket).x / 2.f) + (30 * (i % 4)) * Texture::GetWidRatio()
+						, GET_POS(this).y - GET_SCALE(pocket).y / 2.f - 14.f * Texture::GetHeiRatio() + (GET_SCALE(pocket).y * (i / 4 + 1))
+						, -1.f);
+			curScene->AddGameObject(eLayerType::UI, pocket);
+			exPockets.push_back(pocket);
 		}
 	}
 	BottomUI::~BottomUI()
@@ -47,7 +63,16 @@ namespace m
 	void BottomUI::Update()
 	{
 		UI::Update();
-
+		for (int i = 0; i < pockets.size(); ++i)
+		{
+			bool hover = false;
+			if (pockets[i]->GetHover())
+			{
+				hover = true;
+			}
+			if(!hover) for (int i = 0; i < exPockets.size(); ++i) exPockets[i]->SetState(NoRenderNoUpdate);
+			if(hover) for (int i = 0; i < exPockets.size(); ++i) exPockets[i]->SetState(RenderUpdate);
+		}
 	}
 	void BottomUI::LateUpdate()
 	{

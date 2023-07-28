@@ -12,6 +12,7 @@
 #include "..\engine_source\mAnimator.h"
 #include "..\engine_source\AnimLookUpTables.h"
 #include "..\engine_source\mFontWrapper.h"
+#include "..\engine_source\mComputeShader.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -25,6 +26,7 @@
 #include "mSkillUp.h"
 #include "mCollider2D.h"
 #include "mPlayerScript.h"
+#include "mMonsterScript.h"
 #include "mBottomUI.h"
 
 extern m::Application application;
@@ -39,6 +41,10 @@ namespace m
 	void PlayScene::Initialize()
 	{
 		Scene::Initialize();
+
+		//ComputeShader* cs = new ComputeShader();
+		//cs->Create(L"PaintCS.hlsl", "main");
+
 		SHARED_TEX tex;
 
 		GameObject* camera = new GameObject();
@@ -58,7 +64,7 @@ namespace m
 				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
 				Tile* tile = new Tile(Vector2(x, y));
 
-				AddGameObject(eLayerType::Player, tile);
+				AddGameObject(eLayerType::Tile, tile);
 				SET_MAIN_CAMERA(tile);
 				SET_MESH(tile, L"RectMesh");
 				SET_MATERIAL(tile, L"testTile");
@@ -71,6 +77,8 @@ namespace m
 
 		GetSceneMainCamera()->DisableLayerMasks();
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
+		GetSceneMainCamera()->TurnLayerMask(eLayerType::Tile, true);
+		GetSceneMainCamera()->TurnLayerMask(eLayerType::Monster, true);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(GetSceneMainCamera());
 		//camera->AddComponent<GridScript>();
@@ -78,25 +86,15 @@ namespace m
 		Monster* monster = new Monster(Vector3(10.f, 10.f, 1.f));
 
 		SET_MAIN_CAMERA(monster);
-		AddGameObject(eLayerType::Player, monster);
+		AddGameObject(eLayerType::Monster, monster);
 		ADD_COMP(monster, Collider2D);
 		ADD_COMP(monster, MeshRenderer);
+		ADD_COMP(monster, Animator);
+		ADD_COMP(monster, MonsterScript<DiabloSt>);
 		SET_MESH(monster, L"RectMesh");
 		SET_MATERIAL(monster, L"testSc");
 		GET_TEX(monster, tex);
 		SET_SCALE_TEX_SIZE(monster, tex, 0.f);
-		Animator* animator = ADD_COMP(monster, Animator);
-		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressTownNatural");
-		animator->Create(
-			L"sorceressTownNatural_anim"
-			, tex1->GetTexture()
-			, Vector2(0.0f, 0.0f)
-			//, Vector2(2500.f / 20.f, 1263.f / 16.f)
-			, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
-			, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
-			, Vector2::Zero
-			, 0.1
-		);
 		
 		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
 		SET_MAIN_CAMERA(player);
@@ -105,6 +103,7 @@ namespace m
 		SET_MATERIAL(player, L"AnimationMaterial");
 		SET_SCALE_XYZ(player, 48.f, 74.f, 0.f);
 		ADD_COMP(player, Animator);
+		player->SetTile(tiles);
 
 		PlayerScript* ps = ADD_COMP(player, PlayerScript);
 		ps->SetPlayer(player);
