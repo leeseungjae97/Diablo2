@@ -12,15 +12,11 @@ namespace m
 {
 	bool CompareZSort(GameObject* a, GameObject* b)
 	{
-		if (a->GetComponent<Transform>()->GetPosition().z
-			<= b->GetComponent<Transform>()->GetPosition().z)
-			return false;
-
-		return true;
+		return a->GetComponent<Transform>()->GetPosition().z
+				<= b->GetComponent<Transform>()->GetPosition().z;
 	}
 	Matrix Camera::View = Matrix::Identity;
 	Matrix Camera::Projection = Matrix::Identity;
-	Vector2 Camera::mCameraCenter = Vector2(800.f , -450.f);
 
 	Camera::Camera()
 		: Component(eComponentType::Camera)
@@ -37,6 +33,10 @@ namespace m
 		, mProjection(Matrix::Identity)
 	{
 		EnableLayerMasks();
+		RECT rect = {};
+		GetClientRect(application.GetHwnd(), &rect);
+		mWidth = (rect.right - rect.left) * mSize;
+		mHeight = (rect.bottom - rect.top) * mSize;
 	}
 	Camera::~Camera()
 	{}
@@ -61,7 +61,7 @@ namespace m
 	{
 		View = mView;
 		Projection = mProjection;
-
+		mPos = GET_POS(GetOwner());
 		AlphaSortGameObject();
 		ZSortTransparencyGameObjects();
 
@@ -173,6 +173,7 @@ namespace m
 
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();
+
 			switch (mode)
 			{
 			case eRenderingMode::Opaque:
@@ -189,13 +190,24 @@ namespace m
 			}
 		}
 	}
+	bool Camera::ClipingArea(GameObject* gameObj)
+	{
+		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(mPos), Vector2(mWidth, mHeight), GET_VEC2_F_VEC3_D(GET_POS(gameObj))))
+		{
+			gameObj->SetCulled(false);
+			return true;
+		}
 
+		gameObj->SetCulled(true);
+		return false;
+	}
 	void Camera::RenderOpaque()
 	{
 		for (GameObject* gameObj : mOpaqueGameObjects)
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (!ClipingArea(gameObj)) continue;
 
 			gameObj->Render();
 		}
@@ -207,6 +219,7 @@ namespace m
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (!ClipingArea(gameObj)) continue;
 
 			gameObj->Render();
 		}
@@ -218,6 +231,7 @@ namespace m
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (!ClipingArea(gameObj)) continue;
 
 			gameObj->Render();
 		}

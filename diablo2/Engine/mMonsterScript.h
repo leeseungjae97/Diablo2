@@ -22,8 +22,9 @@ namespace m
         virtual void Render() override;
 
         //void SetMonster(Monster* monster)
-
+        void AttackProgress();
         void AnimationStart(GameObject::eBattleState state);
+        void Hit(bool hit, GameObject::eBattleState state);
         void AnimationComplete(GameObject::eBattleState state);
     private:
         T curMonsterData;
@@ -31,6 +32,8 @@ namespace m
         Animator* mAnimator;
         eMonsterDirection mDirection;
         T::eAnimationType mAnimationType;
+        bool bDamaged;
+        float fDelay;
     };
 }
 

@@ -184,6 +184,7 @@
     <ClInclude Include="mSkillButton.h" />
     <ClInclude Include="mSkillUp.h" />
     <ClInclude Include="mTile.h" />
+    <ClInclude Include="mUVUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="mSkillButton.cpp" />
     <ClCompile Include="mSkillUp.cpp" />
     <ClCompile Include="mTile.cpp" />
+    <ClCompile Include="mUVUI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

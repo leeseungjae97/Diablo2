@@ -28,6 +28,7 @@
 #include "mPlayerScript.h"
 #include "mMonsterScript.h"
 #include "mBottomUI.h"
+#include "mUVUI.h"
 
 extern m::Application application;
 namespace m
@@ -47,18 +48,19 @@ namespace m
 
 		SHARED_TEX tex;
 
-		GameObject* camera = new GameObject();
+		camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Player, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
-		SetSceneMainCamera(ADD_COMP(camera, Camera));
-
+		Camera* cameraComp = ADD_COMP(camera, Camera);
+		SetSceneMainCamera(cameraComp);
+		
 		float TILE_SIZE_X = 160.f;
 		float TILE_SIZE_Y = 80.f;
 
-		for (int y = 0; y < 10; ++y)
+		for (int y = 0; y < 100; ++y)
 		{
-			for (int x = 0; x < 10; ++x)
+			for (int x = 0; x < 100; ++x)
 			{
 				float fX = (float)(TILE_SIZE_X * (x - y)) / 2.f;
 				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
@@ -69,11 +71,12 @@ namespace m
 				SET_MESH(tile, L"RectMesh");
 				SET_MATERIAL(tile, L"testTile");
 				SET_SCALE_XYZ(tile, TILE_SIZE_X, TILE_SIZE_Y, 0.f);
-				SET_POS_XYZ(tile, fX, fY, 1.f);
+				SET_POS_XYZ(tile, fX, fY, 1.0f);
 				tiles.push_back(tile);
 			}
 		}
-		
+		srand((unsigned int)time(NULL));
+		int randPos = rand() % tiles.size();
 
 		GetSceneMainCamera()->DisableLayerMasks();
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
@@ -83,29 +86,33 @@ namespace m
 		renderer::cameras.push_back(GetSceneMainCamera());
 		//camera->AddComponent<GridScript>();
 
-		Monster* monster = new Monster(Vector3(10.f, 10.f, 1.f));
+		Vector3 randTilePos = GET_POS(tiles[randPos]);
+		Player* player = new Player(randTilePos);
+		SET_MAIN_CAMERA(player);
+		AddGameObject(eLayerType::Player, player);
+		SET_MESH(player, L"RectMesh");
+		SET_MATERIAL(player, L"AnimationMaterial");
+		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
+		ADD_COMP(player, Animator);
+		player->SetTile(tiles);
+
+		randTilePos = GET_POS(tiles[randPos + 1]);
+		Monster* monster = new Monster(randTilePos);
 
 		SET_MAIN_CAMERA(monster);
 		AddGameObject(eLayerType::Monster, monster);
 		SET_MESH(monster, L"RectMesh");
 		SET_MATERIAL(monster, L"AnimationMaterial");
-		SET_SCALE_XYZ(monster, 48.f, 74.f, 1.f);
+		SET_SCALE_XYZ(monster, 80.f, 100.f, 1.f);
 		ADD_COMP(monster, Animator);
+
 		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
 		ms->SetMonster(monster);
+		ms->SetPlayer(player);
 		
-		
-		Player* player = new Player(Vector3(0.f, 0.f, 1.f));
-		SET_MAIN_CAMERA(player);
-		AddGameObject(eLayerType::Player, player);
-		SET_MESH(player, L"RectMesh");
-		SET_MATERIAL(player, L"AnimationMaterial");
-		SET_SCALE_XYZ(player, 48.f, 74.f, 0.f);
-		ADD_COMP(player, Animator);
-		player->SetTile(tiles);
-
 		PlayerScript* ps = ADD_COMP(player, PlayerScript);
 		ps->SetPlayer(player);
+		ps->SetMonster(monster);
 
 		GetSceneMainCamera()->SetFollowObject(player);
 		//GameObject* child = new GameObject();
@@ -163,7 +170,7 @@ namespace m
 					, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
 	
-		UI* mp = new UI();
+		UVUI* mp = new UVUI();
 		AddGameObject(eLayerType::UI, mp);
 		mp->SetCamera(cameraComp2);
 		SET_MESH(mp, L"RectMesh");
@@ -193,7 +200,7 @@ namespace m
 		SET_POS_XYZ(uiHp, -RESOL_H_WID + 117.f * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		UI* hp = new UI();
+		UVUI* hp = new UVUI();
 		AddGameObject(eLayerType::UI, hp);
 		hp->SetCamera(cameraComp2);
 		hp->SetName(L"hp");
@@ -203,6 +210,8 @@ namespace m
 		SET_SCALE_TEX_SIZE_WITH_RAT(hp, tex, 0.f);
 		SET_POS_XYZ(hp, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
+
+		player->SetHpUI(hp);
 
 		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);
@@ -247,7 +256,7 @@ namespace m
 	void PlayScene::Update()
 	{
 		Scene::Update();
-		
+
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(L"MainMenuScene");

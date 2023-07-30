@@ -30,6 +30,7 @@ namespace m
 		{
 			Event startEvent;
 			Event completeEvent;
+			Event progressEvent;
 			Event endEvent;
 		};
 
@@ -57,6 +58,7 @@ namespace m
 		std::function<void()>& StartEvent(const std::wstring key);
 		std::function<void()>& CompleteEvent(const std::wstring key);
 		std::function<void()>& EndEvent(const std::wstring key);
+		std::function<void()>& ProgressEvent(const std::wstring key);
 
 		Animation* GetActiveAnimation() { return mActiveAnimation; }
 

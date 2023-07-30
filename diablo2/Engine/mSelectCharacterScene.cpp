@@ -23,8 +23,6 @@ namespace m
 
 		SHARED_TEX tex;
 
-		Vector2 ccp = Camera::GetCameraCenter();
-
 		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::UI, camera);

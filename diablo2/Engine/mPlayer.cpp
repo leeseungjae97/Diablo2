@@ -17,9 +17,15 @@ namespace m
 		, fSpeed(300.f)
 		, fStartDistance(0.f)
 		, fRemainDistance(0.f)
+		, bGetHit(false)
 	{
 		SET_POS_VEC(this, iniPos);
 		ADD_COMP(this, Collider2D);
+
+		rangeCollider = ADD_COMP(this, Collider2D);
+		rangeCollider->SetType(eColliderType::Circle);
+		rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
+
 		ADD_COMP(this, MeshRenderer);
 	}
 	Player::~Player()
@@ -30,9 +36,10 @@ namespace m
 	{
 		GameObject::Update();
 
-		if (GetBattleState() == Dead
-			|| GetBattleState() == Attack
-			|| GetBattleState() == Cast) return;
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Hit
+			|| GetBattleState() == eBattleState::Cast) return;
 
 		Vector3 curPosition = GET_POS(this);
 

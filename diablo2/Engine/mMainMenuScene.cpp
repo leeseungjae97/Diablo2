@@ -27,7 +27,6 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::UI, camera);
 
-		Vector2 ccp = Camera::GetCameraCenter();
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
 		ADD_COMP(camera, CameraScript);
 		SetSceneMainCamera(ADD_COMP(camera, Camera));

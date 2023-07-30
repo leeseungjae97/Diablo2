@@ -30,6 +30,11 @@ namespace renderer
 		Vector2 atlasSize;
 		UINT animationType = 0;
 	};
+	CBUFFER(UVControlCB, CBSLOT_UV)
+	{
+		float UVYCoord = 1.f;
+		UINT uvControlType = 0;
+	};
 
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
 

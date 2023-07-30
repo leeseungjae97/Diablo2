@@ -12,7 +12,10 @@ namespace m
 		, mSprites{}
 		, mIndex(-1)
 		, mTime(0.0f)
+		, mInitIndex(0)
+		, mProgressIndex(0)
 		, mbComplete(false)
+		, mbProgress(false)
 	{
 
 	}
@@ -41,6 +44,10 @@ namespace m
 				mbComplete = true;
 			}
 		}
+		if (mIndex == mProgressIndex)
+		{
+			mbProgress = true;
+		}
 	}
 	void Animation::Render()
 	{
@@ -66,13 +73,13 @@ namespace m
 			sprite.leftTop.y = leftTop.y / height;
 			sprite.size.x = size.x / width;
 			sprite.size.y = size.y / height;
-			sprite.offset = offset;
+			sprite.offset.x = offset.x / width;
+			sprite.offset.y = offset.y / height;
 			sprite.atlasSize = Vector2(size.x / width, size.y / height);
 			sprite.duration = duration;
 
 			mSprites.push_back(sprite);
 		}
-
 	}
 
 	void Animation::Binds()
@@ -99,6 +106,7 @@ namespace m
 	{
 		mTime = 0.0f;
 		mbComplete = false;
-		mIndex = 0;
+		mbProgress = false;
+		mIndex = mInitIndex;
 	}
 }

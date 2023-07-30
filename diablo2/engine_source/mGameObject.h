@@ -117,6 +117,10 @@ namespace m
 		bool GetHover() { return bHover; }
 		std::vector<Script*>& GetScripts() { return mScripts; }
 		std::vector<Component*> GetComponents() { return mComponents; }
+
+		bool GetCulled() { return bCulled; }
+		void SetCulled(bool cull) { bCulled = cull; }
+
 	private:
 		eState mState;
 		eBattleState mBattleState;
@@ -125,6 +129,8 @@ namespace m
 
 		Camera* mCamera;
 		bool bHover;
+
+		bool bCulled;
 	};
 }
 

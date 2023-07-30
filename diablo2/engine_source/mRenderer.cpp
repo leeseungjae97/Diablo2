@@ -78,6 +78,15 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"NoLightShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = m::Resources::Find<Shader>(L"UVControlShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -230,6 +239,12 @@ namespace renderer
 		indexes.push_back(2);
 		indexes.push_back(3);
 
+		std::shared_ptr<Mesh> UVControlfullMesh = std::make_shared<Mesh>();
+		Resources::Insert(L"UVControlRectMesh", UVControlfullMesh);
+		UVControlfullMesh->SetVertexes(vertexes);
+		UVControlfullMesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		UVControlfullMesh->CreateIndexBuffer(indexes.data(), indexes.size());
+
 		std::shared_ptr<Mesh> fullMesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", fullMesh);
 		fullMesh->SetVertexes(vertexes);
@@ -321,6 +336,9 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
 		constantBuffers[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
 
+		constantBuffers[(UINT)eCBType::UVControl] = new ConstantBuffer(eCBType::UVControl);
+		constantBuffers[(UINT)eCBType::UVControl]->Create(sizeof(UVControlCB));
+
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 2, eSRVType::None);
 	}
@@ -355,12 +373,25 @@ namespace renderer
 		animationShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
 		animationShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
 		m::Resources::Insert(L"AnimationShader", animationShader);
+
+		std::shared_ptr<Shader> noLightShader = std::make_shared<Shader>();
+		noLightShader->Create(eShaderStage::VS, L"NoLightSpriteVS.hlsl", "main");
+		noLightShader->Create(eShaderStage::PS, L"NoLightSpritePS.hlsl", "main");
+		m::Resources::Insert(L"NoLightShader", noLightShader);
+
+		
+		std::shared_ptr<Shader> UVControlShader = std::make_shared<Shader>();
+		UVControlShader->Create(eShaderStage::VS, L"UVControlVS.hlsl", "main");
+		UVControlShader->Create(eShaderStage::PS, L"UVControlPS.hlsl", "main");
+		m::Resources::Insert(L"UVControlShader", UVControlShader);
 	}
 
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Shader> animShader = m::Resources::Find<Shader>(L"AnimationShader");
+		std::shared_ptr<Shader> noLightSahder = m::Resources::Find<Shader>(L"NoLightShader");
+		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
 #pragma region Monster
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");
 		MAKE_MATERIAL(spriteShader, L"diablo_walk", L"..\\Resources\\texture\\enemy\\diablo\\diablo_walk.png", L"diabloWalk");
@@ -378,26 +409,7 @@ namespace renderer
 #pragma endregion
 
 #pragma region Characters
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"amazon_attack1", L"..\\Resources\\texture\\character\\amazon_attack1.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"amazonAttack1", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"amazon_walk", L"..\\Resources\\texture\\character\\amazon_walk.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"amazonWalk", spriteMateiral);
-		}
 		// town
-
 		MAKE_MATERIAL(spriteShader, L"sorceress_town_natural", L"..\\Resources\\texture\\character\\sorceress\\natural.png", L"sorceressTownNatural");
 		MAKE_MATERIAL(spriteShader, L"sorceress_town_walk", L"..\\Resources\\texture\\character\\sorceress\\town_walk.png", L"sorceressTownWalk");
 
@@ -415,52 +427,52 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"sorceress_dead", L"..\\Resources\\texture\\character\\sorceress\\dead.png", L"sorceressDead");
 #pragma endregion
 #pragma region Background
-		MAKE_MATERIAL(spriteShader, L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png", L"mainMenu2");
-		MAKE_MATERIAL(spriteShader, L"main_menu_2_1", L"..\\Resources\\texture\\ui\\mainMenu\\main_menu_2_1.png", L"mainMenu2_1");
-		MAKE_MATERIAL(spriteShader, L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png", L"characterSelect1");
-		MAKE_MATERIAL(spriteShader, L"charactercreation_test", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreation_.png", L"charactercreationTest");
-		MAKE_MATERIAL(spriteShader, L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png", L"testLogo");
+		MAKE_MATERIAL(noLightSahder, L"main_menu_2", L"..\\Resources\\texture\\ui\\mainMenu\\mainMenu2.png", L"mainMenu2");
+		MAKE_MATERIAL(noLightSahder, L"main_menu_2_1", L"..\\Resources\\texture\\ui\\mainMenu\\main_menu_2_1.png", L"mainMenu2_1");
+		MAKE_MATERIAL(noLightSahder, L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png", L"characterSelect1");
+		MAKE_MATERIAL(noLightSahder, L"charactercreation_test", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreation_.png", L"charactercreationTest");
+		MAKE_MATERIAL(noLightSahder, L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png", L"testLogo");
 #pragma endregion
 #pragma region Buttons
-		MAKE_MATERIAL(spriteShader, L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\buttons\\MediumButtonBlank.png", L"mMediumButtonBlank");
-		MAKE_MATERIAL(spriteShader, L"m_button_blank", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank.png", L"mWideButtonBlank");
-		MAKE_MATERIAL(spriteShader, L"m_button_blank_02", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank02.png", L"mWideButtonBlankClick");
-		MAKE_MATERIAL(spriteShader, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.png", L"tabBt");
-		MAKE_MATERIAL(spriteShader, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.png", L"closeBtn");
-		MAKE_MATERIAL(spriteShader, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.png", L"closeBtnClick");
+		MAKE_MATERIAL(noLightSahder, L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\buttons\\MediumButtonBlank.png", L"mMediumButtonBlank");
+		MAKE_MATERIAL(noLightSahder, L"m_button_blank", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank.png", L"mWideButtonBlank");
+		MAKE_MATERIAL(noLightSahder, L"m_button_blank_02", L"..\\Resources\\texture\\ui\\buttons\\widebuttonblank02.png", L"mWideButtonBlankClick");
+		MAKE_MATERIAL(noLightSahder, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.png", L"tabBt");
+		MAKE_MATERIAL(noLightSahder, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.png", L"closeBtn");
+		MAKE_MATERIAL(noLightSahder, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.png", L"closeBtnClick");
 #pragma endregion
 #pragma region Tiles
 		MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
 		MAKE_MATERIAL(spriteShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
 #pragma endregion
 #pragma region ETC
-		MAKE_MATERIAL(spriteShader, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
-		MAKE_MATERIAL(spriteShader, L"test_sc", L"..\\Resources\\texture\\sc_town_walk.png", L"testSc");
-		MAKE_MATERIAL(spriteShader, L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png", L"panelBorderLeft");
-		MAKE_MATERIAL(spriteShader, L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png", L"panelBorderRight");
-		MAKE_MATERIAL(spriteShader, L"t1", L"..\\Resources\\texture\\move_scene_key_info.png", L"tt1");
-		MAKE_MATERIAL(spriteShader, L"t2", L"..\\Resources\\texture\\inven_key_info.png", L"tt2");
-		MAKE_MATERIAL(spriteShader, L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png", L"testDebugRect");
-		MAKE_MATERIAL(spriteShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect");
-		MAKE_MATERIAL(spriteShader, L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png", L"invenRect");
+		MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
+		MAKE_MATERIAL(noLightSahder, L"test_sc", L"..\\Resources\\texture\\sc_town_walk.png", L"testSc");
+		MAKE_MATERIAL(noLightSahder, L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png", L"panelBorderLeft");
+		MAKE_MATERIAL(noLightSahder, L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png", L"panelBorderRight");
+		MAKE_MATERIAL(noLightSahder, L"t1", L"..\\Resources\\texture\\move_scene_key_info.png", L"tt1");
+		MAKE_MATERIAL(noLightSahder, L"t2", L"..\\Resources\\texture\\inven_key_info.png", L"tt2");
+		MAKE_MATERIAL(noLightSahder, L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png", L"testDebugRect");
+		MAKE_MATERIAL(noLightSahder, L"none", L"..\\Resources\\texture\\none.png", L"noneRect");
+		MAKE_MATERIAL(noLightSahder, L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png", L"invenRect");
 #pragma endregion
 #pragma region Items
 
-		MAKE_MATERIAL(spriteShader, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
-		MAKE_MATERIAL(spriteShader, L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png", itemNameTable[(int)eItem::mpPosion1]);
-		MAKE_MATERIAL(spriteShader, L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png", itemNameTable[(int)eItem::jaredsStone]);
-		MAKE_MATERIAL(spriteShader, L"leader_armor", L"..\\Resources\\texture\\inventory_items\\armor\\leader_armor.png", itemNameTable[(int)eItem::leaderArmor]);
-		MAKE_MATERIAL(spriteShader, L"cap_", L"..\\Resources\\texture\\inventory_items\\armor\\cap.png", itemNameTable[(int)eItem::cap]);
+		MAKE_MATERIAL(noLightSahder, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
+		MAKE_MATERIAL(noLightSahder, L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png", itemNameTable[(int)eItem::mpPosion1]);
+		MAKE_MATERIAL(noLightSahder, L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png", itemNameTable[(int)eItem::jaredsStone]);
+		MAKE_MATERIAL(noLightSahder, L"leader_armor", L"..\\Resources\\texture\\inventory_items\\armor\\leader_armor.png", itemNameTable[(int)eItem::leaderArmor]);
+		MAKE_MATERIAL(noLightSahder, L"cap_", L"..\\Resources\\texture\\inventory_items\\armor\\cap.png", itemNameTable[(int)eItem::cap]);
 #pragma endregion
 #pragma region Bottom User Interface
-		MAKE_MATERIAL(spriteShader, L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png", L"bottomUi");
-		MAKE_MATERIAL(spriteShader, L"hp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanellife.png", L"hpUi");
-		MAKE_MATERIAL(spriteShader, L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png", L"mpUi");
-		MAKE_MATERIAL(spriteShader, L"ex_pocket", L"..\\Resources\\texture\\ui\\play\\ex_pocket.png", L"exPocket");
-		MAKE_MATERIAL(spriteShader, L"hp_t", L"..\\Resources\\texture\\ui\\play\\life.png", L"hp");
-		MAKE_MATERIAL(spriteShader, L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png", L"mp");
-		MAKE_MATERIAL(spriteShader, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
-		MAKE_MATERIAL(spriteShader, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");
+		MAKE_MATERIAL(noLightSahder, L"bottom_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelcenter.png", L"bottomUi");
+		MAKE_MATERIAL(noLightSahder, L"hp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanellife.png", L"hpUi");
+		MAKE_MATERIAL(noLightSahder, L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png", L"mpUi");
+		MAKE_MATERIAL(noLightSahder, L"ex_pocket", L"..\\Resources\\texture\\ui\\play\\ex_pocket.png", L"exPocket");
+		MAKE_MATERIAL(UVControlShader, L"hp_t", L"..\\Resources\\texture\\ui\\play\\life.png", L"hp");
+		MAKE_MATERIAL(UVControlShader, L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png", L"mp");
+		MAKE_MATERIAL(noLightSahder, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
+		MAKE_MATERIAL(noLightSahder, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");
 #pragma endregion
 #pragma region Skill User Interface
 		{
@@ -874,109 +886,29 @@ namespace renderer
 		}
 #pragma endregion
 #pragma region Skill Lightning
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"chain_lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"chainLightningIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"charged_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"chargedBoltIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"energy_shield_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"energyShieldIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"lightningIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"lightning_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"lightningMasteryIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"nove_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"noveIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"static_field_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"staticFieldIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"telekinesis_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"telekinesisIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"teleport_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"teleportIcon", spriteMateiral);
-		}
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm.png");
-
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"thunderStormIcon", spriteMateiral);
-		}
+		MAKE_MATERIAL(noLightSahder, L"chain_lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning.png", L"chainLightningIcon")
+		MAKE_MATERIAL(noLightSahder, L"charged_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt.png", L"chargedBoltIcon")
+		MAKE_MATERIAL(noLightSahder, L"energy_shield_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield.png", L"energyShieldIcon")
+		MAKE_MATERIAL(noLightSahder, L"lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning.png", L"lightningIcon")
+		MAKE_MATERIAL(noLightSahder, L"lightning_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery.png", L"lightningMasteryIcon")
+		MAKE_MATERIAL(noLightSahder, L"nove_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove.png", L"noveIcon")
+		MAKE_MATERIAL(noLightSahder, L"static_field_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field.png", L"staticFieldIcon")
+		MAKE_MATERIAL(noLightSahder, L"telekinesis_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis.png", L"telekinesisIcon")
+		MAKE_MATERIAL(noLightSahder, L"teleport_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport.png", L"teleportIcon")
+		MAKE_MATERIAL(noLightSahder, L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm.png", L"thunderStormIcon")
 #pragma endregion
 #pragma region Skill Click Lightning
-		MAKE_MATERIAL(spriteShader, L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png", L"chargedBoltClickIcon")
-		MAKE_MATERIAL(spriteShader, L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png", L"staticFieldClickIcon")
-		MAKE_MATERIAL(spriteShader, L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png", L"telekinesisClickIcon")
-		MAKE_MATERIAL(spriteShader, L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png", L"noveClickIcon")
-		MAKE_MATERIAL(spriteShader, L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png", L"lightningClickIcon")
-		MAKE_MATERIAL(spriteShader, L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png", L"chainLightningClickIcon")
-		MAKE_MATERIAL(spriteShader, L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png", L"teleportClickIcon")
-		MAKE_MATERIAL(spriteShader, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
-		MAKE_MATERIAL(spriteShader, L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png", L"energyShieldClickIcon")
-		MAKE_MATERIAL(spriteShader, L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png", L"lightningMasteryClickIcon")
-		MAKE_MATERIAL(spriteShader, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png", L"chargedBoltClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png", L"staticFieldClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png", L"telekinesisClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png", L"noveClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png", L"lightningClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png", L"chainLightningClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png", L"teleportClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png", L"energyShieldClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png", L"lightningMasteryClickIcon")
+		MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
 #pragma endregion
 #pragma region Inventory
 		{
@@ -984,7 +916,7 @@ namespace renderer
 				= Resources::Load<Texture>(L"inventory_panel", L"..\\Resources\\texture\\ui\\play\\inventorypanel.png");
 
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(noLightSahder);
 			spriteMateiral->SetTexture(texture);
 			//spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"inventoryPanel", spriteMateiral);
@@ -1017,7 +949,7 @@ namespace renderer
 
 			material = std::make_shared<Material>();
 			material->SetShader(spriteShader);
-			material->SetRenderingMode(eRenderingMode::Transparent);
+			//material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"AnimationMaterial", material);
 		}
 	}

@@ -72,6 +72,7 @@
     <ClCompile Include="mMonsterScript.cpp">
       <Filter>Script\MonsterScript</Filter>
     </ClCompile>
+    <ClCompile Include="mUVUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="mMonsterScript.h">
       <Filter>Script\MonsterScript</Filter>
     </ClInclude>
+    <ClInclude Include="mUVUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -233,6 +235,9 @@
     </Filter>
     <Filter Include="Script\MonsterScript">
       <UniqueIdentifier>{abf28967-1bf8-4e10-b73a-22ee09882019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UVUI">
+      <UniqueIdentifier>{4a97b7f2-b619-42ef-9070-bcaec63cce40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

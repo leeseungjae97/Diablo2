@@ -6,7 +6,10 @@ namespace m
 	{
 	public:
 		static int skillPoint;
-
+		static float hp;
+		static float hpCapacity;
+		static float hpPercent;
+		static float mp;
 		static int learnedSkill[3][10];
 
 		static std::vector<InvenItem*> inventoryItems;
@@ -14,6 +17,7 @@ namespace m
 
 		static void PocketToInventory(InvenItem* item);
 		static void InventoryToPocket(InvenItem* item);
+		static void CalHpPercent();
 		static void Initialize();
 	private:
 		

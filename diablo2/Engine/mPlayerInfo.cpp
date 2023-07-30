@@ -5,6 +5,10 @@ namespace m
 {
 	int PlayerInfo::learnedSkill[3][10]= {};
 	int PlayerInfo::skillPoint = 0;
+	float PlayerInfo::hp = 100.f;
+	float PlayerInfo::hpCapacity = 100.f;
+	float PlayerInfo::hpPercent = 1.f;
+	float PlayerInfo::mp = 100.f;
 	std::vector<InvenItem*> PlayerInfo::inventoryItems;
 	std::vector<InvenItem*> PlayerInfo::pocketPosions;
 
@@ -33,6 +37,10 @@ namespace m
 				iter = inventoryItems.erase(iter);
 		}
 		pocketPosions.push_back(item);
+	}
+	void PlayerInfo::CalHpPercent()
+	{
+		hpPercent = (hpCapacity - hp) / hpCapacity;
 	}
 	void PlayerInfo::Initialize()
 	{

@@ -12,11 +12,13 @@
 #include "../engine_source/mInput.h"
 
 #include "mPlayer.h"
+#include "mMonster.h"
 
 extern m::Application application;
 namespace m
 {
 	PlayerScript::PlayerScript()
+		: bDamage(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -92,11 +94,13 @@ namespace m
 				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
+			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
+				= [this]() { AttackProgress(); };
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) 
-				= [this]() { AnimationStart(GameObject::eBattleState::Hit); };
+				= [this]() { Hit(true, GameObject::eBattleState::Hit); };
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
-				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
+				= [this]() { Hit(false, GameObject::eBattleState::Idle); };
 		}
 		
 		mDirection = eCharacterDirection::Down;
@@ -113,10 +117,13 @@ namespace m
 			mAnimationType = eSorceressAnimationType::Attack1;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
+			{
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
+				mAnimator->GetActiveAnimation()->SetProgressIndex(14);
+			}
 		}
 
-		if (Input::GetKeyUpOne(eKeyCode::B))
+		if (GetPlayer()->GetHit())
 		{
 			mAnimationType = eSorceressAnimationType::GetHit;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
@@ -191,10 +198,28 @@ namespace m
 	}
 	void PlayerScript::AnimationStart(GameObject::eBattleState state)
 	{
+		bDamage = false;
 		GetOwner()->SetBattleState(state);
 	}
 	void PlayerScript::AnimationComplete(GameObject::eBattleState state)
 	{
+		bDamage = false;
 		GetOwner()->SetBattleState(state);
+	}
+	void PlayerScript::Hit(bool hit, GameObject::eBattleState state)
+	{
+		GetPlayer()->SetHit(hit);
+		GetOwner()->SetBattleState(state);
+	}
+	void PlayerScript::AttackProgress()
+	{
+		if (GetPlayer()->GetRangeCollider()->GetOnStay())
+		{
+			if (!bDamage)
+			{
+				GetMonster()->Hit(10);
+				bDamage = true;
+			}
+		}
 	}
 };

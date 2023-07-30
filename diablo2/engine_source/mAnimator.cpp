@@ -38,6 +38,12 @@ namespace m
 				events->completeEvent();
 			mActiveAnimation->Reset();
 		}
+		if (mActiveAnimation->IsProgress())
+		{
+			Events* events = FindEvents(mActiveAnimation->GetKey());
+			if (events)
+				events->progressEvent();
+		}
 		if (mActiveAnimation->IsComplete() && !mbLoop)
 		{
 			Events* events = FindEvents(mActiveAnimation->GetKey());
@@ -165,5 +171,11 @@ namespace m
 		Events* events = FindEvents(key);
 
 		return events->endEvent.mEvent;
+	}
+	std::function<void()>& Animator::ProgressEvent(const std::wstring key)
+	{
+		Events* events = FindEvents(key);
+
+		return events->progressEvent.mEvent;
 	}
 }

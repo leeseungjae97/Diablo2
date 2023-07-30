@@ -50,18 +50,24 @@ namespace m
 		void Binds();
 		void Reset();
 		void SetIndex(int index) { mIndex = index; }
+		void SetInitIndex(int index) { mInitIndex = index; }
+		void SetProgressIndex(int index) { mProgressIndex = index; }
 		const Sprite& GetCurrentSprite() { return mSprites[mIndex]; }
 
 		int GetIndex() { return mIndex; }
+		int GetProgressIndex() { return mProgressIndex; }
 		bool IsComplete() { return mbComplete; }
-
+		bool IsProgress() { return mbProgress; }
 	private:
 		std::shared_ptr<graphics::Texture> mAtlas;
 		Animator* mAnimator;
 		std::vector<Sprite> mSprites;
+		int mInitIndex;
 		int mIndex;
+		int mProgressIndex;
 		float mTime;
 		bool mbComplete;
+		bool mbProgress;
 	};
 }
 

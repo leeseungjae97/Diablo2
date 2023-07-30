@@ -128,6 +128,10 @@ struct Monster {
 };
 struct DiabloSt : public Monster
 {
+	float fAttackDelay = 2.5f;
+	float hp = 100;
+	float hpCapacity;
+
 	enum class eAnimationType
 	{
 		Attack1,
@@ -175,8 +179,38 @@ struct DiabloSt : public Monster
 		L"diabloSpecial4_anim",
 		L"diabloDead",
 	};
+	m::math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
+		m::math::Vector2(0.f, 0.f), // Attack1
+		m::math::Vector2(0.f, 0.f),	// Attack2
+		m::math::Vector2(0.f, 0.f),	// Block
+		m::math::Vector2(0.f, 0.f),	// Hit
+		m::math::Vector2(0.f, 0.f),	// Natural
+		m::math::Vector2(0.f, 15.f),	// Run
+		m::math::Vector2(0.f, 0.f),	// Walk
+		m::math::Vector2(0.f, 0.f),	// SpecialCast
+		m::math::Vector2(0.f, 0.f),	// Special1
+		m::math::Vector2(0.f, 0.f),	// Special2
+		m::math::Vector2(0.f, 0.f),	// Special3
+		m::math::Vector2(0.f, 0.f),	// Special4
+		m::math::Vector2(0.f, 0.f),	// Dead
+	};
+	float animationDuration[(UINT)eAnimationType::End] = {
+		0.05f,   // Attack1
+		0.05f,	// Attack2
+		0.05f,	// Block
+		0.05f,	// Hit
+		0.05f,	// Natural
+		0.05f,	// Run
+		0.05f,	// Walk
+		0.05f,	// SpecialCast
+		0.05f,	// Special1
+		0.05f,	// Special2
+		0.05f,	// Special3
+		0.05f,	// Special4
+		0.05f,	// Dead
+	};
 	m::math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
-		m::math::Vector2(4960.f / 20.f, 1791.f / 8.f),	// Attack1
+		m::math::Vector2(4960.f / 16.f, 1791.f / 8.f),	// Attack1
 		m::math::Vector2(5760.f / 20.f, 2295.f / 8.f),	// Attack2
 		m::math::Vector2(2655.f / 9.f, 1551.f / 8.f),	// Block
 		m::math::Vector2(1853.f / 6.f, 1767.f / 8.f),	// Hit
@@ -196,7 +230,7 @@ struct DiabloSt : public Monster
 		9, // Block
 		6, // Hit
 		12,// Natural
-		22, // Run
+		13, // Run
 		12, // Walk
 		17,// SpecialCast
 		18,// Special1

@@ -20,7 +20,6 @@ namespace m
 
 		Matrix& GetPrivateViewMatrix() { return mView; }
 		Matrix& GetPrivateProjectionMatrix() { return mProjection; }
-		static Vector2 GetCameraCenter() { return mCameraCenter; }
 		Camera();
 		~Camera();
 
@@ -44,7 +43,7 @@ namespace m
 		void RenderOpaque();
 		void RenderCutOut();
 		void RenderTransparent();
-
+		bool ClipingArea(GameObject* gameObj);
 		static void EnableDepthStencilState();
 		static void DisableDepthStencilState();
 
@@ -60,7 +59,9 @@ namespace m
 		Matrix mView;
 		Matrix mProjection;
 
-		static Vector2 mCameraCenter;
+		float mWidth;
+		float mHeight;
+		Vector3 mPos;
 
 		eProjectionType mType;
 		float mAspectRatio;

@@ -22,7 +22,9 @@ namespace m
         void Complete();
         void AnimationStart(GameObject::eBattleState state);
         void AnimationComplete(GameObject::eBattleState state);
-
+        
+        void Hit(bool hit, GameObject::eBattleState state);
+        void AttackProgress();
         //virtual void OnCollisionEnter(Collider2D* other) override;
         //virtual void OnCollisionStay(Collider2D* other) override;
         //virtual void OnCollisionExit(Collider2D* other) override;
@@ -30,6 +32,8 @@ namespace m
         Animator* mAnimator;
         eCharacterDirection mDirection;
         eSorceressAnimationType mAnimationType;
+
+        bool bDamage;
     };
 }
 
