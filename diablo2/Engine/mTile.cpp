@@ -6,6 +6,7 @@ namespace m
 {
 	Tile::Tile(Vector2 coord)
 		: mCoord(coord)
+		, isWall(false)
 	{
 		AddComponent<MeshRenderer>();
 	}

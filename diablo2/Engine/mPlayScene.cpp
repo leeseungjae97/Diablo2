@@ -14,6 +14,7 @@
 #include "..\engine_source\mFontWrapper.h"
 #include "..\engine_source\mComputeShader.h"
 
+#include "mAstar.h"
 #include "mCameraScript.h"
 #include "mBackground.h"
 #include "mPlayer.h"
@@ -58,9 +59,9 @@ namespace m
 		float TILE_SIZE_X = 160.f;
 		float TILE_SIZE_Y = 80.f;
 
-		for (int y = 0; y < 100; ++y)
+		for (int y = 0; y < 10; ++y)
 		{
-			for (int x = 0; x < 100; ++x)
+			for (int x = 0; x < 10; ++x)
 			{
 				float fX = (float)(TILE_SIZE_X * (x - y)) / 2.f;
 				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
@@ -69,7 +70,22 @@ namespace m
 				AddGameObject(eLayerType::Tile, tile);
 				SET_MAIN_CAMERA(tile);
 				SET_MESH(tile, L"RectMesh");
+				if ((y == 2 && x == 2) 
+					|| (y == 2 && x == 3)
+					|| (y == 2 && x == 4)
+					|| (y == 2 && x == 5)
+					|| (y == 2 && x == 6)
+					)
+				{
+					tile->SetIsWall(true);
+				}
+				else
+				{
+					tile->SetIsWall(false);
+				}
 				SET_MATERIAL(tile, L"testTile");
+				
+				
 				SET_SCALE_XYZ(tile, TILE_SIZE_X, TILE_SIZE_Y, 0.f);
 				SET_POS_XYZ(tile, fX, fY, 1.0f);
 				tiles.push_back(tile);
@@ -77,6 +93,12 @@ namespace m
 		}
 		srand((unsigned int)time(NULL));
 		int randPos = rand() % tiles.size();
+
+		Astar* a = new Astar();
+		a->SetTiles(tiles);
+		a->SetXLength(10);
+		a->SetYLength(10);
+		a->Initialize();
 
 		GetSceneMainCamera()->DisableLayerMasks();
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
