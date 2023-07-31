@@ -121,6 +121,9 @@ namespace m
 		bool GetCulled() { return bCulled; }
 		void SetCulled(bool cull) { bCulled = cull; }
 
+		bool IsRhombus() { return bRhombus; }
+		void SetIsRhombus(bool r) { bRhombus = r; }
+
 	private:
 		eState mState;
 		eBattleState mBattleState;
@@ -128,6 +131,7 @@ namespace m
 		std::vector<Script*> mScripts;
 
 		Camera* mCamera;
+		bool bRhombus;
 		bool bHover;
 
 		bool bCulled;

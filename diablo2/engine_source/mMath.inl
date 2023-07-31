@@ -756,6 +756,48 @@ inline bool m::math::Vector2::PointIntersectRect(Vector2 targetVector, Vector2 t
     }
     else return false;
 }
+inline bool m::math::Vector2::PointIntersectRhombus(Vector2 pos, Vector2 scale, Vector2 otherPos)
+{
+    Vector2 vertex[4];
+    float gradient[4];
+    float intercept[4];
+    //float direct[4][2] = {
+    //    {0, (scale.y / 2)},
+    //    {(scale.x / 2), 0},
+    //    {scale.x, (scale.y / 2)},
+    //    {(scale.x / 2), scale.y}
+    //};
+    float direct[4][2] = {
+        {-(scale.x / 2.f), 0},
+        {0, -(scale.y / 2.f)},
+        {(scale.x / 2.f), 0},
+        {0, (scale.y / 2.f)},
+    };
+    for (size_t i = 0; i < 4; i++)
+    {
+        vertex[i].x = pos.x + direct[i][0];
+        vertex[i].y = pos.y + direct[i][1];
+    }
+    for (size_t i = 0; i < 4; i++)
+    {   // 0 - 1, 1 - 2, 2 - 3, 3 - 0
+        gradient[i] = ((vertex[i].y - vertex[(i + 1) % 4].y) / (vertex[i].x - vertex[(i + 1) % 4].x));
+        intercept[i] = vertex[i].y - gradient[i] * vertex[i].x;
+    }
+    float _y = otherPos.y;
+    float _x = otherPos.x;
+
+    if (gradient[0] * _x + intercept[0] < _y
+        && gradient[1] * _x + intercept[1] < _y
+        && gradient[2] * _x + intercept[2] > _y
+        && gradient[3] * _x + intercept[3] > _y)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 inline bool m::math::Vector2::RectIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale)
 {
     if (fabs(targetVector.x - ohterVector.x) < targetScale.x / 2.f + otherScale.x / 2.f

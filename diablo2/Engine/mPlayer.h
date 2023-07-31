@@ -1,7 +1,7 @@
 #pragma once
 #include "..\engine_source\mGameObject.h"
 #include "..\engine_source\mCamera.h"
-
+#include "..\engine_source\mTileManager.h"
 
 #include "mPlayerInfo.h"
 #include "mUVUI.h"
@@ -37,7 +37,7 @@ namespace m
         bool GetHit() { return bGetHit; }
         void SetHit(bool hit) { bGetHit = hit; }
 
-        void SetTile(std::vector<Tile*> vec) { tiles = vec; }
+        void SetTile(TILES vec) { tiles = vec; }
 
         UVUI* GetHpUI() { return mHp; }
         UVUI* GetMpUI() { return mMp; }
@@ -61,7 +61,7 @@ namespace m
 
         bool bGetHit;
 
-        std::vector<Tile*> tiles;
+        TILES tiles;
 
         UVUI* mHp;
         UVUI* mMp;

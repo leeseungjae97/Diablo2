@@ -1,6 +1,7 @@
 #pragma once
 namespace m
 {
+	class Player;
 	class InvenItem;
 	class PlayerInfo
 	{
@@ -14,6 +15,8 @@ namespace m
 
 		static std::vector<InvenItem*> inventoryItems;
 		static std::vector<InvenItem*> pocketPosions;
+
+		static Player* player;
 
 		static void PocketToInventory(InvenItem* item);
 		static void InventoryToPocket(InvenItem* item);

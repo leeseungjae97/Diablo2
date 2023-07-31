@@ -17,6 +17,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAstar.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollisionManager.cpp" />
@@ -44,6 +45,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
@@ -55,6 +57,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAstar.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCollisionManager.h" />
@@ -85,6 +88,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />

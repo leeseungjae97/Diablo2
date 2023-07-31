@@ -161,7 +161,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="mAstar.h" />
     <ClInclude Include="mBottomUI.h" />
     <ClInclude Include="mFieldItem.h" />
     <ClInclude Include="mGridScript.h" />
@@ -189,7 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="mAstar.cpp" />
     <ClCompile Include="mBottomUI.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
     <ClCompile Include="mGridScript.cpp" />

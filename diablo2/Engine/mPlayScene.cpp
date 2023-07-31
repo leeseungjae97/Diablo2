@@ -13,8 +13,9 @@
 #include "..\engine_source\AnimLookUpTables.h"
 #include "..\engine_source\mFontWrapper.h"
 #include "..\engine_source\mComputeShader.h"
+#include "..\engine_source\mTileManager.h"
+#include "..\engine_source\mAstar.h"
 
-#include "mAstar.h"
 #include "mCameraScript.h"
 #include "mBackground.h"
 #include "mPlayer.h"
@@ -30,6 +31,7 @@
 #include "mMonsterScript.h"
 #include "mBottomUI.h"
 #include "mUVUI.h"
+#include "mPlayerInfo.h"
 
 extern m::Application application;
 namespace m
@@ -55,50 +57,16 @@ namespace m
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
-		
-		float TILE_SIZE_X = 160.f;
-		float TILE_SIZE_Y = 80.f;
 
-		for (int y = 0; y < 10; ++y)
-		{
-			for (int x = 0; x < 10; ++x)
-			{
-				float fX = (float)(TILE_SIZE_X * (x - y)) / 2.f;
-				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
-				Tile* tile = new Tile(Vector2(x, y));
+		TileManager::MakeTile(50, 50, cameraComp);
+		PlayerInfo::Initialize();
 
-				AddGameObject(eLayerType::Tile, tile);
-				SET_MAIN_CAMERA(tile);
-				SET_MESH(tile, L"RectMesh");
-				if ((y == 2 && x == 2) 
-					|| (y == 2 && x == 3)
-					|| (y == 2 && x == 4)
-					|| (y == 2 && x == 5)
-					|| (y == 2 && x == 6)
-					)
-				{
-					tile->SetIsWall(true);
-				}
-				else
-				{
-					tile->SetIsWall(false);
-				}
-				SET_MATERIAL(tile, L"testTile");
-				
-				
-				SET_SCALE_XYZ(tile, TILE_SIZE_X, TILE_SIZE_Y, 0.f);
-				SET_POS_XYZ(tile, fX, fY, 1.0f);
-				tiles.push_back(tile);
-			}
-		}
+		SET_MAIN_CAMERA(PlayerInfo::player);
+
+		AddGameObject(eLayerType::Player, PlayerInfo::player);
+
 		srand((unsigned int)time(NULL));
-		int randPos = rand() % tiles.size();
-
-		Astar* a = new Astar();
-		a->SetTiles(tiles);
-		a->SetXLength(10);
-		a->SetYLength(10);
-		a->Initialize();
+		int randPos = rand() % TileManager::tiles.size();
 
 		GetSceneMainCamera()->DisableLayerMasks();
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
@@ -108,17 +76,8 @@ namespace m
 		renderer::cameras.push_back(GetSceneMainCamera());
 		//camera->AddComponent<GridScript>();
 
-		Vector3 randTilePos = GET_POS(tiles[randPos]);
-		Player* player = new Player(randTilePos);
-		SET_MAIN_CAMERA(player);
-		AddGameObject(eLayerType::Player, player);
-		SET_MESH(player, L"RectMesh");
-		SET_MATERIAL(player, L"AnimationMaterial");
-		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
-		ADD_COMP(player, Animator);
-		player->SetTile(tiles);
-
-		randTilePos = GET_POS(tiles[randPos + 1]);
+		Vector3 randTilePos = GET_POS(TileManager::tiles[0][0]);
+	
 		Monster* monster = new Monster(randTilePos);
 
 		SET_MAIN_CAMERA(monster);
@@ -130,13 +89,13 @@ namespace m
 
 		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
 		ms->SetMonster(monster);
-		ms->SetPlayer(player);
+		ms->SetPlayer(PlayerInfo::player);
 		
-		PlayerScript* ps = ADD_COMP(player, PlayerScript);
-		ps->SetPlayer(player);
+		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
+		ps->SetPlayer(PlayerInfo::player);
 		ps->SetMonster(monster);
 
-		GetSceneMainCamera()->SetFollowObject(player);
+		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 		//GameObject* child = new GameObject();
 		//child->SetCamera(cameraComp);
 		//AddGameObject(eLayerType::Player, child);
@@ -233,7 +192,7 @@ namespace m
 		SET_POS_XYZ(hp, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		player->SetHpUI(hp);
+		PlayerInfo::player->SetHpUI(hp);
 
 		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);

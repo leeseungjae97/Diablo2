@@ -72,8 +72,9 @@
     <ClCompile Include="mMonsterScript.cpp">
       <Filter>Script\MonsterScript</Filter>
     </ClCompile>
-    <ClCompile Include="mUVUI.cpp" />
-    <ClCompile Include="mAstar.cpp" />
+    <ClCompile Include="mUVUI.cpp">
+      <Filter>UI\UVUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -144,8 +145,9 @@
     <ClInclude Include="mMonsterScript.h">
       <Filter>Script\MonsterScript</Filter>
     </ClInclude>
-    <ClInclude Include="mUVUI.h" />
-    <ClInclude Include="mAstar.h" />
+    <ClInclude Include="mUVUI.h">
+      <Filter>UI\UVUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -240,12 +242,6 @@
     </Filter>
     <Filter Include="UI\UVUI">
       <UniqueIdentifier>{4a97b7f2-b619-42ef-9070-bcaec63cce40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PathFinding">
-      <UniqueIdentifier>{0a0b9583-2f26-4bb4-956c-a77fa64aa158}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PathFinding\Astar">
-      <UniqueIdentifier>{c8381b83-966c-4c78-b7f2-1ea7e642d2df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

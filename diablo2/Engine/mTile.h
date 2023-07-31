@@ -1,12 +1,14 @@
 #pragma once
 #include "..\engine_source\mGameObject.h"
+
 namespace m
 {
     class Tile :
         public GameObject
     {
     public:
-        Tile(Vector2 coord);
+        
+        Tile();
         virtual ~Tile();
 
         virtual void Initialize();
@@ -24,12 +26,23 @@ namespace m
         int GetG() const { return G; }
         int GetH() const { return H; }
 
+        void SetG(int g) { G = g; }
+        void SetH(int h) { H = h; }
+        
+        void SetInClosed(bool closed) { inClosed = closed; }
+        bool GetInClosed() { return inClosed; }
+
+        void SetInOpen(bool open) { inOpen = open; }
+        bool GetInOpen() { return inOpen; }
+
         void SetParentTile(Tile* parentTile) { mParentTile = parentTile; }
         Tile* GetParentTile() { return mParentTile; }
     private:
         Tile* mParentTile;
         Vector2 mCoord;
         bool isWall;
+        bool inClosed;
+        bool inOpen;
         int G; // from cost
         int H; // expected cost
         // 수직, 수평 이동 10

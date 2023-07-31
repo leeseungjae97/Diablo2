@@ -1,5 +1,11 @@
 #include "mPlayerInfo.h"
+
+#include "../engine_source/mTileManager.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mAnimator.h"
+
 #include "mInvenItem.h"
+#include "mPlayer.h"
 
 namespace m
 {
@@ -9,6 +15,8 @@ namespace m
 	float PlayerInfo::hpCapacity = 100.f;
 	float PlayerInfo::hpPercent = 1.f;
 	float PlayerInfo::mp = 100.f;
+
+	Player* PlayerInfo::player = nullptr;
 	std::vector<InvenItem*> PlayerInfo::inventoryItems;
 	std::vector<InvenItem*> PlayerInfo::pocketPosions;
 
@@ -45,5 +53,13 @@ namespace m
 	void PlayerInfo::Initialize()
 	{
 		skillPoint = 100;
+		player = new Player(GET_POS(TileManager::tiles[0][0]));
+		//SET_MAIN_CAMERA(player);
+		//AddGameObject(eLayerType::Player, player);
+		SET_MESH(player, L"RectMesh");
+		SET_MATERIAL(player, L"AnimationMaterial");
+		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
+		ADD_COMP(player, Animator);
+		player->SetTile(TileManager::tiles);
 	}
 }

@@ -191,6 +191,7 @@ namespace m::math
         static void TransformNormal(_In_reads_(count) const Vector2* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector2* resultArray) noexcept;
 
         static bool PointIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 mousePos);
+        static bool PointIntersectRhombus(Vector2 pos, Vector2 scale, Vector2 otherPos);
         static bool RectIntersectRect(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale);
         static bool RectIndexesIntersectRectIndexes(Vector2 targetVector, Vector2 targetScale, Vector2 ohterVector, Vector2 otherScale);
         // Constants

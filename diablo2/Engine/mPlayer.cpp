@@ -7,6 +7,8 @@
 #include "mApplication.h"
 #include "mMouseManager.h"
 
+#include "../engine_source/mAstar.h"
+
 extern m::Application application;
 namespace m
 {
@@ -41,14 +43,20 @@ namespace m
 			|| GetBattleState() == eBattleState::Hit
 			|| GetBattleState() == eBattleState::Cast) return;
 
+		
 		Vector3 curPosition = GET_POS(this);
-
+		
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
 			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
 
-		if (Input::GetKeyDown(eKeyCode::LBUTTON)
+		if (Input::GetKeyDownOne(eKeyCode::LBUTTON)
 			&& !MouseManager::GetMouseOnUI())
 		{
+			Vector2 curCoord = TileManager::GetPlayerPositionCoord();
+			Vector2 mouseCoord = TileManager::GetHoverTileCoord();
+
+			Astar::PathFinding(curCoord, mouseCoord);
+
 			prevPosition = GET_POS(this);
 
 			destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);

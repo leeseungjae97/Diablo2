@@ -9,6 +9,9 @@ namespace m
 		: mState(eState::RenderUpdate)
 		, mBattleState(eBattleState::Idle)
 		, mCamera(nullptr)
+		, bHover(false)
+		, bCulled(false)
+		, bRhombus(false)
 	{
 		AddComponent<Transform>();
 	}
@@ -89,7 +92,8 @@ namespace m
 		Transform* tr = GetComponent<Transform>();
 		Vector3 mPos = tr->GetPosition();
 		Vector3 mScale = tr->GetScale();
-
+		MAKE_VEC2_F_VEC3(mPosV2, mPos);
+		MAKE_VEC2_F_VEC3(mScaleV2, mScale);
 		Matrix proj = Matrix::Identity;
 		Matrix view = Matrix::Identity;
 
@@ -105,16 +109,27 @@ namespace m
 		}
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(mPos.z, proj, view);
-
-		if (Vector2::PointIntersectRect(Vector2(tr->GetPosition().x, tr->GetPosition().y)
-			, Vector2(mScale.x, mScale.y)
-			, Vector2(unprojMousePos.x, unprojMousePos.y)))
+		MAKE_VEC2_F_VEC3(unpMPosV2, unprojMousePos);
+		if (bRhombus)
 		{
-			bHover = true;
+			if (Vector2::PointIntersectRhombus(mPosV2
+											, mScaleV2
+											, unpMPosV2))
+			{
+				bHover = true;
+			}
+			else bHover = false;
 		}
 		else
 		{
-			bHover = false;
+			if (Vector2::PointIntersectRect(mPosV2
+											, mScaleV2
+											, unpMPosV2))
+			{
+				bHover = true;
+			}
+			else bHover = false;
 		}
+		
 	}
 }

@@ -6,6 +6,8 @@
 #include "mSceneManager.h"
 #include "mMouseManager.h"
 #include "mCollisionManager.h"
+
+#include "../Engine/mPlayerInfo.h"
 //#include "mFontWrapper.h"
 
 namespace m

@@ -103,6 +103,15 @@
     <Filter Include="Graphics\StructedBuffer">
       <UniqueIdentifier>{9ab7a41a-2e01-4625-919f-0702e988d3f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\PathFindManager">
+      <UniqueIdentifier>{a44f8b18-831c-4dcc-83e6-566b55ae265a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\PathFindManager\Astar">
+      <UniqueIdentifier>{afb784f0-5e5d-453c-9b9d-94ae26c23c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TileManager">
+      <UniqueIdentifier>{1cfa52b2-0d5d-459d-9e6b-06b0a433510c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -229,6 +238,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAstar.h">
+      <Filter>Manager\PathFindManager\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -328,6 +341,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAstar.cpp">
+      <Filter>Manager\PathFindManager\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

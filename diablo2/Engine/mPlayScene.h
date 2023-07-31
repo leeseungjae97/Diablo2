@@ -20,7 +20,6 @@ namespace m
         virtual void Render() override;
     private:
         GameObject* camera;
-        std::vector<Tile*> tiles;
         Inventory* inventory;
         SkillUp* skillUp;
         BottomUI* uiBottomBar;

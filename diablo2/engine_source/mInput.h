@@ -96,7 +96,7 @@ namespace m
 				0.f,
 				RESOL_WID,
 				RESOL_HEI,
-				1000.f,
+				10.f,
 				-1.f,
 			};
 			Vector3 mousePos3 = Vector3(mMousePos.x, mMousePos.y, curDepth);

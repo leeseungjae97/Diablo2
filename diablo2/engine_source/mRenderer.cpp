@@ -444,6 +444,8 @@ namespace renderer
 #pragma region Tiles
 		MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
 		MAKE_MATERIAL(spriteShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
+		MAKE_MATERIAL(spriteShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
+		MAKE_MATERIAL(spriteShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
 #pragma endregion
 #pragma region ETC
 		MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
