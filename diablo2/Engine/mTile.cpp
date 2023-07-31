@@ -36,11 +36,19 @@ namespace m
 		
 		MAKE_VEC2_F_VEC3(posV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(scaleV2, GET_SCALE(this));
-		MAKE_VEC2_F_VEC3(playerPosV2, GET_POS(PlayerInfo::player));
-		if (Vector2::PointIntersectRect(posV2, scaleV2, playerPosV2))
+		Vector3 ppos= GET_POS(PlayerInfo::player);
+		Vector3 pscale= GET_SCALE(PlayerInfo::player);
+		Vector2 playerPosV2Left = Vector2(ppos.x - pscale.x / 2.f, ppos.y - pscale.y / 2.f);
+		Vector2 playerPosV2Right = Vector2(ppos.x + pscale.x / 2.f, ppos.y - pscale.y / 2.f);
+		if (Vector2::PointIntersectRhombus(posV2, scaleV2, GET_VEC2_F_VEC3_D(ppos)))
 		{
 			TileManager::playerStandTile = this;
 		}
+		//if (Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Left)
+		//	&& Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Right))
+		//{
+		//	TileManager::playerStandTile = this;
+		//}
 	}
 	void Tile::LateUpdate()
 	{

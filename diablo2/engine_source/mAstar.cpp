@@ -24,7 +24,7 @@ namespace m
 	int Astar::tempCount = 0;
 	void Astar::Initialize()
 	{
-		allowDiagonal = false;
+		allowDiagonal = true;
 		dontCrossCorner = false;
 		mStartCoord = Vector2(-1.f, -1.f);
 		mTargetCoord = Vector2(-1.f, -1.f);
@@ -159,8 +159,7 @@ namespace m
 
 
 			if (moveCost < neighborTile->GetG()
-				|| /*std::find(openVector.begin(), openVector.end(), neighborTile) == openVector.end()*/
-				!neighborTile->GetInOpen())
+				|| !neighborTile->GetInOpen())
 			{
 				neighborTile->SetG(moveCost);
 				neighborTile->SetH((abs(neighborTile->GetCoord().x - targetTile->GetCoord().x)

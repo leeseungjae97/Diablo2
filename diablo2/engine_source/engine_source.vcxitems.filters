@@ -241,7 +241,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAstar.h">
       <Filter>Manager\PathFindManager\Astar</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h">
+      <Filter>Manager\TileManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -344,7 +346,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAstar.cpp">
       <Filter>Manager\PathFindManager\Astar</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp">
+      <Filter>Manager\TileManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
