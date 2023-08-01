@@ -10,7 +10,8 @@
 
 #define RESOURCE_FIND(type, name) Resources::Find<type>(name)
 #define RESOURCE_LOAD(type, name, path) Resources::Load<type>(name, path)
-#define GET_COMP(object, p, type) p = object->GetComponent<type>()
+#define GET_COMP(object, type) object->GetComponent<type>()
+#define GET_COMPS(object, type) object->GetComponents<type>()
 #define GET_TRANS(object) object->GetComponent<Transform>()
 #define GET_MESHR(object) object->GetComponent<MeshRenderer>()
 #define ADD_COMP(object, type) object->AddComponent<type>()

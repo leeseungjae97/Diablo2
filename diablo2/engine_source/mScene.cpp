@@ -44,6 +44,7 @@ namespace m
 	}
 	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
 	{
+		gameObj->SetLayerType(type);
 		mLayers[(int)type].AddGameObject(gameObj);
 	}
 	Layer& Scene::GetGameObjects(eLayerType type)

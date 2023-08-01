@@ -28,6 +28,12 @@ namespace m
 	void Player::Update()
 	{
 		MoveAbleObject::Update();
+
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Hit
+			|| GetBattleState() == eBattleState::Cast) return;
+
 		Vector3 curPosition = GET_POS(this);
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
@@ -42,7 +48,24 @@ namespace m
 		if (Input::GetKeyDownOne(eKeyCode::LBUTTON)
 			&& !MouseManager::GetMouseOnUI())
 		{
-			mAstar->PathChange();
+			if (!mAstar->PathChange())
+			{
+				//Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
+				//														, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+				//prevPosition = GET_POS(this);
+				//destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
+
+				//float maxX = max(destPosition.x, prevPosition.x);
+				//float maxY = max(destPosition.y, prevPosition.y);
+
+				//float minX = min(destPosition.x, prevPosition.x);
+				//float minY = min(destPosition.y, prevPosition.y);
+
+				//SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
+
+				//vDirection = destPosition - prevPosition;
+				//vDirection.Normalize();
+			}
 		}
 
 		float maxX = max(curPosition.x, prevPosition.x);

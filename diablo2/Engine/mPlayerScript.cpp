@@ -30,7 +30,7 @@ namespace m
 		//Animator* at = GetOwner()->GetComponent<Animator>();
 		//at->CompleteEvent(L"sorceressTownWalk_anim") = std::bind(&PlayerScript::Complete, this);
 
-		GET_COMP(GetOwner(), mAnimator, Animator);
+		mAnimator = GET_COMP(GetOwner(), Animator);
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");

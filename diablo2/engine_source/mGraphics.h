@@ -129,3 +129,13 @@ struct Vertex
 	m::math::Vector4 color;
 	m::math::Vector2 uv;
 };
+struct Particle
+{
+	m::math::Vector4 position;
+	m::math::Vector4 direction;
+
+	float endTime;
+	float time;
+	float speed;
+	UINT active;
+};

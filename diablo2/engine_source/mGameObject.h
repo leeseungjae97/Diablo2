@@ -43,6 +43,9 @@ namespace m
 		eBattleState GetBattleState() { return mBattleState; }
 		void SetBattleState(eBattleState state) { mBattleState = state; }
 
+		void SetLayerType(eLayerType type) { mLayerType = type; }
+		eLayerType GetLayerType() { return mLayerType; }
+
 		template <typename T>
 		T* GetComponent()
 		{
@@ -112,7 +115,6 @@ namespace m
 		void SetCamera(Camera* camera) { mCamera = camera; }
 		Camera* GetCamera() { return mCamera; }
 
-
 		void MousePosHoverGameObject();
 		bool GetHover() { return bHover; }
 		std::vector<Script*>& GetScripts() { return mScripts; }
@@ -126,6 +128,7 @@ namespace m
 
 	private:
 		eState mState;
+		eLayerType mLayerType;
 		eBattleState mBattleState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;

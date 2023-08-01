@@ -20,11 +20,10 @@ namespace m
 		void SetSize(Vector3 size) { mSize = size; }
 		void SetCenter(Vector2 size) { mCenter = size; }
 
+		void SetColor(eColor color) { mColor = color; }
 		void OnCollisionEnter(Collider2D* other);
 		void OnCollisionStay(Collider2D* other);
 		void OnCollisionExit(Collider2D* other);
-
-		void SetRectColor(eColor color) { mColor = color; }
 
 		UINT GetColliderID() { return mColliderID; }
 
@@ -36,6 +35,9 @@ namespace m
 		Vector2 GetCenter() { return mCenter; }
 		eColliderType GetType() { return mType; }
 
+		void AddExceptType(eLayerType type) { exceptTypes.push_back(type); }
+		void ClearExceptType() { exceptTypes.clear(); }
+
 		bool GetOnEnter() { return bOnEnter; }
 		bool GetOnStay() { return bOnStay; }
 		bool GetOnExit() { return bOnExit; }
@@ -43,10 +45,14 @@ namespace m
 		int GetInsertsectColliderNumber() { return intersectColliderNumber; }
 
 		Vector3 GetCollideredObjectPos() { return collideredObjectPos; }
+		std::vector<GameObject*>& GetCollideredObjects() { return collideredObjects; }
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
 		eColliderType mType;
+		std::vector<eLayerType> exceptTypes;
+		std::vector<GameObject*> collideredObjects;
+
 		eColor mColor;
 		Transform* mTransform;
 

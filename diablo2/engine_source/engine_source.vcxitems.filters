@@ -115,6 +115,9 @@
     <Filter Include="Resources\Resource\PaintShader">
       <UniqueIdentifier>{48e7aa5b-f2b5-49d0-a9d3-e644c6b9ea64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\ParticleSystem">
+      <UniqueIdentifier>{9f5ec9e3-d455-412b-bcac-f53fe732d1fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -250,6 +253,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h">
       <Filter>Resources\Resource\PaintShader</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -358,6 +362,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp">
       <Filter>Resources\Resource\PaintShader</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

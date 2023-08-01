@@ -30,7 +30,7 @@ namespace m
 		{
 			int intersectNum = col->GetInsertsectColliderNumber();
 			if (intersectNum > 0)
-				col->SetRectColor(eColor::Red);
+				col->SetColor(eColor::Red);
 		}
 		//int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
 		//if (intersectNum > 0)
@@ -46,7 +46,7 @@ namespace m
 		{
 			int intersectNum = col->GetInsertsectColliderNumber();
 			if (intersectNum == 0)
-				col->SetRectColor(eColor::Green);
+				col->SetColor(eColor::Green);
 		}
 		//int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
 		//if (intersectNum == 0)

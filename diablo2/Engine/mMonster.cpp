@@ -12,6 +12,7 @@ namespace m
 		, hpPercent(0.f)
 	{
 		sightCollider = ADD_COMP(this, Collider2D);
+		sightCollider->AddExceptType(eLayerType::Tile);
 		sightCollider->SetType(eColliderType::Circle);
 		sightCollider->SetSize(Vector3(10.f, 10.f, 1.f));
 
@@ -26,7 +27,14 @@ namespace m
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
+
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Hit
+			|| GetBattleState() == eBattleState::Cast) return;
+
 		Vector3 curPosition = GET_POS(this);
+		Vector2 vvv = GetCoord();
 		if (rangeCollider->GetOnStay())
 		{
 			fRemainDistance += fStartDistance;

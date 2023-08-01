@@ -19,10 +19,12 @@ namespace m
 		, bGetHit(false)
 	{
 		SET_POS_VEC(this, iniPos);
-		ADD_COMP(this, Collider2D);
+		Collider2D* mc = ADD_COMP(this, Collider2D);
+		mc->AddExceptType(eLayerType::Tile);
 
 		rangeCollider = ADD_COMP(this, Collider2D);
 		rangeCollider->SetType(eColliderType::Circle);
+		rangeCollider->AddExceptType(eLayerType::Tile);
 
 		ADD_COMP(this, MeshRenderer);
 		mAstar = new Astar();
@@ -41,7 +43,7 @@ namespace m
 		if (GetBattleState() == eBattleState::Dead
 			|| GetBattleState() == eBattleState::Attack
 			|| GetBattleState() == eBattleState::Hit
-			|| GetBattleState() == eBattleState::Cast) return;		
+			|| GetBattleState() == eBattleState::Cast) return;
 	}
 	void MoveAbleObject::LateUpdate()
 	{

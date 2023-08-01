@@ -163,29 +163,33 @@ namespace m
 		}
 	}
 
-	void Astar::PathChange()
+	bool Astar::PathChange()
 	{
 		finalPathVector = pathVector;
 		if (!finalPathVector.empty())
 		{
-			Tile* eraseFrontTile = finalPathVector.front();
-			std::vector<Tile*>::iterator iter = finalPathVector.begin();
-			while (iter != finalPathVector.end())
-			{
-				if ((*iter) == eraseFrontTile)
-				{
-					iter = finalPathVector.erase(iter);
-					break;
-				}
-				else iter++;
-			}
+			//Tile* eraseFrontTile = finalPathVector.front();
+			//std::vector<Tile*>::iterator iter = finalPathVector.begin();
+			//while (iter != finalPathVector.end())
+			//{
+			//	if ((*iter) == eraseFrontTile)
+			//	{
+			//		iter = finalPathVector.erase(iter);
+			//		break;
+			//	}
+			//	else iter++;
+			//}
+			std::erase(finalPathVector, finalPathVector.front());
+			if (finalPathVector.empty()) return false;
+			return true;
 		}
+		return false;
 		
 	}
 
-	void Astar::Move(MoveAbleObject* mOwner)
+	bool Astar::Move(MoveAbleObject* mOwner)
 	{
-		if (finalPathVector.empty()) return;
+		if (finalPathVector.empty()) return false;
 
 		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"testTile2");
 
@@ -212,9 +216,9 @@ namespace m
 			mOwner->SetDirection(vDirection);
 			
 		}
-		if (mOwner->Stop())
+		if (mOwner->BeforeStop())
 		{
-			std::vector<Tile*>::iterator iter = finalPathVector.begin();
+	/*		std::vector<Tile*>::iterator iter = finalPathVector.begin();
 			while (iter != finalPathVector.end())
 			{
 				if ((*iter) == subTargetTile)
@@ -223,11 +227,10 @@ namespace m
 					break;
 				}
 				else iter++;
-			}
+			}*/
+			std::erase(finalPathVector, finalPathVector.front());
 		}
-
-		
-
+		return true;
 	}
 
 	

@@ -88,6 +88,12 @@ namespace renderer
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
+
+		shader = m::Resources::Find<Shader>(L"ParticleShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -389,6 +395,15 @@ namespace renderer
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		m::Resources::Insert(L"PaintShader", paintShader);
+
+		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
+		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		paritcleShader->SetRSState(eRSType::SolidNone);
+		paritcleShader->SetDSState(eDSType::NoWrite);
+		paritcleShader->SetBSState(eBSType::AlphaBlend);
+
+		m::Resources::Insert(L"ParticleShader", paritcleShader);
 	}
 	void LoadTexture()
 	{
@@ -963,6 +978,14 @@ namespace renderer
 			material->SetShader(spriteShader);
 			//material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"AnimationMaterial", material);
+		}
+		{
+			std::shared_ptr<Shader> shader
+				= Resources::Find<Shader>(L"ParticleShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+			material->SetShader(shader);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"ParticleMaterial", material);
 		}
 	}
 

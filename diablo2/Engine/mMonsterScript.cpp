@@ -26,7 +26,7 @@ namespace m
 	void MonsterScript<T>::Initialize()
 	{
 		curMonsterData = T{};
-		GET_COMP(GetOwner(), mAnimator, Animator);
+		mAnimator = GET_COMP(GetOwner(), Animator);
 
 		for (int i = 0; i < (UINT)T::eAnimationType::End; ++i)
 		{

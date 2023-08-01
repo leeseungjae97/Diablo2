@@ -44,6 +44,7 @@ namespace m::enums
 		Rect,
 		Circle,
 		Sphere,
+		Rhombus,
 		Cube,
 		End,
 	};
@@ -52,6 +53,7 @@ namespace m::enums
 		Red,
 		Green,
 		Blue,
+		None,
 		End,
 	};
 	enum class eLightType

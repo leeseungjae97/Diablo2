@@ -2,6 +2,7 @@
 #include "mGameObject.h"
 #include "mRenderer.h"
 #include "mGraphics.h"
+#include "mMeshRenderer.h"
 
 namespace m
 {
@@ -32,7 +33,6 @@ namespace m
 	void Collider2D::LateUpdate()
 	{
 		Component::LateUpdate();
-		
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 scale = tr->GetScale();
@@ -75,6 +75,10 @@ namespace m
 
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
+		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end()) 
+			return;
+
+		collideredObjects.push_back(other->GetOwner());
 		intersectColliderNumber++;
 		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
 		bOnEnter = true;
@@ -89,6 +93,9 @@ namespace m
 	}
 	void Collider2D::OnCollisionStay(Collider2D* other)
 	{
+		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end())
+			return;
+
 		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
 		bOnStay = true;
 		bOnEnter = bOnExit = false;
@@ -102,6 +109,11 @@ namespace m
 	}
 	void Collider2D::OnCollisionExit(Collider2D* other)
 	{
+		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end())
+			return;
+
+		std::erase(collideredObjects, other->GetOwner());
+
 		intersectColliderNumber--;
 		bOnExit = true;
 		bOnStay = bOnEnter = false;

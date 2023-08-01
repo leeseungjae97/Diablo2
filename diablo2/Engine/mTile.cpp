@@ -15,6 +15,10 @@ namespace m
 		, inOpen(false)
 	{
 		SetIsRhombus(true);	
+		Collider2D* col = ADD_COMP(this, Collider2D);
+		col->SetColor(eColor::None);
+		col->AddExceptType(eLayerType::Player);
+
 		AddComponent<MeshRenderer>();
 	}
 	Tile::~Tile()
@@ -25,6 +29,7 @@ namespace m
 	void Tile::Update()
 	{
 		GameObject::Update();
+		
 		if (GetHover())
 		{
 			TileManager::hoverTile = this;
@@ -44,6 +49,16 @@ namespace m
 		if (Vector2::PointIntersectRhombus(posV2, scaleV2, GET_VEC2_F_VEC3_D(ppos)))
 		{
 			TileManager::playerStandTile = this;
+		}
+		Collider2D* mCollider = GET_COMP(this, Collider2D);
+		if (mCollider->GetOnEnter()
+			|| mCollider->GetOnStay())
+		{
+			for (auto obj : mCollider->GetCollideredObjects())
+			{
+				auto dObj = dynamic_cast<MoveAbleObject*>(obj);
+				if (dObj) dObj->SetCoord(GetCoord());
+			}
 		}
 		//if (Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Left)
 		//	&& Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Right))

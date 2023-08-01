@@ -18,10 +18,13 @@ namespace m
 
 		void BindBuffer(); //Buffer 파이프라인에 묶어준다.
 		void Render();
+		void RenderInstanced(UINT startIndexLocation);
+
 		void SetVertexes(std::vector<Vertex>& _v) { vertexes = _v; }
+		std::vector<Vertex>& GetVertexes() { return vertexes; }
 
 		UINT GetIndexCount() { return mIndexCount; }
-		std::vector<Vertex>& GetVertexes() { return vertexes; }
+		
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> mVertexBuffer;

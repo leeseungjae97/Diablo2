@@ -16,9 +16,9 @@ namespace m
 		void PathFinding(Vector2 startCoord, Vector2 targetCoord);
 		void OpenVectorAdd(int y, int x);
 
-		void PathChange();
+		bool PathChange();
 
-		void Move(MoveAbleObject* mOwner);
+		bool Move(MoveAbleObject* mOwner);
 
 		void SetXLength(int xLen) { xLength = xLen; }
 		void SetYLength(int yLen) { yLength = yLen; }

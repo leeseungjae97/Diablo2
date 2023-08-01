@@ -15,6 +15,7 @@
 #include "..\engine_source\mComputeShader.h"
 #include "..\engine_source\mTileManager.h"
 #include "..\engine_source\mAstar.h"
+#include "..\engine_source\mParticleSystem.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -112,6 +113,13 @@ namespace m
 		Light* lightComp = light->AddComponent<Light>();
 		lightComp->SetType(eLightType::Directional);
 		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+
+		//GameObject* particle = new GameObject();
+		//particle->SetName(L"Particle");
+		//AddGameObject(eLayerType::Tile, particle);
+		//ParticleSystem* mr = particle->AddComponent<ParticleSystem>();
+		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 0.2f));
 
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);
@@ -226,7 +234,7 @@ namespace m
 		skillShortCut2->SetClickMaterial(RESOURCE_FIND(Material, L"thunderStormClickIcon"));
 		skillShortCut2->SetNormalMaterial(RESOURCE_FIND(Material, L"thunderStormIcon"));
 
-		//CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::Tile, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 	}
