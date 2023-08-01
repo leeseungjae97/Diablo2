@@ -13,6 +13,7 @@
 
 #include "mPlayer.h"
 #include "mMonster.h"
+#include "mPlayerInfo.h"
 
 extern m::Application application;
 namespace m
@@ -109,7 +110,7 @@ namespace m
 	}
 	void PlayerScript::Update()
 	{
-		if (nullptr == GetPlayer())
+		if (nullptr == PlayerInfo::player)
 			return;
 
 		if (Input::GetKeyUpOne(eKeyCode::C))
@@ -123,7 +124,7 @@ namespace m
 			}
 		}
 
-		if (GetPlayer()->GetHit())
+		if (PlayerInfo::player->GetHit())
 		{
 			mAnimationType = eSorceressAnimationType::GetHit;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
@@ -138,7 +139,7 @@ namespace m
 			)
 			return;
 
-		if (GetPlayer()->Stop())
+		if (PlayerInfo::player->Stop())
 		{
 			GetOwner()->SetBattleState(GameObject::Idle);
 			mAnimationType = eSorceressAnimationType::Natural;
@@ -146,8 +147,8 @@ namespace m
 		else
 		{
 			GetOwner()->SetBattleState(GameObject::Run);
-			Vector3 initPos = GetPlayer()->GetPrevPosition();
-			Vector3 destPos = GetPlayer()->GetDestPosition();
+			Vector3 initPos = PlayerInfo::player->GetPrevPosition();
+			Vector3 destPos = PlayerInfo::player->GetDestPosition();
 
 			Vector3 moveVector = destPos - initPos;
 
@@ -208,12 +209,12 @@ namespace m
 	}
 	void PlayerScript::Hit(bool hit, GameObject::eBattleState state)
 	{
-		GetPlayer()->SetHit(hit);
+		PlayerInfo::player->SetHit(hit);
 		GetOwner()->SetBattleState(state);
 	}
 	void PlayerScript::AttackProgress()
 	{
-		if (GetPlayer()->GetRangeCollider()->GetOnStay())
+		if (PlayerInfo::player->GetRangeCollider()->GetOnStay())
 		{
 			if (!bDamage)
 			{

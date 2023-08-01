@@ -26,10 +26,10 @@ namespace m
 	{
 		Scene* activeScene = SceneManager::GetActiveScene();
 
-		const std::vector<GameObject*>& lefts 
+		const std::vector<GameObject*> lefts 
 			= activeScene->GetLayer(left).GetGameObjects();
 
-		const std::vector<GameObject*>& rights 
+		const std::vector<GameObject*> rights 
 			= activeScene->GetLayer(right).GetGameObjects();
 
 		for (GameObject* leftObj : lefts)
@@ -37,7 +37,7 @@ namespace m
 			//Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
 			//if (nullptr == leftCol) continue;
 			if (leftObj->GetState() != GameObject::RenderUpdate) continue;
-			std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
+			const std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
 			if (!leftCols.empty())
 			{
 				for (Collider2D* leftCol : leftCols)
@@ -48,7 +48,7 @@ namespace m
 						//if (nullptr == rightCol) continue;
 						if (leftObj == rightObj) continue;
 						if (rightObj->GetState() != GameObject::RenderUpdate) continue;
-						std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
+						const std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
 						if (!rightCols.empty())
 						{
 							for (Collider2D* rightCol : rightCols)

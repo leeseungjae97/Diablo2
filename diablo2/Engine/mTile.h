@@ -1,5 +1,6 @@
 #pragma once
 #include "..\engine_source\mGameObject.h"
+#include "..\engine_source\mMaterial.h"
 
 namespace m
 {
@@ -37,9 +38,12 @@ namespace m
 
         void SetParentTile(Tile* parentTile) { mParentTile = parentTile; }
         Tile* GetParentTile() { return mParentTile; }
+
+        void SetSaveMaterial(std::shared_ptr<Material> mat) { saveMaterial = mat; }
     private:
         Tile* mParentTile;
         Vector2 mCoord;
+        std::shared_ptr<Material> saveMaterial;
         bool isWall;
         bool inClosed;
         bool inOpen;

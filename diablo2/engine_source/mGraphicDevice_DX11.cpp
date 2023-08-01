@@ -24,8 +24,8 @@ namespace m::graphics
 		// swapChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 		swapChainDesc.BufferCount = 2;
-		swapChainDesc.BufferDesc.Width = application.GetWidth();
-		swapChainDesc.BufferDesc.Height = application.GetHeight();
+		swapChainDesc.BufferDesc.Width = application.GetMetaDataWidth();
+		swapChainDesc.BufferDesc.Height = application.GetMetaDataHeight();
 
 		// 스왑체인에 대한 값 설정
 
@@ -55,8 +55,8 @@ namespace m::graphics
 		depthStencilDesc.CPUAccessFlags = 0;
 
 		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
-		depthStencilDesc.Width = application.GetWidth();
-		depthStencilDesc.Height = application.GetHeight();
+		depthStencilDesc.Width = application.GetMetaDataWidth();
+		depthStencilDesc.Height = application.GetMetaDataHeight();
 		depthStencilDesc.ArraySize = 1;
 
 		depthStencilDesc.SampleDesc.Count = 1;
@@ -328,6 +328,14 @@ namespace m::graphics
 	{
 		mContext->PSSetShader(pPixelShader, 0, 0);
 	}
+	void GraphicDevice_DX11::BindComputeShader(ID3D11ComputeShader* pComputeShader)
+	{
+		mContext->CSSetShader(pComputeShader, 0, 0);
+	}
+	void GraphicDevice_DX11::Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ)
+	{
+		mContext->Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ);
+	}
 	void GraphicDevice_DX11::SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE subRes = {};
@@ -406,6 +414,10 @@ namespace m::graphics
 		default:
 			break;
 		}
+	}
+	void GraphicDevice_DX11::BindUnorderedAccess(UINT slot, ID3D11UnorderedAccessView** ppUnorderedAccessViews, const UINT* pUAVInitialCounts)
+	{
+		mContext->CSSetUnorderedAccessViews(slot, 1, ppUnorderedAccessViews, pUAVInitialCounts);
 	}
 	void GraphicDevice_DX11::BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers)
 	{

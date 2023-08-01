@@ -175,6 +175,7 @@
     <ClInclude Include="mMainMenuScene.h" />
     <ClInclude Include="mMonster.h" />
     <ClInclude Include="mMonsterScript.h" />
+    <ClInclude Include="mMoveAbleObject.h" />
     <ClInclude Include="mPanel.h" />
     <ClInclude Include="mPlayer.h" />
     <ClInclude Include="mPlayerInfo.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="mMainMenuScene.cpp" />
     <ClCompile Include="mMonster.cpp" />
     <ClCompile Include="mMonsterScript.cpp" />
+    <ClCompile Include="mMoveAbleObject.cpp" />
     <ClCompile Include="mPanel.cpp" />
     <ClCompile Include="mPlayer.cpp" />
     <ClCompile Include="mPlayerInfo.cpp" />

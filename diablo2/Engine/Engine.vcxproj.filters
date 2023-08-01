@@ -75,6 +75,7 @@
     <ClCompile Include="mUVUI.cpp">
       <Filter>UI\UVUI</Filter>
     </ClCompile>
+    <ClCompile Include="mMoveAbleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="mUVUI.h">
       <Filter>UI\UVUI</Filter>
     </ClInclude>
+    <ClInclude Include="mMoveAbleObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

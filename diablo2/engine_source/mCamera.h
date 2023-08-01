@@ -38,7 +38,7 @@ namespace m
 
 		void AlphaSortGameObject();
 		void ZSortTransparencyGameObjects();
-		void DivideAlphaBlendGameObjects(const std::vector<GameObject*> gameObjs);
+		void DivideAlphaBlendGameObjects(const std::vector<GameObject*>& gameObjs);
 		
 		void RenderOpaque();
 		void RenderCutOut();

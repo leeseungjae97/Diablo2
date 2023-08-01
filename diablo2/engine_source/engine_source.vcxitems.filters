@@ -112,6 +112,9 @@
     <Filter Include="Manager\TileManager">
       <UniqueIdentifier>{1cfa52b2-0d5d-459d-9e6b-06b0a433510c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Resource\PaintShader">
+      <UniqueIdentifier>{48e7aa5b-f2b5-49d0-a9d3-e644c6b9ea64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -244,6 +247,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h">
       <Filter>Manager\TileManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h">
+      <Filter>Resources\Resource\PaintShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -348,6 +354,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp">
       <Filter>Manager\TileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp">
+      <Filter>Resources\Resource\PaintShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

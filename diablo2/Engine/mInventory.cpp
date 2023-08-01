@@ -29,8 +29,8 @@ namespace m
 		
 		MAKE_GET_TEX(this, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(this, tex, 0.f);
-		SET_POS_XYZ(this, tex->GetWidth() * Texture::GetWidRatio() / 2.f
-					  , RESOL_H_HEI - tex->GetHeight()* Texture::GetHeiRatio() / 2.f, -1.0f);
+		SET_POS_XYZ(this, tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
+					  , RESOL_H_HEI - tex->GetMetaDataHeight()* Texture::GetHeiRatio() / 2.f, -1.0f);
 
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameObject(eLayerType::UI, this);
@@ -126,7 +126,7 @@ namespace m
 		closeBtn->SetNormalMaterial(RESOURCE_FIND(Material, L"closeBtn"));
 		GET_TEX(closeBtn, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(closeBtn, tex, 0.0f);
-		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetHeight() / 2.f), 0.f);
+		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetMetaDataWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetMetaDataHeight() / 2.f), 0.f);
 
 		invensCollider = new GameObject();
 		invensCollider->SetCamera(GetCamera());

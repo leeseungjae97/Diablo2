@@ -5,42 +5,27 @@
 
 namespace m
 {
-	Monster::Monster(Vector3 iniPos)
-		: prevPosition(iniPos)
-		, destPosition(iniPos)
-		, vS(iniPos)
-		, fSpeed(200.f)
-		, fStartDistance(0.f)
-		, fRemainDistance(0.f)
-		, hpPercent(0.0f)
-		, bGetHit(false)
+	Monster::Monster(Vector3 iniPos, float speed)
+		: MoveAbleObject(iniPos, speed)
+		, hp(0.f)
+		, hpCapacity(0.f)
+		, hpPercent(0.f)
 	{
-		SET_POS_VEC(this, iniPos);
-		ADD_COMP(this, Collider2D);
 		sightCollider = ADD_COMP(this, Collider2D);
 		sightCollider->SetType(eColliderType::Circle);
 		sightCollider->SetSize(Vector3(10.f, 10.f, 1.f));
 
-		rangeCollider = ADD_COMP(this, Collider2D);
-		rangeCollider->SetType(eColliderType::Circle);
 		rangeCollider->SetSize(Vector3(1.5f, 1.5f, 1.5f));
-
-		ADD_COMP(this, MeshRenderer);
 	}
 	Monster::~Monster()
 	{}
 	void Monster::Initialize()
 	{
-		GameObject::Initialize();
+		MoveAbleObject::Initialize();
 	}
 	void Monster::Update()
 	{
-		GameObject::Update();
-
-		if (GetBattleState() == Dead
-			|| GetBattleState() == Attack
-			|| GetBattleState() == Cast) return;
-
+		MoveAbleObject::Update();
 		Vector3 curPosition = GET_POS(this);
 		if (rangeCollider->GetOnStay())
 		{
@@ -82,11 +67,11 @@ namespace m
 	}
 	void Monster::LateUpdate()
 	{
-		GameObject::LateUpdate();
+		MoveAbleObject::LateUpdate();
 	}
 	void Monster::Render()
 	{
-		GameObject::Render();
+		MoveAbleObject::Render();
 	}
 	void Monster::Hit(int damage)
 	{
@@ -94,6 +79,6 @@ namespace m
 		else hp -= damage;
 
 		hpPercent = hpCapacity - hp / hpCapacity;
-		bGetHit = true;
+		SetHit(true);
 	}
 }

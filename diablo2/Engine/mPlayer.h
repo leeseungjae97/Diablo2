@@ -4,12 +4,13 @@
 #include "..\engine_source\mTileManager.h"
 
 #include "mPlayerInfo.h"
+#include "mMoveAbleObject.h"
 #include "mUVUI.h"
 namespace m
 {
     class Tile;
     class Player :
-        public GameObject
+        public MoveAbleObject
     {
     public:
         Player(Vector3 iniPos);
@@ -20,11 +21,6 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
-        Vector3 GetPrevPosition() { return prevPosition; }
-        Vector3 GetDestPosition() { return destPosition; }
-        Vector3 GetDirection() { return vDirection; }
-
-        bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
         void Hit(int damage) { 
             if (PlayerInfo::hp - damage < 0) PlayerInfo::hp = 0;
             else PlayerInfo::hp -= damage; 
@@ -32,12 +28,8 @@ namespace m
             PlayerInfo::CalHpPercent();
             mHp->SetUVCoord(PlayerInfo::hpPercent);
             
-            bGetHit = true;
+            SetHit(true);
         }
-        bool GetHit() { return bGetHit; }
-        void SetHit(bool hit) { bGetHit = hit; }
-
-        void SetTile(TILES vec) { tiles = vec; }
 
         UVUI* GetHpUI() { return mHp; }
         UVUI* GetMpUI() { return mMp; }
@@ -45,24 +37,7 @@ namespace m
         void SetHpUI(UVUI* hp) { mHp = hp; }
         void SetMpUI(UVUI* mp) { mMp = mp; }
 
-        Collider2D* GetRangeCollider() { return rangeCollider; }
-
     private:
-        Collider2D* rangeCollider;
-
-        Vector3 prevPosition;
-        Vector3 destPosition;
-        Vector3 vDirection;
-        Vector3 vS;
-
-        float fRemainDistance;
-        float fStartDistance;
-        float fSpeed;
-
-        bool bGetHit;
-
-        TILES tiles;
-
         UVUI* mHp;
         UVUI* mMp;
     };

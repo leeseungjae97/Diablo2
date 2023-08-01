@@ -54,12 +54,12 @@ namespace m
 
 	Vector2 TileManager::GetHoverTileCoord()
 	{
-		return hoverTile->GetCoord();
+		return nullptr == hoverTile ? Vector2::Zero : hoverTile->GetCoord();
 	}
 
 	Vector2 TileManager::GetPlayerPositionCoord()
 	{
-		return playerStandTile->GetCoord();
+		return nullptr == playerStandTile ? Vector2::Zero : playerStandTile->GetCoord();
 	}
 	
 }

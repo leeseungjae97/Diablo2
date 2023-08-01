@@ -63,8 +63,8 @@ namespace m
 		SetKey(name);
 		mAtlas = atlas;
 
-		float width = (float)atlas->GetWidth();
-		float height = (float)atlas->GetHeight();
+		float width = (float)atlas->GetMetaDataWidth();
+		float height = (float)atlas->GetMetaDataHeight();
 
 		for (size_t i = 0; i < columnLength; i++)
 		{
@@ -85,7 +85,7 @@ namespace m
 	void Animation::Binds()
 	{
 		// texture bind
-		mAtlas->BindShader(eShaderStage::PS, 12);
+		mAtlas->BindShaderResource(eShaderStage::PS, 12);
 
 		// AnimationCB
 		renderer::AnimatorCB data = {};

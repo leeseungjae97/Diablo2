@@ -23,15 +23,12 @@ namespace m
 
 		void SetOwner(GameObject* owner) { mOwner = owner; }
 		GameObject* GetOwner() { return mOwner; }
-		Player* GetPlayer() { return mPlayer; }
 		Monster* GetMonster() { return mMonster; }
-		void SetPlayer(Player* player) { mPlayer = player; }
 		void SetMonster(Monster* monster) { mMonster = monster; }
 
 	private:
 		const eComponentType mType;
 		GameObject* mOwner;
-		Player* mPlayer;
 		Monster* mMonster;
 	};
 

@@ -21,14 +21,20 @@ namespace m::graphics
 
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
-		void BindShader(eShaderStage stage, UINT startSlot);
+		void BindShaderResource(eShaderStage stage, UINT startSlot);
+		void BindUnorderedAccessViews(UINT slot);
+		void ClearUnorderedAccessViews(UINT slot);
+
 		void Clear();
 
 		static float GetWidRatio() { return fWidRatio; }
 		static float GetHeiRatio() { return fHeiRatio; }
 
-		size_t GetWidth() { return mImage.GetMetadata().width; }
-		size_t GetHeight() { return mImage.GetMetadata().height; }
+		size_t GetMetaDataWidth() { return mImage.GetMetadata().width; }
+		size_t GetMetaDataHeight() { return mImage.GetMetadata().height; }
+
+		UINT GetWidth() { return mWidth; }
+		UINT GetHeight() { return mHeight; }
 
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>    GetRTV() { return  mRTV; }
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>  GetSRV() { return  mSRV; }
@@ -49,6 +55,9 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      mRTV;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      mDSV;
 		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>   mUAV;
+
+		UINT mWidth;
+		UINT mHeight;
 		D3D11_TEXTURE2D_DESC mDesc;
 	};
 }

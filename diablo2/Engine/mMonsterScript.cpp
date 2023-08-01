@@ -7,6 +7,7 @@
 
 #include "mPlayer.h"
 #include "mMonster.h"
+#include "mPlayerInfo.h"
 
 namespace m
 {
@@ -179,7 +180,7 @@ namespace m
 		{
 			if (!bDamaged)
 			{
-				GetPlayer()->Hit(10);
+				PlayerInfo::player->Hit(10);
 				bDamaged = true;
 			}
 		}

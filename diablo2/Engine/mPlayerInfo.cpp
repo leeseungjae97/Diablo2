@@ -60,6 +60,5 @@ namespace m
 		SET_MATERIAL(player, L"AnimationMaterial");
 		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
 		ADD_COMP(player, Animator);
-		player->SetTile(TileManager::tiles);
 	}
 }

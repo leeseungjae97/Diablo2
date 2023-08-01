@@ -125,9 +125,11 @@ struct Monster {
 	m::math::Vector2 animationSizes[5] = {};
 	std::wstring textureString[5] = {};
 	int animationLength[5] = {};
+	float fSpeed = 100.f;
 };
 struct DiabloSt : public Monster
 {
+	float fSpeed = 200.f;
 	float fAttackDelay = 2.5f;
 	float hp = 100;
 	float hpCapacity;

@@ -2,62 +2,57 @@
 
 #include "mMeshRenderer.h"
 #include "mTileManager.h"
+
 #include "../Engine/mTile.h"
+#include "../Engine/mMoveAbleObject.h"
+
 namespace m
 {
-	Vector2 Astar::mStartCoord = Vector2(-1.f, -1.f);
-	Vector2 Astar::mTargetCoord = Vector2(-1.f, -1.f);
+	Astar::Astar()
+	{
 
-	int Astar::xLength = 0;
-	int Astar::yLength = 0;
+	}
+	Astar::~Astar()
+	{
 
-	std::vector<Tile*> Astar::finalTileVector;
-
-	Tile* Astar::startTile = nullptr;
-	Tile* Astar::targetTile = nullptr;
-	Tile* Astar::curTile = nullptr;
-	std::vector<Tile*> Astar::openVector;
-	std::vector<Tile*> Astar::closedVector;
-	std::vector<Tile*> Astar::tmpOpenVector;
-	bool Astar::allowDiagonal = false;
-	bool Astar::dontCrossCorner = false;
-	int Astar::tempCount = 0;
+	}
 	void Astar::Initialize()
 	{
 		allowDiagonal = true;
 		dontCrossCorner = false;
 		mStartCoord = Vector2(-1.f, -1.f);
 		mTargetCoord = Vector2(-1.f, -1.f);
+		xLength = 0;
+		yLength = 0;
+		startTile = nullptr;
+		targetTile = nullptr;
+		curTile = nullptr;
 	}
+
 	void Astar::PathFinding(Vector2 startCoord, Vector2 targetCoord)
 	{
-		
-		
-		TILES tileVec = TileManager::tiles;
-
 		Astar::Initialize();
-		Astar::SetYLength(tileVec.size());
-		Astar::SetXLength(tileVec[0].size());
-		for (int i = 0; i < finalTileVector.size(); ++i)
+		Astar::SetYLength(TileManager::tiles.size());
+		Astar::SetXLength(TileManager::tiles[0].size());
+		for (int i = 0; i < pathVector.size(); ++i)
 		{
-			Tile* path = finalTileVector[i];
+			Tile* path = pathVector[i];
 			SET_MATERIAL(path, L"testTile");
 		}
-		finalTileVector.clear();
+		pathVector.clear();
 		float direct1[4][2] = { {1, 1},{1, -1},{-1, -1},{-1, 1} };
 		float direct2[4][2] = { {1, 0},{0, 1},{-1, 0},{0, -1} };
 
 		mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
 
-		startTile = tileVec[startCoord.y][startCoord.x];
-		targetTile = tileVec[targetCoord.y][targetCoord.x];
+		startTile = TileManager::tiles[startCoord.y][startCoord.x];
+		targetTile = TileManager::tiles[targetCoord.y][targetCoord.x];
 
 		openVector.push_back(startTile);
 
 		int dy = 0;
 		int dx = 0;
-		auto start_time = std::chrono::high_resolution_clock::now();
 		while (!openVector.empty())
 		{
 			
@@ -92,14 +87,13 @@ namespace m
 				Tile* targetCurTile = targetTile;
 				while (targetCurTile != startTile)
 				{
-					finalTileVector.push_back(targetCurTile);
+					pathVector.push_back(targetCurTile);
 					targetCurTile = targetCurTile->GetParentTile();
 				}
-				finalTileVector.push_back(startTile);
-				std::reverse(finalTileVector.begin(), finalTileVector.end());
+				pathVector.push_back(startTile);
+				std::reverse(pathVector.begin(), pathVector.end());
 
 			}
-			tempCount++;
 			if (allowDiagonal)
 			{
 				for (int i = 0; i < 4; ++i)
@@ -119,12 +113,9 @@ namespace m
 				OpenVectorAdd(dy, dx);
 			}
 		}
-		auto end_time = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-		
 
-		for (int i = 0; i < finalTileVector.size(); ++i)
-			SET_MATERIAL(finalTileVector[i], L"testTile2");
+		for (int i = 0; i < pathVector.size(); ++i)
+			SET_MATERIAL(pathVector[i], L"testTile2");
 
 		for (int i = 0; i < closedVector.size(); ++i)
 			closedVector[i]->SetInClosed(false);
@@ -135,28 +126,27 @@ namespace m
 		closedVector.clear();
 		tmpOpenVector.clear();
 	}
+
 	void Astar::OpenVectorAdd(int y, int x)
 	{
-		TILES tileVec = TileManager::tiles;		
-		if (x >= (mTargetCoord.x - 10 < 0 ? 0 : mTargetCoord.x - 10) && x < mTargetCoord.x + 10
-			&& y >= (mTargetCoord.y - 10 < 0 ? 0 : mTargetCoord.y - 10) && y < mTargetCoord.y + 10
-			&& !tileVec[y][x]->GetIsWall()
-			&& !tileVec[y][x]->GetInClosed())
+		if (x >= (mTargetCoord.x - 5 < 0 ? 0 : mTargetCoord.x - 5) && x < mTargetCoord.x + 5
+			&& y >= (mTargetCoord.y - 5 < 0 ? 0 : mTargetCoord.y - 5) && y < mTargetCoord.y + 5
+			&& !TileManager::tiles[y][x]->GetIsWall()
+			&& !TileManager::tiles[y][x]->GetInClosed())
 		{
 			if (allowDiagonal)
 			{
-				if (tileVec[curTile->GetCoord().y][x]->GetIsWall()
-					&& tileVec[y][curTile->GetCoord().x]->GetIsWall()) return;
+				if (TileManager::tiles[curTile->GetCoord().y][x]->GetIsWall()
+					&& TileManager::tiles[y][curTile->GetCoord().x]->GetIsWall()) return;
 			}
 			if (dontCrossCorner)
 			{
-				if (tileVec[y][curTile->GetCoord().x]->GetIsWall()
-					|| tileVec[curTile->GetCoord().y][x]->GetIsWall()) return;
+				if (TileManager::tiles[y][curTile->GetCoord().x]->GetIsWall()
+					|| TileManager::tiles[curTile->GetCoord().y][x]->GetIsWall()) return;
 			}
-			Tile* neighborTile = tileVec[y][x];
+			Tile* neighborTile = TileManager::tiles[y][x];
 			int moveCost = curTile->GetG() + (curTile->GetCoord().x - x == 0
 											  || curTile->GetCoord().y - y == 0 ? 10 : 14);
-
 
 			if (moveCost < neighborTile->GetG()
 				|| !neighborTile->GetInOpen())
@@ -172,4 +162,73 @@ namespace m
 			}
 		}
 	}
+
+	void Astar::PathChange()
+	{
+		finalPathVector = pathVector;
+		if (!finalPathVector.empty())
+		{
+			Tile* eraseFrontTile = finalPathVector.front();
+			std::vector<Tile*>::iterator iter = finalPathVector.begin();
+			while (iter != finalPathVector.end())
+			{
+				if ((*iter) == eraseFrontTile)
+				{
+					iter = finalPathVector.erase(iter);
+					break;
+				}
+				else iter++;
+			}
+		}
+		
+	}
+
+	void Astar::Move(MoveAbleObject* mOwner)
+	{
+		if (finalPathVector.empty()) return;
+
+		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"testTile2");
+
+		Tile* subTargetTile = finalPathVector.front();
+		if (subTargetTile->GetCoord() != TileManager::GetPlayerPositionCoord())
+		{
+			Vector3 subPos = GET_POS(subTargetTile);
+
+			Vector3 prevPosition = GET_POS(mOwner);
+			Vector3 destPosition = subPos;
+			mOwner->SetPrevPosition(prevPosition);
+			mOwner->SetDestPosition(subPos);
+
+			float maxX = max(destPosition.x, prevPosition.x);
+			float maxY = max(destPosition.y, prevPosition.y);
+
+			float minX = min(destPosition.x, prevPosition.x);
+			float minY = min(destPosition.y, prevPosition.y);
+
+			mOwner->SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
+
+			Vector3 vDirection = destPosition - prevPosition;
+			vDirection.Normalize();
+			mOwner->SetDirection(vDirection);
+			
+		}
+		if (mOwner->Stop())
+		{
+			std::vector<Tile*>::iterator iter = finalPathVector.begin();
+			while (iter != finalPathVector.end())
+			{
+				if ((*iter) == subTargetTile)
+				{
+					iter = finalPathVector.erase(iter);
+					break;
+				}
+				else iter++;
+			}
+		}
+
+		
+
+	}
+
+	
 }

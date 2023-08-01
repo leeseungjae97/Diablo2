@@ -24,6 +24,7 @@ namespace m::enums
 		Player,
 		Monster,
 		Light,
+		Camera,
 		UI,
 		Item,
 		End = 16,

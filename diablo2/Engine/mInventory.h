@@ -17,9 +17,9 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        std::vector<Inven*> GetInvens() { return invens; }
-        std::vector<Inven*> GetEquiments() { return equiments; }
-        std::vector<InvenItem*> GetInvenItems() { return invenItems; }
+        std::vector<Inven*>& GetInvens() { return invens; }
+        std::vector<Inven*>& GetEquiments() { return equiments; }
+        std::vector<InvenItem*>& GetInvenItems() { return invenItems; }
         GameObject* GetInvensCollider() { return invensCollider; }
 
     private:

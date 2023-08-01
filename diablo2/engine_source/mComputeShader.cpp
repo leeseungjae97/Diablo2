@@ -1,10 +1,13 @@
 #include "mComputeShader.h"
 #include "mGraphicDevice_DX11.h"
-namespace m
+namespace m::graphics
 {
 	ComputeShader::ComputeShader()
 		: Resource(enums::eResourceType::ComputeShader)
 	{
+		mThreadGroupCountX = 32;
+		mThreadGroupCountY = 32;
+		mThreadGroupCountZ = 1;
 	}
 	ComputeShader::~ComputeShader()
 	{
@@ -24,5 +27,20 @@ namespace m
 												   , mCSBlob->GetBufferSize(), mCS.GetAddressOf());
 
 		return true;
+	}
+	void ComputeShader::OnExcute()
+	{
+		Binds();
+
+		GetDevice()->BindComputeShader(mCS.Get());
+		GetDevice()->Dispatch(mGroupX, mGroupY, mGroupZ);
+
+		Clear();
+	}
+	void ComputeShader::Binds()
+	{
+	}
+	void ComputeShader::Clear()
+	{
 	}
 }

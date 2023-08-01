@@ -59,7 +59,7 @@ namespace m
 		GET_TEX(logo, tex);
 		SET_POS_XYZ(logo, 0.f, 0.f, 1.0f);
 		SET_SCALE_FULL(logo, 0.f);
-		SET_POS_XYZ(logo, 0.f, RESOL_H_HEI - (tex->GetHeight() * Texture::GetHeiRatio() / 2.f), 1.f);
+		SET_POS_XYZ(logo, 0.f, RESOL_H_HEI - (tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f), 1.f);
 		SET_SCALE_TEX_SIZE_WITH_RAT(logo, tex, 0.f);
 
 		Button* btn1 = new Button();

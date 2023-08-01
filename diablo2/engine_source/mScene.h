@@ -22,7 +22,7 @@ namespace m
 		void AddGameObject(eLayerType type, GameObject* gameObj);
 		Layer& GetGameObjects(eLayerType type);
 		template <typename T>
-		std::vector<T*> FindObjectsOfType()
+		std::vector<T*>& FindObjectsOfType()
 		{
 			std::vector<T*> findObjs = {};
 			for (Layer* layer : mLayers)

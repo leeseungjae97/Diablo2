@@ -4,6 +4,7 @@
 #include "mMaterial.h"
 #include "ItemLookUpTables.h"
 #include "mStructedBuffer.h"
+#include "mPaintShader.h"
 
 namespace renderer
 {
@@ -384,8 +385,17 @@ namespace renderer
 		UVControlShader->Create(eShaderStage::VS, L"UVControlVS.hlsl", "main");
 		UVControlShader->Create(eShaderStage::PS, L"UVControlPS.hlsl", "main");
 		m::Resources::Insert(L"UVControlShader", UVControlShader);
-	}
 
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+		m::Resources::Insert(L"PaintShader", paintShader);
+	}
+	void LoadTexture()
+	{
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		m::Resources::Insert(L"PaintTexuture", uavTexture);
+	}
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
@@ -958,10 +968,11 @@ namespace renderer
 
 	void Initialize()
 	{
+		LoadMesh();
+		LoadBuffer();
 		LoadShader();
 		SetupState();
-		LoadBuffer();
-		LoadMesh();
+		LoadTexture();
 		LoadMaterial();
 	}
 	void BindLights()

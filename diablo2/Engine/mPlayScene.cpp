@@ -53,20 +53,15 @@ namespace m
 
 		camera = new GameObject();
 		//camera->SetName(L"Camera");
-		AddGameObject(eLayerType::Player, camera);
+		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
 
 		TileManager::MakeTile(50, 50, cameraComp);
-		PlayerInfo::Initialize();
 
-		SET_MAIN_CAMERA(PlayerInfo::player);
-
-		AddGameObject(eLayerType::Player, PlayerInfo::player);
-
-		srand((unsigned int)time(NULL));
-		int randPos = rand() % TileManager::tiles.size();
+		//srand((unsigned int)time(NULL));
+		//int randPos = rand() % TileManager::tiles.size();
 
 		GetSceneMainCamera()->DisableLayerMasks();
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
@@ -74,12 +69,14 @@ namespace m
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::Monster, true);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(GetSceneMainCamera());
-		//camera->AddComponent<GridScript>();
 
-		Vector3 randTilePos = GET_POS(TileManager::tiles[0][0]);
-	
-		Monster* monster = new Monster(randTilePos);
+		PlayerInfo::Initialize();
+		SET_MAIN_CAMERA(PlayerInfo::player);
+		AddGameObject(eLayerType::Player, PlayerInfo::player);
 
+		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
+
+		Monster* monster = new Monster(randTilePos, DiabloSt().fSpeed);
 		SET_MAIN_CAMERA(monster);
 		AddGameObject(eLayerType::Monster, monster);
 		SET_MESH(monster, L"RectMesh");
@@ -89,13 +86,12 @@ namespace m
 
 		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
 		ms->SetMonster(monster);
-		ms->SetPlayer(PlayerInfo::player);
 		
 		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
-		ps->SetPlayer(PlayerInfo::player);
 		ps->SetMonster(monster);
 
 		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
+
 		//GameObject* child = new GameObject();
 		//child->SetCamera(cameraComp);
 		//AddGameObject(eLayerType::Player, child);
@@ -212,8 +208,8 @@ namespace m
 		SET_MATERIAL(skillShortCut1, L"frozenOrbIcon");
 		GET_TEX(skillShortCut1, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCut1, tex, 0.f);
-		SET_POS_XYZ(skillShortCut1, -470.f - tex->GetWidth() * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + tex->GetHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
+		SET_POS_XYZ(skillShortCut1, -470.f - tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
+					, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
 		skillShortCut1->SetClickMaterial(RESOURCE_FIND(Material, L"frozenOrbClickIcon"));
 		skillShortCut1->SetNormalMaterial(RESOURCE_FIND(Material, L"frozenOrbIcon"));
 
@@ -225,12 +221,12 @@ namespace m
 		SET_MATERIAL(skillShortCut2, L"thunderStormIcon");
 		GET_TEX(skillShortCut2, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCut2, tex, 0.f);
-		SET_POS_XYZ(skillShortCut2, 470.f + tex->GetWidth() * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + tex->GetHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
+		SET_POS_XYZ(skillShortCut2, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
+					, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
 		skillShortCut2->SetClickMaterial(RESOURCE_FIND(Material, L"thunderStormClickIcon"));
 		skillShortCut2->SetNormalMaterial(RESOURCE_FIND(Material, L"thunderStormIcon"));
 
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		//CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 	}

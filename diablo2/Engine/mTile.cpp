@@ -20,7 +20,8 @@ namespace m
 	Tile::~Tile()
 	{}
 	void Tile::Initialize()
-	{}
+	{
+	}
 	void Tile::Update()
 	{
 		GameObject::Update();

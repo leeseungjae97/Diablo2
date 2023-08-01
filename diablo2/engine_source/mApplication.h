@@ -22,8 +22,8 @@ namespace m
 		void SetWindow(HWND hwnd, UINT width, UINT height);
 		//void SetViewport(UINT width, UINT height);
 
-		UINT GetWidth() { return mWidth; }
-		UINT GetHeight() { return mHeight; }
+		UINT GetMetaDataWidth() { return mWidth; }
+		UINT GetMetaDataHeight() { return mHeight; }
 		HWND GetHwnd() { return mHwnd; }
 		//Viewport GetViewport() { return mViewport; }
 
