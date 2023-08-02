@@ -51,8 +51,7 @@ namespace m
 			TileManager::playerStandTile = this;
 		}
 		Collider2D* mCollider = GET_COMP(this, Collider2D);
-		if (mCollider->GetOnEnter()
-			|| mCollider->GetOnStay())
+		if (mCollider->GetOnEnter())
 		{
 			for (auto obj : mCollider->GetCollideredObjects())
 			{

@@ -36,35 +36,32 @@ namespace m
 
 		Vector3 curPosition = GET_POS(this);
 
-		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-																, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
-
 		Vector2 curCoord = TileManager::GetPlayerPositionCoord();
 		Vector2 mouseCoord = TileManager::GetHoverTileCoord();
 
 		mAstar->PathFinding(curCoord, mouseCoord);
-		mAstar->Move(this);
+		mAstar->PlayerMove(this);
 
 		if (Input::GetKeyDownOne(eKeyCode::LBUTTON)
 			&& !MouseManager::GetMouseOnUI())
 		{
 			if (!mAstar->PathChange())
 			{
-				//Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-				//														, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
-				//prevPosition = GET_POS(this);
-				//destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
+				Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
+																		, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+				prevPosition = GET_POS(this);
+				destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
-				//float maxX = max(destPosition.x, prevPosition.x);
-				//float maxY = max(destPosition.y, prevPosition.y);
+				float maxX = max(destPosition.x, prevPosition.x);
+				float maxY = max(destPosition.y, prevPosition.y);
 
-				//float minX = min(destPosition.x, prevPosition.x);
-				//float minY = min(destPosition.y, prevPosition.y);
+				float minX = min(destPosition.x, prevPosition.x);
+				float minY = min(destPosition.y, prevPosition.y);
 
-				//SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
+				SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
 
-				//vDirection = destPosition - prevPosition;
-				//vDirection.Normalize();
+				vDirection = destPosition - prevPosition;
+				vDirection.Normalize();
 			}
 		}
 

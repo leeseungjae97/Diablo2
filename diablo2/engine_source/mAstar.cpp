@@ -43,7 +43,7 @@ namespace m
 		float direct1[4][2] = { {1, 1},{1, -1},{-1, -1},{-1, 1} };
 		float direct2[4][2] = { {1, 0},{0, 1},{-1, 0},{0, -1} };
 
-		mStartCoord = startCoord;
+		//mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
 
 		startTile = TileManager::tiles[startCoord.y][startCoord.x];
@@ -67,16 +67,7 @@ namespace m
 				}
 			}
 
-			std::vector<Tile*>::iterator iter = openVector.begin();
-			while (iter != openVector.end())
-			{
-				if ((*iter) == curTile)
-				{
-					iter = openVector.erase(iter);
-					break;
-				}
-				else iter++;
-			}
+			std::erase(openVector, curTile);
 			curTile->SetInOpen(false);
 
 			closedVector.push_back(curTile);
@@ -168,17 +159,6 @@ namespace m
 		finalPathVector = pathVector;
 		if (!finalPathVector.empty())
 		{
-			//Tile* eraseFrontTile = finalPathVector.front();
-			//std::vector<Tile*>::iterator iter = finalPathVector.begin();
-			//while (iter != finalPathVector.end())
-			//{
-			//	if ((*iter) == eraseFrontTile)
-			//	{
-			//		iter = finalPathVector.erase(iter);
-			//		break;
-			//	}
-			//	else iter++;
-			//}
 			std::erase(finalPathVector, finalPathVector.front());
 			if (finalPathVector.empty()) return false;
 			return true;
@@ -186,8 +166,38 @@ namespace m
 		return false;
 		
 	}
+	bool Astar::MonsterMove(MoveAbleObject* mOwner)
+	{
+		if (finalPathVector.empty()) return false;
 
-	bool Astar::Move(MoveAbleObject* mOwner)
+		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"testTile3");
+
+		Tile* subTargetTile = finalPathVector.front();
+		if (subTargetTile->GetCoord() != mOwner->GetCoord())
+		{
+			Vector3 subPos = GET_POS(subTargetTile);
+
+			Vector3 prevPosition = GET_POS(mOwner);
+			Vector3 destPosition = subPos;
+			mOwner->SetPrevPosition(prevPosition);
+			mOwner->SetDestPosition(subPos);
+
+			float maxX = max(destPosition.x, prevPosition.x);
+			float maxY = max(destPosition.y, prevPosition.y);
+
+			float minX = min(destPosition.x, prevPosition.x);
+			float minY = min(destPosition.y, prevPosition.y);
+
+			mOwner->SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
+
+			Vector3 vDirection = destPosition - prevPosition;
+			vDirection.Normalize();
+			mOwner->SetDirection(vDirection);
+		}
+		else { std::erase(finalPathVector, finalPathVector.front()); }
+		return true;
+	}
+	bool Astar::PlayerMove(MoveAbleObject* mOwner)
 	{
 		if (finalPathVector.empty()) return false;
 
@@ -214,22 +224,7 @@ namespace m
 			Vector3 vDirection = destPosition - prevPosition;
 			vDirection.Normalize();
 			mOwner->SetDirection(vDirection);
-			
-		}
-		if (mOwner->BeforeStop())
-		{
-	/*		std::vector<Tile*>::iterator iter = finalPathVector.begin();
-			while (iter != finalPathVector.end())
-			{
-				if ((*iter) == subTargetTile)
-				{
-					iter = finalPathVector.erase(iter);
-					break;
-				}
-				else iter++;
-			}*/
-			std::erase(finalPathVector, finalPathVector.front());
-		}
+		}else { std::erase(finalPathVector, finalPathVector.front()); }
 		return true;
 	}
 

@@ -18,7 +18,8 @@ namespace m
 
 		bool PathChange();
 
-		bool Move(MoveAbleObject* mOwner);
+		bool MonsterMove(MoveAbleObject* mOwner);
+		bool PlayerMove(MoveAbleObject* mOwner);
 
 		void SetXLength(int xLen) { xLength = xLen; }
 		void SetYLength(int yLen) { yLength = yLen; }

@@ -234,7 +234,7 @@ namespace m
 		skillShortCut2->SetClickMaterial(RESOURCE_FIND(Material, L"thunderStormClickIcon"));
 		skillShortCut2->SetNormalMaterial(RESOURCE_FIND(Material, L"thunderStormIcon"));
 
-		CollisionManager::SetLayer(eLayerType::Tile, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Tile, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 	}

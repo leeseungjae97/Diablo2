@@ -34,29 +34,38 @@ namespace m
 			|| GetBattleState() == eBattleState::Cast) return;
 
 		Vector3 curPosition = GET_POS(this);
-		Vector2 vvv = GetCoord();
 		if (rangeCollider->GetOnStay())
 		{
 			fRemainDistance += fStartDistance;
 			return;
 		}
 
-		if (sightCollider->GetOnStay())
+		Vector2 curCoord = GetCoord();
+		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
+
+		mAstar->PathFinding(curCoord, targetCoord);
+		mAstar->MonsterMove(this);
+
+		if (sightCollider->GetOnEnter())
 		{
-			prevPosition = GET_POS(this);
+			if (!mAstar->PathChange())
+			{
 
-			destPosition = sightCollider->GetCollideredObjectPos();
+			}
+			//prevPosition = GET_POS(this);
 
-			float maxX = max(destPosition.x, prevPosition.x);
-			float maxY = max(destPosition.y, prevPosition.y);
+			//destPosition = sightCollider->GetCollideredObjectPos();
 
-			float minX = min(destPosition.x, prevPosition.x);
-			float minY = min(destPosition.y, prevPosition.y);
+			//float maxX = max(destPosition.x, prevPosition.x);
+			//float maxY = max(destPosition.y, prevPosition.y);
 
-			fStartDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
+			//float minX = min(destPosition.x, prevPosition.x);
+			//float minY = min(destPosition.y, prevPosition.y);
 
-			vDirection = destPosition - curPosition;
-			vDirection.Normalize();
+			//fStartDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
+
+			//vDirection = destPosition - curPosition;
+			//vDirection.Normalize();
 		}
 		float maxX = max(curPosition.x, prevPosition.x);
 		float maxY = max(curPosition.y, prevPosition.y);

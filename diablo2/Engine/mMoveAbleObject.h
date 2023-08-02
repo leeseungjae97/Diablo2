@@ -18,7 +18,6 @@ namespace m
 
         virtual void Hit(int damage) = 0;
         bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
-        bool BeforeStop() { return fRemainDistance < fStartDistance + 1.f ? false : true; }
 
         float GetRemainDistance() { return fRemainDistance; }
         float GetStartDistance() { return fStartDistance; }
