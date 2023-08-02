@@ -26,10 +26,10 @@ namespace m
 	{
 		Scene* activeScene = SceneManager::GetActiveScene();
 
-		const std::vector<GameObject*> lefts 
+		const std::vector<GameObject*> lefts
 			= activeScene->GetLayer(left).GetGameObjects();
 
-		const std::vector<GameObject*> rights 
+		const std::vector<GameObject*> rights
 			= activeScene->GetLayer(right).GetGameObjects();
 
 		for (GameObject* leftObj : lefts)
@@ -54,11 +54,11 @@ namespace m
 							for (Collider2D* rightCol : rightCols)
 								ColliderCollision(leftCol, rightCol);
 						}
-						
+
 					}
 				}
 			}
-			
+
 		}
 	}
 	void CollisionManager::ColliderCollision(Collider2D* left, Collider2D* right)
@@ -93,7 +93,7 @@ namespace m
 		}
 		else
 		{
-			if(iter->second == true) 
+			if (iter->second == true)
 			{
 				left->OnCollisionExit(right);
 				right->OnCollisionExit(left);
@@ -104,6 +104,11 @@ namespace m
 	}
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 	{
+		eColliderType leftType = left->GetType();
+		eColliderType rightType = right->GetType();
+		if (leftType == eColliderType::Dot) leftType = eColliderType::Circle;
+		if (rightType == eColliderType::Dot) rightType = eColliderType::Circle;
+
 		Vector3 leftScale = left->GetScale();
 		Vector3 rightScale = right->GetScale();
 
@@ -117,8 +122,8 @@ namespace m
 		Vector3 rightRotation = right->GetRotation();
 
 		// rect intersect
-		if (left->GetType() == eColliderType::Rect
-			&& right->GetType() == eColliderType::Rect)
+		if (leftType == eColliderType::Rect
+			&& rightType == eColliderType::Rect)
 		{
 			if (leftRotation != Vector3::Zero
 				|| rightRotation != Vector3::Zero)
@@ -175,7 +180,7 @@ namespace m
 					float leftMax = -FLT_MAX;
 					for (const Vertex& vertex : leftVertexes)
 					{
-						Vector3 worldpos= Vector3::Transform(vertex.pos, leftMatrix);
+						Vector3 worldpos = Vector3::Transform(vertex.pos, leftMatrix);
 
 						float projection = worldpos.Dot(axis);
 						leftMin = min(leftMin, projection);
@@ -194,7 +199,7 @@ namespace m
 					}
 
 					// 축간 겹침 여부 확인
-					if (rightMin - leftMax > 0|| leftMin - rightMax > 0)
+					if (rightMin - leftMax > 0 || leftMin - rightMax > 0)
 					{
 						// 축이 분리되어 충돌이 없음
 						return false;
@@ -206,7 +211,7 @@ namespace m
 			else
 			{
 				if (fabs(leftPos.x - rightPos.x) < leftScale.x / 2.f + rightScale.x / 2.f
-					&& fabs(leftPos.y - rightPos.y) < leftScale.y / 2.f+ rightScale.y /2.f)
+					&& fabs(leftPos.y - rightPos.y) < leftScale.y / 2.f + rightScale.y / 2.f)
 				{
 					return true;
 				}
@@ -216,20 +221,20 @@ namespace m
 
 
 		// circle intersect
-		if (left->GetType() == eColliderType::Circle
-			&& right->GetType() == eColliderType::Circle)
+		if (leftType == eColliderType::Circle
+			&& rightType == eColliderType::Circle)
 		{
 			float dX = leftPos.x - rightPos.x;
 			float dY = leftPos.y - rightPos.y;
 
 			float length = sqrt(dX * dX + dY * dY);
 
-			if (leftScale.x / 2.f + rightScale.x / 2.f>= length)
+			if (leftScale.x / 2.f + rightScale.x / 2.f >= length)
 				return true;
 		}
 
-		if (left->GetType() == eColliderType::Circle
-			&& right->GetType() == eColliderType::Rect)
+		if (leftType == eColliderType::Circle
+			&& rightType == eColliderType::Rect)
 		{
 			Vector2 corner[4] = {
 				Vector2(rightPos.x - rightScale.x / 2.f, rightPos.y + rightScale.y / 2.f),
@@ -237,7 +242,7 @@ namespace m
 				Vector2(rightPos.x - rightScale.x / 2.f, rightPos.y - rightScale.y / 2.f),
 				Vector2(rightPos.x + rightScale.x / 2.f, rightPos.y - rightScale.y / 2.f),
 			};
-			for (int i = 0; i < 4; ++i)				  
+			for (int i = 0; i < 4; ++i)
 			{
 				float dX = leftPos.x - corner[i].x;
 				float dY = leftPos.y - corner[i].y;
@@ -248,15 +253,15 @@ namespace m
 					return true;
 			}
 			if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(rightPos),
-											Vector2(rightScale.x + leftScale.x / 2.f, rightScale.y + leftScale.x / 2.f),
-											GET_VEC2_F_VEC3_D(leftPos)))
+				Vector2(rightScale.x + leftScale.x / 2.f, rightScale.y + leftScale.x / 2.f),
+				GET_VEC2_F_VEC3_D(leftPos)))
 			{
 				return true;
 			}
 		}
 
-		if (left->GetType() == eColliderType::Rect
-			&& right->GetType() == eColliderType::Circle)
+		if (leftType == eColliderType::Rect
+			&& rightType == eColliderType::Circle)
 		{
 			Vector2 corner[4] = {
 				Vector2(leftPos.x - leftScale.x / 2.f, leftPos.y + leftScale.y / 2.f),
@@ -275,8 +280,8 @@ namespace m
 					return true;
 			}
 			if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(leftPos),
-											Vector2(leftScale.x + rightScale.x / 2.f, leftScale.x + rightScale.y / 2.f),
-											GET_VEC2_F_VEC3_D(rightPos)))
+				Vector2(leftScale.x + rightScale.x / 2.f, leftScale.x + rightScale.y / 2.f),
+				GET_VEC2_F_VEC3_D(rightPos)))
 			{
 				return true;
 			}

@@ -41,6 +41,12 @@ namespace gui
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 
+		mDebugObjects[(UINT)eColliderType::Dot] = new DebugObject();
+		mDebugObjects[(UINT)eColliderType::Dot]->AddComponent<Transform>();
+		mr = mDebugObjects[(UINT)eColliderType::Dot]->AddComponent<MeshRenderer>();
+		mr->SetMaterial(material);
+		mr->SetMesh(mesh);
+
 		EditorObject* grid = new EditorObject();
 		grid->SetName(L"Grid");
 		mr = grid->AddComponent<MeshRenderer>();
@@ -138,7 +144,8 @@ namespace gui
 				debugObj->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"DebugRect"));
 			}
 		}
-		else
+		else if(mesh.type ==eColliderType::Circle
+			|| mesh.type == eColliderType::Dot)
 		{
 			if (mesh.color == eColor::Red)
 			{

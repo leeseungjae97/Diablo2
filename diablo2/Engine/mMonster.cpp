@@ -12,9 +12,9 @@ namespace m
 		, hpPercent(0.f)
 	{
 		sightCollider = ADD_COMP(this, Collider2D);
-		sightCollider->AddExceptType(eLayerType::Tile);
 		sightCollider->SetType(eColliderType::Circle);
 		sightCollider->SetSize(Vector3(10.f, 10.f, 1.f));
+		sightCollider->AddExceptType(eLayerType::Tile);
 
 		rangeCollider->SetSize(Vector3(1.5f, 1.5f, 1.5f));
 	}

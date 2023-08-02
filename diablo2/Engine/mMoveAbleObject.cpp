@@ -19,11 +19,15 @@ namespace m
 		, bGetHit(false)
 	{
 		SET_POS_VEC(this, iniPos);
-		ADD_COMP(this, Collider2D);
+		Collider2D* hitAreaCollider =ADD_COMP(this, Collider2D);
+		hitAreaCollider->AddExceptType(eLayerType::Tile);
 
 		rangeCollider = ADD_COMP(this, Collider2D);
 		rangeCollider->SetType(eColliderType::Circle);
 		rangeCollider->AddExceptType(eLayerType::Tile);
+
+		tilePositionCollider = ADD_COMP(this, Collider2D);
+		tilePositionCollider->SetType(eColliderType::Dot);
 
 		ADD_COMP(this, MeshRenderer);
 		mAstar = new Astar();

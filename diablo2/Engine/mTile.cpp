@@ -4,6 +4,7 @@
 #include "..\engine_source\mMeshRenderer.h"
 #include "..\engine_source\mTileManager.h"
 
+#include "mTileScript.h"
 #include "mPlayerInfo.h"
 #include "mPlayer.h"
 namespace m
@@ -14,7 +15,8 @@ namespace m
 		, inClosed(false)
 		, inOpen(false)
 	{
-		SetIsRhombus(true);	
+		SetIsRhombus(true);
+		ADD_COMP(this, TileScript);
 		Collider2D* col = ADD_COMP(this, Collider2D);
 		col->SetColor(eColor::None);
 		col->AddExceptType(eLayerType::Player);
@@ -50,15 +52,16 @@ namespace m
 		{
 			TileManager::playerStandTile = this;
 		}
-		Collider2D* mCollider = GET_COMP(this, Collider2D);
-		if (mCollider->GetOnEnter())
-		{
-			for (auto obj : mCollider->GetCollideredObjects())
-			{
-				auto dObj = dynamic_cast<MoveAbleObject*>(obj);
-				if (dObj) dObj->SetCoord(GetCoord());
-			}
-		}
+
+		//Collider2D* mCollider = GET_COMP(this, Collider2D);
+		//if (mCollider->GetOnEnter())
+		//{
+		//	for (auto obj : mCollider->GetCollideredObjects())
+		//	{
+		//		auto dObj = dynamic_cast<MoveAbleObject*>(obj);
+		//		if (dObj) dObj->SetCoord(GetCoord());
+		//	}
+		//}
 		//if (Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Left)
 		//	&& Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Right))
 		//{

@@ -45,8 +45,11 @@ namespace m
         void SetCoord(Vector2 coord) { mCoord = coord; }
         Vector2 GetCoord() { return mCoord; }
 
+        Collider2D* GetTilePositionCollider() { return tilePositionCollider; }
+
     protected:
         Collider2D* rangeCollider;
+        Collider2D* tilePositionCollider;
 
         Vector3 prevPosition;
         Vector3 destPosition;

@@ -42,11 +42,15 @@ namespace m
 			{
 				scale.x = scale.y;
 			}
+			if (mType == eColliderType::Dot)
+			{
+				scale.x = 1.f;
+				scale.y = 1.f;
+			}
 			scale.x *= mSize.x;
 			scale.y *= mSize.y;
 			mScale = scale;
 		}
-	
 		mRotation = tr->GetRotation();
 		
 

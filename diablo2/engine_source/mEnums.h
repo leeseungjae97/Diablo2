@@ -41,6 +41,7 @@ namespace m::enums
 	};
 	enum class eColliderType
 	{
+		Dot,
 		Rect,
 		Circle,
 		Sphere,

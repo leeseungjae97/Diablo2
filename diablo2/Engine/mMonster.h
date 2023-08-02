@@ -21,7 +21,7 @@ namespace m
         Collider2D* GetSightCollider() { return sightCollider; }
     private:
         Collider2D* sightCollider;
-
+        
 
         float hp;
         float hpCapacity;

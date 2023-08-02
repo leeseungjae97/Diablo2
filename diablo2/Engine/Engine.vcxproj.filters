@@ -76,6 +76,7 @@
       <Filter>UI\UVUI</Filter>
     </ClCompile>
     <ClCompile Include="mMoveAbleObject.cpp" />
+    <ClCompile Include="mTileScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -150,6 +151,7 @@
       <Filter>UI\UVUI</Filter>
     </ClInclude>
     <ClInclude Include="mMoveAbleObject.h" />
+    <ClInclude Include="mTileScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -244,6 +246,9 @@
     </Filter>
     <Filter Include="UI\UVUI">
       <UniqueIdentifier>{4a97b7f2-b619-42ef-9070-bcaec63cce40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\TileScript">
+      <UniqueIdentifier>{2d96b47d-5de9-4eb4-8047-0ad8cb0f1a47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
