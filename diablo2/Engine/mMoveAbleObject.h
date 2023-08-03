@@ -8,7 +8,13 @@ namespace m
 		public GameObject
 	{
 	public:
-		MoveAbleObject(Vector3 iniPos, float speed);
+		MoveAbleObject(Vector3 iniPos
+			, float speed
+			, bool useHitArea = true
+			, bool useRange = true
+			, bool useTilePos = true
+			, bool useAstar = true
+		);
 		virtual ~MoveAbleObject();
 
 		virtual void Initialize() override;

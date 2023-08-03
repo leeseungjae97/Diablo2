@@ -2,6 +2,13 @@
 
 namespace m
 {
+	enum class eSkillFunctionType
+	{
+		Straight,
+		Fall,
+		None,
+		END,
+	};
 	enum class eColdSkillType
 	{
 		iceBolt,
@@ -153,6 +160,42 @@ namespace m
 		L"hydraClickIcon",
 
 		L"normalAttackClickIcon"
+	};
+	eSkillFunctionType skillFunctionTypes[(int)eSkillType::END] = {
+		eSkillFunctionType::Straight,// L"iceBoltIcon",
+		eSkillFunctionType::Straight,// L"frozenArmorIcon",
+		eSkillFunctionType::Straight,// L"frostNovaIcon",
+		eSkillFunctionType::Straight,// L"iceBlastIcon",
+		eSkillFunctionType::Straight,// L"shiverArmorIcon",
+		eSkillFunctionType::Straight,// L"clacialSpikeIcon",
+		eSkillFunctionType::Fall,// L"blizzardIcon",
+		eSkillFunctionType::Straight,// L"chillingArmorIcon",
+		eSkillFunctionType::Straight,// L"frozenOrbIcon",
+		eSkillFunctionType::Straight,// L"coldMasteryIcon",
+
+		eSkillFunctionType::Straight,// L"chargedBoltIcon",
+		eSkillFunctionType::Straight,// L"staticFieldIcon",
+		eSkillFunctionType::Straight,// L"telekinesisIcon",
+		eSkillFunctionType::Straight,// L"noveIcon",
+		eSkillFunctionType::Straight,// L"lightningIcon",
+		eSkillFunctionType::Straight,// L"chainLightningIcon",
+		eSkillFunctionType::Straight,// L"teleportIcon",
+		eSkillFunctionType::Straight,// L"thunderStormIcon",
+		eSkillFunctionType::Straight,// L"energyShieldIcon",
+		eSkillFunctionType::Straight,// L"lightningMasteryIcon",
+
+		eSkillFunctionType::Straight,// L"fireBoltIcon",
+		eSkillFunctionType::Straight,// L"warmthIcon",
+		eSkillFunctionType::Straight,// L"infernoIcon",
+		eSkillFunctionType::Straight,// L"blazeIcon",
+		eSkillFunctionType::Straight,// L"fireBallIcon",
+		eSkillFunctionType::Straight,// L"fireWallIcon",
+		eSkillFunctionType::Straight,// L"enchantIcon",
+		eSkillFunctionType::Straight,// L"meteorIcon",
+		eSkillFunctionType::Straight,// L"fireMasteryIcon",
+		eSkillFunctionType::Straight,// L"hydraIcon",
+
+		eSkillFunctionType::None,// L"normalAttackIcon"
 	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",

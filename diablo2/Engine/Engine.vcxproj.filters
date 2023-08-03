@@ -81,7 +81,12 @@
     <ClCompile Include="mTileScript.cpp">
       <Filter>Script\TileScript</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillShortCutButton.cpp" />
+    <ClCompile Include="mSkill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillShortCutButton.cpp">
+      <Filter>UI\SkillShortCutButton</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -161,7 +166,12 @@
     <ClInclude Include="mTileScript.h">
       <Filter>Script\TileScript</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillShortCutButton.h" />
+    <ClInclude Include="mSkill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillShortCutButton.h">
+      <Filter>UI\SkillShortCutButton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -265,6 +275,9 @@
     </Filter>
     <Filter Include="UI\SkillShortCutButton">
       <UniqueIdentifier>{aad6da08-7744-41e4-b0c3-f9157603f585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{88ba78aa-41a5-4e9a-9182-fd5aae29e3e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

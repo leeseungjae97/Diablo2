@@ -9,7 +9,13 @@
 
 namespace m
 {
-	MoveAbleObject::MoveAbleObject(Vector3 iniPos, float speed)
+	MoveAbleObject::MoveAbleObject(Vector3 iniPos
+		, float speed
+		, bool useHitArea
+		, bool useRange
+		, bool useTilePos
+		, bool useAstar
+	)
 		: prevPosition(iniPos)
 		, destPosition(iniPos)
 		, vS(iniPos)
@@ -19,20 +25,30 @@ namespace m
 		, bGetHit(false)
 	{
 		SET_POS_VEC(this, iniPos);
-		hitAreaCollider = ADD_COMP(this, Collider2D);
 
-		rangeCollider = ADD_COMP(this, Collider2D);
-		rangeCollider->SetType(eColliderType::Circle);
+		if(useHitArea)
+			hitAreaCollider = ADD_COMP(this, Collider2D);
 
-		tilePositionCollider = ADD_COMP(this, Collider2D);
-		tilePositionCollider->SetType(eColliderType::Dot);
+		if (useRange)
+		{
+			rangeCollider = ADD_COMP(this, Collider2D);
+			rangeCollider->SetType(eColliderType::Circle);
+		}
 
+		if (useTilePos)
+		{
+			tilePositionCollider = ADD_COMP(this, Collider2D);
+			tilePositionCollider->SetType(eColliderType::Dot);
+		}
+
+		if(useAstar)
+			mAstar = new Astar();
 		ADD_COMP(this, MeshRenderer);
-		mAstar = new Astar();
 	}
 	MoveAbleObject::~MoveAbleObject()
 	{
-		delete mAstar;
+		if(mAstar)
+			delete mAstar;
 	}
 	void MoveAbleObject::Initialize()
 	{

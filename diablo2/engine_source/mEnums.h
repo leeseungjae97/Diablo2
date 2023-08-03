@@ -24,6 +24,7 @@ namespace m::enums
 		Player,
 		Monster,
 		Light,
+		Skill,
 		Camera,
 		UI,
 		Item,

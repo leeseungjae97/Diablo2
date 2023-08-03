@@ -13,6 +13,17 @@ namespace m
 		, hpCapacity(0.f)
 		, hpPercent(0.f)
 	{
+		hitAreaCollider = ADD_COMP(this, Collider2D);
+
+		rangeCollider = ADD_COMP(this, Collider2D);
+		rangeCollider->SetType(eColliderType::Circle);
+
+		tilePositionCollider = ADD_COMP(this, Collider2D);
+		tilePositionCollider->SetType(eColliderType::Dot);
+
+		ADD_COMP(this, MeshRenderer);
+		mAstar = new Astar();
+
 		monsterId = MonsterManager::DispendMonsterId();
 		MonsterManager::AddMonster(this);
 

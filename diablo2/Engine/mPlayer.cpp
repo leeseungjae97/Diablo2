@@ -15,6 +15,17 @@ namespace m
 		, mHp(nullptr)
 		, mMp(nullptr)
 	{
+		hitAreaCollider = ADD_COMP(this, Collider2D);
+
+		rangeCollider = ADD_COMP(this, Collider2D);
+		rangeCollider->SetType(eColliderType::Circle);
+
+		tilePositionCollider = ADD_COMP(this, Collider2D);
+		tilePositionCollider->SetType(eColliderType::Dot);
+
+		ADD_COMP(this, MeshRenderer);
+		mAstar = new Astar();
+
 		rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
 	}
 	Player::~Player()

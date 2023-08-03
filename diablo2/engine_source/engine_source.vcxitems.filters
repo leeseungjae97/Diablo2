@@ -124,6 +124,9 @@
     <Filter Include="GameObject\Component\ParticleSystem">
       <UniqueIdentifier>{bde62044-036a-4f88-9c3e-963a7be9d9fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\SkillManager">
+      <UniqueIdentifier>{b69ae955-b702-4e86-ac22-f5506fddb418}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -265,6 +268,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -379,6 +383,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
