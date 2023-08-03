@@ -37,7 +37,9 @@ namespace m
 
 		void AddExceptType(eLayerType type) { exceptTypes.push_back(type); }
 		void ClearExceptType() { exceptTypes.clear(); }
+		void SetVisible(bool visible) { bVisible = visible; }
 
+		bool GetVisible() { return bVisible; }
 		bool GetOnEnter() { return bOnEnter; }
 		bool GetOnStay() { return bOnStay; }
 		bool GetOnExit() { return bOnExit; }
@@ -70,6 +72,8 @@ namespace m
 		bool bOnEnter;
 		bool bOnStay;
 		bool bOnExit;
+
+		bool bVisible;
 	};
 }
 

@@ -220,6 +220,18 @@ namespace renderer
 		std::vector<Vertex> vertexes;
 		std::vector<UINT> indexes;
 
+		Vertex v = {};
+		v.pos = Vector3(0.0f, 0.0f, 0.0f);
+		vertexes.push_back(v);
+		indexes.push_back(0);
+		std::shared_ptr<Mesh> pointMesh = std::make_shared<Mesh>();
+		pointMesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		pointMesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		Resources::Insert(L"PointMesh", pointMesh);
+
+		vertexes.clear();
+		indexes.clear();
+
 		vertexes.resize(4);
 
 		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
@@ -337,9 +349,6 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
 
-		constantBuffers[(UINT)eCBType::Vertex] = new ConstantBuffer(eCBType::Vertex);
-		constantBuffers[(UINT)eCBType::Vertex]->Create(sizeof(Vertex));
-
 		constantBuffers[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
 		constantBuffers[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
 
@@ -398,19 +407,23 @@ namespace renderer
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
 		paritcleShader->SetRSState(eRSType::SolidNone);
 		paritcleShader->SetDSState(eDSType::NoWrite);
 		paritcleShader->SetBSState(eBSType::AlphaBlend);
+		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		m::Resources::Insert(L"ParticleShader", paritcleShader);
 	}
+
 	void LoadTexture()
 	{
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
-		m::Resources::Insert(L"PaintTexuture", uavTexture);
+		m::Resources::Insert(L"PaintTexture", uavTexture);
 	}
+
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
@@ -473,7 +486,8 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
 #pragma endregion
 #pragma region ETC
-		MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
+		//MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
+		MAKE_MATERIAL_COMPUT_TEST(spriteShader, L"PaintTexture", L"testAmazon");
 		MAKE_MATERIAL(noLightSahder, L"test_sc", L"..\\Resources\\texture\\sc_town_walk.png", L"testSc");
 		MAKE_MATERIAL(noLightSahder, L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png", L"panelBorderLeft");
 		MAKE_MATERIAL(noLightSahder, L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png", L"panelBorderRight");
@@ -937,6 +951,11 @@ namespace renderer
 		MAKE_MATERIAL(noLightSahder, L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png", L"lightningMasteryClickIcon")
 		MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
 #pragma endregion
+#pragma region Skill ETC
+		MAKE_MATERIAL(noLightSahder, L"normal_attack_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack.png", L"normalAttackIcon")
+		MAKE_MATERIAL(noLightSahder, L"normal_attack_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack_c.png", L"normalAttackClickIcon")
+#pragma endregion
+
 #pragma region Inventory
 		{
 			std::shared_ptr<Texture> texture
@@ -998,6 +1017,7 @@ namespace renderer
 		LoadTexture();
 		LoadMaterial();
 	}
+
 	void BindLights()
 	{
 		std::vector<LightAttribute> lightsAttributes = {};
@@ -1011,6 +1031,7 @@ namespace renderer
 		lightsBuffer->Bind(eShaderStage::VS, 13);
 		lightsBuffer->Bind(eShaderStage::PS, 13);
 	}
+
 	void Render()
 	{
 		BindLights();

@@ -1,4 +1,7 @@
 #pragma once
+
+#include "../engine_source/SkillLookUpTables.h"
+
 namespace m
 {
 	class Player;
@@ -18,11 +21,21 @@ namespace m
 
 		static Player* player;
 
+
 		static void PocketToInventory(InvenItem* item);
 		static void InventoryToPocket(InvenItem* item);
 		static void CalHpPercent();
 		static void Initialize();
+
+		static eSkillType GetSkill(int num);
+		static void SetSkill(int num, eSkillType type);
+
+		static eSkillType SetColdSkillType(eColdSkillType type);
+		static eSkillType SetFireSkillType(eFireSkillType type);
+		static eSkillType SetLightningSkillType(eLightningSkillType type);
 	private:
+
+		static eSkillType skillTypes[2];
 		
 	};
 }

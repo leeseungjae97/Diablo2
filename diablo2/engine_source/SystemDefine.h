@@ -58,6 +58,13 @@
 																Resources::Insert(materialName, mat); \
 															  }
 
+#define MAKE_MATERIAL_COMPUT_TEST(shader, texName, materialName) { \
+																SHARED_MAT mat = std::make_shared<Material>(); \
+																mat->SetShader(shader); \
+																mat->SetTexture(RESOURCE_FIND(Texture, texName)); \
+																Resources::Insert(materialName, mat); \
+															  }
+
 #define MAKE_VEC2_F_VEC3(vector2, vector3) Vector2 vector2; \
 										  vector2 = Vector2(vector3.x, vector3.y);
 #define GET_VEC2_F_VEC3(vector2, vector3) vector2 = Vector2(vector3.x, vector3.y);

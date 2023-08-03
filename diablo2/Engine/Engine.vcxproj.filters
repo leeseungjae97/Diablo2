@@ -75,8 +75,13 @@
     <ClCompile Include="mUVUI.cpp">
       <Filter>UI\UVUI</Filter>
     </ClCompile>
-    <ClCompile Include="mMoveAbleObject.cpp" />
-    <ClCompile Include="mTileScript.cpp" />
+    <ClCompile Include="mMoveAbleObject.cpp">
+      <Filter>Objects\MoveAbleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="mTileScript.cpp">
+      <Filter>Script\TileScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillShortCutButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -150,8 +155,13 @@
     <ClInclude Include="mUVUI.h">
       <Filter>UI\UVUI</Filter>
     </ClInclude>
-    <ClInclude Include="mMoveAbleObject.h" />
-    <ClInclude Include="mTileScript.h" />
+    <ClInclude Include="mMoveAbleObject.h">
+      <Filter>Objects\MoveAbleObject</Filter>
+    </ClInclude>
+    <ClInclude Include="mTileScript.h">
+      <Filter>Script\TileScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillShortCutButton.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -249,6 +259,12 @@
     </Filter>
     <Filter Include="Script\TileScript">
       <UniqueIdentifier>{2d96b47d-5de9-4eb4-8047-0ad8cb0f1a47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\MoveAbleObject">
+      <UniqueIdentifier>{e5e9cc18-8188-4d91-a939-c082054cd74f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\SkillShortCutButton">
+      <UniqueIdentifier>{aad6da08-7744-41e4-b0c3-f9157603f585}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

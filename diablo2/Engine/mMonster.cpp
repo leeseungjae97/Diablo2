@@ -2,6 +2,8 @@
 
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
+#include "../engine_source/mMonsterManager.h"
+#include "../engine_source/mMouseManager.h"
 
 namespace m
 {
@@ -11,12 +13,16 @@ namespace m
 		, hpCapacity(0.f)
 		, hpPercent(0.f)
 	{
+		monsterId = MonsterManager::DispendMonsterId();
+		MonsterManager::AddMonster(this);
+
 		sightCollider = ADD_COMP(this, Collider2D);
 		sightCollider->SetType(eColliderType::Circle);
-		sightCollider->SetSize(Vector3(10.f, 10.f, 1.f));
-		sightCollider->AddExceptType(eLayerType::Tile);
+		sightCollider->SetSize(Vector3(5.f, 5.f, 1.f));
 
-		rangeCollider->SetSize(Vector3(1.5f, 1.5f, 1.5f));
+		rangeCollider->SetSize(Vector3(1.0f, 1.0f, 1.5f));
+
+		hitAreaCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
 	}
 	Monster::~Monster()
 	{}
@@ -46,7 +52,8 @@ namespace m
 		mAstar->PathFinding(curCoord, targetCoord);
 		mAstar->MonsterMove(this);
 
-		if (sightCollider->GetOnEnter())
+		if (sightCollider->GetOnEnter()
+			|| sightCollider->GetOnStay())
 		{
 			if (!mAstar->PathChange())
 			{

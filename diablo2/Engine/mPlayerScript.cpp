@@ -123,7 +123,10 @@ namespace m
 				mAnimator->GetActiveAnimation()->SetProgressIndex(14);
 			}
 		}
+		if (Input::GetKeyUpOne(eKeyCode::RBUTTON))
+		{
 
+		}
 		if (PlayerInfo::player->GetHit())
 		{
 			mAnimationType = eSorceressAnimationType::GetHit;

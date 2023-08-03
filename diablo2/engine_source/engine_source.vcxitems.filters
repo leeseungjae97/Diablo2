@@ -118,6 +118,12 @@
     <Filter Include="Graphics\ParticleSystem">
       <UniqueIdentifier>{9f5ec9e3-d455-412b-bcac-f53fe732d1fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\MonsterManager">
+      <UniqueIdentifier>{41ffbdbe-247c-497f-9451-362e00e261ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\ParticleSystem">
+      <UniqueIdentifier>{bde62044-036a-4f88-9c3e-963a7be9d9fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -253,7 +259,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h">
       <Filter>Resources\Resource\PaintShader</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMonsterManager.h">
+      <Filter>Manager\MonsterManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -362,7 +373,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp">
       <Filter>Resources\Resource\PaintShader</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMonsterManager.cpp">
+      <Filter>Manager\MonsterManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

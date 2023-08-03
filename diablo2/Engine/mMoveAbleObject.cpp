@@ -19,12 +19,10 @@ namespace m
 		, bGetHit(false)
 	{
 		SET_POS_VEC(this, iniPos);
-		Collider2D* hitAreaCollider =ADD_COMP(this, Collider2D);
-		hitAreaCollider->AddExceptType(eLayerType::Tile);
+		hitAreaCollider = ADD_COMP(this, Collider2D);
 
 		rangeCollider = ADD_COMP(this, Collider2D);
 		rangeCollider->SetType(eColliderType::Circle);
-		rangeCollider->AddExceptType(eLayerType::Tile);
 
 		tilePositionCollider = ADD_COMP(this, Collider2D);
 		tilePositionCollider->SetType(eColliderType::Dot);

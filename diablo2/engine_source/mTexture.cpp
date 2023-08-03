@@ -33,6 +33,9 @@ namespace m::graphics
 			mDesc.MipLevels = 0;
 			mDesc.MiscFlags = 0;
 
+			mWidth = width;
+			mHeight = height;
+
 			if (!GetDevice()->CreateTexture2D(&mDesc, nullptr, mTexture.GetAddressOf()))
 				return false;
 		}

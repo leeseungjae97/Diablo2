@@ -3,7 +3,6 @@
 #include "mMeshRenderer.h"
 #include "mTileManager.h"
 
-#include "../Engine/mTile.h"
 #include "../Engine/mMoveAbleObject.h"
 
 namespace m
@@ -19,7 +18,7 @@ namespace m
 	void Astar::Initialize()
 	{
 		allowDiagonal = true;
-		dontCrossCorner = false;
+		dontCrossCorner = true;
 		mStartCoord = Vector2(-1.f, -1.f);
 		mTargetCoord = Vector2(-1.f, -1.f);
 		xLength = 0;

@@ -33,6 +33,9 @@
 #include "mBottomUI.h"
 #include "mUVUI.h"
 #include "mPlayerInfo.h"
+#include "mSkillShortCutButton.h"
+
+#include "../engine_source/mPaintShader.h"
 
 extern m::Application application;
 namespace m
@@ -45,10 +48,17 @@ namespace m
 	{}
 	void PlayScene::Initialize()
 	{
-		Scene::Initialize();
+		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexture");
+		//paintShader->SetTarget(paintTexture);
+		//paintShader->OnExcute();
 
-		//ComputeShader* cs = new ComputeShader();
-		//cs->Create(L"PaintCS.hlsl", "main");
+		Scene::Initialize();
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Tile, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
+
+
 
 		SHARED_TEX tex;
 
@@ -56,6 +66,7 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
+		ADD_COMP(camera, CameraScript);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
 
@@ -82,7 +93,6 @@ namespace m
 		AddGameObject(eLayerType::Monster, monster);
 		SET_MESH(monster, L"RectMesh");
 		SET_MATERIAL(monster, L"AnimationMaterial");
-		SET_SCALE_XYZ(monster, 80.f, 100.f, 1.f);
 		ADD_COMP(monster, Animator);
 
 		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
@@ -93,6 +103,16 @@ namespace m
 
 		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 
+		//GameObject* child = new GameObject();
+		//child->SetCamera(cameraComp);
+		//AddGameObject(eLayerType::Player, child);
+		//child->AddComponent<MeshRenderer>();
+		//child->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
+		//SET_POS_XYZ(child, 0.f, 0.f, 1.f);
+		//SET_SCALE_XYZ(child, 20.f, 20.f, 1.f);
+
+		// 
 		//GameObject* child = new GameObject();
 		//child->SetCamera(cameraComp);
 		//AddGameObject(eLayerType::Player, child);
@@ -115,10 +135,11 @@ namespace m
 		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		//GameObject* particle = new GameObject();
+		//SET_MAIN_CAMERA(particle);
 		//particle->SetName(L"Particle");
-		//AddGameObject(eLayerType::Tile, particle);
+		//AddGameObject(eLayerType::Monster, particle);
 		//ParticleSystem* mr = particle->AddComponent<ParticleSystem>();
-		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+		//particle->GetComponent<Transform>()->SetPosition(Vector3(0,0,1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 0.2f));
 
 		GameObject* uiCamera = new GameObject();
@@ -208,35 +229,27 @@ namespace m
 		SET_POS_XYZ(hpOverlapHands, RESOL_H_WID + 137.f * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + 97.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		Button* skillShortCut1 = new Button();
-		AddGameObject(eLayerType::UI, skillShortCut1);
-		skillShortCut1->SetCamera(cameraComp2);
+		SkillShortCutButton* skillShortCutLeft = new SkillShortCutButton(0);
+		AddGameObject(eLayerType::UI, skillShortCutLeft);
+		skillShortCutLeft->SetCamera(cameraComp2);
+		SET_MESH(skillShortCutLeft, L"RectMesh");
+		SET_MATERIAL(skillShortCutLeft, L"normalAttackIcon");
 
-		SET_MESH(skillShortCut1, L"RectMesh");
-		SET_MATERIAL(skillShortCut1, L"frozenOrbIcon");
-		GET_TEX(skillShortCut1, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCut1, tex, 0.f);
-		SET_POS_XYZ(skillShortCut1, -470.f - tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
+		GET_TEX(skillShortCutLeft, tex);
+		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCutLeft, tex, 0.f);
+		SET_POS_XYZ(skillShortCutLeft, -470.f - tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
-		skillShortCut1->SetClickMaterial(RESOURCE_FIND(Material, L"frozenOrbClickIcon"));
-		skillShortCut1->SetNormalMaterial(RESOURCE_FIND(Material, L"frozenOrbIcon"));
 
-		Button* skillShortCut2 = new Button();
-		AddGameObject(eLayerType::UI, skillShortCut2);
-		skillShortCut2->SetCamera(cameraComp2);
+		SkillShortCutButton* skillShortCutRight = new SkillShortCutButton(1);
+		AddGameObject(eLayerType::UI, skillShortCutRight);
+		skillShortCutRight->SetCamera(cameraComp2);
+		SET_MESH(skillShortCutRight, L"RectMesh");
+		SET_MATERIAL(skillShortCutRight, L"normalAttackIcon");
 
-		SET_MESH(skillShortCut2, L"RectMesh");
-		SET_MATERIAL(skillShortCut2, L"thunderStormIcon");
-		GET_TEX(skillShortCut2, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCut2, tex, 0.f);
-		SET_POS_XYZ(skillShortCut2, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
+		GET_TEX(skillShortCutRight, tex);
+		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCutRight, tex, 0.f);
+		SET_POS_XYZ(skillShortCutRight, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
-		skillShortCut2->SetClickMaterial(RESOURCE_FIND(Material, L"thunderStormClickIcon"));
-		skillShortCut2->SetNormalMaterial(RESOURCE_FIND(Material, L"thunderStormIcon"));
-
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Tile, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 	}
 	void PlayScene::Update()
 	{

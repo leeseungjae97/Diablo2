@@ -35,6 +35,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mMonsterManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mMonsterManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h" />

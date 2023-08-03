@@ -18,6 +18,7 @@ namespace m
 		, bOnEnter(false)
 		, bOnStay(false)
 		, bOnExit(false)
+		, bVisible(true)
 		, intersectColliderNumber(0)
 	{
 		mColliderNumber++;
@@ -51,6 +52,7 @@ namespace m
 			scale.y *= mSize.y;
 			mScale = scale;
 		}
+
 		mRotation = tr->GetRotation();
 		
 
@@ -70,7 +72,9 @@ namespace m
 		debugMesh.view = camera->GetPrivateViewMatrix();
 		debugMesh.projection = camera->GetPrivateProjectionMatrix();
 		debugMesh.color = mColor;
-		GetOwner()->GetState() != GameObject::RenderUpdate ? debugMesh.visible = false : debugMesh.visible = true;
+		debugMesh.visible = bVisible;
+		if(bVisible)
+			GetOwner()->GetState() != GameObject::RenderUpdate ? debugMesh.visible = false : debugMesh.visible = true;
 
 		renderer::PushDebugMeshAttribute(debugMesh);
 	}

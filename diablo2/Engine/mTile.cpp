@@ -3,10 +3,12 @@
 #include "..\engine_source\mTransform.h"
 #include "..\engine_source\mMeshRenderer.h"
 #include "..\engine_source\mTileManager.h"
+#include "..\engine_source\mMonsterManager.h"
 
 #include "mTileScript.h"
 #include "mPlayerInfo.h"
 #include "mPlayer.h"
+#include "mMonster.h"
 namespace m
 {
 	Tile::Tile()
@@ -17,9 +19,6 @@ namespace m
 	{
 		SetIsRhombus(true);
 		ADD_COMP(this, TileScript);
-		Collider2D* col = ADD_COMP(this, Collider2D);
-		col->SetColor(eColor::None);
-		col->AddExceptType(eLayerType::Player);
 
 		AddComponent<MeshRenderer>();
 	}
@@ -31,7 +30,7 @@ namespace m
 	void Tile::Update()
 	{
 		GameObject::Update();
-		
+
 		if (GetHover())
 		{
 			TileManager::hoverTile = this;
@@ -41,18 +40,25 @@ namespace m
 		{
 			SET_MATERIAL(this, L"testTile");
 		}
-		
+
 		MAKE_VEC2_F_VEC3(posV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(scaleV2, GET_SCALE(this));
-		Vector3 ppos= GET_POS(PlayerInfo::player);
-		Vector3 pscale= GET_SCALE(PlayerInfo::player);
+		Vector3 ppos = GET_POS(PlayerInfo::player);
+		Vector3 pscale = GET_SCALE(PlayerInfo::player);
 		Vector2 playerPosV2Left = Vector2(ppos.x - pscale.x / 2.f, ppos.y - pscale.y / 2.f);
 		Vector2 playerPosV2Right = Vector2(ppos.x + pscale.x / 2.f, ppos.y - pscale.y / 2.f);
 		if (Vector2::PointIntersectRhombus(posV2, scaleV2, GET_VEC2_F_VEC3_D(ppos)))
 		{
 			TileManager::playerStandTile = this;
 		}
-
+		for (Monster* monster : MonsterManager::monsters)
+		{
+			MAKE_VEC2_F_VEC3(mPosV2, GET_POS(monster));
+			if (Vector2::PointIntersectRhombus(posV2, scaleV2, mPosV2))
+			{
+				monster->SetCoord(mCoord);
+			}
+		}
 		//Collider2D* mCollider = GET_COMP(this, Collider2D);
 		//if (mCollider->GetOnEnter())
 		//{

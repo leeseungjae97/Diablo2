@@ -3,68 +3,69 @@
 #include "../engine_source/mAstar.h"
 namespace m
 {
-    class UVUI;
-    class MoveAbleObject :
-        public GameObject
-    {
-    public:
-        MoveAbleObject(Vector3 iniPos, float speed);
-        virtual ~MoveAbleObject();
+	class UVUI;
+	class MoveAbleObject :
+		public GameObject
+	{
+	public:
+		MoveAbleObject(Vector3 iniPos, float speed);
+		virtual ~MoveAbleObject();
 
-        virtual void Initialize() override;
-        virtual void Update() override;
-        virtual void LateUpdate() override;
-        virtual void Render() override;
+		virtual void Initialize() override;
+		virtual void Update() override;
+		virtual void LateUpdate() override;
+		virtual void Render() override;
 
-        virtual void Hit(int damage) = 0;
-        bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
+		virtual void Hit(int damage) = 0;
+		bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
 
-        float GetRemainDistance() { return fRemainDistance; }
-        float GetStartDistance() { return fStartDistance; }
+		float GetRemainDistance() { return fRemainDistance; }
+		float GetStartDistance() { return fStartDistance; }
 
-        void SetRemainDistance(float rd) { fRemainDistance = rd; }
-        void SetStartDistance(float sd) { fStartDistance = sd; }
+		void SetRemainDistance(float rd) { fRemainDistance = rd; }
+		void SetStartDistance(float sd) { fStartDistance = sd; }
 
-        Collider2D* GetRangeCollider() { return rangeCollider; }
+		Collider2D* GetRangeCollider() { return rangeCollider; }
 
-        Vector3 GetPrevPosition() { return prevPosition; }
-        Vector3 GetDestPosition() { return destPosition; }
-        Vector3 GetDirection() { return vDirection; }
+		Vector3 GetPrevPosition() { return prevPosition; }
+		Vector3 GetDestPosition() { return destPosition; }
+		Vector3 GetDirection() { return vDirection; }
 
-        void SetDestPosition(Vector3 dest) { destPosition = dest; }
-        void SetPrevPosition(Vector3 prevPos) { prevPosition = prevPos; }
-        void SetDirection(Vector3 direction) { vDirection = direction; }
+		void SetDestPosition(Vector3 dest) { destPosition = dest; }
+		void SetPrevPosition(Vector3 prevPos) { prevPosition = prevPos; }
+		void SetDirection(Vector3 direction) { vDirection = direction; }
 
 
-        bool GetHit() { return bGetHit; }
-        void SetHit(bool hit) { bGetHit = hit; }
+		bool GetHit() { return bGetHit; }
+		void SetHit(bool hit) { bGetHit = hit; }
 
-        void SetSpeed(float speed) { fSpeed = speed; }
-        float GetSpeed() { return fSpeed; }
+		void SetSpeed(float speed) { fSpeed = speed; }
+		float GetSpeed() { return fSpeed; }
 
-        void SetCoord(Vector2 coord) { mCoord = coord; }
-        Vector2 GetCoord() { return mCoord; }
+		void SetCoord(Vector2 coord) { mCoord = coord; }
+		Vector2 GetCoord() { return mCoord; }
 
-        Collider2D* GetTilePositionCollider() { return tilePositionCollider; }
+		Collider2D* GetTilePositionCollider() { return tilePositionCollider; }
+		Collider2D* GetHitAreaCollider() { return hitAreaCollider; }
+	protected:
+		Collider2D* rangeCollider;
+		Collider2D* tilePositionCollider;
+		Collider2D* hitAreaCollider;
 
-    protected:
-        Collider2D* rangeCollider;
-        Collider2D* tilePositionCollider;
+		Vector3 prevPosition;
+		Vector3 destPosition;
+		Vector3 vDirection;
+		Vector3 vS;
 
-        Vector3 prevPosition;
-        Vector3 destPosition;
-        Vector3 vDirection;
-        Vector3 vS;
+		float fRemainDistance;
+		float fStartDistance;
+		float fSpeed;
 
-        float fRemainDistance;
-        float fStartDistance;
-        float fSpeed;
+		bool bGetHit;
 
-        bool bGetHit;
+		Astar* mAstar;
 
-        Astar* mAstar;
-
-        Vector2 mCoord;
-    };
+		Vector2 mCoord;
+	};
 }
 

@@ -42,8 +42,8 @@ namespace m
 		mAstar->PathFinding(curCoord, mouseCoord);
 		mAstar->PlayerMove(this);
 
-		if (Input::GetKeyDownOne(eKeyCode::LBUTTON)
-			&& !MouseManager::GetMouseOnUI())
+		if (!MouseManager::GetMouseOnUI()
+			&& Input::GetKeyDownOne(eKeyCode::LBUTTON))
 		{
 			if (!mAstar->PathChange())
 			{

@@ -19,9 +19,12 @@ namespace m
         void SetHpCapacity(int cap) { hp = hpCapacity = cap; }
         void Hit(int damage);
         Collider2D* GetSightCollider() { return sightCollider; }
+
+        float GetMonsterId() { return monsterId; }
+        float ResetMonsterId() { monsterId = MonsterManager::DispendMonsterId(); }
     private:
         Collider2D* sightCollider;
-        
+        float monsterId;
 
         float hp;
         float hpCapacity;

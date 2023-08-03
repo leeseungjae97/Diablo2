@@ -162,8 +162,11 @@ namespace gui
 		Camera::SetViewMatrix(mesh.view);
 		Camera::SetProjectionMatrix(mesh.projection);
 
-		tr->LateUpdate();
-
-		debugObj->Render();
+		
+		if (mesh.visible)
+		{
+			tr->LateUpdate();
+			debugObj->Render();
+		}
 	}
 }

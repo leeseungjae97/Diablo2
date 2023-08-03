@@ -14,5 +14,5 @@ void main(uint3 DTid : SV_DispatchThreadID)
         return;
     }
 
-    tex[DTid.xy] = float4(1.f, 0.f, 0.f, 1.f);
+    tex[DTid.xy] = float4(0.f, 0.f, 1.f, 1.f);
 }

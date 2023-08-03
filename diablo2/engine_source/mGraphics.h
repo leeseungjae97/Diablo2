@@ -42,7 +42,6 @@ enum class eCBType
 	Grid,
 	Animator,
 	UVControl,
-	Vertex,
 	END,
 };
 enum class eRSType

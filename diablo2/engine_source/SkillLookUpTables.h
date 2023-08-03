@@ -44,7 +44,116 @@ namespace m
 		hydra,
 		END
 	};
+	enum class eSkillType
+	{
+		iceBolt,
+		frozenArmor,
+		frostNova,
+		iceBlast,
+		shiverArmor,
+		clacialSpike,
+		blizzard,
+		chillingArmor,
+		frozenOrb,
+		coldMastery,
 
+		chargedBolt,
+		staticField,
+		telekinesis,
+		nove,
+		lightning,
+		chainLightning,
+		teleport,
+		thunderStorm,
+		energyShield,
+		lightningMastery,
+
+		fireBolt,
+		warmth,
+		inferno,
+		blaze,
+		fireBall,
+		fireWall,
+		enchant,
+		meteor,
+		fireMastery,
+		hydra,
+
+		normalAttack,
+		END
+	};
+	std::wstring wsSkillNames[(int)eSkillType::END] = {
+		L"iceBoltIcon",
+		L"frozenArmorIcon",
+		L"frostNovaIcon",
+		L"iceBlastIcon",
+		L"shiverArmorIcon",
+		L"clacialSpikeIcon",
+		L"blizzardIcon",
+		L"chillingArmorIcon",
+		L"frozenOrbIcon",
+		L"coldMasteryIcon",
+
+		L"chargedBoltIcon",
+		L"staticFieldIcon",
+		L"telekinesisIcon",
+		L"noveIcon",
+		L"lightningIcon",
+		L"chainLightningIcon",
+		L"teleportIcon",
+		L"thunderStormIcon",
+		L"energyShieldIcon",
+		L"lightningMasteryIcon",
+
+		L"fireBoltIcon",
+		L"warmthIcon",
+		L"infernoIcon",
+		L"blazeIcon",
+		L"fireBallIcon",
+		L"fireWallIcon",
+		L"enchantIcon",
+		L"meteorIcon",
+		L"fireMasteryIcon",
+		L"hydraIcon",
+
+		L"normalAttackIcon"
+	};
+	std::wstring wsSkillClickNames[(int)eSkillType::END] = {
+		L"iceBoltClickIcon",
+		L"frozenArmorClickIcon",
+		L"frostNovaClickIcon",
+		L"iceBlastClickIcon",
+		L"shiverArmorClickIcon",
+		L"clacialSpikeClickIcon",
+		L"blizzardClickIcon",
+		L"chillingArmorClickIcon",
+		L"frozenOrbClickIcon",
+		L"coldMasteryClickIcon",
+
+		L"chargedBoltClickIcon",
+		L"staticFieldClickIcon",
+		L"telekinesisClickIcon",
+		L"noveClickIcon",
+		L"lightningClickIcon",
+		L"chainLightningClickIcon",
+		L"teleportClickIcon",
+		L"thunderStormClickIcon",
+		L"energyShieldClickIcon",
+		L"lightningMasteryClickIcon",
+
+		L"fireBoltClickIcon",
+		L"warmthClickIcon",
+		L"infernoClickIcon",
+		L"blazeClickIcon",
+		L"fireBallClickIcon",
+		L"fireWallClickIcon",
+		L"enchantClickIcon",
+		L"meteorClickIcon",
+		L"fireMasteryClickIcon",
+		L"hydraClickIcon",
+
+		L"normalAttackClickIcon"
+	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",
 		{2,0},// L"frozenArmorIcon",

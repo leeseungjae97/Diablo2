@@ -1,23 +1,12 @@
 #include "mSceneManager.h"
-
+#include "mMonsterManager.h"
 namespace m
 {
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-
-		//std::map<std::wstring, Scene*>::iterator iter = mScenes.begin();
-		//while (iter != mScenes.end())
-		//{
-		//	if (nullptr != iter->second)
-		//	{
-		//		iter->second->Initialize();
-		//		iter++;
-		//	}
-		//}
-
-		mActiveScene = LoadScene(L"PlayScene");
+		//mActiveScene = LoadScene(L"PlayScene");
 	}
 	void SceneManager::Update()
 	{
@@ -54,6 +43,7 @@ namespace m
 		if (nullptr != mActiveScene)
 		{
 			mActiveScene->OnExit();
+			MonsterManager::ClearMonster();
 			mActiveScene = iter->second;
 			mActiveScene->OnEnter();
 		}

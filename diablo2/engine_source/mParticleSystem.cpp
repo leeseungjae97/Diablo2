@@ -11,7 +11,7 @@ namespace m
 		, mEndColor(Vector4::Zero)
 		, mLifeTime(0.0f)
 	{
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(mesh);
 
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial");
@@ -20,9 +20,9 @@ namespace m
 		Particle particles[1000] = {};
 		for (size_t i = 0; i < 1000; i++)
 		{
-			Vector4 pos = Vector4::Zero;
-			pos.x += rand() % 20;
-			pos.y += rand() % 10;
+			Vector4 pos = Vector4::Zero;	
+			pos.x += rand() % 100;
+			pos.y += rand() % 50;
 
 			int sign = rand() % 2;
 			if (sign == 0)
@@ -32,6 +32,7 @@ namespace m
 				pos.y *= -1.0f;
 
 			particles[i].position = pos;
+			particles[i].active = 1;
 		}
 
 		mBuffer = new graphics::StructedBuffer();
@@ -54,6 +55,7 @@ namespace m
 	{
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
 		mBuffer->Bind(eShaderStage::VS, 14);
+		mBuffer->Bind(eShaderStage::GS, 14);
 		mBuffer->Bind(eShaderStage::PS, 14);
 
 		GetMaterial()->Binds();

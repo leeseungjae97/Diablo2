@@ -66,6 +66,7 @@ namespace m
 		mDirection = eMonsterDirection::Down;
 		mAnimationType = T::eAnimationType::Natural;
 		mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
+		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 	}
 	template <typename T>
 	void MonsterScript<T>::Update()
@@ -73,7 +74,7 @@ namespace m
 		if (nullptr == GetMonster())
 			return;
 
-		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+		//SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 
 		if (GetMonster()->GetRangeCollider()->GetOnStay())
 		{
@@ -97,6 +98,7 @@ namespace m
 		{
 			GetOwner()->SetBattleState(GameObject::Hit);
 			mAnimationType = T::eAnimationType::Hit;
+			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
 			{
 				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], false);
