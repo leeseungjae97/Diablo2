@@ -3,17 +3,17 @@
 
 #include "framework.h"
 #include "Editor_window.h"
-#include "..\engine_source\mApplication.h"
-#include "..\engine_source\mRenderer.h"
-#include "..\engine_source\mSceneManager.h"
+#include "../engine_source/mApplication.h"
+#include "../engine_source/mRenderer.h"
+#include "../engine_source/mSceneManager.h"
 //#include "..\engine_source\mFontWrapper.h"
 #include "guiEditor.h"
 #include "LoadScenes.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "..\\x64\\Debug\\Engine.lib")
+#pragma comment(lib, "..//x64//Debug//Engine.lib")
 #else
-#pragma comment(lib, "..\\x64\\Release\\Engine.lib")
+#pragma comment(lib, "..//x64//Release//Engine.lib")
 #endif
 //#include "LoadScenes.h"
 

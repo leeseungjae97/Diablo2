@@ -19,6 +19,7 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
+		HRESULT CreateTex(const std::wstring& path, std::shared_ptr<graphics::Texture>& atlasTexture);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShaderResource(eShaderStage stage, UINT startSlot);

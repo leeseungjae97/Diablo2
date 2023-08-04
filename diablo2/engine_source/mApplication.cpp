@@ -8,6 +8,8 @@
 #include "mCollisionManager.h"
 
 #include "../Engine/mPlayerInfo.h"
+#include "../editor_source/guiEditor.h"
+
 //#include "mFontWrapper.h"
 
 namespace m
@@ -37,7 +39,9 @@ namespace m
 		Input::Initialize();
 		//FontWrapper::Initialize();
 		renderer::Initialize();
+
 		SceneManager::Initialize();
+		//gui::Editor::Initialize();
 	}
 
 	void Application::Update()

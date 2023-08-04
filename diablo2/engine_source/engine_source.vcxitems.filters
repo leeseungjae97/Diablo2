@@ -127,6 +127,9 @@
     <Filter Include="Manager\SkillManager">
       <UniqueIdentifier>{b69ae955-b702-4e86-ac22-f5506fddb418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Resource\ParticleShader">
+      <UniqueIdentifier>{7bc92a6a-05ce-4d9c-8ffb-963f3e921487}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -268,7 +271,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h">
+      <Filter>Manager\SkillManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleShader.h">
+      <Filter>Resources\Resource\ParticleShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -383,7 +391,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp">
+      <Filter>Manager\SkillManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleShader.cpp">
+      <Filter>Resources\Resource\ParticleShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

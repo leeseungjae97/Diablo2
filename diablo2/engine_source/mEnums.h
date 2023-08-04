@@ -17,15 +17,14 @@ namespace m::enums
 		End,
 	};
 	enum class eLayerType
-	{
-		//Camera,
+	{	
+		Camera,
 		Grid,
 		Tile,
 		Player,
 		Monster,
 		Light,
 		Skill,
-		Camera,
 		UI,
 		Item,
 		End = 16,

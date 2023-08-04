@@ -2,7 +2,6 @@
 
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
-#include "../engine_source/mMonsterManager.h"
 #include "../engine_source/mMouseManager.h"
 
 namespace m
@@ -13,17 +12,6 @@ namespace m
 		, hpCapacity(0.f)
 		, hpPercent(0.f)
 	{
-		hitAreaCollider = ADD_COMP(this, Collider2D);
-
-		rangeCollider = ADD_COMP(this, Collider2D);
-		rangeCollider->SetType(eColliderType::Circle);
-
-		tilePositionCollider = ADD_COMP(this, Collider2D);
-		tilePositionCollider->SetType(eColliderType::Dot);
-
-		ADD_COMP(this, MeshRenderer);
-		mAstar = new Astar();
-
 		monsterId = MonsterManager::DispendMonsterId();
 		MonsterManager::AddMonster(this);
 

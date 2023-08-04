@@ -41,7 +41,11 @@ namespace m
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
-
+		void CreateAnimation(const std::wstring& name
+									   , std::shared_ptr<Texture> sheet, Vector2 leftTop
+									   , UINT coulmn, UINT row, UINT spriteLength
+									   , Vector2 offset, float duration);
+		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration);
 		void Create(const std::wstring& name
 					, std::shared_ptr<graphics::Texture> atlas
 					, Vector2 leftTop
@@ -69,7 +73,7 @@ namespace m
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		Animation* mActiveAnimation;
-
+		std::shared_ptr<Texture> mSpriteSheet;
 		bool mbLoop;
 	};
 }

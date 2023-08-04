@@ -20,8 +20,8 @@ namespace m
 		, mSkillType(type)
 		, bSkillFire(false)
 	{
-		SET_MESH(this, L"RectMesh");
-		SET_MATERIAL(this, L"");
+		//SET_MESH(this, L"RectMesh");
+		//SET_MATERIAL(this, L"");
 	}
 	Skill::~Skill()
 	{

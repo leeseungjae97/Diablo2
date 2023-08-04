@@ -54,11 +54,8 @@ namespace m
 		//paintShader->OnExcute();
 
 		Scene::Initialize();
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Tile, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
-
-
 
 		SHARED_TEX tex;
 
@@ -69,24 +66,51 @@ namespace m
 		ADD_COMP(camera, CameraScript);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
+		GetSceneMainCamera()->TurnLayerMask(eLayerType::UI, false);
+		camera->AddComponent<CameraScript>();
+		renderer::cameras.push_back(GetSceneMainCamera());
 
 		TileManager::MakeTile(50, 50, cameraComp);
+
+		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
+
+		GameObject* ll = new GameObject();
+		SET_MAIN_CAMERA(ll);
+		AddGameObject(eLayerType::Skill, ll);
+		ADD_COMP(ll, MeshRenderer);
+		SET_MESH(ll, L"RectMesh");
+		SET_MATERIAL(ll, L"testSc");
+		SET_POS_XYZ(ll, 0.f, -150.f, 1.f);
+		MAKE_GET_TEX(ll, tex2);
+		SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
+
+		GameObject* particle = new GameObject();
+		SET_MAIN_CAMERA(particle);
+		particle->SetName(L"Particle");
+		AddGameObject(eLayerType::Skill, particle);
+		ParticleSystem* mr = particle->AddComponent<ParticleSystem>();
+		particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
+
+		//GetLayer(eLayerType::Tile).ChangeOrderGameObject(particle);
+
+		
+
 
 		//srand((unsigned int)time(NULL));
 		//int randPos = rand() % TileManager::tiles.size();
 
-		GetSceneMainCamera()->DisableLayerMasks();
-		GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
-		GetSceneMainCamera()->TurnLayerMask(eLayerType::Tile, true);
-		GetSceneMainCamera()->TurnLayerMask(eLayerType::Monster, true);
-		camera->AddComponent<CameraScript>();
-		renderer::cameras.push_back(GetSceneMainCamera());
+		//GetSceneMainCamera()->DisableLayerMasks();
+		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Tile, true);
+		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Monster, true);
+		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
+		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Skill, true);
 
 		PlayerInfo::Initialize();
 		SET_MAIN_CAMERA(PlayerInfo::player);
 		AddGameObject(eLayerType::Player, PlayerInfo::player);
 
-		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
+		
 
 		Monster* monster = new Monster(randTilePos, DiabloSt().fSpeed);
 		SET_MAIN_CAMERA(monster);
@@ -134,21 +158,12 @@ namespace m
 		lightComp->SetType(eLightType::Directional);
 		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
-		//GameObject* particle = new GameObject();
-		//SET_MAIN_CAMERA(particle);
-		//particle->SetName(L"Particle");
-		//AddGameObject(eLayerType::Monster, particle);
-		//ParticleSystem* mr = particle->AddComponent<ParticleSystem>();
-		//particle->GetComponent<Transform>()->SetPosition(Vector3(0,0,1.f));
-		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 0.2f));
-
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);
 		Camera* cameraComp2 = ADD_COMP(uiCamera, Camera);
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
 
 		AddGameObject(eLayerType::UI, uiCamera);
-
 
 		inventory = new Inventory(cameraComp2);
 		inventory->SetState(GameObject::NoRenderUpdate);

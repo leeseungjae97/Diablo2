@@ -35,6 +35,13 @@ namespace renderer
 		float UVYCoord = 1.f;
 		UINT uvControlType = 0;
 	};
+	CBUFFER(ParticleCB, CBSLOT_PARTICLE)
+	{
+		UINT elementCount;
+		float elpasedTime;
+		int padd;
+		int padd2;
+	};
 
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];
 

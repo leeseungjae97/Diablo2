@@ -1,6 +1,5 @@
 cbuffer Transform : register(b0)
 {
-    //float4 Pos;
     row_major matrix mWorld;
     row_major matrix mView;
     row_major matrix mProjection;
@@ -24,6 +23,13 @@ cbuffer UVControl : register(b4)
 {
     float UVYCoord;
     uint uvControlType;
+}
+cbuffer ParticleSystem : register(b5)
+{
+    uint elementCount;
+    float elapsedTime;
+    int padd;
+    int padd2;
 }
 struct LightAttribute
 {

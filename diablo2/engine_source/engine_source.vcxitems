@@ -38,6 +38,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMonsterManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />

@@ -5,6 +5,7 @@
 #include "ItemLookUpTables.h"
 #include "mStructedBuffer.h"
 #include "mPaintShader.h"
+#include "mParticleShader.h"
 
 namespace renderer
 {
@@ -355,8 +356,11 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::UVControl] = new ConstantBuffer(eCBType::UVControl);
 		constantBuffers[(UINT)eCBType::UVControl]->Create(sizeof(UVControlCB));
 
+		constantBuffers[(UINT)eCBType::Particle] = new ConstantBuffer(eCBType::Particle);
+		constantBuffers[(UINT)eCBType::Particle]->Create(sizeof(ParticleCB));
+
 		lightsBuffer = new StructedBuffer();
-		lightsBuffer->Create(sizeof(LightAttribute), 2, eSRVType::None);
+		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr);
 	}
 
 	void LoadShader()
@@ -375,6 +379,7 @@ namespace renderer
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		gridShader->SetRSState(eRSType::SolidNone);
 		m::Resources::Insert(L"GridShader", gridShader);
 
 		std::shared_ptr<Shader> debugShader = std::make_shared<Shader>();
@@ -405,13 +410,16 @@ namespace renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		m::Resources::Insert(L"PaintShader", paintShader);
 
+		std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
+		psSystemShader->Create(L"ParticleCS.hlsl", "main");
+		m::Resources::Insert(L"ParticleSystemShader", psSystemShader);
+
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
 		paritcleShader->SetRSState(eRSType::SolidNone);
-		paritcleShader->SetDSState(eDSType::NoWrite);
-		paritcleShader->SetBSState(eBSType::AlphaBlend);
+		paritcleShader->SetDSState(eDSType::None);
 		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		m::Resources::Insert(L"ParticleShader", paritcleShader);
@@ -515,6 +523,15 @@ namespace renderer
 		MAKE_MATERIAL(noLightSahder, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
 		MAKE_MATERIAL(noLightSahder, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");
 #pragma endregion
+#pragma region Skill
+		{
+			SHARED_MAT mat = std::make_shared<Material>();
+			mat->SetShader(spriteShader);
+			mat->SetTexture(Resources::Load<Texture>(texName, texPath));
+			Resources::Insert(materialName, mat);
+		}
+#pragma endregion
+
 #pragma region Skill User Interface
 		{
 			std::shared_ptr<Texture> texture
@@ -986,6 +1003,7 @@ namespace renderer
 
 			material = std::make_shared<Material>();
 			material->SetShader(debugShader);
+			//material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"DebugMaterial", material);
 		}
 		{
@@ -1028,8 +1046,8 @@ namespace renderer
 		}
 
 		lightsBuffer->SetData(lightsAttributes.data(), lightsAttributes.size());
-		lightsBuffer->Bind(eShaderStage::VS, 13);
-		lightsBuffer->Bind(eShaderStage::PS, 13);
+		lightsBuffer->BindSRV(eShaderStage::VS, 13);
+		lightsBuffer->BindSRV(eShaderStage::PS, 13);
 	}
 
 	void Render()

@@ -49,13 +49,14 @@ namespace gui
 
 		EditorObject* grid = new EditorObject();
 		grid->SetName(L"Grid");
+		//Transform* ttt = grid->AddComponent<Transform>();
+		//ttt->SetPosition(Vector3(0.f, 0.f, 2.0f));
 		mr = grid->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		//SET_POS_XYZ()
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(renderer::cameras[0]);
-
-		SceneManager::GetActiveScene();
 
 		mEditorObjects.push_back(grid);
 	}
@@ -85,15 +86,15 @@ namespace gui
 		//	= renderer::depthStencilStates[(UINT)ya::graphics::eDSType::Less];
 		//ya::graphics::GetDevice()->BindDepthStencilState(ds.Get());
 
+		for (const DebugMesh& mesh : renderer::debugMeshs)
+		{
+			DebugRender(mesh);
+		}
 		for (EditorObject* obj : mEditorObjects)
 		{
 			obj->Render();
 		}
 
-		for (const DebugMesh& mesh : renderer::debugMeshs)
-		{
-			DebugRender(mesh);
-		}
 		renderer::debugMeshs.clear();
 	}
 	void Editor::Release()

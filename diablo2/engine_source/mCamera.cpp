@@ -12,8 +12,11 @@ namespace m
 {
 	bool CompareZSort(GameObject* a, GameObject* b)
 	{
-		return a->GetComponent<Transform>()->GetPosition().z
-				<= b->GetComponent<Transform>()->GetPosition().z;
+		if (a->GetComponent<Transform>()->GetPosition().z
+			<= b->GetComponent<Transform>()->GetPosition().z)
+			return false;
+
+		return true;
 	}
 	Matrix Camera::View = Matrix::Identity;
 	Matrix Camera::Projection = Matrix::Identity;
@@ -140,7 +143,7 @@ namespace m
 		{
 			if (mLayerMask[i] == true)
 			{
-				Layer& layer = scene->GetLayer((eLayerType)i);
+				Layer& layer = scene->GetLayer((eLayerType)i);	
 				const std::vector<GameObject*> gameObjs
 					= layer.GetGameObjects();
 				// layer에 있는 게임오브젝트를 들고온다.

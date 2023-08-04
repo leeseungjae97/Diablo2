@@ -46,7 +46,7 @@ namespace m
 					SET_MATERIAL(tile, L"testTile");
 				}
 				SET_SCALE_XYZ(tile, TILE_SIZE_X, TILE_SIZE_Y, 1.f);
-				SET_POS_XYZ(tile, fX, fY, 1.0f);
+				SET_POS_XYZ(tile, fX, fY, 1.f);
 				tiles[y][x] = tile;
 			}
 		}

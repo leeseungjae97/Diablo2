@@ -17,6 +17,7 @@
 #define CBSLOT_GRID				2
 #define CBSLOT_ANIMATOR			3
 #define CBSLOT_UV				4
+#define CBSLOT_PARTICLE			5
 enum class eShaderStage
 {
 	VS,
@@ -42,6 +43,7 @@ enum class eCBType
 	Grid,
 	Animator,
 	UVControl,
+	Particle,
 	END,
 };
 enum class eRSType
@@ -77,9 +79,11 @@ enum class eRenderingMode
 	Transparent,
 	End,
 };
-enum class eSRVType
+enum class eViewType
 {
 	None,
+	SRV,
+	UAV,
 	End,
 };
 

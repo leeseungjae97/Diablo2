@@ -7,6 +7,7 @@ namespace m::graphics
         public Resource
     {
 	public:
+		ComputeShader(int x, int y, int z);
 		ComputeShader();
 		virtual ~ComputeShader();
 

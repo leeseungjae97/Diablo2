@@ -24,10 +24,10 @@ namespace m
 			return;
 
 		GameObject* gameObj = mCamera->GetOwner();
-
+		
 		Transform* tr = gameObj->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-
+		//pos.z += 1.1f;
 		float scale = mCamera->GetSize();
 
 		HWND hWnd = application.GetHwnd();

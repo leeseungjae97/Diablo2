@@ -57,6 +57,13 @@
 																mat->SetTexture(Resources::Load<Texture>(texName, texPath)); \
 																Resources::Insert(materialName, mat); \
 															  }
+#define MAKE_MATERIAL_T(shader, texName, texPath, materialName) { \
+																SHARED_MAT mat = std::make_shared<Material>(); \
+																mat->SetShader(shader); \
+																mat->SetRenderingMode(eRenderingMode::Transparent);\
+																mat->SetTexture(Resources::Load<Texture>(texName, texPath)); \
+																Resources::Insert(materialName, mat); \
+															  }
 
 #define MAKE_MATERIAL_COMPUT_TEST(shader, texName, materialName) { \
 																SHARED_MAT mat = std::make_shared<Material>(); \

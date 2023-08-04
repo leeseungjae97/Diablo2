@@ -1,5 +1,6 @@
 #pragma once
 #include "..\engine_source\mGameObject.h"
+#include "../engine_source/mMonsterManager.h"
 
 #include "mMoveAbleObject.h"
 namespace m
