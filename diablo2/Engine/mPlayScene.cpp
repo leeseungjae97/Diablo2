@@ -10,7 +10,7 @@
 #include "..\engine_source\mApplication.h"
 #include "..\engine_source\mCollisionManager.h"
 #include "..\engine_source\mAnimator.h"
-#include "..\engine_source\AnimLookUpTables.h"
+#include "..\engine_source\MoveAbleObjectAnimLookUpTables.h"
 #include "..\engine_source\mFontWrapper.h"
 #include "..\engine_source\mComputeShader.h"
 #include "..\engine_source\mTileManager.h"
@@ -53,6 +53,9 @@ namespace m
 		//paintShader->SetTarget(paintTexture);
 		//paintShader->OnExcute();
 
+
+
+
 		Scene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
@@ -74,15 +77,15 @@ namespace m
 
 		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
 
-		GameObject* ll = new GameObject();
-		SET_MAIN_CAMERA(ll);
-		AddGameObject(eLayerType::Skill, ll);
-		ADD_COMP(ll, MeshRenderer);
-		SET_MESH(ll, L"RectMesh");
-		SET_MATERIAL(ll, L"testSc");
-		SET_POS_XYZ(ll, 0.f, -150.f, 1.f);
-		MAKE_GET_TEX(ll, tex2);
-		SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
+		//GameObject* ll = new GameObject();
+		//SET_MAIN_CAMERA(ll);
+		//AddGameObject(eLayerType::Skill, ll);
+		//ADD_COMP(ll, MeshRenderer);
+		//SET_MESH(ll, L"RectMesh");
+		//SET_MATERIAL(ll, L"fireBolt");
+		//SET_POS_XYZ(ll, 0.f, -150.f, 1.f);
+		//MAKE_GET_TEX(ll, tex2);
+		//SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
 
 		GameObject* particle = new GameObject();
 		SET_MAIN_CAMERA(particle);

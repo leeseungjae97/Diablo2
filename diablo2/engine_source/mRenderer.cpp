@@ -438,6 +438,14 @@ namespace renderer
 		std::shared_ptr<Shader> animShader = m::Resources::Find<Shader>(L"AnimationShader");
 		std::shared_ptr<Shader> noLightSahder = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
+		{
+			
+
+		}
+#pragma region Skill
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\fire_bolt"
+						   , 116, 66, 5, L"fireBolt");
+#pragma endregion
 #pragma region Monster
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");
 		MAKE_MATERIAL(spriteShader, L"diablo_walk", L"..\\Resources\\texture\\enemy\\diablo\\diablo_walk.png", L"diabloWalk");
@@ -522,14 +530,6 @@ namespace renderer
 		MAKE_MATERIAL(UVControlShader, L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png", L"mp");
 		MAKE_MATERIAL(noLightSahder, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
 		MAKE_MATERIAL(noLightSahder, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");
-#pragma endregion
-#pragma region Skill
-		{
-			SHARED_MAT mat = std::make_shared<Material>();
-			mat->SetShader(spriteShader);
-			mat->SetTexture(Resources::Load<Texture>(texName, texPath));
-			Resources::Insert(materialName, mat);
-		}
 #pragma endregion
 
 #pragma region Skill User Interface

@@ -16,6 +16,7 @@ namespace m
 		, bool useTilePos
 		, bool useAstar
 	)
+
 		: prevPosition(iniPos)
 		, destPosition(iniPos)
 		, vS(iniPos)

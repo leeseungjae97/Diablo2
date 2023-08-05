@@ -87,6 +87,15 @@
     <ClCompile Include="mSkillShortCutButton.cpp">
       <Filter>UI\SkillShortCutButton</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillStraight.cpp">
+      <Filter>Skill\mSkillStraight</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillScript.cpp">
+      <Filter>Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mStraightScript.cpp">
+      <Filter>Script\StraightSkillScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -171,6 +180,15 @@
     </ClInclude>
     <ClInclude Include="mSkillShortCutButton.h">
       <Filter>UI\SkillShortCutButton</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillStraight.h">
+      <Filter>Skill\mSkillStraight</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillScript.h">
+      <Filter>Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mStraightScript.h">
+      <Filter>Script\StraightSkillScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +296,15 @@
     </Filter>
     <Filter Include="Skill">
       <UniqueIdentifier>{88ba78aa-41a5-4e9a-9182-fd5aae29e3e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\mSkillStraight">
+      <UniqueIdentifier>{455f21af-c08e-4f6f-a6df-396416800f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\SkillScript">
+      <UniqueIdentifier>{21faa739-1af3-4d1f-95ef-ccc4e2fb118c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\StraightSkillScript">
+      <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,10 +1,12 @@
 #pragma once
 
 #include "../engine_source/SkillLookUpTables.h"
+#include "../engine_source/mTime.h"
 
 #include "mMoveAbleObject.h"
 namespace m
 {
+    class Animator;
     class Skill :
         public MoveAbleObject
     {
@@ -17,8 +19,10 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
+        virtual void Hit(int damage) override;
+        eSkillType GetSkillType() { return mSkillType; }
 
-    private:
+    protected:
         eSkillType mSkillType;
         bool bSkillFire;
     };

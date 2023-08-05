@@ -1,6 +1,6 @@
 #pragma once
 #include "../engine_source/mScript.h"
-#include "../engine_source/AnimLookUpTables.h"
+#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mGameObject.h"
 
 namespace m

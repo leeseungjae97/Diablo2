@@ -65,6 +65,16 @@
 																Resources::Insert(materialName, mat); \
 															  }
 
+#define MAKE_MATERIAL_PATH(shader, texName, texPath, texWidth, texHeight, length, materialName) { \
+																SHARED_MAT mat = std::make_shared<Material>(); \
+																mat->SetShader(shader); \
+																SHARED_TEX tex = std::make_shared<Texture>();\
+																tex->CreateTex(texWidth,texHeight, length, texPath);\
+																Resources::Insert(texName, tex);\
+																mat->SetTexture(tex); \
+																Resources::Insert(materialName, mat); \
+																}
+
 #define MAKE_MATERIAL_COMPUT_TEST(shader, texName, materialName) { \
 																SHARED_MAT mat = std::make_shared<Material>(); \
 																mat->SetShader(shader); \
@@ -76,3 +86,24 @@
 										  vector2 = Vector2(vector3.x, vector3.y);
 #define GET_VEC2_F_VEC3(vector2, vector3) vector2 = Vector2(vector3.x, vector3.y);
 #define GET_VEC2_F_VEC3_D(vector3) Vector2(vector3.x, vector3.y)
+
+#define MAKE_SKILL(skillIndex, skill, vector3Pos) switch (skillFunctionTypes[(int)PlayerInfo::GetSkill(skillIndex)])\
+								{\
+								case m::eSkillFunctionType::Straight:\
+								{\
+									skill = new SkillStraight(PlayerInfo::GetSkill(skillIndex), vector3Pos);\
+									ADD_COMP(skill, StraightScript);\
+								}\
+									break;\
+								case m::eSkillFunctionType::Fall:\
+									break;\
+								case m::eSkillFunctionType::None:\
+									break;\
+								case m::eSkillFunctionType::END:\
+									break;\
+								default:\
+								{\
+									skill = new Skill(PlayerInfo::GetSkill(skillIndex), vector3Pos);\
+								}\
+									break;\
+								}

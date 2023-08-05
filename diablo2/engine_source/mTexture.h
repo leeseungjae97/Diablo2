@@ -19,7 +19,7 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
-		HRESULT CreateTex(const std::wstring& path, std::shared_ptr<graphics::Texture>& atlasTexture);
+		HRESULT CreateTex(UINT avgFileWidth, UINT avgFileHeight, UINT oneAnimLength, const std::wstring& path);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShaderResource(eShaderStage stage, UINT startSlot);
@@ -59,6 +59,9 @@ namespace m::graphics
 
 		UINT mWidth;
 		UINT mHeight;
+
+		UINT mPerWidth;
+		UINT mPerHeight;
 		D3D11_TEXTURE2D_DESC mDesc;
 	};
 }

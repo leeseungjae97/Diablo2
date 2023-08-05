@@ -197,6 +197,42 @@ namespace m
 
 		eSkillFunctionType::None,// L"normalAttackIcon"
 	};
+	std::wstring skillAnimNames[(int)eSkillType::END] = {
+		L"iceBolt", // L"iceBoltClickIcon",
+		L"frozenArmor", // L"frozenArmorClickIcon",
+		L"frostNova", // L"frostNovaClickIcon",
+		L"iceBlast", // L"iceBlastClickIcon",
+		L"shiverArmor", // L"shiverArmorClickIcon",
+		L"clacialSpike", // L"clacialSpikeClickIcon",
+		L"blizzard", // L"blizzardClickIcon",
+		L"chillingArmor", // L"chillingArmorClickIcon",
+		L"frozenOrb", // L"frozenOrbClickIcon",
+		L"coldMastery", // L"coldMasteryClickIcon",
+		// 
+		L"chargedBolt",// L"chargedBoltClickIcon",
+		L"staticField",// L"staticFieldClickIcon",
+		L"telekinesis",// L"telekinesisClickIcon",
+		L"nove",// L"noveClickIcon",
+		L"lightning",// L"lightningClickIcon",
+		L"chainLightning",// L"chainLightningClickIcon",
+		L"teleport",// L"teleportClickIcon",
+		L"thunderStorm",// L"thunderStormClickIcon",
+		L"energyShield",// L"energyShieldClickIcon",
+		L"lightningMastery",// L"lightningMasteryClickIcon",
+		// 
+		L"fireBolt", // L"fireBoltClickIcon",
+		L"warmth", // L"warmthClickIcon",
+		L"inferno", // L"infernoClickIcon",
+		L"blaze", // L"blazeClickIcon",
+		L"fireBall", // L"fireBallClickIcon",
+		L"fireWall", // L"fireWallClickIcon",
+		L"enchant", // L"enchantClickIcon",
+		L"meteor", // L"meteorClickIcon",
+		L"fireMastery", // L"fireMasteryClickIcon",
+		L"hydra", // L"hydraClickIcon",
+		// 
+		L""// L"normalAttackClickIcon"
+	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",
 		{2,0},// L"frozenArmorIcon",

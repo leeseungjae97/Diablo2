@@ -235,7 +235,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h">
       <Filter>Resources\Resource\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)AnimLookUpTables.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)MoveAbleObjectAnimLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h">
@@ -276,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleShader.h">
       <Filter>Resources\Resource\ParticleShader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SkillAnimLookUpTables.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

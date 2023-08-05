@@ -32,7 +32,7 @@ namespace m
 		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
 		ADD_COMP(player, Animator);
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::lightning);
+		SetSkill(1, eSkillType::fireBolt);
 	}
 
 	void PlayerInfo::PocketToInventory(InvenItem* item)

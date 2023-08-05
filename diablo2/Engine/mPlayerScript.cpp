@@ -6,15 +6,20 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mResources.h"
 #include "../engine_source/mMaterial.h"
-#include "../engine_source/AnimLookUpTables.h"
+#include "../engine_source/mSceneManager.h"
+#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mAnimation.h"
 #include "../engine_source/mApplication.h"
+#include "../engine_source/mSkillManager.h"
 #include "../engine_source/mInput.h"
 
 #include "mPlayer.h"
 #include "mMonster.h"
 #include "mPlayerInfo.h"
 
+#include "mStraightScript.h"
+#include "mSkillStraight.h"
+#include "mSkill.h"
 extern m::Application application;
 namespace m
 {
@@ -53,7 +58,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Run]
 				, sorceressAnimationLength[(UINT)eSorceressAnimationType::Run]
 				, Vector2::Zero
-				, 0.1
+				, 0.1f
 			);
 			mAnimator->Create(
 				sorceressAnimationString[(UINT)eSorceressAnimationType::Natural] + characterDirectionString[i]
@@ -62,7 +67,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural]
 				, sorceressAnimationLength[(UINT)eSorceressAnimationType::Natural]
 				, Vector2::Zero
-				, 0.1
+				, 0.1f
 			);
 			//mAnimator->Create(
 			//	sorceressAnimationString[(UINT)eSorceressAnimationType::Dead] + characterDirectionString[i]
@@ -80,7 +85,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::GetHit]
 				, sorceressAnimationLength[(UINT)eSorceressAnimationType::GetHit]
 				, Vector2::Zero
-				, 0.05
+				, 0.05f
 			);
 			mAnimator->Create(
 				sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]
@@ -89,7 +94,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Attack1]
 				, sorceressAnimationLength[(UINT)eSorceressAnimationType::Attack1]
 				, Vector2::Zero
-				, 0.05
+				, 0.05f
 			);
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) 
 				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
@@ -125,7 +130,14 @@ namespace m
 		}
 		if (Input::GetKeyUpOne(eKeyCode::RBUTTON))
 		{
-
+			//PlayerInfo::GetSkill(1);
+			//SkillStraight* st = new SkillStraight();
+			//StraightScript;
+			Skill* skill = nullptr;
+			//MAKE_SKILL(1, skill, GET_POS(GetOwner()));
+			skill = new SkillStraight(PlayerInfo::GetSkill(1), GET_POS(GetOwner()));
+			ADD_COMP(skill, StraightScript);
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, skill);
 		}
 		if (PlayerInfo::player->GetHit())
 		{

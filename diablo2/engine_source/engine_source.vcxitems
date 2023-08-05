@@ -56,7 +56,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)AnimLookUpTables.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MoveAbleObjectAnimLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h" />
@@ -102,6 +102,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SkillAnimLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemDefine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)_Engine.h" />
