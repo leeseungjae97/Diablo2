@@ -31,6 +31,7 @@ namespace m
 		Update();
 		LateUpdate();
 		Render();
+		Destroy();
 	}
 
 	void Application::Initialize()
@@ -70,6 +71,10 @@ namespace m
 //		FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
 		//SceneManager::Render();
 		renderer::Render();
+	}
+	void Application::Destroy()
+	{
+		SceneManager::Destroy();
 	}
 	void Application::Present()
 	{

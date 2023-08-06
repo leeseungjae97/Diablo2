@@ -8,19 +8,23 @@
 #include "mMonster.h"
 namespace m
 {
-	Skill::Skill(eSkillType type, Vector3 iniPos)
+	Skill::Skill(eSkillType type
+		, Vector3 iniPos
+		, bool useHitArea
+		, bool useRange
+		, bool useTilePos
+		, bool useAstar
+	)
 		: MoveAbleObject(iniPos
-			, 300.f
-			, true
-			, false
-			, false
-			, false 
+			, 100.f
+			, useHitArea
+			, useRange
+			, useTilePos
+			, useAstar
 		)
 		, mSkillType(type)
 		, bSkillFire(false)
 	{
-		//SET_MESH(this, L"RectMesh");
-		//SET_MATERIAL(this, L"");
 	}
 	Skill::~Skill()
 	{

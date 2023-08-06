@@ -15,6 +15,22 @@ namespace m
 	}
 	void Script::Update()
 	{
+		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
+		for (Collider2D* col : cols)
+		{
+			const std::vector<Collider2D*> cos = col->GetCollidereds();
+
+			if (!cos.empty())
+			{
+				col->SetColor(eColor::Red);
+				col->SetEnter();
+			}
+			else
+			{
+				col->SetColor(eColor::Green);
+				col->SetExit();
+			}
+		}
 	}
 	void Script::LateUpdate()
 	{
@@ -28,13 +44,11 @@ namespace m
 		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
 		for (Collider2D* col : cols)
 		{
-			int intersectNum = col->GetInsertsectColliderNumber();
-			if (intersectNum > 0)
+			const std::vector<Collider2D*> cos = col->GetCollidereds();
+
+			if (!cos.empty())
 				col->SetColor(eColor::Red);
 		}
-		//int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
-		//if (intersectNum > 0)
-		//	GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Red);
 	}
 	void Script::OnCollisionStay(Collider2D* other)
 	{
@@ -44,12 +58,10 @@ namespace m
 		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
 		for (Collider2D* col : cols)
 		{
-			int intersectNum = col->GetInsertsectColliderNumber();
-			if (intersectNum == 0)
+			const std::vector<Collider2D*> cos = col->GetCollidereds();
+
+			if (cos.empty())
 				col->SetColor(eColor::Green);
 		}
-		//int intersectNum = GetOwner()->GetComponent<Collider2D>()->GetInsertsectColliderNumber();
-		//if (intersectNum == 0)
-		//	GetOwner()->GetComponent<Collider2D>()->SetRectColor(eColor::Green);
 	}
 }

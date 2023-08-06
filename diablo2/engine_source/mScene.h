@@ -15,7 +15,7 @@ namespace m
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
-
+		virtual void Destroy();
 		virtual void OnExit();
 		virtual void OnEnter();
 

@@ -16,7 +16,6 @@ namespace m
 		, bool useTilePos
 		, bool useAstar
 	)
-
 		: prevPosition(iniPos)
 		, destPosition(iniPos)
 		, vS(iniPos)
@@ -27,19 +26,24 @@ namespace m
 	{
 		SET_POS_VEC(this, iniPos);
 
-		if(useHitArea)
+		if (useHitArea)
+		{
 			hitAreaCollider = ADD_COMP(this, Collider2D);
+			hitAreaCollider->SetColliderFunctionType(eColliderFunctionType::HitArea);
+		}
 
 		if (useRange)
 		{
 			rangeCollider = ADD_COMP(this, Collider2D);
 			rangeCollider->SetType(eColliderType::Circle);
+			rangeCollider->SetColliderFunctionType(eColliderFunctionType::Range);
 		}
 
 		if (useTilePos)
 		{
 			tilePositionCollider = ADD_COMP(this, Collider2D);
 			tilePositionCollider->SetType(eColliderType::Dot);
+			tilePositionCollider->SetColliderFunctionType(eColliderFunctionType::TilePos);
 		}
 
 		if(useAstar)

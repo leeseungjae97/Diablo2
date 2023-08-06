@@ -4,6 +4,9 @@
 #include "../engine_source/mTime.h"
 #include "../engine_source/mMouseManager.h"
 
+#include "mPlayerInfo.h"
+#include "mPlayer.h"
+
 namespace m
 {
 	Monster::Monster(Vector3 iniPos, float speed)
@@ -54,10 +57,10 @@ namespace m
 		if (sightCollider->GetOnEnter()
 			|| sightCollider->GetOnStay())
 		{
-			if (!mAstar->PathChange())
-			{
+			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+				mAstar->PathChange();
 
-			}
+
 			//prevPosition = GET_POS(this);
 
 			//destPosition = sightCollider->GetCollideredObjectPos();

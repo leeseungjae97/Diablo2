@@ -19,18 +19,27 @@ namespace m
 		, bOnStay(false)
 		, bOnExit(false)
 		, bVisible(true)
-		, intersectColliderNumber(0)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
 	}
 	Collider2D::~Collider2D()
-	{}
+	{
+		if (!collidereds.empty())
+		{
+			for (Collider2D* col : collidereds)
+			{
+				std::erase(col->GetCollidereds(), this);
+			}
+			collidereds.clear();
+		}
+	}
 	void Collider2D::Initialize()
 	{
 	}
 	void Collider2D::Update()
-	{}
+	{
+	}
 	void Collider2D::LateUpdate()
 	{
 		Component::LateUpdate();
@@ -78,6 +87,7 @@ namespace m
 
 		renderer::PushDebugMeshAttribute(debugMesh);
 	}
+
 	void Collider2D::Render()
 	{}
 
@@ -85,12 +95,11 @@ namespace m
 	{
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end()) 
 			return;
-
-		collideredObjects.push_back(other->GetOwner());
-		intersectColliderNumber++;
+	
+		collidereds.push_back(other);
 		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
-		bOnEnter = true;
-		bOnStay = bOnExit = false;
+
+		SetEnter();
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetScripts();
 
@@ -105,8 +114,8 @@ namespace m
 			return;
 
 		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
-		bOnStay = true;
-		bOnEnter = bOnExit = false;
+
+		SetStay();
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetScripts();
 
@@ -120,11 +129,9 @@ namespace m
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end())
 			return;
 
-		std::erase(collideredObjects, other->GetOwner());
+		std::erase(collidereds, other);
 
-		intersectColliderNumber--;
-		bOnExit = true;
-		bOnStay = bOnEnter = false;
+		SetExit();
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetScripts();
 
@@ -132,5 +139,12 @@ namespace m
 		{
 			script->OnCollisionExit(other);
 		}
+	}
+	bool Collider2D::SearchObjectGameObjectId(float gameObjectId)
+	{
+		for (Collider2D* col : GetCollidereds())
+			if (col->GetOwner()->GetGameObjectId() == gameObjectId) return true;
+
+		return false;
 	}
 }

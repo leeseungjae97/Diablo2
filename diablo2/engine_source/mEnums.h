@@ -49,6 +49,14 @@ namespace m::enums
 		Cube,
 		End,
 	};
+	enum class eColliderFunctionType
+	{
+		HitArea,
+		Range,
+		Sight,
+		TilePos,
+		End,
+	};
 	enum class eColor
 	{
 		Red,

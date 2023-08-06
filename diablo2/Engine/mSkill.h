@@ -11,7 +11,13 @@ namespace m
         public MoveAbleObject
     {
     public:
-        Skill(eSkillType type, Vector3 iniPos);
+        Skill(eSkillType type
+            , Vector3 iniPos
+            , bool useHitArea = false
+            , bool useRange = false
+            , bool useTilePos = false
+            , bool useAstar = false
+        );
         virtual ~Skill();
 
         virtual void Initialize();

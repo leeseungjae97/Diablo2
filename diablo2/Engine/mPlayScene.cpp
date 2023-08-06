@@ -58,6 +58,7 @@ namespace m
 
 		Scene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 
 		SHARED_TEX tex;
@@ -79,6 +80,7 @@ namespace m
 
 		//GameObject* ll = new GameObject();
 		//SET_MAIN_CAMERA(ll);
+		//ll->SetName(L"test111");
 		//AddGameObject(eLayerType::Skill, ll);
 		//ADD_COMP(ll, MeshRenderer);
 		//SET_MESH(ll, L"RectMesh");
@@ -87,13 +89,13 @@ namespace m
 		//MAKE_GET_TEX(ll, tex2);
 		//SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
 
-		GameObject* particle = new GameObject();
-		SET_MAIN_CAMERA(particle);
-		particle->SetName(L"Particle");
-		AddGameObject(eLayerType::Skill, particle);
-		ParticleSystem* mr = particle->AddComponent<ParticleSystem>();
-		particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
-		particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
+		//GameObject* particle = new GameObject();
+		//SET_MAIN_CAMERA(particle);
+		//particle->SetName(L"Particle");
+		//AddGameObject(eLayerType::Skill, particle);
+		//ParticleSystem* mr = particle->AddComponent<ParticleSystem>();
+		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
 		//GetLayer(eLayerType::Tile).ChangeOrderGameObject(particle);
 

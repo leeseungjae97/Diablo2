@@ -9,10 +9,6 @@ namespace m
 {
 	SkillScript::SkillScript()
 	{
-		mAnimator = ADD_COMP(GetOwner(), Animator);
-		Skill* dSkill = dynamic_cast<Skill*>(GetOwner());
-		if (nullptr == dSkill) mType = eSkillType::normalAttack;
-		else mType = dSkill->GetSkillType();
 	}
 	SkillScript::~SkillScript()
 	{
@@ -29,14 +25,14 @@ namespace m
 	void SkillScript::Render()
 	{
 	}
-	void SkillScript::OnCollisionEnter(Collider2D* other)
-	{
-	}
-	void SkillScript::OnCollisionStay(Collider2D* other)
-	{
-	}
-	void SkillScript::OnCollisionExit(Collider2D* other)
-	{
-		
-	}
+	//void SkillScript::OnCollisionEnter(Collider2D* other)
+	//{
+	//}
+	//void SkillScript::OnCollisionStay(Collider2D* other)
+	//{
+	//}
+	//void SkillScript::OnCollisionExit(Collider2D* other)
+	//{
+	//	
+	//}
 }

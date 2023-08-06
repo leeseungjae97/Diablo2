@@ -15,7 +15,7 @@ namespace m
 		, mHp(nullptr)
 		, mMp(nullptr)
 	{
-		rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
+		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
 	}
 	Player::~Player()
 	{
@@ -41,7 +41,23 @@ namespace m
 
 		mAstar->PathFinding(curCoord, mouseCoord);
 		mAstar->PlayerMove(this);
+		if (!MouseManager::GetMouseOnUI()
+			&& Input::GetKeyDownOne(eKeyCode::RBUTTON))
+		{
+			Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
+				, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+			Vector3 tempPrev = GET_POS(this);
+			Vector3 tempDest = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
+			float maxX = max(tempDest.x, tempPrev.x);
+			float maxY = max(tempDest.y, tempPrev.y);
+
+			float minX = min(tempDest.x, tempPrev.x);
+			float minY = min(tempDest.y, tempPrev.y);
+
+			vDirection = tempDest - tempPrev;
+			vDirection.Normalize();
+		}
 		if (!MouseManager::GetMouseOnUI()
 			&& Input::GetKeyDownOne(eKeyCode::LBUTTON))
 		{

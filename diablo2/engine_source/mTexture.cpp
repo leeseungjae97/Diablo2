@@ -36,14 +36,15 @@ namespace m::graphics
 
 		for (const auto& p : std::filesystem::recursive_directory_iterator(path)) fileCount++;
 		
-		UINT column = (fileCount / oneAnimLength) + 1;
+		UINT column = fileCount / oneAnimLength;
+		//column += 1;
 
 		hr = atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, mPerWidth * oneAnimLength, mPerHeight * column, 1, 1);
 
 		if (FAILED(hr)) return hr;
 
 		int xidx = 0;
-		int yidx = 1;
+		int yidx = 0;
 
 		int tt = 0;
 		for (const auto& p : std::filesystem::recursive_directory_iterator(path))

@@ -16,6 +16,7 @@ namespace m
 			NoRenderUpdate,
 			RenderNoUpdate,
 			NoRenderNoUpdate,
+			Delete,
 		};
 		enum eBattleState
 		{
@@ -126,6 +127,7 @@ namespace m
 		bool IsRhombus() { return bRhombus; }
 		void SetIsRhombus(bool r) { bRhombus = r; }
 
+		const float GetGameObjectId() { return fGameObjectId; }
 	private:
 		eState mState;
 		eLayerType mLayerType;
@@ -138,6 +140,9 @@ namespace m
 		bool bHover;
 
 		bool bCulled;
+
+		float fGameObjectId;
+		static float GameObjectIdDispender;
 	};
 }
 

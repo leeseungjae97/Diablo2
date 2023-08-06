@@ -44,16 +44,24 @@ namespace m
 		bool GetOnStay() { return bOnStay; }
 		bool GetOnExit() { return bOnExit; }
 
-		int GetInsertsectColliderNumber() { return intersectColliderNumber; }
+		void SetExit() { bOnEnter = false; bOnExit = true; bOnStay = false; }
+		void SetEnter() { bOnEnter = true; bOnExit = false; bOnStay = false; }
+		void SetStay() { bOnEnter = false; bOnExit = false; bOnStay = true; }
 
 		Vector3 GetCollideredObjectPos() { return collideredObjectPos; }
-		std::vector<GameObject*>& GetCollideredObjects() { return collideredObjects; }
+		std::vector<Collider2D*>& GetCollidereds() { return collidereds; }
+
+		void SetColliderFunctionType(eColliderFunctionType type) { mFunctionType = type; }
+		eColliderFunctionType GetColliderFunctionType() { return mFunctionType; }
+
+		bool SearchObjectGameObjectId(float gameObjectId);
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
 		eColliderType mType;
 		std::vector<eLayerType> exceptTypes;
-		std::vector<GameObject*> collideredObjects;
+		std::vector<Collider2D*> collidereds;
+		eColliderFunctionType mFunctionType;
 
 		eColor mColor;
 		Transform* mTransform;
@@ -66,8 +74,6 @@ namespace m
 		Vector2 mCenter;
 
 		Vector3 collideredObjectPos;
-
-		int intersectColliderNumber;
 
 		bool bOnEnter;
 		bool bOnStay;

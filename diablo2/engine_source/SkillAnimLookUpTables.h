@@ -41,8 +41,45 @@ namespace m
 		L"right_down_2",
 		L"right_down_3",
 	};
+	float skillSpeed[(int)eSkillType::END] = {
+		300.f,// iceBolt
+		0.f,// frozenArmor
+		0.f,// frostNova
+		0.f,// iceBlast
+		0.f,// shiverArmor
+		0.f,// clacialSpike
+		0.f,// blizzard
+		0.f,// chillingArmor
+		0.f,// frozenOrb
+		0.f,// coldMastery
+				//
+		0.f,// chargedBolt
+		0.f,// staticField
+		0.f,// telekinesis
+		0.f,// nove
+		0.f,// lightning
+		0.f,// chainLightning
+		0.f,// teleport
+		0.f,// thunderStorm
+		0.f,// energyShield
+		0.f,// lightningMastery
+				//
+		300.f,// fireBolt
+		0.f,// warmth
+		0.f,// inferno
+		0.f,// blaze
+		0.f,// fireBall
+		0.f,// fireWall
+		0.f,// enchant
+		0.f,// meteor
+		0.f,// fireMastery
+		0.f,// hydra
+				//
+		0.f,// normalAttack
+
+	};
 	int skillAnimLength[(int)eSkillType::END] = {
-		5, // iceBolt
+		6, // iceBolt
 		0, // frozenArmor
 		0, // frostNova
 		0, // iceBlast
@@ -78,7 +115,7 @@ namespace m
 		0, // normalAttack
 	};
 	m::math::Vector2 skillSizes[(int)eSkillType::END] = {
-		m::math::Vector2(116.f, 66.f),// iceBolt,
+		m::math::Vector2(92.f, 55.f),// iceBolt,
 		m::math::Vector2(0.f, 0.f),// frozenArmor,
 		m::math::Vector2(0.f, 0.f),// frostNova,
 		m::math::Vector2(0.f, 0.f),// iceBlast,
@@ -100,7 +137,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// energyShield,
 		m::math::Vector2(0.f, 0.f),// lightningMastery,
 		
-		m::math::Vector2(92.f, 55.f),// fireBolt,
+		m::math::Vector2(116.f, 66.f),// fireBolt,
 		m::math::Vector2(0.f, 0.f),// warmth,
 		m::math::Vector2(0.f, 0.f),// inferno,
 		m::math::Vector2(0.f, 0.f),// blaze,

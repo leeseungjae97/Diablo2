@@ -42,6 +42,13 @@ namespace m
 			layer.Render();
 		}
 	}
+	void Scene::Destroy()
+	{
+		for (Layer& layer : mLayers)
+		{
+			layer.Destroy();
+		}
+	}
 	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
 	{
 		gameObj->SetLayerType(type);

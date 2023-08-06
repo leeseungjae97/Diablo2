@@ -5,6 +5,7 @@
 #include "mScript.h"
 namespace m
 {
+	float GameObject::GameObjectIdDispender = 0.f;
 	GameObject::GameObject()
 		: mState(eState::RenderUpdate)
 		, mBattleState(eBattleState::Idle)
@@ -12,7 +13,9 @@ namespace m
 		, bHover(false)
 		, bCulled(false)
 		, bRhombus(false)
+		, fGameObjectId(GameObjectIdDispender)
 	{
+		GameObjectIdDispender += 0.0001f;
 		AddComponent<Transform>();
 	}
 

@@ -6,7 +6,7 @@ namespace m
         public Skill
     {
     public:
-        SkillStraight(eSkillType type, Vector3 iniPos);
+        SkillStraight(eSkillType type, Vector3 iniPos, float speed);
         virtual ~SkillStraight();
 
         virtual void Initialize() override;

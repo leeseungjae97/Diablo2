@@ -32,6 +32,10 @@ namespace m
 		if (mActiveScene)
 			mActiveScene->Render();
 	}
+	void SceneManager::Destroy()
+	{
+		mActiveScene->Destroy();
+	}
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{
 		std::map<std::wstring, Scene*>::iterator iter

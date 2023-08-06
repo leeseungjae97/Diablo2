@@ -1,12 +1,30 @@
 #include "mStraightScript.h"
 
-#include "mMoveAbleObject.h"
+#include "mPlayerInfo.h"
+
+#include "mSkillStraight.h"
+#include "mPlayerScript.h"
+#include "mSkill.h"
+#include "mPlayer.h"
+#include "mMonster.h"
 
 namespace m
 {
 	StraightScript::StraightScript()
 		: SkillScript()
 	{
+	}
+	StraightScript::~StraightScript()
+	{
+	}
+	void StraightScript::Initialize()
+	{
+		mAnimator = GET_COMP(GetOwner(), Animator);
+		Skill* dSkill = dynamic_cast<Skill*>(GetOwner());
+		if (nullptr == dSkill) mType = eSkillType::normalAttack;
+		else mType = dSkill->GetSkillType();
+
+
 		SHARED_MAT tex = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
 		for (int i = 0; i < (int)eSkillDirection::End; ++i)
 		{
@@ -17,28 +35,15 @@ namespace m
 				, skillSizes[(int)mType]
 				, skillAnimLength[(int)mType]
 				, Vector2::Zero
-				, 0.1f
+				, 0.05f
 			);
 		}
 	}
-	StraightScript::~StraightScript()
-	{
-	}
-	void StraightScript::Initialize()
-	{
-	}
 	void StraightScript::Update()
 	{
-		if (mAnimator->GetActiveAnimation()) return;
+		Vector3 direction = dynamic_cast<SkillStraight*>(GetOwner())->GetDirection();
 
-		Vector3 initPos = GET_POS(GetOwner());
-		Vector3 destPos = dynamic_cast<MoveAbleObject*>(GetOwner())->GetDestPosition();
-
-		Vector3 moveVector = destPos - initPos;
-
-		moveVector.Normalize();
-
-		float degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
+		float degree = RadianToDegree(atan2(direction.x, direction.y));
 		float fDivideDegree = 180.f / 9.f;
 
 		if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eSkillDirection::Up;
@@ -59,7 +64,9 @@ namespace m
 		else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eSkillDirection::RightUp2;
 		else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eSkillDirection::RightUp1;
 
-		mAnimator->PlayAnimation(skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection], true);
+		if(nullptr == mAnimator->GetActiveAnimation() ||
+			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection])
+			mAnimator->PlayAnimation(skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection], true);
 	}
 	void StraightScript::LateUpdate()
 	{
@@ -69,11 +76,22 @@ namespace m
 	}
 	void StraightScript::OnCollisionEnter(Collider2D* other)
 	{
+		Script::OnCollisionEnter(other);
+		if (other->GetColliderFunctionType() == eColliderFunctionType::TilePos)
+		{
+			Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
+			monster->Hit(10);
+			GetOwner()->SetState(GameObject::eState::Delete);
+
+			mAnimator->StopAnimation();
+		}
 	}
 	void StraightScript::OnCollisionStay(Collider2D* other)
 	{
+		Script::OnCollisionStay(other);
 	}
 	void StraightScript::OnCollisionExit(Collider2D* other)
 	{
+		Script::OnCollisionExit(other);
 	}
 }

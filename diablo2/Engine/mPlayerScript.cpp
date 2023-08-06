@@ -130,13 +130,10 @@ namespace m
 		}
 		if (Input::GetKeyUpOne(eKeyCode::RBUTTON))
 		{
-			//PlayerInfo::GetSkill(1);
-			//SkillStraight* st = new SkillStraight();
-			//StraightScript;
 			Skill* skill = nullptr;
-			//MAKE_SKILL(1, skill, GET_POS(GetOwner()));
-			skill = new SkillStraight(PlayerInfo::GetSkill(1), GET_POS(GetOwner()));
-			ADD_COMP(skill, StraightScript);
+			MAKE_SKILL(1, skill, GET_POS(PlayerInfo::player));
+			skill->SetCamera(GetOwner()->GetCamera());
+			//skill->SetName(L"skillll");
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, skill);
 		}
 		if (PlayerInfo::player->GetHit())
@@ -162,14 +159,9 @@ namespace m
 		else
 		{
 			GetOwner()->SetBattleState(GameObject::Run);
-			Vector3 initPos = PlayerInfo::player->GetPrevPosition();
-			Vector3 destPos = PlayerInfo::player->GetDestPosition();
+			Vector3 direction = PlayerInfo::player->GetDirection();
 
-			Vector3 moveVector = destPos - initPos;
-
-			moveVector.Normalize();
-
-			float degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
+			float degree = RadianToDegree(atan2(direction.x, direction.y));
 			float fDivideDegree = 180.f / 9.f;
 
 			if (	 degree > -fDivideDegree     && degree <  fDivideDegree    ) mDirection = eCharacterDirection::Up;
