@@ -28,9 +28,16 @@ namespace m
         virtual void Hit(int damage) override;
         eSkillType GetSkillType() { return mSkillType; }
 
+        bool GetSkillFire() { return bSkillFire; }
+        bool GetSkillCrash() { return bSkillCrash; }
+
+        void SetSkillFire(bool fire) { bSkillFire = fire; }
+        void SetSkillCrash(bool crash) { bSkillCrash = crash; }
+
     protected:
         eSkillType mSkillType;
         bool bSkillFire;
+        bool bSkillCrash;
     };
 }
 

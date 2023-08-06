@@ -443,10 +443,14 @@ namespace renderer
 
 		}
 #pragma region Skill
-		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\fire_bolt"
-						, 116, 66, 5, L"fireBolt");
-		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\ice_bolt"
-						, 92, 55, 6, L"iceBolt");
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\fire_bolt"
+			, 116, 66, 5, L"fireBolt");
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
+			, 92, 55, 6, L"iceBolt");
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_explo_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_explo1"
+			, 78, 70, 12, L"fireExplo1");
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_ball_cast", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_ball_cast"
+			, 145, 133, 16, L"fireBallCast");
 #pragma endregion
 #pragma region Monster
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");

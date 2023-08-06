@@ -74,6 +74,7 @@
 																tex->CreateTex(texWidth,texHeight, length, texPath);\
 																Resources::Insert(texName, tex);\
 																mat->SetTexture(tex); \
+																mat->SetRenderingMode(eRenderingMode::Transparent);\
 																Resources::Insert(materialName, mat); \
 																}
 

@@ -24,7 +24,9 @@ namespace m
 		)
 		, mSkillType(type)
 		, bSkillFire(false)
-	{
+		, bSkillCrash(false)
+
+	{ 
 	}
 	Skill::~Skill()
 	{
@@ -36,14 +38,6 @@ namespace m
 	void Skill::Update()
 	{
 		GameObject::Update();
-		// 벽충돌
-
-		// 유닛 충돌 Player 제외
-		//if (hitAreaCollider->GetOnEnter()
-		//	|| hitAreaCollider->GetOnStay())
-		//{
-
-		//}
 	}
 	void Skill::LateUpdate()
 	{
