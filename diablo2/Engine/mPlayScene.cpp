@@ -78,16 +78,16 @@ namespace m
 
 		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
 
-		//GameObject* ll = new GameObject();
-		//SET_MAIN_CAMERA(ll);
-		//ll->SetName(L"test111");
-		//AddGameObject(eLayerType::Skill, ll);
-		//ADD_COMP(ll, MeshRenderer);
-		//SET_MESH(ll, L"RectMesh");
-		//SET_MATERIAL(ll, L"fireBolt");
-		//SET_POS_XYZ(ll, 0.f, -150.f, 1.f);
-		//MAKE_GET_TEX(ll, tex2);
-		//SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
+		GameObject* ll = new GameObject();
+		SET_MAIN_CAMERA(ll);
+		ll->SetName(L"test111");
+		AddGameObject(eLayerType::Skill, ll);
+		ADD_COMP(ll, MeshRenderer);
+		SET_MESH(ll, L"RectMesh");
+		SET_MATERIAL(ll, L"fireExplo1");
+		SET_POS_XYZ(ll, 0.f, 500.f, 1.f);
+		MAKE_GET_TEX(ll, tex2);
+		SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
 
 		//GameObject* particle = new GameObject();
 		//SET_MAIN_CAMERA(particle);

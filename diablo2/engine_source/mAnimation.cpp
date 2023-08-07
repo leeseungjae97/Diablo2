@@ -58,7 +58,8 @@ namespace m
 						   , Vector2 size
 						   , UINT columnLength
 						   , Vector2 offset
-						   , float duration)
+						   , float duration
+						   , float alpha)
 	{
 		SetKey(name);
 		mAtlas = atlas;
@@ -77,6 +78,7 @@ namespace m
 			sprite.offset.y = offset.y / height;
 			sprite.atlasSize = Vector2(size.x / width, size.y / height);
 			sprite.duration = duration;
+			sprite.alpha = alpha;
 
 			mSprites.push_back(sprite);
 		}
@@ -95,6 +97,7 @@ namespace m
 		data.spriteOffset = mSprites[mIndex].offset;
 		data.atlasSize = mSprites[mIndex].atlasSize;
 		data.animationType = 1;
+		data.alpha = mSprites[mIndex].alpha;
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Animator];
 		cb->SetData(&data);

@@ -19,7 +19,7 @@ struct VSOut
 float4 main(VSOut In) : SV_TARGET
 {
     float4 color = (float4) 0.0f;
-
+    
     if (animationType == 1)
     {
         float2 diff = (AtlasSize - SpriteSize) / 2.0f;
@@ -39,8 +39,10 @@ float4 main(VSOut In) : SV_TARGET
     {
         CalculateLight2D(lightColor, In.WorldPos, i);
     }
+
     
     color *= lightColor;
+    color.a *= mAlpha;
     
     return color;
 }

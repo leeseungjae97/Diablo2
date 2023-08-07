@@ -127,7 +127,7 @@ namespace m
 		bool IsRhombus() { return bRhombus; }
 		void SetIsRhombus(bool r) { bRhombus = r; }
 
-		const float GetGameObjectId() { return fGameObjectId; }
+		const int GetGameObjectId() { return iGameObjectId; }
 	private:
 		eState mState;
 		eLayerType mLayerType;
@@ -141,8 +141,8 @@ namespace m
 
 		bool bCulled;
 
-		float fGameObjectId;
-		static float GameObjectIdDispender;
+		int iGameObjectId;
+		static int GameObjectIdDispender;
 	};
 }
 

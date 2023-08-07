@@ -41,18 +41,15 @@ namespace m
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
-		void CreateAnimation(const std::wstring& name
-									   , std::shared_ptr<Texture> sheet, Vector2 leftTop
-									   , UINT coulmn, UINT row, UINT spriteLength
-									   , Vector2 offset, float duration);
-		void CreateAnimations(const std::wstring& path, Vector2 offset, float duration);
+
 		void Create(const std::wstring& name
 					, std::shared_ptr<graphics::Texture> atlas
 					, Vector2 leftTop
 					, Vector2 size
 					, UINT columnLength
 					, Vector2 offset = Vector2::Zero
-					, float duration = 0.0f);
+					, float duration = 0.0f
+					, float alpha = 1.0f);
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);

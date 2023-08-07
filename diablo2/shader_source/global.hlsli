@@ -17,7 +17,7 @@ cbuffer Animator : register(b3)
     float2 SpriteOffset;
     float2 AtlasSize;
     uint animationType;
-    float3 pad;
+    float mAlpha;
 }
 cbuffer UVControl : register(b4)
 {

@@ -29,5 +29,6 @@ float4 main(VSOut In) : SV_TARGET
     }
     
     color *= lightColor;
+    
     return color;
 }

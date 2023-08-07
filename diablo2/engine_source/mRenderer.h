@@ -29,6 +29,7 @@ namespace renderer
 		Vector2 spriteOffset;
 		Vector2 atlasSize;
 		UINT animationType = 0;
+		float alpha;
 	};
 	CBUFFER(UVControlCB, CBSLOT_UV)
 	{

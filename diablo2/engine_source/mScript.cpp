@@ -15,22 +15,6 @@ namespace m
 	}
 	void Script::Update()
 	{
-		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
-		for (Collider2D* col : cols)
-		{
-			const std::vector<Collider2D*> cos = col->GetCollidereds();
-
-			if (!cos.empty())
-			{
-				col->SetColor(eColor::Red);
-				col->SetEnter();
-			}
-			else
-			{
-				col->SetColor(eColor::Green);
-				col->SetExit();
-			}
-		}
 	}
 	void Script::LateUpdate()
 	{

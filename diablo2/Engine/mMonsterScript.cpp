@@ -75,30 +75,31 @@ namespace m
 		if (nullptr == GetMonster())
 			return;
 
-		if (GetMonster()->GetRangeCollider()->GetOnStay())
+		/*if (GetMonster()->GetRangeCollider()->GetOnStay())
 		{
-			if(GetMonster()->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		
+		}*/
+		if (GetMonster()->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		{
+			fDelay += Time::fDeltaTime();
+			if (curMonsterData.fAttackDelay <= fDelay)
 			{
-				fDelay += Time::fDeltaTime();
-				if (curMonsterData.fAttackDelay <= fDelay)
+				fDelay = 0.f;
+				int randAttackMotion = rand() % 2 + 1;
+				GetOwner()->SetBattleState(GameObject::Attack);
+				//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
+				mAnimationType = T::eAnimationType::Attack1;
+				SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+				if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
 				{
-					fDelay = 0.f;
-					int randAttackMotion = rand() % 2 + 1;
-					//GetOwner()->SetBattleState(GameObject::Attack);
-					//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
-					mAnimationType = T::eAnimationType::Attack1;
-					SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
-					{
-						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], false);
-						mAnimator->GetActiveAnimation()->SetProgressIndex(10);
-					}
+					mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], false);
+					mAnimator->GetActiveAnimation()->SetProgressIndex(10);
 				}
 			}
 		}
 		if (GetMonster()->GetHit())
 		{
-			//GetOwner()->SetBattleState(GameObject::Hit);
+			GetOwner()->SetBattleState(GameObject::Hit);
 			mAnimationType = T::eAnimationType::Hit;
 			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])

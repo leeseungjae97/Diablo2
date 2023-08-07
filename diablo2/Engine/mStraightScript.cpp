@@ -45,57 +45,51 @@ namespace m
 						  , skillCrashSizes[(UINT)mType]
 						  , skillCrashLength[(UINT)mType]
 						  , Vector2::Zero
-						  , 0.03f);
-
-		mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", false);
+						  , 0.03f
+						  , 0.7f);
 	}
 	void StraightScript::Update()
 	{
-		//if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
-		//{
-		//	if (nullptr == mAnimator->GetActiveAnimation() ||
-		//		mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
-		//	{
-		//		mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", true);
-		//		mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]() { GetOwner()->SetState(GameObject::eState::Delete); };
-		//	}
-		//}
+		if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
+		{
+			if (nullptr == mAnimator->GetActiveAnimation() ||
+				mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
+			{
+				mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", false);
+				//mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]() { GetOwner()->SetState(GameObject::eState::Delete); };
+			}
+		}
 
-		//if (nullptr == mAnimator->GetActiveAnimation() ||
-		//	mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
-		//{
-		//	mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", false);
-		//	//mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]() { GetOwner()->SetState(GameObject::eState::Delete); };
-		//}
-		//Vector3 direction = dynamic_cast<SkillStraight*>(GetOwner())->GetDirection();
+		Vector3 direction = dynamic_cast<SkillStraight*>(GetOwner())->GetDirection();
 
-		//float degree = RadianToDegree(atan2(direction.x, direction.y));
-		//float fDivideDegree = 180.f / 9.f;
+		float degree = RadianToDegree(atan2(direction.x, direction.y));
+		float fDivideDegree = 180.f / 9.f;
 
-		//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eSkillDirection::Up;
-		//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eSkillDirection::LeftUp3;
-		//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eSkillDirection::LeftUp2;
-		//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eSkillDirection::LeftUp1;
-		//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eSkillDirection::Left;
-		//else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eSkillDirection::LeftDown3;
-		//else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eSkillDirection::LeftDown2;
-		//else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eSkillDirection::LeftDown1;
-		//else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eSkillDirection::Down;
-		//else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eSkillDirection::Down;
-		//else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eSkillDirection::RightDown3;
-		//else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eSkillDirection::RightDown2;
-		//else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eSkillDirection::RightDown1;
-		//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eSkillDirection::Right;
-		//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eSkillDirection::RightUp3;
-		//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eSkillDirection::RightUp2;
-		//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eSkillDirection::RightUp1;
+		if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eSkillDirection::Up;
+		else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eSkillDirection::LeftUp3;
+		else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eSkillDirection::LeftUp2;
+		else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eSkillDirection::LeftUp1;
+		else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eSkillDirection::Left;
+		else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eSkillDirection::LeftDown3;
+		else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eSkillDirection::LeftDown2;
+		else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eSkillDirection::LeftDown1;
+		else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eSkillDirection::Down;
+		else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eSkillDirection::Down;
+		else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eSkillDirection::RightDown3;
+		else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eSkillDirection::RightDown2;
+		else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eSkillDirection::RightDown1;
+		else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eSkillDirection::Right;
+		else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eSkillDirection::RightUp3;
+		else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eSkillDirection::RightUp2;
+		else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eSkillDirection::RightUp1;
 
-		//if(nullptr == mAnimator->GetActiveAnimation() ||
-		//	mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection])
-		//	mAnimator->PlayAnimation(skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection], true);
+		if(nullptr == mAnimator->GetActiveAnimation() ||
+			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection])
+			mAnimator->PlayAnimation(skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection], true);
 	}
 	void StraightScript::LateUpdate()
 	{
+
 	}
 	void StraightScript::Render()
 	{
@@ -108,9 +102,9 @@ namespace m
 			Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
 			monster->Hit(10);
 			
-			//mAnimator->StopAnimation();
+			mAnimator->StopAnimation();
 
-			//dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+			dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
 		}
 	}
 	void StraightScript::OnCollisionStay(Collider2D* other)
