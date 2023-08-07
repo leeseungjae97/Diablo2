@@ -56,8 +56,9 @@ namespace m
 				mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
 			{
 				mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", false);
-				//mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]() { GetOwner()->SetState(GameObject::eState::Delete); };
+				mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]() { GetOwner()->SetState(GameObject::eState::Delete); };
 			}
+			return;
 		}
 
 		Vector3 direction = dynamic_cast<SkillStraight*>(GetOwner())->GetDirection();

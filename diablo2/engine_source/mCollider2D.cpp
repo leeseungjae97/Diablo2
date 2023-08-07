@@ -26,6 +26,8 @@ namespace m
 	Collider2D::~Collider2D()
 	{
 		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
+		if (cols.empty()) return;
+
 		for (Collider2D* col : cols)
 		{
 			const std::vector<Collider2D*> cos = col->GetCollidereds();
