@@ -64,21 +64,42 @@ namespace m
 		}
 		static __forceinline bool GetKeyDownOne(eKeyCode keyCode)
 		{
-			bool syncClick = mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Down;
-			mKeys[static_cast<UINT>(keyCode)].state = eKeyState::None;
-			return syncClick;
+			if (bCallDownOne)
+			{
+				return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Down;
+				bCallDownOne = false;
+			}
+			else
+			{
+				bCallDownOne = true;
+				return false;
+			}
 		}
 		static __forceinline bool GetKeyUpOne(eKeyCode keyCode)
 		{
-			bool syncClick = mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
-			mKeys[static_cast<UINT>(keyCode)].state = eKeyState::None;
-			return syncClick;
+			if (bCallUpOne)
+			{
+				return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
+				bCallUpOne = false;
+			}
+			else
+			{
+				bCallUpOne = true;
+				return false;
+			}
 		}
 		static __forceinline bool GetKeyOne(eKeyCode keyCode)
 		{
-			bool syncClick = mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Pressed;
-			mKeys[static_cast<UINT>(keyCode)].state = eKeyState::None;
-			return syncClick;
+			if (bCallOne)
+			{
+				return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Pressed;
+				bCallOne = false;
+			}
+			else
+			{
+				bCallOne = true;
+				return false;
+			}
 		}
 
 		//bool GetOneClick()
@@ -106,6 +127,10 @@ namespace m
 	private:
 		static std::vector<Key> mKeys;
 		static Vector2 mMousePos;
+
+		static bool bCallDownOne;
+		static bool bCallUpOne;
+		static bool bCallOne;
 
 	};
 }

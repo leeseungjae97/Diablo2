@@ -25,25 +25,6 @@ namespace m
 	}
 	Collider2D::~Collider2D()
 	{
-		std::vector<Collider2D*> cols = GetOwner()->GetComponents<Collider2D>();
-		if (cols.empty()) return;
-
-		for (Collider2D* col : cols)
-		{
-			const std::vector<Collider2D*> cos = col->GetCollidereds();
-
-			if (!cos.empty())
-			{
-				col->SetColor(eColor::Red);
-				col->SetEnter();
-			}
-			else
-			{
-				col->SetColor(eColor::Green);
-				col->SetExit();
-			}
-		}
-
 		if (!collidereds.empty())
 		{
 			for (Collider2D* col : collidereds)
@@ -58,6 +39,16 @@ namespace m
 	}
 	void Collider2D::Update()
 	{
+		if (collidereds.empty())
+		{
+			SetColor(eColor::Green);
+			SetExit();
+		}
+		else
+		{
+			SetColor(eColor::Red);
+			SetEnter();
+		}
 	}
 	void Collider2D::LateUpdate()
 	{

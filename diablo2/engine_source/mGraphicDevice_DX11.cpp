@@ -311,6 +311,10 @@ namespace m::graphics
 	{
 		mContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
 	}
+	void GraphicDevice_DX11::CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+	{
+		mContext->CopyResource(pDstResource, pSrcResource);
+	}
 	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
 		, ID3D11Buffer* const* ppVertexBuffers
 		, const UINT* pStrides

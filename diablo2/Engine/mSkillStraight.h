@@ -15,7 +15,10 @@ namespace m
         virtual void Render() override;
 
         virtual void Hit(int damage) override;
+
+        void StopMove() { mbStopMove = true; }
     private:
+        bool mbStopMove;
     };
 }
 

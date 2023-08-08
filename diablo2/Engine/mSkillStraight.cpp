@@ -8,6 +8,7 @@ namespace m
 {
 	SkillStraight::SkillStraight(eSkillType type, Vector3 iniPos, float speed)
 		:Skill(type, iniPos, false, true)
+		, mbStopMove(false)
 	{
 		SetSpeed(speed);
 		SET_MESH(this, L"RectMesh");
@@ -25,6 +26,10 @@ namespace m
 	void SkillStraight::Update()
 	{
 		Skill::Update();
+		if (mbStopMove)
+		{
+			fSpeed = 0.f;
+		}
 		Vector3 curPosition = GET_POS(this);
 
 		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
@@ -50,23 +55,6 @@ namespace m
 		float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
 		float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 		SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
-
-		//float maxX = max(curPosition.x, prevPosition.x);
-		//float maxY = max(curPosition.y, prevPosition.y);
-
-		//float minX = min(curPosition.x, prevPosition.x);
-		//float minY = min(curPosition.y, prevPosition.y);
-
-		//fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
-
-		//if (fRemainDistance < fStartDistance)
-		//{
-		//	
-		//}
-		//if (!bSkillFire && Stop())
-		//{
-		//	SetState(NoRenderNoUpdate);
-		//}
 	}
 	void SkillStraight::LateUpdate()
 	{

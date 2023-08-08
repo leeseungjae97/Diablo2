@@ -142,3 +142,7 @@ struct Particle
 	float speed;
 	UINT active;
 };
+struct ParticleShared
+{
+	UINT sharedActiveCount;
+};

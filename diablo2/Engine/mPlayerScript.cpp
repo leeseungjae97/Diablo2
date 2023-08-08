@@ -61,6 +61,15 @@ namespace m
 				, 0.1f
 			);
 			mAnimator->Create(
+				sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i]
+				, tex6->GetTexture()
+				, Vector2(0.0f, sorceressAnimationSizes[(UINT)eSorceressAnimationType::SpecialCast].y * i)
+				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::SpecialCast]
+				, sorceressAnimationLength[(UINT)eSorceressAnimationType::SpecialCast]
+				, Vector2(0.f, -10.f)
+				, 0.08f
+			);
+			mAnimator->Create(
 				sorceressAnimationString[(UINT)eSorceressAnimationType::Natural] + characterDirectionString[i]
 				, tex3->GetTexture()
 				, Vector2(0.0f, sorceressAnimationSizes[(UINT)eSorceressAnimationType::Natural].y * i)
@@ -96,12 +105,24 @@ namespace m
 				, Vector2::Zero
 				, 0.05f
 			);
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
+				= [this]() { AnimationStart(GameObject::eBattleState::Cast); };
+			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
+				= [this]() 
+			{ 
+				AnimationComplete(GameObject::eBattleState::Idle); 
+			};
+
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) 
 				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
-				= [this]() { AttackProgress(); };
+				= [this]() 
+			{ 
+				AttackProgress();
+				mAnimator->SetAnimationProgressStartIndex(0);
+			};
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) 
 				= [this]() { Hit(true, GameObject::eBattleState::Hit); };
@@ -118,18 +139,46 @@ namespace m
 		if (nullptr == PlayerInfo::player)
 			return;
 
-		if (Input::GetKeyUpOne(eKeyCode::C))
+		Vector3 direction = PlayerInfo::player->GetDirection();
+
+		float degree = RadianToDegree(atan2(direction.x, direction.y));
+		float fDivideDegree = 180.f / 9.f;
+
+		if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eCharacterDirection::Up;
+		else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eCharacterDirection::LeftUp3;
+		else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eCharacterDirection::LeftUp2;
+		else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eCharacterDirection::LeftUp1;
+		else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eCharacterDirection::Left;
+		else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eCharacterDirection::LeftDown3;
+		else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eCharacterDirection::LeftDown2;
+		else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eCharacterDirection::LeftDown1;
+		else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eCharacterDirection::Down;
+		else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eCharacterDirection::Down;
+		else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eCharacterDirection::RightDown3;
+		else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eCharacterDirection::RightDown2;
+		else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eCharacterDirection::RightDown1;
+		else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eCharacterDirection::Right;
+		else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eCharacterDirection::RightUp3;
+		else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eCharacterDirection::RightUp2;
+		else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eCharacterDirection::RightUp1;
+
+		if (Input::GetKeyUp(eKeyCode::C))
 		{
 			mAnimationType = eSorceressAnimationType::Attack1;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
 			{
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
-				mAnimator->GetActiveAnimation()->SetProgressIndex(14);
+				mAnimator->SetAnimationProgressStartIndex(14);
 			}
 		}
-		if (Input::GetKeyUpOne(eKeyCode::RBUTTON))
+		if (Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
+			mAnimationType = eSorceressAnimationType::SpecialCast;
+			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
+			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
+				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
+
 			Skill* skill = nullptr;
 			MAKE_SKILL(1, skill, GET_POS(PlayerInfo::player));
 			skill->SetCamera(GetOwner()->GetCamera());
@@ -159,39 +208,20 @@ namespace m
 		else
 		{
 			GetOwner()->SetBattleState(GameObject::Run);
-			Vector3 direction = PlayerInfo::player->GetDirection();
-
-			float degree = RadianToDegree(atan2(direction.x, direction.y));
-			float fDivideDegree = 180.f / 9.f;
-
-			if (	 degree > -fDivideDegree     && degree <  fDivideDegree    ) mDirection = eCharacterDirection::Up;
-			else if (degree < -fDivideDegree	 && degree > -fDivideDegree * 2) mDirection = eCharacterDirection::LeftUp3;
-			else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eCharacterDirection::LeftUp2;
-			else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eCharacterDirection::LeftUp1;
-			else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eCharacterDirection::Left;
-			else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eCharacterDirection::LeftDown3;
-			else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eCharacterDirection::LeftDown2;
-			else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eCharacterDirection::LeftDown1;
-			else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eCharacterDirection::Down;
-			else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eCharacterDirection::Down;
-			else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eCharacterDirection::RightDown3;
-			else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eCharacterDirection::RightDown2;
-			else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eCharacterDirection::RightDown1;
-			else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eCharacterDirection::Right;
-			else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eCharacterDirection::RightUp3;
-			else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eCharacterDirection::RightUp2;
-			else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree	   ) mDirection = eCharacterDirection::RightUp1;
-
 			mAnimationType = eSorceressAnimationType::Run;
 		}
 
 		if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
 		{
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
-			int prevIndex = mAnimator->GetAnimationIndex();
+			WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
+
+			int prevIndex = 0;
+			if (subStr1 == sorceressAnimationString[(UINT)eSorceressAnimationType::Run])
+				prevIndex = mAnimator->GetAnimationIndex();
 			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
 			if(mAnimationType == eSorceressAnimationType::Run)
-				mAnimator->SetAnimationIndex(prevIndex);
+				mAnimator->SetAnimationStartIndex(prevIndex);
 		}
 
 	}

@@ -27,12 +27,11 @@ namespace m
 	}
 	void Player::Update()
 	{
-		MoveAbleObject::Update();
+		
 
 		if (GetBattleState() == eBattleState::Dead
 			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Hit
-			|| GetBattleState() == eBattleState::Cast) return;
+			|| GetBattleState() == eBattleState::Hit) return;
 
 		Vector3 curPosition = GET_POS(this);
 
@@ -41,8 +40,10 @@ namespace m
 
 		mAstar->PathFinding(curCoord, mouseCoord);
 		mAstar->PlayerMove(this);
+
+
 		if (!MouseManager::GetMouseOnUI()
-			&& Input::GetKeyDownOne(eKeyCode::RBUTTON))
+			&& Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
 			Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
 				, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
@@ -55,11 +56,12 @@ namespace m
 			float minX = min(tempDest.x, tempPrev.x);
 			float minY = min(tempDest.y, tempPrev.y);
 
+			fSpeed = 0.f;
 			vDirection = tempDest - tempPrev;
 			vDirection.Normalize();
 		}
 		if (!MouseManager::GetMouseOnUI()
-			&& Input::GetKeyDownOne(eKeyCode::LBUTTON))
+			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			if (!mAstar->PathChange())
 			{
@@ -79,6 +81,7 @@ namespace m
 				vDirection = destPosition - prevPosition;
 				vDirection.Normalize();
 			}
+			fSpeed = 300.f;
 		}
 
 		float maxX = max(curPosition.x, prevPosition.x);
@@ -95,6 +98,7 @@ namespace m
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
+		MoveAbleObject::Update();
 	}
 	void Player::LateUpdate()
 	{

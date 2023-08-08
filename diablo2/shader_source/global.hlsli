@@ -31,6 +31,10 @@ cbuffer ParticleSystem : register(b5)
     int padd;
     int padd2;
 }
+struct ParticleShared
+{
+    uint ActiveSharedCount;
+};
 struct LightAttribute
 {
     float4 color;

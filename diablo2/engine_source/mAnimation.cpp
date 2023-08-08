@@ -16,6 +16,7 @@ namespace m
 		, mProgressIndex(0)
 		, mbComplete(false)
 		, mbProgress(false)
+		, mbStop(false)
 	{
 
 	}
@@ -28,7 +29,7 @@ namespace m
 	}
 	void Animation::LateUpdate()
 	{
-		if (mbComplete)
+		if (mbComplete || mbStop)
 			return;
 
 		mTime += Time::DeltaTime();
@@ -111,5 +112,6 @@ namespace m
 		mbComplete = false;
 		mbProgress = false;
 		mIndex = mInitIndex;
+		mbStop = false;
 	}
 }

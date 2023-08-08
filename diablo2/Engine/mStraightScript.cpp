@@ -47,16 +47,22 @@ namespace m
 						  , Vector2::Zero
 						  , 0.03f
 						  , 0.7f);
+		mAnimator->StartEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]()
+		{
+			dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
+		};
+		mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]()
+		{
+			GetOwner()->SetState(GameObject::eState::Delete);
+		};
 	}
 	void StraightScript::Update()
 	{
 		if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
 		{
-			if (nullptr == mAnimator->GetActiveAnimation() ||
-				mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
+			if (mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
 			{
 				mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", false);
-				mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]() { GetOwner()->SetState(GameObject::eState::Delete); };
 			}
 			return;
 		}
@@ -103,8 +109,7 @@ namespace m
 			Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
 			monster->Hit(10);
 			
-			mAnimator->StopAnimation();
-
+			//mAnimator->StopAnimation();
 			dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
 		}
 	}

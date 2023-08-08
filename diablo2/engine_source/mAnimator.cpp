@@ -28,7 +28,8 @@ namespace m
 	}
 	void Animator::Update()
 	{
-		if (mActiveAnimation == nullptr)
+		if (mActiveAnimation == nullptr
+			|| mActiveAnimation->IsStop())
 			return;
 
 		if (mActiveAnimation->IsComplete() && mbLoop)
@@ -49,7 +50,7 @@ namespace m
 			Events* events = FindEvents(mActiveAnimation->GetKey());
 			if (events)
 				events->endEvent();
-			mActiveAnimation->Reset();
+			mActiveAnimation->SetStop();
 		}
 
 		mActiveAnimation->LateUpdate();
@@ -117,10 +118,11 @@ namespace m
 	void Animator::PlayAnimation(const std::wstring& name, bool loop)
 	{
 		Animation* prevAnimation = mActiveAnimation;
-
+		
 		Events* events;
 		if (prevAnimation != nullptr)
 		{
+			prevAnimation->Reset();
 			events = FindEvents(prevAnimation->GetKey());
 			if (events)
 				events->endEvent();
@@ -147,15 +149,15 @@ namespace m
 
 		mActiveAnimation->Binds();
 	}
-	void Animator::StopAnimation()
-	{
-		if (mActiveAnimation == nullptr)
-			return;
+	//void Animator::StopAnimation()
+	//{
+	//	if (mActiveAnimation == nullptr)
+	//		return;
 
-		mActiveAnimation->Reset();
-		
-		mActiveAnimation = nullptr;
-	}
+	//	mActiveAnimation->Reset();
+	//	
+	//	mActiveAnimation = nullptr;
+	//}
 	std::function<void()>& Animator::StartEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);

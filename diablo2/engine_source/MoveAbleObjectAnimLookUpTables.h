@@ -20,15 +20,19 @@ namespace m
 		End,
 	};
 	std::wstring sorceressAnimationString[(UINT)eSorceressAnimationType::End] = {
-		L"sorceressAttack1_anim",
-		L"sorceressAttack2_anim",
-		L"sorceressTownNatural_anim",
-		L"sorceressNatural_anim",
-		L"sorceressRun_anim",
-		L"sorceressWalk_anim",
-		L"sorceressSpecialCast_anim",
-		L"sorceressGetHit_anim",
-		L"sorceressDead",
+		L"sorceressAttack1_anim",     
+		L"sorceressAttack2_anim", 
+		L"sorceressBlock_anim", 
+		L"sorceressGetHit_anim", 
+		L"sorceressKick_anim", 
+		L"sorceressNatural_anim", 
+		L"sorceressRun_anim", 
+		L"sorceressSpecial1_anim", 
+		L"sorceressSpecialCast_anim", 
+		L"sorceressTownNatural_anim", 
+		L"sorceressTownWalk_anim", 
+		L"sorceressWalk_anim", 
+		L"sorceressDead_anim", 
 	};
 	enum class eCharacterDirection
 	{
@@ -174,19 +178,19 @@ namespace m
 			L"diabloDead",
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
-			L"diabloAttack1_anim",
-			L"diabloAttack2_anim",
-			L"diabloBlock_anim",
-			L"diabloHit_anim",
-			L"diabloNatural_anim",
-			L"diabloRun_anim",
-			L"diabloWalk_anim",
-			L"diabloSpecialCast_anim",
-			L"diabloSpecial1_anim",
-			L"diabloSpecial2_anim",
-			L"diabloSpecial3_anim",
-			L"diabloSpecial4_anim",
-			L"diabloDead",
+			L"diabloAttack1_anim@",
+			L"diabloAttack2_anim@",
+			L"diabloBlock_anim@",
+			L"diabloHit_anim@",
+			L"diabloNatural_anim@",
+			L"diabloRun_anim@",
+			L"diabloWalk_anim@",
+			L"diabloSpecialCast_anim@",
+			L"diabloSpecial1_anim@",
+			L"diabloSpecial2_anim@",
+			L"diabloSpecial3_anim@",
+			L"diabloSpecial4_anim@",
+			L"diabloDead@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
 			math::Vector2(0.f, 0.f), // Attack1
@@ -247,6 +251,51 @@ namespace m
 			16, // Special3
 			16	, // Special4
 			1, // Dead
+		};
+		int animStartIndex[(UINT)eAnimationType::End] = {
+			0,// Attack1
+			0,// Attack2
+			0, // Block
+			0, // Hit
+			0,// Natural
+			0, // Run
+			0, // Walk
+			0,// SpecialCast
+			0,// Special1
+			0, // Special2
+			0, // Special3
+			0, // Special4
+			0, // Dead
+		};
+		int animLoopStartIndex[(UINT)eAnimationType::End] = {
+			0,// Attack1
+			0,// Attack2
+			0, // Block
+			0, // Hit
+			0,// Natural
+			6, // Run
+			0, // Walk
+			0,// SpecialCast
+			0,// Special1
+			0, // Special2
+			0, // Special3
+			0, // Special4
+			0, // Dead
+		};
+		int animProgressStartIndex[(UINT)eAnimationType::End] = {
+			10,// Attack1
+			0,// Attack2
+			0, // Block
+			0, // Hit
+			0,// Natural
+			0, // Run
+			0, // Walk
+			0,// SpecialCast
+			0,// Special1
+			0, // Special2
+			0, // Special3
+			0, // Special4
+			0, // Dead
 		};
 	};
 	enum class eMonsterType

@@ -360,7 +360,7 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::Particle]->Create(sizeof(ParticleCB));
 
 		lightsBuffer = new StructedBuffer();
-		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr);
+		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
 	}
 
 	void LoadShader()
@@ -430,6 +430,9 @@ namespace renderer
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
 		m::Resources::Insert(L"PaintTexture", uavTexture);
+
+		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+		Resources::Load<Texture>(L"cartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
 	}
 
 	void LoadMaterial()
@@ -438,10 +441,15 @@ namespace renderer
 		std::shared_ptr<Shader> animShader = m::Resources::Find<Shader>(L"AnimationShader");
 		std::shared_ptr<Shader> noLightSahder = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
+		std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
 		{
 			
 
 		}
+#pragma region Particle
+		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
+#pragma endregion
+
 #pragma region Skill
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\fire_bolt"
 			, 116, 66, 5, L"fireBolt");

@@ -52,6 +52,12 @@
 
 #define SET_MAIN_CAMERA(object) object->SetCamera(GetSceneMainCamera())
 
+#define MAKE_MATERIAL_F(shader, texName, materialName)		   { \
+																SHARED_MAT mat = std::make_shared<Material>(); \
+																mat->SetShader(shader); \
+																mat->SetTexture(RESOURCE_FIND(Texture, texName)); \
+																Resources::Insert(materialName, mat); \
+															}
 
 #define MAKE_MATERIAL(shader, texName, texPath, materialName) { \
 																SHARED_MAT mat = std::make_shared<Material>(); \
@@ -110,3 +116,15 @@
 								}\
 									break;\
 								}
+
+#define WSTRING_SUBSTR(srcStr, token, subStr) std::wstring subStr = L"";\
+									   int tokenIndex = 0;\
+									   for(int i = 0; i < srcStr.length(); ++i) \
+									   {\
+											if(token == srcStr[i]) \
+											{\
+												tokenIndex = i;\
+												break;\
+											}\
+									   }\
+									   subStr = srcStr.substr(0, tokenIndex);

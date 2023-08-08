@@ -51,6 +51,8 @@ namespace m
 
 		void Binds();
 		void Reset();
+
+		void SetStop() { mbStop = true; }
 		void SetIndex(int index) { mIndex = index; }
 		void SetInitIndex(int index) { mInitIndex = index; }
 		void SetProgressIndex(int index) { mProgressIndex = index; }
@@ -60,6 +62,8 @@ namespace m
 		int GetProgressIndex() { return mProgressIndex; }
 		bool IsComplete() { return mbComplete; }
 		bool IsProgress() { return mbProgress; }
+		bool IsStop() { return mbStop; }
+
 	private:
 		std::shared_ptr<graphics::Texture> mAtlas;
 		Animator* mAnimator;
@@ -70,6 +74,7 @@ namespace m
 		float mTime;
 		bool mbComplete;
 		bool mbProgress;
+		bool mbStop;
 	};
 }
 

@@ -1,6 +1,7 @@
 #include "mParticleSystem.h"
 #include "mTransform.h"
 #include "mGameObject.h"
+#include "mTime.h"
 namespace m
 {
 	ParticleSystem::ParticleSystem()
@@ -10,11 +11,12 @@ namespace m
 		, mStartColor(Vector4::Zero)
 		, mEndColor(Vector4::Zero)
 		, mLifeTime(0.0f)
+		, mTime(0.0f)
 	{
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(mesh);
 
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"particleTex");
 		SetMaterial(material);
 
 		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
@@ -41,11 +43,14 @@ namespace m
 
 			particles[i].position = pos;
 			particles[i].speed = 10.0f;
-			particles[i].active = 1;
+			particles[i].active = 0;
 		}
 
 		mBuffer = new graphics::StructedBuffer();
 		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particles);
+
+		mSharedBuffer = new graphics::StructedBuffer();
+		mSharedBuffer->Create(sizeof(Particle), 1, eViewType::UAV, particles, true);
 		//mBuffer->SetData(particles, 1000);
 	}
 	ParticleSystem::~ParticleSystem()
@@ -62,7 +67,28 @@ namespace m
 	void ParticleSystem::LateUpdate()
 	{
 		MeshRenderer::LateUpdate();
+		float AliveTime = 1.0f / 1.0f;
+		mTime += Time::DeltaTime();
+
+		if (mTime > AliveTime)
+		{
+			float f = (mTime / AliveTime);
+			UINT AliveCount = (UINT)f;
+			mTime = f - floor(f);
+
+			ParticleShared shareData = {};
+			shareData.sharedActiveCount = 2;
+			mSharedBuffer->SetData(&shareData, 1);
+		}
+		else
+		{
+			ParticleShared shareData = {};
+			shareData.sharedActiveCount = 0;
+			mSharedBuffer->SetData(&shareData, 1);
+		}
+
 		mCS->SetParticleBuffer(mBuffer);
+		mCS->SetSharedBuffer(mSharedBuffer);
 		mCS->OnExcute();
 	}
 	void ParticleSystem::Render()

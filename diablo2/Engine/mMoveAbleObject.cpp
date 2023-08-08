@@ -16,7 +16,8 @@ namespace m
 		, bool useTilePos
 		, bool useAstar
 	)
-		: prevPosition(iniPos)
+		: GameObject()
+		, prevPosition(iniPos)
 		, destPosition(iniPos)
 		, vS(iniPos)
 		, fSpeed(speed)

@@ -19,5 +19,8 @@ float4 main(VSOut In) : SV_TARGET
 {
     float4 color = In.Color;
     
+    if(color.a <= 0.0f)
+        discard;
+    
     return color;
 }

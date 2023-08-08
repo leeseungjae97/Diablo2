@@ -54,7 +54,7 @@ namespace m
 		Events* FindEvents(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);
 		void Binds();
-		void StopAnimation();
+		//void StopAnimation();
 
 		std::function<void()>& StartEvent(const std::wstring key);
 		std::function<void()>& CompleteEvent(const std::wstring key);
@@ -63,7 +63,9 @@ namespace m
 
 		Animation* GetActiveAnimation() { return mActiveAnimation; }
 
-		void SetAnimationIndex(int index) { mActiveAnimation->SetIndex(index); }
+		void SetAnimationLoopStartIndex(int index) { mActiveAnimation->SetInitIndex(index); }
+		void SetAnimationStartIndex(int index) { mActiveAnimation->SetIndex(index); }
+		void SetAnimationProgressStartIndex(int index) { mActiveAnimation->SetProgressIndex(index); }
 		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
 
 	private:

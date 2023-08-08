@@ -44,5 +44,8 @@ float4 main(VSOut In) : SV_TARGET
     color *= lightColor;
     color.a *= mAlpha;
     
+    if(color.a <= 0.0f)
+        discard;
+    
     return color;
 }

@@ -17,6 +17,9 @@ namespace m
 
 	std::vector<Input::Key> Input::mKeys;
 	Vector2 Input::mMousePos = Vector2::Zero;
+	bool Input::bCallDownOne = false;
+	bool Input::bCallUpOne = false;
+	bool Input::bCallOne = false;
 
 	void Input::Initialize()
 	{
