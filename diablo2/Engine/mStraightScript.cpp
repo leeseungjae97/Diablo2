@@ -39,7 +39,7 @@ namespace m
 			);
 		}
 		SHARED_MAT mat1 = RESOURCE_FIND(Material, skillCrashNames[(UINT)mType]);
-		mAnimator->Create(skillCrashNames[(UINT)mType] + L"Crash"
+		mAnimator->Create(skillCrashNames[(UINT)mType] + L"anim"
 						  , mat1->GetTexture()
 						  , Vector2::Zero
 						  , skillCrashSizes[(UINT)mType]
@@ -47,11 +47,11 @@ namespace m
 						  , Vector2::Zero
 						  , 0.03f
 						  , 0.7f);
-		mAnimator->StartEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]()
+		mAnimator->StartEvent(skillCrashNames[(UINT)mType] + L"anim") = [this]()
 		{
 			dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
 		};
-		mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"Crash") = [this]()
+		mAnimator->EndEvent(skillCrashNames[(UINT)mType] + L"anim") = [this]()
 		{
 			GetOwner()->SetState(GameObject::eState::Delete);
 		};
@@ -62,7 +62,7 @@ namespace m
 		{
 			if (mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
 			{
-				mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"Crash", false);
+				mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"anim", false);
 			}
 			return;
 		}

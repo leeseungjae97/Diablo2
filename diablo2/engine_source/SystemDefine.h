@@ -15,6 +15,11 @@
 #define GET_TRANS(object) object->GetComponent<Transform>()
 #define GET_MESHR(object) object->GetComponent<MeshRenderer>()
 #define ADD_COMP(object, type) object->AddComponent<type>()
+#define DELETE_COMP(object, type) std::vector<type> comps = object->GetComponents<type>();\
+								for(T* comp : comps)\
+								{\
+									std::erase(comps, comp);\
+								}\						
 
 #define SHARED_TEX std::shared_ptr<Texture>
 #define SHARED_MAT std::shared_ptr<Material>
@@ -115,7 +120,7 @@
 									skill = new Skill(PlayerInfo::GetSkill(skillIndex), vector3Pos);\
 								}\
 									break;\
-								}
+								}\
 
 #define WSTRING_SUBSTR(srcStr, token, subStr) std::wstring subStr = L"";\
 									   int tokenIndex = 0;\

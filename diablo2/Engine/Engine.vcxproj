@@ -192,6 +192,7 @@
     <ClInclude Include="mTile.h" />
     <ClInclude Include="mTileScript.h" />
     <ClInclude Include="mUVUI.h" />
+    <ClInclude Include="mPlayerOverlayEffectSkillScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
@@ -227,6 +228,7 @@
     <ClCompile Include="mTile.cpp" />
     <ClCompile Include="mTileScript.cpp" />
     <ClCompile Include="mUVUI.cpp" />
+    <ClCompile Include="mPlayerOverlayEffectSkillScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

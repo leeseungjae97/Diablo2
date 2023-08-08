@@ -96,6 +96,7 @@
     <ClCompile Include="mStraightScript.cpp">
       <Filter>Script\StraightSkillScript</Filter>
     </ClCompile>
+    <ClCompile Include="mPlayerOverlayEffectSkillScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="mStraightScript.h">
       <Filter>Script\StraightSkillScript</Filter>
     </ClInclude>
+    <ClInclude Include="mPlayerOverlayEffectSkillScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -305,6 +307,9 @@
     </Filter>
     <Filter Include="Script\StraightSkillScript">
       <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\PlayerOverlayEffectScript">
+      <UniqueIdentifier>{bec1a9a7-acfd-4a99-81a1-b89f18d8ebe8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
