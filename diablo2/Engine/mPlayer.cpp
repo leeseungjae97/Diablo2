@@ -27,12 +27,6 @@ namespace m
 	}
 	void Player::Update()
 	{
-		
-
-		if (GetBattleState() == eBattleState::Dead
-			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Hit) return;
-
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = TileManager::GetPlayerPositionCoord();
@@ -41,6 +35,15 @@ namespace m
 		mAstar->PathFinding(curCoord, mouseCoord);
 		mAstar->PlayerMove(this);
 
+		if (GetBattleState() == eBattleState::Cast
+			|| GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Hit)
+		{
+			fStartDistance = fRemainDistance;
+			destPosition = curPosition;
+			mAstar->ClearPath();
+		}
 
 		if (!MouseManager::GetMouseOnUI()
 			&& Input::GetKeyDown(eKeyCode::RBUTTON))
@@ -56,14 +59,15 @@ namespace m
 			float minX = min(tempDest.x, tempPrev.x);
 			float minY = min(tempDest.y, tempPrev.y);
 
-			fSpeed = 0.f;
+			fSpeed = 0.0f;
 			vDirection = tempDest - tempPrev;
 			vDirection.Normalize();
 		}
 		if (!MouseManager::GetMouseOnUI()
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
-			if (!mAstar->PathChange())
+			fSpeed = 300.f;
+			if (fSpeed != 0.f && !mAstar->PathChange())
 			{
 				Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
 																		, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
@@ -80,10 +84,9 @@ namespace m
 
 				vDirection = destPosition - prevPosition;
 				vDirection.Normalize();
-			}
-			fSpeed = 300.f;
-		}
 
+			}
+		}
 		float maxX = max(curPosition.x, prevPosition.x);
 		float maxY = max(curPosition.y, prevPosition.y);
 
@@ -92,6 +95,13 @@ namespace m
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
 
+		//if (GetBattleState() == eBattleState::Dead
+		//	|| GetBattleState() == eBattleState::Attack
+		//	|| GetBattleState() == eBattleState::Cast
+		//	|| GetBattleState() == eBattleState::Hit)
+		//{
+		//	fSpeed = 0.0f;
+		//}
 		if (fRemainDistance < fStartDistance)
 		{
 			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());

@@ -2,12 +2,12 @@
 #include "mSkillScript.h"
 namespace m
 {
-    class PlayerOverlayEffectSkillScript :
+    class OverlayEffectSkillScript :
         public SkillScript
     {
     public:
-        PlayerOverlayEffectSkillScript();
-        virtual ~PlayerOverlayEffectSkillScript();
+        OverlayEffectSkillScript();
+        virtual ~OverlayEffectSkillScript();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -19,7 +19,6 @@ namespace m
         virtual void OnCollisionExit(Collider2D* other) override;
     private:
         Animator* mAnimator;
-        bool m
     };
 }
 

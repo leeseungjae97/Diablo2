@@ -1,21 +1,20 @@
-#include "mPlayerOverlayEffectSkillScript.h"
+#include "mOverlayEffectSkillScript.h"
 
 #include "mSkill.h"
+#include "mPlayerInfo.h"
 
 namespace m
 {
-	PlayerOverlayEffectSkillScript::PlayerOverlayEffectSkillScript()
+	OverlayEffectSkillScript::OverlayEffectSkillScript()
 	{
 	}
-	PlayerOverlayEffectSkillScript::~PlayerOverlayEffectSkillScript()
+	OverlayEffectSkillScript::~OverlayEffectSkillScript()
 	{
 	}
-	void PlayerOverlayEffectSkillScript::Initialize()
+	void OverlayEffectSkillScript::Initialize()
 	{
-		mAnimator = ADD_COMP(GetOwner(), Animator);
-		Skill* dSkill = dynamic_cast<Skill*>(GetOwner());
-		if (nullptr == dSkill) mType = eSkillType::normalAttack;
-		else mType = dSkill->GetSkillType();
+		mType = dynamic_cast<Skill*>(GetOwner())->GetSkillType();
+		mAnimator = dynamic_cast<Skill*>(GetOwner())->GetCastAnimator();
 
 		SHARED_MAT mat = RESOURCE_FIND(Material, skillCastNames[(int)mType]);
 		mAnimator->Create(
@@ -38,7 +37,7 @@ namespace m
 			//DELETE_COMP(GetOwner(), this);
 		};
 	}
-	void PlayerOverlayEffectSkillScript::Update()
+	void OverlayEffectSkillScript::Update()
 	{
 
 		if (GetOwner()->GetState() == GameObject::eBattleState::Cast)
@@ -50,19 +49,19 @@ namespace m
 			}
 		}
 	}
-	void PlayerOverlayEffectSkillScript::LateUpdate()
+	void OverlayEffectSkillScript::LateUpdate()
 	{
 	}
-	void PlayerOverlayEffectSkillScript::Render()
+	void OverlayEffectSkillScript::Render()
 	{
 	}
-	void PlayerOverlayEffectSkillScript::OnCollisionEnter(Collider2D* other)
+	void OverlayEffectSkillScript::OnCollisionEnter(Collider2D* other)
 	{
 	}
-	void PlayerOverlayEffectSkillScript::OnCollisionStay(Collider2D* other)
+	void OverlayEffectSkillScript::OnCollisionStay(Collider2D* other)
 	{
 	}
-	void PlayerOverlayEffectSkillScript::OnCollisionExit(Collider2D* other)
+	void OverlayEffectSkillScript::OnCollisionExit(Collider2D* other)
 	{
 	}
 }

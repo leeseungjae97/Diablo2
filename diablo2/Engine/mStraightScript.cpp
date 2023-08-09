@@ -60,7 +60,7 @@ namespace m
 	{
 		if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
 		{
-			if (mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"Crash")
+			if (mAnimator->GetActiveAnimation()->GetKey() != skillCrashNames[(UINT)mType] + L"anim")
 			{
 				mAnimator->PlayAnimation(skillCrashNames[(UINT)mType] + L"anim", false);
 			}

@@ -2,11 +2,11 @@
 
 #include "../engine_source/SkillLookUpTables.h"
 #include "../engine_source/mTime.h"
+#include "../engine_source/mAnimator.h"
 
 #include "mMoveAbleObject.h"
 namespace m
 {
-    class Animator;
     class Skill :
         public MoveAbleObject
     {
@@ -34,7 +34,10 @@ namespace m
         void SetSkillFire(bool fire) { bSkillFire = fire; }
         void SetSkillCrash(bool crash) { bSkillCrash = crash; }
 
+        Animator* GetCastAnimator() { return mCastAnimator; }
+
     protected:
+        Animator* mCastAnimator;
         eSkillType mSkillType;
         bool bSkillFire;
         bool bSkillCrash;

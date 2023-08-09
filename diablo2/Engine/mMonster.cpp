@@ -35,18 +35,7 @@ namespace m
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
-
-		if (GetBattleState() == eBattleState::Dead
-			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Hit
-			|| GetBattleState() == eBattleState::Cast) return;
-
 		Vector3 curPosition = GET_POS(this);
-		if (rangeCollider->GetOnStay())
-		{
-			fRemainDistance += fStartDistance;
-			return;
-		}
 
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
@@ -57,25 +46,9 @@ namespace m
 		if (sightCollider->GetOnEnter()
 			|| sightCollider->GetOnStay())
 		{
-			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-				mAstar->PathChange();
-
-
-			//prevPosition = GET_POS(this);
-
-			//destPosition = sightCollider->GetCollideredObjectPos();
-
-			//float maxX = max(destPosition.x, prevPosition.x);
-			//float maxY = max(destPosition.y, prevPosition.y);
-
-			//float minX = min(destPosition.x, prevPosition.x);
-			//float minY = min(destPosition.y, prevPosition.y);
-
-			//fStartDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
-
-			//vDirection = destPosition - curPosition;
-			//vDirection.Normalize();
+			mAstar->PathChange();
 		}
+
 		float maxX = max(curPosition.x, prevPosition.x);
 		float maxY = max(curPosition.y, prevPosition.y);
 
@@ -84,12 +57,27 @@ namespace m
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
 
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Hit
+			|| GetBattleState() == eBattleState::Cast
+			)
+		{
+			fStartDistance = fRemainDistance;
+			//destPosition = curPosition;
+		}
+		if (rangeCollider->GetOnEnter()
+			|| rangeCollider->GetOnStay())
+		{
+			fStartDistance = fRemainDistance;
+		}
 		if (fRemainDistance < fStartDistance)
 		{
 			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
+		//MoveAbleObject::Update();
 	}
 	void Monster::LateUpdate()
 	{

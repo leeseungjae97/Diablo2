@@ -54,7 +54,7 @@ namespace m
 		void SetColliderFunctionType(eColliderFunctionType type) { mFunctionType = type; }
 		eColliderFunctionType GetColliderFunctionType() { return mFunctionType; }
 
-		bool SearchObjectGameObjectId(float gameObjectId);
+		bool SearchObjectGameObjectId(UINT gameObjectId);
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;

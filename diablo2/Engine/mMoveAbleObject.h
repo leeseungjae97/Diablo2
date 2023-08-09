@@ -9,11 +9,11 @@ namespace m
 	{
 	public:
 		MoveAbleObject(Vector3 iniPos
-			, float speed
-			, bool useHitArea = true
-			, bool useRange = true
-			, bool useTilePos = true
-			, bool useAstar = true
+					   , float speed
+					   , bool useHitArea = true
+					   , bool useRange = true
+					   , bool useTilePos = true
+					   , bool useAstar = true
 		);
 		virtual ~MoveAbleObject();
 
@@ -23,8 +23,8 @@ namespace m
 		virtual void Render() override;
 
 		virtual void Hit(int damage) = 0;
-		bool Stop() { return fRemainDistance < fStartDistance ? false : true; }
-
+		bool Stop() { return fSpeed == 0.0f ? true : false; }
+		bool StopF() { return fRemainDistance < fStartDistance ? false : true; }
 		float GetRemainDistance() { return fRemainDistance; }
 		float GetStartDistance() { return fStartDistance; }
 

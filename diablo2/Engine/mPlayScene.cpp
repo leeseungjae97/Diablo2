@@ -29,7 +29,6 @@
 #include "mSkillUp.h"
 #include "mCollider2D.h"
 #include "mPlayerScript.h"
-#include "mPlayerOverlayEffectSkillScript.h"
 #include "mMonsterScript.h"
 #include "mBottomUI.h"
 #include "mUVUI.h"
@@ -130,7 +129,6 @@ namespace m
 		
 		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
 		ps->SetMonster(monster);
-		ADD_COMP(PlayerInfo::player, PlayerOverlayEffectSkillScript);
 
 		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 

@@ -18,6 +18,8 @@ namespace m
 
 		bool PathChange();
 
+		void ClearPath();
+
 		bool MonsterMove(MoveAbleObject* mOwner);
 		bool PlayerMove(MoveAbleObject* mOwner);
 

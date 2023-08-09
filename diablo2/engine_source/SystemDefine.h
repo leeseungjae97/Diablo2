@@ -132,4 +132,4 @@
 												break;\
 											}\
 									   }\
-									   subStr = srcStr.substr(0, tokenIndex);
+									   subStr = srcStr.substr(0, tokenIndex + 1);

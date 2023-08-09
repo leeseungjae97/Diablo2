@@ -106,30 +106,27 @@ namespace m
 				, 0.05f
 			);
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
-				= [this]() { AnimationStart(GameObject::eBattleState::Cast); };
+				= [this]() { GetOwner()->SetBattleState(GameObject::eBattleState::Cast); };
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
-				= [this]() 
-			{ 
-				AnimationComplete(GameObject::eBattleState::Idle); 
-			};
+				= [this]() { GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
 
-			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i]) 
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
-				= [this]() 
-			{ 
+				= [this]()
+			{
 				AttackProgress();
 				mAnimator->SetAnimationProgressStartIndex(0);
 			};
 
-			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i]) 
-				= [this]() { Hit(true, GameObject::eBattleState::Hit); };
+			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
+				= [this](){Hit(true, GameObject::eBattleState::Hit);};
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
-				= [this]() { Hit(false, GameObject::eBattleState::Idle); };
+				= [this](){Hit(false, GameObject::eBattleState::Idle);};
 		}
-		
+
 		mDirection = eCharacterDirection::Down;
 		mAnimationType = eSorceressAnimationType::Natural;
 		mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
@@ -195,12 +192,12 @@ namespace m
 
 		if (
 			GetOwner()->GetBattleState() != GameObject::Idle
-			&& 
+			&&
 			GetOwner()->GetBattleState() != GameObject::Run
 			)
 			return;
 
-		if (PlayerInfo::player->Stop())
+		if (PlayerInfo::player->StopF())
 		{
 			GetOwner()->SetBattleState(GameObject::Idle);
 			mAnimationType = eSorceressAnimationType::Natural;
@@ -220,7 +217,7 @@ namespace m
 			if (subStr1 == sorceressAnimationString[(UINT)eSorceressAnimationType::Run])
 				prevIndex = mAnimator->GetAnimationIndex();
 			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
-			if(mAnimationType == eSorceressAnimationType::Run)
+			if (mAnimationType == eSorceressAnimationType::Run)
 				mAnimator->SetAnimationStartIndex(prevIndex);
 		}
 

@@ -29,7 +29,16 @@ namespace m
 		{
 			for (Collider2D* col : collidereds)
 			{
-				std::erase(col->GetCollidereds(), this);
+				auto iter = col->GetCollidereds().begin();
+				while (iter != col->GetCollidereds().end())
+				{
+					if ((*iter) == this)
+					{
+						iter = col->GetCollidereds().erase(iter);
+						break;
+					}
+					else iter++;
+				}
 			}
 			collidereds.clear();
 		}
@@ -150,7 +159,7 @@ namespace m
 			script->OnCollisionExit(other);
 		}
 	}
-	bool Collider2D::SearchObjectGameObjectId(float gameObjectId)
+	bool Collider2D::SearchObjectGameObjectId(UINT gameObjectId)
 	{
 		for (Collider2D* col : GetCollidereds())
 			if (col->GetOwner()->GetGameObjectId() == gameObjectId) return true;

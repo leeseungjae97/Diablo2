@@ -38,11 +38,16 @@ namespace m
 			Tile* path = pathVector[i];
 			SET_MATERIAL(path, L"testTile");
 		}
+		if (mStartCoord == startCoord
+			&&
+			mTargetCoord == targetCoord)
+			return;
+
 		pathVector.clear();
 		float direct1[4][2] = { {1, 1},{1, -1},{-1, -1},{-1, 1} };
 		float direct2[4][2] = { {1, 0},{0, 1},{-1, 0},{0, -1} };
 
-		//mStartCoord = startCoord;
+		mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
 
 		startTile = TileManager::tiles[startCoord.y][startCoord.x];
@@ -119,8 +124,8 @@ namespace m
 
 	void Astar::OpenVectorAdd(int y, int x)
 	{
-		if (x >= (mTargetCoord.x - 5 < 0 ? 0 : mTargetCoord.x - 5) && x < mTargetCoord.x + 5
-			&& y >= (mTargetCoord.y - 5 < 0 ? 0 : mTargetCoord.y - 5) && y < mTargetCoord.y + 5
+		if (x >= (mTargetCoord.x - 10 < 0 ? 0 : mTargetCoord.x - 10) && x < mTargetCoord.x + 10
+			&& y >= (mTargetCoord.y - 10 < 0 ? 0 : mTargetCoord.y - 10) && y < mTargetCoord.y + 10
 			&& !TileManager::tiles[y][x]->GetIsWall()
 			&& !TileManager::tiles[y][x]->GetInClosed())
 		{
@@ -195,6 +200,11 @@ namespace m
 		}
 		else { std::erase(finalPathVector, finalPathVector.front()); }
 		return true;
+	}
+	void Astar::ClearPath()
+	{
+		finalPathVector.clear();
+		pathVector.clear();
 	}
 	bool Astar::PlayerMove(MoveAbleObject* mOwner)
 	{
