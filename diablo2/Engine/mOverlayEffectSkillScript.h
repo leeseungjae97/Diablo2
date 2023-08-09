@@ -17,8 +17,12 @@ namespace m
         virtual void OnCollisionEnter(Collider2D* other) override;
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
+
+        void SetSkillIndex(int index) { skillIndex = index; }
+        int GetSkillIndex() { return skillIndex; }
     private:
         Animator* mAnimator;
+        int skillIndex;
     };
 }
 

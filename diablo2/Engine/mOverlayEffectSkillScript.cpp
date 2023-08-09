@@ -7,14 +7,15 @@ namespace m
 {
 	OverlayEffectSkillScript::OverlayEffectSkillScript()
 	{
+		
 	}
 	OverlayEffectSkillScript::~OverlayEffectSkillScript()
 	{
 	}
 	void OverlayEffectSkillScript::Initialize()
 	{
-		mType = dynamic_cast<Skill*>(GetOwner())->GetSkillType();
-		mAnimator = dynamic_cast<Skill*>(GetOwner())->GetCastAnimator();
+		mAnimator = ADD_COMP(GetOwner(), Animator);
+		mType = PlayerInfo::GetSkill(skillIndex);
 
 		SHARED_MAT mat = RESOURCE_FIND(Material, skillCastNames[(int)mType]);
 		mAnimator->Create(
@@ -39,7 +40,6 @@ namespace m
 	}
 	void OverlayEffectSkillScript::Update()
 	{
-
 		if (GetOwner()->GetState() == GameObject::eBattleState::Cast)
 		{
 			if (nullptr == mAnimator->GetActiveAnimation() 

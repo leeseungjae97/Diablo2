@@ -6,7 +6,6 @@
 #include "../engine_source/mGameObject.h"
 
 #include "mMonster.h"
-#include "mOverlayEffectSkillScript.h"
 namespace m
 {
 	Skill::Skill(eSkillType type
@@ -27,8 +26,6 @@ namespace m
 		, bSkillFire(false)
 		, bSkillCrash(false)
 	{
-		mCastAnimator = ADD_COMP(this, Animator);
-		OverlayEffectSkillScript* poess = ADD_COMP(this, OverlayEffectSkillScript);
 	}
 	Skill::~Skill()
 	{
@@ -40,6 +37,7 @@ namespace m
 	void Skill::Update()
 	{
 		GameObject::Update();
+		//mOESS->Update();
 	}
 	void Skill::LateUpdate()
 	{

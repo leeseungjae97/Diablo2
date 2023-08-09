@@ -3,6 +3,7 @@
 #include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mGameObject.h"
 
+#include "mOverlayEffectSkillScript.h"
 namespace m
 {
     class GameObject;
@@ -34,6 +35,8 @@ namespace m
         Animator* mAnimator;
         eCharacterDirection mDirection;
         eSorceressAnimationType mAnimationType;
+
+        OverlayEffectSkillScript* mOESS;
 
         bool bDamage;
     };

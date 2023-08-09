@@ -34,10 +34,7 @@ namespace m
         void SetSkillFire(bool fire) { bSkillFire = fire; }
         void SetSkillCrash(bool crash) { bSkillCrash = crash; }
 
-        Animator* GetCastAnimator() { return mCastAnimator; }
-
     protected:
-        Animator* mCastAnimator;
         eSkillType mSkillType;
         bool bSkillFire;
         bool bSkillCrash;

@@ -20,6 +20,7 @@
 #include "mStraightScript.h"
 #include "mSkillStraight.h"
 #include "mSkill.h"
+
 extern m::Application application;
 namespace m
 {
@@ -36,6 +37,7 @@ namespace m
 		//at->CompleteEvent(L"sorceressTownWalk_anim") = std::bind(&PlayerScript::Complete, this);
 
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");
@@ -179,8 +181,9 @@ namespace m
 			Skill* skill = nullptr;
 			MAKE_SKILL(1, skill, GET_POS(PlayerInfo::player));
 			skill->SetCamera(GetOwner()->GetCamera());
-			//skill->SetName(L"skillll");
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, skill);
+			mOESS = ADD_COMP(GetOwner(), OverlayEffectSkillScript);
+			mOESS->SetSkillIndex(1);
 		}
 		if (PlayerInfo::player->GetHit())
 		{
