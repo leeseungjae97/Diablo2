@@ -6,7 +6,7 @@
 
 #include "mInvenItem.h"
 #include "mPlayer.h"
-
+#include "mOverlayEffectSkillScript.h"
 namespace m
 {
 	int PlayerInfo::learnedSkill[3][10]= {};
@@ -31,6 +31,8 @@ namespace m
 		SET_MATERIAL(player, L"AnimationMaterial");
 		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
 		ADD_COMP(player, Animator);
+		//player->AddComponent<OverlayEffectSkillScript>(1);
+
 		SetSkill(0, eSkillType::normalAttack);
 		SetSkill(1, eSkillType::fireBolt);
 	}

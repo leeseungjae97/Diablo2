@@ -4,6 +4,7 @@
 #include "../engine_source/mGameObject.h"
 
 #include "mOverlayEffectSkillScript.h"
+#include "mSkillOverlay.h"
 namespace m
 {
     class GameObject;
@@ -36,8 +37,11 @@ namespace m
         eCharacterDirection mDirection;
         eSorceressAnimationType mAnimationType;
 
-        OverlayEffectSkillScript* mOESS;
+        SkillOverlay* mRSO;
+        SkillOverlay* mLSO;
 
+        int activeSkillIndex;
+        bool bFire;
         bool bDamage;
     };
 }

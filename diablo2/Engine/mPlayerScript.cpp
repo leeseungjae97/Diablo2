@@ -19,6 +19,7 @@
 
 #include "mStraightScript.h"
 #include "mSkillStraight.h"
+#include "mSkillFall.h"
 #include "mSkill.h"
 
 extern m::Application application;
@@ -26,6 +27,8 @@ namespace m
 {
 	PlayerScript::PlayerScript()
 		: bDamage(false)
+		, bFire(false)
+		, activeSkillIndex(0)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -33,11 +36,22 @@ namespace m
 	}
 	void PlayerScript::Initialize()
 	{
-		//Animator* at = GetOwner()->GetComponent<Animator>();
-		//at->CompleteEvent(L"sorceressTownWalk_anim") = std::bind(&PlayerScript::Complete, this);
-
 		mAnimator = GET_COMP(GetOwner(), Animator);
-		
+
+		Scene* curScene = SceneManager::GetActiveScene();
+		mRSO = new SkillOverlay(1);
+		mLSO = new SkillOverlay(0);
+
+		mRSO->SetActiveOwner(GetOwner());
+		mLSO->SetActiveOwner(GetOwner());
+		//SET_POS_VEC(mRSO, GET_POS(GetOwner()));
+		//SET_POS_VEC(mLSO, GET_POS(GetOwner()));
+
+		//SET_SCALE_XYZ(mRSO, 100.f, 50.f, 1.f);
+		//SET_SCALE_XYZ(mLSO, 100.f, 50.f, 1.f);
+
+		curScene->AddGameObject(eLayerType::Skill, mRSO);
+		curScene->AddGameObject(eLayerType::Skill, mLSO);
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");
@@ -69,7 +83,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)eSorceressAnimationType::SpecialCast]
 				, sorceressAnimationLength[(UINT)eSorceressAnimationType::SpecialCast]
 				, Vector2(0.f, -10.f)
-				, 0.08f
+				, 0.03f
 			);
 			mAnimator->Create(
 				sorceressAnimationString[(UINT)eSorceressAnimationType::Natural] + characterDirectionString[i]
@@ -108,9 +122,26 @@ namespace m
 				, 0.05f
 			);
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
-				= [this]() { GetOwner()->SetBattleState(GameObject::eBattleState::Cast); };
+				= [this]() 
+			{ 
+				mAnimator->SetAnimationProgressStartIndex(10);
+				GetOwner()->SetBattleState(GameObject::eBattleState::Cast); 
+				bFire = true;
+			};
+			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
+				= [this]()
+			{
+				if (bFire)
+				{
+					Skill* skill = nullptr;
+					MAKE_SKILL(activeSkillIndex, skill, GET_POS(PlayerInfo::player));
+					skill->SetCamera(GetOwner()->GetCamera());
+					SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, skill);
+					bFire = false;
+				}
+			};
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
-				= [this]() { GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
+				= [this]() {GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
@@ -175,15 +206,10 @@ namespace m
 		{
 			mAnimationType = eSorceressAnimationType::SpecialCast;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
+			mRSO->ActiveOverlay();
+			activeSkillIndex = 1;
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
-
-			Skill* skill = nullptr;
-			MAKE_SKILL(1, skill, GET_POS(PlayerInfo::player));
-			skill->SetCamera(GetOwner()->GetCamera());
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, skill);
-			mOESS = ADD_COMP(GetOwner(), OverlayEffectSkillScript);
-			mOESS->SetSkillIndex(1);
 		}
 		if (PlayerInfo::player->GetHit())
 		{

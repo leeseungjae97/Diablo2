@@ -1,21 +1,22 @@
 #include "mPlayScene.h"
 
-#include "..\engine_source\mGameObject.h"
-#include "..\engine_source\mMeshRenderer.h"
-#include "..\engine_source\mTransform.h"
-#include "..\engine_source\mResources.h"
-#include "..\engine_source\mCamera.h"
-#include "..\engine_source\mSceneManager.h"
-#include "..\engine_source\mRenderer.h"
-#include "..\engine_source\mApplication.h"
-#include "..\engine_source\mCollisionManager.h"
-#include "..\engine_source\mAnimator.h"
-#include "..\engine_source\MoveAbleObjectAnimLookUpTables.h"
-#include "..\engine_source\mFontWrapper.h"
-#include "..\engine_source\mComputeShader.h"
-#include "..\engine_source\mTileManager.h"
-#include "..\engine_source\mAstar.h"
-#include "..\engine_source\mParticleSystem.h"
+#include "../engine_source/mGameObject.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mResources.h"
+#include "../engine_source/mCamera.h"
+#include "../engine_source/mSceneManager.h"
+#include "../engine_source/mRenderer.h"
+#include "../engine_source/mApplication.h"
+#include "../engine_source/mCollisionManager.h"
+#include "../engine_source/mAnimator.h"
+#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
+#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mComputeShader.h"
+#include "../engine_source/mTileManager.h"
+#include "../engine_source/mAstar.h"
+#include "../engine_source/mParticleSystem.h"
+#include "../engine_source/mPaintShader.h"
 
 #include "mCameraScript.h"
 #include "mBackground.h"
@@ -34,8 +35,7 @@
 #include "mUVUI.h"
 #include "mPlayerInfo.h"
 #include "mSkillShortCutButton.h"
-
-#include "../engine_source/mPaintShader.h"
+#include "mOverlayEffectSkillScript.h"
 
 extern m::Application application;
 namespace m
@@ -52,10 +52,6 @@ namespace m
 		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexture");
 		//paintShader->SetTarget(paintTexture);
 		//paintShader->OnExcute();
-
-
-
-
 		Scene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
@@ -78,16 +74,28 @@ namespace m
 
 		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
 
-		GameObject* ll = new GameObject();
-		SET_MAIN_CAMERA(ll);
-		ll->SetName(L"test111");
-		AddGameObject(eLayerType::Skill, ll);
-		ADD_COMP(ll, MeshRenderer);
-		SET_MESH(ll, L"RectMesh");
-		SET_MATERIAL(ll, L"fireExplo1");
-		SET_POS_XYZ(ll, 0.f, 500.f, 1.f);
-		MAKE_GET_TEX(ll, tex2);
-		SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
+		PlayerInfo::Initialize();
+
+		//GameObject* qwe = new GameObject();
+		//SET_MAIN_CAMERA(qwe);
+		//AddGameObject(eLayerType::Skill, qwe);
+		//ADD_COMP(qwe, MeshRenderer);
+		//ADD_COMP(qwe, Animator);
+		//SET_MESH(qwe, L"RectMesh");
+		//SET_MATERIAL(qwe, L"AnimationMaterial");
+		//SET_SCALE_XYZ(qwe, 100.f, 100.f, 1.f);
+		//qwe->AddComponent<OverlayEffectSkillScript>(1);
+
+		//GameObject* ll = new GameObject();
+		//SET_MAIN_CAMERA(ll);
+		//ll->SetName(L"test111");
+		//AddGameObject(eLayerType::Skill, ll);
+		//ADD_COMP(ll, MeshRenderer);
+		//SET_MESH(ll, L"RectMesh");
+		//SET_MATERIAL(ll, L"fireBallCast");
+		//SET_POS_XYZ(ll, 0.f, 500.f, 1.f);
+		//MAKE_GET_TEX(ll, tex2);
+		//SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
 
 		//GameObject* particle = new GameObject();
 		//SET_MAIN_CAMERA(particle);
@@ -99,9 +107,6 @@ namespace m
 
 		//GetLayer(eLayerType::Tile).ChangeOrderGameObject(particle);
 
-		
-
-
 		//srand((unsigned int)time(NULL));
 		//int randPos = rand() % TileManager::tiles.size();
 
@@ -111,18 +116,15 @@ namespace m
 		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
 		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Skill, true);
 
-		PlayerInfo::Initialize();
-		SET_MAIN_CAMERA(PlayerInfo::player);
-		AddGameObject(eLayerType::Player, PlayerInfo::player);
-
-		
-
 		Monster* monster = new Monster(randTilePos, DiabloSt().fSpeed);
 		SET_MAIN_CAMERA(monster);
 		AddGameObject(eLayerType::Monster, monster);
 		SET_MESH(monster, L"RectMesh");
 		SET_MATERIAL(monster, L"AnimationMaterial");
 		ADD_COMP(monster, Animator);
+
+		SET_MAIN_CAMERA(PlayerInfo::player);
+		AddGameObject(eLayerType::Player, PlayerInfo::player);
 
 		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
 		ms->SetMonster(monster);

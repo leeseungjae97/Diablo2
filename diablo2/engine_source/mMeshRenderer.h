@@ -22,7 +22,6 @@ namespace m
 		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
 		std::shared_ptr<Mesh> GetMesh() { return mMesh; }
 
-
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;

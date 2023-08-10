@@ -118,7 +118,6 @@ namespace m
 	void Animator::PlayAnimation(const std::wstring& name, bool loop)
 	{
 		Animation* prevAnimation = mActiveAnimation;
-		
 		Events* events;
 		if (prevAnimation != nullptr)
 		{

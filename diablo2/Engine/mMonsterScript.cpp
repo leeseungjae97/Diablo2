@@ -82,7 +82,6 @@ namespace m
 				}
 			}
 		}
-		mDirection = eMonsterDirection::Down;
 		mAnimationType = T::eAnimationType::Natural;
 		mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);

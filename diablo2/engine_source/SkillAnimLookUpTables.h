@@ -209,7 +209,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// energyShield
 		m::math::Vector2(0.f, 0.f),// lightningMastery
 
-		m::math::Vector2(78.f, 70.f),// fireBolt
+		m::math::Vector2(145.f, 133.f),// fireBolt
 		m::math::Vector2(0.f, 0.f),// warmth
 		m::math::Vector2(0.f, 0.f),// inferno
 		m::math::Vector2(0.f, 0.f),// blaze
@@ -331,39 +331,59 @@ namespace m
 		0// normalAttack
 	};
 	int skillCastLength[(int)eSkillType::END] = {
-		// iceBolt
-		// frozenArmor
-		// frostNova
-		// iceBlast
-		// shiverArmor
-		// clacialSpike
-		// blizzard
-		// chillingArmor
-		// frozenOrb
-		// coldMastery
+		0,// iceBolt
+		0,// frozenArmor
+		0,// frostNova
+		0,// iceBlast
+		0,// shiverArmor
+		0,// clacialSpike
+		0,// blizzard
+		0,// chillingArmor
+		0,// frozenOrb
+		0,// coldMastery
 
-		// chargedBolt
-		// staticField
-		// telekinesis
-		// nove
-		// lightning
-		// chainLightning
-		// teleport
-		// thunderStorm
-		// energyShield
-		// lightningMastery
+		0,// chargedBolt
+		0,// staticField
+		0,// telekinesis
+		0,// nove
+		0,// lightning
+		0,// chainLightning
+		0,// teleport
+		0,// thunderStorm
+		0,// energyShield
+		0,// lightningMastery
 
-		// fireBolt
-		// warmth
-		// inferno
-		// blaze
-		// fireBall
-		// fireWall
-		// enchant
-		// meteor
-		// fireMastery
-		// hydra
+		16,// fireBolt
+		0,// warmth
+		0,// inferno
+		0,// blaze
+		0,// fireBall
+		0,// fireWall
+		0,// enchant
+		0,// meteor
+		0,// fireMastery
+		0,// hydra
 
-		// normalAttack
+		0,// normalAttack
+	};
+
+
+	enum class eAccessorySkillType {
+		Blizzard1,
+		Blizzard3,
+		END
+	};
+	std::wstring AccessorySkillNames[(int)eAccessorySkillType::END] = {
+		L"blizzard1",
+		L"blizzard3",
+	};
+	m::math::Vector2 AccessorySkillAnimSize[(int)eAccessorySkillType::END] = {
+		Vector2(97.f, 153.f),
+		Vector2(59.f, 198.f),
+
+	};
+	int AccessorySkillAnimLength[(int)eAccessorySkillType::END] = {
+		8,
+		6,
 	};
 }

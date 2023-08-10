@@ -110,6 +110,10 @@
 								}\
 									break;\
 								case m::eSkillFunctionType::Fall:\
+								{\
+									skill = new SkillFall(PlayerInfo::GetSkill(skillIndex), vector3Pos);\
+									\
+								}\
 									break;\
 								case m::eSkillFunctionType::None:\
 									break;\

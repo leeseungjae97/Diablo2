@@ -2,11 +2,12 @@
 #include "mSkillScript.h"
 namespace m
 {
+    class Animation;
     class OverlayEffectSkillScript :
         public SkillScript
     {
     public:
-        OverlayEffectSkillScript();
+        OverlayEffectSkillScript(int index);
         virtual ~OverlayEffectSkillScript();
 
         virtual void Initialize() override;
@@ -18,11 +19,13 @@ namespace m
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
 
-        void SetSkillIndex(int index) { skillIndex = index; }
-        int GetSkillIndex() { return skillIndex; }
+        void UpdateOverlaySkill();
+
+        void PlayOverlaySkill() { bPlaySkill = true; }
     private:
         Animator* mAnimator;
         int skillIndex;
+        bool bPlaySkill;
     };
 }
 

@@ -88,7 +88,7 @@
       <Filter>UI\SkillShortCutButton</Filter>
     </ClCompile>
     <ClCompile Include="mSkillStraight.cpp">
-      <Filter>Skill\mSkillStraight</Filter>
+      <Filter>Skill\SkillStraight</Filter>
     </ClCompile>
     <ClCompile Include="mSkillScript.cpp">
       <Filter>Script\SkillScript</Filter>
@@ -96,7 +96,19 @@
     <ClCompile Include="mStraightScript.cpp">
       <Filter>Script\StraightSkillScript</Filter>
     </ClCompile>
-    <ClCompile Include="mPlayerOverlayEffectSkillScript.cpp" />
+    <ClCompile Include="mSkillOverlay.cpp">
+      <Filter>SkillOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="mOverlayEffectSkillScript.cpp">
+      <Filter>Script\OverlayEffectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillFall.cpp">
+      <Filter>Skill\SkillFall</Filter>
+    </ClCompile>
+    <ClCompile Include="mFallScript.cpp">
+      <Filter>Script\FallScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillBlizzard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -183,7 +195,7 @@
       <Filter>UI\SkillShortCutButton</Filter>
     </ClInclude>
     <ClInclude Include="mSkillStraight.h">
-      <Filter>Skill\mSkillStraight</Filter>
+      <Filter>Skill\SkillStraight</Filter>
     </ClInclude>
     <ClInclude Include="mSkillScript.h">
       <Filter>Script\SkillScript</Filter>
@@ -191,7 +203,19 @@
     <ClInclude Include="mStraightScript.h">
       <Filter>Script\StraightSkillScript</Filter>
     </ClInclude>
-    <ClInclude Include="mPlayerOverlayEffectSkillScript.h" />
+    <ClInclude Include="mSkillOverlay.h">
+      <Filter>SkillOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="mOverlayEffectSkillScript.h">
+      <Filter>Script\OverlayEffectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillFall.h">
+      <Filter>Skill\SkillFall</Filter>
+    </ClInclude>
+    <ClInclude Include="mFallScript.h">
+      <Filter>Script\FallScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillBlizzard.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -299,17 +323,29 @@
     <Filter Include="Skill">
       <UniqueIdentifier>{88ba78aa-41a5-4e9a-9182-fd5aae29e3e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Skill\mSkillStraight">
-      <UniqueIdentifier>{455f21af-c08e-4f6f-a6df-396416800f35}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\SkillScript">
       <UniqueIdentifier>{21faa739-1af3-4d1f-95ef-ccc4e2fb118c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Script\StraightSkillScript">
       <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\PlayerOverlayEffectScript">
+    <Filter Include="Skill\SkillStraight">
+      <UniqueIdentifier>{455f21af-c08e-4f6f-a6df-396416800f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkillOverlay">
+      <UniqueIdentifier>{625f5365-6b08-43ba-b226-4eec83a8a440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillFall">
+      <UniqueIdentifier>{d252afbc-3062-4e5c-bcf7-57220926d4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\FallScript">
+      <UniqueIdentifier>{22057ebd-f883-4d80-a9bc-a00de7113b6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\OverlayEffectScript">
       <UniqueIdentifier>{bec1a9a7-acfd-4a99-81a1-b89f18d8ebe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillBlizzard">
+      <UniqueIdentifier>{89c4e53a-2790-4d6b-83b1-8c1624c4ac4e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

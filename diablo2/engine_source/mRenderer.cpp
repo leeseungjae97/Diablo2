@@ -57,43 +57,43 @@ namespace renderer
 		//int iNumElement = sizeof(arrLayout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		std::shared_ptr<Shader> shader = m::Resources::Find<Shader>(L"TriangleShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"SpriteShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"GridShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"DebugShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"AnimationShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"NoLightShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"UVControlShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"ParticleShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
 
 #pragma endregion
 #pragma region Sampler State
@@ -115,22 +115,22 @@ namespace renderer
 		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 		GetDevice()->CreateRasterizeState(&rasterizerDesc
-			, rasterizerStates[(UINT)eRSType::SolidBack].GetAddressOf());
+										  , rasterizerStates[(UINT)eRSType::SolidBack].GetAddressOf());
 
 		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
 		GetDevice()->CreateRasterizeState(&rasterizerDesc
-			, rasterizerStates[(UINT)eRSType::SolidFront].GetAddressOf());
+										  , rasterizerStates[(UINT)eRSType::SolidFront].GetAddressOf());
 
 		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
 		GetDevice()->CreateRasterizeState(&rasterizerDesc
-			, rasterizerStates[(UINT)eRSType::SolidNone].GetAddressOf());
+										  , rasterizerStates[(UINT)eRSType::SolidNone].GetAddressOf());
 
 		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 		rasterizerDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
 		GetDevice()->CreateRasterizeState(&rasterizerDesc
-			, rasterizerStates[(UINT)eRSType::WireframeNone].GetAddressOf());
+										  , rasterizerStates[(UINT)eRSType::WireframeNone].GetAddressOf());
 #pragma endregion
 #pragma region Depth Stencil State
 		D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
@@ -142,7 +142,7 @@ namespace renderer
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
-			, depthStencilStates[(UINT)eDSType::Less].GetAddressOf());
+											 , depthStencilStates[(UINT)eDSType::Less].GetAddressOf());
 
 		//less eqauls
 		depthStencilDesc.DepthEnable = true;
@@ -151,7 +151,7 @@ namespace renderer
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
-			, depthStencilStates[(UINT)eDSType::LessEqua].GetAddressOf());
+											 , depthStencilStates[(UINT)eDSType::LessEqua].GetAddressOf());
 
 		//Greater
 		depthStencilDesc.DepthEnable = true;
@@ -160,7 +160,7 @@ namespace renderer
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
-			, depthStencilStates[(UINT)eDSType::Greater].GetAddressOf());
+											 , depthStencilStates[(UINT)eDSType::Greater].GetAddressOf());
 
 		//No Write
 		depthStencilDesc.DepthEnable = true;
@@ -169,7 +169,7 @@ namespace renderer
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
-			, depthStencilStates[(UINT)eDSType::NoWrite].GetAddressOf());
+											 , depthStencilStates[(UINT)eDSType::NoWrite].GetAddressOf());
 
 		//None
 		depthStencilDesc.DepthEnable = false;
@@ -178,7 +178,7 @@ namespace renderer
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
-			, depthStencilStates[(UINT)eDSType::None].GetAddressOf());
+											 , depthStencilStates[(UINT)eDSType::None].GetAddressOf());
 #pragma endregion
 #pragma region Blend State
 		D3D11_BLEND_DESC blendDesc = {};
@@ -199,7 +199,7 @@ namespace renderer
 		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 		GetDevice()->CreateBlendState(&blendDesc
-			, blendStates[(UINT)eBSType::AlphaBlend].GetAddressOf());
+									  , blendStates[(UINT)eBSType::AlphaBlend].GetAddressOf());
 
 		// one one
 		blendDesc.AlphaToCoverageEnable = false;
@@ -211,7 +211,7 @@ namespace renderer
 		blendDesc.RenderTarget[1].DestBlend = D3D11_BLEND_ONE;
 		blendDesc.RenderTarget[1].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		GetDevice()->CreateBlendState(&blendDesc
-			, blendStates[(UINT)eBSType::OneOne].GetAddressOf());
+									  , blendStates[(UINT)eBSType::OneOne].GetAddressOf());
 
 #pragma endregion
 	}
@@ -309,8 +309,8 @@ namespace renderer
 		for (int i = 0; i < iSlice; ++i)
 		{
 			center.pos = Vector3(fRadius * cosf(fTheta * (float)i)
-				, fRadius * sinf(fTheta * (float)i)
-				, 0.0f);
+								 , fRadius * sinf(fTheta * (float)i)
+								 , 0.0f);
 			center.color = Vector4(0.0f, 1.0f, 0.0f, 1.f);
 			vertexes.push_back(center);
 		}
@@ -400,7 +400,7 @@ namespace renderer
 		noLightShader->Create(eShaderStage::PS, L"NoLightSpritePS.hlsl", "main");
 		m::Resources::Insert(L"NoLightShader", noLightShader);
 
-		
+
 		std::shared_ptr<Shader> UVControlShader = std::make_shared<Shader>();
 		UVControlShader->Create(eShaderStage::VS, L"UVControlVS.hlsl", "main");
 		UVControlShader->Create(eShaderStage::PS, L"UVControlPS.hlsl", "main");
@@ -438,12 +438,11 @@ namespace renderer
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
-		std::shared_ptr<Shader> animShader = m::Resources::Find<Shader>(L"AnimationShader");
 		std::shared_ptr<Shader> noLightSahder = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
 		std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
 		{
-			
+
 
 		}
 #pragma region Particle
@@ -451,14 +450,19 @@ namespace renderer
 #pragma endregion
 
 #pragma region Skill
+		MAKE_MATERIAL_PATH(spriteShader, L"blizzard_1", L"..\\Resources\\texture\\skill_effect\\missile\\blizzard\\blizzard1"
+						   , 97, 153, 8, L"blizzard1");
+		MAKE_MATERIAL_PATH(spriteShader, L"blizzard_3", L"..\\Resources\\texture\\skill_effect\\missile\\blizzard\\blizzard3"
+						   , 59, 198, 6, L"blizzard3");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\fire_bolt"
-			, 116, 66, 5, L"fireBolt");
+						   , 116, 66, 5, L"fireBolt");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
-			, 92, 55, 6, L"iceBolt");
+						   , 92, 55, 6, L"iceBolt");
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_explo_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_explo1"
-			, 78, 70, 12, L"fireExplo1");
+						   , 78, 70, 12, L"fireExplo1");
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_ball_cast", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_ball_cast"
-			, 145, 133, 16, L"fireBallCast");
+						   , 145, 133, 16, L"fireBallCast");
 #pragma endregion
 #pragma region Monster
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");
@@ -959,32 +963,32 @@ namespace renderer
 #pragma endregion
 #pragma region Skill Lightning
 		MAKE_MATERIAL(noLightSahder, L"chain_lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning.png", L"chainLightningIcon")
-		MAKE_MATERIAL(noLightSahder, L"charged_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt.png", L"chargedBoltIcon")
-		MAKE_MATERIAL(noLightSahder, L"energy_shield_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield.png", L"energyShieldIcon")
-		MAKE_MATERIAL(noLightSahder, L"lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning.png", L"lightningIcon")
-		MAKE_MATERIAL(noLightSahder, L"lightning_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery.png", L"lightningMasteryIcon")
-		MAKE_MATERIAL(noLightSahder, L"nove_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove.png", L"noveIcon")
-		MAKE_MATERIAL(noLightSahder, L"static_field_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field.png", L"staticFieldIcon")
-		MAKE_MATERIAL(noLightSahder, L"telekinesis_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis.png", L"telekinesisIcon")
-		MAKE_MATERIAL(noLightSahder, L"teleport_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport.png", L"teleportIcon")
-		MAKE_MATERIAL(noLightSahder, L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm.png", L"thunderStormIcon")
+			MAKE_MATERIAL(noLightSahder, L"charged_bolt_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt.png", L"chargedBoltIcon")
+			MAKE_MATERIAL(noLightSahder, L"energy_shield_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield.png", L"energyShieldIcon")
+			MAKE_MATERIAL(noLightSahder, L"lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning.png", L"lightningIcon")
+			MAKE_MATERIAL(noLightSahder, L"lightning_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery.png", L"lightningMasteryIcon")
+			MAKE_MATERIAL(noLightSahder, L"nove_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove.png", L"noveIcon")
+			MAKE_MATERIAL(noLightSahder, L"static_field_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field.png", L"staticFieldIcon")
+			MAKE_MATERIAL(noLightSahder, L"telekinesis_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis.png", L"telekinesisIcon")
+			MAKE_MATERIAL(noLightSahder, L"teleport_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport.png", L"teleportIcon")
+			MAKE_MATERIAL(noLightSahder, L"thunder_storm_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm.png", L"thunderStormIcon")
 #pragma endregion
 #pragma region Skill Click Lightning
-		MAKE_MATERIAL(noLightSahder, L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png", L"chargedBoltClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png", L"staticFieldClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png", L"telekinesisClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png", L"noveClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png", L"lightningClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png", L"chainLightningClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png", L"teleportClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png", L"energyShieldClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png", L"lightningMasteryClickIcon")
-		MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png", L"chargedBoltClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png", L"staticFieldClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png", L"telekinesisClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png", L"noveClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png", L"lightningClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png", L"chainLightningClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png", L"teleportClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"energy_shield_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield_c.png", L"energyShieldClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"lightning_mastery_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery_c.png", L"lightningMasteryClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"thunder_storm_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\thunder_storm_c.png", L"thunderStormClickIcon")
 #pragma endregion
 #pragma region Skill ETC
-		MAKE_MATERIAL(noLightSahder, L"normal_attack_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack.png", L"normalAttackIcon")
-		MAKE_MATERIAL(noLightSahder, L"normal_attack_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack_c.png", L"normalAttackClickIcon")
+			MAKE_MATERIAL(noLightSahder, L"normal_attack_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack.png", L"normalAttackIcon")
+			MAKE_MATERIAL(noLightSahder, L"normal_attack_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack_c.png", L"normalAttackClickIcon")
 #pragma endregion
 
 #pragma region Inventory
@@ -1027,7 +1031,7 @@ namespace renderer
 
 			material = std::make_shared<Material>();
 			material->SetShader(spriteShader);
-			//material->SetRenderingMode(eRenderingMode::Transparent);
+			material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"AnimationMaterial", material);
 		}
 		{

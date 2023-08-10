@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="mBottomUI.h" />
+    <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
     <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mInven.h" />
@@ -183,7 +184,10 @@
     <ClInclude Include="mPlayScene.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
     <ClInclude Include="mSkill.h" />
+    <ClInclude Include="mSkillBlizzard.h" />
     <ClInclude Include="mSkillButton.h" />
+    <ClInclude Include="mSkillFall.h" />
+    <ClInclude Include="mSkillOverlay.h" />
     <ClInclude Include="mSkillScript.h" />
     <ClInclude Include="mSkillShortCutButton.h" />
     <ClInclude Include="mSkillStraight.h" />
@@ -197,6 +201,7 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="mBottomUI.cpp" />
+    <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
     <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mInven.cpp" />
@@ -219,7 +224,10 @@
     <ClCompile Include="mPlayScene.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
     <ClCompile Include="mSkill.cpp" />
+    <ClCompile Include="mSkillBlizzard.cpp" />
     <ClCompile Include="mSkillButton.cpp" />
+    <ClCompile Include="mSkillFall.cpp" />
+    <ClCompile Include="mSkillOverlay.cpp" />
     <ClCompile Include="mSkillScript.cpp" />
     <ClCompile Include="mSkillShortCutButton.cpp" />
     <ClCompile Include="mSkillStraight.cpp" />

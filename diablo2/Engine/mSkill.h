@@ -20,10 +20,10 @@ namespace m
         );
         virtual ~Skill();
 
-        virtual void Initialize();
-        virtual void Update();
-        virtual void LateUpdate();
-        virtual void Render();
+        virtual void Initialize() override;
+        virtual void Update() override;
+        virtual void LateUpdate() override;
+        virtual void Render() override;
 
         virtual void Hit(int damage) override;
         eSkillType GetSkillType() { return mSkillType; }
