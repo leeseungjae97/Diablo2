@@ -55,6 +55,8 @@ namespace m
 		eColliderFunctionType GetColliderFunctionType() { return mFunctionType; }
 
 		bool SearchObjectGameObjectId(UINT gameObjectId);
+
+		void Resize() { bResize = true; }
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
@@ -80,6 +82,8 @@ namespace m
 		bool bOnExit;
 
 		bool bVisible;
+
+		bool bResize;
 	};
 }
 

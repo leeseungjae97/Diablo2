@@ -36,6 +36,7 @@
 #include "mPlayerInfo.h"
 #include "mSkillShortCutButton.h"
 #include "mOverlayEffectSkillScript.h"
+#include "mFallScript.h"
 
 extern m::Application application;
 namespace m
@@ -84,7 +85,8 @@ namespace m
 		//SET_MESH(qwe, L"RectMesh");
 		//SET_MATERIAL(qwe, L"AnimationMaterial");
 		//SET_SCALE_XYZ(qwe, 100.f, 100.f, 1.f);
-		//qwe->AddComponent<OverlayEffectSkillScript>(1);
+		//FallScript * fs = qwe->AddComponent<FallScript>(eAccessorySkillType::Blizzard1);
+		//fs->SkillFire();
 
 		//GameObject* ll = new GameObject();
 		//SET_MAIN_CAMERA(ll);

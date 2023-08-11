@@ -19,6 +19,7 @@ namespace m
 		, bOnStay(false)
 		, bOnExit(false)
 		, bVisible(true)
+		, bResize(false)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
@@ -65,6 +66,12 @@ namespace m
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 scale = tr->GetScale();
+		if (bResize)
+		{
+			Vector3 scale = tr->GetScale();
+			mScale = scale;
+			bResize = false;
+		}
 		if (mScale == Vector3::One)
 		{
 			if (mType == eColliderType::Circle)

@@ -15,9 +15,13 @@ namespace m
 		ADD_COMP(this, Animator);
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
+		eSkillCastType castType = skillCastTypes[(UINT)PlayerInfo::GetSkill(mIndex)];
+
+		if (castType == eSkillCastType::END) return;
+
 		SET_SCALE_XYZ(this
-					  , skillCastSizes[(UINT)PlayerInfo::GetSkill(mIndex)].x
-					  , skillCastSizes[(UINT)PlayerInfo::GetSkill(mIndex)].y, 1.f);
+					  , castSizes[(UINT)castType].x
+					  , castSizes[(UINT)castType].y, 1.f);
 		mOESS = AddComponent<OverlayEffectSkillScript>(mIndex);
 	}
 	SkillOverlay::~SkillOverlay()

@@ -108,7 +108,9 @@
     <ClCompile Include="mFallScript.cpp">
       <Filter>Script\FallScript</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillBlizzard.cpp" />
+    <ClCompile Include="mSkillMultiFall.cpp">
+      <Filter>Skill\SkillMultiFall</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -215,7 +217,9 @@
     <ClInclude Include="mFallScript.h">
       <Filter>Script\FallScript</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillBlizzard.h" />
+    <ClInclude Include="mSkillMultiFall.h">
+      <Filter>Skill\SkillMultiFall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -344,7 +348,7 @@
     <Filter Include="Script\OverlayEffectScript">
       <UniqueIdentifier>{bec1a9a7-acfd-4a99-81a1-b89f18d8ebe8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Skill\SkillBlizzard">
+    <Filter Include="Skill\SkillMultiFall">
       <UniqueIdentifier>{89c4e53a-2790-4d6b-83b1-8c1624c4ac4e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

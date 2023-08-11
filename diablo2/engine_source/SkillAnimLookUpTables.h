@@ -2,6 +2,52 @@
 #include "SkillLookUpTables.h"
 namespace m
 {
+	enum class eSkillCrashType
+	{
+		IceCrash1,
+		FireCrash1,
+		END
+	};
+	enum class eSkillCastType
+	{
+		IceCast1,
+		IceCast2,
+		IceCast3,
+		FireCast1,
+		END
+	};
+	std::wstring crashNames[(int)eSkillCrashType::END] = {
+		L"iceCrash1",
+		L"fireCrash1",
+	};
+	std::wstring castNames[(int)eSkillCastType::END] = {
+		L"iceCast1",
+		L"iceCast2",
+		L"iceCast3",
+		L"fireCast1",
+	};
+	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
+		m::math::Vector2(113.f, 72.f),
+		m::math::Vector2(78.f, 70.f),
+	};
+	int crashLength[(int)eSkillCrashType::END] = {
+		6,
+		12
+	};
+
+	m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
+		m::math::Vector2(97.f, 55.f),
+		m::math::Vector2(115.f, 123.f),
+		m::math::Vector2(127.f, 148.f),
+		m::math::Vector2(145.f, 133.f),
+	};
+	int castLength[(int)eSkillCastType::END] = {
+		15,
+		15,
+		16,
+		16,
+	};
+
 	enum class eSkillDirection
 	{
 		LeftDown1,
@@ -41,6 +87,7 @@ namespace m
 		L"right_down_2",
 		L"right_down_3",
 	};
+
 	float skillSpeed[(int)eSkillType::END] = {
 		300.f,// iceBolt
 		0.f,// frozenArmor
@@ -48,7 +95,7 @@ namespace m
 		0.f,// iceBlast
 		0.f,// shiverArmor
 		0.f,// clacialSpike
-		0.f,// blizzard
+		200.f,// blizzard
 		0.f,// chillingArmor
 		0.f,// frozenOrb
 		0.f,// coldMastery
@@ -150,240 +197,99 @@ namespace m
 
 		m::math::Vector2(0.f),// normalAttack,
 	};
-	m::math::Vector2 skillCrashSizes[(int)eSkillType::END] = {
-		m::math::Vector2(0.f, 0.f),// iceBolt
-		m::math::Vector2(0.f, 0.f),// frozenArmor
-		m::math::Vector2(0.f, 0.f),// frostNova
-		m::math::Vector2(0.f, 0.f),// iceBlast
-		m::math::Vector2(0.f, 0.f),// shiverArmor
-		m::math::Vector2(0.f, 0.f),// clacialSpike
-		m::math::Vector2(0.f, 0.f),// blizzard
-		m::math::Vector2(0.f, 0.f),// chillingArmor
-		m::math::Vector2(0.f, 0.f),// frozenOrb
-		m::math::Vector2(0.f, 0.f),// coldMastery
+	eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
+		eSkillCrashType::IceCrash1,// iceBolt
+		eSkillCrashType::END,// frozenArmor
+		eSkillCrashType::END,// frostNova
+		eSkillCrashType::END,// iceBlast
+		eSkillCrashType::END,// shiverArmor
+		eSkillCrashType::END,// clacialSpike
+		eSkillCrashType::END,// blizzard
+		eSkillCrashType::END,// chillingArmor
+		eSkillCrashType::END,// frozenOrb
+		eSkillCrashType::END,// coldMastery
 
-		m::math::Vector2(0.f, 0.f),// chargedBolt
-		m::math::Vector2(0.f, 0.f),// staticField
-		m::math::Vector2(0.f, 0.f),// telekinesis
-		m::math::Vector2(0.f, 0.f),// nove
-		m::math::Vector2(0.f, 0.f),// lightning
-		m::math::Vector2(0.f, 0.f),// chainLightning
-		m::math::Vector2(0.f, 0.f),// teleport
-		m::math::Vector2(0.f, 0.f),// thunderStorm
-		m::math::Vector2(0.f, 0.f),// energyShield
-		m::math::Vector2(0.f, 0.f),// lightningMastery
+		eSkillCrashType::END,// chargedBolt
+		eSkillCrashType::END,// staticField
+		eSkillCrashType::END,// telekinesis
+		eSkillCrashType::END,// nove
+		eSkillCrashType::END,// lightning
+		eSkillCrashType::END,// chainLightning
+		eSkillCrashType::END,// teleport
+		eSkillCrashType::END,// thunderStorm
+		eSkillCrashType::END,// energyShield
+		eSkillCrashType::END,// lightningMastery
 
-		m::math::Vector2(78.f, 70.f),// fireBolt
-		m::math::Vector2(0.f, 0.f),// warmth
-		m::math::Vector2(0.f, 0.f),// inferno
-		m::math::Vector2(0.f, 0.f),// blaze
-		m::math::Vector2(0.f, 0.f),// fireBall
-		m::math::Vector2(0.f, 0.f),// fireWall
-		m::math::Vector2(0.f, 0.f),// enchant
-		m::math::Vector2(0.f, 0.f),// meteor
-		m::math::Vector2(0.f, 0.f),// fireMastery
-		m::math::Vector2(0.f, 0.f),// hydra
+		eSkillCrashType::FireCrash1,// fireBolt
+		eSkillCrashType::END,// warmth
+		eSkillCrashType::END,// inferno
+		eSkillCrashType::END,// blaze
+		eSkillCrashType::END,// fireBall
+		eSkillCrashType::END,// fireWall
+		eSkillCrashType::END,// enchant
+		eSkillCrashType::END,// meteor
+		eSkillCrashType::END,// fireMastery
+		eSkillCrashType::END,// hydra
 
-		m::math::Vector2(0.f, 0.f),// normalAttack
+		eSkillCrashType::END,// normalAttack
 	};
-	m::math::Vector2 skillCastSizes[(int)eSkillType::END] = {
-		m::math::Vector2(0.f, 0.f),// iceBolt
-		m::math::Vector2(0.f, 0.f),// frozenArmor
-		m::math::Vector2(0.f, 0.f),// frostNova
-		m::math::Vector2(0.f, 0.f),// iceBlast
-		m::math::Vector2(0.f, 0.f),// shiverArmor
-		m::math::Vector2(0.f, 0.f),// clacialSpike
-		m::math::Vector2(0.f, 0.f),// blizzard
-		m::math::Vector2(0.f, 0.f),// chillingArmor
-		m::math::Vector2(0.f, 0.f),// frozenOrb
-		m::math::Vector2(0.f, 0.f),// coldMastery
+	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
+		eSkillCastType::IceCast1,// iceBolt
+		eSkillCastType::END,// frozenArmor
+		eSkillCastType::END,// frostNova
+		eSkillCastType::IceCast2,// iceBlast
+		eSkillCastType::END,// shiverArmor
+		eSkillCastType::END,// clacialSpike
+		eSkillCastType::IceCast3,// blizzard
+		eSkillCastType::END,// chillingArmor
+		eSkillCastType::END,// frozenOrb
+		eSkillCastType::END,// coldMastery
 
-		m::math::Vector2(0.f, 0.f),// chargedBolt
-		m::math::Vector2(0.f, 0.f),// staticField
-		m::math::Vector2(0.f, 0.f),// telekinesis
-		m::math::Vector2(0.f, 0.f),// nove
-		m::math::Vector2(0.f, 0.f),// lightning
-		m::math::Vector2(0.f, 0.f),// chainLightning
-		m::math::Vector2(0.f, 0.f),// teleport
-		m::math::Vector2(0.f, 0.f),// thunderStorm
-		m::math::Vector2(0.f, 0.f),// energyShield
-		m::math::Vector2(0.f, 0.f),// lightningMastery
+		eSkillCastType::END,// chargedBolt
+		eSkillCastType::END,// staticField
+		eSkillCastType::END,// telekinesis
+		eSkillCastType::END,// nove
+		eSkillCastType::END,// lightning
+		eSkillCastType::END,// chainLightning
+		eSkillCastType::END,// teleport
+		eSkillCastType::END,// thunderStorm
+		eSkillCastType::END,// energyShield
+		eSkillCastType::END,// lightningMastery
 
-		m::math::Vector2(145.f, 133.f),// fireBolt
-		m::math::Vector2(0.f, 0.f),// warmth
-		m::math::Vector2(0.f, 0.f),// inferno
-		m::math::Vector2(0.f, 0.f),// blaze
-		m::math::Vector2(0.f, 0.f),// fireBall
-		m::math::Vector2(0.f, 0.f),// fireWall
-		m::math::Vector2(0.f, 0.f),// enchant
-		m::math::Vector2(0.f, 0.f),// meteor
-		m::math::Vector2(0.f, 0.f),// fireMastery
-		m::math::Vector2(0.f, 0.f),// hydra
+		eSkillCastType::FireCast1,// fireBolt
+		eSkillCastType::END,// warmth
+		eSkillCastType::END,// inferno
+		eSkillCastType::END,// blaze
+		eSkillCastType::END,// fireBall
+		eSkillCastType::END,// fireWall
+		eSkillCastType::END,// enchant
+		eSkillCastType::END,// meteor
+		eSkillCastType::END,// fireMastery
+		eSkillCastType::END,// hydra
 
-		m::math::Vector2(0.f, 0.f),// normalAttack
+		eSkillCastType::END,// normalAttack
 	};
-	std::wstring skillCrashNames[(int)eSkillType::END] = {
-		L"",// iceBolt
-		L"",// frozenArmor
-		L"",// frostNova
-		L"",// iceBlast
-		L"",// shiverArmor
-		L"",// clacialSpike
-		L"",// blizzard
-		L"",// chillingArmor
-		L"",// frozenOrb
-		L"",// coldMastery
-
-		L"",// chargedBolt
-		L"",// staticField
-		L"",// telekinesis
-		L"",// nove
-		L"",// lightning
-		L"",// chainLightning
-		L"",// teleport
-		L"",// thunderStorm
-		L"",// energyShield
-		L"",// lightningMastery
-
-		L"fireExplo1",// fireBolt
-		L"",// warmth
-		L"",// inferno
-		L"",// blaze
-		L"",// fireBall
-		L"",// fireWall
-		L"",// enchant
-		L"",// meteor
-		L"",// fireMastery
-		L"",// hydra
-
-		L"",// normalAttack
-	};
-	std::wstring skillCastNames[(int)eSkillType::END] = {
-		L"",// iceBolt
-		L"",// frozenArmor
-		L"",// frostNova
-		L"",// iceBlast
-		L"",// shiverArmor
-		L"",// clacialSpike
-		L"",// blizzard
-		L"",// chillingArmor
-		L"",// frozenOrb
-		L"",// coldMastery
-
-		L"",// chargedBolt
-		L"",// staticField
-		L"",// telekinesis
-		L"",// nove
-		L"",// lightning
-		L"",// chainLightning
-		L"",// teleport
-		L"",// thunderStorm
-		L"",// energyShield
-		L"",// lightningMastery
-
-		L"fireBallCast",// fireBolt
-		L"",// warmth
-		L"",// inferno
-		L"",// blaze
-		L"",// fireBall
-		L"",// fireWall
-		L"",// enchant
-		L"",// meteor
-		L"",// fireMastery
-		L"",// hydra
-
-		L"",// normalAttack
-	};
-	int skillCrashLength[(int)eSkillType::END] = {
-		0,// iceBolt
-		0,// frozenArmor
-		0,// frostNova
-		0,// iceBlast
-		0,// shiverArmor
-		0,// clacialSpike
-		0,// blizzard
-		0,// chillingArmor
-		0,// frozenOrb
-		0,// coldMastery
-
-		0,// chargedBolt
-		0,// staticField
-		0,// telekinesis
-		0,// nove
-		0,// lightning
-		0,// chainLightning
-		0,// teleport
-		0,// thunderStorm
-		0,// energyShield
-		0,// lightningMastery
-
-		12,// fireBolt
-		0,// warmth
-		0,// inferno
-		0,// blaze
-		0,// fireBall
-		0,// fireWall
-		0,// enchant
-		0,// meteor
-		0,// fireMastery
-		0,// hydra
-
-		0// normalAttack
-	};
-	int skillCastLength[(int)eSkillType::END] = {
-		0,// iceBolt
-		0,// frozenArmor
-		0,// frostNova
-		0,// iceBlast
-		0,// shiverArmor
-		0,// clacialSpike
-		0,// blizzard
-		0,// chillingArmor
-		0,// frozenOrb
-		0,// coldMastery
-
-		0,// chargedBolt
-		0,// staticField
-		0,// telekinesis
-		0,// nove
-		0,// lightning
-		0,// chainLightning
-		0,// teleport
-		0,// thunderStorm
-		0,// energyShield
-		0,// lightningMastery
-
-		16,// fireBolt
-		0,// warmth
-		0,// inferno
-		0,// blaze
-		0,// fireBall
-		0,// fireWall
-		0,// enchant
-		0,// meteor
-		0,// fireMastery
-		0,// hydra
-
-		0,// normalAttack
-	};
-
-
+	
 	enum class eAccessorySkillType {
 		Blizzard1,
 		Blizzard3,
 		END
 	};
-	std::wstring AccessorySkillNames[(int)eAccessorySkillType::END] = {
+	std::wstring accessorySkillNames[(int)eAccessorySkillType::END] = {
 		L"blizzard1",
 		L"blizzard3",
 	};
-	m::math::Vector2 AccessorySkillAnimSize[(int)eAccessorySkillType::END] = {
+	m::math::Vector2 accessorySkillAnimSize[(int)eAccessorySkillType::END] = {
 		Vector2(97.f, 153.f),
 		Vector2(59.f, 198.f),
 
 	};
-	int AccessorySkillAnimLength[(int)eAccessorySkillType::END] = {
+	int accessorySkillAnimLength[(int)eAccessorySkillType::END] = {
 		8,
 		6,
+	};
+	eSkillCrashType accessorySkillCrashTypes[(int)eAccessorySkillType::END] = {
+		eSkillCrashType::IceCrash1,
+		eSkillCrashType::IceCrash1,
 	};
 }

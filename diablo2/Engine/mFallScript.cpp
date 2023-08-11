@@ -5,7 +5,9 @@
 namespace m
 {
 	FallScript::FallScript(eAccessorySkillType type)
-		: mAcType(type)
+		: mACType(type)
+		, bSkillFire(false)
+		, bArrival(false)
 	{
 	}
 	FallScript::~FallScript()
@@ -18,8 +20,10 @@ namespace m
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
 
-		if (mAcType == eAccessorySkillType::END)
+		eSkillCrashType crashType;
+		if (mACType == eAccessorySkillType::END)
 		{
+			crashType = skillCrashTypes[(int)mType];
 			SHARED_MAT mat = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
 			mAnimator->Create(
 				skillAnimNames[(int)mType] + L"anim"
@@ -28,30 +32,135 @@ namespace m
 				, skillSizes[(int)mType]
 				, skillAnimLength[(int)mType]
 				, Vector2::Zero
-				, 0.3f
+				, 0.03f
 				, 0.5f
+			);
+			
+			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
+			mAnimator->Create(
+				crashNames[(int)crashType] + L"anim"
+				, crashMat->GetTexture()
+				, Vector2::Zero
+				, crashSizes[(int)crashType]
+				, crashLength[(int)crashType]
+				, Vector2::Zero
+				, 0.03f
+				, 0.3f
 			);
 		}
 		else
 		{
-			SHARED_MAT mat = RESOURCE_FIND(Material, AccessorySkillNames[(int)mAcType]);
-			UINT height = mat->GetTexture()->GetMetaDataHeight();
-			UINT width = mat->GetTexture()->GetMetaDataWidth();
+			crashType = accessorySkillCrashTypes[(int)mACType];
+
+			SHARED_MAT mat = RESOURCE_FIND(Material, accessorySkillNames[(int)mACType]);
 			mAnimator->Create(
-				skillAnimNames[(int)mType] + L"anim"
+				accessorySkillNames[(int)mACType] + L"anim"
 				, mat->GetTexture()
 				, Vector2::Zero
-				, Vector2(width, height)
-				, AccessorySkillAnimLength[(int)mType]
+				, accessorySkillAnimSize[(int)mACType]
+				, accessorySkillAnimLength[(int)mACType]
 				, Vector2::Zero
-				, 0.3f
+				, 0.03f
 				, 0.5f
-				);
+			);
+			
+			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
+			mAnimator->Create(
+				crashNames[(int)crashType] + L"anim"
+				, crashMat->GetTexture()
+				, Vector2::Zero
+				, crashSizes[(int)crashType]
+				, crashLength[(int)crashType]
+				, Vector2::Zero
+				, 0.03f
+				, 0.5f
+			);
 		}
+		mAnimator->StartEvent(crashNames[(int)crashType] + L"anim") = [this]()
+		{
+			Vector3 mPos = GET_POS(GetOwner());
+			mPos.y -= 45.f;
+			mPos.x += 20.f;
+			SET_POS_VEC(GetOwner(), mPos);
+		};
+		mAnimator->EndEvent(crashNames[(int)crashType] + L"anim") = [this]()
+		{
+			Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+			if (col->GetOnEnter())
+			{
+				col->GetCollidereds();
+			}
+			GetOwner()->SetState(GameObject::eState::Delete);
+		};
 
+		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
+		mAnimator->Create(
+			L"noneRectAnim"
+			, noneMat->GetTexture()
+			, Vector2::Zero
+			, Vector2(20.f, 20.f)
+			, 1
+			, Vector2::Zero
+			, 0.03f
+			, 0.3f
+		);
+
+		mAnimator->PlayAnimation(L"noneRectAnim", false);
+	}
+	void FallScript::OnCollisionEnter(Collider2D* other)
+	{
+	}
+	void FallScript::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void FallScript::OnCollisionExit(Collider2D* other)
+	{
 	}
 	void FallScript::Update()
 	{
+		if (bArrival)
+		{
+			if (mACType == eAccessorySkillType::END)
+			{
+				eSkillCrashType crashType = skillCrashTypes[(int)mType];
+				if (mAnimator->GetActiveAnimation()->GetKey() != crashNames[(int)crashType] + L"anim")
+				{
+					SET_SCALE_XYZ(GetOwner()
+								  , crashSizes[(int)crashType].x
+								  , crashSizes[(int)crashType].y
+								  , GET_POS(GetOwner()).z
+					);
+					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+					col->Resize();
+					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
+				}	
+			}
+			else
+			{
+				eSkillCrashType crashType = accessorySkillCrashTypes[(int)mACType];
+				if (mAnimator->GetActiveAnimation()->GetKey() != crashNames[(int)crashType] + L"anim")
+				{
+					SET_SCALE_XYZ(GetOwner()
+								  , crashSizes[(int)crashType].x
+								  , crashSizes[(int)crashType].y
+								  , GET_POS(GetOwner()).z
+					);
+					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+					col->Resize();
+					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
+				}
+			}
+			bArrival = false;
+		}
+		if (bSkillFire)
+		{
+			bSkillFire = false;
+			if (mACType == eAccessorySkillType::END)
+				mAnimator->PlayAnimation(skillAnimNames[(int)mType] + L"anim", true);
+			else 
+				mAnimator->PlayAnimation(accessorySkillNames[(int)mACType] + L"anim", true);
+		}
+		
 	}
 	void FallScript::LateUpdate()
 	{
@@ -59,4 +168,4 @@ namespace m
 	void FallScript::Render()
 	{
 	}
-}
+}	

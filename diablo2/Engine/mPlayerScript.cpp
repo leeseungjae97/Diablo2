@@ -20,6 +20,7 @@
 #include "mStraightScript.h"
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
+#include "mSkillMultiFall.h"
 #include "mSkill.h"
 
 extern m::Application application;

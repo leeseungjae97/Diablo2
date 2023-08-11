@@ -115,6 +115,18 @@
 									\
 								}\
 									break;\
+								case m::eSkillFunctionType::MutiFall:\
+								{\
+									Matrix proj = Matrix::Identity;\
+									Matrix view = Matrix::Identity;\
+									proj = GetOwner()->GetCamera()->GetPrivateProjectionMatrix();\
+									view = GetOwner()->GetCamera()->GetPrivateViewMatrix();\
+									Vector3 unprojMousePos = Input::GetUnprojectionMousePos(GET_POS(GetOwner()).z, proj, view);\
+									unprojMousePos.y += 300.f;\
+									unprojMousePos.z = GET_POS(GetOwner()).z;\
+									skill = new SkillMultiFall(PlayerInfo::GetSkill(skillIndex), unprojMousePos);\
+								}\
+									break;\
 								case m::eSkillFunctionType::None:\
 									break;\
 								case m::eSkillFunctionType::END:\

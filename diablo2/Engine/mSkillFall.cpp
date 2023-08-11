@@ -5,48 +5,65 @@
 #include "../engine_source/mInput.h"
 #include "../engine_source/mTime.h"
 
-#include "mFallScript.h"
-
 namespace m
 {
-	SkillFall::SkillFall(eSkillType type, Vector3 iniPos)
+	SkillFall::SkillFall(eSkillType type, Vector3 iniPos, eAccessorySkillType _acType)
 		: Skill(type, iniPos)
+		, bMove(false)
+		, bSkillFire(false)
 	{
+		//fSpeed = 100.f;
 		ADD_COMP(this, Animator);
-		ADD_COMP(this, MeshRenderer);
+		Collider2D* col = ADD_COMP(this, Collider2D);
+
 		SET_MESH(this, L"RectMesh");
-		SET_MATERIAL(this, L"noneRect");
-		ADD_COMP(this, FallScript);
-		Matrix proj = Matrix::Identity;
-		Matrix view = Matrix::Identity;
-		proj = GetCamera()->GetPrivateProjectionMatrix();
-		view = GetCamera()->GetPrivateViewMatrix();
-		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(iniPos.z, proj, view);
-		int randX = rand() % 200;
-
-		unprojMousePos.y += 300.f;
-		fInitYValue = unprojMousePos.y;
-		unprojMousePos.x += (float)randX;
-
-		SET_POS_VEC(this, unprojMousePos);
+		SET_MATERIAL(this, L"AnimationMaterial");
+		eAccessorySkillType acType = _acType;
+		if (type == eSkillType::blizzard)
+		{
+			int mr = rand() % 2;
+			acType = (eAccessorySkillType)mr;
+			SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)acType].x
+						  , accessorySkillAnimSize[(UINT)acType].y, 1.f);
+			mFs = AddComponent<FallScript>(acType);
+		}
+		fInitYValue = iniPos.y;
 	}
 	SkillFall::~SkillFall()
 	{
 	}
 	void SkillFall::Update()
 	{
+		Skill::Update();
 		Vector3 mPos =GET_POS(this);
-		if (fInitYValue - 300 <= mPos.y) return;
-		mPos.y = mPos.y - fSpeed * Time::fDeltaTime();
-		SET_POS_VEC(this, mPos);
+
+		if (Arrival(fInitYValue - 300, mPos.y, fInitYValue))
+		{
+			bMove = false;
+			mFs->Arrival();
+		}
+		if (bSkillFire)
+		{
+			bSkillFire = false;
+			mFs->SkillFire();
+			bMove = true;
+		}
+		if (bMove)
+		{
+			mPos.y = mPos.y - fSpeed * Time::fDeltaTime();
+			SET_POS_VEC(this, mPos);
+		}
 	}
 	void SkillFall::LateUpdate()
 	{
+		Skill::LateUpdate();
 	}
 	void SkillFall::Render()
 	{
+		Skill::Render();
 	}
 	void SkillFall::Initialize()
 	{
+		Skill::Initialize();
 	}
 }

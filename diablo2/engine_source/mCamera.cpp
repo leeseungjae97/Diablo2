@@ -195,6 +195,7 @@ namespace m
 	}
 	bool Camera::ClipingArea(GameObject* gameObj)
 	{
+		if (gameObj->GetLayerType() == eLayerType::Skill) return true;
 		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(mPos), Vector2(mWidth, mHeight), GET_VEC2_F_VEC3_D(GET_POS(gameObj))))
 		{
 			gameObj->SetCulled(false);

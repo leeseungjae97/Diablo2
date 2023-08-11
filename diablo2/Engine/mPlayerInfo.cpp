@@ -34,7 +34,7 @@ namespace m
 		//player->AddComponent<OverlayEffectSkillScript>(1);
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::fireBolt);
+		SetSkill(1, eSkillType::blizzard);
 	}
 
 	void PlayerInfo::PocketToInventory(InvenItem* item)

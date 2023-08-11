@@ -4,6 +4,7 @@
 #include "../engine_source/mMonsterManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mGameObject.h"
+#include "../engine_source/SkillAnimLookUpTables.h"
 
 #include "mMonster.h"
 namespace m
@@ -16,7 +17,7 @@ namespace m
 		, bool useAstar
 	)
 		: MoveAbleObject(iniPos
-			, 100.f
+			, skillSpeed[(int)type]
 			, useHitArea
 			, useRange
 			, useTilePos

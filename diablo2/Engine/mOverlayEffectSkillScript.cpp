@@ -30,8 +30,9 @@ namespace m
 		if (bPlaySkill)
 		{
 			UpdateOverlaySkill();
-			if (skillCastNames[(int)mType] != L"")
-				mAnimator->PlayAnimation(skillCastNames[(int)mType] + L"anim", false);
+			eSkillCastType castType = skillCastTypes[(int)mType];
+			if (castNames[(int)castType] != L"")
+				mAnimator->PlayAnimation(castNames[(int)castType] + L"anim", false);
 			bPlaySkill = false;
 		}
 	}
@@ -67,17 +68,18 @@ namespace m
 		if (mType == PlayerInfo::GetSkill(skillIndex)) return;
 
 		mType = PlayerInfo::GetSkill(skillIndex);
+		eSkillCastType castType = skillCastTypes[(int)mType];
 
-		if (skillCastNames[(int)mType] == L"") return;
+		if (castNames[(int)castType] == L"") return;
 
-		SHARED_MAT mat = RESOURCE_FIND(Material, skillCastNames[(int)mType]);
+		SHARED_MAT mat = RESOURCE_FIND(Material, castNames[(int)castType]);
 
 		mAnimator->Create(
-			skillCastNames[(int)mType] + L"anim"
+			castNames[(int)castType] + L"anim"
 			, mat->GetTexture()
 			, Vector2::Zero
-			, skillCastSizes[(int)mType]
-			, skillCastLength[(int)mType]
+			, castSizes[(int)castType]
+			, castLength[(int)castType]
 			, Vector2::Zero
 			, 0.03f
 			, 0.3f

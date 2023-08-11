@@ -450,6 +450,19 @@ namespace renderer
 #pragma endregion
 
 #pragma region Skill
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_3", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_3"
+						   , 127, 148, 16, L"iceCast3");
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_2", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_2"
+						   , 115, 123, 15, L"iceCast2");
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_1"
+						   , 97, 55, 15, L"iceCast1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_crash_1"
+						   , 113, 72, 6, L"iceCrash1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
+						   , 92, 55, 6, L"iceBolt");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"blizzard_1", L"..\\Resources\\texture\\skill_effect\\missile\\blizzard\\blizzard1"
 						   , 97, 153, 8, L"blizzard1");
 		MAKE_MATERIAL_PATH(spriteShader, L"blizzard_3", L"..\\Resources\\texture\\skill_effect\\missile\\blizzard\\blizzard3"
@@ -457,12 +470,12 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\fire_bolt"
 						   , 116, 66, 5, L"fireBolt");
-		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
-						   , 92, 55, 6, L"iceBolt");
-		MAKE_MATERIAL_PATH(spriteShader, L"fire_explo_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_explo1"
-						   , 78, 70, 12, L"fireExplo1");
-		MAKE_MATERIAL_PATH(spriteShader, L"fire_ball_cast", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_ball_cast"
-						   , 145, 133, 16, L"fireBallCast");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_crash_1"
+						   , 78, 70, 12, L"fireCrash1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_cast_1"
+						   , 145, 133, 16, L"fireCast1");
 #pragma endregion
 #pragma region Monster
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");

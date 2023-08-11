@@ -6,6 +6,7 @@ namespace m
 	{
 		Straight,
 		Fall,
+		MutiFall,
 		None,
 		END,
 	};
@@ -168,7 +169,7 @@ namespace m
 		eSkillFunctionType::Straight,// L"iceBlastIcon",
 		eSkillFunctionType::Straight,// L"shiverArmorIcon",
 		eSkillFunctionType::Straight,// L"clacialSpikeIcon",
-		eSkillFunctionType::Fall,// L"blizzardIcon",
+		eSkillFunctionType::MutiFall,// L"blizzardIcon",
 		eSkillFunctionType::Straight,// L"chillingArmorIcon",
 		eSkillFunctionType::Straight,// L"frozenOrbIcon",
 		eSkillFunctionType::Straight,// L"coldMasteryIcon",

@@ -984,5 +984,17 @@ namespace m::math
     {
         return XMConvertToDegrees(radian);
     }
+    static inline bool Arrival(float dest, float cur, float start)
+    {
+        float m = fabs(start - dest);
+        float n = fabs(start - cur);
+
+        if (m - n <= 0.f) return true;
+        else return false;
+    }
+    static inline bool areAlmostEqual(float a, float b, float epsilon = 0.1f)
+    {
+        return std::abs(a - b) < epsilon;
+    }
 #include "mMath.inl"
 }

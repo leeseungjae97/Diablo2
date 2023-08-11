@@ -7,6 +7,7 @@ namespace m
 	void SceneManager::Initialize()
 	{
 		//mActiveScene = LoadScene(L"PlayScene");
+		srand((unsigned int)time(NULL));
 	}
 	void SceneManager::Update()
 	{
