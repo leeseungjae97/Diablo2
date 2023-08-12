@@ -1,6 +1,7 @@
 #include "mFallScript.h"
 
 #include "mSkill.h"
+#include "mMonster.h"
 
 namespace m
 {
@@ -86,9 +87,17 @@ namespace m
 		mAnimator->EndEvent(crashNames[(int)crashType] + L"anim") = [this]()
 		{
 			Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-			if (col->GetOnEnter())
+			if (col->GetOnStay())
 			{
-				col->GetCollidereds();
+				for (Collider2D* otherCol : col->GetCollidereds())
+				{
+					if (otherCol->GetColliderFunctionType() == eColliderFunctionType::HitArea)
+					{
+						Monster* monster = dynamic_cast<Monster*>(otherCol->GetOwner());
+						if(nullptr != monster)
+							monster->Hit(10);
+					}
+				}
 			}
 			GetOwner()->SetState(GameObject::eState::Delete);
 		};

@@ -33,11 +33,11 @@ namespace m
 		Astar::Initialize();
 		Astar::SetYLength(TileManager::tiles.size());
 		Astar::SetXLength(TileManager::tiles[0].size());
-		for (int i = 0; i < pathVector.size(); ++i)
-		{
-			Tile* path = pathVector[i];
-			SET_MATERIAL(path, L"testTile");
-		}
+		//for (int i = 0; i < pathVector.size(); ++i)
+		//{
+		//	Tile* path = pathVector[i];
+		//	SET_MATERIAL(path, L"greenTile");
+		//}
 		if (mStartCoord == startCoord
 			&&
 			mTargetCoord == targetCoord)
@@ -110,7 +110,7 @@ namespace m
 		}
 
 		for (int i = 0; i < pathVector.size(); ++i)
-			SET_MATERIAL(pathVector[i], L"testTile2");
+			SET_MATERIAL(pathVector[i], L"greenOutlineTile");
 
 		for (int i = 0; i < closedVector.size(); ++i)
 			closedVector[i]->SetInClosed(false);
@@ -174,7 +174,7 @@ namespace m
 	{
 		if (finalPathVector.empty()) return false;
 
-		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"testTile3");
+		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
 
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != mOwner->GetCoord())
@@ -210,7 +210,7 @@ namespace m
 	{
 		if (finalPathVector.empty()) return false;
 
-		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"testTile2");
+		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
 
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != TileManager::GetPlayerPositionCoord())

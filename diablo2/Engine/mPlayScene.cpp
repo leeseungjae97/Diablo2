@@ -88,16 +88,16 @@ namespace m
 		//FallScript * fs = qwe->AddComponent<FallScript>(eAccessorySkillType::Blizzard1);
 		//fs->SkillFire();
 
-		//GameObject* ll = new GameObject();
-		//SET_MAIN_CAMERA(ll);
-		//ll->SetName(L"test111");
-		//AddGameObject(eLayerType::Skill, ll);
-		//ADD_COMP(ll, MeshRenderer);
-		//SET_MESH(ll, L"RectMesh");
-		//SET_MATERIAL(ll, L"fireBallCast");
-		//SET_POS_XYZ(ll, 0.f, 500.f, 1.f);
-		//MAKE_GET_TEX(ll, tex2);
-		//SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
+		GameObject* ll = new GameObject();
+		SET_MAIN_CAMERA(ll);
+		ll->SetName(L"test111");
+		AddGameObject(eLayerType::Skill, ll);
+		ADD_COMP(ll, MeshRenderer);
+		SET_MESH(ll, L"RectMesh");
+		SET_MATERIAL(ll, L"fireCast1");
+		SET_POS_XYZ(ll, 0.f, 500.f, 1.f);
+		MAKE_GET_TEX(ll, tex2);
+		SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
 
 		//GameObject* particle = new GameObject();
 		//SET_MAIN_CAMERA(particle);
@@ -117,6 +117,16 @@ namespace m
 		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Monster, true);
 		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
 		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Skill, true);
+		GameObject* map = new GameObject();
+		SET_MAIN_CAMERA(map);
+		ADD_COMP(map, MeshRenderer);
+		AddGameObject(eLayerType::Background, map);
+		SET_MESH(map, L"RectMesh");
+		SET_MATERIAL(map, L"chaosSanctuary1");
+		GET_TEX(map, tex);
+		SET_SCALE_TEX_SIZE(map, tex, 1.f);
+		SET_POS_VEC(map, randTilePos);
+
 
 		Monster* monster = new Monster(randTilePos, DiabloSt().fSpeed);
 		SET_MAIN_CAMERA(monster);
@@ -165,7 +175,7 @@ namespace m
 		AddGameObject(eLayerType::Light, light);
 		Light* lightComp = light->AddComponent<Light>();
 		lightComp->SetType(eLightType::Directional);
-		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		lightComp->SetColor(Vector4(1.5f, 1.5f, 1.5f, 1.0f));
 
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);

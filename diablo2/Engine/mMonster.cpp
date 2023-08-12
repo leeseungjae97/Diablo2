@@ -46,7 +46,10 @@ namespace m
 		if (sightCollider->GetOnEnter()
 			|| sightCollider->GetOnStay())
 		{
-			mAstar->PathChange();
+			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			{
+				mAstar->PathChange();
+			}
 		}
 
 		float maxX = max(curPosition.x, prevPosition.x);

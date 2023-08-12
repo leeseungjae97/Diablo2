@@ -26,7 +26,7 @@ namespace m
 				float fY = (float)(TILE_SIZE_Y * (x + y)) / 2.f;
 				Tile* tile = new Tile();
 				tile->SetCoord(Vector2(x, y));
-
+				
 				curScene->AddGameObject(eLayerType::Tile, tile);
 				tile->SetCamera(camera);
 				SET_MESH(tile, L"RectMesh");
@@ -38,12 +38,14 @@ namespace m
 					)
 				{
 					tile->SetIsWall(true);
-					SET_MATERIAL(tile, L"testTile3");
+					SET_MATERIAL(tile, L"redTile");
+					tile->SetSaveMaterial(RESOURCE_FIND(Material, L"redTile"));
 				}
 				else
 				{
 					tile->SetIsWall(false);
-					SET_MATERIAL(tile, L"testTile");
+					SET_MATERIAL(tile, L"tile");
+					tile->SetSaveMaterial(RESOURCE_FIND(Material, L"tile"));
 				}
 				SET_SCALE_XYZ(tile, TILE_SIZE_X, TILE_SIZE_Y, 1.f);
 				SET_POS_XYZ(tile, fX, fY, 1.f);

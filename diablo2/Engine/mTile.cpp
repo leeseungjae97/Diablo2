@@ -19,8 +19,7 @@ namespace m
 	{
 		SetIsRhombus(true);
 		ADD_COMP(this, TileScript);
-
-		AddComponent<MeshRenderer>();
+		ADD_COMP(this, MeshRenderer);
 	}
 	Tile::~Tile()
 	{}
@@ -34,11 +33,11 @@ namespace m
 		if (GetHover())
 		{
 			TileManager::hoverTile = this;
-			SET_MATERIAL(this, L"testTile3");
+			SET_MATERIAL(this, L"greenOutlineTile");
 		}
 		else
 		{
-			SET_MATERIAL(this, L"testTile");
+			GetComponent<MeshRenderer>()->SetMaterial(saveMaterial);
 		}
 
 		MAKE_VEC2_F_VEC3(posV2, GET_POS(this));

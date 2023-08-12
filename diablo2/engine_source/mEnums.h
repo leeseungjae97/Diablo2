@@ -20,6 +20,7 @@ namespace m::enums
 	{	
 		Camera,
 		Grid,
+		Background,
 		Tile,
 		Player,
 		Monster,

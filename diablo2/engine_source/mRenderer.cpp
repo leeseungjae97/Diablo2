@@ -441,10 +441,10 @@ namespace renderer
 		std::shared_ptr<Shader> noLightSahder = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
 		std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
-		{
+#pragma region Map
+		MAKE_MATERIAL(noLightSahder, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
+#pragma endregion
 
-
-		}
 #pragma region Particle
 		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
@@ -527,7 +527,13 @@ namespace renderer
 		MAKE_MATERIAL(noLightSahder, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.png", L"closeBtnClick");
 #pragma endregion
 #pragma region Tiles
-		MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
+		//MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
+		MAKE_MATERIAL(spriteShader, L"tile_", L"..\\Resources\\texture\\tile.png", L"tile");
+		MAKE_MATERIAL(spriteShader, L"green_tile", L"..\\Resources\\texture\\green_tile.png", L"greenTile");
+		MAKE_MATERIAL(spriteShader, L"red_tile", L"..\\Resources\\texture\\red_tile.png", L"redTile");
+
+		MAKE_MATERIAL(spriteShader, L"green_outline_tile", L"..\\Resources\\texture\\green_outline_tile.png", L"greenOutlineTile");
+
 		MAKE_MATERIAL(spriteShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
 		MAKE_MATERIAL(spriteShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
 		MAKE_MATERIAL(spriteShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
