@@ -13,6 +13,13 @@ namespace m
 		static TILES tiles;
 		static Tile* hoverTile;
 		static Tile* playerStandTile;
+
+		static int tileXLen;
+		static int tileYLen;
+		static float tileXSize;
+		static float tileYSize;
+		//static float iniX;
+		//static float iniY;
 	private:
 	};
 }

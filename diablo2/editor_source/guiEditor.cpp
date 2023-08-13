@@ -47,18 +47,18 @@ namespace gui
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 
-		EditorObject* grid = new EditorObject();
-		grid->SetName(L"Grid");
-		//Transform* ttt = grid->AddComponent<Transform>();
-		//ttt->SetPosition(Vector3(0.f, 0.f, 2.0f));
-		mr = grid->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		//SET_POS_XYZ()
-		GridScript* gridSc = grid->AddComponent<GridScript>();
-		gridSc->SetCamera(renderer::cameras[0]);
+		//EditorObject* grid = new EditorObject();
+		//grid->SetName(L"Grid");
+		////Transform* ttt = grid->AddComponent<Transform>();
+		////ttt->SetPosition(Vector3(0.f, 0.f, 2.0f));
+		//mr = grid->AddComponent<MeshRenderer>();
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		////SET_POS_XYZ()
+		//GridScript* gridSc = grid->AddComponent<GridScript>();
+		//gridSc->SetCamera(renderer::cameras[0]);
 
-		mEditorObjects.push_back(grid);
+		//mEditorObjects.push_back(grid);
 	}
 	void Editor::Run()
 	{

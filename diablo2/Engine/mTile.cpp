@@ -33,11 +33,12 @@ namespace m
 		if (GetHover())
 		{
 			TileManager::hoverTile = this;
-			SET_MATERIAL(this, L"greenOutlineTile");
+			SET_MATERIAL(this, L"greenTile");
 		}
 		else
 		{
-			GetComponent<MeshRenderer>()->SetMaterial(saveMaterial);
+			if(GetComponent<MeshRenderer>()->GetMaterial() != saveMaterial)
+				GetComponent<MeshRenderer>()->SetMaterial(saveMaterial);
 		}
 
 		MAKE_VEC2_F_VEC3(posV2, GET_POS(this));

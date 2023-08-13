@@ -47,6 +47,15 @@ namespace m::graphics
 		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget->GetTexture().Get()
 										, nullptr, renderTargetView.GetAddressOf());
 		mRenderTarget->SetRTV(renderTargetView);
+		mRenderTarget->GetRTV();
+
+		//DrawTextW(
+		//	L"Hello, Direct2D Text!",
+		//	20, // 텍스트 길이
+		//	yourTextFormat, // 텍스트 포맷 (IDWriteTextFormat)
+		//	D2D1::RectF(0, 0, 800, 600), // 텍스트 영역
+		//	pBrush // 브러시 (ID2D1Brush)
+		//);
 
 
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
@@ -477,6 +486,73 @@ namespace m::graphics
 							  , UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation)
 	{
 		mContext->DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
+	}
+	void GraphicDevice_DX11::DrawStringText(std::wstring str)
+	{
+		HWND hWnd = application.GetHwnd();
+
+		pFactory = nullptr;
+		pRenderTarget = nullptr;
+		pDWriteFactory = nullptr;
+		pTextFormat_ = nullptr;
+
+		D2D1_RENDER_TARGET_PROPERTIES mm1 = D2D1::RenderTargetProperties();
+		D2D1_HWND_RENDER_TARGET_PROPERTIES mm2 = D2D1::HwndRenderTargetProperties(hWnd, D2D1::SizeU(800, 600));
+		// Direct2D 초기화
+
+		//D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+
+		D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+		pFactory->CreateHwndRenderTarget(
+			mm1,
+			mm2,
+			&pRenderTarget
+		);
+
+		DWriteCreateFactory(
+			DWRITE_FACTORY_TYPE_SHARED,
+			__uuidof(IDWriteFactory),
+			reinterpret_cast<IUnknown**>(&pDWriteFactory)
+		);
+
+		//DWriteCreateFactory(
+		//	DWRITE_FACTORY_TYPE_SHARED,
+		//	__uuidof(pDWriteFactory),
+		//	reinterpret_cast<IUnknown**>(&pDWriteFactory)
+		//);
+
+		pDWriteFactory->CreateTextFormat(
+			L"Gabriola",
+			NULL,
+			DWRITE_FONT_WEIGHT_REGULAR,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			72.0f,
+			L"en-us",
+			&pTextFormat_
+		);
+
+		ID2D1SolidColorBrush* pBrush = nullptr;
+		pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &pBrush);
+		
+		// 텍스트 출력
+		pRenderTarget->BeginDraw();
+		pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
+
+		pRenderTarget->DrawTextW(
+			str.c_str(),
+			str.size(), // 텍스트 길이
+			pTextFormat_, // 텍스트 포맷 (IDWriteTextFormat)
+			D2D1::RectF(0, 0, 800, 600), // 텍스트 영역
+			pBrush // 브러시 (ID2D1Brush)
+		);
+		pRenderTarget->EndDraw();
+
+		// Direct2D 정리
+		pTextFormat_->Release();
+		pDWriteFactory->Release();
+		pRenderTarget->Release();
+		pFactory->Release();
 	}
 	void GraphicDevice_DX11::ClearTarget()
 	{

@@ -195,14 +195,22 @@ namespace m
 	}
 	bool Camera::ClipingArea(GameObject* gameObj)
 	{
-		if (gameObj->GetLayerType() == eLayerType::Skill) return true;
-		if (gameObj->GetLayerType() == eLayerType::Background) return true;
+		//if (gameObj->GetLayerType() == eLayerType::Tile) return true;
+
+		if (gameObj->GetLayerType() == eLayerType::Skill
+			|| gameObj->GetLayerType() == eLayerType::Background)
+		{
+			gameObj->SetCulled(false);
+			return true;
+		}
 
 		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(mPos), Vector2(mWidth, mHeight), GET_VEC2_F_VEC3_D(GET_POS(gameObj))))
 		{
 			gameObj->SetCulled(false);
 			return true;
 		}
+
+		//if (gameObj->GetLayerType() == eLayerType::Tile) return false;
 
 		gameObj->SetCulled(true);
 		return false;
@@ -211,9 +219,10 @@ namespace m
 	{
 		for (GameObject* gameObj : mOpaqueGameObjects)
 		{
+			ClipingArea(gameObj);
 			if (gameObj == nullptr)
 				continue;
-			if (!ClipingArea(gameObj)) continue;
+			if (gameObj->GetCulled()) continue;
 
 			gameObj->Render();
 		}
@@ -223,9 +232,10 @@ namespace m
 	{
 		for (GameObject* gameObj : mCutOutGameObjects)
 		{
+			ClipingArea(gameObj);
 			if (gameObj == nullptr)
 				continue;
-			if (!ClipingArea(gameObj)) continue;
+			if (gameObj->GetCulled()) continue;
 
 			gameObj->Render();
 		}
@@ -235,9 +245,10 @@ namespace m
 	{
 		for (GameObject* gameObj : mTransparentGameObjects)
 		{
+			ClipingArea(gameObj);
 			if (gameObj == nullptr)
 				continue;
-			if (!ClipingArea(gameObj)) continue;
+			if (gameObj->GetCulled()) continue;
 
 			gameObj->Render();
 		}

@@ -13,7 +13,7 @@ namespace m
 		~Astar();
 
 		void Initialize();
-		void PathFinding(Vector2 startCoord, Vector2 targetCoord);
+		void PathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1);
 		void OpenVectorAdd(int y, int x);
 
 		bool PathChange();
@@ -49,6 +49,7 @@ namespace m
 		bool allowDiagonal;				// 대각선 이동 허용
 		bool dontCrossCorner;			// 코너 건너가기.
 
+		float searchTileSize;
 	};
 }
 

@@ -21,6 +21,7 @@ namespace m
 		sightCollider = ADD_COMP(this, Collider2D);
 		sightCollider->SetType(eColliderType::Circle);
 		sightCollider->SetSize(Vector3(5.f, 5.f, 1.f));
+		sightCollider->SetColliderFunctionType(eColliderFunctionType::Sight);
 
 		rangeCollider->SetSize(Vector3(1.0f, 1.0f, 1.5f));
 
@@ -40,7 +41,7 @@ namespace m
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
 
-		mAstar->PathFinding(curCoord, targetCoord);
+		mAstar->PathFinding(curCoord, targetCoord, 20);
 		mAstar->MonsterMove(this);
 
 		if (sightCollider->GetOnEnter()

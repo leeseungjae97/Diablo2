@@ -8,6 +8,7 @@
 namespace m
 {
 	Astar::Astar()
+		: searchTileSize(20)
 	{
 
 	}
@@ -28,20 +29,27 @@ namespace m
 		curTile = nullptr;
 	}
 
-	void Astar::PathFinding(Vector2 startCoord, Vector2 targetCoord)
+	void Astar::PathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
 		Astar::Initialize();
-		Astar::SetYLength(TileManager::tiles.size());
-		Astar::SetXLength(TileManager::tiles[0].size());
-		//for (int i = 0; i < pathVector.size(); ++i)
-		//{
-		//	Tile* path = pathVector[i];
-		//	SET_MATERIAL(path, L"greenTile");
-		//}
+
+		for (int i = 0; i < pathVector.size(); ++i)
+		{
+			Tile* path = pathVector[i];
+			SET_MATERIAL(path, L"greenTile");
+			path->SetCulled(true);
+		}
 		if (mStartCoord == startCoord
 			&&
 			mTargetCoord == targetCoord)
 			return;
+
+		if (searchSize == -1)
+			searchTileSize = max(fabs(targetCoord.x - startCoord.x), fabs(targetCoord.y - startCoord.y));
+		else searchTileSize = searchSize;
+
+		yLength = TileManager::tiles.size();
+		xLength = TileManager::tiles[0].size();
 
 		pathVector.clear();
 		float direct1[4][2] = { {1, 1},{1, -1},{-1, -1},{-1, 1} };
@@ -59,7 +67,7 @@ namespace m
 		int dx = 0;
 		while (!openVector.empty())
 		{
-			
+
 			curTile = openVector.front();
 			for (int i = 1; i < openVector.size(); ++i)
 			{
@@ -76,7 +84,7 @@ namespace m
 
 			closedVector.push_back(curTile);
 			curTile->SetInClosed(true);
-			
+
 			if (curTile == targetTile)
 			{
 				Tile* targetCurTile = targetTile;
@@ -110,7 +118,7 @@ namespace m
 		}
 
 		for (int i = 0; i < pathVector.size(); ++i)
-			SET_MATERIAL(pathVector[i], L"greenOutlineTile");
+			pathVector[i]->SetCulled(false);
 
 		for (int i = 0; i < closedVector.size(); ++i)
 			closedVector[i]->SetInClosed(false);
@@ -124,8 +132,10 @@ namespace m
 
 	void Astar::OpenVectorAdd(int y, int x)
 	{
-		if (x >= (mTargetCoord.x - 10 < 0 ? 0 : mTargetCoord.x - 10) && x < mTargetCoord.x + 10
-			&& y >= (mTargetCoord.y - 10 < 0 ? 0 : mTargetCoord.y - 10) && y < mTargetCoord.y + 10
+		if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
+			&& x < mTargetCoord.x + searchTileSize
+			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
+			&& y < mTargetCoord.y + searchTileSize
 			&& !TileManager::tiles[y][x]->GetIsWall()
 			&& !TileManager::tiles[y][x]->GetInClosed())
 		{
@@ -168,13 +178,13 @@ namespace m
 			return true;
 		}
 		return false;
-		
+
 	}
 	bool Astar::MonsterMove(MoveAbleObject* mOwner)
 	{
 		if (finalPathVector.empty()) return false;
 
-		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
+		//for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
 
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != mOwner->GetCoord())
@@ -198,7 +208,11 @@ namespace m
 			vDirection.Normalize();
 			mOwner->SetDirection(vDirection);
 		}
-		else { std::erase(finalPathVector, finalPathVector.front()); }
+		else
+		{
+			//for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
+			std::erase(finalPathVector, finalPathVector.front());
+		}
 		return true;
 	}
 	void Astar::ClearPath()
@@ -210,7 +224,7 @@ namespace m
 	{
 		if (finalPathVector.empty()) return false;
 
-		for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
+		//for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
 
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != TileManager::GetPlayerPositionCoord())
@@ -233,9 +247,15 @@ namespace m
 			Vector3 vDirection = destPosition - prevPosition;
 			vDirection.Normalize();
 			mOwner->SetDirection(vDirection);
-		}else { std::erase(finalPathVector, finalPathVector.front()); }
+		}
+		else
+		{
+			//for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
+			//for (Tile* tile : finalPathVector) tile->SetCulled(false);
+			std::erase(finalPathVector, finalPathVector.front());
+		}
 		return true;
 	}
 
-	
+
 }

@@ -8,8 +8,11 @@
 #include "mCollisionManager.h"
 
 #include "../Engine/mPlayerInfo.h"
+#include "../Engine/mPlayer.h"
+
 #include "../editor_source/guiEditor.h"
 
+#include "mGameObject.h"
 //#include "mFontWrapper.h"
 
 namespace m
@@ -63,9 +66,11 @@ namespace m
 	void Application::Render()
 	{
 		Time::Render();
-
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
+
+		//HDC hdc2 = GetDC(mHwnd);
+		//DrawText(hdc2, szFloat, iLen, &rt, DT_WORDBREAK);
 
 //#define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
 //		FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
@@ -78,7 +83,16 @@ namespace m
 	}
 	void Application::Present()
 	{
+		m::graphics::GetDevice()->DrawStringText(L"testestestestestestes");
 		graphicDevice->Present();
+
+		//wchar_t szFloat[100] = {};
+		//Vector3 pp = GET_POS(PlayerInfo::player);
+		//swprintf_s(szFloat, 100, L"player pos : %f, %f\n", pp.x, pp.y);
+		//size_t iLen = wcsnlen_s(szFloat, 100);
+		//RECT rt = { 50, 100, 400, 200 };
+		//HDC hdc = GetDC(mHwnd);
+		//DrawText(hdc, szFloat, iLen, &rt, DT_WORDBREAK);
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)

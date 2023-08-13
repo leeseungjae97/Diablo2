@@ -57,6 +57,8 @@ namespace m::graphics
 		void DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
 		void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount
 								  , UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
+		void DrawStringText(std::wstring str);
+
 		void ClearTarget();
 		void UpdateViewPort();
 		void Draw();
@@ -74,6 +76,12 @@ namespace m::graphics
 		//Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	mRenderTargetView;
 		//Microsoft::WRL::ComPtr<ID3D11Texture2D>			mDepthStencilBuffer;
 		//Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	mDepthStencilView;
+
+		ID2D1Factory* pFactory;
+		ID2D1HwndRenderTarget* pRenderTarget;
+		IDWriteFactory* pDWriteFactory;
+		IDWriteTextFormat* pTextFormat_;
+
 		Microsoft::WRL::ComPtr<IDXGISwapChain>			mSwapChain;
 		D3D11_VIEWPORT									mViewPort;
 	};
