@@ -11,7 +11,7 @@ namespace m
 	class Animation : public Resource
 	{
 	public:
-		struct Sprite
+		struct Sprite	
 		{
 			Vector2 leftTop;
 			Vector2 size;
@@ -53,13 +53,14 @@ namespace m
 		void Reset();
 
 		void SetStop() { mbStop = true; }
-		void SetIndex(int index) { mIndex = index; }
-		void SetInitIndex(int index) { mInitIndex = index; }
-		void SetProgressIndex(int index) { mProgressIndex = index; }
-		const Sprite& GetCurrentSprite() { return mSprites[mIndex]; }
+		void SetIndex			(int index) { mCurIndex = index; }
+		void SetStartIndex		(int index) { mAnimStartIndex = index; }
+		void SetProgressIndex	(int index) { mAnimProgressIndex = index; }
+		void SetEndIndex		(int index) { mAnimEndIndex = index; }
+		const Sprite& GetCurrentSprite() { return mSprites[mCurIndex]; }
 
-		int GetIndex() { return mIndex; }
-		int GetProgressIndex() { return mProgressIndex; }
+		int GetIndex() { return mCurIndex; }
+		int GetProgressIndex() { return mAnimProgressIndex; }
 		bool IsComplete() { return mbComplete; }
 		bool IsProgress() { return mbProgress; }
 		bool IsStop() { return mbStop; }
@@ -68,9 +69,13 @@ namespace m
 		std::shared_ptr<graphics::Texture> mAtlas;
 		Animator* mAnimator;
 		std::vector<Sprite> mSprites;
-		int mInitIndex;
-		int mIndex;
-		int mProgressIndex;
+		int mEndIndex;
+		int mCurIndex;
+
+		int mAnimEndIndex;
+		int mAnimStartIndex;
+		int mAnimProgressIndex;
+
 		float mTime;
 		bool mbComplete;
 		bool mbProgress;

@@ -2,6 +2,7 @@
 #include "mComponent.h"
 #include "mTexture.h"
 #include "mGameObject.h"
+#include "mAnimation.h"
 
 namespace m
 {
@@ -63,16 +64,17 @@ namespace m
 
 		Animation* GetActiveAnimation() { return mActiveAnimation; }
 
-		void SetAnimationLoopStartIndex(int index) { mActiveAnimation->SetInitIndex(index); }
-		void SetAnimationStartIndex(int index) { mActiveAnimation->SetIndex(index); }
-		void SetAnimationProgressStartIndex(int index) { mActiveAnimation->SetProgressIndex(index); }
+		void SetAnimationStartIndex(int index) { mActiveAnimation->SetStartIndex(index); }
+		void SetAnimationProgressIndex(int index) { mActiveAnimation->SetProgressIndex(index); }
+		void SetAnimationEndIndex(int index) { mActiveAnimation->SetEndIndex(index); }
+		void SetAnimationIndex(int index) { mActiveAnimation->SetIndex(index); }
 		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
-		Animation* mActiveAnimation;
 		std::shared_ptr<Texture> mSpriteSheet;
+		Animation* mActiveAnimation;
 		bool mbLoop;
 	};
 }

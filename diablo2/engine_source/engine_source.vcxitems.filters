@@ -115,9 +115,6 @@
     <Filter Include="Resources\Resource\PaintShader">
       <UniqueIdentifier>{48e7aa5b-f2b5-49d0-a9d3-e644c6b9ea64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\ParticleSystem">
-      <UniqueIdentifier>{9f5ec9e3-d455-412b-bcac-f53fe732d1fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\MonsterManager">
       <UniqueIdentifier>{41ffbdbe-247c-497f-9451-362e00e261ab}</UniqueIdentifier>
     </Filter>

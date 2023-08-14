@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../engine_source/SkillLookUpTables.h"
 #include "../engine_source/mTime.h"
 #include "../engine_source/mAnimator.h"
+#include "../engine_source/SkillLookUpTables.h"
+#include "../engine_source/SkillAnimLookUpTables.h"
 
 #include "mMoveAbleObject.h"
 namespace m

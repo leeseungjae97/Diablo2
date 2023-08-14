@@ -29,8 +29,8 @@ namespace m
 		{
 			mSkillType = PlayerInfo::GetSkill(mSkillIndex);
 			
-			SetClickMaterial(RESOURCE_FIND(Material, wsSkillClickNames[(int)mSkillType]));
-			SetNormalMaterial(RESOURCE_FIND(Material, wsSkillNames[(int)mSkillType]));
+			SetClickMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
+			SetNormalMaterial(RESOURCE_FIND(Material, wsSkillIconNames[(int)mSkillType]));
 		}
 	}
 	void SkillShortCutButton::LateUpdate()

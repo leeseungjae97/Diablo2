@@ -20,7 +20,7 @@
 #include "mStraightScript.h"
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
-#include "mSkillMultiFall.h"
+#include "mSkillMultiFire.h"
 #include "mSkill.h"
 
 extern m::Application application;
@@ -125,7 +125,8 @@ namespace m
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
 				= [this]() 
 			{ 
-				mAnimator->SetAnimationProgressStartIndex(10);
+				mAnimator->SetAnimationStartIndex(0);
+				mAnimator->SetAnimationProgressIndex(10);
 				GetOwner()->SetBattleState(GameObject::eBattleState::Cast); 
 				bFire = true;
 			};
@@ -145,14 +146,19 @@ namespace m
 				= [this]() {GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
-				= [this]() { AnimationStart(GameObject::eBattleState::Attack); };
+				= [this]() 
+			{ 
+				//mAnimator->SetAnimationProgressIndex(0);
+				mAnimator->SetAnimationProgressIndex(14);
+				mAnimator->SetAnimationStartIndex(0);
+				AnimationStart(GameObject::eBattleState::Attack); 
+			};
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]()
 			{
 				AttackProgress();
-				mAnimator->SetAnimationProgressStartIndex(0);
 			};
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
@@ -200,7 +206,6 @@ namespace m
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection])
 			{
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], false);
-				mAnimator->SetAnimationProgressStartIndex(14);
 			}
 		}
 		if (Input::GetKeyDown(eKeyCode::RBUTTON))
@@ -248,7 +253,7 @@ namespace m
 				prevIndex = mAnimator->GetAnimationIndex();
 			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + characterDirectionString[(UINT)mDirection], true);
 			if (mAnimationType == eSorceressAnimationType::Run)
-				mAnimator->SetAnimationStartIndex(prevIndex);
+				mAnimator->SetAnimationIndex(prevIndex);
 		}
 
 	}
@@ -278,11 +283,18 @@ namespace m
 	}
 	void PlayerScript::AttackProgress()
 	{
-		if (PlayerInfo::player->GetRangeCollider()->GetOnStay())
+		
+		if (PlayerInfo::player->GetRangeCollider()->GetOnEnter()
+			|| PlayerInfo::player->GetRangeCollider()->GetOnStay())
 		{
 			if (!bDamage)
 			{
-				GetMonster()->Hit(10);
+				for (Collider2D* col : PlayerInfo::player->GetRangeCollider()->GetCollidereds())
+				{
+					Monster* mon = dynamic_cast<Monster*>(col->GetOwner());
+					mon->Hit(10);
+				}
+				//GetMonster()->Hit(10);
 				bDamage = true;
 			}
 		}

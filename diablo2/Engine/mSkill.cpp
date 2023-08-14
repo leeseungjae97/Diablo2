@@ -4,7 +4,7 @@
 #include "../engine_source/mMonsterManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mGameObject.h"
-#include "../engine_source/SkillAnimLookUpTables.h"
+#include "../engine_source/SkillLookUpTables.h"
 
 #include "mMonster.h"
 namespace m

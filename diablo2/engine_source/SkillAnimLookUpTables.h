@@ -1,5 +1,5 @@
 #pragma once
-#include "SkillLookUpTables.h"
+
 namespace m
 {
 	enum class eSkillCrashType

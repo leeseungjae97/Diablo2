@@ -138,7 +138,7 @@ namespace m
 
 		Tile* monTile1 = TileManager::tiles[54][79];
 
-		Monster* monster = new Monster(GET_POS(monTile1), DiabloSt().fSpeed);
+		Monster* monster = new Monster(GET_POS(monTile1), MTDiablo().fSpeed);
 		SET_MAIN_CAMERA(monster);
 		AddGameObject(eLayerType::Monster, monster);
 		SET_MESH(monster, L"RectMesh");
@@ -148,7 +148,7 @@ namespace m
 		SET_MAIN_CAMERA(PlayerInfo::player);
 		AddGameObject(eLayerType::Player, PlayerInfo::player);
 
-		MonsterScript<DiabloSt>* ms = ADD_COMP(monster, MonsterScript<DiabloSt>);
+		MonsterScript<MTDiablo>* ms = ADD_COMP(monster, MonsterScript<MTDiablo>);
 		ms->SetMonster(monster);
 		
 		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
@@ -185,7 +185,7 @@ namespace m
 		AddGameObject(eLayerType::Light, light);
 		Light* lightComp = light->AddComponent<Light>();
 		lightComp->SetType(eLightType::Directional);
-		lightComp->SetColor(Vector4(1.5f, 1.5f, 1.5f, 1.0f));
+		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);

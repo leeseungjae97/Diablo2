@@ -448,7 +448,10 @@ namespace renderer
 #pragma region Particle
 		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
-
+#pragma region Monster SKill
+		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
+						   , 252, 190, 15, L"diabloLightning");
+#pragma endregion
 #pragma region Skill
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_3", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_3"
 						   , 127, 148, 16, L"iceCast3");
@@ -528,19 +531,19 @@ namespace renderer
 #pragma endregion
 #pragma region Tiles
 		//MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
-		MAKE_MATERIAL(spriteShader, L"tile_", L"..\\Resources\\texture\\tile.png", L"tile");
-		MAKE_MATERIAL(spriteShader, L"green_tile", L"..\\Resources\\texture\\green_tile.png", L"greenTile");
-		MAKE_MATERIAL(spriteShader, L"green_outline_tile", L"..\\Resources\\texture\\green_outline_tile.png", L"greenOutlineTile");
-		MAKE_MATERIAL(spriteShader, L"red_tile", L"..\\Resources\\texture\\red_tile.png", L"redTile");
+		MAKE_MATERIAL(noLightSahder, L"tile_", L"..\\Resources\\texture\\tile.png", L"tile");
+		MAKE_MATERIAL(noLightSahder, L"green_tile", L"..\\Resources\\texture\\green_tile.png", L"greenTile");
+		MAKE_MATERIAL(noLightSahder, L"green_outline_tile", L"..\\Resources\\texture\\green_outline_tile.png", L"greenOutlineTile");
+		MAKE_MATERIAL(noLightSahder, L"red_tile", L"..\\Resources\\texture\\red_tile.png", L"redTile");
 
-		MAKE_MATERIAL(spriteShader, L"tile_d", L"..\\Resources\\texture\\tile_d.png", L"tileD");
-		MAKE_MATERIAL(spriteShader, L"green_tile_d", L"..\\Resources\\texture\\green_tile_d.png", L"greenTileD");
-		MAKE_MATERIAL(spriteShader, L"green_outline_tile_d", L"..\\Resources\\texture\\green_outline_tile_d.png", L"greenOutlineTileD");
-		MAKE_MATERIAL(spriteShader, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
+		MAKE_MATERIAL(noLightSahder, L"tile_d", L"..\\Resources\\texture\\tile_d.png", L"tileD");
+		MAKE_MATERIAL(noLightSahder, L"green_tile_d", L"..\\Resources\\texture\\green_tile_d.png", L"greenTileD");
+		MAKE_MATERIAL(noLightSahder, L"green_outline_tile_d", L"..\\Resources\\texture\\green_outline_tile_d.png", L"greenOutlineTileD");
+		MAKE_MATERIAL(noLightSahder, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
 
-		MAKE_MATERIAL(spriteShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
-		MAKE_MATERIAL(spriteShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
-		MAKE_MATERIAL(spriteShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
+		MAKE_MATERIAL(noLightSahder, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
+		MAKE_MATERIAL(noLightSahder, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
+		MAKE_MATERIAL(noLightSahder, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
 #pragma endregion
 #pragma region ETC
 		//MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");

@@ -135,15 +135,17 @@ namespace m
 		int animationLength[5] = {};
 		float fSpeed = 100.f;
 	};
-	struct DiabloSt : public MonsterData
+	struct MTDiablo : public MonsterData
 	{
-		DiabloSt() {}
-		~DiabloSt() {}
+		MTDiablo() {}
+		~MTDiablo() {}
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
 		float hp = 100;
 		float hpCapacity;
+		eSkillType mSpecialCastSkillType = eSkillType::DiabloLightning;
+		int mSpecialCastSkillCount = 6;
 
 		enum class eAnimationType
 		{
@@ -154,7 +156,7 @@ namespace m
 			Natural,
 			Run,
 			Walk,
-			Special_cast,
+			SpecialCast,
 			Special1,
 			Special2,
 			Special3,
@@ -260,22 +262,22 @@ namespace m
 			0,// Natural
 			0, // Run
 			0, // Walk
-			0,// SpecialCast
+			10,// SpecialCast
 			0,// Special1
 			0, // Special2
 			0, // Special3
 			0, // Special4
 			0, // Dead
 		};
-		int animLoopStartIndex[(UINT)eAnimationType::End] = {
+		int animEndIndex[(UINT)eAnimationType::End] = {
 			0,// Attack1
 			0,// Attack2
 			0, // Block
 			0, // Hit
 			0,// Natural
-			6, // Run
+			0, // Run
 			0, // Walk
-			0,// SpecialCast
+			15,// SpecialCast
 			0,// Special1
 			0, // Special2
 			0, // Special3
@@ -284,14 +286,14 @@ namespace m
 		};
 		int animProgressStartIndex[(UINT)eAnimationType::End] = {
 			10,// Attack1
-			0,// Attack2
+			0, // Attack2
 			0, // Block
 			0, // Hit
-			0,// Natural
+			0, // Natural
 			0, // Run
 			0, // Walk
-			0,// SpecialCast
-			0,// Special1
+			10, // SpecialCast
+			0, // Special1
 			0, // Special2
 			0, // Special3
 			0, // Special4

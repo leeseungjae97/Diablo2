@@ -20,7 +20,7 @@ namespace m
 
 		void SetActiveOwner(GameObject* owner);
 	private:
-		int mIndex;
+		int mCurIndex;
 		OverlayEffectSkillScript* mOESS;
 		eBattleState mOwnerBattleState;
 		GameObject* mActiveOwner;

@@ -1,5 +1,6 @@
 #include "mMonsterScript.h"
 
+#include "../engine_source/mSceneManager.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/mAnimator.h"
 #include "../engine_source/mAnimation.h"
@@ -8,6 +9,8 @@
 #include "mPlayer.h"
 #include "mMonster.h"
 #include "mPlayerInfo.h"
+
+#include "mSkillMultiFire.h"
 
 namespace m
 {
@@ -48,7 +51,7 @@ namespace m
 					mAnimator->StartEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
 						= [this]()
 					{
-						mAnimator->SetAnimationLoopStartIndex(0);
+						mAnimator->SetAnimationStartIndex(0);
 					};
 				}
 				if (i == (UINT)T::eAnimationType::Attack1)
@@ -57,14 +60,14 @@ namespace m
 						= [this]()
 					{
 						AnimationStart(GameObject::eBattleState::Attack);
-						mAnimator->SetAnimationProgressStartIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::Attack1]);
+						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::Attack1]);
 					};
 					mAnimator->EndEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
 						= [this]()
 					{
 						fDelay = 0.f;
 						AnimationComplete(GameObject::eBattleState::Idle);
-						mAnimator->SetAnimationProgressStartIndex(0);
+						mAnimator->SetAnimationProgressIndex(0);
 					};
 					mAnimator->ProgressEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
 						= [this]() { AttackProgress(); };
@@ -80,6 +83,26 @@ namespace m
 					mAnimator->EndEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
 						= [this]() { Hit(false, GameObject::eBattleState::Idle); };
 				}
+				if (i == (UINT)T::eAnimationType::SpecialCast)
+				{
+					mAnimator->StartEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
+						= [this]()
+					{
+						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::SpecialCast]);
+						mAnimator->SetAnimationEndIndex(curMonsterData.animEndIndex[(UINT)T::eAnimationType::SpecialCast]);
+						//mAnimator->SetAnimationProgressStartIndex(curMonsterData.animProgressStartIndex[i]);
+					};
+					mAnimator->ProgressEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
+						= [this]()
+					{
+						//Skill* sms = new SkillMultiFire(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), curMonsterData.mSpecialCastSkillCount);
+						//sms->SetCamera(GetOwner()->GetCamera());
+						//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, sms);
+						Skill* st = new SkillStraight(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), 300.f);
+						st->SetCamera(GetOwner()->GetCamera());
+						SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, st);
+					};
+				}
 			}
 		}
 		mAnimationType = T::eAnimationType::Natural;
@@ -92,7 +115,53 @@ namespace m
 		Script::Update();
 		if (nullptr == GetMonster())
 			return;
+
+		Vector3 initPos = GetMonster()->GetPrevPosition();
+		Vector3 destPos = GetMonster()->GetDestPosition();
+
+		Vector3 moveVector = destPos - initPos;
+
+		moveVector.Normalize();
+
+		float degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
+		float fDivideDegree = 180.f / 5.f;
+
+		if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eMonsterDirection::Up;
+		else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eMonsterDirection::LeftUp;
+		else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eMonsterDirection::Left;
+		else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eMonsterDirection::LeftDown;
+		else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eMonsterDirection::Down;
+		else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eMonsterDirection::Down;
+		else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eMonsterDirection::RightDown;
+		else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eMonsterDirection::Right;
+		else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eMonsterDirection::RightUp;
+
+		if (GetMonster()->GetBattleState() == GameObject::eBattleState::Idle
+			|| GetMonster()->GetBattleState() == GameObject::eBattleState::Run)
+		{
+			int randActionBranch = rand() % 100;
+			if (randActionBranch == 7)
+			{
+				if (GetMonster()->GetSightCollider()->GetOnEnter()
+					|| GetMonster()->GetSightCollider()->GetOnStay())
+				{
+					if (GetMonster()->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+					{
+						GetOwner()->SetBattleState(GameObject::Cast);
+						mAnimationType = T::eAnimationType::SpecialCast;
+						SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+						if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
+						{
+							mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
+							mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
+						}
+					}
+				}
+			}
+		}
+		
 		if (GetMonster()->GetRangeCollider()->GetOnEnter()
+			|| GetMonster()->GetRangeCollider()->GetOnStay()
 			&& GetMonster()->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 		{
 			fDelay += Time::fDeltaTime();
@@ -135,26 +204,6 @@ namespace m
 		else
 		{
 			GetOwner()->SetBattleState(GameObject::Run);
-			Vector3 initPos = GetMonster()->GetPrevPosition();
-			Vector3 destPos = GetMonster()->GetDestPosition();
-
-			Vector3 moveVector = destPos - initPos;
-
-			moveVector.Normalize();
-
-			float degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
-			float fDivideDegree = 180.f / 5.f;
-
-			if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eMonsterDirection::Up;
-			else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eMonsterDirection::LeftUp;
-			else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eMonsterDirection::Left;
-			else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eMonsterDirection::LeftDown;
-			else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eMonsterDirection::Down;
-			else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eMonsterDirection::Down;
-			else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eMonsterDirection::RightDown;
-			else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eMonsterDirection::Right;
-			else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eMonsterDirection::RightUp;
-
 			mAnimationType = T::eAnimationType::Run;
 		}
 
@@ -173,8 +222,8 @@ namespace m
 			mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
 			if (mAnimationType == T::eAnimationType::Run)
 			{
-				mAnimator->SetAnimationLoopStartIndex(curMonsterData.animLoopStartIndex[(UINT)mAnimationType]);
-				mAnimator->SetAnimationStartIndex(prevIndex);
+				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
+				mAnimator->SetAnimationIndex(prevIndex);
 			}
 		}
 	}

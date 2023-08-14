@@ -81,6 +81,7 @@ namespace m::graphics
 		ID2D1HwndRenderTarget* pRenderTarget;
 		IDWriteFactory* pDWriteFactory;
 		IDWriteTextFormat* pTextFormat_;
+		ID2D1SolidColorBrush* pBrush;
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain>			mSwapChain;
 		D3D11_VIEWPORT									mViewPort;

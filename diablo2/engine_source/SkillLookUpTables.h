@@ -5,6 +5,7 @@ namespace m
 	enum class eSkillFunctionType
 	{
 		Straight,
+		MultiStraight,
 		Fall,
 		MutiFall,
 		None,
@@ -88,9 +89,13 @@ namespace m
 		hydra,
 
 		normalAttack,
+
+
+		// Monster
+		DiabloLightning,
 		END
 	};
-	std::wstring wsSkillNames[(int)eSkillType::END] = {
+	std::wstring wsSkillIconNames[(int)eSkillType::END] = {
 		L"iceBoltIcon",
 		L"frozenArmorIcon",
 		L"frostNovaIcon",
@@ -126,7 +131,7 @@ namespace m
 
 		L"normalAttackIcon"
 	};
-	std::wstring wsSkillClickNames[(int)eSkillType::END] = {
+	std::wstring wsSkillClickIconNames[(int)eSkillType::END] = {
 		L"iceBoltClickIcon",
 		L"frozenArmorClickIcon",
 		L"frostNovaClickIcon",
@@ -196,6 +201,10 @@ namespace m
 		eSkillFunctionType::Straight,// L"fireMasteryIcon",
 		eSkillFunctionType::Straight,// L"hydraIcon",
 
+
+		//Monster
+		eSkillFunctionType::MultiStraight,// L"diabloLightning",
+
 		eSkillFunctionType::None,// L"normalAttackIcon"
 	};
 	std::wstring skillAnimNames[(int)eSkillType::END] = {
@@ -232,7 +241,11 @@ namespace m
 		L"fireMastery", // L"fireMasteryClickIcon",
 		L"hydra", // L"hydraClickIcon",
 		// 
+
 		L""// L"normalAttackClickIcon"
+
+		// Monster
+		L"diabloLightning",
 	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",

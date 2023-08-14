@@ -4,7 +4,7 @@
 #include "../engine_source/mAnimation.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/mResources.h"
-#include "../engine_source/SkillAnimLookUpTables.h"
+#include "../engine_source/SkillLookUpTables.h"
 namespace m
 {
     class SkillScript :

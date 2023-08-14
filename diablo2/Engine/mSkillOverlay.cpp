@@ -9,20 +9,20 @@
 namespace m
 {
 	SkillOverlay::SkillOverlay(int index)
-		: mIndex(index)
+		: mCurIndex(index)
 	{
 		ADD_COMP(this, MeshRenderer);
 		ADD_COMP(this, Animator);
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
-		eSkillCastType castType = skillCastTypes[(UINT)PlayerInfo::GetSkill(mIndex)];
+		eSkillCastType castType = skillCastTypes[(UINT)PlayerInfo::GetSkill(mCurIndex)];
 
 		if (castType == eSkillCastType::END) return;
 
 		SET_SCALE_XYZ(this
 					  , castSizes[(UINT)castType].x
 					  , castSizes[(UINT)castType].y, 1.f);
-		mOESS = AddComponent<OverlayEffectSkillScript>(mIndex);
+		mOESS = AddComponent<OverlayEffectSkillScript>(mCurIndex);
 	}
 	SkillOverlay::~SkillOverlay()
 	{

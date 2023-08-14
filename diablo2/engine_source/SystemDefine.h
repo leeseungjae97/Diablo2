@@ -124,7 +124,7 @@
 									Vector3 unprojMousePos = Input::GetUnprojectionMousePos(GET_POS(GetOwner()).z, proj, view);\
 									unprojMousePos.y += 300.f;\
 									unprojMousePos.z = GET_POS(GetOwner()).z;\
-									skill = new SkillMultiFall(PlayerInfo::GetSkill(skillIndex), unprojMousePos);\
+									skill = new SkillMultiFire(PlayerInfo::GetSkill(skillIndex), unprojMousePos, 20, SkillMultiFire::eFireType::Random,Vector2(200.f, 50.f));\
 								}\
 									break;\
 								case m::eSkillFunctionType::None:\

@@ -69,22 +69,25 @@ namespace m
 			fSpeed = 300.f;
 			if (fSpeed != 0.f && !mAstar->PathChange())
 			{
-				Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-																		, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
-				prevPosition = GET_POS(this);
-				destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
+				if (!TileManager::tiles[mouseCoord.x][mouseCoord.y]->GetIsWall())
+				{
+					Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
+																			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
 
-				float maxX = max(destPosition.x, prevPosition.x);
-				float maxY = max(destPosition.y, prevPosition.y);
+					prevPosition = GET_POS(this);
+					destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
-				float minX = min(destPosition.x, prevPosition.x);
-				float minY = min(destPosition.y, prevPosition.y);
+					float maxX = max(destPosition.x, prevPosition.x);
+					float maxY = max(destPosition.y, prevPosition.y);
 
-				SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
+					float minX = min(destPosition.x, prevPosition.x);
+					float minY = min(destPosition.y, prevPosition.y);
 
-				vDirection = destPosition - prevPosition;
-				vDirection.Normalize();
+					SetStartDistance((Vector2(maxX, maxY) - Vector2(minX, minY)).Length());
 
+					vDirection = destPosition - prevPosition;
+					vDirection.Normalize();
+				}
 			}
 		}
 		float maxX = max(curPosition.x, prevPosition.x);

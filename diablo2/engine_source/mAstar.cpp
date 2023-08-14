@@ -18,7 +18,7 @@ namespace m
 	}
 	void Astar::Initialize()
 	{
-		allowDiagonal = true;
+		allowDiagonal = false;
 		dontCrossCorner = true;
 		mStartCoord = Vector2(-1.f, -1.f);
 		mTargetCoord = Vector2(-1.f, -1.f);
@@ -32,7 +32,7 @@ namespace m
 	void Astar::PathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
 		Astar::Initialize();
-
+		if (TileManager::tiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
 		for (int i = 0; i < pathVector.size(); ++i)
 		{
 			Tile* path = pathVector[i];

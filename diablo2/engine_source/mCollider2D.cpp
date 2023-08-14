@@ -57,7 +57,7 @@ namespace m
 		else
 		{
 			SetColor(eColor::Red);
-			SetEnter();
+			SetStay();
 		}
 	}
 	void Collider2D::LateUpdate()

@@ -1,5 +1,5 @@
 #include "mAnimator.h"
-#include "mAnimation.h"
+
 namespace m
 {
 	Animator::Animator()
@@ -52,11 +52,14 @@ namespace m
 				events->endEvent();
 			mActiveAnimation->SetStop();
 		}
-
-		mActiveAnimation->LateUpdate();
 	}
 	void Animator::LateUpdate()
 	{
+		if (mActiveAnimation == nullptr
+			|| mActiveAnimation->IsStop())
+			return;
+
+		mActiveAnimation->LateUpdate();
 	}
 	void Animator::Render()
 	{

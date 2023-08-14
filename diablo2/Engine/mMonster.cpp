@@ -33,6 +33,7 @@ namespace m
 	{
 		MoveAbleObject::Initialize();
 	}
+
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
@@ -41,15 +42,15 @@ namespace m
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
 
-		mAstar->PathFinding(curCoord, targetCoord, 20);
-		mAstar->MonsterMove(this);
+		//mAstar->PathFinding(curCoord, targetCoord, 20);
+		//mAstar->MonsterMove(this);
 
 		if (sightCollider->GetOnEnter()
 			|| sightCollider->GetOnStay())
 		{
 			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			{
-				mAstar->PathChange();
+				//mAstar->PathChange();
 			}
 		}
 

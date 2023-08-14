@@ -184,7 +184,7 @@
     <ClInclude Include="mPlayScene.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
     <ClInclude Include="mSkill.h" />
-    <ClInclude Include="mSkillMultiFall.h" />
+    <ClInclude Include="mSkillMultiFire.h" />
     <ClInclude Include="mSkillButton.h" />
     <ClInclude Include="mSkillFall.h" />
     <ClInclude Include="mSkillOverlay.h" />
@@ -224,7 +224,7 @@
     <ClCompile Include="mPlayScene.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
     <ClCompile Include="mSkill.cpp" />
-    <ClCompile Include="mSkillMultiFall.cpp" />
+    <ClCompile Include="mSkillMultiFire.cpp" />
     <ClCompile Include="mSkillButton.cpp" />
     <ClCompile Include="mSkillFall.cpp" />
     <ClCompile Include="mSkillOverlay.cpp" />

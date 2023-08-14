@@ -10,17 +10,18 @@ namespace m
 		, mAtlas(nullptr)
 		, mAnimator(nullptr)
 		, mSprites{}
-		, mIndex(-1)
+		, mCurIndex(-1)
+		, mEndIndex(0)
 		, mTime(0.0f)
-		, mInitIndex(0)
-		, mProgressIndex(0)
+		, mAnimStartIndex(0)
+		, mAnimProgressIndex(0)
+		, mAnimEndIndex(0)
 		, mbComplete(false)
 		, mbProgress(false)
 		, mbStop(false)
 	{
 
 	}
-
 	Animation::~Animation()
 	{
 	}
@@ -34,18 +35,18 @@ namespace m
 
 		mTime += Time::DeltaTime();
 
-		if (mSprites[mIndex].duration <= mTime)
+		if (mSprites[mCurIndex].duration <= mTime)
 		{
-			mIndex++;
+			mCurIndex++;
 			mTime = 0.0f;
 
-			if (mSprites.size() <= mIndex)
+			if (mEndIndex <= mCurIndex)
 			{
-				mIndex = mSprites.size() - 1;
+				mCurIndex = mSprites.size() - 1;
 				mbComplete = true;
 			}
 		}
-		if (mIndex == mProgressIndex)
+		if (mCurIndex == mAnimProgressIndex)
 		{
 			mbProgress = true;
 		}
@@ -93,12 +94,12 @@ namespace m
 		// AnimationCB
 		renderer::AnimatorCB data = {};
 
-		data.spriteLeftTop = mSprites[mIndex].leftTop;
-		data.spriteSize = mSprites[mIndex].size;
-		data.spriteOffset = mSprites[mIndex].offset;
-		data.atlasSize = mSprites[mIndex].atlasSize;
+		data.spriteLeftTop = mSprites[mCurIndex].leftTop;
+		data.spriteSize = mSprites[mCurIndex].size;
+		data.spriteOffset = mSprites[mCurIndex].offset;
+		data.atlasSize = mSprites[mCurIndex].atlasSize;
 		data.animationType = 1;
-		data.alpha = mSprites[mIndex].alpha;
+		data.alpha = mSprites[mCurIndex].alpha;
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Animator];
 		cb->SetData(&data);
@@ -111,7 +112,8 @@ namespace m
 		mTime = 0.0f;
 		mbComplete = false;
 		mbProgress = false;
-		mIndex = mInitIndex;
 		mbStop = false;
+		mCurIndex = mAnimStartIndex;
+		mEndIndex = mAnimEndIndex == 0 ? mSprites.size() : mAnimEndIndex;
 	}
 }
