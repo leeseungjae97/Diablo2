@@ -134,7 +134,6 @@ namespace m
 
 			return comps;
 		}
-
 		void SetCamera(Camera* camera) { mCamera = camera; }
 		Camera* GetCamera() { return mCamera; }
 
@@ -162,6 +161,7 @@ namespace m
 		bool bHover;
 
 		bool bCulled;
+		bool bTileCulled;
 
 		UINT iGameObjectId;
 		static UINT GameObjectIdDispender;

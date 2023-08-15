@@ -66,7 +66,7 @@ namespace m
 
 		void SetAnimationStartIndex(int index) { mActiveAnimation->SetStartIndex(index); }
 		void SetAnimationProgressIndex(int index) { mActiveAnimation->SetProgressIndex(index); }
-		void SetAnimationEndIndex(int index) { mActiveAnimation->SetEndIndex(index); }
+		void SetAnimationEndIndex(int index) { index != 0 ? mActiveAnimation->SetEndIndex(index) : void(); }
 		void SetAnimationIndex(int index) { mActiveAnimation->SetIndex(index); }
 		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
 

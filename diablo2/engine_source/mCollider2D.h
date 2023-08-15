@@ -48,7 +48,6 @@ namespace m
 		void SetEnter() { bOnEnter = true; bOnExit = false; bOnStay = false; }
 		void SetStay() { bOnEnter = false; bOnExit = false; bOnStay = true; }
 
-		Vector3 GetCollideredObjectPos() { return collideredObjectPos; }
 		std::vector<Collider2D*>& GetCollidereds() { return collidereds; }
 
 		void SetColliderFunctionType(eColliderFunctionType type) { mFunctionType = type; }
@@ -74,8 +73,6 @@ namespace m
 
 		Vector3 mSize;
 		Vector2 mCenter;
-
-		Vector3 collideredObjectPos;
 
 		bool bOnEnter;
 		bool bOnStay;

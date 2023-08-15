@@ -10,7 +10,6 @@ namespace m
 	SkillFall::SkillFall(eSkillType type, Vector3 iniPos, eAccessorySkillType _acType)
 		: Skill(type, iniPos)
 		, bMove(false)
-		, bSkillFire(false)
 	{
 		//fSpeed = 100.f;
 		ADD_COMP(this, Animator);
@@ -40,12 +39,14 @@ namespace m
 		if (Arrival(fInitYValue - 300, mPos.y, fInitYValue))
 		{
 			bMove = false;
-			mFs->Arrival();
+			if(mFs)
+				mFs->Arrival();
 		}
 		if (bSkillFire)
 		{
 			bSkillFire = false;
-			mFs->SkillFire();
+			if(mFs)
+				mFs->SkillFire();
 			bMove = true;
 		}
 		if (bMove)

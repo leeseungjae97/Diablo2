@@ -42,7 +42,8 @@ namespace m
 
 			if (mEndIndex <= mCurIndex)
 			{
-				mCurIndex = mSprites.size() - 1;
+				//mCurIndex = mSprites.size() - 1;
+				mCurIndex = mEndIndex - 1;
 				mbComplete = true;
 			}
 		}

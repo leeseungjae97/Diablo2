@@ -40,8 +40,10 @@ namespace m
         Tile* GetParentTile() { return mParentTile; }
 
         void SetSaveMaterial(std::shared_ptr<Material> mat) { saveMaterial = mat; }
+        std::shared_ptr<Material> GetSaveMaterial() { return saveMaterial; }
     private:
         Tile* mParentTile;
+        Tile* child;
         Vector2 mCoord;
         std::shared_ptr<Material> saveMaterial;
         bool isWall;
@@ -49,8 +51,7 @@ namespace m
         bool inOpen;
         int G; // from cost
         int H; // expected cost
-        // 수직, 수평 이동 10
-        // 대각선 이동 14
+
     };
 }
 

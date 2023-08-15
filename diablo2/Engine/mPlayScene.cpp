@@ -56,6 +56,7 @@ namespace m
 		Scene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Player, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 
 		SHARED_TEX tex;
@@ -138,7 +139,7 @@ namespace m
 
 		Tile* monTile1 = TileManager::tiles[54][79];
 
-		Monster* monster = new Monster(GET_POS(monTile1), MTDiablo().fSpeed);
+		Monster* monster = new Monster(GET_POS(monTile1), MDDiablo().fSpeed);
 		SET_MAIN_CAMERA(monster);
 		AddGameObject(eLayerType::Monster, monster);
 		SET_MESH(monster, L"RectMesh");
@@ -148,7 +149,7 @@ namespace m
 		SET_MAIN_CAMERA(PlayerInfo::player);
 		AddGameObject(eLayerType::Player, PlayerInfo::player);
 
-		MonsterScript<MTDiablo>* ms = ADD_COMP(monster, MonsterScript<MTDiablo>);
+		MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
 		ms->SetMonster(monster);
 		
 		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);

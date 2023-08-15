@@ -16,6 +16,9 @@ namespace m
 		, isWall(false)
 		, inClosed(false)
 		, inOpen(false)
+		, G(0)
+		, H(0)
+		, mParentTile(nullptr)
 	{
 		SetIsRhombus(true);
 		ADD_COMP(this, TileScript);
@@ -30,48 +33,36 @@ namespace m
 	{
 		GameObject::Update();
 
-		if (GetHover())
-		{
-			TileManager::hoverTile = this;
-			SET_MATERIAL(this, L"greenTile");
-		}
-		else
-		{
-			if(GetComponent<MeshRenderer>()->GetMaterial() != saveMaterial)
-				GetComponent<MeshRenderer>()->SetMaterial(saveMaterial);
-		}
+		//if (isWall) return;
 
-		MAKE_VEC2_F_VEC3(posV2, GET_POS(this));
-		MAKE_VEC2_F_VEC3(scaleV2, GET_SCALE(this));
-		Vector3 ppos = GET_POS(PlayerInfo::player);
-		Vector3 pscale = GET_SCALE(PlayerInfo::player);
-		Vector2 playerPosV2Left = Vector2(ppos.x - pscale.x / 2.f, ppos.y - pscale.y / 2.f);
-		Vector2 playerPosV2Right = Vector2(ppos.x + pscale.x / 2.f, ppos.y - pscale.y / 2.f);
-		if (Vector2::PointIntersectRhombus(posV2, scaleV2, GET_VEC2_F_VEC3_D(ppos)))
-		{
-			TileManager::playerStandTile = this;
-		}
-		for (Monster* monster : MonsterManager::monsters)
-		{
-			MAKE_VEC2_F_VEC3(mPosV2, GET_POS(monster));
-			if (Vector2::PointIntersectRhombus(posV2, scaleV2, mPosV2))
-			{
-				monster->SetCoord(mCoord);
-			}
-		}
-		//Collider2D* mCollider = GET_COMP(this, Collider2D);
-		//if (mCollider->GetOnEnter())
+		//if (GetHover())
 		//{
-		//	for (auto obj : mCollider->GetCollideredObjects())
-		//	{
-		//		auto dObj = dynamic_cast<MoveAbleObject*>(obj);
-		//		if (dObj) dObj->SetCoord(GetCoord());
-		//	}
+		//	TileManager::hoverTile = this;
+		//	SET_MATERIAL(this, L"greenTile");
 		//}
-		//if (Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Left)
-		//	&& Vector2::PointIntersectRhombus(posV2, scaleV2, playerPosV2Right))
+		//else
+		//{
+		//	if(GetComponent<MeshRenderer>()->GetMaterial() != saveMaterial)
+		//		GetComponent<MeshRenderer>()->SetMaterial(saveMaterial);
+		//}
+
+		//MAKE_VEC2_F_VEC3(posV2, GET_POS(this));
+		//MAKE_VEC2_F_VEC3(scaleV2, GET_SCALE(this));
+		//Vector3 ppos = GET_POS(PlayerInfo::player);
+		//Vector3 pscale = GET_SCALE(PlayerInfo::player);
+		//Vector2 playerPosV2Left = Vector2(ppos.x - pscale.x / 2.f, ppos.y - pscale.y / 2.f);
+		//Vector2 playerPosV2Right = Vector2(ppos.x + pscale.x / 2.f, ppos.y - pscale.y / 2.f);
+		//if (Vector2::PointIntersectRhombus(posV2, scaleV2, GET_VEC2_F_VEC3_D(ppos)))
 		//{
 		//	TileManager::playerStandTile = this;
+		//}
+		//for (Monster* monster : MonsterManager::monsters)
+		//{
+		//	MAKE_VEC2_F_VEC3(mPosV2, GET_POS(monster));
+		//	if (Vector2::PointIntersectRhombus(posV2, scaleV2, mPosV2))
+		//	{
+		//		monster->SetCoord(mCoord);
+		//	}
 		//}
 	}
 	void Tile::LateUpdate()

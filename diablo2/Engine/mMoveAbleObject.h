@@ -1,6 +1,8 @@
 #pragma once
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mAstar.h"
+#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
+
 namespace m
 {
 	class UVUI;
@@ -53,6 +55,7 @@ namespace m
 
 		Collider2D* GetTilePositionCollider() { return tilePositionCollider; }
 		Collider2D* GetHitAreaCollider() { return hitAreaCollider; }
+
 	protected:
 		Collider2D* rangeCollider;
 		Collider2D* tilePositionCollider;

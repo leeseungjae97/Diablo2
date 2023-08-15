@@ -1,6 +1,7 @@
 #pragma once
-#include "..\engine_source\mGameObject.h"
+#include "../engine_source/mGameObject.h"
 #include "../engine_source/mMonsterManager.h"
+
 
 #include "mMoveAbleObject.h"
 namespace m
@@ -23,10 +24,10 @@ namespace m
 
         float GetMonsterId() { return monsterId; }
         float ResetMonsterId() { monsterId = MonsterManager::DispendMonsterId(); }
+
     private:
         Collider2D* sightCollider;
         float monsterId;
-
         float hp;
         float hpCapacity;
         float hpPercent;

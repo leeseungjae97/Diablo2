@@ -3,12 +3,14 @@
 #include "../engine_source/SkillLookUpTables.h"
 #include "../engine_source/mAnimator.h"
 #include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mTileManager.h"
 
 namespace m
 {
 	SkillStraight::SkillStraight(eSkillType type, Vector3 iniPos, float speed)
 		:Skill(type, iniPos, false, true)
 		, mbStopMove(false)
+		, limitDistance(300.f)
 	{
 		SetSpeed(speed);
 		SET_MESH(this, L"RectMesh");
@@ -31,14 +33,21 @@ namespace m
 			fSpeed = 0.f;
 		}
 		Vector3 curPosition = GET_POS(this);
-
-		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+		Vector3 destVector = Vector3::One;
+		if (GetSkillOwner() == eLayerType::Player)
+		{
+			destVector = Input::GetUnprojectionMousePos(destPosition.z
+														, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+		}
+		else
+		{
+			destVector = GET_POS(TileManager::playerStandTile);
+		}
 		if(!bSkillFire)
 		{
 			bSkillFire = true;
 			prevPosition = GET_POS(this);
-			destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
+			destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
 
 			float maxX = max(destPosition.x, prevPosition.x);
 			float maxY = max(destPosition.y, prevPosition.y);
@@ -54,7 +63,14 @@ namespace m
 
 		float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
 		float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
+		
 		SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
+
+		Vector2 diff = (Vector2(prevPosition.x, prevPosition.y) - Vector2(curPosition.x, curPosition.y));
+		if (limitDistance <= diff.Length())
+		{
+			SetState(eState::Delete);
+		}
 	}
 	void SkillStraight::LateUpdate()
 	{

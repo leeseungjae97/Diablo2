@@ -69,7 +69,7 @@ namespace m
 			fSpeed = 300.f;
 			if (fSpeed != 0.f && !mAstar->PathChange())
 			{
-				if (!TileManager::tiles[mouseCoord.x][mouseCoord.y]->GetIsWall())
+				if (!TileManager::hoverTile->GetIsWall())
 				{
 					Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
 																			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());

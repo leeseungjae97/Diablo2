@@ -19,6 +19,7 @@ namespace m
         void StopMove() { mbStopMove = true; }
     private:
         bool mbStopMove;
+        float limitDistance;
     };
 }
 

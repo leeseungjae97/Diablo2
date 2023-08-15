@@ -4,8 +4,10 @@
 #include "mApplication.h"
 #include "mRenderer.h"
 #include "mSceneManager.h"
+#include "mTileManager.h"
 #include "mMeshRenderer.h"
 #include "mLayer.h"
+
 
 extern m::Application application;
 namespace m
@@ -198,6 +200,7 @@ namespace m
 		//if (gameObj->GetLayerType() == eLayerType::Tile) return true;
 
 		if (gameObj->GetLayerType() == eLayerType::Skill
+			|| gameObj->GetLayerType() == eLayerType::Monster
 			|| gameObj->GetLayerType() == eLayerType::Background)
 		{
 			gameObj->SetCulled(false);
@@ -206,6 +209,11 @@ namespace m
 
 		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(mPos), Vector2(mWidth, mHeight), GET_VEC2_F_VEC3_D(GET_POS(gameObj))))
 		{
+			if (gameObj->GetLayerType() == eLayerType::Tile)
+			{
+				TileManager::notCulledTiles.push_back(dynamic_cast<Tile*>(gameObj));
+				return true;
+			}
 			gameObj->SetCulled(false);
 			return true;
 		}

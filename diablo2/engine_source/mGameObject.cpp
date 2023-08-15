@@ -12,6 +12,7 @@ namespace m
 		, mCamera(nullptr)
 		, bHover(false)
 		, bCulled(false)
+		, bTileCulled(false)
 		, bRhombus(false)
 		, iGameObjectId(0)
 	{
@@ -95,6 +96,7 @@ namespace m
 	}
 	void GameObject::MousePosHoverGameObject()
 	{
+		if (mLayerType == eLayerType::Tile) return;
 		if (GetState() != eState::RenderUpdate)
 		{
 			bHover = false;
@@ -103,8 +105,10 @@ namespace m
 		Transform* tr = GetComponent<Transform>();
 		Vector3 mPos = tr->GetPosition();
 		Vector3 mScale = tr->GetScale();
+
 		MAKE_VEC2_F_VEC3(mPosV2, mPos);
 		MAKE_VEC2_F_VEC3(mScaleV2, mScale);
+
 		Matrix proj = Matrix::Identity;
 		Matrix view = Matrix::Identity;
 

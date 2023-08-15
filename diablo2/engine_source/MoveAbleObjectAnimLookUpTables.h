@@ -129,21 +129,32 @@ namespace m
 		MonsterData(){}
 		~MonsterData(){}
 		enum class eAnimationType {};
-		std::wstring animationString[5] = {};
-		m::math::Vector2 animationSizes[5] = {};
 		std::wstring textureString[5] = {};
+		std::wstring animationString[5] = {};
+		math::Vector2 animationOffset[5] = {};
+		m::math::Vector2 animationSizes[5] = {};
+		float animationDuration[5] = {};
 		int animationLength[5] = {};
+		int animStartIndex[5] = {};
+		int animEndIndex[5] = {};
+		int animProgressStartIndex[5] = {};
+
 		float fSpeed = 100.f;
+		float fAttackDelay = 1.5f;
+		float hp = 100;
+		float hpCapacity = hp;
+		eSkillType mSpecialCastSkillType = eSkillType::END;
+		int mSpecialCastSkillCount = 0;
 	};
-	struct MTDiablo : public MonsterData
+	struct MDDiablo : public MonsterData
 	{
-		MTDiablo() {}
-		~MTDiablo() {}
+		MDDiablo() {}
+		~MDDiablo() {}
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
 		float hp = 100;
-		float hpCapacity;
+		float hpCapacity = hp;
 		eSkillType mSpecialCastSkillType = eSkillType::DiabloLightning;
 		int mSpecialCastSkillCount = 6;
 
@@ -209,21 +220,6 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
 		};
-		float animationDuration[(UINT)eAnimationType::End] = {
-			0.05f,   // Attack1
-			0.05f,	// Attack2
-			0.05f,	// Block
-			0.05f,	// Hit
-			0.05f,	// Natural
-			0.05f,	// Run
-			0.05f,	// Walk
-			0.05f,	// SpecialCast
-			0.05f,	// Special1
-			0.05f,	// Special2
-			0.05f,	// Special3
-			0.05f,	// Special4
-			0.05f,	// Dead
-		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(4960.f / 16.f, 1791.f / 8.f),	// Attack1
 			math::Vector2(5760.f / 20.f, 2295.f / 8.f),	// Attack2
@@ -238,6 +234,21 @@ namespace m
 			math::Vector2(4979.f / 16.f , 2183.f / 8.f),	// Special3
 			math::Vector2(4605.f / 16.f , 1615.f / 8.f),	// Special4
 			math::Vector2(169.f, 147.f),					// Dead
+		};
+		float animationDuration[(UINT)eAnimationType::End] = {
+			0.05f,   // Attack1
+			0.05f,	// Attack2
+			0.05f,	// Block
+			0.05f,	// Hit
+			0.05f,	// Natural
+			0.05f,	// Run
+			0.05f,	// Walk
+			0.05f,	// SpecialCast
+			0.05f,	// Special1
+			0.05f,	// Special2
+			0.05f,	// Special3
+			0.05f,	// Special4
+			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
 			16,// Attack1
@@ -260,9 +271,9 @@ namespace m
 			0, // Block
 			0, // Hit
 			0,// Natural
-			0, // Run
+			6, // Run
 			0, // Walk
-			10,// SpecialCast
+			11,// SpecialCast
 			0,// Special1
 			0, // Special2
 			0, // Special3
@@ -277,7 +288,7 @@ namespace m
 			0,// Natural
 			0, // Run
 			0, // Walk
-			15,// SpecialCast
+			13,// SpecialCast
 			0,// Special1
 			0, // Special2
 			0, // Special3
@@ -292,7 +303,7 @@ namespace m
 			0, // Natural
 			0, // Run
 			0, // Walk
-			10, // SpecialCast
+			11, // SpecialCast
 			0, // Special1
 			0, // Special2
 			0, // Special3

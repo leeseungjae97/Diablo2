@@ -160,6 +160,8 @@ namespace m
 		0, // hydra
 		//
 		0, // normalAttack
+
+		15,
 	};
 	m::math::Vector2 skillSizes[(int)eSkillType::END] = {
 		m::math::Vector2(92.f, 55.f),// iceBolt,
@@ -196,6 +198,8 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// hydra,
 
 		m::math::Vector2(0.f),// normalAttack,
+
+		m::math::Vector2(252.f, 190.f),
 	};
 	eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
 		eSkillCrashType::IceCrash1,// iceBolt

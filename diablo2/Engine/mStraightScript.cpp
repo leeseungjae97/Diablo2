@@ -24,8 +24,9 @@ namespace m
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
 
-
 		SHARED_MAT tex = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
+		Vector2 size = Vector2::Zero;
+		
 		for (int i = 0; i < (int)eSkillDirection::End; ++i)
 		{
 			mAnimator->Create(
@@ -108,11 +109,31 @@ namespace m
 		Script::OnCollisionEnter(other);
 		if (other->GetColliderFunctionType() == eColliderFunctionType::TilePos)
 		{
-			Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
-			monster->Hit(10);
+			if (other->GetOwner()->GetLayerType() != dynamic_cast<Skill*>(GetOwner())->GetSkillOwner())
+			{
+
+				switch (dynamic_cast<Skill*>(GetOwner())->GetSkillOwner())
+				{
+				case m::enums::eLayerType::Player: 
+				{
+					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+				}
+					break;
+				case m::enums::eLayerType::Monster:
+				{
+					dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+				}
+					break;
+				default:
+					break;
+				}
+				//Monster* monster = dynamic_cast<Monster*>();
+			}
 			
-			//mAnimator->StopAnimation();
+			
 			dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+			//mAnimator->StopAnimation();
+			
 		}
 	}
 	void StraightScript::OnCollisionStay(Collider2D* other)

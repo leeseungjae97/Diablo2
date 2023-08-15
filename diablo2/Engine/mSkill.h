@@ -35,10 +35,16 @@ namespace m
         void SetSkillFire(bool fire) { bSkillFire = fire; }
         void SetSkillCrash(bool crash) { bSkillCrash = crash; }
 
+        void SetSkillOwner(eLayerType ownerType);
+        eLayerType GetSkillOwner() { return skillOwnerType; }
+
+
+        void SkillFire() { bSkillFire = true; }
     protected:
         eSkillType mSkillType;
         bool bSkillFire;
         bool bSkillCrash;
+        eLayerType skillOwnerType;
     };
 }
 

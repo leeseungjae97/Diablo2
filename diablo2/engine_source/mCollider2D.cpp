@@ -30,6 +30,8 @@ namespace m
 		{
 			for (Collider2D* col : collidereds)
 			{
+				if (nullptr == col) continue;
+				if (col->GetCollidereds().empty()) continue;
 				auto iter = col->GetCollidereds().begin();
 				while (iter != col->GetCollidereds().end())
 				{
@@ -90,7 +92,6 @@ namespace m
 
 		mRotation = tr->GetRotation();
 		
-
 		Vector3 pos = tr->GetPosition();
 		pos.x += mCenter.x;
 		pos.y += mCenter.y;
@@ -123,7 +124,6 @@ namespace m
 			return;
 	
 		collidereds.push_back(other);
-		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
 
 		SetEnter();
 		const std::vector<Script*>& scripts
@@ -138,8 +138,6 @@ namespace m
 	{
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end())
 			return;
-
-		collideredObjectPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
 
 		SetStay();
 		const std::vector<Script*>& scripts
@@ -168,8 +166,12 @@ namespace m
 	}
 	bool Collider2D::SearchObjectGameObjectId(UINT gameObjectId)
 	{
-		for (Collider2D* col : GetCollidereds())
+		for (Collider2D* col : collidereds)
+		{
+			if (nullptr == col) continue;
 			if (col->GetOwner()->GetGameObjectId() == gameObjectId) return true;
+		}
+			
 
 		return false;
 	}

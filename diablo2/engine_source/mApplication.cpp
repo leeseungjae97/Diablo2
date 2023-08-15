@@ -56,6 +56,7 @@ namespace m
 		SceneManager::Update();
 		MouseManager::Update();
 		CollisionManager::Update();
+		TileManager::TilesUpdate();
 	}
 
 	void Application::LateUpdate()

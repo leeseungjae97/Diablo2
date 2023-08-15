@@ -38,6 +38,7 @@ namespace m
 			rangeCollider = ADD_COMP(this, Collider2D);
 			rangeCollider->SetType(eColliderType::Circle);
 			rangeCollider->SetColliderFunctionType(eColliderFunctionType::Range);
+			rangeCollider->AddExceptType(eLayerType::Skill);
 		}
 
 		if (useTilePos)

@@ -51,4 +51,12 @@ namespace m
 	void Skill::Hit(int damage)
 	{
 	}
+	void Skill::SetSkillOwner(eLayerType ownerType)
+	{
+		skillOwnerType = ownerType;
+		for (Collider2D* col : GetComponents<Collider2D>())
+		{
+			col->AddExceptType(ownerType);
+		}
+	}
 }

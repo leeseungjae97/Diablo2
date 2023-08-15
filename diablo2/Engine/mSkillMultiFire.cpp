@@ -17,6 +17,7 @@ namespace m
 		, mFireType(fireType)
 		, curFallIndex(0)
 		, mAccTime(0.f)
+		, bCameraUpdate(false)
 	{
 		std::default_random_engine generator(std::time(nullptr));
 		SET_MESH(this, L"PointMesh");
@@ -25,6 +26,7 @@ namespace m
 		for (int i = 0; i < count; ++i)
 		{
 			Vector3 startPos = iniPos;
+			Skill* sf = nullptr;
 			if (mFireType == eFireType::Random)
 			{
 				int randX = rand() % (int)randFireArange.x;
@@ -39,12 +41,14 @@ namespace m
 
 				std::uniform_real_distribution<float> distribution(0.0f, 0.5f);
 				mSkillFireTimes.push_back(distribution(generator));
+				sf = new SkillFall(type, startPos);
 			}
 			if (mFireType == eFireType::Linear)
 			{
 				mSkillFireTimes.push_back(0.5f);
+				sf = new SkillStraight(type, startPos, 100.f);
 			}
-			SkillFall* sf = new SkillFall(type, startPos);
+			
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, sf);
 			skills.push_back(sf);
 		}
@@ -60,9 +64,10 @@ namespace m
 	void SkillMultiFire::Update()
 	{
 		Skill::Update();
-		if (nullptr == skills.front()->GetCamera())
+		if (!bCameraUpdate)
 		{
-			for (SkillFall* sf : skills) sf->SetCamera(GetCamera());
+			for (Skill* sf : skills) sf->SetCamera(GetCamera());
+			bCameraUpdate = true;
 		}
 		if (mFireType == eFireType::Random)
 		{
@@ -82,6 +87,12 @@ namespace m
 		}
 		if (mFireType == eFireType::Linear)
 		{
+			if (mSkillFireTimes.size() == curFallIndex)
+			{
+				mFireType = eFireType::END;
+				SetState(GameObject::eState::Delete);
+				return;
+			}
 			mAccTime += Time::fDeltaTime();
 			if (math::areAlmostEqual(mAccTime, mSkillFireTimes[curFallIndex]), 0.05f)
 			{
@@ -90,7 +101,6 @@ namespace m
 				mAccTime = 0.f;
 			}
 		}
-
 	}
 	void SkillMultiFire::LateUpdate()
 	{

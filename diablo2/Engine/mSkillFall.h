@@ -17,12 +17,10 @@ namespace m
         virtual void Render() override;
         virtual void Initialize() override;
 
-        void SkillFire() { bSkillFire = true; }
     private:
         std::vector<SkillFall*> fallGroup;
         FallScript* mFs;
         float fInitYValue;
-        bool bSkillFire;
         bool bMove;
     };
 }

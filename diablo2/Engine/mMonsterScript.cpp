@@ -11,6 +11,7 @@
 #include "mPlayerInfo.h"
 
 #include "mSkillMultiFire.h"
+#include "mStraightScript.h"
 
 namespace m
 {
@@ -19,6 +20,7 @@ namespace m
 		: mDirection(eMonsterDirection::Down)
 		, bDamaged(false)
 		, fDelay(0.f)
+		, bFire(false)
 	{
 	}
 	template <typename T>
@@ -95,13 +97,21 @@ namespace m
 					mAnimator->ProgressEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
 						= [this]()
 					{
-						//Skill* sms = new SkillMultiFire(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), curMonsterData.mSpecialCastSkillCount);
-						//sms->SetCamera(GetOwner()->GetCamera());
-						//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, sms);
-						Skill* st = new SkillStraight(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), 300.f);
-						st->SetCamera(GetOwner()->GetCamera());
-						SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, st);
+						if (!bFire)
+						{
+							Skill* sms = new SkillMultiFire(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), curMonsterData.mSpecialCastSkillCount, SkillMultiFire::eFireType::Linear);
+							sms->SetCamera(GetOwner()->GetCamera());
+							SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, sms);
+							bFire = true;
+						}
+						//Skill* st = new SkillStraight(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), 300.f);
+						//ADD_COMP(st, StraightScript);
+						//st->SetCamera(GetOwner()->GetCamera());
+						//st->SetSkillOwner(GetOwner()->GetLayerType());
+						//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, st);
 					};
+					mAnimator->EndEvent(curMonsterData.animationString[i] + monsterDirectionString[j])
+						= [this]() { bFire = false; };
 				}
 			}
 		}
@@ -143,23 +153,37 @@ namespace m
 			if (randActionBranch == 7)
 			{
 				if (GetMonster()->GetSightCollider()->GetOnEnter()
-					|| GetMonster()->GetSightCollider()->GetOnStay())
+					|| GetMonster()->GetSightCollider()->GetOnStay()
+					&& GetMonster()->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 				{
-					if (GetMonster()->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+					GetOwner()->SetBattleState(GameObject::Cast);
+					mAnimationType = T::eAnimationType::SpecialCast;
+					SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
 					{
-						GetOwner()->SetBattleState(GameObject::Cast);
-						mAnimationType = T::eAnimationType::SpecialCast;
-						SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-						if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
-						{
-							mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
-							mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
-						}
+						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
+						mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::SpecialCast]);
 					}
 				}
 			}
 		}
-		
+		if (GetMonster()->GetBattleState() == GameObject::eBattleState::Cast)
+		{
+			WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
+			int prevIndex = 0;
+			if (subStr1 == curMonsterData.animationString[(UINT)T::eAnimationType::SpecialCast])
+			{
+				prevIndex = mAnimator->GetAnimationIndex();
+			}
+			mAnimationType = T::eAnimationType::SpecialCast;
+			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection])
+			{
+				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], true);
+				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::SpecialCast]);
+				mAnimator->SetAnimationIndex(prevIndex);
+			}
+		}
 		if (GetMonster()->GetRangeCollider()->GetOnEnter()
 			|| GetMonster()->GetRangeCollider()->GetOnStay()
 			&& GetMonster()->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
@@ -177,7 +201,7 @@ namespace m
 					mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], false);
 				}
 			}
-			
+
 		}
 		if (GetMonster()->GetHit())
 		{
@@ -248,22 +272,22 @@ namespace m
 		GetOwner()->SetBattleState(state);
 	}
 
-	template<typename T>
-	void MonsterScript<T>::OnCollisionEnter(Collider2D* other)
-	{
-		
-	}
+	//template<typename T>
+	//void MonsterScript<T>::OnCollisionEnter(Collider2D* other)
+	//{
+	//	
+	//}
 
-	template<typename T>
-	void MonsterScript<T>::OnCollisionStay(Collider2D* other)
-	{
-		
-	}
+	//template<typename T>
+	//void MonsterScript<T>::OnCollisionStay(Collider2D* other)
+	//{
+	//	
+	//}
 
-	template<typename T>
-	void MonsterScript<T>::OnCollisionExit(Collider2D* other)
-	{
-	}
+	//template<typename T>
+	//void MonsterScript<T>::OnCollisionExit(Collider2D* other)
+	//{
+	//}
 
 	template<typename T>
 	void MonsterScript<T>::AttackProgress()

@@ -12,6 +12,26 @@ namespace m
 {
 	bool MouseManager::mMouseOnUI = false;
 
+	Vector3 MouseManager::UnprojectionMousePos(float z, Camera* camera)
+	{
+		Matrix proj = Matrix::Identity;
+		Matrix view = Matrix::Identity;
+
+		if (nullptr == camera)
+		{
+			proj = Camera::GetProjectionMatrix();
+			view = Camera::GetViewMatrix();
+		}
+		else
+		{
+			proj = camera->GetPrivateProjectionMatrix();
+			view = camera->GetPrivateViewMatrix();
+		}
+
+		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(z, proj, view);
+		return Vector3(unprojMousePos.x , unprojMousePos.y, z);
+	}
+
 	void MouseManager::Initialize()
 	{
 

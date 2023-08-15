@@ -242,7 +242,7 @@ namespace m
 		L"hydra", // L"hydraClickIcon",
 		// 
 
-		L""// L"normalAttackClickIcon"
+		L"",// L"normalAttackClickIcon"
 
 		// Monster
 		L"diabloLightning",

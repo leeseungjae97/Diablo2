@@ -7,10 +7,14 @@ namespace m
 	{
 	public:
 		static void MakeTile(int x, int y, Camera* camera);
+		static void TilesUpdate();
+
 		static Vector2 GetHoverTileCoord();
 		static Vector2 GetPlayerPositionCoord();
 
+
 		static TILES tiles;
+		static std::vector<Tile*> notCulledTiles;
 		static Tile* hoverTile;
 		static Tile* playerStandTile;
 

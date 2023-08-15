@@ -9,65 +9,62 @@ namespace m
 {
 	Astar::Astar()
 		: searchTileSize(20)
+		, startTile(nullptr)
+		, targetTile(nullptr)
+		, curTile(nullptr)
+		, allowDiagonal(true)
+		, dontCrossCorner(true)
+		, xLength(0)
+		, yLength(0)
+		, mStartCoord(Vector2::Zero)
+		, mTargetCoord(Vector2::Zero)
+		, direct1{ { 1, 1 }, { 1, -1 }, { -1, -1 }, { -1,  1 } }
+		, direct2{ { 1, 0 }, { 0,  1 }, { -1,  0 }, {  0, -1 } }
+		, dy(0)
+		, dx(0)
 	{
-
+		//int capa = 1000;
+		//if (!TileManager::tiles.empty()) capa = TileManager::tiles.size();
+		//openVector.reserve(capa);
+		//pathVector.reserve(capa);
+		//finalPathVector.reserve(capa);
 	}
 	Astar::~Astar()
 	{
 
 	}
-	void Astar::Initialize()
-	{
-		allowDiagonal = false;
-		dontCrossCorner = true;
-		mStartCoord = Vector2(-1.f, -1.f);
-		mTargetCoord = Vector2(-1.f, -1.f);
-		xLength = 0;
-		yLength = 0;
-		startTile = nullptr;
-		targetTile = nullptr;
-		curTile = nullptr;
-	}
 
 	void Astar::PathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
-		Astar::Initialize();
 		if (TileManager::tiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
-		for (int i = 0; i < pathVector.size(); ++i)
-		{
-			Tile* path = pathVector[i];
-			SET_MATERIAL(path, L"greenTile");
-			path->SetCulled(true);
-		}
+		if (TileManager::tiles[startCoord.y][startCoord.x]->GetIsWall()) return;
+
 		if (mStartCoord == startCoord
 			&&
 			mTargetCoord == targetCoord)
 			return;
 
+		for (Tile* path : pathVector)
+			path->SetCulled(true);
+
 		if (searchSize == -1)
-			searchTileSize = max(fabs(targetCoord.x - startCoord.x), fabs(targetCoord.y - startCoord.y));
+			searchTileSize = fabs(targetCoord.x - startCoord.x) + fabs(targetCoord.y - startCoord.y);
 		else searchTileSize = searchSize;
+
+		pathVector.clear();
 
 		yLength = TileManager::tiles.size();
 		xLength = TileManager::tiles[0].size();
-
-		pathVector.clear();
-		float direct1[4][2] = { {1, 1},{1, -1},{-1, -1},{-1, 1} };
-		float direct2[4][2] = { {1, 0},{0, 1},{-1, 0},{0, -1} };
 
 		mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
 
 		startTile = TileManager::tiles[startCoord.y][startCoord.x];
 		targetTile = TileManager::tiles[targetCoord.y][targetCoord.x];
-
 		openVector.push_back(startTile);
-
-		int dy = 0;
-		int dx = 0;
+		
 		while (!openVector.empty())
 		{
-
 			curTile = openVector.front();
 			for (int i = 1; i < openVector.size(); ++i)
 			{
@@ -91,6 +88,7 @@ namespace m
 				while (targetCurTile != startTile)
 				{
 					pathVector.push_back(targetCurTile);
+					//targetCurTile->SetInOpen(false);
 					targetCurTile = targetCurTile->GetParentTile();
 				}
 				pathVector.push_back(startTile);
@@ -117,17 +115,22 @@ namespace m
 			}
 		}
 
-		for (int i = 0; i < pathVector.size(); ++i)
-			pathVector[i]->SetCulled(false);
+		for (Tile* path : pathVector)
+		{
+			SET_MATERIAL(path, L"greenTile");
+			path->SetInOpen(false);
+			path->SetCulled(false);
+		}
+			
 
 		for (int i = 0; i < closedVector.size(); ++i)
 			closedVector[i]->SetInClosed(false);
 
-		for (int i = 0; i < tmpOpenVector.size(); ++i)
-			tmpOpenVector[i]->SetInOpen(false);
+		//for (int i = 0; i < tmpOpenVector.size(); ++i)
+		//	tmpOpenVector[i]->SetInOpen(false);
 		openVector.clear();
 		closedVector.clear();
-		tmpOpenVector.clear();
+		//tmpOpenVector.clear();
 	}
 
 	void Astar::OpenVectorAdd(int y, int x)
@@ -163,13 +166,18 @@ namespace m
 
 				neighborTile->SetInOpen(true);
 				openVector.push_back(neighborTile);
-				tmpOpenVector.push_back(neighborTile);
+				//tmpOpenVector.push_back(neighborTile);
 			}
 		}
 	}
 
 	bool Astar::PathChange()
 	{
+		//if (!finalPathVector.empty())
+		//{
+		//	for (Tile* tile : finalPathVector)
+		//		tile->SetCulled(true);
+		//}
 		finalPathVector = pathVector;
 		if (!finalPathVector.empty())
 		{
@@ -217,6 +225,11 @@ namespace m
 	}
 	void Astar::ClearPath()
 	{
+		for (Tile* path : pathVector)
+			path->SetCulled(true);
+		for (Tile* path : finalPathVector)
+			path->SetCulled(true);
+
 		finalPathVector.clear();
 		pathVector.clear();
 	}
@@ -252,6 +265,7 @@ namespace m
 		{
 			//for (Tile* tile : finalPathVector) SET_MATERIAL(tile, L"greenTile");
 			//for (Tile* tile : finalPathVector) tile->SetCulled(false);
+			finalPathVector.front()->SetCulled(true);
 			std::erase(finalPathVector, finalPathVector.front());
 		}
 		return true;

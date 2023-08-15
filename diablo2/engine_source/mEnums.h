@@ -22,6 +22,7 @@ namespace m::enums
 		Grid,
 		Background,
 		Tile,
+		Wall,
 		Player,
 		Monster,
 		Light,

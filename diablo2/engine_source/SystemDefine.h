@@ -54,6 +54,7 @@
 #define SET_MESH(object, meshName) GET_MESHR(object)->SetMesh(RESOURCE_FIND(Mesh, meshName))
 #define SET_MATERIAL(object, materialName) GET_MESHR(object)->SetMaterial(RESOURCE_FIND(Material, materialName))
 
+#define SET_MATERIAL_D(object, material) GET_MESHR(object)->SetMaterial(material)
 
 #define SET_MAIN_CAMERA(object) object->SetCamera(GetSceneMainCamera())
 
@@ -106,6 +107,7 @@
 								case m::eSkillFunctionType::Straight:\
 								{\
 									skill = new SkillStraight(PlayerInfo::GetSkill(skillIndex), vector3Pos, skillSpeed[(int)PlayerInfo::GetSkill(skillIndex)]);\
+									skill->SetSkillOwner(GetOwner()->GetLayerType());\
 									ADD_COMP(skill, StraightScript);\
 								}\
 									break;\
@@ -125,6 +127,7 @@
 									unprojMousePos.y += 300.f;\
 									unprojMousePos.z = GET_POS(GetOwner()).z;\
 									skill = new SkillMultiFire(PlayerInfo::GetSkill(skillIndex), unprojMousePos, 20, SkillMultiFire::eFireType::Random,Vector2(200.f, 50.f));\
+									skill->SetSkillOwner(GetOwner()->GetLayerType());\
 								}\
 									break;\
 								case m::eSkillFunctionType::None:\

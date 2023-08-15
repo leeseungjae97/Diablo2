@@ -24,12 +24,16 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
+        bool GetFire() { return bFire; }
     private:
-        std::vector<SkillFall*> skills;
+        std::vector<Skill*> skills;
         std::vector<float> mSkillFireTimes;
         eFireType mFireType;
         int curFallIndex;
         float mAccTime;
+        bool bCameraUpdate;
+
+        bool bFire;
     };
 }
 
