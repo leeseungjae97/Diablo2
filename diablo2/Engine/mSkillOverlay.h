@@ -8,7 +8,7 @@ namespace m
 		: public GameObject
 	{
 	public:
-		SkillOverlay(int index);
+		SkillOverlay(int index = -1);
 		virtual ~SkillOverlay();
 
 		virtual void Update() override;

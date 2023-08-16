@@ -2,10 +2,18 @@
 
 namespace m
 {
+	enum class eCrashType
+	{
+		Overlay,
+		Collide,
+		END,
+	};
 	enum class eSkillCrashType
 	{
 		IceCrash1,
 		FireCrash1,
+		RedLightningCrash,
+
 		END
 	};
 	enum class eSkillCastType
@@ -14,11 +22,18 @@ namespace m
 		IceCast2,
 		IceCast3,
 		FireCast1,
+
 		END
 	};
 	std::wstring crashNames[(int)eSkillCrashType::END] = {
 		L"iceCrash1",
 		L"fireCrash1",
+		L"redLightningCrash",
+	};
+	eCrashType crashFunction[(int)eSkillCrashType::END] = {
+		eCrashType::Collide,
+		eCrashType::Collide,
+		eCrashType::Overlay,
 	};
 	std::wstring castNames[(int)eSkillCastType::END] = {
 		L"iceCast1",
@@ -29,10 +44,12 @@ namespace m
 	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 		m::math::Vector2(113.f, 72.f),
 		m::math::Vector2(78.f, 70.f),
+		m::math::Vector2(71.f, 88.f),
 	};
 	int crashLength[(int)eSkillCrashType::END] = {
 		6,
-		12
+		12,
+		20,
 	};
 
 	m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
@@ -48,7 +65,7 @@ namespace m
 		16,
 	};
 
-	enum class eSkillDirection
+	enum class eSixTeenDirection
 	{
 		LeftDown1,
 		LeftUp1,
@@ -69,7 +86,7 @@ namespace m
 		End
 	};
 
-	std::wstring skillDirectionString[(UINT)eSkillDirection::End] = {
+	std::wstring skillDirectionString[(UINT)eSixTeenDirection::End] = {
 		L"left_down_1",
 		L"left_up_1",
 		L"right_up_1",
@@ -236,6 +253,9 @@ namespace m
 		eSkillCrashType::END,// hydra
 
 		eSkillCrashType::END,// normalAttack
+
+		//Monster
+		eSkillCrashType::RedLightningCrash,
 	};
 	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
 		eSkillCastType::IceCast1,// iceBolt

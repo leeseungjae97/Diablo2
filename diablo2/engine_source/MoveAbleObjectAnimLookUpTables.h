@@ -54,7 +54,7 @@ namespace m
 		RightDown3,
 		End
 	};
-	enum class eMonsterDirection
+	enum class eEightDirection
 	{
 		Down,
 		LeftDown,
@@ -124,6 +124,11 @@ namespace m
 		8,
 		1,
 	};
+	enum class eMonsterType
+	{
+		Diablo,
+		End,
+	};
 	struct MonsterData
 	{
 		MonsterData(){}
@@ -145,6 +150,7 @@ namespace m
 		float hpCapacity = hp;
 		eSkillType mSpecialCastSkillType = eSkillType::END;
 		int mSpecialCastSkillCount = 0;
+		eMonsterType mMonsterType = eMonsterType::End;
 	};
 	struct MDDiablo : public MonsterData
 	{
@@ -156,7 +162,8 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 		eSkillType mSpecialCastSkillType = eSkillType::DiabloLightning;
-		int mSpecialCastSkillCount = 6;
+		int mSpecialCastSkillCount = 40;
+		eMonsterType mMonsterType = eMonsterType::Diablo;
 
 		enum class eAnimationType
 		{
@@ -310,10 +317,5 @@ namespace m
 			0, // Special4
 			0, // Dead
 		};
-	};
-	enum class eMonsterType
-	{
-		Diablo,
-		End,
 	};
 }

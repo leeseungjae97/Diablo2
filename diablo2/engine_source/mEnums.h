@@ -27,6 +27,8 @@ namespace m::enums
 		Monster,
 		Light,
 		Skill,
+		PlayerSkill,
+		MonsterSkill,
 		UI,
 		Item,
 		End = 16,

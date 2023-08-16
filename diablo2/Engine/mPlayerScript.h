@@ -32,6 +32,11 @@ namespace m
         //virtual void OnCollisionEnter(Collider2D* other) override;
         //virtual void OnCollisionStay(Collider2D* other) override;
         //virtual void OnCollisionExit(Collider2D* other) override;
+
+        SkillOverlay* GetHSO() { return mHSO; }
+        SkillOverlay* GetRSO() { return mRSO; }
+        SkillOverlay* GetLSO() { return mLSO; }
+
     private:
         Animator* mAnimator;
         eCharacterDirection mDirection;
@@ -39,6 +44,7 @@ namespace m
 
         SkillOverlay* mRSO;
         SkillOverlay* mLSO;
+        SkillOverlay* mHSO;
 
         int activeSkillIndex;
         bool bFire;

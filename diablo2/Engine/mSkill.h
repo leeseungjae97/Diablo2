@@ -35,8 +35,8 @@ namespace m
         void SetSkillFire(bool fire) { bSkillFire = fire; }
         void SetSkillCrash(bool crash) { bSkillCrash = crash; }
 
-        void SetSkillOwner(eLayerType ownerType);
-        eLayerType GetSkillOwner() { return skillOwnerType; }
+        void SetSkillOwnerLayer(eLayerType ownerType);
+        eLayerType GetSkillOwnerLayer() { return skillOwnerType; }
 
 
         void SkillFire() { bSkillFire = true; }

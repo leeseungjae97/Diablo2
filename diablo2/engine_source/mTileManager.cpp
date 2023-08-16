@@ -233,6 +233,9 @@ namespace m
 			}
 			for (Monster* monster : MonsterManager::monsters)
 			{
+				if (nullptr == monster) continue;
+				if (monster->GetState() == GameObject::eState::Delete) continue;
+
 				MAKE_VEC2_F_VEC3(mPosV2, GET_POS(monster));
 				if (Vector2::PointIntersectRhombus(pos, tileScale, mPosV2))
 				{

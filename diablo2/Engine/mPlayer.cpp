@@ -15,6 +15,8 @@ namespace m
 		, mHp(nullptr)
 		, mMp(nullptr)
 	{
+		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
+		hitAreaCollider->AddExceptType(eLayerType::PlayerSkill);
 		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
 	}
 	Player::~Player()
@@ -29,6 +31,7 @@ namespace m
 	{
 		Vector3 curPosition = GET_POS(this);
 
+		if (nullptr == TileManager::hoverTile) return;
 		Vector2 curCoord = TileManager::GetPlayerPositionCoord();
 		Vector2 mouseCoord = TileManager::GetHoverTileCoord();
 

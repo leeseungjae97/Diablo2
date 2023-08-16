@@ -9,14 +9,18 @@ namespace m
 {
 	SkillStraight::SkillStraight(eSkillType type, Vector3 iniPos, float speed)
 		:Skill(type, iniPos, false, true)
-		, mbStopMove(false)
-		, limitDistance(300.f)
+		, limitDistance(1000.f)
 	{
 		SetSpeed(speed);
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
 		SET_SCALE_XYZ(this, skillSizes[(int)type].x, skillSizes[(int)type].y, 1.f);
 		ADD_COMP(this, Animator);
+
+		if(type >= eSkillType::DiabloLightning) 
+			ss = AddComponent<StraightScript>(8);
+		else 
+			ss = AddComponent<StraightScript>();
 	}
 	SkillStraight::~SkillStraight()
 	{
@@ -28,24 +32,23 @@ namespace m
 	void SkillStraight::Update()
 	{
 		Skill::Update();
-		if (mbStopMove)
-		{
-			fSpeed = 0.f;
-		}
+		//if (mbStopMove)
+		//{
+		//	fSpeed = 0.f;
+		//}
 		Vector3 curPosition = GET_POS(this);
-		Vector3 destVector = Vector3::One;
-		if (GetSkillOwner() == eLayerType::Player)
+		if(bSkillFire)
 		{
-			destVector = Input::GetUnprojectionMousePos(destPosition.z
-														, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
-		}
-		else
-		{
-			destVector = GET_POS(TileManager::playerStandTile);
-		}
-		if(!bSkillFire)
-		{
-			bSkillFire = true;
+			//ss->
+			bSkillFire = false;
+			bMove = true;
+			Vector3 destVector = Vector3::One;
+			if (GetSkillOwnerLayer() == eLayerType::Player)
+			{
+				destVector = Input::GetUnprojectionMousePos(destPosition.z
+															, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+			}
+			else destVector = GET_POS(TileManager::playerStandTile);
 			prevPosition = GET_POS(this);
 			destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
 
@@ -60,15 +63,18 @@ namespace m
 			vDirection = destPosition - prevPosition;
 			vDirection.Normalize();
 		}
+		if (bMove)
+		{
+			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 
-		float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
-		float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
+			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
+		}
 		
-		SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
-
 		Vector2 diff = (Vector2(prevPosition.x, prevPosition.y) - Vector2(curPosition.x, curPosition.y));
 		if (limitDistance <= diff.Length())
 		{
+			bMove = false;
 			SetState(eState::Delete);
 		}
 	}

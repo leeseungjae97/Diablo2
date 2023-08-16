@@ -23,12 +23,15 @@ namespace m
 
 	GameObject::~GameObject()
 	{
-		for (Component* comp : GetComponents<Collider2D>())
+		for (Collider2D* col : GetComponents<Collider2D>())
 		{
-			if (nullptr == comp) continue;
-			std::erase(mComponents, comp);
-			delete comp;
-			comp = nullptr;
+			if (nullptr == col) continue;
+			std::erase(mComponents, col);
+			if (GetState() == eState::Delete)
+				col->Release();
+
+			delete col;
+			col = nullptr;
 		}
 		for (Component* comp : mComponents)
 		{

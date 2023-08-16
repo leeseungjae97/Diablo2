@@ -55,8 +55,12 @@ namespace m
 		//paintShader->OnExcute();
 		Scene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Player, true);
+
+		CollisionManager::SetLayer(eLayerType::PlayerSkill, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::MonsterSkill, eLayerType::Player, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 
 		SHARED_TEX tex;

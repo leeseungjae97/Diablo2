@@ -38,13 +38,14 @@ namespace m
 	void PlayerScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
-
 		Scene* curScene = SceneManager::GetActiveScene();
 		mRSO = new SkillOverlay(1);
 		mLSO = new SkillOverlay(0);
+		mHSO = new SkillOverlay();
 
 		mRSO->SetActiveOwner(GetOwner());
 		mLSO->SetActiveOwner(GetOwner());
+		mHSO->SetActiveOwner(GetOwner());
 		//SET_POS_VEC(mRSO, GET_POS(GetOwner()));
 		//SET_POS_VEC(mLSO, GET_POS(GetOwner()));
 
@@ -53,6 +54,7 @@ namespace m
 
 		curScene->AddGameObject(eLayerType::Skill, mRSO);
 		curScene->AddGameObject(eLayerType::Skill, mLSO);
+		curScene->AddGameObject(eLayerType::Skill, mHSO);
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");
@@ -136,9 +138,7 @@ namespace m
 				if (bFire)
 				{
 					Skill* skill = nullptr;
-					MAKE_SKILL(activeSkillIndex, skill, GET_POS(PlayerInfo::player));
-					skill->SetCamera(GetOwner()->GetCamera());
-					SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, skill);
+					MAKE_SKILL(activeSkillIndex, skill, GET_POS(PlayerInfo::player), eLayerType::PlayerSkill);
 					bFire = false;
 				}
 			};
@@ -280,6 +280,7 @@ namespace m
 	{
 		PlayerInfo::player->SetHit(hit);
 		GetOwner()->SetBattleState(state);
+		//mRSO->ActiveOverlay();
 	}
 	void PlayerScript::AttackProgress()
 	{

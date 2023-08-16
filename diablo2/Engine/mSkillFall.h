@@ -21,7 +21,6 @@ namespace m
         std::vector<SkillFall*> fallGroup;
         FallScript* mFs;
         float fInitYValue;
-        bool bMove;
     };
 }
 

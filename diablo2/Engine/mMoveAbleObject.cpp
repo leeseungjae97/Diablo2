@@ -23,7 +23,9 @@ namespace m
 		, fSpeed(speed)
 		, fStartDistance(0.f)
 		, fRemainDistance(0.f)
+		, vDirection(Vector2::Zero)
 		, bGetHit(false)
+		, bMove(false)
 	{
 		SET_POS_VEC(this, iniPos);
 

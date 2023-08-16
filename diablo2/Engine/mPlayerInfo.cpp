@@ -73,7 +73,7 @@ namespace m
 
 	eSkillType PlayerInfo::GetSkill(int num)
 	{
-		if (num > 2) return eSkillType::END;
+		if (num > 2 || num < 0) return eSkillType::END;
 
 		return skillTypes[num];
 	}

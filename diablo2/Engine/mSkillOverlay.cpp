@@ -15,14 +15,24 @@ namespace m
 		ADD_COMP(this, Animator);
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
-		eSkillCastType castType = skillCastTypes[(UINT)PlayerInfo::GetSkill(mCurIndex)];
+		if (mCurIndex == -1)
+		{
+			//crashNames[0];
+			mOESS = AddComponent<OverlayEffectSkillScript>(mCurIndex);
+		}
+		else
+		{
+		
+			eSkillCastType castType = skillCastTypes[(UINT)PlayerInfo::GetSkill(mCurIndex)];
 
-		if (castType == eSkillCastType::END) return;
+			if (castType == eSkillCastType::END) return;
 
-		SET_SCALE_XYZ(this
-					  , castSizes[(UINT)castType].x
-					  , castSizes[(UINT)castType].y, 1.f);
-		mOESS = AddComponent<OverlayEffectSkillScript>(mCurIndex);
+			SET_SCALE_XYZ(this
+						  , castSizes[(UINT)castType].x
+						  , castSizes[(UINT)castType].y, 1.f);
+			mOESS = AddComponent<OverlayEffectSkillScript>(mCurIndex);
+		}
+		
 	}
 	SkillOverlay::~SkillOverlay()
 	{

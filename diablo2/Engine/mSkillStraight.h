@@ -1,5 +1,6 @@
 #pragma once
 #include "mSkill.h"
+#include "mStraightScript.h"
 namespace m
 {
     class SkillStraight :
@@ -16,9 +17,9 @@ namespace m
 
         virtual void Hit(int damage) override;
 
-        void StopMove() { mbStopMove = true; }
+        void StopMove() { bMove = false; }
     private:
-        bool mbStopMove;
+        StraightScript* ss;
         float limitDistance;
     };
 }

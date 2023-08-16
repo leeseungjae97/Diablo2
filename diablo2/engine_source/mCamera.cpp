@@ -201,6 +201,8 @@ namespace m
 
 		if (gameObj->GetLayerType() == eLayerType::Skill
 			|| gameObj->GetLayerType() == eLayerType::Monster
+			|| gameObj->GetLayerType() == eLayerType::MonsterSkill
+			|| gameObj->GetLayerType() == eLayerType::PlayerSkill
 			|| gameObj->GetLayerType() == eLayerType::Background)
 		{
 			gameObj->SetCulled(false);

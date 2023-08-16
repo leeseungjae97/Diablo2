@@ -26,25 +26,6 @@ namespace m
 	}
 	Collider2D::~Collider2D()
 	{
-		if (!collidereds.empty())
-		{
-			for (Collider2D* col : collidereds)
-			{
-				if (nullptr == col) continue;
-				if (col->GetCollidereds().empty()) continue;
-				auto iter = col->GetCollidereds().begin();
-				while (iter != col->GetCollidereds().end())
-				{
-					if ((*iter) == this)
-					{
-						iter = col->GetCollidereds().erase(iter);
-						break;
-					}
-					else iter++;
-				}
-			}
-			collidereds.clear();
-		}
 	}
 	void Collider2D::Initialize()
 	{
@@ -117,7 +98,30 @@ namespace m
 
 	void Collider2D::Render()
 	{}
+	void Collider2D::Release()
+	{
+		if (!collidereds.empty())
+		{
+			for (Collider2D* col : collidereds)
+			{
+				if (nullptr == col) continue;
+				if (col->GetCollidereds().empty()) continue;
 
+				//std::erase(col->GetCollidereds(), this);
+				auto iter = col->GetCollidereds().begin();
+				while (iter != col->GetCollidereds().end())
+				{
+					if ((*iter) == this)
+					{
+						iter = col->GetCollidereds().erase(iter);
+						break;
+					}
+					else iter++;
+				}
+			}
+			collidereds.clear();
+		}
+	}
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end()) 

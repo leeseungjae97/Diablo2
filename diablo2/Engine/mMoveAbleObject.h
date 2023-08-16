@@ -72,6 +72,8 @@ namespace m
 
 		bool bGetHit;
 
+		bool bMove;
+
 		Astar* mAstar;
 
 		Vector2 mCoord;

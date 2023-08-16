@@ -102,19 +102,24 @@
 #define GET_VEC2_F_VEC3(vector2, vector3) vector2 = Vector2(vector3.x, vector3.y);
 #define GET_VEC2_F_VEC3_D(vector3) Vector2(vector3.x, vector3.y)
 
-#define MAKE_SKILL(skillIndex, skill, vector3Pos) switch (skillFunctionTypes[(int)PlayerInfo::GetSkill(skillIndex)])\
+#define MAKE_SKILL(skillIndex, skill, vector3Pos, fireLayerType) switch (skillFunctionTypes[(int)PlayerInfo::GetSkill(skillIndex)])\
 								{\
 								case m::eSkillFunctionType::Straight:\
 								{\
 									skill = new SkillStraight(PlayerInfo::GetSkill(skillIndex), vector3Pos, skillSpeed[(int)PlayerInfo::GetSkill(skillIndex)]);\
-									skill->SetSkillOwner(GetOwner()->GetLayerType());\
-									ADD_COMP(skill, StraightScript);\
+									skill->SetSkillOwnerLayer(GetOwner()->GetLayerType());\
+									skill->SetCamera(GetOwner()->GetCamera());\
+									skill->SkillFire();\
+									SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);\
 								}\
 									break;\
 								case m::eSkillFunctionType::Fall:\
 								{\
 									skill = new SkillFall(PlayerInfo::GetSkill(skillIndex), vector3Pos);\
-									\
+									skill->SetSkillOwnerLayer(GetOwner()->GetLayerType());\
+									skill->SetCamera(GetOwner()->GetCamera());\
+									skill->SkillFire();\
+									SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);\
 								}\
 									break;\
 								case m::eSkillFunctionType::MutiFall:\
@@ -127,7 +132,10 @@
 									unprojMousePos.y += 300.f;\
 									unprojMousePos.z = GET_POS(GetOwner()).z;\
 									skill = new SkillMultiFire(PlayerInfo::GetSkill(skillIndex), unprojMousePos, 20, SkillMultiFire::eFireType::Random,Vector2(200.f, 50.f));\
-									skill->SetSkillOwner(GetOwner()->GetLayerType());\
+									skill->SetSkillOwnerLayer(GetOwner()->GetLayerType());\
+									skill->SetCamera(GetOwner()->GetCamera());\
+									skill->SkillFire();\
+									SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);\
 								}\
 									break;\
 								case m::eSkillFunctionType::None:\
@@ -137,6 +145,10 @@
 								default:\
 								{\
 									skill = new Skill(PlayerInfo::GetSkill(skillIndex), vector3Pos);\
+									skill->SetSkillOwnerLayer(GetOwner()->GetLayerType());\
+									skill->SetCamera(GetOwner()->GetCamera());\
+									skill->SkillFire();\
+									SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);\
 								}\
 									break;\
 								}\

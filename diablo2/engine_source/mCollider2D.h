@@ -15,6 +15,7 @@ namespace m
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
+		void Release();
 
 		void SetType(eColliderType type) { mType = type; }
 		void SetSize(Vector3 size) { mSize = size; }

@@ -7,7 +7,7 @@ namespace m
         public SkillScript
     {
     public:
-        OverlayEffectSkillScript(int index);
+        OverlayEffectSkillScript(int index = -1);
         virtual ~OverlayEffectSkillScript();
 
         virtual void Initialize() override;
@@ -18,14 +18,18 @@ namespace m
         virtual void OnCollisionEnter(Collider2D* other) override;
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
-
+        virtual void SetSkillType(eSkillType type) override;
         void UpdateOverlaySkill();
 
         void PlayOverlaySkill() { bPlaySkill = true; }
+        bool GetPlayOverLaySkill() { return bPlaySkill; }
+
+        bool IsPlayHit() { return bHit; }
     private:
         Animator* mAnimator;
         int skillIndex;
         bool bPlaySkill;
+        bool bHit;
     };
 }
 

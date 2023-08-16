@@ -9,11 +9,11 @@ namespace m
 {
 	SkillFall::SkillFall(eSkillType type, Vector3 iniPos, eAccessorySkillType _acType)
 		: Skill(type, iniPos)
-		, bMove(false)
 	{
 		//fSpeed = 100.f;
 		ADD_COMP(this, Animator);
 		Collider2D* col = ADD_COMP(this, Collider2D);
+		col->AddExceptType(GetSkillOwnerLayer());
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");

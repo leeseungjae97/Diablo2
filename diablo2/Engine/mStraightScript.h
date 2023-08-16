@@ -7,7 +7,7 @@ namespace m
         public SkillScript
     {
     public:
-        StraightScript();
+        StraightScript(int _directionCount = 16);
         virtual ~StraightScript();
 
         virtual void Initialize() override;
@@ -19,6 +19,9 @@ namespace m
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
     private:
+        int mDirectionCount;
+        eSkillCrashType mSkillCrashType;
+        eCrashType mCrashType;
     };
 }
 

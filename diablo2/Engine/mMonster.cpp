@@ -11,9 +11,9 @@ namespace m
 {
 	Monster::Monster(Vector3 iniPos, float speed)
 		: MoveAbleObject(iniPos, speed)
-		, hp(0.f)
-		, hpCapacity(0.f)
-		, hpPercent(0.f)
+		, hp(100.f)
+		, hpCapacity(100.f)
+		, hpPercent(100.f)
 	{
 		monsterId = MonsterManager::DispendMonsterId();
 		MonsterManager::AddMonster(this);
@@ -27,6 +27,9 @@ namespace m
 		rangeCollider->SetSize(Vector3(1.0f, 1.0f, 1.5f));
 
 		hitAreaCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
+
+		tilePositionCollider->AddExceptType(eLayerType::MonsterSkill);
+		hitAreaCollider->AddExceptType(eLayerType::MonsterSkill);
 	}
 	Monster::~Monster()
 	{}
@@ -38,6 +41,13 @@ namespace m
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
+		if (hp == 0)
+		{
+			std::erase(MonsterManager::monsters, this);
+			SetState(eState::Delete);
+			return;
+		}
+
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();
@@ -65,7 +75,7 @@ namespace m
 
 		if (GetBattleState() == eBattleState::Dead
 			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Hit
+			//|| GetBattleState() == eBattleState::Hit
 			|| GetBattleState() == eBattleState::Cast
 			)
 		{

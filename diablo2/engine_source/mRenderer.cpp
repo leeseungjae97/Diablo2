@@ -449,6 +449,9 @@ namespace renderer
 		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
 #pragma region Monster SKill
+		MAKE_MATERIAL_PATH(spriteShader, L"red_lightning_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\red_lightning_crash"
+						   , 71, 88, 20, L"redLightningCrash");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
 						   , 252, 190, 15, L"diabloLightning");
 #pragma endregion
