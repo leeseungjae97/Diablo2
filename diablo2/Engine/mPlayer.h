@@ -1,7 +1,7 @@
 #pragma once
-#include "..\engine_source\mGameObject.h"
-#include "..\engine_source\mCamera.h"
-#include "..\engine_source\mTileManager.h"
+#include "../engine_source/mGameObject.h"
+#include "../engine_source/mCamera.h"
+#include "../engine_source/mTileManager.h"
 
 #include "mPlayerInfo.h"
 #include "mMoveAbleObject.h"

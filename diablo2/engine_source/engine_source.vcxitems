@@ -25,7 +25,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInput.cpp" />
@@ -38,7 +37,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mMonsterManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
@@ -51,6 +50,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileComputeShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
@@ -71,7 +72,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mEnums.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mGraphicDevice_DX11.h" />
@@ -86,7 +86,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
@@ -99,6 +99,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileComputeShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />

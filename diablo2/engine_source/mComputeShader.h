@@ -1,6 +1,8 @@
 #pragma once
 #include "mResource.h"
 #include "mGraphics.h"
+#include "mStructedBuffer.h"
+
 namespace m::graphics
 {
     class ComputeShader :

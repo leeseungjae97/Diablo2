@@ -1,5 +1,5 @@
 #pragma once
-#include "..\engine_source\mScript.h"
+#include "../engine_source/mScript.h"
 namespace m
 {
     class CameraScript :

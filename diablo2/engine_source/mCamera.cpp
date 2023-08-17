@@ -30,10 +30,6 @@ namespace m
 		, mNear(1.0f)
 		, mFar(1000.f)
 		, mSize(1.0f)
-		, mLayerMask{}
-		, mOpaqueGameObjects{}
-		, mCutOutGameObjects{}
-		, mTransparentGameObjects{}
 		, mView(Matrix::Identity)
 		, mProjection(Matrix::Identity)
 	{
@@ -145,9 +141,9 @@ namespace m
 		{
 			if (mLayerMask[i] == true)
 			{
-				Layer& layer = scene->GetLayer((eLayerType)i);	
-				const std::vector<GameObject*> gameObjs
-					= layer.GetGameObjects();
+				Layer* layer = scene->GetLayer((eLayerType)i);	
+				const std::vector<GameObject*>& gameObjs
+					= layer->GetGameObjects();
 				// layer에 있는 게임오브젝트를 들고온다.
 				DivideAlphaBlendGameObjects(gameObjs);
 			}
@@ -166,7 +162,6 @@ namespace m
 
 	void Camera::DivideAlphaBlendGameObjects(const std::vector<GameObject*>& gameObjs)
 	{
-
 		for (GameObject* obj : gameObjs)
 		{
 			if (obj->GetCamera() != this) continue;
@@ -175,6 +170,7 @@ namespace m
 				= obj->GetComponent<MeshRenderer>();
 			if (mr == nullptr)
 				continue;
+			if (!ClipingArea(obj)) continue;
 
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();
@@ -211,11 +207,11 @@ namespace m
 
 		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(mPos), Vector2(mWidth, mHeight), GET_VEC2_F_VEC3_D(GET_POS(gameObj))))
 		{
-			if (gameObj->GetLayerType() == eLayerType::Tile)
-			{
-				TileManager::notCulledTiles.push_back(dynamic_cast<Tile*>(gameObj));
-				return true;
-			}
+			//if (gameObj->GetLayerType() == eLayerType::Tile)
+			//{
+			//	TileManager::notCulledTiles.push_back(dynamic_cast<Tile*>(gameObj));
+			//	return true;
+			//}
 			gameObj->SetCulled(false);
 			return true;
 		}
@@ -229,7 +225,6 @@ namespace m
 	{
 		for (GameObject* gameObj : mOpaqueGameObjects)
 		{
-			ClipingArea(gameObj);
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
@@ -242,7 +237,6 @@ namespace m
 	{
 		for (GameObject* gameObj : mCutOutGameObjects)
 		{
-			ClipingArea(gameObj);
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
@@ -255,7 +249,6 @@ namespace m
 	{
 		for (GameObject* gameObj : mTransparentGameObjects)
 		{
-			ClipingArea(gameObj);
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;

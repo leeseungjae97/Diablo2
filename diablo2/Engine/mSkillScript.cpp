@@ -1,10 +1,5 @@
 #include "mSkillScript.h"
 
-#include "../engine_source/mAnimator.h"
-#include "../engine_source/mGameObject.h"
-
-#include "mSkill.h"
-
 namespace m
 {
 	SkillScript::SkillScript()

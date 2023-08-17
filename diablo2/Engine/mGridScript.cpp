@@ -1,11 +1,11 @@
 #include "mGridScript.h"
 
-#include "..\engine_source\mTransform.h"
-#include "..\engine_source\mGameObject.h"
-#include "..\engine_source\mApplication.h"
-#include "..\engine_source\mConstantBuffer.h"
-#include "..\engine_source\mRenderer.h"
-#include "..\engine_source\mTexture.h"
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mGameObject.h"
+#include "../engine_source/mApplication.h"
+#include "../engine_source/mConstantBuffer.h"
+#include "../engine_source/mRenderer.h"
+#include "../engine_source/mTexture.h"
 
 extern m::Application application;
 

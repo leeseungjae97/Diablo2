@@ -3,7 +3,8 @@
 namespace m
 {
 	Layer::Layer()
-	{}
+	{
+	}
 	Layer::~Layer()
 	{
 		for (GameObject* gameObj : mGameObjects)
@@ -47,17 +48,17 @@ namespace m
 	}
 	void Layer::Render()
 	{
-		for (GameObject* gameObj : mGameObjects)
-		{
-			if (gameObj->GetCulled()) continue;
-			if (gameObj->GetState() == GameObject::eState::NoRenderNoUpdate
-				|| gameObj->GetState() == GameObject::eState::NoRenderUpdate
-				|| gameObj->GetState() == GameObject::eState::Delete)
-				continue;
+		//for (GameObject* gameObj : mGameObjects)
+		//{
+		//	if (gameObj->GetCulled()) continue;
+		//	if (gameObj->GetState() == GameObject::eState::NoRenderNoUpdate
+		//		|| gameObj->GetState() == GameObject::eState::NoRenderUpdate
+		//		|| gameObj->GetState() == GameObject::eState::Delete)
+		//		continue;
 
-			gameObj->Render();
+		//	gameObj->Render();
 
-		}
+		//}
 	}
 	void Layer::Destroy()
 	{
@@ -73,7 +74,7 @@ namespace m
 		// daed 오브젝트 제외시키기 layer에서
 		typedef std::vector<GameObject*>::iterator GameObjectIter;
 		for (GameObjectIter iter = mGameObjects.begin()
-			; iter != mGameObjects.end(); )
+			 ; iter != mGameObjects.end(); )
 		{
 			std::set<GameObject*>::iterator deleteIter
 				= deleteGameObj.find(*(iter));

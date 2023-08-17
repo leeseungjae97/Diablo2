@@ -20,7 +20,7 @@ namespace m
 		virtual void OnEnter();
 
 		void AddGameObject(eLayerType type, GameObject* gameObj);
-		Layer& GetGameObjects(eLayerType type);
+		Layer* GetGameObjects(eLayerType type);
 		template <typename T>
 		std::vector<T*>& FindObjectsOfType()
 		{
@@ -37,12 +37,12 @@ namespace m
 			}
 			return findObjs;
 		}
-		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
+		Layer* GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 		void SetSceneMainCamera(Camera* camera) { sceneMainCamera = camera; }
 		Camera* GetSceneMainCamera() { return sceneMainCamera; }
 	private:
 		Camera* sceneMainCamera;
-		std::vector<Layer> mLayers;
+		std::vector<Layer*> mLayers;
 	};
 }
 

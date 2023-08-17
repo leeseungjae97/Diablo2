@@ -30,7 +30,7 @@ namespace m
 		tileXLen = _x;
 		tileYLen = _y;
 
-		Scene* curScene = SceneManager::GetActiveScene();
+		//Scene* curScene = SceneManager::GetActiveScene();
 		for (int y = 0; y < _y; ++y)
 		{
 			for (int x = 0; x < _x; ++x)
@@ -43,12 +43,12 @@ namespace m
 				Tile* tile = new Tile();
 				tile->SetCoord(Vector2(x, y));
 				
-				curScene->AddGameObject(eLayerType::Tile, tile);
-				tile->SetCamera(camera);
+				//curScene->AddGameObject(eLayerType::Tile, tile);
+				//tile->SetCamera(camera);
 				//if(x == 0 || x == _x - 1 || y == 0 || y == _y - 1)
 				//	tile->SetCulled(false);
 				//else
-				tile->SetCulled(true);
+				//tile->SetCulled(true);
 
 				SET_MESH(tile, L"RectMesh");
 				if (   (y == 55 && x == 70)
@@ -198,10 +198,14 @@ namespace m
 		
 		Vector2 tileScale = Vector2(TileManager::tileXSize, TileManager::tileYSize);
 
-		Vector3 mousePos = MouseManager::UnprojectionMousePos(1.f, curScene->GetSceneMainCamera());
+		Camera* mainCam = curScene->GetSceneMainCamera();
+		Vector3 mousePos = MouseManager::UnprojectionMousePos(1.f, mainCam);
 
 		Vector3 ppos = Vector3::One;
 		Vector3 pscale = Vector3::One;
+
+		TilesCulling();
+
 		if (nullptr != PlayerInfo::player)
 		{
 			ppos = GET_POS(PlayerInfo::player);
@@ -244,6 +248,29 @@ namespace m
 			}
 		}
 		notCulledTiles.clear();
+	}
+
+	void TileManager::TilesCulling()
+	{
+		//Scene* curScene = SceneManager::GetActiveScene();
+		//Camera* mainCam = curScene->GetSceneMainCamera();
+		//float width = mainCam->GetWidth();
+		//float height = mainCam->GetHeight();
+		////mainCam->GetOwner()->Get
+		//for(int y = 0 ; y < tiles.size(); ++y)
+		//{
+		//	for(int x = 0 ; x < tiles[0].size(); ++x)
+		//	{
+		//		Tile* tile = tiles[y][x];
+
+		//		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(mainCam->GetOwner())), Vector2(width, height), GET_VEC2_F_VEC3_D(GET_POS(tile))))
+		//		{
+		//			notCulledTiles.push_back(tile);
+		//			//tile->SetCulled(false);
+		//		}
+
+		//	}
+		//}
 	}
 
 	Vector2 TileManager::GetHoverTileCoord()

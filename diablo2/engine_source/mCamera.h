@@ -52,6 +52,9 @@ namespace m
 
 		float GetSize() { return mSize; }
 
+		float GetWidth() { return mWidth; }
+		float GetHeight() { return mHeight; }
+
 	private:
 		static Matrix View;
 		static Matrix Projection;

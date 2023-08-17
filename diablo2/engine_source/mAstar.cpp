@@ -92,15 +92,15 @@ namespace m
 					targetCurTile = targetCurTile->GetParentTile();
 				}
 				pathVector.push_back(startTile);
-				std::reverse(pathVector.begin(), pathVector.end());
+				std::ranges::reverse(pathVector);
 
 			}
 			if (allowDiagonal)
 			{
 				for (int i = 0; i < 4; ++i)
 				{
-					dy = curTile->GetCoord().y + direct1[i][0];
-					dx = curTile->GetCoord().x + direct1[i][1];
+					dy = static_cast<int>(curTile->GetCoord().y + direct1[i][0]);
+					dx = static_cast<int>(curTile->GetCoord().x + direct1[i][1]);
 					if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength) continue;
 					OpenVectorAdd(dy, dx);
 				}

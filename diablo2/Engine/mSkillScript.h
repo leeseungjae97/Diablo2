@@ -1,10 +1,8 @@
 #pragma once
 #include "../engine_source/mScript.h"
-#include "../engine_source/mAnimator.h"
 #include "../engine_source/mAnimation.h"
-#include "../engine_source/mMaterial.h"
-#include "../engine_source/mResources.h"
 #include "../engine_source/SkillLookUpTables.h"
+#include "../engine_source/SkillAnimLookUpTables.h"
 namespace m
 {
     class SkillScript :
@@ -25,7 +23,7 @@ namespace m
         //virtual void OnCollisionExit(Collider2D* other) override;
     protected:
         Animator* mAnimator;
-        eSixTeenDirection mDirection;
+        ePathSkillSixTeenDirection mDirection;
         eSkillType mType;
     };
 }

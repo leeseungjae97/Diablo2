@@ -1,6 +1,5 @@
 #include "mMouseManager.h"
 #include "mSceneManager.h"
-#include "mTransform.h"
 #include "mInput.h"
 #include "mScene.h"
 #include "mLayer.h"
@@ -40,8 +39,8 @@ namespace m
 	void MouseManager::Update()
 	{
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayer(eLayerType::UI);
-		auto gameObjs = layer.GetGameObjects();
+		Layer* layer = scene->GetLayer(eLayerType::UI);
+		auto gameObjs = layer->GetGameObjects();
 
 		for (auto gameObj : gameObjs)
 		{

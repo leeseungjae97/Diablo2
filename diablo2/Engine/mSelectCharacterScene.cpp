@@ -1,15 +1,14 @@
 #include "mSelectCharacterScene.h"
 
-#include "..\engine_source\mSceneManager.h"
-#include "..\engine_source\mCamera.h"
-#include "..\engine_source\mTransform.h"
-#include "..\engine_source\mGameObject.h"
-#include "..\engine_source\mMeshRenderer.h"
-#include "..\engine_source\mResources.h"
+#include "../engine_source/mSceneManager.h"
+#include "../engine_source/mCamera.h"
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mGameObject.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mResources.h"
 
 #include "mBackground.h"
 #include "mButton.h"
-#include "mCameraScript.h"
 
 namespace m
 {

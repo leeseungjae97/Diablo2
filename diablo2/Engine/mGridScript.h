@@ -1,6 +1,6 @@
 #pragma once
-#include "..\engine_source\mScript.h"
-#include "..\engine_source\mCamera.h"
+#include "../engine_source/mScript.h"
+#include "../engine_source/mCamera.h"
 namespace m
 {
 	class GridScript :

@@ -1,6 +1,5 @@
 #pragma once
 #include "_Engine.h"
-#include <math.h>
 
 
 //https://github.com/microsoft/DirectXMath

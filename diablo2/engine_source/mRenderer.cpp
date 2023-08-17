@@ -5,7 +5,8 @@
 #include "ItemLookUpTables.h"
 #include "mStructedBuffer.h"
 #include "mPaintShader.h"
-#include "mParticleShader.h"
+#include "mParticleComputeShader.h"
+#include "mTileComputeShader.h"
 
 namespace renderer
 {
@@ -356,8 +357,14 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::UVControl] = new ConstantBuffer(eCBType::UVControl);
 		constantBuffers[(UINT)eCBType::UVControl]->Create(sizeof(UVControlCB));
 
+		constantBuffers[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
+		constantBuffers[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
+
 		constantBuffers[(UINT)eCBType::Particle] = new ConstantBuffer(eCBType::Particle);
-		constantBuffers[(UINT)eCBType::Particle]->Create(sizeof(ParticleCB));
+		constantBuffers[(UINT)eCBType::Particle]->Create(sizeof(ParticleSystemCB));
+
+		constantBuffers[(UINT)eCBType::Tile] = new ConstantBuffer(eCBType::Tile);
+		constantBuffers[(UINT)eCBType::Tile]->Create(sizeof(ParticleSystemCB));
 
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
@@ -410,9 +417,13 @@ namespace renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		m::Resources::Insert(L"PaintShader", paintShader);
 
-		std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
+		std::shared_ptr<ParticleComputeShader> psSystemShader = std::make_shared<ParticleComputeShader>();
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
-		m::Resources::Insert(L"ParticleSystemShader", psSystemShader);
+		m::Resources::Insert(L"ParticleComputeShader", psSystemShader);
+
+		std::shared_ptr<TileComputeShader> tileSystemShader = std::make_shared<TileComputeShader>();
+		psSystemShader->Create(L"TileCS.hlsl", "main");
+		m::Resources::Insert(L"TileComputeShader", tileSystemShader);
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
@@ -423,6 +434,16 @@ namespace renderer
 		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
 		m::Resources::Insert(L"ParticleShader", paritcleShader);
+
+		std::shared_ptr<Shader> tileShader = std::make_shared<Shader>();
+		tileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
+		tileShader->Create(eShaderStage::GS, L"TileGS.hlsl", "main");
+		tileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
+		tileShader->SetRSState(eRSType::SolidBack);
+		tileShader->SetDSState(eDSType::LessEqua);
+		tileShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+		m::Resources::Insert(L"ParticleShader", tileShader);
 	}
 
 	void LoadTexture()
@@ -433,6 +454,10 @@ namespace renderer
 
 		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
 		Resources::Load<Texture>(L"cartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+
+		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.jpg");
 	}
 
 	void LoadMaterial()
@@ -1096,9 +1121,32 @@ namespace renderer
 		lightsBuffer->BindSRV(eShaderStage::VS, 13);
 		lightsBuffer->BindSRV(eShaderStage::PS, 13);
 	}
+	void BindNoiseTexture()
+	{
+		std::shared_ptr<Texture> texture
+			= Resources::Find<Texture>(L"Noise03");
 
+		texture->BindShaderResource(eShaderStage::VS, 15);
+		texture->BindShaderResource(eShaderStage::HS, 15);
+		texture->BindShaderResource(eShaderStage::DS, 15);
+		texture->BindShaderResource(eShaderStage::GS, 15);
+		texture->BindShaderResource(eShaderStage::PS, 15);
+		texture->BindShaderResource(eShaderStage::CS, 15);
+
+		ConstantBuffer* cb = constantBuffers[(UINT)eCBType::Noise];
+		NoiseCB data = {};
+		data.size.x = texture->GetWidth();
+		data.size.y = texture->GetHeight();
+
+		cb->SetData(&data);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
+	}
 	void Render()
 	{
+		BindNoiseTexture();
 		BindLights();
 
 		for (Camera* cam : cameras)

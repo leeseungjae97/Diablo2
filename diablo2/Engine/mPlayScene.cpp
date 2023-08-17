@@ -14,12 +14,7 @@
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mComputeShader.h"
 #include "../engine_source/mTileManager.h"
-#include "../engine_source/mAstar.h"
-#include "../engine_source/mParticleSystem.h"
-#include "../engine_source/mPaintShader.h"
 
-#include "mCameraScript.h"
-#include "mBackground.h"
 #include "mPlayer.h"
 #include "mMonster.h"
 #include "mTile.h"
@@ -35,6 +30,7 @@
 #include "mUVUI.h"
 #include "mPlayerInfo.h"
 #include "mSkillShortCutButton.h"
+#include "mParticleSystem.h"
 #include "mOverlayEffectSkillScript.h"
 #include "mFallScript.h"
 
@@ -53,7 +49,7 @@ namespace m
 		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexture");
 		//paintShader->SetTarget(paintTexture);
 		//paintShader->OnExcute();
-		Scene::Initialize();
+		//Scene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
@@ -69,36 +65,30 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
-		ADD_COMP(camera, CameraScript);
+		//ADD_COMP(camera, CameraScript);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
-		GetSceneMainCamera()->TurnLayerMask(eLayerType::UI, false);
-		camera->AddComponent<CameraScript>();
-		renderer::cameras.push_back(GetSceneMainCamera());
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//camera->AddComponent<CameraScript>();
+		//renderer::cameras.push_back(GetSceneMainCamera());
 
-		//float xCount = tex->GetMetaDataWidth() / TileManager::tileXSize;
-		//float yCount = tex->GetMetaDataHeight() / TileManager::tileYSize;
+		//TileManager::MakeTile(100, 100, cameraComp);
+		//Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
 
-		//TileManager::iniX = tex->GetMetaDataWidth() / 2.f;
-		//TileManager::iniY = -(tex->GetMetaDataHeight() / 2.f);
+		//GameObject* map = new GameObject();
+		//SET_MAIN_CAMERA(map);
+		//ADD_COMP(map, MeshRenderer);
+		//AddGameObject(eLayerType::Background, map);
+		//SET_MESH(map, L"RectMesh");
+		//SET_MATERIAL(map, L"chaosSanctuary1");
+		//GET_TEX(map, tex);
+		//SET_SCALE_TEX_SIZE(map, tex, 1.f);
+		//Tile* centerTile = TileManager::tiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
+		//Vector3 centerPos = GET_POS(centerTile);
 
-		TileManager::MakeTile(100, 100, cameraComp);
-		Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
+		//SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
 
-		GameObject* map = new GameObject();
-		SET_MAIN_CAMERA(map);
-		ADD_COMP(map, MeshRenderer);
-		AddGameObject(eLayerType::Background, map);
-		SET_MESH(map, L"RectMesh");
-		SET_MATERIAL(map, L"chaosSanctuary1");
-		GET_TEX(map, tex);
-		SET_SCALE_TEX_SIZE(map, tex, 1.f);
-		Tile* centerTile = TileManager::tiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
-		Vector3 centerPos = GET_POS(centerTile);
-
-		SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
-
-		PlayerInfo::Initialize();
+		//PlayerInfo::Initialize();
 
 		//GameObject* qwe = new GameObject();
 		//SET_MAIN_CAMERA(qwe);
@@ -111,17 +101,6 @@ namespace m
 		//FallScript * fs = qwe->AddComponent<FallScript>(eAccessorySkillType::Blizzard1);
 		//fs->SkillFire();
 
-		//GameObject* ll = new GameObject();
-		//SET_MAIN_CAMERA(ll);
-		//ll->SetName(L"test111");
-		//AddGameObject(eLayerType::Skill, ll);
-		//ADD_COMP(ll, MeshRenderer);
-		//SET_MESH(ll, L"RectMesh");
-		//SET_MATERIAL(ll, L"fireCast1");
-		//SET_POS_XYZ(ll, 0.f, 500.f, 1.f);
-		//MAKE_GET_TEX(ll, tex2);
-		//SET_SCALE_TEX_SIZE_WITH_RAT(ll, tex2, 1.f);
-
 		//GameObject* particle = new GameObject();
 		//SET_MAIN_CAMERA(particle);
 		//particle->SetName(L"Particle");
@@ -130,60 +109,26 @@ namespace m
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
-		//GetLayer(eLayerType::Tile).ChangeOrderGameObject(particle);
+		//Tile* monTile1 = TileManager::tiles[1][1];
 
-		//srand((unsigned int)time(NULL));
-		//int randPos = rand() % TileManager::tiles.size();
+		//Monster* monster = new Monster(GET_POS(monTile1), MDDiablo().fSpeed);
+		////Monster* monster = new Monster(Vector3(0.f, 0.f, 0.f), MDDiablo().fSpeed);
+		//SET_MAIN_CAMERA(monster);
+		//AddGameObject(eLayerType::Monster, monster);
+		//SET_MESH(monster, L"RectMesh");
+		//SET_MATERIAL(monster, L"AnimationMaterial");
+		//ADD_COMP(monster, Animator);
 
-		//GetSceneMainCamera()->DisableLayerMasks();
-		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Tile, true);
-		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Monster, true);
-		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Player, true);
-		//GetSceneMainCamera()->TurnLayerMask(eLayerType::Skill, true);
+		//SET_MAIN_CAMERA(PlayerInfo::player);
+		//AddGameObject(eLayerType::Player, PlayerInfo::player);
 
-		Tile* monTile1 = TileManager::tiles[54][79];
-
-		Monster* monster = new Monster(GET_POS(monTile1), MDDiablo().fSpeed);
-		SET_MAIN_CAMERA(monster);
-		AddGameObject(eLayerType::Monster, monster);
-		SET_MESH(monster, L"RectMesh");
-		SET_MATERIAL(monster, L"AnimationMaterial");
-		ADD_COMP(monster, Animator);
-
-		SET_MAIN_CAMERA(PlayerInfo::player);
-		AddGameObject(eLayerType::Player, PlayerInfo::player);
-
-		MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-		ms->SetMonster(monster);
+		//MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+		//ms->SetMonster(monster);
 		
-		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
-		ps->SetMonster(monster);
+		//PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
+		//ps->SetMonster(monster);
 
-		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
-
-		//GameObject* child = new GameObject();
-		//child->SetCamera(cameraComp);
-		//AddGameObject(eLayerType::Player, child);
-		//child->AddComponent<MeshRenderer>();
-		//child->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
-		//SET_POS_XYZ(child, 0.f, 0.f, 1.f);
-		//SET_SCALE_XYZ(child, 20.f, 20.f, 1.f);
-
-		// 
-		//GameObject* child = new GameObject();
-		//child->SetCamera(cameraComp);
-		//AddGameObject(eLayerType::Player, child);
-		//child->AddComponent<MeshRenderer>();
-		//child->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//child->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"testAmazon"));
-
-		//child->GetComponent<Transform>()->SetScale(Vector3(31.f, 80.f, 0.f));
-		//child->GetComponent<Transform>()->SetPosition(Vector3(1.f, 0.f, -1.f));
-		//child->GetComponent<Transform>()->SetParent(player->GetComponent<Transform>());
-
-		//float radian = math::DegreeToRadian(90.f);
-		//player->GetComponent<Transform>()->SetRotation(0.f, 0.f, radian);
+		//GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 
 		GameObject* light = new GameObject();
 		light->SetName(L"Smile");
@@ -196,23 +141,15 @@ namespace m
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);
 		Camera* cameraComp2 = ADD_COMP(uiCamera, Camera);
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
+		AddGameObject(eLayerType::Camera, uiCamera);
 
-		AddGameObject(eLayerType::UI, uiCamera);
+		//inventory = new Inventory(cameraComp2);
+		//inventory->SetState(GameObject::NoRenderUpdate);
 
-		inventory = new Inventory(cameraComp2);
-		inventory->SetState(GameObject::NoRenderUpdate);
+		//skillUp = new SkillUp(cameraComp2);
+		//skillUp->SetState(GameObject::NoRenderUpdate);
 
-		skillUp = new SkillUp(cameraComp2);
-		skillUp->SetState(GameObject::NoRenderUpdate);
-
-		uiBottomBar = new BottomUI(cameraComp2);
-
-		//AddGameObject(eLayerType::UI, uiBottomBar);
-		//SET_MESH(uiBottomBar, L"RectMesh");
-		//SET_MATERIAL(uiBottomBar, L"bottomUi");
-		//GET_TEX(uiBottomBar, tex);
-		//SET_SCALE_TEX_SIZE_WITH_RAT(uiBottomBar, tex, 0.f);
-		//SET_POS_XYZ(uiBottomBar, 0.f, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f, -1.f);
+		//uiBottomBar = new BottomUI(cameraComp2);
 
 		UI* uiMp = new UI();
 		AddGameObject(eLayerType::UI, uiMp);
@@ -238,6 +175,7 @@ namespace m
 
 		UI* mpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, mpOverlapHands);
+		mpOverlapHands->SetCamera(cameraComp2);
 		SET_MESH(mpOverlapHands, L"RectMesh");
 		SET_MATERIAL(mpOverlapHands, L"mpOverlapHands");
 		GET_TEX(mpOverlapHands, tex);
@@ -266,7 +204,7 @@ namespace m
 		SET_POS_XYZ(hp, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		PlayerInfo::player->SetHpUI(hp);
+		//PlayerInfo::player->SetHpUI(hp);
 
 		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);
@@ -303,7 +241,7 @@ namespace m
 	void PlayScene::Update()
 	{
 		Scene::Update();
-
+		TileManager::TilesUpdate();
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(L"MainMenuScene");

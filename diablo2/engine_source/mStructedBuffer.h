@@ -1,6 +1,6 @@
 #pragma once
 #include "mGraphics.h"
-#include "mEntity.h"
+
 namespace m::graphics
 {
     class StructedBuffer :

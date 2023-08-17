@@ -1,4 +1,6 @@
 #pragma once
+#include "mCamera.h"
+
 namespace m
 {
 	class MouseManager

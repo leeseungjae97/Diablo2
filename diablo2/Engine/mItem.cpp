@@ -1,7 +1,5 @@
 #include "mItem.h"
 
-#include "..\engine_source\mTransform.h"
-
 namespace m
 {
 	Item::Item(eItemType type)

@@ -24,7 +24,7 @@ namespace m
 	void PlayerInfo::Initialize()
 	{
 		skillPoint = 100;
-		Tile* centerTile = TileManager::tiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
+		Tile* centerTile = TileManager::tiles[TileManager::tileYLen/ 2][TileManager::tileXLen / 2];
 		player = new Player(GET_POS(centerTile));
 		//SET_MAIN_CAMERA(player);
 		//AddGameObject(eLayerType::Player, player);
@@ -35,7 +35,7 @@ namespace m
 		//player->AddComponent<OverlayEffectSkillScript>(1);
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::blizzard);
+		SetSkill(1, eSkillType::fireBolt);
 	}
 
 	void PlayerInfo::PocketToInventory(InvenItem* item)

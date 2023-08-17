@@ -1,7 +1,7 @@
 #pragma once
 #include "mMeshRenderer.h"
 #include "mStructedBuffer.h"
-#include "mParticleShader.h"
+#include "mParticleComputeShader.h"
 
 namespace m
 {
@@ -19,7 +19,7 @@ namespace m
 	private:
 		graphics::StructedBuffer* mBuffer;
 		graphics::StructedBuffer* mSharedBuffer;
-		std::shared_ptr<ParticleShader> mCS;
+		std::shared_ptr<ParticleComputeShader> mCS;
 
 		UINT    mCount;
 		Vector4 mStartSize;

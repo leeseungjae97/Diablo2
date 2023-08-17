@@ -1,15 +1,14 @@
 #pragma once
 #include "mComputeShader.h"
-#include "mStructedBuffer.h"
 
 namespace m::graphics
 {
-    class ParticleShader :
+    class ParticleComputeShader :
         public ComputeShader
     {
 	public:
-		ParticleShader();
-		~ParticleShader();
+		ParticleComputeShader();
+		virtual ~ParticleComputeShader();
 
 		virtual void Binds() override;
 		virtual void Clear() override;

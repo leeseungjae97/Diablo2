@@ -1,18 +1,17 @@
 #include "mMainMenuScene.h"
 
-#include "..\engine_source\mGameObject.h"
-#include "..\engine_source\mTransform.h"
-#include "..\engine_source\mMeshRenderer.h"
-#include "..\engine_source\mCamera.h"
-#include "..\engine_source\mSceneManager.h"
-#include "..\engine_source\mFontWrapper.h"
-#include "..\engine_source\mRenderer.h"
+#include "../engine_source/mGameObject.h"
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mCamera.h"
+#include "../engine_source/mSceneManager.h"
+//#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mRenderer.h"
 
 
 #include "mCameraScript.h"
 #include "mButton.h"
 #include "mBackground.h"
-#include "mGridScript.h"
 
 namespace m
 {

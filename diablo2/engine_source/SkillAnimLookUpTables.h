@@ -65,7 +65,7 @@ namespace m
 		16,
 	};
 
-	enum class eSixTeenDirection
+	enum class ePathSkillSixTeenDirection
 	{
 		LeftDown1,
 		LeftUp1,
@@ -85,8 +85,49 @@ namespace m
 		RightDown3,
 		End
 	};
-
-	std::wstring skillDirectionString[(UINT)eSixTeenDirection::End] = {
+	ePathSkillSixTeenDirection plusSkillSTDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
+		ePathSkillSixTeenDirection::RightUp1,
+		ePathSkillSixTeenDirection::RightUp2,
+		ePathSkillSixTeenDirection::RightUp3,
+		ePathSkillSixTeenDirection::Right,
+		ePathSkillSixTeenDirection::RightDown1,
+		ePathSkillSixTeenDirection::RightDown2,
+		ePathSkillSixTeenDirection::RightDown3,
+		ePathSkillSixTeenDirection::Down
+	};
+	ePathSkillSixTeenDirection minusSkillSTDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
+		ePathSkillSixTeenDirection::Up,
+		ePathSkillSixTeenDirection::LeftUp3,
+		ePathSkillSixTeenDirection::LeftUp2,
+		ePathSkillSixTeenDirection::LeftUp1,
+		ePathSkillSixTeenDirection::Left,
+		ePathSkillSixTeenDirection::LeftDown3,
+		ePathSkillSixTeenDirection::LeftDown2,
+		ePathSkillSixTeenDirection::LeftDown1,
+		ePathSkillSixTeenDirection::Down,
+	};
+	ePathSkillSixTeenDirection plusSkillEDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
+		ePathSkillSixTeenDirection::RightUp1,
+		ePathSkillSixTeenDirection::RightUp2,
+		ePathSkillSixTeenDirection::RightUp3,
+		ePathSkillSixTeenDirection::Right,
+		ePathSkillSixTeenDirection::RightDown1,
+		ePathSkillSixTeenDirection::RightDown2,
+		ePathSkillSixTeenDirection::RightDown3,
+		ePathSkillSixTeenDirection::Down
+	};
+	ePathSkillSixTeenDirection minusSkillEDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
+		ePathSkillSixTeenDirection::Up,
+		ePathSkillSixTeenDirection::LeftUp3,
+		ePathSkillSixTeenDirection::LeftUp2,
+		ePathSkillSixTeenDirection::LeftUp1,
+		ePathSkillSixTeenDirection::Left,
+		ePathSkillSixTeenDirection::LeftDown3,
+		ePathSkillSixTeenDirection::LeftDown2,
+		ePathSkillSixTeenDirection::LeftDown1,
+		ePathSkillSixTeenDirection::Down,
+	};
+	std::wstring skillDirectionString[(UINT)ePathSkillSixTeenDirection::End] = {
 		L"left_down_1",
 		L"left_up_1",
 		L"right_up_1",

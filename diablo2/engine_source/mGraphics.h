@@ -18,6 +18,8 @@
 #define CBSLOT_ANIMATOR			3
 #define CBSLOT_UV				4
 #define CBSLOT_PARTICLE			5
+#define CBSLOT_NOISE			6
+#define CBSLOT_TILE				7
 enum class eShaderStage
 {
 	VS,
@@ -44,6 +46,8 @@ enum class eCBType
 	Animator,
 	UVControl,
 	Particle,
+	Noise,
+	Tile,
 	END,
 };
 enum class eRSType
@@ -126,6 +130,11 @@ struct DebugMesh
 	float duration;
 	float time;
 };
+struct Tile
+{
+	m::math::Vector3 pos;
+	m::math::Vector2 size;
+};
 struct Vertex
 {
 	m::math::Vector3 pos;
@@ -137,6 +146,9 @@ struct Particle
 	m::math::Vector4 position;
 	m::math::Vector4 direction;
 
+	float alpha;
+	float alpha2;
+	float alpha3;
 	float endTime;
 	float time;
 	float speed;

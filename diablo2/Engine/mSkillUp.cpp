@@ -1,9 +1,9 @@
 #include "mSkillUp.h"
 
-#include "..\engine_source\mMeshRenderer.h"
-#include "..\engine_source\mTransform.h"
-#include "..\engine_source\mSceneManager.h"
-#include "..\engine_source\SkillLookUpTables.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mSceneManager.h"
+#include "../engine_source/SkillLookUpTables.h"
 
 #include "mButton.h"
 #include "mSkillButton.h"

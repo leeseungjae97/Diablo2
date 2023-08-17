@@ -16,7 +16,7 @@ namespace m
 
 		void AddGameObject(GameObject* gameObj);
 		void ChangeOrderGameObject(GameObject* gameObj);
-		const std::vector<GameObject*> GetGameObjects() { return mGameObjects; }
+		const std::vector<GameObject*>& GetGameObjects() { return mGameObjects; }
 
 	private:
 		std::vector<GameObject*> mGameObjects;

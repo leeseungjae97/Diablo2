@@ -1,6 +1,6 @@
 #pragma once
-#include "..\engine_source\mGameObject.h"
-#include "..\engine_source\mMaterial.h"
+#include "../engine_source/mGameObject.h"
+#include "../engine_source/mMaterial.h"
 
 namespace m
 {

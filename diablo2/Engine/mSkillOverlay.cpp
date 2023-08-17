@@ -4,7 +4,6 @@
 #include "../engine_source/mAnimator.h"
 
 #include "mPlayerInfo.h"
-#include "mPlayer.h"
 #include "mMonster.h"
 namespace m
 {

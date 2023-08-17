@@ -3,7 +3,6 @@
 #include "../engine_source/mConstantBuffer.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mAnimator.h"
-#include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mResources.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/mSceneManager.h"
@@ -17,7 +16,6 @@
 #include "mMonster.h"
 #include "mPlayerInfo.h"
 
-#include "mStraightScript.h"
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
 #include "mSkillMultiFire.h"
@@ -27,14 +25,20 @@ extern m::Application application;
 namespace m
 {
 	PlayerScript::PlayerScript()
-		: bDamage(false)
-		, bFire(false)
+		: mAnimator(nullptr)
+		, mDirection()
+		, mAnimationType()
+		, mRSO(nullptr)
+		, mLSO(nullptr)
+		, mHSO(nullptr)
 		, activeSkillIndex(0)
+		, bFire(false)
+		, bDamage(false)
 	{
 	}
-	PlayerScript::~PlayerScript()
-	{
-	}
+
+	PlayerScript::~PlayerScript(){}
+
 	void PlayerScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
@@ -125,11 +129,11 @@ namespace m
 				, 0.05f
 			);
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
-				= [this]() 
-			{ 
+				= [this]()
+			{
 				mAnimator->SetAnimationStartIndex(0);
 				mAnimator->SetAnimationProgressIndex(10);
-				GetOwner()->SetBattleState(GameObject::eBattleState::Cast); 
+				GetOwner()->SetBattleState(GameObject::eBattleState::Cast);
 				bFire = true;
 			};
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
@@ -143,15 +147,15 @@ namespace m
 				}
 			};
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::SpecialCast] + characterDirectionString[i])
-				= [this]() {GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
+				= [this]() { GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
-				= [this]() 
-			{ 
+				= [this]()
+			{
 				//mAnimator->SetAnimationProgressIndex(0);
 				mAnimator->SetAnimationProgressIndex(14);
 				mAnimator->SetAnimationStartIndex(0);
-				AnimationStart(GameObject::eBattleState::Attack); 
+				AnimationStart(GameObject::eBattleState::Attack);
 			};
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::Attack1] + characterDirectionString[i])
 				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
@@ -162,9 +166,9 @@ namespace m
 			};
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
-				= [this](){Hit(true, GameObject::eBattleState::Hit);};
+				= [this]() { Hit(true, GameObject::eBattleState::Hit); };
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)eSorceressAnimationType::GetHit] + characterDirectionString[i])
-				= [this](){Hit(false, GameObject::eBattleState::Idle);};
+				= [this]() { Hit(false, GameObject::eBattleState::Idle); };
 		}
 
 		mDirection = eCharacterDirection::Down;
@@ -179,25 +183,29 @@ namespace m
 		Vector3 direction = PlayerInfo::player->GetDirection();
 
 		float degree = RadianToDegree(atan2(direction.x, direction.y));
-		float fDivideDegree = 180.f / 9.f;
+		int n = degree / (180.f / 9.f);
 
-		if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eCharacterDirection::Up;
-		else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eCharacterDirection::LeftUp3;
-		else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eCharacterDirection::LeftUp2;
-		else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eCharacterDirection::LeftUp1;
-		else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eCharacterDirection::Left;
-		else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eCharacterDirection::LeftDown3;
-		else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eCharacterDirection::LeftDown2;
-		else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eCharacterDirection::LeftDown1;
-		else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eCharacterDirection::Down;
-		else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eCharacterDirection::Down;
-		else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eCharacterDirection::RightDown3;
-		else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eCharacterDirection::RightDown2;
-		else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eCharacterDirection::RightDown1;
-		else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eCharacterDirection::Right;
-		else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eCharacterDirection::RightUp3;
-		else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eCharacterDirection::RightUp2;
-		else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eCharacterDirection::RightUp1;
+		if (n > 0)
+			mDirection = plusCharacterDirections[n];
+		else
+			mDirection = minusCharacterDirections[abs(n)];
+		//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eCharacterDirection::Up;
+		//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eCharacterDirection::LeftUp3;
+		//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eCharacterDirection::LeftUp2;
+		//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eCharacterDirection::LeftUp1;
+		//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eCharacterDirection::Left;
+		//else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eCharacterDirection::LeftDown3;
+		//else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eCharacterDirection::LeftDown2;
+		//else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eCharacterDirection::LeftDown1;
+		//else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eCharacterDirection::Down;
+		//else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eCharacterDirection::Down;
+		//else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eCharacterDirection::RightDown3;
+		//else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eCharacterDirection::RightDown2;
+		//else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eCharacterDirection::RightDown1;
+		//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eCharacterDirection::Right;
+		//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eCharacterDirection::RightUp3;
+		//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eCharacterDirection::RightUp2;
+		//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eCharacterDirection::RightUp1;
 
 		if (Input::GetKeyUp(eKeyCode::C))
 		{
@@ -284,7 +292,7 @@ namespace m
 	}
 	void PlayerScript::AttackProgress()
 	{
-		
+
 		if (PlayerInfo::player->GetRangeCollider()->GetOnEnter()
 			|| PlayerInfo::player->GetRangeCollider()->GetOnStay())
 		{

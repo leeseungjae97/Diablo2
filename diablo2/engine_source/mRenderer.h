@@ -36,12 +36,35 @@ namespace renderer
 		float UVYCoord = 1.f;
 		UINT uvControlType = 0;
 	};
-	CBUFFER(ParticleCB, CBSLOT_PARTICLE)
+	CBUFFER(ParticleSystemCB, CBSLOT_PARTICLE)
 	{
 		UINT elementCount;
 		float elpasedTime;
-		int padd;
+		float deltaTime;
+		float alpha;
+		float alpha2;
+		float alpha3;
 		int padd2;
+	};
+	CBUFFER(TileCB, CBSLOT_TILE)
+	{
+		Vector4 tilePosition;
+		Vector2 tileSize;
+	};
+	//CBUFFER(ParticleCB, CBSLOT_PARTICLE)
+	//{
+	//	Vector4 position;
+	//	Vector4 direction;
+
+	//	float alpha;
+	//	float endTime;
+	//	float time;
+	//	float speed;
+	//	UINT active;
+	//};
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		Vector4 size;
 	};
 
 	extern m::graphics::ConstantBuffer* constantBuffers[(UINT)eCBType::END];

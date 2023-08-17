@@ -2,6 +2,7 @@
 #include "mTransform.h"
 #include "mGameObject.h"
 #include "mTime.h"
+#include "mRenderer.h"
 namespace m
 {
 	ParticleSystem::ParticleSystem()
@@ -19,38 +20,54 @@ namespace m
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"particleTex");
 		SetMaterial(material);
 
-		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
+		mCS = Resources::Find<ParticleComputeShader>(L"ParticleComputeShader");
+		
 
-		Particle particles[1000] = {};
-		for (size_t i = 0; i < 1000; i++)
+		std::default_random_engine generator(std::time(nullptr));
+		std::default_random_engine generator2(std::time(nullptr));
+		std::uniform_real_distribution<float> distribution(-XM_2PI, XM_2PI);
+		std::uniform_real_distribution<float> distribution2(-XM_2PI, XM_2PI);
+		Particle particles[10000] = {};
+		for (size_t i = 0; i < 10000; i++)
 		{
+
+
 			//Vector4 pos = Vector4(0.f, 0.f, 1.f, 0.f);	
 			Vector4 pos = Vector4::Zero;	
-			pos.x += rand() % 2000;
-			pos.y += rand() % 1000;
+			//pos.x += rand() % 2000;
+			//pos.y += rand() % 1000;
 
-			int sign = rand() % 2;
-			if (sign == 0)
-				pos.x *= -1.0f;
-			sign = rand() % 2;
-			if (sign == 0)
-				pos.y *= -1.0f;
+			//int sign = rand() % 2;
+			//if (sign == 0)
+			//	pos.x *= -1.0f;
+			//sign = rand() % 2;
+			//if (sign == 0)
+			//	pos.y *= -1.0f;
 
-			particles[i].direction =
-				Vector4(cosf((float)i * (XM_2PI / (float)1000))
-						, sinf((float)i * (XM_2PI / 100.f))
-						, 0.0f, 1.0f);
-
-			particles[i].position = pos;
-			particles[i].speed = 10.0f;
+			//particles[i].direction =
+				//Vector4(cosf((float)(rand() % 100000) * (XM_2PI / (float)1000))
+				//		, sinf((float)(rand() % 100000) * (XM_2PI / 100.f))
+				//		, 0.0f, 1.0f);
+			//Vector4(cosf(distribution(generator))
+			//		, sinf(distribution(generator2))
+			//		, 0.0f, 1.0f);
+				//Vector4(distribution(generator)
+				//		, distribution(generator2)
+				//		, 0.0f, 1.0f);
+			//particles[i].position = pos;
+			//particles[i].speed = 10.0f;
 			particles[i].active = 0;
+			particles[i].alpha = distribution(generator2);
+			particles[i].alpha2 = distribution(generator2);
+			particles[i].alpha3 = (float)(rand() % 1600);
+			
 		}
 
 		mBuffer = new graphics::StructedBuffer();
-		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particles);
+		mBuffer->Create(sizeof(Particle), 10000, eViewType::UAV, particles);
 
 		mSharedBuffer = new graphics::StructedBuffer();
-		mSharedBuffer->Create(sizeof(Particle), 1, eViewType::UAV, particles, true);
+		mSharedBuffer->Create(sizeof(ParticleShared), 1, eViewType::UAV, particles, true);
 		//mBuffer->SetData(particles, 1000);
 	}
 	ParticleSystem::~ParticleSystem()
@@ -67,7 +84,7 @@ namespace m
 	void ParticleSystem::LateUpdate()
 	{
 		MeshRenderer::LateUpdate();
-		float AliveTime = 1.0f / 1.0f;
+		float AliveTime = 0.05f;
 		mTime += Time::DeltaTime();
 
 		if (mTime > AliveTime)
@@ -77,7 +94,7 @@ namespace m
 			mTime = f - floor(f);
 
 			ParticleShared shareData = {};
-			shareData.sharedActiveCount = 2;
+			shareData.sharedActiveCount = rand() % 5;
 			mSharedBuffer->SetData(&shareData, 1);
 		}
 		else
@@ -98,9 +115,16 @@ namespace m
 		mBuffer->BindSRV(eShaderStage::VS, 14);
 		mBuffer->BindSRV(eShaderStage::GS, 14);
 		mBuffer->BindSRV(eShaderStage::PS, 14);
+		//ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Particle];
+		//Particle data = {};
+		//data.alpha = 1.f;
+		//cb->SetData(&data);
+
+		//cb->Bind(eShaderStage::VS);
+		//cb->Bind(eShaderStage::PS);
 
 		GetMaterial()->Binds();
-		GetMesh()->RenderInstanced(1000);
+		GetMesh()->RenderInstanced(10000);
 
 		mBuffer->Clear();
 	}

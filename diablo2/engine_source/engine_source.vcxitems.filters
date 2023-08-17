@@ -124,7 +124,13 @@
     <Filter Include="Manager\SkillManager">
       <UniqueIdentifier>{b69ae955-b702-4e86-ac22-f5506fddb418}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Resource\ParticleShader">
+    <Filter Include="GameObject\Component\TileSystem">
+      <UniqueIdentifier>{fb29f9e4-64e4-480f-b1f8-9b21c04764e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\TileComputeShader">
+      <UniqueIdentifier>{c22fa634-bb2a-4a1a-beb4-6f803ba4c12b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\ParticleComputeShader">
       <UniqueIdentifier>{7bc92a6a-05ce-4d9c-8ffb-963f3e921487}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -177,7 +183,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemDefine.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -271,11 +276,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h">
       <Filter>Manager\SkillManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleShader.h">
-      <Filter>Resources\Resource\ParticleShader</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mParticleComputeShader.h">
+      <Filter>Resources\Resource\ParticleComputeShader</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillAnimLookUpTables.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileComputeShader.h">
+      <Filter>Resources\Resource\TileComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileSystem.h">
+      <Filter>GameObject\Component\TileSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -315,7 +326,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -394,8 +404,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp">
       <Filter>Manager\SkillManager</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleShader.cpp">
-      <Filter>Resources\Resource\ParticleShader</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mParticleComputeShader.cpp">
+      <Filter>Resources\Resource\ParticleComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileComputeShader.cpp">
+      <Filter>Resources\Resource\TileComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileSystem.cpp">
+      <Filter>GameObject\Component\TileSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,10 @@
 #include "mInvenItem.h"
 
-#include "..\engine_source\mInput.h"
-#include "..\engine_source\mApplication.h"
-#include "..\engine_source\mTransform.h"
-#include "..\engine_source\mMeshRenderer.h"
-#include "..\engine_source\mCollider2D.h"
+#include "../engine_source/mInput.h"
+#include "../engine_source/mApplication.h"
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mCollider2D.h"
 
 #include "mInven.h"
 #include "mInventory.h"

@@ -1,20 +1,20 @@
-#include "mParticleShader.h"
+#include "mParticleComputeShader.h"
 #include "mRenderer.h"
 #include "mTime.h"
 
 namespace m::graphics
 {
-	ParticleShader::ParticleShader()
+	ParticleComputeShader::ParticleComputeShader()
 		: ComputeShader(128, 1, 1)
 		, mParticleBuffer(nullptr)
 	{
 	}
 
-	ParticleShader::~ParticleShader()
+	ParticleComputeShader::~ParticleComputeShader()
 	{
 	}
 
-	void ParticleShader::Binds()
+	void ParticleComputeShader::Binds()
 	{
 		mParticleBuffer->BindUAV(0);
 		mSharedBuffer->BindUAV(1);
@@ -24,24 +24,26 @@ namespace m::graphics
 		mGroupZ = 1;
 	}
 
-	void ParticleShader::Clear()
+	void ParticleComputeShader::Clear()
 	{
 		mParticleBuffer->Clear();
 		mSharedBuffer->Clear();
 	}
 
-	void ParticleShader::SetParticleBuffer(StructedBuffer* particleBuffer)
+	void ParticleComputeShader::SetParticleBuffer(StructedBuffer* particleBuffer)
 	{
 		mParticleBuffer = particleBuffer;
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Particle];
 
 		static float elapsedTime = 0.0f;
-		elapsedTime += Time::DeltaTime();
+		elapsedTime += Time::fDeltaTime();
 
-		renderer::ParticleCB data = {};
+		renderer::ParticleSystemCB data = {};
 		data.elementCount = mParticleBuffer->GetStride();
-		data.elpasedTime = Time::DeltaTime();
+		data.elpasedTime = elapsedTime;
+		data.deltaTime = Time::fDeltaTime();
+		data.alpha = 1.f;
 
 		cb->SetData(&data);
 		cb->Bind(eShaderStage::CS);

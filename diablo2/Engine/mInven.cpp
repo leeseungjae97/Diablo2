@@ -1,7 +1,7 @@
 #include "mInven.h"
 
-#include "..\engine_source\mMeshRenderer.h"
-#include "..\engine_source\mResources.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mResources.h"
 namespace m
 {
 	Inven::Inven()

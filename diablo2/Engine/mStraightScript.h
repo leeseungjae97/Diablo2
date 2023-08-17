@@ -20,6 +20,7 @@ namespace m
         virtual void OnCollisionExit(Collider2D* other) override;
     private:
         int mDirectionCount;
+        ePathSkillSixTeenDirection* mDirections;
         eSkillCrashType mSkillCrashType;
         eCrashType mCrashType;
     };

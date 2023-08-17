@@ -1,5 +1,6 @@
 #pragma once
 
+#include "_Engine.h"
 #include "../engine_source/SkillLookUpTables.h"
 
 namespace m

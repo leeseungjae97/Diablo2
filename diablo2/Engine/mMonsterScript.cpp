@@ -11,7 +11,6 @@
 #include "mPlayerInfo.h"
 
 #include "mSkillMultiFire.h"
-#include "mStraightScript.h"
 
 namespace m
 {
@@ -134,27 +133,34 @@ namespace m
 		moveVector.Normalize();
 
 		float degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
-		float fDivideDegree = 180.f / 5.f;
 
-		if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eEightDirection::Up;
-		else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eEightDirection::LeftUp;
+
+		int n = degree / (180.f / 5.f);
+
+		if (n > 0)
+			mDirection = plusEightDirection[n];
+		else
+			mDirection = minusEightDirection[abs(n)];
+
+				/*	if (degree > -fDivideDegree && degree < fDivideDegree) mDirection =   eEightDirection::Up;
+			else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eEightDirection::LeftUp;
 		else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eEightDirection::Left;
 		else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eEightDirection::LeftDown;
 		else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eEightDirection::Down;
 		else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eEightDirection::Down;
 		else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eEightDirection::RightDown;
 		else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eEightDirection::Right;
-		else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eEightDirection::RightUp;
+			else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eEightDirection::RightUp;*/
 
 		if (GetMonster()->GetBattleState() == GameObject::eBattleState::Idle
 			|| GetMonster()->GetBattleState() == GameObject::eBattleState::Run)
 		{
-			int randActionBranch = rand() % 100;
-			if (randActionBranch == 7)
+			if (rand() % 100 == 7)
 			{
-				if (GetMonster()->GetSightCollider()->GetOnEnter()
-					|| GetMonster()->GetSightCollider()->GetOnStay()
-					&& GetMonster()->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+				//if (GetMonster()->GetSightCollider()->GetOnEnter()
+				//	|| GetMonster()->GetSightCollider()->GetOnStay()
+				//	&& GetMonster()->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+				if (GetMonster()->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 				{
 					GetOwner()->SetBattleState(GameObject::Cast);
 					mAnimationType = T::eAnimationType::SpecialCast;
@@ -211,8 +217,8 @@ namespace m
 			}
 
 		}
-		if (GetMonster()->GetHit())
-		{
+		//if (GetMonster()->GetHit())
+		//{
 			//GetOwner()->SetBattleState(GameObject::Hit);
 			//mAnimationType = T::eAnimationType::Hit;
 			//SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
@@ -220,7 +226,7 @@ namespace m
 			//{
 			//	mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + monsterDirectionString[(UINT)mDirection], false);
 			//}
-		}
+		//}
 		if (
 			GetOwner()->GetBattleState() != GameObject::Idle
 			&&

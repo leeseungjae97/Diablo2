@@ -24,8 +24,8 @@ namespace m::graphics
 		// swapChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 		swapChainDesc.BufferCount = 2;
-		swapChainDesc.BufferDesc.Width = application.GetMetaDataWidth();
-		swapChainDesc.BufferDesc.Height = application.GetMetaDataHeight();
+		swapChainDesc.BufferDesc.Width = application.GetWidth();
+		swapChainDesc.BufferDesc.Height = application.GetHeight();
 
 		// 스왑체인에 대한 값 설정
 
@@ -35,7 +35,7 @@ namespace m::graphics
 		mRenderTarget = std::make_shared<Texture>();
 		mDepthStencil = std::make_shared<Texture>();
 
-		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget = nullptr;
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D)
 			, (void**)(renderTarget.GetAddressOf()))))
 			return;
@@ -47,16 +47,6 @@ namespace m::graphics
 		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget->GetTexture().Get()
 										, nullptr, renderTargetView.GetAddressOf());
 		mRenderTarget->SetRTV(renderTargetView);
-		mRenderTarget->GetRTV();
-
-		//DrawTextW(
-		//	L"Hello, Direct2D Text!",
-		//	20, // 텍스트 길이
-		//	yourTextFormat, // 텍스트 포맷 (IDWriteTextFormat)
-		//	D2D1::RectF(0, 0, 800, 600), // 텍스트 영역
-		//	pBrush // 브러시 (ID2D1Brush)
-		//);
-
 
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
@@ -64,8 +54,8 @@ namespace m::graphics
 		depthStencilDesc.CPUAccessFlags = 0;
 
 		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
-		depthStencilDesc.Width = application.GetMetaDataWidth();
-		depthStencilDesc.Height = application.GetMetaDataHeight();
+		depthStencilDesc.Width = application.GetWidth();
+		depthStencilDesc.Height = application.GetHeight();
 		depthStencilDesc.ArraySize = 1;
 
 		depthStencilDesc.SampleDesc.Count = 1;
@@ -101,45 +91,45 @@ namespace m::graphics
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTarget->GetRTV().GetAddressOf(), mDepthStencil->GetDSV().Get());
 
-		pBrush = nullptr;
-		pTextFormat_ = nullptr;
-		pDWriteFactory = nullptr;
-		pRenderTarget = nullptr;
-		pFactory = nullptr;
+		//pBrush = nullptr;
+		//pTextFormat_ = nullptr;
+		//pDWriteFactory = nullptr;
+		//pRenderTarget = nullptr;
+		//pFactory = nullptr;
 
-		D2D1_RENDER_TARGET_PROPERTIES mm1 = D2D1::RenderTargetProperties();
-		D2D1_HWND_RENDER_TARGET_PROPERTIES mm2 = D2D1::HwndRenderTargetProperties(hWnd, D2D1::SizeU(100, 100));
-		D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
-		pFactory->CreateHwndRenderTarget(
-			mm1,
-			mm2,
-			&pRenderTarget
-		);
+		//D2D1_RENDER_TARGET_PROPERTIES mm1 = D2D1::RenderTargetProperties();
+		//D2D1_HWND_RENDER_TARGET_PROPERTIES mm2 = D2D1::HwndRenderTargetProperties(hWnd, D2D1::SizeU(100, 100));
+		//D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+		//pFactory->CreateHwndRenderTarget(
+		//	mm1,
+		//	mm2,
+		//	&pRenderTarget
+		//);
 
-		DWriteCreateFactory(
-			DWRITE_FACTORY_TYPE_SHARED,
-			__uuidof(IDWriteFactory),
-			reinterpret_cast<IUnknown**>(&pDWriteFactory)
-		);
-		pDWriteFactory->CreateTextFormat(
-			L"Gabriola",
-			NULL,
-			DWRITE_FONT_WEIGHT_REGULAR,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
-			72.0f,
-			L"en-us",
-			&pTextFormat_
-		);
-		pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &pBrush);
+		//DWriteCreateFactory(
+		//	DWRITE_FACTORY_TYPE_SHARED,
+		//	__uuidof(IDWriteFactory),
+		//	reinterpret_cast<IUnknown**>(&pDWriteFactory)
+		//);
+		//pDWriteFactory->CreateTextFormat(
+		//	L"Gabriola",
+		//	NULL,
+		//	DWRITE_FONT_WEIGHT_REGULAR,
+		//	DWRITE_FONT_STYLE_NORMAL,
+		//	DWRITE_FONT_STRETCH_NORMAL,
+		//	72.0f,
+		//	L"en-us",
+		//	&pTextFormat_
+		//);
+		//pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &pBrush);
 	}
 	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
-		pBrush->Release();
-		pTextFormat_->Release();
-		pDWriteFactory->Release();
-		pRenderTarget->Release();
-		pFactory->Release();
+		//pBrush->Release();
+		//pTextFormat_->Release();
+		//pDWriteFactory->Release();
+		//pRenderTarget->Release();
+		//pFactory->Release();
 	}
 	bool GraphicDevice_DX11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
@@ -155,7 +145,7 @@ namespace m::graphics
 		dxgiDesc.BufferDesc.Width = desc->BufferDesc.Width;
 		dxgiDesc.BufferDesc.Height = desc->BufferDesc.Height;
 		dxgiDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
-		dxgiDesc.BufferDesc.RefreshRate.Numerator = 144;
+		dxgiDesc.BufferDesc.RefreshRate.Numerator = 240;
 		dxgiDesc.BufferDesc.RefreshRate.Denominator = 1;
 		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;							// 그래픽 
 		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// 이미지 생성 방향.
@@ -525,18 +515,18 @@ namespace m::graphics
 	}
 	void GraphicDevice_DX11::DrawStringText(std::wstring str)
 	{
-		HWND hWnd = application.GetHwnd();	
-		// 텍스트 출력
-		
-		pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
+		//HWND hWnd = application.GetHwnd();	
+		//// 텍스트 출력
+		//
+		//pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
-		pRenderTarget->DrawTextW(
-			str.c_str(),
-			str.size(), // 텍스트 길이
-			pTextFormat_, // 텍스트 포맷 (IDWriteTextFormat)
-			D2D1::RectF(0, 0, 800, 600), // 텍스트 영역
-			pBrush // 브러시 (ID2D1Brush)
-		);
+		//pRenderTarget->DrawTextW(
+		//	str.c_str(),
+		//	str.size(), // 텍스트 길이
+		//	pTextFormat_, // 텍스트 포맷 (IDWriteTextFormat)
+		//	D2D1::RectF(0, 0, 800, 600), // 텍스트 영역
+		//	pBrush // 브러시 (ID2D1Brush)
+		//);
 		//pRenderTarget->EndDraw();
 	}
 	void GraphicDevice_DX11::ClearTarget()
@@ -567,7 +557,7 @@ namespace m::graphics
 	}
 	void GraphicDevice_DX11::Present()
 	{
-		pRenderTarget->BeginDraw();
+		//pRenderTarget->BeginDraw();
 		mSwapChain->Present(0, 0);
 	}
 }

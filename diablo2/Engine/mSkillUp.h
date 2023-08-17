@@ -1,6 +1,5 @@
 #pragma once
-#include "..\engine_source\mUI.h"
-#include "..\engine_source\SkillLookUpTables.h"
+#include "../engine_source/mUI.h"
 
 namespace m
 {

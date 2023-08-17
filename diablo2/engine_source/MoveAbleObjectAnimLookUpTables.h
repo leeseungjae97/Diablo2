@@ -1,5 +1,7 @@
 #pragma once
 #include "mMath.h"
+#include "SkillLookUpTables.h"
+
 namespace m
 {
 	enum class eSorceressAnimationType
@@ -124,6 +126,73 @@ namespace m
 		8,
 		1,
 	};
+	//enum class eCharacterDirection
+	//{
+	//	Down,
+	//	LeftDown1,
+	//	LeftDown2,
+	//	LeftDown3,
+	//	Left,
+	//	LeftUp1,
+	//	LeftUp2,
+	//	LeftUp3,
+	//	Up,
+	//	RightUp1,
+	//	RightUp2,
+	//	RightUp3,
+	//	Right,
+	//	RightDown1,
+	//	RightDown2,
+	//	RightDown3,
+	//	End
+	//};
+	//enum class eEightDirection
+	//{
+	//	Down,
+	//	LeftDown,
+	//	Left,
+	//	LeftUp,
+	//	Up,
+	//	RightUp,
+	//	Right,
+	//	RightDown,
+	//	End
+	//};
+	eCharacterDirection plusCharacterDirections[((int)eCharacterDirection::End / 2) + 1] = {
+		eCharacterDirection::RightUp1,
+		eCharacterDirection::RightUp2,
+		eCharacterDirection::RightUp3,
+		eCharacterDirection::Right,
+		eCharacterDirection::RightDown1,
+		eCharacterDirection::RightDown2,
+		eCharacterDirection::RightDown3,
+		eCharacterDirection::Down
+	};
+	eCharacterDirection minusCharacterDirections[((int)eCharacterDirection::End / 2) + 1] = {
+		eCharacterDirection::Up,
+		eCharacterDirection::LeftUp3,
+		eCharacterDirection::LeftUp2,
+		eCharacterDirection::LeftUp1,
+		eCharacterDirection::Left,
+		eCharacterDirection::LeftDown3,
+		eCharacterDirection::LeftDown2,
+		eCharacterDirection::LeftDown1,
+		eCharacterDirection::Down,
+	};
+	eEightDirection plusEightDirection[((int)eEightDirection::End) + 1] = {
+		eEightDirection::RightUp,
+		eEightDirection::Right,
+		eEightDirection::RightDown,
+		eEightDirection::Down,
+	};
+	eEightDirection minusEightDirection[((int)eEightDirection::End) + 1] = {
+		eEightDirection::Up,
+		eEightDirection::LeftUp,
+		eEightDirection::Left,
+		eEightDirection::LeftDown,
+		eEightDirection::Down,
+	};
+
 	enum class eMonsterType
 	{
 		Diablo,
@@ -162,7 +231,7 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 		eSkillType mSpecialCastSkillType = eSkillType::DiabloLightning;
-		int mSpecialCastSkillCount = 40;
+		int mSpecialCastSkillCount = 20;
 		eMonsterType mMonsterType = eMonsterType::Diablo;
 
 		enum class eAnimationType
