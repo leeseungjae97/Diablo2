@@ -16,9 +16,17 @@ namespace m::graphics
 
         void SetTileBuffer(StructedBuffer* particleBuffer);
         void SetSharedBuffer(StructedBuffer* sharedBuffer) { mSharedBuffer = sharedBuffer; }
+
+
+        virtual void OnExcute(ComputeTileCoord** data, int size);
+
+        void SetCamera(Camera* camera) { mCamera = camera; }
+        Camera* GetCamera() { return mCamera; }
+
     private:
         StructedBuffer* mTileBuffer;
         StructedBuffer* mSharedBuffer;
+        Camera* mCamera;
     };
 }
 

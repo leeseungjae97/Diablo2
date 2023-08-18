@@ -46,10 +46,16 @@ namespace renderer
 		float alpha3;
 		int padd2;
 	};
-	CBUFFER(TileCB, CBSLOT_TILE)
+	CBUFFER(TileDataCB, CBSLOT_TILE)
 	{
-		Vector4 tilePosition;
-		Vector2 tileSize;
+		Vector4 mousePos;
+		Vector4 playerPos;
+		//Vector4 monsterPos;
+	};
+	CBUFFER(TileCoordCB, CBSLOT_TILE2)
+	{
+		Vector2 mouseHoverTileCoord;
+		Vector2 playerStandTileCoord;
 	};
 	//CBUFFER(ParticleCB, CBSLOT_PARTICLE)
 	//{

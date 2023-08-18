@@ -14,7 +14,7 @@ namespace m
 		static Vector2 GetPlayerPositionCoord();
 
 
-		static TILES tiles;
+		static TILES pathFindingTiles;
 		static std::vector<Tile*> notCulledTiles;
 		static Tile* hoverTile;
 		static Tile* playerStandTile;

@@ -115,9 +115,19 @@ namespace m::graphics
         GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
         if (size == 0)
-            GetDevice()->BindBuffer(mReadBuffer.Get(), data, mSize * mStride);
+            GetDevice()->ReadBuffer(mReadBuffer.Get(), data, mSize * mStride);
         else
-            GetDevice()->BindBuffer(mReadBuffer.Get(), data, size);
+            GetDevice()->ReadBuffer(mReadBuffer.Get(), data, size);
+    }
+    template <typename T>
+    void StructedBuffer::GetData(T** data, UINT size)
+    {
+        GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
+
+        if (size == 0)
+            GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, mSize * mStride);
+        else
+            GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
     }
 	void StructedBuffer::BindSRV(eShaderStage stage, UINT slot)
 	{

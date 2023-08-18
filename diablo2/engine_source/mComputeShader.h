@@ -15,7 +15,8 @@ namespace m::graphics
 
 		bool Create(const std::wstring& name, const std::string& methodName);
 		virtual HRESULT Load(const std::wstring& path) { return S_FALSE; };
-		void OnExcute();
+
+		virtual void OnExcute();
 
 		virtual void Binds();
 		virtual void Clear();

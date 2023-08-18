@@ -20,8 +20,8 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
 {
     GSOut Out[4] = { (GSOut) 0.0f, (GSOut) 0.0f, (GSOut) 0.0f, (GSOut) 0.0f };
     
-    if (particles[In[0].Instance].active == 0)
-        return;
+    //if (particles[In[0].Instance].active == 0)
+    //    return;
 
     //particles[In[0].Instance].position.z = 0.9f;
     float3 worldPos = (In[0].LocalPos.xyz)
@@ -32,10 +32,10 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
     
     float3 NewPos[4] =
     {
-        viewPos - float3(-0.5f,  0.5f,  0.f) * 5.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/,
-        viewPos - float3( 0.5f,  0.5f,  0.f) * 5.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/,
-        viewPos - float3( 0.5f, -0.5f,  0.f) * 5.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/,
-        viewPos - float3(-0.5f, -0.5f,  0.f) * 5.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/
+        viewPos - float3(-0.5f,  0.5f,  0.f) * 50.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/,
+        viewPos - float3( 0.5f,  0.5f,  0.f) * 50.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/,
+        viewPos - float3( 0.5f, -0.5f,  0.f) * 50.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/,
+        viewPos - float3(-0.5f, -0.5f,  0.f) * 50.f /** float3(0.2f, 0.2f, 0.f) * float3(150.f, 50.f, 0.f)*/
     };
     
     for (int i = 0; i < 4; ++i)

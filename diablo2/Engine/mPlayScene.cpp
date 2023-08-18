@@ -33,6 +33,8 @@
 #include "mParticleSystem.h"
 #include "mOverlayEffectSkillScript.h"
 #include "mFallScript.h"
+#include "mTileSystem.h"
+#include "mCameraScript.h"
 
 extern m::Application application;
 namespace m
@@ -65,14 +67,14 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
-		//ADD_COMP(camera, CameraScript);
+		ADD_COMP(camera, CameraScript);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//camera->AddComponent<CameraScript>();
 		//renderer::cameras.push_back(GetSceneMainCamera());
 
-		//TileManager::MakeTile(100, 100, cameraComp);
+		TileManager::MakeTile(100, 100, cameraComp);
 		//Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
 
 		//GameObject* map = new GameObject();

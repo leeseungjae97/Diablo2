@@ -7,6 +7,7 @@ namespace m::graphics
 	ParticleComputeShader::ParticleComputeShader()
 		: ComputeShader(128, 1, 1)
 		, mParticleBuffer(nullptr)
+		, mSharedBuffer(nullptr)
 	{
 	}
 
@@ -16,8 +17,10 @@ namespace m::graphics
 
 	void ParticleComputeShader::Binds()
 	{
-		mParticleBuffer->BindUAV(0);
-		mSharedBuffer->BindUAV(1);
+		if (mParticleBuffer)
+			mParticleBuffer->BindUAV(0);
+		if (mSharedBuffer)
+			mSharedBuffer->BindUAV(1);
 
 		mGroupX = mParticleBuffer->GetStride() / mThreadGroupCountX + 1;
 		mGroupY = 1;
@@ -26,8 +29,10 @@ namespace m::graphics
 
 	void ParticleComputeShader::Clear()
 	{
-		mParticleBuffer->Clear();
-		mSharedBuffer->Clear();
+		if(mParticleBuffer)
+			mParticleBuffer->Clear();
+		if(mSharedBuffer)
+			mSharedBuffer->Clear();
 	}
 
 	void ParticleComputeShader::SetParticleBuffer(StructedBuffer* particleBuffer)

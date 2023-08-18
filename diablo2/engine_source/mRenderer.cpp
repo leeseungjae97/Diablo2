@@ -96,6 +96,11 @@ namespace renderer
 													, shader->GetVSCode()
 													, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"TileShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+													, shader->GetVSCode()
+													, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -364,7 +369,7 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::Particle]->Create(sizeof(ParticleSystemCB));
 
 		constantBuffers[(UINT)eCBType::Tile] = new ConstantBuffer(eCBType::Tile);
-		constantBuffers[(UINT)eCBType::Tile]->Create(sizeof(ParticleSystemCB));
+		constantBuffers[(UINT)eCBType::Tile]->Create(sizeof(TileDataCB));
 
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
@@ -422,7 +427,7 @@ namespace renderer
 		m::Resources::Insert(L"ParticleComputeShader", psSystemShader);
 
 		std::shared_ptr<TileComputeShader> tileSystemShader = std::make_shared<TileComputeShader>();
-		psSystemShader->Create(L"TileCS.hlsl", "main");
+		tileSystemShader->Create(L"TileCS.hlsl", "main");
 		m::Resources::Insert(L"TileComputeShader", tileSystemShader);
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
@@ -439,11 +444,11 @@ namespace renderer
 		tileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
 		tileShader->Create(eShaderStage::GS, L"TileGS.hlsl", "main");
 		tileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
-		tileShader->SetRSState(eRSType::SolidBack);
-		tileShader->SetDSState(eDSType::LessEqua);
+		tileShader->SetRSState(eRSType::SolidNone);
+		tileShader->SetDSState(eDSType::None);
 		tileShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
-		m::Resources::Insert(L"ParticleShader", tileShader);
+		m::Resources::Insert(L"TileShader", tileShader);
 	}
 
 	void LoadTexture()
@@ -466,6 +471,7 @@ namespace renderer
 		std::shared_ptr<Shader> noLightSahder = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
 		std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
+		std::shared_ptr<Shader> tileShader = m::Resources::Find<Shader>(L"TileShader");
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 #pragma endregion
@@ -559,19 +565,19 @@ namespace renderer
 #pragma endregion
 #pragma region Tiles
 		//MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
-		MAKE_MATERIAL(noLightSahder, L"tile_", L"..\\Resources\\texture\\tile.png", L"tile");
-		MAKE_MATERIAL(noLightSahder, L"green_tile", L"..\\Resources\\texture\\green_tile.png", L"greenTile");
-		MAKE_MATERIAL(noLightSahder, L"green_outline_tile", L"..\\Resources\\texture\\green_outline_tile.png", L"greenOutlineTile");
-		MAKE_MATERIAL(noLightSahder, L"red_tile", L"..\\Resources\\texture\\red_tile.png", L"redTile");
+		MAKE_MATERIAL(tileShader, L"tile_", L"..\\Resources\\texture\\tile.png", L"tile");
+		MAKE_MATERIAL(tileShader, L"green_tile", L"..\\Resources\\texture\\green_tile.png", L"greenTile");
+		MAKE_MATERIAL(tileShader, L"green_outline_tile", L"..\\Resources\\texture\\green_outline_tile.png", L"greenOutlineTile");
+		MAKE_MATERIAL(tileShader, L"red_tile", L"..\\Resources\\texture\\red_tile.png", L"redTile");
 
-		MAKE_MATERIAL(noLightSahder, L"tile_d", L"..\\Resources\\texture\\tile_d.png", L"tileD");
-		MAKE_MATERIAL(noLightSahder, L"green_tile_d", L"..\\Resources\\texture\\green_tile_d.png", L"greenTileD");
-		MAKE_MATERIAL(noLightSahder, L"green_outline_tile_d", L"..\\Resources\\texture\\green_outline_tile_d.png", L"greenOutlineTileD");
-		MAKE_MATERIAL(noLightSahder, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
+		MAKE_MATERIAL(tileShader, L"tile_d", L"..\\Resources\\texture\\tile_d.png", L"tileD");
+		MAKE_MATERIAL(tileShader, L"green_tile_d", L"..\\Resources\\texture\\green_tile_d.png", L"greenTileD");
+		MAKE_MATERIAL(tileShader, L"green_outline_tile_d", L"..\\Resources\\texture\\green_outline_tile_d.png", L"greenOutlineTileD");
+		MAKE_MATERIAL(tileShader, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
 
-		MAKE_MATERIAL(noLightSahder, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
-		MAKE_MATERIAL(noLightSahder, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
-		MAKE_MATERIAL(noLightSahder, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
+		MAKE_MATERIAL(tileShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
+		MAKE_MATERIAL(tileShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
+		MAKE_MATERIAL(tileShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
 #pragma endregion
 #pragma region ETC
 		//MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
@@ -1095,6 +1101,14 @@ namespace renderer
 			material->SetShader(shader);
 			material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"ParticleMaterial", material);
+		}
+		{
+			std::shared_ptr<Shader> shader
+				= Resources::Find<Shader>(L"TileShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+			material->SetShader(shader);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"TileMaterial", material);
 		}
 	}
 

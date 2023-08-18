@@ -20,6 +20,7 @@
 #define CBSLOT_PARTICLE			5
 #define CBSLOT_NOISE			6
 #define CBSLOT_TILE				7
+#define CBSLOT_TILE2			8
 enum class eShaderStage
 {
 	VS,
@@ -130,10 +131,21 @@ struct DebugMesh
 	float duration;
 	float time;
 };
-struct Tile
+struct ComputeTile
 {
-	m::math::Vector3 pos;
-	m::math::Vector2 size;
+	m::math::Vector4 tilePosition;
+	m::math::Vector2 tileSize;
+	m::math::Vector2 tileCoord;
+};
+struct ComputeTileSharedData
+{
+	m::math::Vector4 mousePos;
+	m::math::Vector4 playerPos;
+};
+struct ComputeTileCoord
+{
+	m::math::Vector2 mouseHoverTileCoord;
+	m::math::Vector2 playerStandTileCoord;
 };
 struct Vertex
 {

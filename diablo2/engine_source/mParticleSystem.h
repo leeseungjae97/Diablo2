@@ -9,7 +9,7 @@ namespace m
 	{
 	public:
 		ParticleSystem();
-		~ParticleSystem();
+		virtual ~ParticleSystem();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

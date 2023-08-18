@@ -3,14 +3,16 @@
 #include "mMeshRenderer.h"
 #include "mMouseManager.h"
 #include "mMonsterManager.h"
+#include "mTileSystem.h"
 
 #include "../Engine/mPlayerInfo.h"
 #include "../Engine/mPlayer.h"
 #include "../Engine/mMonster.h"
 
+
 namespace m
 {
-	TILES TileManager::tiles;
+	TILES TileManager::pathFindingTiles;
 	std::vector<Tile*> TileManager::notCulledTiles;
 	Tile* TileManager::hoverTile = nullptr;
 	Tile* TileManager::playerStandTile = nullptr;
@@ -20,17 +22,19 @@ namespace m
 	//float TileManager::iniY = 0.f;
 	int TileManager::tileXLen = 0.f;
 	int TileManager::tileYLen = 0.f;
+	
 	void TileManager::MakeTile(int _x, int _y, Camera* camera)
 	{
-		for (std::vector<Tile*> tiles_ : tiles)
+		for (std::vector<Tile*> tiles_ : pathFindingTiles)
 			tiles_.clear();
-		tiles.clear();
+		pathFindingTiles.clear();
 
-		tiles.resize(_y, std::vector<Tile*>(_x));
+		pathFindingTiles.resize(_y, std::vector<Tile*>(_x));
 		tileXLen = _x;
 		tileYLen = _y;
 
-		//Scene* curScene = SceneManager::GetActiveScene();
+		Scene* curScene = SceneManager::GetActiveScene();
+
 		for (int y = 0; y < _y; ++y)
 		{
 			for (int x = 0; x < _x; ++x)
@@ -50,7 +54,7 @@ namespace m
 				//else
 				//tile->SetCulled(true);
 
-				SET_MESH(tile, L"RectMesh");
+				//SET_MESH(tile, L"RectMesh");
 				if (   (y == 55 && x == 70)
 					|| (y == 54 && x == 70)
 					|| (y == 53 && x == 70)
@@ -176,20 +180,27 @@ namespace m
 					)
 				{
 					tile->SetIsWall(true);
-					SET_MATERIAL(tile, L"redTile");
+					//SET_MATERIAL(tile, L"redTile");
 					tile->SetSaveMaterial(RESOURCE_FIND(Material, L"redTile"));
 				}
 				else
 				{
 					tile->SetIsWall(false);
-					SET_MATERIAL(tile, L"greenOutlineTile");
+					//SET_MATERIAL(tile, L"greenOutlineTile");
 					tile->SetSaveMaterial(RESOURCE_FIND(Material, L"greenOutlineTile"));
 				}
 				SET_SCALE_XYZ(tile, tileXSize, tileYSize, 1.f);
 				SET_POS_XYZ(tile, fX, fY, 1.f);
-				tiles[y][x] = tile;
+				pathFindingTiles[y][x] = tile;
 			}
 		}
+		GameObject* tiles = new GameObject();
+		tiles->SetCamera(camera);
+		tiles->SetName(L"pathFindingTiles");
+		curScene->AddGameObject(eLayerType::Tile, tiles);
+		SET_POS_XYZ(tiles, 0.f, 0.f, 1.f);
+		SET_SCALE_XYZ(tiles, TileManager::tileXSize, TileManager::tileYSize, 1.f);
+		ADD_COMP(tiles, TileSystem);
 	}
 
 	void TileManager::TilesUpdate()
@@ -257,11 +268,11 @@ namespace m
 		//float width = mainCam->GetWidth();
 		//float height = mainCam->GetHeight();
 		////mainCam->GetOwner()->Get
-		//for(int y = 0 ; y < tiles.size(); ++y)
+		//for(int y = 0 ; y < pathFindingTiles.size(); ++y)
 		//{
-		//	for(int x = 0 ; x < tiles[0].size(); ++x)
+		//	for(int x = 0 ; x < pathFindingTiles[0].size(); ++x)
 		//	{
-		//		Tile* tile = tiles[y][x];
+		//		Tile* tile = pathFindingTiles[y][x];
 
 		//		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(mainCam->GetOwner())), Vector2(width, height), GET_VEC2_F_VEC3_D(GET_POS(tile))))
 		//		{

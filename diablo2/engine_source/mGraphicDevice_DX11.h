@@ -45,6 +45,8 @@ namespace m::graphics
 		void BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindsConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindBuffer(ID3D11Buffer* buffer, void* data, UINT size);
+		void ReadBuffer(ID3D11Buffer* buffer, void* data, UINT size);
+		template <typename T> void ReadBuffer(ID3D11Buffer* buffer, T** data, UINT size);
 		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
 		void BindUnorderedAccess(UINT slot, ID3D11UnorderedAccessView** ppUnorderedAccessViews, const UINT* pUAVInitialCounts);
 		void BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers);
@@ -53,12 +55,14 @@ namespace m::graphics
 		void BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState);
 		void BindBlendState(ID3D11BlendState* pBlendState);
 		void CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource);
+		void Flush();
 
 		void DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
 		void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount
 								  , UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
 		void DrawStringText(std::wstring str);
 
+		
 		void ClearTarget();
 		void UpdateViewPort();
 		void Draw();

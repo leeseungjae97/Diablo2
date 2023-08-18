@@ -32,14 +32,34 @@ cbuffer ParticleSystem : register(b5)
     float alpha;
     int padd2;
 }
+cbuffer Noise : register(b6)
+{
+    float4 noiseTextureSize;
+}
+//cbuffer TileCoord : register(b6)
+//{
+//    float2 mouseHoverTileCoord;
+//    float2 playerStandTileCoord;
+//}
 //cbuffer Tile : register(b6)
 //{
 //    float4 tilePosition;
 //}
+struct TileCoord
+{
+    float2 mouseHoverTileCoord;
+    float2 playerStandTileCoord;
+};
 struct Tile
 {
     float4 tilePosition;
     float2 tileSize;
+    float2 tileCoord;
+};
+struct TileShared
+{
+    float4 mousePos;
+    float4 playerPos;
 };
 struct ParticleShared
 {
@@ -69,14 +89,10 @@ struct Particle
     float speed;
     uint active;
 };
-cbuffer Noise : register(b6)
-{
-    float4 noiseTextureSize;
-}
 
+StructuredBuffer<Tile> tiles : register(t11);
 StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
 StructuredBuffer<Particle> particles : register(t14);
-StructuredBuffer<Tile> tiles : register(t11);
 
 Texture2D albedoTexture : register(t0);
 Texture2D atlasTexture : register(t12);

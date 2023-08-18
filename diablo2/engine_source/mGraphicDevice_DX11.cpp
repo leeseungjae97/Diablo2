@@ -350,10 +350,16 @@ namespace m::graphics
 	{
 		mContext->CopyResource(pDstResource, pSrcResource);
 	}
+
+	void GraphicDevice_DX11::Flush()
+	{
+		mContext->Flush();
+	}
+
 	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
-		, ID3D11Buffer* const* ppVertexBuffers
-		, const UINT* pStrides
-		, const UINT* pOffsets)
+	                                          , ID3D11Buffer* const* ppVertexBuffers
+	                                          , const UINT* pStrides
+	                                          , const UINT* pOffsets)
 	{
 		mContext->IASetVertexBuffers(StartSlot, 1, ppVertexBuffers, pStrides, pOffsets);
 	}
@@ -442,6 +448,26 @@ namespace m::graphics
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
 		memcpy(sub.pData, data, size);
+		mContext->Unmap(buffer, 0);
+	}
+	void GraphicDevice_DX11::ReadBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	{
+		//mContext->CSSetShader(nullptr, nullptr, 0);
+		//mContext->Flush();
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
+		memcpy(data, sub.pData, size);
+		mContext->Unmap(buffer, 0);
+	}
+	template <typename T>
+	void GraphicDevice_DX11::ReadBuffer(ID3D11Buffer* buffer, T** data, UINT size)
+	{
+		//mContext->CSSetShader(nullptr, nullptr, 0);
+		//mContext->Flush();
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
+		memcpy(*data, sub.pData, sizeof(T));
+		//*data = reinterpret_cast<T*>(sub.pData);
 		mContext->Unmap(buffer, 0);
 	}
 	void GraphicDevice_DX11::BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV)

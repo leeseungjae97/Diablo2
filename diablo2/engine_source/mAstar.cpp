@@ -24,7 +24,7 @@ namespace m
 		, dx(0)
 	{
 		//int capa = 1000;
-		//if (!TileManager::tiles.empty()) capa = TileManager::tiles.size();
+		//if (!TileManager::pathFindingTiles.empty()) capa = TileManager::pathFindingTiles.size();
 		//openVector.reserve(capa);
 		//pathVector.reserve(capa);
 		//finalPathVector.reserve(capa);
@@ -36,8 +36,8 @@ namespace m
 
 	void Astar::PathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
-		if (TileManager::tiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
-		if (TileManager::tiles[startCoord.y][startCoord.x]->GetIsWall()) return;
+		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
+		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
 
 		if (mStartCoord == startCoord
 			&&
@@ -53,14 +53,14 @@ namespace m
 
 		pathVector.clear();
 
-		yLength = TileManager::tiles.size();
-		xLength = TileManager::tiles[0].size();
+		yLength = TileManager::pathFindingTiles.size();
+		xLength = TileManager::pathFindingTiles[0].size();
 
 		mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
 
-		startTile = TileManager::tiles[startCoord.y][startCoord.x];
-		targetTile = TileManager::tiles[targetCoord.y][targetCoord.x];
+		startTile = TileManager::pathFindingTiles[startCoord.y][startCoord.x];
+		targetTile = TileManager::pathFindingTiles[targetCoord.y][targetCoord.x];
 		openVector.push_back(startTile);
 		
 		while (!openVector.empty())
@@ -139,20 +139,20 @@ namespace m
 			&& x < mTargetCoord.x + searchTileSize
 			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
 			&& y < mTargetCoord.y + searchTileSize
-			&& !TileManager::tiles[y][x]->GetIsWall()
-			&& !TileManager::tiles[y][x]->GetInClosed())
+			&& !TileManager::pathFindingTiles[y][x]->GetIsWall()
+			&& !TileManager::pathFindingTiles[y][x]->GetInClosed())
 		{
 			if (allowDiagonal)
 			{
-				if (TileManager::tiles[curTile->GetCoord().y][x]->GetIsWall()
-					&& TileManager::tiles[y][curTile->GetCoord().x]->GetIsWall()) return;
+				if (TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()
+					&& TileManager::pathFindingTiles[y][curTile->GetCoord().x]->GetIsWall()) return;
 			}
 			if (dontCrossCorner)
 			{
-				if (TileManager::tiles[y][curTile->GetCoord().x]->GetIsWall()
-					|| TileManager::tiles[curTile->GetCoord().y][x]->GetIsWall()) return;
+				if (TileManager::pathFindingTiles[y][curTile->GetCoord().x]->GetIsWall()
+					|| TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()) return;
 			}
-			Tile* neighborTile = TileManager::tiles[y][x];
+			Tile* neighborTile = TileManager::pathFindingTiles[y][x];
 			int moveCost = curTile->GetG() + (curTile->GetCoord().x - x == 0
 											  || curTile->GetCoord().y - y == 0 ? 10 : 14);
 

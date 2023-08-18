@@ -5,9 +5,10 @@ RWStructuredBuffer<ParticleShared> ParticleSharedBuffer : register(u1);
 [numthreads(128, 1, 1)]
 void main(uint3 DTid : SV_DispatchThreadID)
 {
-    if (elementCount <= DTid.x)
-        return;
+    //if (elementCount <= DTid.x)
+    //    return;
     
+    //particles[DTid.x].speed = 0.f;
     //albedoTexture.GetDimensions();
     //uint2 texDimensions = albedoTexture.GetDimensions();
         //uint2 pixelPos = uint2(DTid.x, DTid.y);

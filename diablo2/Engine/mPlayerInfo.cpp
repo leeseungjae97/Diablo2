@@ -24,7 +24,7 @@ namespace m
 	void PlayerInfo::Initialize()
 	{
 		skillPoint = 100;
-		Tile* centerTile = TileManager::tiles[TileManager::tileYLen/ 2][TileManager::tileXLen / 2];
+		Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileYLen/ 2][TileManager::tileXLen / 2];
 		player = new Player(GET_POS(centerTile));
 		//SET_MAIN_CAMERA(player);
 		//AddGameObject(eLayerType::Player, player);

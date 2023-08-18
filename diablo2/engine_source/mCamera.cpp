@@ -173,9 +173,12 @@ namespace m
 			if (!ClipingArea(obj)) continue;
 
 			std::shared_ptr<Material> mt = mr->GetMaterial();
+			//if (nullptr == mt) continue;
 			eRenderingMode mode = mt->GetRenderingMode();
+			//if (mode == eRenderingMode::End) continue;
 
-			switch (mode)
+
+ 			switch (mode)
 			{
 			case eRenderingMode::Opaque:
 				mOpaqueGameObjects.push_back(obj);
@@ -199,6 +202,7 @@ namespace m
 			|| gameObj->GetLayerType() == eLayerType::Monster
 			|| gameObj->GetLayerType() == eLayerType::MonsterSkill
 			|| gameObj->GetLayerType() == eLayerType::PlayerSkill
+			|| gameObj->GetLayerType() == eLayerType::Tile
 			|| gameObj->GetLayerType() == eLayerType::Background)
 		{
 			gameObj->SetCulled(false);
@@ -225,6 +229,10 @@ namespace m
 	{
 		for (GameObject* gameObj : mOpaqueGameObjects)
 		{
+			if(gameObj->GetName() == L"pathFindingTiles")
+			{
+				int a = 0;
+			}
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
@@ -237,6 +245,10 @@ namespace m
 	{
 		for (GameObject* gameObj : mCutOutGameObjects)
 		{
+			if (gameObj->GetName() == L"pathFindingTiles")
+			{
+				int a = 0;
+			}
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
@@ -249,6 +261,10 @@ namespace m
 	{
 		for (GameObject* gameObj : mTransparentGameObjects)
 		{
+			if (gameObj->GetName() == L"pathFindingTiles")
+			{
+				int a = 0;
+			}
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
