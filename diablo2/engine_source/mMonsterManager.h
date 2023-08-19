@@ -1,5 +1,6 @@
 #pragma once
 #include "_Engine.h"
+#include "../Engine/mMonster.h"
 
 namespace m
 {
@@ -7,12 +8,15 @@ namespace m
 	class MonsterManager
 	{
 	public:
-		static void AddMonster(Monster* monster) { monsters.push_back(monster); }
-		static Monster* GetMonster(float monsterId);
+		static void AddMonster(Monster* monster)
+		{
+			monsters.push_back(monster);
+			monster->SetMonsterId(monsters.size() - 1);
+		}
+		static void EraseMonster(Monster* monster);
+		static Monster* MonsterManager::GetMonster(int monsterId) { return monsters[monsterId]; }
 		static void ClearMonster();
-		static float DispendMonsterId();
 		static std::vector<Monster*> monsters;
-		static float dispendMonsterId;
 	private:
 	};
 }

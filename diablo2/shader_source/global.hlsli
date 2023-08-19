@@ -36,15 +36,6 @@ cbuffer Noise : register(b6)
 {
     float4 noiseTextureSize;
 }
-//cbuffer TileCoord : register(b6)
-//{
-//    float2 mouseHoverTileCoord;
-//    float2 playerStandTileCoord;
-//}
-//cbuffer Tile : register(b6)
-//{
-//    float4 tilePosition;
-//}
 struct TileCoord
 {
     float2 mouseHoverTileCoord;
@@ -60,6 +51,14 @@ struct TileShared
 {
     float4 mousePos;
     float4 playerPos;
+    uint tileCount;
+    bool hoverUI;
+};
+struct Monster
+{
+    float4 monsterPos;
+    uint monsterIndex;
+    uint monsterCount;
 };
 struct ParticleShared
 {
@@ -89,6 +88,7 @@ struct Particle
     float speed;
     uint active;
 };
+
 
 StructuredBuffer<Tile> tiles : register(t11);
 StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
@@ -159,4 +159,42 @@ void CalculateLight2D(in out float4 lightColor, float3 position, int idx)
     {
         
     }
+}
+
+bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
+{
+    float2 vertex[4];
+    float gradient[4];
+    float intercept[4];
+    
+    float2 direct[4] =
+    {
+        { -(scale.x / 2.f), 0 },
+        { 0, -(scale.y / 2.f) },
+        { (scale.x / 2.f), 0 },
+        { 0, (scale.y / 2.f) }
+    };
+    
+    for (int i = 0; i < 4; ++i)
+    {
+        vertex[i].x = pos.x + direct[i].x;
+        vertex[i].y = pos.y + direct[i].y;
+    }
+    for (int i = 0; i < 4; ++i)
+    {
+        gradient[i] = ((vertex[i].y - vertex[(i + 1) % 4].y) / (vertex[i].x - vertex[(i + 1) % 4].x));
+        intercept[i] = vertex[i].y - gradient[i] * vertex[i].x;
+    }
+    float _y = otherPos.y;
+    float _x = otherPos.x;
+
+    if (gradient[0] * _x + intercept[0] < _y
+        && gradient[1] * _x + intercept[1] < _y
+        && gradient[2] * _x + intercept[2] > _y
+        && gradient[3] * _x + intercept[3] > _y)
+    {
+        return true;
+    }
+    else
+        return false;
 }

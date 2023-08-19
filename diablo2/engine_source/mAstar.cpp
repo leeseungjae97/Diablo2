@@ -44,8 +44,8 @@ namespace m
 			mTargetCoord == targetCoord)
 			return;
 
-		for (Tile* path : pathVector)
-			path->SetCulled(true);
+		//for (Tile* path : pathVector)
+		//	path->SetCulled(true);
 
 		if (searchSize == -1)
 			searchTileSize = fabs(targetCoord.x - startCoord.x) + fabs(targetCoord.y - startCoord.y);
@@ -117,9 +117,9 @@ namespace m
 
 		for (Tile* path : pathVector)
 		{
-			SET_MATERIAL(path, L"greenTile");
+			//SET_MATERIAL(path, L"greenTile");
 			path->SetInOpen(false);
-			path->SetCulled(false);
+			//path->SetCulled(false);
 		}
 			
 
@@ -225,10 +225,10 @@ namespace m
 	}
 	void Astar::ClearPath()
 	{
-		for (Tile* path : pathVector)
-			path->SetCulled(true);
-		for (Tile* path : finalPathVector)
-			path->SetCulled(true);
+		//for (Tile* path : pathVector)
+		//	path->SetCulled(true);
+		//for (Tile* path : finalPathVector)
+		//	path->SetCulled(true);
 
 		finalPathVector.clear();
 		pathVector.clear();

@@ -9,7 +9,7 @@ namespace m
 		static void MakeTile(int x, int y, Camera* camera);
 		static void TilesUpdate();
 		static void TilesCulling();
-
+		static void Release();
 		static Vector2 GetHoverTileCoord();
 		static Vector2 GetPlayerPositionCoord();
 

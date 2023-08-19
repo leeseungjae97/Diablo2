@@ -14,7 +14,6 @@ namespace m
 		, hpCapacity(100.f)
 		, hpPercent(100.f)
 	{
-		monsterId = MonsterManager::DispendMonsterId();
 		MonsterManager::AddMonster(this);
 
 		sightCollider = ADD_COMP(this, Collider2D);

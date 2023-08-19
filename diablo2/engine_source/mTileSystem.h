@@ -20,6 +20,10 @@ namespace m
 
 		graphics::StructedBuffer* mBuffer;
 		graphics::StructedBuffer* mSharedBuffer;
+		graphics::StructedBuffer* mTileCoordBuffer;
+		graphics::StructedBuffer* mMonsterBuffer;
+		//graphics::StructedBuffer;
+
 		std::shared_ptr<TileComputeShader> mCS;
 
 		ComputeTileCoord* mCoordData;

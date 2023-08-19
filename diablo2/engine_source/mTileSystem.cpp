@@ -3,61 +3,65 @@
 #include "mTileManager.h"
 #include "mRenderer.h"
 #include "mMouseManager.h"
+#include "mMonsterManager.h"
 
 #include "../Engine/mPlayerInfo.h"
 #include "../Engine/mPlayer.h"
+#include "../Engine/mMonster.h"
+
 namespace m
 {
 	TileSystem::TileSystem()
 		: mBuffer(nullptr)
 		, mSharedBuffer(nullptr)
-		, mCoordData(new ComputeTileCoord())
+		, mCoordData(nullptr)
 	{
 		std::shared_ptr<Mesh> mesh = RESOURCE_FIND(Mesh, L"PointMesh");
 		SetMesh(mesh);
-		std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenOutlineTileD");
+		std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"noneRect");
 		SetMaterial(material);
 
 		mCS = Resources::Find<TileComputeShader>(L"TileComputeShader");
 
-		ComputeTile computeTiles[100][100] = {};
-		for (int y = 0; y < 100; ++y)
+		ComputeTile computeTiles[10000] = {};
+		for(int i = 0 ; i < 10000; ++i)
 		{
-			for (int x = 0; x < 100; ++x)
-			{
-				Vector3 posV3 = GET_POS(TileManager::pathFindingTiles[y][x]);
-				Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
-				//if(posV3.x == -591.f && posV3.y == -203.f)
-				//{
-				//	int a = 0;
-				//}
-				computeTiles[y][x].tilePosition = pos;
-				computeTiles[y][x].tileSize = GET_VEC2_F_VEC3_D(GET_SCALE(TileManager::pathFindingTiles[y][x]));
-				computeTiles[y][x].tileCoord = Vector2(x, y);
-			}
+			Vector3 posV3 = GET_POS(TileManager::pathFindingTiles[i / 100][i % 100]);
+			Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
+			computeTiles[i].tilePosition = pos;
+			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(GET_SCALE(TileManager::pathFindingTiles[i / 100][i % 100]));
+			computeTiles[i].tileCoord = Vector2(i % 100, i / 100);
 		}
-		//ComputeTile llo[2] = {};
-		//llo[0].tilePosition = Vector4(0.f, 0.f, 1.f, 0.f);
-		//llo[0].tileSize = Vector2(0.f, 0.f);
-		//llo[1].tilePosition = Vector4(2.f, 2.f, 1.f, 0.f);
-		//llo[1].tileSize = Vector2(0.f, 0.f);
-		//tile.size
 		mBuffer = new graphics::StructedBuffer();
-		//mBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, computeTiles, true);
 		mBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, computeTiles);
 
 		mSharedBuffer = new graphics::StructedBuffer();
 		mSharedBuffer->Create(sizeof(ComputeTileSharedData), 1, eViewType::UAV, nullptr, true);
 
+		mTileCoordBuffer = new graphics::StructedBuffer();
+		mTileCoordBuffer->Create(sizeof(ComputeTileCoord), 1, eViewType::UAV, nullptr, true);
 
+		mMonsterBuffer = new graphics::StructedBuffer();
 	}
 
 	TileSystem::~TileSystem()
 	{
 		if(mBuffer)
+		{
 			delete mBuffer;
+			mBuffer = nullptr;
+		}
 		if (mSharedBuffer)
+		{
 			delete mSharedBuffer;
+			mSharedBuffer = nullptr;
+		}
+		if (mTileCoordBuffer)
+		{
+			delete mTileCoordBuffer;
+			mTileCoordBuffer = nullptr;
+		}
+		mCoordData = nullptr;
 	}
 
 	void TileSystem::Initialize()
@@ -68,28 +72,35 @@ namespace m
 	void TileSystem::Update()
 	{
 		MeshRenderer::Update();
-		if(mCoordData->mouseHoverTileCoord != Vector2(0.f, 0.f)
-		   && mCoordData->mouseHoverTileCoord != Vector2(-1.f, -1.f))
+		if(nullptr != mCoordData)
 		{
-			Vector2 coord = mCoordData->mouseHoverTileCoord;
-			//TileManager::hoverTile = TileManager::pathFindingTiles[coord.y][coord.x];
-			//std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenTileD");
-			//SetMaterial(material);
+			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
+			if(mouseCoord != Vector2(-1.f, -1.f))
+			{
+				TileManager::hoverTile = TileManager::pathFindingTiles[mouseCoord.y][mouseCoord.x];
+			}
+
+			Vector2 playerCoord = mCoordData->playerStandTileCoord;
+			if (playerCoord != Vector2(-1.f, -1.f))
+			{
+				TileManager::playerStandTile = TileManager::pathFindingTiles[playerCoord.y][playerCoord.x];
+			}
 		}
 		mCS->SetCamera(GetOwner()->GetCamera());
 	}
 
 	void TileSystem::LateUpdate()
 	{
-		MeshRenderer::LateUpdate();
-		// 여기서는 공통적으로 사용되는 constantbuffer가 있음
-		// playerstandtile, mousehovertile
+		//MeshRenderer::LateUpdate();
 		// monsterstandtile은 따로 structedbuffer로 되어 건내주어야할듯. 한마리가 아님.
-		renderer::TileDataCB data = {};
+		ComputeTileSharedData data = {};
+		data.tileCount = TileManager::pathFindingTiles.size() * TileManager::pathFindingTiles[0].size();
+		data.hoverUI = MouseManager::GetMouseOnUI();
 
 		Vector3 mouseV3 = MouseManager::UnprojectionMousePos(1.f, GetOwner()->GetCamera());
-		Vector4 mousePos = Vector4(mouseV3.x, mouseV3.y, mouseV3.z, 0.f);
+		Vector4 mousePos = Vector4(mouseV3.x, mouseV3.y, 1.f, 0.f);
 		data.mousePos = mousePos;
+
 		if (PlayerInfo::player)
 		{
 			Vector3 posV3 = GET_POS(PlayerInfo::player);
@@ -102,9 +113,26 @@ namespace m
 		}
 		mSharedBuffer->SetData(&data, 1);
 
+
+		if (!MonsterManager::monsters.empty())
+		{
+			ComputeMonster computeMonsters[MonsterManager::monsters.size()] = {};
+			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
+			{
+				computeMonsters[i].monsterCount = MonsterManager::monsters.size();
+				Vector3 posV3 = GET_POS(MonsterManager::monsters[i]);
+				Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
+				computeMonsters[i].monsterPos = pos;
+			}
+			mMonsterBuffer->Create(sizeof(ComputeMonster), MonsterManager::monsters.size(), eViewType::UAV, computeMonsters, true);
+		}
+
 		mCS->SetTileBuffer(mBuffer);
 		mCS->SetSharedBuffer(mSharedBuffer);
-		mCS->OnExcute(&mCoordData,1);
+		mCS->SetTileCoordBuffer(mTileCoordBuffer);
+		mCS->SetMonsterBuffer(mMonsterBuffer);
+
+		mCS->OnExcute(&mCoordData, 1);
 	}
 
 	void TileSystem::Render()

@@ -3,46 +3,51 @@
 RWStructuredBuffer<Tile> tileBuffer : register(u0);
 RWStructuredBuffer<TileShared> TileSharedBuffer : register(u1);
 RWStructuredBuffer<TileCoord> TileCoordBuffer : register(u2);
+RWStructuredBuffer<Monster> MonsterBuffer : register(u3);
 
-[numthreads(128, 1, 1)]
+[numthreads(1024, 1, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
 {
+    if (DTid.x == 0)
+    {
+        TileCoordBuffer[0].mouseHoverTileCoord = float2(-1.f, -1.f);
+        TileCoordBuffer[0].playerStandTileCoord = float2(-1.f, -1.f);
+    }
+    
+    if (TileSharedBuffer[0].tileCount < DTid.x)
+    {
+        return;
+    }
+    if (TileSharedBuffer[0].hoverUI == true)
+    {
+        TileCoordBuffer[0].mouseHoverTileCoord = float2(-1.f, -1.f);
+        TileCoordBuffer[0].playerStandTileCoord = float2(-1.f, -1.f);
+        return;
+    }
+    
     float2 scale = tileBuffer[DTid.x].tileSize;
     float4 pos = tileBuffer[DTid.x].tilePosition;
-    float2 otherPos = TileSharedBuffer[DTid.x].mousePos;
+    float2 otherPos = TileSharedBuffer[0].mousePos;
     
-    float2 vertex[4];
-    float gradient[4];
-    float intercept[4];
-    
-    float2 direct[4] =
+    if (PointIntersectRhombus(pos, scale, otherPos) == true)
     {
-        { -(scale.x / 2.f), 0 },
-        { 0, -(scale.y / 2.f) },
-        { (scale.x / 2.f), 0 },
-        { 0, (scale.y / 2.f) },
-    };
-    
-    for (int i = 0; i < 4; i++)
-    {
-        vertex[i].x = pos.x + direct[i].x;
-        vertex[i].y = pos.y + direct[i].y;
+        TileCoordBuffer[0].mouseHoverTileCoord = tileBuffer[DTid.x].tileCoord;
     }
-    for (int i = 0; i < 4; i++)
+    
+    otherPos = TileSharedBuffer[0].playerPos;
+    
+    if (PointIntersectRhombus(pos, scale, otherPos) == true)
     {
-        gradient[i] = ((vertex[i].y - vertex[(i + 1) % 4].y) / (vertex[i].x - vertex[(i + 1) % 4].x));
-        intercept[i] = vertex[i].y - gradient[i] * vertex[i].x;
+        TileCoordBuffer[0].playerStandTileCoord = tileBuffer[DTid.x].tileCoord;
     }
-    float _y = otherPos.y;
-    float _x = otherPos.x;
+    
+    for (int i = 0; i < MonsterBuffer[0].monsterCount; ++i)
+    {
+        otherPos = MonsterBuffer[i].monsterPos;
+        if (PointIntersectRhombus(pos, scale, otherPos) == true)
+        {
+            
+        }
+    }
 
-    if (gradient[0] * _x + intercept[0] < _y
-        && gradient[1] * _x + intercept[1] < _y
-        && gradient[2] * _x + intercept[2] > _y
-        && gradient[3] * _x + intercept[3] > _y)
-    {
-        TileCoordBuffer[DTid.x].mouseHoverTileCoord = float2(5.f, 5.f);
-    }
-    else
-        TileCoordBuffer[DTid.x].mouseHoverTileCoord = float2(-1.f, -1.f);
 }

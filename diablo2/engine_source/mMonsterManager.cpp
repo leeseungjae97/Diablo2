@@ -5,27 +5,34 @@
 namespace m
 {
 	std::vector<Monster*> MonsterManager::monsters = {};
-	float MonsterManager::dispendMonsterId = 0.f;
-	Monster* MonsterManager::GetMonster(float monsterId)
+
+	void MonsterManager::EraseMonster(Monster* monster)
 	{
 		auto iter = monsters.begin();
-		while (iter != monsters.end())
+		int index = 0;
+		int eraseMonsterId = monster->GetMonsterId();
+		while(iter != monsters.end())
 		{
-			if ((*iter)->GetMonsterId() == monsterId)
-				return (*iter);
+			if((*iter) == monster)
+			{
+				iter = monsters.erase(iter);
+				break;
+			}
 			else
-				iter++;
+			{
+				++iter;
+				++index;
+			}
 		}
-		return nullptr;
+		for(int i = index; i < monsters.size(); ++i)
+		{
+			monsters[i]->SetMonsterId(eraseMonsterId);
+			++eraseMonsterId;
+		}
 	}
+
 	void MonsterManager::ClearMonster()
 	{
 		if (!monsters.empty()) monsters.clear();
-	}
-	float MonsterManager::DispendMonsterId()
-	{
-		float dispendId = dispendMonsterId;
-		dispendMonsterId += 0.00001f;
-		return dispendId;
 	}
 }

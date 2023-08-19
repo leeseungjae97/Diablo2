@@ -14,9 +14,10 @@ namespace m::graphics
         virtual void Binds() override;
         virtual void Clear() override;
 
-        void SetTileBuffer(StructedBuffer* particleBuffer);
-        void SetSharedBuffer(StructedBuffer* sharedBuffer) { mSharedBuffer = sharedBuffer; }
-
+        void SetTileBuffer(StructedBuffer* buffer) { mTileBuffer = buffer; }
+        void SetSharedBuffer(StructedBuffer* buffer) { mSharedBuffer = buffer; }
+        void SetTileCoordBuffer(StructedBuffer* buffer) { mTileCoordBuffer = buffer; }
+        void SetMonsterBuffer(StructedBuffer* buffer) { mMonsterBuffer = buffer; }
 
         virtual void OnExcute(ComputeTileCoord** data, int size);
 
@@ -26,6 +27,8 @@ namespace m::graphics
     private:
         StructedBuffer* mTileBuffer;
         StructedBuffer* mSharedBuffer;
+        StructedBuffer* mTileCoordBuffer;
+        StructedBuffer* mMonsterBuffer;
         Camera* mCamera;
     };
 }

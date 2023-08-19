@@ -14,12 +14,12 @@ namespace m
 
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.z += 5.0f * Time::fDeltaTime();
+			pos.z += 10.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::S))
 		{
-			pos.z -= 5.0f * Time::fDeltaTime();
+			pos.z -= 10.0f * Time::fDeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::A))

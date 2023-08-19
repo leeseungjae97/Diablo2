@@ -71,26 +71,25 @@ namespace m
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		//camera->AddComponent<CameraScript>();
 		//renderer::cameras.push_back(GetSceneMainCamera());
 
 		TileManager::MakeTile(100, 100, cameraComp);
-		//Vector3 randTilePos = GET_POS(TileManager::tiles[0][1]);
+		Vector3 randTilePos = GET_POS(TileManager::pathFindingTiles[0][1]);
 
-		//GameObject* map = new GameObject();
-		//SET_MAIN_CAMERA(map);
-		//ADD_COMP(map, MeshRenderer);
-		//AddGameObject(eLayerType::Background, map);
-		//SET_MESH(map, L"RectMesh");
-		//SET_MATERIAL(map, L"chaosSanctuary1");
-		//GET_TEX(map, tex);
-		//SET_SCALE_TEX_SIZE(map, tex, 1.f);
-		//Tile* centerTile = TileManager::tiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
-		//Vector3 centerPos = GET_POS(centerTile);
+		GameObject* map = new GameObject();
+		SET_MAIN_CAMERA(map);
+		ADD_COMP(map, MeshRenderer);
+		AddGameObject(eLayerType::Background, map);
+		SET_MESH(map, L"RectMesh");
+		SET_MATERIAL(map, L"chaosSanctuary1");
+		GET_TEX(map, tex);
+		SET_SCALE_TEX_SIZE(map, tex, 1.f);
+		Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
+		Vector3 centerPos = GET_POS(centerTile);
 
-		//SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
+		SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
 
-		//PlayerInfo::Initialize();
+		PlayerInfo::Initialize();
 
 		//GameObject* qwe = new GameObject();
 		//SET_MAIN_CAMERA(qwe);
@@ -111,26 +110,25 @@ namespace m
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
-		//Tile* monTile1 = TileManager::tiles[1][1];
+		Tile* monTile1 = TileManager::pathFindingTiles[1][1];
 
-		//Monster* monster = new Monster(GET_POS(monTile1), MDDiablo().fSpeed);
-		////Monster* monster = new Monster(Vector3(0.f, 0.f, 0.f), MDDiablo().fSpeed);
-		//SET_MAIN_CAMERA(monster);
-		//AddGameObject(eLayerType::Monster, monster);
-		//SET_MESH(monster, L"RectMesh");
-		//SET_MATERIAL(monster, L"AnimationMaterial");
-		//ADD_COMP(monster, Animator);
+		Monster* monster = new Monster(GET_POS(monTile1), MDDiablo().fSpeed);
+		SET_MAIN_CAMERA(monster);
+		AddGameObject(eLayerType::Monster, monster);
+		SET_MESH(monster, L"RectMesh");
+		SET_MATERIAL(monster, L"AnimationMaterial");
+		ADD_COMP(monster, Animator);
 
-		//SET_MAIN_CAMERA(PlayerInfo::player);
-		//AddGameObject(eLayerType::Player, PlayerInfo::player);
+		SET_MAIN_CAMERA(PlayerInfo::player);
+		AddGameObject(eLayerType::Player, PlayerInfo::player);
 
-		//MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-		//ms->SetMonster(monster);
+		MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+		ms->SetMonster(monster);
 		
-		//PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
-		//ps->SetMonster(monster);
+		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
+		ps->SetMonster(monster);
 
-		//GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
+		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 
 		GameObject* light = new GameObject();
 		light->SetName(L"Smile");
@@ -243,7 +241,7 @@ namespace m
 	void PlayScene::Update()
 	{
 		Scene::Update();
-		TileManager::TilesUpdate();
+		//TileManager::TilesUpdate();
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(L"MainMenuScene");

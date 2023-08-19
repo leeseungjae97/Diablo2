@@ -16,6 +16,7 @@ namespace m::graphics
 	StructedBuffer::~StructedBuffer()
 	{
 	}
+
 	bool StructedBuffer::Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess)
 	{
         mType = type;
@@ -91,9 +92,9 @@ namespace m::graphics
         D3D11_BUFFER_DESC rDesc(desc);
 
         rDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // 구조화 버퍼 추가 플래그 설정
-        rDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;	// Texture Register Binding	
+        rDesc.BindFlags = 0;
 
-        rDesc.Usage = D3D11_USAGE_DEFAULT;
+        rDesc.Usage = D3D11_USAGE_STAGING;
         rDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 
         if (!GetDevice()->CreateBuffer(mReadBuffer.GetAddressOf(), &rDesc, nullptr))

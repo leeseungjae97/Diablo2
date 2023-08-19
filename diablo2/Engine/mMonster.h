@@ -22,12 +22,12 @@ namespace m
         void Hit(int damage);
         Collider2D* GetSightCollider() { return sightCollider; }
 
-        float GetMonsterId() { return monsterId; }
-        float ResetMonsterId() { monsterId = MonsterManager::DispendMonsterId(); }
+        int GetMonsterId() { return monsterId; }
+        void SetMonsterId(int id) { monsterId = id; }
 
     private:
         Collider2D* sightCollider;
-        float monsterId;
+        int monsterId;
         float hp;
         float hpCapacity;
         float hpPercent;

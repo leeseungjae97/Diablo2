@@ -462,12 +462,9 @@ namespace m::graphics
 	template <typename T>
 	void GraphicDevice_DX11::ReadBuffer(ID3D11Buffer* buffer, T** data, UINT size)
 	{
-		//mContext->CSSetShader(nullptr, nullptr, 0);
-		//mContext->Flush();
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
-		memcpy(*data, sub.pData, sizeof(T));
-		//*data = reinterpret_cast<T*>(sub.pData);
+		*data = static_cast<T*>(sub.pData);
 		mContext->Unmap(buffer, 0);
 	}
 	void GraphicDevice_DX11::BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV)

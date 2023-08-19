@@ -20,7 +20,6 @@
 #define CBSLOT_PARTICLE			5
 #define CBSLOT_NOISE			6
 #define CBSLOT_TILE				7
-#define CBSLOT_TILE2			8
 enum class eShaderStage
 {
 	VS,
@@ -141,11 +140,19 @@ struct ComputeTileSharedData
 {
 	m::math::Vector4 mousePos;
 	m::math::Vector4 playerPos;
+	UINT tileCount;
+	bool hoverUI;
 };
 struct ComputeTileCoord
 {
-	m::math::Vector2 mouseHoverTileCoord;
-	m::math::Vector2 playerStandTileCoord;
+	m::math::Vector2 mouseHoverTileCoord = m::math::Vector2(-1.f, -1.f);
+	m::math::Vector2 playerStandTileCoord = m::math::Vector2(-1.f, -1.f);
+};
+struct ComputeMonster
+{
+	m::math::Vector4 monsterPos;
+	UINT monsterIndex;
+	UINT monsterCount;
 };
 struct Vertex
 {

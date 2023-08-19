@@ -6,6 +6,7 @@
 #include "../engine_source/mApplication.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mSceneManager.h"
+#include "../engine_source/mTileManager.h"
 //#include "..\engine_source\mFontWrapper.h"
 #include "guiEditor.h"
 #include "LoadScenes.h"
@@ -41,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: 여기에 코드를 입력합니다.
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(371);
+    //_CrtSetBreakAlloc(161625);
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -77,6 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     m::SceneManager::Release();
+    m::TileManager::Release();
     //m::FontWrapper::Release();
     gui::Editor::Release();
     return (int) msg.wParam;

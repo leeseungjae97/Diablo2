@@ -205,19 +205,19 @@ namespace m
 
 	void TileManager::TilesUpdate()
 	{
-		Scene* curScene = SceneManager::GetActiveScene();
-		
-		Vector2 tileScale = Vector2(TileManager::tileXSize, TileManager::tileYSize);
+		//Scene* curScene = SceneManager::GetActiveScene();
+		//
+		//Vector2 tileScale = Vector2(TileManager::tileXSize, TileManager::tileYSize);
 
-		Camera* mainCam = curScene->GetSceneMainCamera();
-		Vector3 mousePos = MouseManager::UnprojectionMousePos(1.f, mainCam);
+		//Camera* mainCam = curScene->GetSceneMainCamera();
+		//Vector3 mousePos = MouseManager::UnprojectionMousePos(1.f, mainCam);
 
-		Vector3 ppos = Vector3::One;
-		Vector3 pscale = Vector3::One;
+		//Vector3 ppos = Vector3::One;
+		//Vector3 pscale = Vector3::One;
 
-		TilesCulling();
+		//TilesCulling();
 
-		if (nullptr != PlayerInfo::player)
+	/*	if (nullptr != PlayerInfo::player)
 		{
 			ppos = GET_POS(PlayerInfo::player);
 			pscale = GET_SCALE(PlayerInfo::player);
@@ -258,9 +258,20 @@ namespace m
 				}
 			}
 		}
+		notCulledTiles.clear();*/
+	}
+	void TileManager::Release()
+	{
+		for(int y = 0 ; y < tileYLen; ++y)
+		{
+			for (int x = 0; x < tileXLen; ++x)
+			{
+				if(pathFindingTiles[y][x])
+					delete pathFindingTiles[y][x];
+			}
+		}
 		notCulledTiles.clear();
 	}
-
 	void TileManager::TilesCulling()
 	{
 		//Scene* curScene = SceneManager::GetActiveScene();

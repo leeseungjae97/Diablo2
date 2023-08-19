@@ -368,8 +368,8 @@ namespace renderer
 		constantBuffers[(UINT)eCBType::Particle] = new ConstantBuffer(eCBType::Particle);
 		constantBuffers[(UINT)eCBType::Particle]->Create(sizeof(ParticleSystemCB));
 
-		constantBuffers[(UINT)eCBType::Tile] = new ConstantBuffer(eCBType::Tile);
-		constantBuffers[(UINT)eCBType::Tile]->Create(sizeof(TileDataCB));
+		//constantBuffers[(UINT)eCBType::Tile] = new ConstantBuffer(eCBType::Tile);
+		//constantBuffers[(UINT)eCBType::Tile]->Create(sizeof(TileDataCB));
 
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
