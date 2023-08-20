@@ -10,6 +10,7 @@ namespace m
 {
 	Monster::Monster(Vector3 iniPos, float speed)
 		: MoveAbleObject(iniPos, speed)
+		, mMonsterClass(eMonsterClass::Normal)
 		, hp(100.f)
 		, hpCapacity(100.f)
 		, hpPercent(100.f)
@@ -41,7 +42,8 @@ namespace m
 		MoveAbleObject::Update();
 		if (hp == 0)
 		{
-			std::erase(MonsterManager::monsters, this);
+			//std::erase(MonsterManager::monsters, this);
+			MonsterManager::EraseMonster(this);
 			SetState(eState::Delete);
 			return;
 		}
@@ -51,17 +53,27 @@ namespace m
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
 
-		mAstar->PathFinding(curCoord, targetCoord, 20);
-		mAstar->MonsterMove(this);
 
 		if (sightCollider->GetOnEnter()
 			|| sightCollider->GetOnStay())
 		{
+			if (mMonsterClass == eMonsterClass::Boss)
+			{
+				mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
+			}
+			else
+			{
+				mPathFinder->InSightPathFinding(curCoord, targetCoord);
+			}
+			
+			mPathFinder->MonsterMove(this);
+
 			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			{
-				mAstar->PathChange();
+				mPathFinder->PathChange();
 			}
 		}
+		
 
 		float maxX = max(curPosition.x, prevPosition.x);
 		float maxY = max(curPosition.y, prevPosition.y);

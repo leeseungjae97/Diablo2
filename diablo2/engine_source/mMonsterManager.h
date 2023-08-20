@@ -1,5 +1,6 @@
 #pragma once
 #include "_Engine.h"
+
 #include "../Engine/mMonster.h"
 
 namespace m
@@ -14,7 +15,7 @@ namespace m
 			monster->SetMonsterId(monsters.size() - 1);
 		}
 		static void EraseMonster(Monster* monster);
-		static Monster* MonsterManager::GetMonster(int monsterId) { return monsters[monsterId]; }
+		static Monster* GetMonster(int monsterId) { return monsters[monsterId]; }
 		static void ClearMonster();
 		static std::vector<Monster*> monsters;
 	private:

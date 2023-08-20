@@ -198,6 +198,15 @@ namespace m
 		Diablo,
 		End,
 	};
+	enum class eMonsterClass
+	{
+		Boss,
+		Normal,
+	};
+	eMonsterClass monsterClasses[(int)eMonsterType::End] = {
+		eMonsterClass::Boss,
+
+	};
 	struct MonsterData
 	{
 		MonsterData(){}
@@ -220,6 +229,7 @@ namespace m
 		eSkillType mSpecialCastSkillType = eSkillType::END;
 		int mSpecialCastSkillCount = 0;
 		eMonsterType mMonsterType = eMonsterType::End;
+		eMonsterClass mClass = eMonsterClass::Normal;
 	};
 	struct MDDiablo : public MonsterData
 	{
@@ -233,6 +243,7 @@ namespace m
 		eSkillType mSpecialCastSkillType = eSkillType::DiabloLightning;
 		int mSpecialCastSkillCount = 20;
 		eMonsterType mMonsterType = eMonsterType::Diablo;
+		eMonsterClass mClass = eMonsterClass::Boss;
 
 		enum class eAnimationType
 		{

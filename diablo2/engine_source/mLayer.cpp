@@ -11,6 +11,8 @@ namespace m
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (gameObj->GetState() == GameObject::eState::Delete) 
+				continue;
 
 			delete gameObj;
 			gameObj = nullptr;

@@ -17,7 +17,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mAstar.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollisionManager.cpp" />
@@ -49,6 +49,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileSystem.cpp" />
@@ -63,7 +64,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mApplication.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mAstar.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinder.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mCollisionManager.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileSystem.h" />

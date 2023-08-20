@@ -16,6 +16,9 @@ namespace m
 		, mSharedBuffer(nullptr)
 		, mCoordData(nullptr)
 	{
+		mComputedCoords.resize(4);
+		//*mMonsterCoordData = nullptr;
+
 		std::shared_ptr<Mesh> mesh = RESOURCE_FIND(Mesh, L"PointMesh");
 		SetMesh(mesh);
 		std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"noneRect");
@@ -39,13 +42,15 @@ namespace m
 		mSharedBuffer->Create(sizeof(ComputeTileSharedData), 1, eViewType::UAV, nullptr, true);
 
 		mTileCoordBuffer = new graphics::StructedBuffer();
-		mTileCoordBuffer->Create(sizeof(ComputeTileCoord), 1, eViewType::UAV, nullptr, true);
+		mTileCoordBuffer->Create(sizeof(ComputedTileCoord), 1, eViewType::UAV, nullptr, true);
 
 		mMonsterBuffer = new graphics::StructedBuffer();
+		mMonsterCoordBuffer = new graphics::StructedBuffer();
 	}
 
 	TileSystem::~TileSystem()
 	{
+		
 		if(mBuffer)
 		{
 			delete mBuffer;
@@ -61,7 +66,18 @@ namespace m
 			delete mTileCoordBuffer;
 			mTileCoordBuffer = nullptr;
 		}
+		if(mMonsterBuffer)
+		{
+			delete mMonsterBuffer;
+			mMonsterBuffer = nullptr;
+		}
+		if(mMonsterCoordBuffer)
+		{
+			delete mMonsterCoordBuffer;
+			mMonsterCoordBuffer = nullptr;
+		}
 		mCoordData = nullptr;
+		mComputedCoords.clear();
 	}
 
 	void TileSystem::Initialize()
@@ -72,6 +88,16 @@ namespace m
 	void TileSystem::Update()
 	{
 		MeshRenderer::Update();
+		if(mComputedCoords.size() != 0 )
+		{
+			for(int i = 0 ; i < mComputedCoords.size() ; ++i)
+			{
+				Vector2 coord = mComputedCoords[i].monsterStandTileCoord;
+				if(coord != Vector2(-1.f, -1.f))
+					MonsterManager::monsters[i]->SetCoord(coord);
+			}
+		}
+		
 		if(nullptr != mCoordData)
 		{
 			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
@@ -91,9 +117,8 @@ namespace m
 
 	void TileSystem::LateUpdate()
 	{
-		//MeshRenderer::LateUpdate();
-		// monsterstandtile은 따로 structedbuffer로 되어 건내주어야할듯. 한마리가 아님.
 		ComputeTileSharedData data = {};
+		data.monsterCount = MonsterManager::monsters.size();
 		data.tileCount = TileManager::pathFindingTiles.size() * TileManager::pathFindingTiles[0].size();
 		data.hoverUI = MouseManager::GetMouseOnUI();
 
@@ -116,23 +141,35 @@ namespace m
 
 		if (!MonsterManager::monsters.empty())
 		{
-			ComputeMonster computeMonsters[MonsterManager::monsters.size()] = {};
+			std::vector<ComputeMonster> computeMonsters;
+			
 			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
 			{
-				computeMonsters[i].monsterCount = MonsterManager::monsters.size();
+				ComputeMonster cm;
+				cm.monsterCount = MonsterManager::monsters.size();
 				Vector3 posV3 = GET_POS(MonsterManager::monsters[i]);
 				Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
-				computeMonsters[i].monsterPos = pos;
-			}
-			mMonsterBuffer->Create(sizeof(ComputeMonster), MonsterManager::monsters.size(), eViewType::UAV, computeMonsters, true);
-		}
+				cm.monsterPos = pos;
 
+				computeMonsters.push_back(cm);
+			}
+
+			mMonsterBuffer->Clear();
+			mMonsterBuffer->Create(sizeof(ComputeMonster), MonsterManager::monsters.size(), eViewType::UAV, computeMonsters.data(), true);
+
+			mComputedCoords.resize(MonsterManager::monsters.size());
+			mMonsterCoordBuffer->Clear();
+			mMonsterCoordBuffer->Create(sizeof(ComputedMonsterCoord), MonsterManager::monsters.size(), eViewType::UAV, nullptr, true);
+
+			mCS->SetMonsterBuffer(mMonsterBuffer);
+			mCS->SetMonsterCoordBuffer(mMonsterCoordBuffer);
+		}
 		mCS->SetTileBuffer(mBuffer);
 		mCS->SetSharedBuffer(mSharedBuffer);
 		mCS->SetTileCoordBuffer(mTileCoordBuffer);
-		mCS->SetMonsterBuffer(mMonsterBuffer);
 
-		mCS->OnExcute(&mCoordData, 1);
+
+		mCS->OnExcute(&mCoordData, 1, mComputedCoords.data(), MonsterManager::monsters.size());
 	}
 
 	void TileSystem::Render()
@@ -147,5 +184,9 @@ namespace m
 		GetMesh()->RenderInstanced(10000);
 
 		mBuffer->Clear();
+		mSharedBuffer->Clear();
+		mTileCoordBuffer->Clear();
+		mMonsterBuffer->Clear();
+		mMonsterCoordBuffer->Clear();
 	}
 }

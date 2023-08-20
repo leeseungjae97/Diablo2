@@ -292,7 +292,6 @@ namespace m
 	}
 	void PlayerScript::AttackProgress()
 	{
-
 		if (PlayerInfo::player->GetRangeCollider()->GetOnEnter()
 			|| PlayerInfo::player->GetRangeCollider()->GetOnStay())
 		{
@@ -303,7 +302,6 @@ namespace m
 					Monster* mon = dynamic_cast<Monster*>(col->GetOwner());
 					mon->Hit(10);
 				}
-				//GetMonster()->Hit(10);
 				bDamage = true;
 			}
 		}

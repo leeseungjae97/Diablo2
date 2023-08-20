@@ -21,7 +21,7 @@ namespace m
 	}
 	Player::~Player()
 	{
-		
+
 	}
 	void Player::Initialize()
 	{
@@ -35,8 +35,8 @@ namespace m
 		Vector2 curCoord = TileManager::GetPlayerPositionCoord();
 		Vector2 mouseCoord = TileManager::GetHoverTileCoord();
 
-		mAstar->PathFinding(curCoord, mouseCoord);
-		mAstar->PlayerMove(this);
+		mPathFinder->AstarPathFinding(curCoord, mouseCoord);
+		mPathFinder->PlayerMove(this);
 
 		if (GetBattleState() == eBattleState::Cast
 			|| GetBattleState() == eBattleState::Dead
@@ -45,7 +45,7 @@ namespace m
 		{
 			fStartDistance = fRemainDistance;
 			destPosition = curPosition;
-			mAstar->ClearPath();
+			mPathFinder->ClearPath();
 		}
 
 		if (!MouseManager::GetMouseOnUI()
@@ -70,12 +70,12 @@ namespace m
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			fSpeed = 300.f;
-			if (fSpeed != 0.f && !mAstar->PathChange())
+			if (fSpeed != 0.f && !mPathFinder->PathChange())
 			{
 				if (!TileManager::hoverTile->GetIsWall())
 				{
 					Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-																			, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+						, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
 
 					prevPosition = GET_POS(this);
 					destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);

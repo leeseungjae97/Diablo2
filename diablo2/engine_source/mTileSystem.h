@@ -16,17 +16,20 @@ namespace m
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
+
+
 	private:
 
 		graphics::StructedBuffer* mBuffer;
 		graphics::StructedBuffer* mSharedBuffer;
 		graphics::StructedBuffer* mTileCoordBuffer;
 		graphics::StructedBuffer* mMonsterBuffer;
-		//graphics::StructedBuffer;
+		graphics::StructedBuffer* mMonsterCoordBuffer;
 
 		std::shared_ptr<TileComputeShader> mCS;
 
-		ComputeTileCoord* mCoordData;
+		ComputedTileCoord* mCoordData;
+		std::vector<ComputedMonsterCoord> mComputedCoords;
 	};
 }
 

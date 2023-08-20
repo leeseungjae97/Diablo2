@@ -1,4 +1,5 @@
 #pragma once
+#include "mSkill.h"
 #include "../engine_source/mScript.h"
 #include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mGameObject.h"
@@ -31,6 +32,8 @@ namespace m
 
 		Skill* GetSkill() { return mSkill; }
 		void SetSkill(Skill* skill) { mSkill = skill; }
+
+		eMonsterClass GetMonsterClass() { return mClass; }
 	private:
 		T curMonsterData;
 		std::vector<SHARED_TEX> texs;
@@ -38,6 +41,9 @@ namespace m
 		eEightDirection mDirection;
 		T::eAnimationType mAnimationType;
 		Skill* mSkill;
+		Monster* mMonster;
+		eMonsterClass mClass;
+
 		bool bFire;
 		bool bDamaged;
 		float fDelay;

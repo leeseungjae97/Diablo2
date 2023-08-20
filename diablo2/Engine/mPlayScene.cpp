@@ -74,7 +74,6 @@ namespace m
 		//renderer::cameras.push_back(GetSceneMainCamera());
 
 		TileManager::MakeTile(100, 100, cameraComp);
-		Vector3 randTilePos = GET_POS(TileManager::pathFindingTiles[0][1]);
 
 		GameObject* map = new GameObject();
 		SET_MAIN_CAMERA(map);
@@ -90,6 +89,11 @@ namespace m
 		SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
 
 		PlayerInfo::Initialize();
+
+		SET_MAIN_CAMERA(PlayerInfo::player);
+		AddGameObject(eLayerType::Player, PlayerInfo::player);
+		ADD_COMP(PlayerInfo::player, PlayerScript);
+		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 
 		//GameObject* qwe = new GameObject();
 		//SET_MAIN_CAMERA(qwe);
@@ -110,32 +114,40 @@ namespace m
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
-		Tile* monTile1 = TileManager::pathFindingTiles[1][1];
+		{
+			Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
+	
 
-		Monster* monster = new Monster(GET_POS(monTile1), MDDiablo().fSpeed);
-		SET_MAIN_CAMERA(monster);
-		AddGameObject(eLayerType::Monster, monster);
-		SET_MESH(monster, L"RectMesh");
-		SET_MATERIAL(monster, L"AnimationMaterial");
-		ADD_COMP(monster, Animator);
-
-		SET_MAIN_CAMERA(PlayerInfo::player);
-		AddGameObject(eLayerType::Player, PlayerInfo::player);
-
-		MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-		ms->SetMonster(monster);
+		//for(int i = 0 ; i < 30; ++i)
+		//{
+		//	
+		//}
 		
-		PlayerScript* ps = ADD_COMP(PlayerInfo::player, PlayerScript);
-		ps->SetMonster(monster);
-
-		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
 
 		GameObject* light = new GameObject();
 		light->SetName(L"Smile");
 		AddGameObject(eLayerType::Light, light);
 		Light* lightComp = light->AddComponent<Light>();
 		lightComp->SetType(eLightType::Directional);
-		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		lightComp->SetColor(Vector4(0.5f, 0.5f, 0.5f,0.5f));
+		lightComp->SetAngle(45.f);
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"Smile");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+			lightComp->SetAngle(45.f);
+		}
 
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);
@@ -204,7 +216,7 @@ namespace m
 		SET_POS_XYZ(hp, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
 					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		//PlayerInfo::player->SetHpUI(hp);
+		PlayerInfo::player->SetHpUI(hp);
 
 		UI* hpOverlapHands = new UI();
 		AddGameObject(eLayerType::UI, hpOverlapHands);

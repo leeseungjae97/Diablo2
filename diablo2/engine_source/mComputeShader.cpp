@@ -41,8 +41,6 @@ namespace m::graphics
 
 		GetDevice()->BindComputeShader(mCS.Get());
 		GetDevice()->Dispatch(mGroupX, mGroupY, mGroupZ);
-
-		GetDevice()->Flush();
 	}
 	void ComputeShader::Binds()
 	{

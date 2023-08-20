@@ -10,50 +10,91 @@
 namespace m::graphics
 {
 	TileComputeShader::TileComputeShader()
-		: ComputeShader(1024, 1, 1)
+		: ComputeShader(100, 1, 1)
 		, mTileBuffer(nullptr)
 		, mSharedBuffer(nullptr)
+		, mTileCoordBuffer(nullptr)
+		, mMonsterBuffer(nullptr)
+		, mMonsterCoordBuffer(nullptr)
 		, mCamera(nullptr)
 	{
 	}
 
 	TileComputeShader::~TileComputeShader()
 	{
+		mCamera = nullptr;
 	}
 
 	void TileComputeShader::Binds()
 	{
-		if (mTileBuffer)
+		if (nullptr != mTileBuffer
+			&&
+			mTileBuffer->buffer)
 			mTileBuffer->BindUAV(0);
-		if (mSharedBuffer)
+
+		if (nullptr != mSharedBuffer
+			&&
+			mSharedBuffer->buffer)
 			mSharedBuffer->BindUAV(1);
-		if (mTileCoordBuffer)
+
+		if (nullptr != mTileCoordBuffer
+			&&
+			mTileCoordBuffer->buffer)
 			mTileCoordBuffer->BindUAV(2);
-		if (mMonsterBuffer)
+
+		if (nullptr != mMonsterBuffer
+			&&
+			mMonsterBuffer->buffer)
 			mMonsterBuffer->BindUAV(3);
 
-		mGroupX = 1024;
+		if (nullptr != mMonsterCoordBuffer
+			&&
+			mMonsterCoordBuffer->buffer)
+			mMonsterCoordBuffer->BindUAV(4);
+
+		mGroupX = 100;
 		mGroupY = 1;
 		mGroupZ = 1;
 	}
 
 	void TileComputeShader::Clear()
 	{
-		if(mTileBuffer)
+		if (nullptr != mTileBuffer
+			&&
+			mTileBuffer->buffer)
 			mTileBuffer->Clear();
-		if(mSharedBuffer)
+
+		if (nullptr != mSharedBuffer
+			&&
+			mSharedBuffer->buffer)
 			mSharedBuffer->Clear();
-		if (mTileCoordBuffer)
+
+		if (nullptr != mTileCoordBuffer
+			&&
+			mTileCoordBuffer->buffer)
 			mTileCoordBuffer->Clear();
-		if (mMonsterBuffer)
+
+		if (nullptr != mMonsterBuffer
+			&&
+			mMonsterBuffer->buffer)
 			mMonsterBuffer->Clear();
+
+		if (nullptr != mMonsterCoordBuffer
+			&&
+			mMonsterCoordBuffer->buffer)
+			mMonsterCoordBuffer->Clear();
 	}
 
-	void TileComputeShader::OnExcute(ComputeTileCoord** data, int size)
+	void TileComputeShader::OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord* data2, int size2)
 	{
 		ComputeShader::OnExcute();
-		mTileCoordBuffer->GetData<ComputeTileCoord>(data, size);
 
 		Clear();
+
+
+		mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
+		if(nullptr != mMonsterCoordBuffer && nullptr != mMonsterBuffer)
+			mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
+		
 	}
 }

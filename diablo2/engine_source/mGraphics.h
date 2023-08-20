@@ -141,9 +141,10 @@ struct ComputeTileSharedData
 	m::math::Vector4 mousePos;
 	m::math::Vector4 playerPos;
 	UINT tileCount;
+	UINT monsterCount;
 	bool hoverUI;
 };
-struct ComputeTileCoord
+struct ComputedTileCoord
 {
 	m::math::Vector2 mouseHoverTileCoord = m::math::Vector2(-1.f, -1.f);
 	m::math::Vector2 playerStandTileCoord = m::math::Vector2(-1.f, -1.f);
@@ -151,8 +152,11 @@ struct ComputeTileCoord
 struct ComputeMonster
 {
 	m::math::Vector4 monsterPos;
-	UINT monsterIndex;
 	UINT monsterCount;
+};
+struct ComputedMonsterCoord
+{
+	m::math::Vector2 monsterStandTileCoord = m::math::Vector2(-1.f, -1.f);
 };
 struct Vertex
 {

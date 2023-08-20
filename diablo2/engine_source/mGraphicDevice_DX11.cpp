@@ -464,7 +464,29 @@ namespace m::graphics
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
-		*data = static_cast<T*>(sub.pData);
+		if(size > 1)
+		{
+			//if(nullptr != *data)
+				//delete[] * data;
+
+			//*data = new T[size];
+			memcpy(*data, sub.pData, sizeof(T) * size);
+			int a = 0;
+		}
+		else *data = static_cast<T*>(sub.pData);
+		mContext->Unmap(buffer, 0);
+	}
+	template <typename T>
+	void GraphicDevice_DX11::ReadBuffer(ID3D11Buffer* buffer, T* data, UINT size)
+	{
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
+		T* data2 = nullptr;
+		data2 = static_cast<T*>(sub.pData);
+		for (int i = 0; i < size; ++i)
+		{
+			data[i] = data2[i];
+		}
 		mContext->Unmap(buffer, 0);
 	}
 	void GraphicDevice_DX11::BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV)

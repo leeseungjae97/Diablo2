@@ -51,13 +51,13 @@ namespace m
 		}
 
 		if(useAstar)
-			mAstar = new Astar();
+			mPathFinder = new PathFinder();
 		ADD_COMP(this, MeshRenderer);
 	}
 	MoveAbleObject::~MoveAbleObject()
 	{
-		if(mAstar)
-			delete mAstar;
+		if(mPathFinder)
+			delete mPathFinder;
 	}
 	void MoveAbleObject::Initialize()
 	{

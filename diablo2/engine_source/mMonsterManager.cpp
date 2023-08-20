@@ -9,22 +9,13 @@ namespace m
 	void MonsterManager::EraseMonster(Monster* monster)
 	{
 		auto iter = monsters.begin();
-		int index = 0;
 		int eraseMonsterId = monster->GetMonsterId();
 		while(iter != monsters.end())
 		{
-			if((*iter) == monster)
-			{
-				iter = monsters.erase(iter);
-				break;
-			}
-			else
-			{
-				++iter;
-				++index;
-			}
+			if((*iter) == monster) iter = monsters.erase(iter);
+			else ++iter;
 		}
-		for(int i = index; i < monsters.size(); ++i)
+		for(int i = eraseMonsterId; i < monsters.size(); ++i)
 		{
 			monsters[i]->SetMonsterId(eraseMonsterId);
 			++eraseMonsterId;

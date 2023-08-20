@@ -18,8 +18,9 @@ namespace m::graphics
         void SetSharedBuffer(StructedBuffer* buffer) { mSharedBuffer = buffer; }
         void SetTileCoordBuffer(StructedBuffer* buffer) { mTileCoordBuffer = buffer; }
         void SetMonsterBuffer(StructedBuffer* buffer) { mMonsterBuffer = buffer; }
+        void SetMonsterCoordBuffer(StructedBuffer* buffer) { mMonsterCoordBuffer = buffer; }
 
-        virtual void OnExcute(ComputeTileCoord** data, int size);
+        virtual void OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord* data2, int size2);
 
         void SetCamera(Camera* camera) { mCamera = camera; }
         Camera* GetCamera() { return mCamera; }
@@ -29,6 +30,7 @@ namespace m::graphics
         StructedBuffer* mSharedBuffer;
         StructedBuffer* mTileCoordBuffer;
         StructedBuffer* mMonsterBuffer;
+        StructedBuffer* mMonsterCoordBuffer;
         Camera* mCamera;
     };
 }

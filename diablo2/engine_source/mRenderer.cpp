@@ -139,6 +139,21 @@ namespace renderer
 										  , rasterizerStates[(UINT)eRSType::WireframeNone].GetAddressOf());
 #pragma endregion
 #pragma region Depth Stencil State
+		//D3D11_DEPTH_STENCIL_DESC depthStencilDesc2 = {};
+		//depthStencilDesc2.DepthEnable = true;
+		//depthStencilDesc2.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		//depthStencilDesc2.DepthFunc = D3D11_COMPARISON_LESS;
+		//depthStencilDesc2.StencilEnable = true;
+		//depthStencilDesc2.StencilReadMask = 0xff;
+		//depthStencilDesc2.StencilWriteMask = 0xff;
+
+		//depthStencilDesc2.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+		//depthStencilDesc2.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+		//depthStencilDesc2.FrontFace.StencilPassOp = D3D11_STENCIL_OP_INCR;
+		//depthStencilDesc2.FrontFace.StencilFunc = D3D11_COMPARISON_EQUAL;
+
+
+
 		D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
 
 		//less

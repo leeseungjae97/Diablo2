@@ -1,6 +1,6 @@
 #pragma once
 #include "../engine_source/mGameObject.h"
-#include "../engine_source/mAstar.h"
+#include "..\engine_source\mPathFinder.h"
 #include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 
 namespace m
@@ -74,7 +74,7 @@ namespace m
 
 		bool bMove;
 
-		Astar* mAstar;
+		PathFinder* mPathFinder;
 
 		Vector2 mCoord;
 	};

@@ -103,12 +103,6 @@
     <Filter Include="Graphics\StructedBuffer">
       <UniqueIdentifier>{9ab7a41a-2e01-4625-919f-0702e988d3f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\PathFindManager">
-      <UniqueIdentifier>{a44f8b18-831c-4dcc-83e6-566b55ae265a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\PathFindManager\Astar">
-      <UniqueIdentifier>{afb784f0-5e5d-453c-9b9d-94ae26c23c3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\TileManager">
       <UniqueIdentifier>{1cfa52b2-0d5d-459d-9e6b-06b0a433510c}</UniqueIdentifier>
     </Filter>
@@ -132,6 +126,12 @@
     </Filter>
     <Filter Include="Resources\Resource\ParticleComputeShader">
       <UniqueIdentifier>{7bc92a6a-05ce-4d9c-8ffb-963f3e921487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\TileDrawSystem">
+      <UniqueIdentifier>{d2a96722-f8c4-4685-ab51-b4895201ca89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PathFinder">
+      <UniqueIdentifier>{afb784f0-5e5d-453c-9b9d-94ae26c23c3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,8 +258,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mAstar.h">
-      <Filter>Manager\PathFindManager\Astar</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinder.h">
+      <Filter>PathFinder</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h">
       <Filter>Manager\TileManager</Filter>
@@ -288,6 +288,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileSystem.h">
       <Filter>GameObject\Component\TileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -386,8 +387,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mAstar.cpp">
-      <Filter>Manager\PathFindManager\Astar</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinder.cpp">
+      <Filter>PathFinder</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp">
       <Filter>Manager\TileManager</Filter>
@@ -413,6 +414,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileSystem.cpp">
       <Filter>GameObject\Component\TileSystem</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
