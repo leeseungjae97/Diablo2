@@ -1,10 +1,11 @@
 #pragma once
 #include "mMath.h"
+//#include "MonsterHandLookUpTables.h"
 #include "SkillLookUpTables.h"
 
 namespace m
 {
-	enum class eSorceressAnimationType
+	enum class ePlayerAnimationType
 	{
 		Attack1,
 		Attack2,
@@ -21,24 +22,24 @@ namespace m
 		Dead,
 		End,
 	};
-	std::wstring sorceressAnimationString[(UINT)eSorceressAnimationType::End] = {
-		L"sorceressAttack1_anim",     
-		L"sorceressAttack2_anim", 
-		L"sorceressBlock_anim", 
-		L"sorceressGetHit_anim", 
-		L"sorceressKick_anim", 
-		L"sorceressNatural_anim", 
-		L"sorceressRun_anim", 
-		L"sorceressSpecial1_anim", 
-		L"sorceressSpecialCast_anim", 
-		L"sorceressTownNatural_anim", 
-		L"sorceressTownWalk_anim", 
-		L"sorceressWalk_anim", 
-		L"sorceressDead_anim", 
+	std::wstring sorceressAnimationString[(UINT)ePlayerAnimationType::End] = {
+		L"sorceressAttack1_anim",
+		L"sorceressAttack2_anim",
+		L"sorceressBlock_anim",
+		L"sorceressGetHit_anim",
+		L"sorceressKick_anim",
+		L"sorceressNatural_anim",
+		L"sorceressRun_anim",
+		L"sorceressSpecial1_anim",
+		L"sorceressSpecialCast_anim",
+		L"sorceressTownNatural_anim",
+		L"sorceressTownWalk_anim",
+		L"sorceressWalk_anim",
+		L"sorceressDead_anim",
 	};
-	enum class eCharacterDirection
+	enum class eSixteenDirection
 	{
-		Down,
+		Down,	
 		LeftDown1,
 		LeftDown2,
 		LeftDown3,
@@ -56,19 +57,18 @@ namespace m
 		RightDown3,
 		End
 	};
-	enum class eEightDirection
+	int eEightDirection[8] =
 	{
-		Down,
-		LeftDown,
-		Left,
-		LeftUp,
-		Up,
-		RightUp,
-		Right,
-		RightDown,
-		End
+		(int)eSixteenDirection::Down,
+		(int)eSixteenDirection::LeftDown1,
+		(int)eSixteenDirection::Left,
+		(int)eSixteenDirection::LeftUp1,
+		(int)eSixteenDirection::Up,
+		(int)eSixteenDirection::RightUp1,
+		(int)eSixteenDirection::Right,
+		(int)eSixteenDirection::RightDown1,
 	};
-	std::wstring characterDirectionString[(UINT)eCharacterDirection::End] = {
+	std::wstring sixteenDirectionString[(UINT)eSixteenDirection::End] = {
 		L"down",
 		L"left_down_1",
 		L"left_down_2",
@@ -86,17 +86,17 @@ namespace m
 		L"right_down_2",
 		L"right_down_3",
 	};
-	std::wstring monsterDirectionString[(UINT)eCharacterDirection::End] = {
-		L"down",
-		L"left_down",
-		L"left",
-		L"left_up",
-		L"up",
-		L"right_up",
-		L"right",
-		L"right_down"
-	};
-	math::Vector2 sorceressAnimationSizes[(UINT)eSorceressAnimationType::End] = {
+	//std::wstring eightDirectionString[(UINT)eSixteenDirection::End] = {
+	//	L"down",
+	//	L"left_down",
+	//	L"left",
+	//	L"left_up",
+	//	L"up",
+	//	L"right_up",
+	//	L"right",
+	//	L"right_down"
+	//};
+	math::Vector2 sorceressAnimationSizes[(UINT)ePlayerAnimationType::End] = {
 		math::Vector2(2500.f / 20.f, 1263.f / 16.f),		// Attack1
 		math::Vector2(2400.f / 20.f, 1471.f / 16.f),		// Attack2
 		math::Vector2(329.f / 5.f, 1167.f / 16.f),		// Block
@@ -111,7 +111,7 @@ namespace m
 		math::Vector2(480.f / 8.f, 1215.f / 16.f),		// Walk
 		math::Vector2(192.f, 1664.f / 16.f),				// Dead
 	};
-	int sorceressAnimationLength[(UINT)eSorceressAnimationType::End] = {
+	int sorceressAnimationLength[(UINT)ePlayerAnimationType::End] = {
 		20,
 		20,
 		5,
@@ -126,91 +126,62 @@ namespace m
 		8,
 		1,
 	};
-	//enum class eCharacterDirection
-	//{
-	//	Down,
-	//	LeftDown1,
-	//	LeftDown2,
-	//	LeftDown3,
-	//	Left,
-	//	LeftUp1,
-	//	LeftUp2,
-	//	LeftUp3,
-	//	Up,
-	//	RightUp1,
-	//	RightUp2,
-	//	RightUp3,
-	//	Right,
-	//	RightDown1,
-	//	RightDown2,
-	//	RightDown3,
-	//	End
-	//};
-	//enum class eEightDirection
-	//{
-	//	Down,
-	//	LeftDown,
-	//	Left,
-	//	LeftUp,
-	//	Up,
-	//	RightUp,
-	//	Right,
-	//	RightDown,
-	//	End
-	//};
-	eCharacterDirection plusCharacterDirections[((int)eCharacterDirection::End / 2) + 1] = {
-		eCharacterDirection::RightUp1,
-		eCharacterDirection::RightUp2,
-		eCharacterDirection::RightUp3,
-		eCharacterDirection::Right,
-		eCharacterDirection::RightDown1,
-		eCharacterDirection::RightDown2,
-		eCharacterDirection::RightDown3,
-		eCharacterDirection::Down
+	eSixteenDirection plusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+		eSixteenDirection::RightUp1,
+		eSixteenDirection::RightUp2,
+		eSixteenDirection::RightUp3,
+		eSixteenDirection::Right,
+		eSixteenDirection::RightDown1,
+		eSixteenDirection::RightDown2,
+		eSixteenDirection::RightDown3,
+		eSixteenDirection::Down
 	};
-	eCharacterDirection minusCharacterDirections[((int)eCharacterDirection::End / 2) + 1] = {
-		eCharacterDirection::Up,
-		eCharacterDirection::LeftUp3,
-		eCharacterDirection::LeftUp2,
-		eCharacterDirection::LeftUp1,
-		eCharacterDirection::Left,
-		eCharacterDirection::LeftDown3,
-		eCharacterDirection::LeftDown2,
-		eCharacterDirection::LeftDown1,
-		eCharacterDirection::Down,
+	eSixteenDirection minusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+		eSixteenDirection::Up,
+		eSixteenDirection::LeftUp3,
+		eSixteenDirection::LeftUp2,
+		eSixteenDirection::LeftUp1,
+		eSixteenDirection::Left,
+		eSixteenDirection::LeftDown3,
+		eSixteenDirection::LeftDown2,
+		eSixteenDirection::LeftDown1,
+		eSixteenDirection::Down,
 	};
-	eEightDirection plusEightDirection[((int)eEightDirection::End) + 1] = {
-		eEightDirection::RightUp,
-		eEightDirection::Right,
-		eEightDirection::RightDown,
-		eEightDirection::Down,
+	int plusEightDirection[5] = {
+		(int)eSixteenDirection::RightUp1,
+		(int)eSixteenDirection::Right,
+		(int)eSixteenDirection::RightDown1,
+		(int)eSixteenDirection::Down,
 	};
-	eEightDirection minusEightDirection[((int)eEightDirection::End) + 1] = {
-		eEightDirection::Up,
-		eEightDirection::LeftUp,
-		eEightDirection::Left,
-		eEightDirection::LeftDown,
-		eEightDirection::Down,
+	int minusEightDirection[5] = {
+		(int)eSixteenDirection::Up,
+		(int)eSixteenDirection::LeftUp1,
+		(int)eSixteenDirection::Left,
+		(int)eSixteenDirection::LeftDown1,
+		(int)eSixteenDirection::Down,
 	};
 
 	enum class eMonsterType
 	{
 		Diablo,
+		Balrog,
 		End,
 	};
 	enum class eMonsterClass
 	{
 		Boss,
 		Normal,
+		End,
 	};
 	eMonsterClass monsterClasses[(int)eMonsterType::End] = {
 		eMonsterClass::Boss,
+		eMonsterClass::Normal,
 
 	};
 	struct MonsterData
 	{
-		MonsterData(){}
-		~MonsterData(){}
+		MonsterData() {}
+		~MonsterData() {}
 		enum class eAnimationType {};
 		std::wstring textureString[5] = {};
 		std::wstring animationString[5] = {};
@@ -230,6 +201,180 @@ namespace m
 		int mSpecialCastSkillCount = 0;
 		eMonsterType mMonsterType = eMonsterType::End;
 		eMonsterClass mClass = eMonsterClass::Normal;
+
+		bool bPathImage = false;
+		bool bHandAnim = false;
+
+	};
+	struct MDBalrog : public MonsterData
+	{
+		MDBalrog() {}
+		~MDBalrog() {}
+
+		float fSpeed = 200.f;
+		float fAttackDelay = 2.5f;
+		float hp = 100;
+		float hpCapacity = hp;
+		eSkillType mSpecialCastSkillType = eSkillType::END;
+		int mSpecialCastSkillCount = 0;
+		eMonsterType mMonsterType = eMonsterType::Balrog;
+		eMonsterClass mClass = eMonsterClass::Normal;
+
+		bool bPathImage = true;
+		bool bHandAnim = true;
+
+		enum class eAnimationType
+		{
+			Attack1,
+			Attack2,
+			Block,
+			Hit,
+			Natural,
+			Run,
+			Walk,
+			SpecialCast,
+			Special1,
+			Special2,
+			Special3,
+			Special4,
+			Dead,
+			End,
+		};
+		std::wstring textureString[(UINT)eAnimationType::End] = {
+			L"balrogAttack",
+			L"",
+			L"",
+			L"balrogHit",
+			L"balrogNatural",
+			L"balrogRun",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"balrogDead",
+		};
+		std::wstring animationString[(UINT)eAnimationType::End] = {
+			L"balrogAttack_anim@",
+			L"",
+			L"",
+			L"balrogHit_anim@",
+			L"balrogNatural_anim@",
+			L"balrogRun_anim@",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"balrogDead_anim@",
+		};
+		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
+			math::Vector2(0.f, 0.f), // Attack
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),	// Hit
+			math::Vector2(0.f, 0.f),	// Natural
+			math::Vector2(0.f, 0.f),	// Run
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
+			math::Vector2(222.f, 157.f),	// Attack
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(192.f, 145.f),	// Hit
+			math::Vector2(191.f, 148.f),	// Natural
+			math::Vector2(171.f, 153.f),	// Run
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(210.f, 179.f),  // Dead
+		};
+		float animationDuration[(UINT)eAnimationType::End] = {
+			0.05f,   // Attack
+			0.f,	// Attack2
+			0.f,	// block
+			0.05f,	// Hit
+			0.05f,	// Natural
+			0.05f,	// Run
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.05f,	// Dead
+		};
+		int animationLength[(UINT)eAnimationType::End] = {
+			16,// Attack
+			0,
+			0,
+			6, //Hit
+			8,// Natural
+			8, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			20, // Dead
+		};
+		int animStartIndex[(UINT)eAnimationType::End] = {
+			0,// Attack1
+			0,
+			0,
+			0, // Hit
+			0,// Natural
+			0, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0, // Dead
+		};
+		int animEndIndex[(UINT)eAnimationType::End] = {
+			0,// Attack
+			0,
+			0,
+			0, // Hit
+			0,// Natural
+			0, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0, // Dead
+		};
+		int animProgressStartIndex[(UINT)eAnimationType::End] = {
+			12,// Attack
+			0,
+			0,
+			0, // Hit
+			0, // Natural
+			0, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0, // Dead
+		};
 	};
 	struct MDDiablo : public MonsterData
 	{
@@ -244,6 +389,9 @@ namespace m
 		int mSpecialCastSkillCount = 20;
 		eMonsterType mMonsterType = eMonsterType::Diablo;
 		eMonsterClass mClass = eMonsterClass::Boss;
+
+		bool bPathImage = false;
+		bool bHandAnim = false;
 
 		enum class eAnimationType
 		{

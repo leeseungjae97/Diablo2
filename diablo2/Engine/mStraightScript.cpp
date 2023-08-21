@@ -27,7 +27,7 @@ namespace m
 
 		SHARED_MAT tex = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
 		Vector2 size = Vector2::Zero;
-		
+
 		mSkillCrashType = skillCrashTypes[(UINT)mType];
 		mCrashType = crashFunction[(int)mSkillCrashType];
 
@@ -35,7 +35,7 @@ namespace m
 		for (int i = 0; i < mDirectionCount; ++i)
 		{
 			mAnimator->Create(
-				skillAnimNames[(int)mType] + skillDirectionString[i]
+				skillAnimNames[(int)mType] + sixteenDirectionString[i]
 				, tex->GetTexture()
 				, Vector2(0.0f, skillSizes[(int)mType].y * i)
 				, skillSizes[(int)mType]
@@ -90,49 +90,49 @@ namespace m
 		{
 			n = degree / (180.f / 9.f);
 			if (n > 0) 
-				mDirection = plusSkillSTDirections[n];
+				mDirection = pathPlusSixteenDirections[n];
 			else
-				mDirection = minusSkillSTDirections[abs(n)];
-			//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSkillSixTeenDirection::Up;
-			//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSkillSixTeenDirection::LeftUp3;
-			//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSkillSixTeenDirection::LeftUp2;
-			//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = ePathSkillSixTeenDirection::LeftUp1;
-			//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = ePathSkillSixTeenDirection::Left;
-			//else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = ePathSkillSixTeenDirection::LeftDown3;
-			//else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = ePathSkillSixTeenDirection::LeftDown2;
-			//else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = ePathSkillSixTeenDirection::LeftDown1;
-			//else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = ePathSkillSixTeenDirection::Down;
-			//else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = ePathSkillSixTeenDirection::Down;
-			//else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = ePathSkillSixTeenDirection::RightDown3;
-			//else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = ePathSkillSixTeenDirection::RightDown2;
-			//else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = ePathSkillSixTeenDirection::RightDown1;
-			//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = ePathSkillSixTeenDirection::Right;
-			//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSkillSixTeenDirection::RightUp3;
-			//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSkillSixTeenDirection::RightUp2;
-			//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSkillSixTeenDirection::RightUp1;
+				mDirection = minusPathSixteenDirections[abs(n)];
+			//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSixTeenDirection::Up;
+			//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSixTeenDirection::LeftUp3;
+			//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSixTeenDirection::LeftUp2;
+			//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = ePathSixTeenDirection::LeftUp1;
+			//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = ePathSixTeenDirection::Left;
+			//else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = ePathSixTeenDirection::LeftDown3;
+			//else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = ePathSixTeenDirection::LeftDown2;
+			//else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = ePathSixTeenDirection::LeftDown1;
+			//else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = ePathSixTeenDirection::Down;
+			//else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = ePathSixTeenDirection::Down;
+			//else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = ePathSixTeenDirection::RightDown3;
+			//else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = ePathSixTeenDirection::RightDown2;
+			//else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = ePathSixTeenDirection::RightDown1;
+			//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = ePathSixTeenDirection::Right;
+			//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSixTeenDirection::RightUp3;
+			//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::RightUp2;
+			//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
 		}
 		else
 		{
 			n = degree / (180.f / 5.f);
 			if (n > 0)
-				mDirection = plusSkillEDirections[n];
+				mDirection = plusPathEightDirections[n];
 			else
-				mDirection = minusSkillEDirections[abs(n)];
-			//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSkillSixTeenDirection::Up;
-			//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSkillSixTeenDirection::LeftUp1;
-			//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSkillSixTeenDirection::Left;
-			//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = ePathSkillSixTeenDirection::LeftDown1;
-			//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = ePathSkillSixTeenDirection::Down;
-			//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = ePathSkillSixTeenDirection::Down;
-			//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSkillSixTeenDirection::RightDown1;
-			//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSkillSixTeenDirection::Right;
-			//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSkillSixTeenDirection::RightUp1;
+				mDirection = minusPathEightDirections[abs(n)];
+			//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSixTeenDirection::Up;
+			//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSixTeenDirection::LeftUp1;
+			//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSixTeenDirection::Left;
+			//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = ePathSixTeenDirection::LeftDown1;
+			//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = ePathSixTeenDirection::Down;
+			//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = ePathSixTeenDirection::Down;
+			//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSixTeenDirection::RightDown1;
+			//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::Right;
+			//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
 		}
 
 
 		if(nullptr == mAnimator->GetActiveAnimation() ||
-			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection])
-			mAnimator->PlayAnimation(skillAnimNames[(int)mType] + skillDirectionString[(UINT)mDirection], true);
+			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + sixteenDirectionString[mDirection])
+			mAnimator->PlayAnimation(skillAnimNames[(int)mType] + sixteenDirectionString[mDirection], true);
 	}
 	void StraightScript::LateUpdate()
 	{

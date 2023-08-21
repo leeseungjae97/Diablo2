@@ -28,7 +28,7 @@ namespace m
         void Hit(bool hit, GameObject::eBattleState state);
         void AttackProgress();
 
-        eCharacterDirection GetDirection() { return mDirection; }
+        eSixteenDirection GetDirection() { return mDirection; }
         //virtual void OnCollisionEnter(Collider2D* other) override;
         //virtual void OnCollisionStay(Collider2D* other) override;
         //virtual void OnCollisionExit(Collider2D* other) override;
@@ -39,8 +39,8 @@ namespace m
 
     private:
         Animator* mAnimator;
-        eCharacterDirection mDirection;
-        eSorceressAnimationType mAnimationType;
+        eSixteenDirection mDirection;
+        ePlayerAnimationType mAnimationType;
 
         SkillOverlay* mRSO;
         SkillOverlay* mLSO;

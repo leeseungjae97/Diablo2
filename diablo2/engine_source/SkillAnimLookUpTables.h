@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MoveAbleObjectAnimLookUpTables.h"
+
 namespace m
 {
 	enum class eCrashType
@@ -65,85 +67,71 @@ namespace m
 		16,
 	};
 
-	enum class ePathSkillSixTeenDirection
+	int pathSixteenDirections[(int)eSixteenDirection::End]
 	{
-		LeftDown1,
-		LeftUp1,
-		RightUp1,
-		RightDown1,
-		Down,
-		Left,
-		Up,
-		Right,
-		LeftDown2,
-		LeftDown3,
-		LeftUp2,
-		LeftUp3,
-		RightUp2,
-		RightUp3,
-		RightDown2,
-		RightDown3,
-		End
+		(int)eSixteenDirection::Left,
+		(int)eSixteenDirection::Down,
+		(int)eSixteenDirection::Up,
+		(int)eSixteenDirection::RightUp1,
+		(int)eSixteenDirection::LeftUp1,
+		(int)eSixteenDirection::LeftDown1,
+		(int)eSixteenDirection::RightUp2,
+		(int)eSixteenDirection::RightUp3,
+		(int)eSixteenDirection::LeftUp2,
+		(int)eSixteenDirection::LeftDown2,
+		(int)eSixteenDirection::Right,
+		(int)eSixteenDirection::RightDown1,
+		(int)eSixteenDirection::LeftUp3,
+		(int)eSixteenDirection::LeftDown3,
+		(int)eSixteenDirection::RightDown2,
+		(int)eSixteenDirection::RightDown3,
 	};
-	ePathSkillSixTeenDirection plusSkillSTDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
-		ePathSkillSixTeenDirection::RightUp1,
-		ePathSkillSixTeenDirection::RightUp2,
-		ePathSkillSixTeenDirection::RightUp3,
-		ePathSkillSixTeenDirection::Right,
-		ePathSkillSixTeenDirection::RightDown1,
-		ePathSkillSixTeenDirection::RightDown2,
-		ePathSkillSixTeenDirection::RightDown3,
-		ePathSkillSixTeenDirection::Down
+	int pathEightDirections[8] = {
+		pathSixteenDirections[(int)eSixteenDirection::LeftDown1],
+		pathSixteenDirections[(int)eSixteenDirection::LeftUp1],
+		pathSixteenDirections[(int)eSixteenDirection::RightUp1],
+		pathSixteenDirections[(int)eSixteenDirection::RightDown1],
+		pathSixteenDirections[(int)eSixteenDirection::Down],
+		pathSixteenDirections[(int)eSixteenDirection::Left],
+		pathSixteenDirections[(int)eSixteenDirection::Up],
+		pathSixteenDirections[(int)eSixteenDirection::Right],
 	};
-	ePathSkillSixTeenDirection minusSkillSTDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
-		ePathSkillSixTeenDirection::Up,
-		ePathSkillSixTeenDirection::LeftUp3,
-		ePathSkillSixTeenDirection::LeftUp2,
-		ePathSkillSixTeenDirection::LeftUp1,
-		ePathSkillSixTeenDirection::Left,
-		ePathSkillSixTeenDirection::LeftDown3,
-		ePathSkillSixTeenDirection::LeftDown2,
-		ePathSkillSixTeenDirection::LeftDown1,
-		ePathSkillSixTeenDirection::Down,
+	int pathPlusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+		pathSixteenDirections[(int)eSixteenDirection::RightUp1],
+		pathSixteenDirections[(int)eSixteenDirection::RightUp2],
+		pathSixteenDirections[(int)eSixteenDirection::RightUp3],
+		pathSixteenDirections[(int)eSixteenDirection::Right],
+		pathSixteenDirections[(int)eSixteenDirection::Right],
+		pathSixteenDirections[(int)eSixteenDirection::RightDown1],
+		pathSixteenDirections[(int)eSixteenDirection::RightDown2],
+		pathSixteenDirections[(int)eSixteenDirection::RightDown3],
+		pathSixteenDirections[(int)eSixteenDirection::Down],
 	};
-	ePathSkillSixTeenDirection plusSkillEDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
-		ePathSkillSixTeenDirection::RightUp1,
-		ePathSkillSixTeenDirection::RightUp2,
-		ePathSkillSixTeenDirection::RightUp3,
-		ePathSkillSixTeenDirection::Right,
-		ePathSkillSixTeenDirection::RightDown1,
-		ePathSkillSixTeenDirection::RightDown2,
-		ePathSkillSixTeenDirection::RightDown3,
-		ePathSkillSixTeenDirection::Down
+	int minusPathSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+		pathSixteenDirections[(int)eSixteenDirection::Up],
+		pathSixteenDirections[(int)eSixteenDirection::LeftUp3],
+		pathSixteenDirections[(int)eSixteenDirection::LeftUp2],
+		pathSixteenDirections[(int)eSixteenDirection::LeftUp1],
+		pathSixteenDirections[(int)eSixteenDirection::Left],
+		pathSixteenDirections[(int)eSixteenDirection::LeftDown3],
+		pathSixteenDirections[(int)eSixteenDirection::LeftDown2],
+		pathSixteenDirections[(int)eSixteenDirection::LeftDown1],
+		pathSixteenDirections[(int)eSixteenDirection::Down],
 	};
-	ePathSkillSixTeenDirection minusSkillEDirections[((int)ePathSkillSixTeenDirection::End / 2) + 1] = {
-		ePathSkillSixTeenDirection::Up,
-		ePathSkillSixTeenDirection::LeftUp3,
-		ePathSkillSixTeenDirection::LeftUp2,
-		ePathSkillSixTeenDirection::LeftUp1,
-		ePathSkillSixTeenDirection::Left,
-		ePathSkillSixTeenDirection::LeftDown3,
-		ePathSkillSixTeenDirection::LeftDown2,
-		ePathSkillSixTeenDirection::LeftDown1,
-		ePathSkillSixTeenDirection::Down,
+	int plusPathEightDirections[5] = {
+		pathSixteenDirections[(int)eSixteenDirection::Up],
+		pathSixteenDirections[(int)eSixteenDirection::RightUp1],		
+		pathSixteenDirections[(int)eSixteenDirection::Right],		
+		pathSixteenDirections[(int)eSixteenDirection::RightDown1],
+		pathSixteenDirections[(int)eSixteenDirection::Down],
+		
 	};
-	std::wstring skillDirectionString[(UINT)ePathSkillSixTeenDirection::End] = {
-		L"left_down_1",
-		L"left_up_1",
-		L"right_up_1",
-		L"right_down_1",
-		L"down",
-		L"left",
-		L"up",
-		L"right",
-		L"left_down_2",
-		L"left_down_3",
-		L"left_up_2",
-		L"left_up_3",
-		L"right_up_2",
-		L"right_up_3",
-		L"right_down_2",
-		L"right_down_3",
+	int minusPathEightDirections[5] = {
+		pathSixteenDirections[(int)eSixteenDirection::Up],
+		pathSixteenDirections[(int)eSixteenDirection::LeftUp1],
+		pathSixteenDirections[(int)eSixteenDirection::Left],
+		pathSixteenDirections[(int)eSixteenDirection::LeftDown1],
+		pathSixteenDirections[(int)eSixteenDirection::Down],
 	};
 
 	float skillSpeed[(int)eSkillType::END] = {
@@ -157,7 +145,7 @@ namespace m
 		0.f,// chillingArmor
 		0.f,// frozenOrb
 		0.f,// coldMastery
-				//
+		//
 		0.f,// chargedBolt
 		0.f,// staticField
 		0.f,// telekinesis
@@ -168,7 +156,7 @@ namespace m
 		0.f,// thunderStorm
 		0.f,// energyShield
 		0.f,// lightningMastery
-				//
+		//
 		300.f,// fireBolt
 		0.f,// warmth
 		0.f,// inferno
@@ -179,7 +167,7 @@ namespace m
 		0.f,// meteor
 		0.f,// fireMastery
 		0.f,// hydra
-				//
+		//
 		0.f,// normalAttack
 
 	};
@@ -232,7 +220,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// chillingArmor,
 		m::math::Vector2(0.f, 0.f),// frozenOrb,
 		m::math::Vector2(0.f, 0.f),// coldMastery,
-		
+
 		m::math::Vector2(0.f, 0.f),// chargedBolt,
 		m::math::Vector2(0.f, 0.f),// staticField,
 		m::math::Vector2(0.f, 0.f),// telekinesis,
@@ -243,7 +231,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// thunderStorm,
 		m::math::Vector2(0.f, 0.f),// energyShield,
 		m::math::Vector2(0.f, 0.f),// lightningMastery,
-		
+
 		m::math::Vector2(116.f, 66.f),// fireBolt,
 		m::math::Vector2(0.f, 0.f),// warmth,
 		m::math::Vector2(0.f, 0.f),// inferno,
@@ -334,8 +322,9 @@ namespace m
 
 		eSkillCastType::END,// normalAttack
 	};
-	
-	enum class eAccessorySkillType {
+
+	enum class eAccessorySkillType
+	{
 		Blizzard1,
 		Blizzard3,
 		END

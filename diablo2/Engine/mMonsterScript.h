@@ -4,6 +4,8 @@
 #include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mGameObject.h"
 
+#include "mMonsterHand.h"
+
 namespace m
 {
 	class Monster;
@@ -34,15 +36,24 @@ namespace m
 		void SetSkill(Skill* skill) { mSkill = skill; }
 
 		eMonsterClass GetMonsterClass() { return mClass; }
+
+		int GetDirection() { return mDirection; }
 	private:
 		T curMonsterData;
 		std::vector<SHARED_TEX> texs;
 		Animator* mAnimator;
-		eEightDirection mDirection;
 		T::eAnimationType mAnimationType;
+
 		Skill* mSkill;
+		MonsterHand* mLeftHand;
+		MonsterHand* mRightHand;
+
 		Monster* mMonster;
 		eMonsterClass mClass;
+
+		int mDirection;
+		int* mPlusDirections;
+		int* mMinusDirections;
 
 		bool bFire;
 		bool bDamaged;

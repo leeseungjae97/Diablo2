@@ -3,6 +3,7 @@
 #include "../engine_source/mAnimation.h"
 #include "../engine_source/SkillLookUpTables.h"
 #include "../engine_source/SkillAnimLookUpTables.h"
+
 namespace m
 {
     class SkillScript :
@@ -23,7 +24,7 @@ namespace m
         //virtual void OnCollisionExit(Collider2D* other) override;
     protected:
         Animator* mAnimator;
-        ePathSkillSixTeenDirection mDirection;
+        int mDirection;
         eSkillType mType;
     };
 }

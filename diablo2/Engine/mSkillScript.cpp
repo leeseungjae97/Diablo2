@@ -3,6 +3,7 @@
 namespace m
 {
 	SkillScript::SkillScript()
+		: mDirection(0)
 	{
 	}
 	SkillScript::~SkillScript()

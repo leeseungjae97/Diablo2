@@ -288,7 +288,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileSystem.h">
       <Filter>GameObject\Component\TileSystem</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawSystem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawSystem.h">
+      <Filter>GameObject\Component\TileDrawSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterHandLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHandLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -414,7 +422,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileSystem.cpp">
       <Filter>GameObject\Component\TileSystem</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawSystem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawSystem.cpp">
+      <Filter>GameObject\Component\TileDrawSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

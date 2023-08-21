@@ -114,14 +114,25 @@ namespace m
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
+		//{
+		//	Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	SET_MESH(monster, L"RectMesh");
+		//	SET_MATERIAL(monster, L"AnimationMaterial");
+		//	ADD_COMP(monster, Animator);
+		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//}
+
 		{
-			Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
+			Monster* monster = new Monster(centerPos, MDBalrog().fSpeed);
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			SET_MESH(monster, L"RectMesh");
 			SET_MATERIAL(monster, L"AnimationMaterial");
 			ADD_COMP(monster, Animator);
-			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
 		}
 	
@@ -132,13 +143,13 @@ namespace m
 		//}
 		
 
-		GameObject* light = new GameObject();
-		light->SetName(L"Smile");
-		AddGameObject(eLayerType::Light, light);
-		Light* lightComp = light->AddComponent<Light>();
-		lightComp->SetType(eLightType::Directional);
-		lightComp->SetColor(Vector4(0.5f, 0.5f, 0.5f,0.5f));
-		lightComp->SetAngle(45.f);
+		//GameObject* light = new GameObject();
+		//light->SetName(L"Smile");
+		//AddGameObject(eLayerType::Light, light);
+		//Light* lightComp = light->AddComponent<Light>();
+		//lightComp->SetType(eLightType::Directional);
+		//lightComp->SetColor(Vector4(0.5f, 0.5f, 0.5f,0.5f));
+		//lightComp->SetAngle(45.f);
 		{
 			GameObject* light = new GameObject();
 			light->SetName(L"Smile");

@@ -165,6 +165,8 @@
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
     <ClInclude Include="mGridScript.h" />
+    <ClInclude Include="mHand.h" />
+    <ClInclude Include="mHandScript.h" />
     <ClInclude Include="mInven.h" />
     <ClInclude Include="mInventory.h" />
     <ClInclude Include="mBackground.h" />
@@ -175,6 +177,7 @@
     <ClInclude Include="mItemScript.h" />
     <ClInclude Include="mMainMenuScene.h" />
     <ClInclude Include="mMonster.h" />
+    <ClInclude Include="mMonsterHand.h" />
     <ClInclude Include="mMonsterScript.h" />
     <ClInclude Include="mMoveAbleObject.h" />
     <ClInclude Include="mPanel.h" />
@@ -204,6 +207,8 @@
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
     <ClCompile Include="mGridScript.cpp" />
+    <ClCompile Include="mHand.cpp" />
+    <ClCompile Include="mHandScript.cpp" />
     <ClCompile Include="mInven.cpp" />
     <ClCompile Include="mInventory.cpp" />
     <ClCompile Include="LoadScenes.h" />
@@ -215,6 +220,7 @@
     <ClCompile Include="mItemScript.cpp" />
     <ClCompile Include="mMainMenuScene.cpp" />
     <ClCompile Include="mMonster.cpp" />
+    <ClCompile Include="mMonsterHand.cpp" />
     <ClCompile Include="mMonsterScript.cpp" />
     <ClCompile Include="mMoveAbleObject.cpp" />
     <ClCompile Include="mPanel.cpp" />

@@ -66,10 +66,10 @@ namespace m
 
 			return nullptr;
 		}
-		template <typename T, typename P>
-		T* AddComponent(P parameter)
+		template <typename T, typename... Types>
+		T* AddComponent(Types... args)
 		{
-			T* comp = new T(parameter);
+			T* comp = new T(args...);
 
 			Component* buff
 				= dynamic_cast<Component*>(comp);

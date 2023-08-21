@@ -1,6 +1,10 @@
 #pragma once
 #include "mComponent.h"
 #include "mCollider2D.h"
+
+#include "mAnimator.h"
+#include "mAnimation.h"
+
 namespace m
 {
     class Script :

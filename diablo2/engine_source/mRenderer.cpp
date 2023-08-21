@@ -152,8 +152,6 @@ namespace renderer
 		//depthStencilDesc2.FrontFace.StencilPassOp = D3D11_STENCIL_OP_INCR;
 		//depthStencilDesc2.FrontFace.StencilFunc = D3D11_COMPARISON_EQUAL;
 
-
-
 		D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
 
 		//less
@@ -530,6 +528,27 @@ namespace renderer
 						   , 145, 133, 16, L"fireCast1");
 #pragma endregion
 #pragma region Monster
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\natural"
+			, 191, 148, 8,  L"balrogNatural");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_hit_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\hit"
+			, 197, 145, 6, L"balrogHit");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_run_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\run"
+			, 171, 153, 8, L"balrogRun");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_attack1_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\attack"
+			, 222, 157, 16, L"balrogAttack");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_dead_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\dead"
+			, 210, 179, 20, L"balrogDead");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\natural"
+			, 161, 74, 8, L"balrogNaturalRH");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_hit_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\hit"
+			, 157, 80, 6, L"balrogHitRH");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_run_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\run"
+			, 152, 76, 8, L"balrogRunRH");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_attack1_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\attack"
+			, 207, 165, 16, L"balrogAttackRH");
+#pragma endregion
+
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");
 		MAKE_MATERIAL(spriteShader, L"diablo_walk", L"..\\Resources\\texture\\enemy\\diablo\\diablo_walk.png", L"diabloWalk");
 		MAKE_MATERIAL(spriteShader, L"diablo_attack1", L"..\\Resources\\texture\\enemy\\diablo\\diablo_attack1.png", L"diabloAttack1");
