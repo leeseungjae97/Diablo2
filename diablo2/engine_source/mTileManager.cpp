@@ -3,7 +3,6 @@
 #include "mMeshRenderer.h"
 #include "mMouseManager.h"
 #include "mMonsterManager.h"
-#include "mTileSystem.h"
 
 #include "../Engine/mPlayerInfo.h"
 #include "../Engine/mPlayer.h"
@@ -19,6 +18,7 @@ namespace m
 	float TileManager::tileYSize = 40.f;
 	int TileManager::tileXLen = 0.f;
 	int TileManager::tileYLen = 0.f;
+	TileSystem* TileManager::curTileSystem = nullptr;
 	
 	void TileManager::MakeTile(int _x, int _y, Camera* camera)
 	{
@@ -182,7 +182,7 @@ namespace m
 		curScene->AddGameObject(eLayerType::Tile, tiles);
 		SET_POS_XYZ(tiles, 0.f, 0.f, 1.f);
 		SET_SCALE_XYZ(tiles, TileManager::tileXSize, TileManager::tileYSize, 1.f);
-		ADD_COMP(tiles, TileSystem);
+		curTileSystem = ADD_COMP(tiles, TileSystem);
 	}
 
 	void TileManager::TilesUpdate()

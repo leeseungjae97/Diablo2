@@ -385,10 +385,14 @@ namespace m
 		float fAttackDelay = 2.5f;
 		float hp = 100;
 		float hpCapacity = hp;
+
 		eSkillType mSpecialCastSkillType = eSkillType::DiabloLightning;
+		int mSpecialMonsterSkillFunction = 0;
 		int mSpecialCastSkillCount = 20;
+
 		eMonsterType mMonsterType = eMonsterType::Diablo;
 		eMonsterClass mClass = eMonsterClass::Boss;
+
 
 		bool bPathImage = false;
 		bool bHandAnim = false;

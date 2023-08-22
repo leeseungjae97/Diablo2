@@ -54,6 +54,7 @@ namespace m
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);
+		void SyncPlay();
 		void Binds();
 		//void StopAnimation();
 
@@ -68,14 +69,19 @@ namespace m
 		void SetAnimationProgressIndex(int index) { mActiveAnimation->SetProgressIndex(index); }
 		void SetAnimationEndIndex(int index) { index != 0 ? mActiveAnimation->SetEndIndex(index) : void(); }
 		void SetAnimationIndex(int index) { mActiveAnimation->SetIndex(index); }
+		void SetSyncAnimator(Animator* sync) { mSyncAnimator = sync; }
+		void Sync() { bSyncPlay = true; }
+		void DeSync() { bSyncPlay = false; }
 		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
-
+				
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		std::shared_ptr<Texture> mSpriteSheet;
+		Animator* mSyncAnimator;
 		Animation* mActiveAnimation;
 		bool mbLoop;
+		bool bSyncPlay;
 	};
 }
 

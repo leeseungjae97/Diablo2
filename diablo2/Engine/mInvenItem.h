@@ -21,7 +21,7 @@ namespace m
         virtual void Render() override;
         bool GetMouseFollow() { return bSetMouseFollow; }
         void SetMouseFollow(bool _b) { bSetMouseFollow = _b; }
-        void SetClickFunction() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item)->ChangeOrderGameObject(this); }
+        void SetClickFunction() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item)->FrontGameObject(this); }
 
         void InvenItemInit();
         void ChangeBoolIntersectArea(Vector3 areaPos, bool _bV);

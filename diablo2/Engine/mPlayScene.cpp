@@ -67,7 +67,7 @@ namespace m
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
-		ADD_COMP(camera, CameraScript);
+		//ADD_COMP(camera, CameraScript);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
@@ -125,8 +125,30 @@ namespace m
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//}
 
+
+		//for(int i = 0 ; i < 10; ++i)
+		//{
+		//	int xRand = rand() % TileManager::tileXLen;
+		//	int yRand = rand() % TileManager::tileYLen;
+		//	Vector3 randPos = GET_POS(TileManager::pathFindingTiles[xRand][yRand]);
+		//	TileManager::pathFindingTiles[xRand][yRand]->SetOnMonster(true);
+		//	{
+		//		Monster* monster = new Monster(randPos, MDBalrog().fSpeed);
+		//		SET_MAIN_CAMERA(monster);
+		//		AddGameObject(eLayerType::Monster, monster);
+		//		SET_MESH(monster, L"RectMesh");
+		//		SET_MATERIAL(monster, L"AnimationMaterial");
+		//		ADD_COMP(monster, Animator);
+		//		MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+		//		monster->SetMonsterClass(ms->GetMonsterClass());
+		//	}
+		//}
+
+
 		{
-			Monster* monster = new Monster(centerPos, MDBalrog().fSpeed);
+			Tile* tile = TileManager::pathFindingTiles[50][50];
+			Vector3 pos = GET_POS(tile);
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			SET_MESH(monster, L"RectMesh");
@@ -135,11 +157,66 @@ namespace m
 			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
 		}
-	
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][51];
+			Vector3 pos = GET_POS(tile);
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][52];
+			Vector3 pos = GET_POS(tile);
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][53];
+			Vector3 pos = GET_POS(tile);
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][54];
+			Vector3 pos = GET_POS(tile);
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
+
 
 		//for(int i = 0 ; i < 30; ++i)
 		//{
-		//	
+		//	Monster* monster = new Monster(centerPos, MDBalrog().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	SET_MESH(monster, L"RectMesh");
+		//	SET_MATERIAL(monster, L"AnimationMaterial");
+		//	ADD_COMP(monster, Animator);
+		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//}
 		
 

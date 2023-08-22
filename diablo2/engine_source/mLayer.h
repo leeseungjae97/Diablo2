@@ -15,7 +15,8 @@ namespace m
 		virtual void Destroy();
 
 		void AddGameObject(GameObject* gameObj);
-		void ChangeOrderGameObject(GameObject* gameObj);
+		void FrontGameObject(GameObject* gameObj);
+		void ChangeLayerIndexGameObject(GameObject* gameObj, GameObject* targetObj);
 		const std::vector<GameObject*>& GetGameObjects() { return mGameObjects; }
 
 	private:

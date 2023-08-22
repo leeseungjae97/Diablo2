@@ -1,20 +1,63 @@
 #pragma once
-
-
+#include "MoveAbleObjectAnimLookUpTables.h"
 
 namespace m
 {
-	std::wstring monsterRHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+	math::Vector2 monsterOffsets[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
-			
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
 		},
 		{
+			math::Vector2(0.f, -10.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 25.f),
+			math::Vector2(0.f, 15.f),
+			math::Vector2(0.f, 25.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+		}
+	};
+	std::wstring monsterRHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+		{
 			L"",
 			L"",
 			L"",
 			L"",
 			L"",
 			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+		},
+		{
+			L"balrogAttackRH",
+			L"",
+			L"",
+			L"balrogHitRH",
+			L"balrogNaturalRH",
+			L"balrogRunRH",
 			L"",
 			L"",
 			L"",
@@ -26,7 +69,19 @@ namespace m
 	};
 	std::wstring monsterLHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
-
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
 		},
 		{
 			L"",
@@ -47,7 +102,19 @@ namespace m
 	math::Vector2 monsterHandSizes[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		//Diablo
 		{
-			// None
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
 		},
 		//Balrog
 		{
@@ -68,7 +135,19 @@ namespace m
 	};
 	int monsterHandLength[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
-			
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
 		},
 		{
 			16,

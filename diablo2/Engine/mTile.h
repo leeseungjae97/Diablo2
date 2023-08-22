@@ -17,8 +17,12 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
+
         bool GetIsWall() { return isWall; }
         void SetIsWall(bool iw) { isWall = iw; }
+
+        bool GetOnMonster() { return onMonster; }
+        void SetOnMonster(bool on) { onMonster = on; }
 
         Vector2 GetCoord() { return mCoord; }
         void SetCoord(Vector2 coord) { mCoord = coord; }
@@ -47,6 +51,7 @@ namespace m
         Vector2 mCoord;
         std::shared_ptr<Material> saveMaterial;
         bool isWall;
+        bool onMonster;
         bool inClosed;
         bool inOpen;
         int G; // from cost

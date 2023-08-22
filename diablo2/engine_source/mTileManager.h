@@ -1,5 +1,7 @@
 #pragma once
 #include "../Engine/mTile.h"
+
+#include "mTileSystem.h"
 namespace m
 {
 #define TILES std::vector<std::vector<Tile*>>
@@ -21,6 +23,8 @@ namespace m
 		static int tileYLen;
 		static float tileXSize;
 		static float tileYSize;
+
+		static TileSystem* curTileSystem;
 	private:
 	};
 }

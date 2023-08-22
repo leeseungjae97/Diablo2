@@ -47,7 +47,7 @@ namespace m::graphics
 		void BindBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void ReadBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		template <typename T> void ReadBuffer(ID3D11Buffer* buffer, T** data, UINT size);
-		template <typename T> void ReadBuffer(ID3D11Buffer* buffer, T* data, UINT size);
+		template <typename T> void ReadBuffers(ID3D11Buffer* buffer, T** data, UINT size);
 		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
 		void BindUnorderedAccess(UINT slot, ID3D11UnorderedAccessView** ppUnorderedAccessViews, const UINT* pUAVInitialCounts);
 		void BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers);

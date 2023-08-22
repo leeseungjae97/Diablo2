@@ -22,7 +22,7 @@ namespace m::graphics
 
 	bool StructedBuffer::Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess)
 	{
-		if(buffer)
+		if (buffer)
 		{
 			buffer->Release();
 			buffer.Detach();
@@ -37,12 +37,12 @@ namespace m::graphics
 			mReadBuffer->Release();
 			mReadBuffer.Detach();
 		}
-		if(mSRV)
+		if (mSRV)
 		{
 			mSRV->Release();
 			mSRV.Detach();
 		}
-		if(mUAV)
+		if (mUAV)
 		{
 			mUAV->Release();
 			mUAV.Detach();
@@ -84,7 +84,7 @@ namespace m::graphics
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 		srvDesc.BufferEx.NumElements = mStride;
 		srvDesc.ViewDimension = D3D_SRV_DIMENSION_BUFFEREX;
-		
+
 		if (!(GetDevice()->CreateShaderResourceView(buffer.Get(), &srvDesc, mSRV.GetAddressOf())))
 			return false;
 
@@ -130,83 +130,6 @@ namespace m::graphics
 		return true;
 	}
 
-	void StructedBuffer::ReCreate(UINT size, UINT stride, void* data)
-	{
-		//buffer.Detach();
-		//mReadBuffer.Detach();
-		//mWriteBuffer.Detach();
-
-		//if (nullptr != buffer)
-		//{
-		//	buffer->Release();
-		//	buffer = nullptr;
-		//}
-		//if (nullptr != mWriteBuffer)
-		//{
-		//	mWriteBuffer->Release();
-		//	mWriteBuffer = nullptr;
-		//}
-		//if (nullptr != mReadBuffer)
-		//{
-		//	mReadBuffer->Release();
-		//	mReadBuffer = nullptr;
-		//}
-
-		mSize = size;
-		mStride = stride;
-
-		desc.ByteWidth = mSize * mStride;
-		desc.StructureByteStride = mSize;
-
-
-		if (data)
-		{
-			D3D11_SUBRESOURCE_DATA tSub = {};
-			tSub.pSysMem = data;
-
-			GetDevice()->CreateBuffer(buffer.GetAddressOf(), &desc, &tSub);
-		}
-		else
-		{
-			GetDevice()->CreateBuffer(buffer.GetAddressOf(), &desc, nullptr);
-		}
-
-		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-		srvDesc.BufferEx.NumElements = mStride;
-		srvDesc.ViewDimension = D3D_SRV_DIMENSION_BUFFEREX;
-
-		GetDevice()->CreateShaderResourceView(buffer.Get(), &srvDesc, mSRV.GetAddressOf());
-
-		if (mType == eViewType::UAV)
-		{
-			D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
-			uavDesc.Buffer.NumElements = mStride;
-			uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
-
-			GetDevice()->CreateUnordedAccessView(buffer.Get(), &uavDesc, mUAV.GetAddressOf());
-		}
-
-		D3D11_BUFFER_DESC wDesc(desc);
-
-		wDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // 구조화 버퍼 추가 플래그 설정
-		wDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;	// Texture Register Binding	
-
-		wDesc.Usage = D3D11_USAGE_DYNAMIC;
-		wDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		GetDevice()->CreateBuffer(mWriteBuffer.GetAddressOf(), &wDesc, nullptr);
-
-		D3D11_BUFFER_DESC rDesc(desc);
-
-		rDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // 구조화 버퍼 추가 플래그 설정
-		rDesc.BindFlags = 0;
-
-		rDesc.Usage = D3D11_USAGE_STAGING;
-		rDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-
-		GetDevice()->CreateBuffer(mReadBuffer.GetAddressOf(), &rDesc, nullptr);
-	}
-
 	void StructedBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
@@ -236,14 +159,14 @@ namespace m::graphics
 			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
 	}
 	template <typename T>
-	void StructedBuffer::GetData(T* data, UINT size)
+	void StructedBuffer::GetDatas(T** data, UINT size)
 	{
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
 		if (size == 0)
-			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, mSize * mStride);
+			GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, mSize * mStride);
 		else
-			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
+			GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, size);
 	}
 	void StructedBuffer::BindSRV(eShaderStage stage, UINT slot)
 	{

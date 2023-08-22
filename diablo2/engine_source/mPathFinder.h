@@ -20,22 +20,23 @@ namespace m
 		~PathFinder();
 
 		void AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1);
-		
+
 		void InSightPathFinding(Vector2 startCoord, Vector2 targetCoord);
 
 		bool PathChange();
 
 		void ClearPath();
 
-		bool MonsterMove(MoveAbleObject* mOwner);
+		bool MonsterMove(Monster* mOwner);
 		bool PlayerMove(MoveAbleObject* mOwner);
 
-		void SetXLength(int xLen);
-		void SetYLength(int yLen);
-
-		std::vector<Tile*>& GetPath();
+		void SetXLength(int xLen) { xLength = xLen; }
+		void SetYLength(int yLen) { yLength = yLen; }
+		std::vector<Tile*>& GetPath() { return finalPathVector; }
 
 		void SetFinderType(eFinderType type) { mFinderType = type; }
+		void SetMonsterOwner(Monster* mon) { mMonsterOwner = mon; }
+		Vector2 GetTargetCoord() { return mTargetCoord; }
 	private:
 		void openVectorAdd(int y, int x);
 
@@ -68,5 +69,7 @@ namespace m
 		float searchTileSize;
 
 		eFinderType mFinderType;
+
+		Monster* mMonsterOwner;
 	};
 }

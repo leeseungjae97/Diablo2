@@ -201,7 +201,6 @@ namespace m
 		eSkillFunctionType::Straight,// L"fireMasteryIcon",
 		eSkillFunctionType::Straight,// L"hydraIcon",
 
-
 		//Monster
 		eSkillFunctionType::MultiStraight,// L"diabloLightning",
 

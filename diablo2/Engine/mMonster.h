@@ -28,9 +28,12 @@ namespace m
         void SetMonsterClass(eMonsterClass _class) { mMonsterClass = _class; }
         eMonsterClass GetMonsterClass() { return mMonsterClass; }
 
+        bool GetArrival() { return bArriveDest; }
+        void SetArrival(bool ar) { bArriveDest = ar; }
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
+        bool bArriveDest;
         int monsterId;
         float hp;
         float hpCapacity;

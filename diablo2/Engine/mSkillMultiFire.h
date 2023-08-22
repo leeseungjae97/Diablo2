@@ -16,7 +16,12 @@ namespace m
             END,
         };
 
-        SkillMultiFire(eSkillType type, Vector3 iniPos, int count = 2, eFireType bFireType = eFireType::END, Vector2 randFireArange = Vector2::Zero);
+        SkillMultiFire(Vector3 iniPos
+            , eSkillType type
+            , int count = 2
+            , eFireType bFireType = eFireType::END
+            , eLayerType layerType = eLayerType::Skill
+            , Vector2 randFireArange = Vector2::Zero);
         virtual ~SkillMultiFire();
 
         virtual void Initialize() override;

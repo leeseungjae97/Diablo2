@@ -16,7 +16,7 @@ namespace m
 		, mMp(nullptr)
 	{
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
-		hitAreaCollider->AddExceptType(eLayerType::PlayerSkill);
+		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
 		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
 	}
 	Player::~Player()

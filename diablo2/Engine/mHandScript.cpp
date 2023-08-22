@@ -1,66 +1,89 @@
 #include "mHandScript.h"
 
 #include "MonsterHandLookUpTables.h"
+#include "MoveAbleObjectAnimLookUpTables.h"
+#include "SkillAnimLookUpTables.h"
 
 namespace m
 {
-	HandScript::HandScript(Vector2* sizes, int* lens, int maxLen, std::wstring* names)
+	HandScript::HandScript(Vector2* sizes, Vector2* offset, int* lens, int maxLen, std::wstring* names)
 		: mHandDirection(0)
+		, mHandnames(names)
 		, mAnimationSize(sizes)
+		, mAnimationOffset(offset)
 		, mAnimationLength(lens)
 		, mAnimationMaxLength(maxLen)
-		, mHandnames(names)
 	{
 		mMats.resize(maxLen);
-		mAnimator = GET_COMP(GetOwner(), Animator);
-		for(int i = 0; i < maxLen; ++i)
-		{
-			if (mHandnames[i] == L"") continue;
-			mMats[i] = RESOURCE_FIND(Material, mHandnames[i]);
-		}
-		for(int i = 0 ; i < mAnimationMaxLength; ++i)
-		{
-			if (mHandnames[i] == L"") continue;
-			mAnimator->Create(
-				mHandnames[i] + L"anim"
-				, mMats[i]->GetTexture()
-				, Vector2::Zero
-				, mAnimationSize[i]
-				, mAnimationLength[i]
-				, Vector2::Zero
-				, 0.03f
-			);
-		}
 	}
 
 	HandScript::~HandScript()
 	{
 	}
+	void HandScript::Initialize()
+	{
+		Script::Initialize();
+		mAnimator = GET_COMP(GetOwner(), Animator);
+		for (int i = 0; i < mAnimationMaxLength; ++i)
+		{
+			if (mHandnames[i] == L"") continue;
+			mMats[i] = RESOURCE_FIND(Material, mHandnames[i]);
+		}
+		int m = 0;
+		for (int i = 0; i < mAnimationMaxLength; ++i)
+		{
+			if (mHandnames[i] == L"") continue;
 
+			for (int j = 0; j < 8; ++j)
+			{
+				m = pathEightDirections[j];
+				mAnimator->Create(
+					mHandnames[i] + L"@" + sixteenDirectionString[m]
+					, mMats[i]->GetTexture()
+					, Vector2(0.0f, mAnimationSize[i].y * j)
+					, mAnimationSize[i]
+					, mAnimationLength[i]
+					, mAnimationOffset[i]
+					, 0.05f
+				);
+			}
+		}
+	}
 	void HandScript::Update()
 	{
 		Script::Update();
-	/*	if (mAnimator->GetActiveAnimation()->GetKey() != mHandnames[(UINT)mAnimationType] + sixteenDirectionString[mHandDirection]
-			&& curMonsterData.textureString[(UINT)mAnimationType] != L"")
+
+		std::wstring curAnimationName = mHandnames[mHandAnimationType] + L"@" + sixteenDirectionString[mHandDirection];
+		if (nullptr == mAnimator->GetActiveAnimation())
 		{
-
-			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-
-			WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
-
-			int prevIndex = 0;
-			if (subStr1 == curMonsterData.animationString[(UINT)T::eAnimationType::Run])
+			if(mHandnames[mHandAnimationType] != L"")
 			{
-				prevIndex = mAnimator->GetAnimationIndex();
+				SET_SCALE_XYZ(GetOwner(), mAnimationSize[mHandAnimationType].x, mAnimationSize[mHandAnimationType].y, 0.f);
+				mAnimator->PlayAnimation(curAnimationName, true);
 			}
 
-			mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], true);
-			if (mAnimationType == T::eAnimationType::Run)
+		}else
+		{
+			if (mAnimator->GetActiveAnimation()->GetKey() != curAnimationName
+				&& mHandnames[mHandAnimationType] != L"")
 			{
-				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
-				mAnimator->SetAnimationIndex(prevIndex);
+				SET_SCALE_XYZ(GetOwner(), mAnimationSize[mHandAnimationType].x, mAnimationSize[mHandAnimationType].y, 0.f);
+
+				WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
+
+				int prevIndex = 0;
+				if (subStr1 == mHandnames[3])
+				{
+					prevIndex = mAnimator->GetAnimationIndex();
+				}
+				mAnimator->PlayAnimation(curAnimationName, true);
+				if (mHandAnimationType == 3)
+				{
+					//mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
+					mAnimator->SetAnimationIndex(prevIndex);
+				}
 			}
-		}*/
+		}
 	}
 
 	void HandScript::LateUpdate()
@@ -71,10 +94,5 @@ namespace m
 	void HandScript::Render()
 	{
 		Script::Render();
-	}
-
-	void HandScript::Initialize()
-	{
-		Script::Initialize();
 	}
 }

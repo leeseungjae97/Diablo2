@@ -17,7 +17,9 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void SetComputedData();
 
+		ComputedMonsterCoord* GetComputedMonsterCoord() { return mComputedCoords; }
 	private:
 
 		graphics::StructedBuffer* mBuffer;
@@ -29,7 +31,8 @@ namespace m
 		std::shared_ptr<TileComputeShader> mCS;
 
 		ComputedTileCoord* mCoordData;
-		std::vector<ComputedMonsterCoord> mComputedCoords;
+		//std::vector<ComputedMonsterCoord> mComputedCoords;
+		ComputedMonsterCoord* mComputedCoords;
 	};
 }
 

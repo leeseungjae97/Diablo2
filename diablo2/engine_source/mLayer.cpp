@@ -101,7 +101,7 @@ namespace m
 	{
 		mGameObjects.push_back(gameObj);
 	}
-	void Layer::ChangeOrderGameObject(GameObject* gameObj)
+	void Layer::FrontGameObject(GameObject* gameObj)
 	{
 		//if (gameObj == nullptr) return;
 		//std::vector<GameObject*>::iterator iter = mGameObjects.begin();
@@ -135,5 +135,30 @@ namespace m
 			else iter++;
 		}
 		mGameObjects.push_back(gameObj);
+	}
+
+	void Layer::ChangeLayerIndexGameObject(GameObject* gameObj, GameObject* targetObj)
+	{
+		if (gameObj == nullptr) return;
+		std::vector<GameObject*>::iterator iter = mGameObjects.begin();
+		while (iter != mGameObjects.end())
+		{
+			if ((*iter) == gameObj)
+			{
+				iter = mGameObjects.erase(iter);
+				break;
+			}
+			else iter++;
+		}
+		iter = mGameObjects.begin();
+		while (iter != mGameObjects.end())
+		{
+			if ((*iter) == targetObj)
+			{
+				break;
+			}
+			else iter++;
+		}
+		mGameObjects.insert(iter, gameObj);
 	}
 }

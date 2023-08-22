@@ -15,7 +15,7 @@ namespace gui
 	std::vector<Widget*> Editor::mWidgets = {};
 	std::vector<EditorObject*> Editor::mEditorObjects = {};
 	std::vector<DebugObject*> Editor::mDebugObjects = {};
-
+	bool Editor::noRender = false;
 	void Editor::Initialize()
 	{
 		mDebugObjects.resize((UINT)eColliderType::End);
@@ -62,9 +62,15 @@ namespace gui
 	}
 	void Editor::Run()
 	{
+		if(Input::GetKeyUp(eKeyCode::S))
+		{
+			noRender = noRender ? false : true;
+		}
 		Update();
 		LateUpdate();
-		Render();
+		if(!noRender)
+			Render();
+		else renderer::debugMeshs.clear();
 	}
 	void Editor::Update()
 	{

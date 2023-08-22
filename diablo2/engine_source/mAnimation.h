@@ -61,6 +61,7 @@ namespace m
 
 		int GetIndex() { return mCurIndex; }
 		int GetProgressIndex() { return mAnimProgressIndex; }
+		int GetEndIndex() { return mEndIndex; }
 		bool IsComplete() { return mbComplete; }
 		bool IsProgress() { return mbProgress; }
 		bool IsStop() { return mbStop; }

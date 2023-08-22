@@ -2,9 +2,11 @@
 
 #include "mMeshRenderer.h"
 #include "mTileManager.h"
+#include "mTileSystem.h"
+#include "mMonsterManager.h"
+#include "mTileSystem.h"
 
 #include "../Engine/mMoveAbleObject.h"
-
 namespace m
 {
 	PathFinder::PathFinder()
@@ -137,6 +139,15 @@ namespace m
 
 	void PathFinder::openVectorAdd(int y, int x)
 	{
+		if (mMonsterOwner)
+		{
+			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
+			{
+				if (mMonsterOwner->GetMonsterId() == i) continue;
+				Vector2 coord = MonsterManager::monsters[i]->GetCoord();
+				if (coord == Vector2(x, y)) return;
+			}
+		}
 		if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
 			&& x < mTargetCoord.x + searchTileSize
 			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
@@ -144,6 +155,8 @@ namespace m
 			&& !TileManager::pathFindingTiles[y][x]->GetIsWall()
 			&& !TileManager::pathFindingTiles[y][x]->GetInClosed())
 		{
+			
+			
 			if (allowDiagonal)
 			{
 				if (TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()
@@ -204,29 +217,37 @@ namespace m
 			bfsPathFinderExcept.clear();
 
 			if (curCoord.x > targetCoord.x)
-				bfsPathFinderExcept.push_back(2);
+				bfsPathFinderExcept.push_back(2); // {-1, 0}
 			else if (curCoord.x < targetCoord.x)
-				bfsPathFinderExcept.push_back(0);
+				bfsPathFinderExcept.push_back(0); // {1, 0}
 			if (curCoord.y > targetCoord.y)
-				bfsPathFinderExcept.push_back(3);
+				bfsPathFinderExcept.push_back(3); // {0, -1}
 			else if (curCoord.y < targetCoord.y)
-				bfsPathFinderExcept.push_back(1);
+				bfsPathFinderExcept.push_back(1); // {0, 1}
 
 			if (bfsPathFinderExcept.size() == 0)
-			{
-				find = true;
 				break;
-			}
+
 			for (int i = 0; i < bfsPathFinderExcept.size(); ++i)
 			{
-				// { { 1, 0 }, { 0,  1 }, { -1,  0 }, {  0, -1 } }
-
 				dx = curTile->GetCoord().x + direct2[bfsPathFinderExcept[i]][0];
 				dy = curTile->GetCoord().y + direct2[bfsPathFinderExcept[i]][1];
 
 				if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength) continue;
 				Tile* tile = TileManager::pathFindingTiles[dy][dx];
 				if (tile->GetIsWall()) continue;
+				bool onMonsterCoord = false;
+				for (int i = 0; i < MonsterManager::monsters.size(); ++i)
+				{
+					if (mMonsterOwner->GetMonsterId() == i) continue;
+					Vector2 coord = MonsterManager::monsters[i]->GetCoord();
+					if(tile->GetCoord() == coord)
+					{
+						onMonsterCoord = true;
+						break;
+					}
+				}
+				if (onMonsterCoord) continue;
 				tile->SetParentTile(curTile);
 				openVector.push_back(tile);
 				if (tile == targetTile)
@@ -237,7 +258,6 @@ namespace m
 			}
 			if (find) break;
 		}
-		//curTile = openVector.back();
 		while(curTile != startTile)
 		{
 			pathVector.push_back(curTile);
@@ -253,19 +273,34 @@ namespace m
 		if (!finalPathVector.empty())
 		{
 			std::erase(finalPathVector, finalPathVector.front());
+			if(mMonsterOwner)
+			{
+				if (!finalPathVector.empty())
+					finalPathVector.pop_back();
+			}
 			if (finalPathVector.empty()) return false;
 			return true;
 		}
 		return false;
 
 	}
-	bool PathFinder::MonsterMove(MoveAbleObject* mOwner)
+	bool PathFinder::MonsterMove(Monster* mOwner)
 	{
 		if (finalPathVector.empty()) return false;
 
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != mOwner->GetCoord())
 		{
+			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
+			{
+				if (mOwner->GetMonsterId() == i) continue;
+				Vector2 coord = MonsterManager::monsters[i]->GetCoord();
+				if(subTargetTile->GetCoord() == coord)
+				{
+					ClearPath();
+					return false;
+				}
+			}
 			Vector3 subPos = GET_POS(subTargetTile);
 
 			Vector3 prevPosition = GET_POS(mOwner);
@@ -293,11 +328,14 @@ namespace m
 	}
 	void PathFinder::ClearPath()
 	{
-		//for (Tile* path : pathVector)
-		//	path->SetCulled(true);
-		//for (Tile* path : finalPathVector)
-		//	path->SetCulled(true);
-
+		for(int i = 0 ; i < finalPathVector.size() ;++i)
+		{
+			finalPathVector[i]->SetOnMonster(false);
+		}
+		for(int i = 0 ; i < pathVector.size(); ++i)
+		{
+			pathVector[i]->SetOnMonster(false);
+		}
 		finalPathVector.clear();
 		pathVector.clear();
 	}
@@ -333,13 +371,4 @@ namespace m
 		}
 		return true;
 	}
-
-	void PathFinder::SetXLength(int xLen)
-	{ xLength = xLen; }
-
-	void PathFinder::SetYLength(int yLen)
-	{ yLength = yLen; }
-
-	std::vector<Tile*>& PathFinder::GetPath()
-	{ return finalPathVector; }
 }

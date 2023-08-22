@@ -14,6 +14,7 @@ namespace m
 		, hp(100.f)
 		, hpCapacity(100.f)
 		, hpPercent(100.f)
+		, bArriveDest(false)
 	{
 		MonsterManager::AddMonster(this);
 
@@ -21,14 +22,19 @@ namespace m
 		sightCollider->SetType(eColliderType::Circle);
 		sightCollider->SetSize(Vector3(5.f, 5.f, 1.f));
 		sightCollider->AddExceptType(eLayerType::Skill);
+		sightCollider->AddExceptType(eLayerType::MonsterSkill);
+		sightCollider->AddExceptType(eLayerType::PlayerSkill);
+
 		sightCollider->SetColliderFunctionType(eColliderFunctionType::Sight);
 
 		rangeCollider->SetSize(Vector3(1.0f, 1.0f, 1.5f));
 
-		hitAreaCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
+		bodyBoxCollider->SetSize(Vector3(0.3f, 0.5f, 1.f));
 
 		tilePositionCollider->AddExceptType(eLayerType::MonsterSkill);
-		hitAreaCollider->AddExceptType(eLayerType::MonsterSkill);
+		bodyBoxCollider->AddExceptType(eLayerType::MonsterSkill);
+
+		mPathFinder->SetMonsterOwner(this);
 	}
 	Monster::~Monster()
 	{}
@@ -42,7 +48,7 @@ namespace m
 		MoveAbleObject::Update();
 		if (hp == 0)
 		{
-			//std::erase(MonsterManager::monsters, this);
+			//Dead end -> Delete
 			MonsterManager::EraseMonster(this);
 			SetState(eState::Delete);
 			return;
@@ -52,7 +58,11 @@ namespace m
 
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
-
+		//if (bodyBoxCollider->GetOnEnter()
+		//	|| bodyBoxCollider->GetOnStay())
+		//{
+		//	mPathFinder->ClearPath();
+		//}
 
 		if (sightCollider->GetOnEnter()
 			|| sightCollider->GetOnStay())
@@ -63,15 +73,20 @@ namespace m
 			}
 			else
 			{
-				mPathFinder->InSightPathFinding(curCoord, targetCoord);
+				mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
+				//mPathFinder->InSightPathFinding(curCoord, targetCoord);
 			}
-			
-			mPathFinder->MonsterMove(this);
+			bArriveDest = mPathFinder->MonsterMove(this);
 
-			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			if (!bArriveDest && sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			{
 				mPathFinder->PathChange();
 			}
+			//mPathFinder->MonsterMove(this);
+			//if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			//{
+			//	mPathFinder->PathChange();
+			//}
 		}
 		
 
@@ -83,19 +98,20 @@ namespace m
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
 
-		if (GetBattleState() == eBattleState::Dead
+		if (mMonsterClass != eMonsterClass::Boss 
+			&& (GetBattleState() == eBattleState::Dead
 			|| GetBattleState() == eBattleState::Attack
-			//|| GetBattleState() == eBattleState::Hit
-			|| GetBattleState() == eBattleState::Cast
+			|| GetBattleState() == eBattleState::Hit
+			|| GetBattleState() == eBattleState::Cast)
 			)
 		{
 			fStartDistance = fRemainDistance;
 			destPosition = GET_POS(TileManager::playerStandTile);
 		}
-		if (rangeCollider->GetOnEnter()
-			|| rangeCollider->GetOnStay())
+		if (rangeCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 		{
-			fStartDistance = fRemainDistance;
+			//mPathFinder->ClearPath();
+			//fStartDistance = fRemainDistance;
 		}
 		if (fRemainDistance < fStartDistance)
 		{

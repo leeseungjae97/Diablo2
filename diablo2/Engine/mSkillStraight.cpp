@@ -17,8 +17,11 @@ namespace m
 		SET_SCALE_XYZ(this, skillSizes[(int)type].x, skillSizes[(int)type].y, 1.f);
 		ADD_COMP(this, Animator);
 
-		if(type >= eSkillType::DiabloLightning) 
+		if(type >= eSkillType::DiabloLightning)
+		{
 			ss = AddComponent<StraightScript>(8);
+			rangeCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
+		}
 		else 
 			ss = AddComponent<StraightScript>();
 	}
@@ -43,7 +46,7 @@ namespace m
 			bSkillFire = false;
 			bMove = true;
 			Vector3 destVector = Vector3::One;
-			if (GetSkillOwnerLayer() == eLayerType::Player)
+			if (GetSkillOwnerLayer() == eLayerType::PlayerSkill)
 			{
 				destVector = Input::GetUnprojectionMousePos(destPosition.z
 															, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());

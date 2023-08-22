@@ -22,15 +22,11 @@ namespace m
         virtual void Render() override;
         virtual void Initialize() override;
 
-        //HandScript* GetHandScript() { return mHandScript; }
-        //Animator* GetAnimator() { return mAnimator; }
-
         void RightHand() { bRightHand = true; }
         void LeftHand() { bRightHand = false; }
 
     protected:
         HandScript* mHandScript;
-        Animator* mAnimator;
 
         bool bRightHand;
     };

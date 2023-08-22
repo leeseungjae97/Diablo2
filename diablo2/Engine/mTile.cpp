@@ -16,6 +16,7 @@ namespace m
 		, isWall(false)
 		, inClosed(false)
 		, inOpen(false)
+		, onMonster(false)
 		, G(0)
 		, H(0)
 		, mParentTile(nullptr)

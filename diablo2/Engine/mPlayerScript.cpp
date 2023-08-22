@@ -56,8 +56,8 @@ namespace m
 		//SET_SCALE_XYZ(mRSO, 100.f, 50.f, 1.f);
 		//SET_SCALE_XYZ(mLSO, 100.f, 50.f, 1.f);
 
-		curScene->AddGameObject(eLayerType::Skill, mRSO);
-		curScene->AddGameObject(eLayerType::Skill, mLSO);
+		curScene->AddGameObject(eLayerType::PlayerSkill, mRSO);
+		curScene->AddGameObject(eLayerType::PlayerSkill, mLSO);
 		curScene->AddGameObject(eLayerType::Skill, mHSO);
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
@@ -142,7 +142,7 @@ namespace m
 				if (bFire)
 				{
 					Skill* skill = nullptr;
-					MAKE_SKILL(activeSkillIndex, skill, GET_POS(PlayerInfo::player), eLayerType::PlayerSkill);
+					MAKE_SKILL(PlayerInfo::GetSkill(activeSkillIndex), skill, GET_POS(PlayerInfo::player), eLayerType::PlayerSkill);
 					bFire = false;
 				}
 			};

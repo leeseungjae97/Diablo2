@@ -77,6 +77,9 @@ namespace m
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
 				}
 				return;
+			}else
+			{
+				GetOwner()->SetState(GameObject::eState::Delete);
 			}
 		}
 
@@ -145,43 +148,44 @@ namespace m
 	{
 		if (other->GetColliderFunctionType() == eColliderFunctionType::TilePos)
 		{
-			if (other->GetOwner()->GetLayerType() != dynamic_cast<Skill*>(GetOwner())->GetSkillOwnerLayer())
+			switch (dynamic_cast<Skill*>(GetOwner())->GetLayerType())
 			{
-
-				switch (dynamic_cast<Skill*>(GetOwner())->GetSkillOwnerLayer())
-				{
-				case m::enums::eLayerType::PlayerSkill: 
-				{
-					if(dynamic_cast<Monster*>(other->GetOwner()))
-						dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
-				}
-					break;
-				case m::enums::eLayerType::MonsterSkill:
-				{
-					if (mCrashType == eCrashType::Overlay)
-					{
-						PlayerScript* ps = PlayerInfo::player->GetComponent<PlayerScript>();
-						
-						SET_SCALE_XYZ(ps->GetHSO()
-									  , crashSizes[(int)mSkillCrashType].x
-									  , crashSizes[(int)mSkillCrashType].y
-									  , 1.f
-						);
-						OverlayEffectSkillScript* mOESS = ps->GetHSO()->GetComponent<OverlayEffectSkillScript>();
-						mOESS->SetSkillType(mType);
-						//if(!mOESS->IsPlayHit())
-						ps->GetHSO()->ActiveOverlay();
-
-					}
-					PlayerInfo::player->Hit(10);
-				}
-					break;
-				default:
-					break;
-				}
-				//Monster* monster = dynamic_cast<Monster*>();
+			case m::enums::eLayerType::PlayerSkill:
+			{
+				if (dynamic_cast<Monster*>(other->GetOwner()))
+					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
 			}
-			dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+			break;
+			case m::enums::eLayerType::MonsterSkill:
+			{
+				if (mCrashType == eCrashType::Overlay)
+				{
+					//PlayerScript* ps = PlayerInfo::player->GetComponent<PlayerScript>();
+					PlayerScript* ps = other->GetOwner()->GetComponent<PlayerScript>();
+
+					SET_SCALE_XYZ(ps->GetHSO()
+						, crashSizes[(int)mSkillCrashType].x
+						, crashSizes[(int)mSkillCrashType].y
+						, 1.f
+					);
+					OverlayEffectSkillScript* mOESS = ps->GetHSO()->GetComponent<OverlayEffectSkillScript>();
+					mOESS->SetSkillType(mType);
+					//if(!mOESS->IsPlayHit())
+					ps->GetHSO()->ActiveOverlay();
+				}
+				dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+			}
+			break;
+			default:
+				break;
+			}
+			if (mCrashType != eCrashType::Overlay) dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+			//if (other->GetOwner()->GetLayerType() != dynamic_cast<Skill*>(GetOwner())->GetLayerType())
+			//{
+			//	
+			//	//Monster* monster = dynamic_cast<Monster*>();
+			//}
+			
 			//mAnimator->StopAnimation();
 			
 		}

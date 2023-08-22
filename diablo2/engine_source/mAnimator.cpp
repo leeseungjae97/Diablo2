@@ -6,6 +6,7 @@ namespace m
 		:Component(eComponentType::Animator)
 		, mActiveAnimation(nullptr)
 		, mbLoop(false)
+		, bSyncPlay(false)
 	{
 
 	}
@@ -59,7 +60,11 @@ namespace m
 			|| mActiveAnimation->IsStop())
 			return;
 
-		mActiveAnimation->LateUpdate();
+
+		if(!bSyncPlay)
+			mActiveAnimation->LateUpdate();
+		else
+			SyncPlay();
 	}
 	void Animator::Render()
 	{
@@ -98,6 +103,14 @@ namespace m
 		events = new Events();
 		mEvents.insert(std::make_pair(name, events));
 	}
+	void Animator::SyncPlay()
+	{
+		int index = mSyncAnimator->GetActiveAnimation()->GetIndex();
+
+		if(!mActiveAnimation->GetEndIndex() < index)
+			mActiveAnimation->SetIndex(index);
+	}
+
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
 		std::map<std::wstring, Animation*>::iterator iter
@@ -144,6 +157,7 @@ namespace m
 		mbLoop = loop;
 		mActiveAnimation->Reset();
 	}
+
 	void Animator::Binds()
 	{
 		if (mActiveAnimation == nullptr)

@@ -54,12 +54,12 @@ namespace m
 		Vector2 GetCoord() { return mCoord; }
 
 		Collider2D* GetTilePositionCollider() { return tilePositionCollider; }
-		Collider2D* GetHitAreaCollider() { return hitAreaCollider; }
+		Collider2D* GetHitAreaCollider() { return bodyBoxCollider; }
 
 	protected:
 		Collider2D* rangeCollider;
 		Collider2D* tilePositionCollider;
-		Collider2D* hitAreaCollider;
+		Collider2D* bodyBoxCollider;
 
 		Vector3 prevPosition;
 		Vector3 destPosition;

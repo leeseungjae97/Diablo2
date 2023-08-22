@@ -31,8 +31,8 @@ namespace m
 
 		if (useHitArea)
 		{
-			hitAreaCollider = ADD_COMP(this, Collider2D);
-			hitAreaCollider->SetColliderFunctionType(eColliderFunctionType::HitArea);
+			bodyBoxCollider = ADD_COMP(this, Collider2D);
+			bodyBoxCollider->SetColliderFunctionType(eColliderFunctionType::HitArea);
 		}
 
 		if (useRange)

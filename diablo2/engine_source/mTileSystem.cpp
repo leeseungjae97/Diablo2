@@ -4,6 +4,7 @@
 #include "mRenderer.h"
 #include "mMouseManager.h"
 #include "mMonsterManager.h"
+#include "mInput.h"
 
 #include "../Engine/mPlayerInfo.h"
 #include "../Engine/mPlayer.h"
@@ -16,12 +17,11 @@ namespace m
 		, mSharedBuffer(nullptr)
 		, mCoordData(nullptr)
 	{
-		mComputedCoords.resize(4);
-		//*mMonsterCoordData = nullptr;
+		//mComputedCoords.resize(4);
 
 		std::shared_ptr<Mesh> mesh = RESOURCE_FIND(Mesh, L"PointMesh");
 		SetMesh(mesh);
-		std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"noneRect");
+		std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenOutlineTileD");
 		SetMaterial(material);
 
 		mCS = Resources::Find<TileComputeShader>(L"TileComputeShader");
@@ -77,7 +77,8 @@ namespace m
 			mMonsterCoordBuffer = nullptr;
 		}
 		mCoordData = nullptr;
-		mComputedCoords.clear();
+		//mComputedCoords.resize(0);
+		//mComputedCoords.clear();
 	}
 
 	void TileSystem::Initialize()
@@ -88,29 +89,16 @@ namespace m
 	void TileSystem::Update()
 	{
 		MeshRenderer::Update();
-		if(mComputedCoords.size() != 0 )
-		{
-			for(int i = 0 ; i < mComputedCoords.size() ; ++i)
-			{
-				Vector2 coord = mComputedCoords[i].monsterStandTileCoord;
-				if(coord != Vector2(-1.f, -1.f))
-					MonsterManager::monsters[i]->SetCoord(coord);
-			}
-		}
-		
-		if(nullptr != mCoordData)
-		{
-			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
-			if(mouseCoord != Vector2(-1.f, -1.f))
-			{
-				TileManager::hoverTile = TileManager::pathFindingTiles[mouseCoord.y][mouseCoord.x];
-			}
 
-			Vector2 playerCoord = mCoordData->playerStandTileCoord;
-			if (playerCoord != Vector2(-1.f, -1.f))
-			{
-				TileManager::playerStandTile = TileManager::pathFindingTiles[playerCoord.y][playerCoord.x];
-			}
+		if(Input::GetKeyDown(eKeyCode::A))
+		{
+			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenOutlineTileD");
+			SetMaterial(material);
+		}
+		if (Input::GetKeyDown(eKeyCode::D))
+		{
+			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"noneRect");
+			SetMaterial(material);
 		}
 		mCS->SetCamera(GetOwner()->GetCamera());
 	}
@@ -157,7 +145,15 @@ namespace m
 			mMonsterBuffer->Clear();
 			mMonsterBuffer->Create(sizeof(ComputeMonster), MonsterManager::monsters.size(), eViewType::UAV, computeMonsters.data(), true);
 
-			mComputedCoords.resize(MonsterManager::monsters.size());
+			//if (!MonsterManager::monsters.empty())
+			//{
+			//	for (int i = 0; i < MonsterManager::monsters.size(); ++i)
+			//	{
+			//		Vector2 coord = MonsterManager::monsters[i]->GetCoord();
+			//		TileManager::pathFindingTiles[coord.y][coord.x]->SetOnMonster(false);
+			//	}
+			//}
+
 			mMonsterCoordBuffer->Clear();
 			mMonsterCoordBuffer->Create(sizeof(ComputedMonsterCoord), MonsterManager::monsters.size(), eViewType::UAV, nullptr, true);
 
@@ -169,14 +165,17 @@ namespace m
 		mCS->SetTileCoordBuffer(mTileCoordBuffer);
 
 
-		mCS->OnExcute(&mCoordData, 1, mComputedCoords.data(), MonsterManager::monsters.size());
+		//mCS->OnExcute(&mCoordData, 1, mComputedCoords.data(), MonsterManager::monsters.size());
+		mCS->OnExcute(&mCoordData, 1, &mComputedCoords, MonsterManager::monsters.size());
+
+		SetComputedData();
 	}
 
 	void TileSystem::Render()
 	{
 		MeshRenderer::Render();
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
-		mBuffer->BindSRV(eShaderStage::VS, 11);
+		mBuffer->BindSRV(eShaderStage::VS, 11);        
 		mBuffer->BindSRV(eShaderStage::GS, 11);
 		mBuffer->BindSRV(eShaderStage::PS, 11);
 
@@ -188,5 +187,35 @@ namespace m
 		mTileCoordBuffer->Clear();
 		mMonsterBuffer->Clear();
 		mMonsterCoordBuffer->Clear();
+	}
+
+	void TileSystem::SetComputedData()
+	{
+		if (!MonsterManager::monsters.empty())
+		{
+			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
+			{
+				Vector2 coord = mComputedCoords[i].monsterStandTileCoord;
+				if (coord != Vector2(-1.f, -1.f))
+				{
+					MonsterManager::monsters[i]->SetCoord(coord);
+				}
+			}
+		}
+
+		if (nullptr != mCoordData)
+		{
+			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
+			if (mouseCoord != Vector2(-1.f, -1.f))
+			{
+				TileManager::hoverTile = TileManager::pathFindingTiles[mouseCoord.y][mouseCoord.x];
+			}
+
+			Vector2 playerCoord = mCoordData->playerStandTileCoord;
+			if (playerCoord != Vector2(-1.f, -1.f))
+			{
+				TileManager::playerStandTile = TileManager::pathFindingTiles[playerCoord.y][playerCoord.x];
+			}
+		}
 	}
 }

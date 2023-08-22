@@ -38,6 +38,7 @@ namespace m
 		eMonsterClass GetMonsterClass() { return mClass; }
 
 		int GetDirection() { return mDirection; }
+		float GetDegree() { return degree; }
 	private:
 		T curMonsterData;
 		std::vector<SHARED_TEX> texs;
@@ -58,6 +59,7 @@ namespace m
 		bool bFire;
 		bool bDamaged;
 		float fDelay;
+		float degree;
 	};
 }
 

@@ -7,10 +7,12 @@
 namespace m
 {
 	SkillMultiFire::SkillMultiFire(
-		eSkillType type,
+
 		Vector3 iniPos,
+		eSkillType type,
 		int count,
 		eFireType fireType,
+		eLayerType layerType,
 		Vector2 randFireArange
 	)
 		: Skill(type, iniPos)
@@ -48,7 +50,7 @@ namespace m
 				mSkillFireTimes.push_back(0.05f);
 				sf = new SkillStraight(type, startPos, 400.f);
 			}
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, sf);
+			SceneManager::GetActiveScene()->AddGameObject(layerType, sf);
 
 			skills.push_back(sf);
 		}
@@ -68,7 +70,6 @@ namespace m
 		{
 			for (Skill* sf : skills)
 			{
-				sf->SetSkillOwnerLayer(GetSkillOwnerLayer());
 				sf->SetCamera(GetCamera());
 			}
 			bFirstUpdate = true;

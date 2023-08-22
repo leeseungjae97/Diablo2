@@ -464,20 +464,11 @@ namespace m::graphics
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
-		if(size > 1)
-		{
-			//if(nullptr != *data)
-				//delete[] * data;
-
-			//*data = new T[size];
-			memcpy(*data, sub.pData, sizeof(T) * size);
-			int a = 0;
-		}
-		else *data = static_cast<T*>(sub.pData);
+		*data = static_cast<T*>(sub.pData);
 		mContext->Unmap(buffer, 0);
 	}
 	template <typename T>
-	void GraphicDevice_DX11::ReadBuffer(ID3D11Buffer* buffer, T* data, UINT size)
+	void GraphicDevice_DX11::ReadBuffers(ID3D11Buffer* buffer, T** data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);

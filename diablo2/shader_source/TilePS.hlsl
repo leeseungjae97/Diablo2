@@ -13,11 +13,10 @@ float4 main(GSOut In) : SV_TARGET
     
     Out = albedoTexture.Sample(pointSampler, In.UV);
     
-    float4 mousePos = TileSharedBuffer[0].mousePos;
-    
-    if (mousePos.x > 10)
-        discard;
-    
+    //if (TileSharedBuffer[0].mousePos.x > 10)
+    //{
+    //    discard;
+    //}
     //Out.a = alpha;
     
     if (Out.a <= 0.0f)
