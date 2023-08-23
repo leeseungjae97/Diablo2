@@ -39,6 +39,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
@@ -90,6 +92,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />

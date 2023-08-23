@@ -362,9 +362,6 @@
     <Filter Include="Script\OverlayEffectScript">
       <UniqueIdentifier>{bec1a9a7-acfd-4a99-81a1-b89f18d8ebe8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Skill\SkillMultiStraight">
-      <UniqueIdentifier>{221c756b-c681-4c6a-9b8d-634d43105d07}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Skill\SkillMultiFire">
       <UniqueIdentifier>{89c4e53a-2790-4d6b-83b1-8c1624c4ac4e}</UniqueIdentifier>
     </Filter>

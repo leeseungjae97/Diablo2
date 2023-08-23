@@ -24,7 +24,6 @@ namespace m
 		, dy(0)
 		, dx(0)
 		, searchTileSize(20)
-		, mFinderType(eFinderType::End)
 	{
 		bfsPathFinderExcept.reserve(5);
 		finalPathVector.reserve(300);
@@ -36,6 +35,8 @@ namespace m
 
 		yLength = TileManager::pathFindingTiles.size();
 		xLength = TileManager::pathFindingTiles[0].size();
+
+
 	}
 	PathFinder::~PathFinder()
 	{
@@ -50,10 +51,16 @@ namespace m
 
 	void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
+
+		if(mMonsterOwner)
+		{
+			
+		}
 		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
 		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
 
-		if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
+		if(nullptr == mMonsterOwner)
+			if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
 
 		if (searchSize == -1)
 			searchTileSize = fabs(targetCoord.x - startCoord.x) + fabs(targetCoord.y - startCoord.y);
@@ -139,24 +146,32 @@ namespace m
 
 	void PathFinder::openVectorAdd(int y, int x)
 	{
-		if (mMonsterOwner)
+		if(mMonsterOwner)
 		{
 			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
 			{
 				if (mMonsterOwner->GetMonsterId() == i) continue;
-				Vector2 coord = MonsterManager::monsters[i]->GetCoord();
-				if (coord == Vector2(x, y)) return;
+				if (MonsterManager::monsters[i]->GetNextMoveCoord() == Vector2(x, y))
+				{
+					return;
+				}
 			}
 		}
+
+		if (mMonsterOwner
+			&& mMonsterOwner->GetNextMoveCoord() != Vector2(x, y)
+			&& TileManager::pathFindingTiles[y][x]->GetMonsterNext() != 0)
+			return;
+
 		if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
 			&& x < mTargetCoord.x + searchTileSize
 			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
 			&& y < mTargetCoord.y + searchTileSize
 			&& !TileManager::pathFindingTiles[y][x]->GetIsWall()
+			&& !TileManager::pathFindingTiles[y][x]->GetOnMonster()
 			&& !TileManager::pathFindingTiles[y][x]->GetInClosed())
 		{
-			
-			
+
 			if (allowDiagonal)
 			{
 				if (TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()
@@ -236,18 +251,7 @@ namespace m
 				if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength) continue;
 				Tile* tile = TileManager::pathFindingTiles[dy][dx];
 				if (tile->GetIsWall()) continue;
-				bool onMonsterCoord = false;
-				for (int i = 0; i < MonsterManager::monsters.size(); ++i)
-				{
-					if (mMonsterOwner->GetMonsterId() == i) continue;
-					Vector2 coord = MonsterManager::monsters[i]->GetCoord();
-					if(tile->GetCoord() == coord)
-					{
-						onMonsterCoord = true;
-						break;
-					}
-				}
-				if (onMonsterCoord) continue;
+				if (tile->GetOnMonster()) continue;
 				tile->SetParentTile(curTile);
 				openVector.push_back(tile);
 				if (tile == targetTile)
@@ -289,18 +293,18 @@ namespace m
 		if (finalPathVector.empty()) return false;
 
 		Tile* subTargetTile = finalPathVector.front();
+		mOwner->SetNextMoveCoord(subTargetTile->GetCoord());
+		subTargetTile->SetMonsterNext();
+
+		if(subTargetTile->GetOnMonster())
+		{
+			subTargetTile->UnSetMonsterNext();
+			ClearPath();
+			return false;
+		}
+
 		if (subTargetTile->GetCoord() != mOwner->GetCoord())
 		{
-			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
-			{
-				if (mOwner->GetMonsterId() == i) continue;
-				Vector2 coord = MonsterManager::monsters[i]->GetCoord();
-				if(subTargetTile->GetCoord() == coord)
-				{
-					ClearPath();
-					return false;
-				}
-			}
 			Vector3 subPos = GET_POS(subTargetTile);
 
 			Vector3 prevPosition = GET_POS(mOwner);
@@ -322,6 +326,7 @@ namespace m
 		}
 		else
 		{
+			subTargetTile->UnSetMonsterNext();
 			std::erase(finalPathVector, finalPathVector.front());
 		}
 		return true;
@@ -331,10 +336,12 @@ namespace m
 		for(int i = 0 ; i < finalPathVector.size() ;++i)
 		{
 			finalPathVector[i]->SetOnMonster(false);
+			//finalPathVector[i]->SetMonsterNext(false);
 		}
 		for(int i = 0 ; i < pathVector.size(); ++i)
 		{
 			pathVector[i]->SetOnMonster(false);
+			//pathVector[i]->SetMonsterNext(false);
 		}
 		finalPathVector.clear();
 		pathVector.clear();

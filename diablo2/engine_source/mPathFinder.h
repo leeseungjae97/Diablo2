@@ -9,12 +9,6 @@ namespace m
 	class PathFinder
 	{
 	public:
-		enum class eFinderType
-		{
-			Astar,
-			InSight,
-			End,
-		};
 
 		PathFinder();
 		~PathFinder();
@@ -34,7 +28,6 @@ namespace m
 		void SetYLength(int yLen) { yLength = yLen; }
 		std::vector<Tile*>& GetPath() { return finalPathVector; }
 
-		void SetFinderType(eFinderType type) { mFinderType = type; }
 		void SetMonsterOwner(Monster* mon) { mMonsterOwner = mon; }
 		Vector2 GetTargetCoord() { return mTargetCoord; }
 	private:
@@ -65,10 +58,10 @@ namespace m
 
 		int dy;
 		int dx;
+		int dy2;
+		int dx2;
 
 		float searchTileSize;
-
-		eFinderType mFinderType;
 
 		Monster* mMonsterOwner;
 	};

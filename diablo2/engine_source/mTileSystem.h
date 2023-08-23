@@ -22,11 +22,11 @@ namespace m
 		ComputedMonsterCoord* GetComputedMonsterCoord() { return mComputedCoords; }
 	private:
 
-		graphics::StructedBuffer* mBuffer;
-		graphics::StructedBuffer* mSharedBuffer;
-		graphics::StructedBuffer* mTileCoordBuffer;
+		graphics::StructedBuffer* mTileBuffer;
+		graphics::StructedBuffer* mTileSharedBuffer;
+		graphics::StructedBuffer* mComputedTileCoordBuffer;
 		graphics::StructedBuffer* mMonsterBuffer;
-		graphics::StructedBuffer* mMonsterCoordBuffer;
+		graphics::StructedBuffer* mGetMonsterComputedCoordBuffer;
 
 		std::shared_ptr<TileComputeShader> mCS;
 

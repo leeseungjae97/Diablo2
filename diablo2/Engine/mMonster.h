@@ -30,9 +30,13 @@ namespace m
 
         bool GetArrival() { return bArriveDest; }
         void SetArrival(bool ar) { bArriveDest = ar; }
+
+        void SetNextMoveCoord(Vector2 coord) { mNextMoveCoord = coord; }
+        Vector2 GetNextMoveCoord() { return mNextMoveCoord; }
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
+        Vector2 mNextMoveCoord;
         bool bArriveDest;
         int monsterId;
         float hp;

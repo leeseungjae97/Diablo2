@@ -27,6 +27,10 @@ namespace m
         Vector2 GetCoord() { return mCoord; }
         void SetCoord(Vector2 coord) { mCoord = coord; }
 
+        int GetMonsterNext() { return willOnMonsterCount; }
+        void SetMonsterNext() { ++willOnMonsterCount; }
+        void UnSetMonsterNext() { willOnMonsterCount != 0 ? --willOnMonsterCount : willOnMonsterCount; }
+
         int GetF() const { return G + H; }
         int GetG() const { return G; }
         int GetH() const { return H; }
@@ -47,11 +51,11 @@ namespace m
         std::shared_ptr<Material> GetSaveMaterial() { return saveMaterial; }
     private:
         Tile* mParentTile;
-        Tile* child;
         Vector2 mCoord;
         std::shared_ptr<Material> saveMaterial;
         bool isWall;
         bool onMonster;
+        int willOnMonsterCount;
         bool inClosed;
         bool inOpen;
         int G; // from cost

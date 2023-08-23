@@ -15,7 +15,7 @@ void main(uint3 DTid : SV_DispatchThreadID)
         //float4 texel = atlasTexture.Load(int3(pixelPos, 0));
         //texel.a = 0.5;
         //atlasTexture[pixelPos] = texel;
-    
+
     float4 vRandom = (float4) 0.f;
     if (ParticleBuffer[DTid.x].active == 0)
     {

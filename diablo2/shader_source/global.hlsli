@@ -36,16 +36,31 @@ cbuffer Noise : register(b6)
 {
     float4 noiseTextureSize;
 }
-struct TileCoord
-{
-    float2 mouseHoverTileCoord;
-    float2 playerStandTileCoord;
-};
 struct Tile
 {
     float4 tilePosition;
     float2 tileSize;
     float2 tileCoord;
+    
+    float2 parentCoord;
+    float2 ttt;
+    
+    //bool isWall;
+    //bool onMonster;
+    //bool isWall1;
+    //bool onMonster2;
+    
+    //uint willOnMonsterCount;
+    
+    //bool inClose;
+    //bool inOpen;
+    
+    //int G;
+    //int H;
+    
+    //uint openIndex;
+    //uint closedIndex;
+    //uint pathIndex;
 };
 struct TileShared
 {
@@ -58,15 +73,36 @@ struct TileShared
 struct Monster
 {
     float4 monsterPos;
+    float2 monsterNextCoord;
     uint monsterCount;
 };
-struct MonsterCoord
+struct MonsterComputedCoord
 {
     float2 monsterCoord;
+};
+struct TileComputedCoord
+{
+    float2 mouseHoverTileCoord;
+    float2 playerStandTileCoord;
 };
 struct ParticleShared
 {
     uint ActiveSharedCount;
+};
+struct PathfindingShared
+{
+    float4 startTileCoord;
+    float4 targetTileCoord;
+    bool allowdiagonal;
+
+    bool dontcrosscorner;
+
+    int xLength;
+    int yLength;
+    bool isMonster;
+    int openBufferIndex;
+    int closedBufferIndex;
+    int pathBufferIndex;
 };
 struct LightAttribute
 {
@@ -93,10 +129,12 @@ struct Particle
     uint active;
 };
 
-
 StructuredBuffer<Tile> tiles : register(t11);
+StructuredBuffer<Monster> monsters : register(t12);
+
 StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
 StructuredBuffer<Particle> particles : register(t14);
+
 
 Texture2D albedoTexture : register(t0);
 Texture2D atlasTexture : register(t12);
@@ -112,6 +150,21 @@ static float GaussianFilter[5][5] =
     0.0219f, 0.0983f, 0.1621f, 0.0983f, 0.0219f,
     0.0133f, 0.0596f, 0.0983f, 0.0596f, 0.0133f,
     0.003f, 0.0133f, 0.0219f, 0.0133f, 0.003f,
+};
+static float direct1[4][2] =
+{
+    1, 1,
+    1, -1,
+    -1, -1,
+    -1, 1
+};
+
+static float direct2[4][2] =
+{
+    1, 0,
+    0, 1,
+    -1, 0,
+    0, -1
 };
 
 float4 GaussianBlur(float2 UV)
@@ -202,3 +255,69 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
     else
         return false;
 }
+
+//void openBufferAdd(
+//            int y
+//            , int x
+//            , uint3 id
+//            , int openBufferIndex
+//            , float4 curTileCoord
+//            , Tile curTile
+//            , float2 mTargetCoord
+//            , float serachTileSize
+//            , int monsterSize
+//            , bool allowDiagonal
+//            , bool dontCrossCorner
+//            , bool fromMonster
+//            , int monsterId)
+//{
+//    if (fromMonster)
+//    {
+//        for (int i = 0; i < monsterSize; ++i)
+//        {
+//            if (monsterId == i)
+//                continue;
+//            if (pfMonster[i].nextMoveCoord == float2(x, y))
+//            {
+//                return;
+//            }
+//        }
+//    }
+//    if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
+//			&& x < mTargetCoord.x + searchTileSize
+//			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
+//			&& y < mTargetCoord.y + searchTileSize
+//			&& tiles[y * 10 + x].isWall == false
+//			&& tiles[y * 10 + x].onMonster == false
+//			&& tiles[y * 10 + x].inClose == false)
+//    {
+//        if (allowDiagonal)
+//        {
+//            if (tiles[curTile.tileCoord.y * 10 + x].isWall
+//					&& tiles[y * 10 + curTile.tileCoord.x].isWall)
+//                return;
+//        }
+//        if (dontCrossCorner)
+//        {
+//            if (tiles[y * 10 + curTile.tileCoord.x].isWall || tiles[curTile.tileCoord.y * 10 + x].isWall)
+//                return;
+//        }
+//        Tile neighborTile = tiles[y * 10 + x];
+//        int moveCost = curTile.G
+//						 + (curTile.tileCoord.x - x == 0
+//						 || curTile.tileCoord.y - y == 0 ? 10 : 14);
+
+//        if (moveCost < neighborTile.G || !neighborTile.inOpen)
+//        {
+//            neighborTile.G = moveCost;
+//            neighborTile.H = ((abs(neighborTile.tileCoord.x - mTargetCoord.x)
+//									+ abs(neighborTile.tileCoord.y - mTargetCoord.y)) * 10);
+//            neighborTile.parentCoord = curTile.tileCoord;
+
+//            neighborTile.inOpen = true;
+//            ++openBufferIndex;
+//            neighborTile.openIndex = openBufferIndex;
+//            //openbuffer[openBufferIndex] = neighborTile;
+//        }
+//    }
+//}

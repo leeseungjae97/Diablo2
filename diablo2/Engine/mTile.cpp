@@ -13,6 +13,7 @@ namespace m
 {
 	Tile::Tile()
 		: mCoord(Vector2(-1.f, -1.f))
+		, willOnMonsterCount(0)
 		, isWall(false)
 		, inClosed(false)
 		, inOpen(false)
@@ -20,6 +21,7 @@ namespace m
 		, G(0)
 		, H(0)
 		, mParentTile(nullptr)
+		
 	{
 		SetIsRhombus(true);
 		ADD_COMP(this, TileScript);

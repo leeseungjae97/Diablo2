@@ -1,12 +1,12 @@
 #include "global.hlsli"
 
-RWStructuredBuffer<Tile> tileBuffer : register(u0);
+RWStructuredBuffer<Tile> TileBuffer : register(u0);
 RWStructuredBuffer<TileShared> TileSharedBuffer : register(u1);
-RWStructuredBuffer<TileCoord> TileCoordBuffer : register(u2);
+RWStructuredBuffer<TileComputedCoord> TileCoordBuffer : register(u2);
 RWStructuredBuffer<Monster> MonsterBuffer : register(u3);
-RWStructuredBuffer<MonsterCoord> MonsterCoordBuffer : register(u4);
+RWStructuredBuffer<MonsterComputedCoord> MonsterCoordBuffer : register(u4);
 
-[numthreads(100, 1, 1)]
+[numthreads(1000, 1, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
 {
     if (TileSharedBuffer[0].tileCount < DTid.x)
@@ -25,21 +25,20 @@ void main( uint3 DTid : SV_DispatchThreadID )
         TileCoordBuffer[0].playerStandTileCoord = float2(-1.f, -1.f);
     }
     
-    
-    float2 scale = tileBuffer[DTid.x].tileSize;
-    float2 pos = tileBuffer[DTid.x].tilePosition.xy;
+    float2 scale = TileBuffer[DTid.x].tileSize;
+    float2 pos = TileBuffer[DTid.x].tilePosition.xy;
     float2 otherPos = TileSharedBuffer[0].mousePos.xy;
     
     if (PointIntersectRhombus(pos, scale, otherPos) == true)
     {
-        TileCoordBuffer[0].mouseHoverTileCoord = tileBuffer[DTid.x].tileCoord;
+        TileCoordBuffer[0].mouseHoverTileCoord = TileBuffer[DTid.x].tileCoord;
     }
     
     otherPos = TileSharedBuffer[0].playerPos.xy;
     
     if (PointIntersectRhombus(pos, scale, otherPos) == true)
     {
-        TileCoordBuffer[0].playerStandTileCoord = tileBuffer[DTid.x].tileCoord;
+        TileCoordBuffer[0].playerStandTileCoord = TileBuffer[DTid.x].tileCoord;
     }
     
     
@@ -48,7 +47,7 @@ void main( uint3 DTid : SV_DispatchThreadID )
         otherPos = MonsterBuffer[i].monsterPos.xy;
         if (PointIntersectRhombus(pos, scale, otherPos) == true)
         {
-            MonsterCoordBuffer[i].monsterCoord = tileBuffer[DTid.x].tileCoord;
+            MonsterCoordBuffer[i].monsterCoord = TileBuffer[DTid.x].tileCoord;
         }
     }
 }

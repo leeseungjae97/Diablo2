@@ -443,6 +443,10 @@ namespace renderer
 		tileSystemShader->Create(L"TileCS.hlsl", "main");
 		m::Resources::Insert(L"TileComputeShader", tileSystemShader);
 
+		//std::shared_ptr<ParticleComputeShader> lss = std::make_shared<ParticleComputeShader>();
+		//lss->Create(L"PathFinderCS.hlsl", "main");
+		//m::Resources::Insert(L"pp", lss);
+
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");

@@ -46,7 +46,7 @@ namespace m
 			bSkillFire = false;
 			bMove = true;
 			Vector3 destVector = Vector3::One;
-			if (GetSkillOwnerLayer() == eLayerType::PlayerSkill)
+			if (GetLayerType() == eLayerType::PlayerSkill)
 			{
 				destVector = Input::GetUnprojectionMousePos(destPosition.z
 															, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());

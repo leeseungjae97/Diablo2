@@ -76,17 +76,17 @@ namespace m
 				mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
 				//mPathFinder->InSightPathFinding(curCoord, targetCoord);
 			}
-			bArriveDest = mPathFinder->MonsterMove(this);
+			//bArriveDest = mPathFinder->MonsterMove(this);
 
-			if (!bArriveDest && sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-			{
-				mPathFinder->PathChange();
-			}
-			//mPathFinder->MonsterMove(this);
-			//if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			//if (!bArriveDest && sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			//{
 			//	mPathFinder->PathChange();
 			//}
+			mPathFinder->MonsterMove(this);
+			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			{
+				mPathFinder->PathChange();
+			}
 		}
 		
 

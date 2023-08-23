@@ -130,11 +130,41 @@ struct DebugMesh
 	float duration;
 	float time;
 };
+struct PathFinderSharedData
+{
+	m::math::Vector2 startCoord;
+	m::math::Vector2 targetCoord;
+	float searchSize;
+};
+struct FoundedPath
+{
+	m::math::Vector2 foundPaths;
+};
 struct ComputeTile
 {
 	m::math::Vector4 tilePosition;
 	m::math::Vector2 tileSize;
 	m::math::Vector2 tileCoord;
+
+	m::math::Vector2 parentCoord;
+	m::math::Vector2 ttt;
+
+	//bool isWall;
+	//bool onMonster;
+	//bool isWall1;
+	//bool onMonster2;
+
+	//UINT willOnMonsterCount;
+
+	//bool inClose;
+	//bool inOpen;
+
+	//int G;
+	//int H;
+
+	//UINT openIndex;
+	//UINT closedIndex;
+	//UINT pathIndex;
 };
 struct ComputeTileSharedData
 {
@@ -144,6 +174,10 @@ struct ComputeTileSharedData
 	UINT monsterCount;
 	bool hoverUI;
 };
+struct PathfindingTile
+{
+
+};
 struct ComputedTileCoord
 {
 	m::math::Vector2 mouseHoverTileCoord = m::math::Vector2(-1.f, -1.f);
@@ -152,6 +186,7 @@ struct ComputedTileCoord
 struct ComputeMonster
 {
 	m::math::Vector4 monsterPos;
+	m::math::Vector2 monsterNextCoord;
 	UINT monsterCount;
 };
 struct ComputedMonsterCoord

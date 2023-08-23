@@ -233,23 +233,25 @@ namespace m
 		//if (mMonster->GetRangeCollider()->GetOnEnter()
 		//	|| mMonster->GetRangeCollider()->GetOnStay()
 		//	&& mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-			//if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-			if (mMonster->GetArrival())
+			
+		if (mMonster->GetArrival())
 		{
-			fDelay += Time::fDeltaTime();
-			if (curMonsterData.fAttackDelay <= fDelay)
+			if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			{
-				//int randAttackMotion = rand() % 2 + 1;
-				//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
-				GetOwner()->SetBattleState(GameObject::Attack);
-				mAnimationType = T::eAnimationType::Attack1;
-				SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-				if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection])
+				fDelay += Time::fDeltaTime();
+				if (curMonsterData.fAttackDelay <= fDelay)
 				{
-					mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], false);
+					//int randAttackMotion = rand() % 2 + 1;
+					//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
+					GetOwner()->SetBattleState(GameObject::Attack);
+					mAnimationType = T::eAnimationType::Attack1;
+					SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection])
+					{
+						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], false);
+					}
 				}
 			}
-
 		}
 		if (curMonsterData.mClass != eMonsterClass::Boss && mMonster->GetHit())
 		{

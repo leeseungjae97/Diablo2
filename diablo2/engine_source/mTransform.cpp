@@ -2,6 +2,8 @@
 #include "mRenderer.h"
 #include "mConstantBuffer.h"
 #include "mCamera.h"
+#include "mGameObject.h"
+
 namespace m
 {
 	Transform::Transform()
@@ -26,7 +28,14 @@ namespace m
 	void Transform::LateUpdate()
 	{
 		mWorld = Matrix::Identity;
-
+		for(Collider2D* col : GetOwner()->GetComponents<Collider2D>())
+		{
+			if(col->GetColliderFunctionType() == eColliderFunctionType::TilePos)
+			{
+				col->SetCenter(Vector2(0.f, -mScale.y / 2.f));
+				break;
+			}
+		}
 		Matrix scale = Matrix::CreateScale(mScale);
 
 		Matrix rotation;

@@ -10,7 +10,7 @@
 namespace m::graphics
 {
 	TileComputeShader::TileComputeShader()
-		: ComputeShader(100, 1, 1)
+		: ComputeShader(1000, 1, 1)
 		, mTileBuffer(nullptr)
 		, mSharedBuffer(nullptr)
 		, mTileCoordBuffer(nullptr)
@@ -52,7 +52,7 @@ namespace m::graphics
 			mMonsterCoordBuffer->buffer)
 			mMonsterCoordBuffer->BindUAV(4);
 
-		mGroupX = 100;
+		mGroupX = 1000;
 		mGroupY = 1;
 		mGroupZ = 1;
 	}
@@ -94,8 +94,8 @@ namespace m::graphics
 
 
 		mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
-		//if (nullptr != mMonsterCoordBuffer && nullptr != mMonsterBuffer)
-		//	mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
+		//if (nullptr != mGetMonsterComputedCoordBuffer && nullptr != mMonsterBuffer)
+		//	mGetMonsterComputedCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 		if(nullptr != mMonsterCoordBuffer && nullptr != mMonsterBuffer)
 			mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 		

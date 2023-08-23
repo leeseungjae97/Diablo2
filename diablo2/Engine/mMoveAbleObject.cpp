@@ -45,6 +45,7 @@ namespace m
 
 		if (useTilePos)
 		{
+			Vector3 scale = GET_SCALE(this);
 			tilePositionCollider = ADD_COMP(this, Collider2D);
 			tilePositionCollider->SetType(eColliderType::Dot);
 			tilePositionCollider->SetColliderFunctionType(eColliderFunctionType::TilePos);
