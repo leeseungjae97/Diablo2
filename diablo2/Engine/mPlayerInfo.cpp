@@ -24,8 +24,10 @@ namespace m
 	void PlayerInfo::Initialize()
 	{
 		skillPoint = 100;
-		Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileYLen/ 2][TileManager::tileXLen / 2];
-		player = new Player(GET_POS(centerTile));
+		Tile* tile2 = TileManager::pathFindingTiles[60][60];
+		Vector3 pos2 = GET_POS(tile2);
+
+		player = new Player(pos2);
 		//SET_MAIN_CAMERA(player);
 		//AddGameObject(eLayerType::Player, player);
 		SET_MESH(player, L"RectMesh");

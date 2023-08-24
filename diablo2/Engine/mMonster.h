@@ -28,16 +28,28 @@ namespace m
         void SetMonsterClass(eMonsterClass _class) { mMonsterClass = _class; }
         eMonsterClass GetMonsterClass() { return mMonsterClass; }
 
-        bool GetArrival() { return bArriveDest; }
-        void SetArrival(bool ar) { bArriveDest = ar; }
+        bool Arrival() { return bPathChange == false ? true : false; }
 
         void SetNextMoveCoord(Vector2 coord) { mNextMoveCoord = coord; }
         Vector2 GetNextMoveCoord() { return mNextMoveCoord; }
+
+        Vector2 GetPrevCurCoord() { return prevCurCoord; }
+        Vector2 GetTargetCoord() { return prevTargetCoord; }
+
+        void PathChange(bool pc) { bPathChange = pc; }
+        bool GetPathChange() { return bPathChange; }
+
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
-        Vector2 mNextMoveCoord;
-        bool bArriveDest;
+
+    	Vector2 mNextMoveCoord;
+
+        Vector2 prevCurCoord;
+        Vector2 prevTargetCoord;
+
+        bool bPathChange;
+
         int monsterId;
         float hp;
         float hpCapacity;

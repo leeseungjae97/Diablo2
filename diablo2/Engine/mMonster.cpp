@@ -14,7 +14,6 @@ namespace m
 		, hp(100.f)
 		, hpCapacity(100.f)
 		, hpPercent(100.f)
-		, bArriveDest(false)
 	{
 		MonsterManager::AddMonster(this);
 
@@ -64,28 +63,28 @@ namespace m
 		//	mPathFinder->ClearPath();
 		//}
 
-		if (sightCollider->GetOnEnter()
-			|| sightCollider->GetOnStay())
+		//if (sightCollider->GetOnEnter()
+		//	|| sightCollider->GetOnStay()
+		//	&& sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 		{
-			if (mMonsterClass == eMonsterClass::Boss)
-			{
-				mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
-			}
-			else
-			{
-				mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
-				//mPathFinder->InSightPathFinding(curCoord, targetCoord);
-			}
-			//bArriveDest = mPathFinder->MonsterMove(this);
+			bool move = mPathFinder->MonsterMove(this);
 
-			//if (!bArriveDest && sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-			//{
-			//	mPathFinder->PathChange();
-			//}
-			mPathFinder->MonsterMove(this);
-			if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			if(!move)
 			{
-				mPathFinder->PathChange();
+				if (mMonsterClass == eMonsterClass::Boss)
+				{
+					mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
+				}
+				else
+				{
+					mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
+				}
+
+				prevCurCoord = curCoord;
+				prevTargetCoord = targetCoord;
+
+				mPathFinder->PathChange(true);
 			}
 		}
 		
@@ -98,20 +97,27 @@ namespace m
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
 
-		if (mMonsterClass != eMonsterClass::Boss 
-			&& (GetBattleState() == eBattleState::Dead
-			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Hit
-			|| GetBattleState() == eBattleState::Cast)
-			)
+		if (mMonsterClass != eMonsterClass::Boss
+			&& GetBattleState() == eBattleState::Hit)
 		{
 			fStartDistance = fRemainDistance;
-			destPosition = GET_POS(TileManager::playerStandTile);
+			destPosition = TileManager::GetPlayerPosition();
 		}
-		if (rangeCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Cast)
 		{
-			//mPathFinder->ClearPath();
+			fStartDistance = fRemainDistance;
+			destPosition = TileManager::GetPlayerPosition();
+		}
+		//if (rangeCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		//{
+		//	
+		//}
+		if(Arrival())
+		{
 			//fStartDistance = fRemainDistance;
+			destPosition = TileManager::GetPlayerPosition();
 		}
 		if (fRemainDistance < fStartDistance)
 		{

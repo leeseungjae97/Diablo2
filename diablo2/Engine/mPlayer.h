@@ -37,9 +37,14 @@ namespace m
         void SetHpUI(UVUI* hp) { mHp = hp; }
         void SetMpUI(UVUI* mp) { mMp = mp; }
 
+        int GetFMID() { return mFollowingMonsterId; }
+        void SetFMID(int id) { mFollowingMonsterId = id; }
     private:
         UVUI* mHp;
         UVUI* mMp;
+
+        int mFollowingMonsterId;
+        bool moveAdjacent;
     };
 }
 

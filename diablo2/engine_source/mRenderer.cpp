@@ -6,7 +6,9 @@
 #include "mStructedBuffer.h"
 #include "mPaintShader.h"
 #include "mParticleComputeShader.h"
+#include "mPathFinder.h"
 #include "mTileComputeShader.h"
+#include "mPathFinderComputeShader.h"
 
 namespace renderer
 {
@@ -431,9 +433,9 @@ namespace renderer
 		UVControlShader->Create(eShaderStage::PS, L"UVControlPS.hlsl", "main");
 		m::Resources::Insert(L"UVControlShader", UVControlShader);
 
-		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
-		paintShader->Create(L"PaintCS.hlsl", "main");
-		m::Resources::Insert(L"PaintShader", paintShader);
+		//std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		//paintShader->Create(L"PaintCS.hlsl", "main");
+		//m::Resources::Insert(L"PaintShader", paintShader);
 
 		std::shared_ptr<ParticleComputeShader> psSystemShader = std::make_shared<ParticleComputeShader>();
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
@@ -443,9 +445,9 @@ namespace renderer
 		tileSystemShader->Create(L"TileCS.hlsl", "main");
 		m::Resources::Insert(L"TileComputeShader", tileSystemShader);
 
-		//std::shared_ptr<ParticleComputeShader> lss = std::make_shared<ParticleComputeShader>();
-		//lss->Create(L"PathFinderCS.hlsl", "main");
-		//m::Resources::Insert(L"pp", lss);
+		//std::shared_ptr<PathFinderComputeShader> pathSystemComputeShader = std::make_shared<PathFinderComputeShader>();
+		//pathSystemComputeShader->Create(L"PathFinderCS.hlsl", "main");
+		//m::Resources::Insert(L"PathFinderComputeShader", pathSystemComputeShader);
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");

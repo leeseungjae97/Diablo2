@@ -1,9 +1,7 @@
 #include "mTileComputeShader.h"
 
 #include "mRenderer.h"
-#include "mMouseManager.h"
 
-#include "../Engine/mPlayerInfo.h"
 #include "../Engine/mPlayer.h"
 
 

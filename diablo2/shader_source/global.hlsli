@@ -1,3 +1,6 @@
+#ifndef GLOBAL_INCLUDED
+
+#define GLOBAL_INCLUDED
 cbuffer Transform : register(b0)
 {
     row_major matrix mWorld;
@@ -42,13 +45,10 @@ struct Tile
     float2 tileSize;
     float2 tileCoord;
     
-    float2 parentCoord;
-    float2 ttt;
+    //float2 parentCoord;
     
     //bool isWall;
     //bool onMonster;
-    //bool isWall1;
-    //bool onMonster2;
     
     //uint willOnMonsterCount;
     
@@ -57,10 +57,6 @@ struct Tile
     
     //int G;
     //int H;
-    
-    //uint openIndex;
-    //uint closedIndex;
-    //uint pathIndex;
 };
 struct TileShared
 {
@@ -73,8 +69,9 @@ struct TileShared
 struct Monster
 {
     float4 monsterPos;
+    float3 monsterSize;
     float2 monsterNextCoord;
-    uint monsterCount;
+    int monsterCount;
 };
 struct MonsterComputedCoord
 {
@@ -84,25 +81,34 @@ struct TileComputedCoord
 {
     float2 mouseHoverTileCoord;
     float2 playerStandTileCoord;
+    float2 hoverMonsterTileCoord;
+    int hoverMonsterId;
+    bool hoverMonster;
 };
 struct ParticleShared
 {
     uint ActiveSharedCount;
 };
-struct PathfindingShared
+struct PathFinderSharedData
 {
+    bool findStart;
     float4 startTileCoord;
     float4 targetTileCoord;
+    
+    float searchSize;
+    
     bool allowdiagonal;
-
     bool dontcrosscorner;
 
     int xLength;
     int yLength;
+    
     bool isMonster;
-    int openBufferIndex;
-    int closedBufferIndex;
-    int pathBufferIndex;
+    int monsterId;
+};
+struct FoundedPath
+{
+    
 };
 struct LightAttribute
 {
@@ -223,7 +229,7 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
     float2 vertex[4];
     float gradient[4];
     float intercept[4];
-    
+    uint i = 0;
     float2 direct[4] =
     {
         { -(scale.x / 2.f), 0 },
@@ -232,12 +238,12 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
         { 0, (scale.y / 2.f) }
     };
     
-    for (uint i = 0; i < 4; ++i)
+    for (i = 0; i < 4; ++i)
     {
         vertex[i].x = pos.x + direct[i].x;
         vertex[i].y = pos.y + direct[i].y;
     }
-    for (uint i = 0; i < 4; ++i)
+    for (i = 0; i < 4; ++i)
     {
         gradient[i] = ((vertex[i].y - vertex[(i + 1) % 4].y) / (vertex[i].x - vertex[(i + 1) % 4].x));
         intercept[i] = vertex[i].y - gradient[i] * vertex[i].x;
@@ -256,53 +262,54 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
         return false;
 }
 
-//void openBufferAdd(
+//void openTilesAdd(
 //            int y
 //            , int x
 //            , uint3 id
-//            , int openBufferIndex
-//            , float4 curTileCoord
-//            , Tile curTile
-//            , float2 mTargetCoord
-//            , float serachTileSize
-//            , int monsterSize
-//            , bool allowDiagonal
-//            , bool dontCrossCorner
-//            , bool fromMonster
-//            , int monsterId)
+//            , RWStructuredBuffer<Tile> TilesBuffer
+//            , RWStructuredBuffer<Monster> MonsterBuffer
+//            , RWStructuredBuffer<PathFinderSharedData> PathFinderSharedBuffer
+//            , RWStructuredBuffer<Tile> openBuffer
+//            , int openIdx
+//            , int openSize
+//            , Tile curTile)
 //{
-//    if (fromMonster)
+//    if (PathFinderSharedBuffer[0].isMonster)
 //    {
-//        for (int i = 0; i < monsterSize; ++i)
+//        for (int i = 0; i < MonsterBuffer[0].monsterCount; ++i)
 //        {
-//            if (monsterId == i)
+//            if (PathFinderSharedBuffer[0].monsterId == i)
 //                continue;
-//            if (pfMonster[i].nextMoveCoord == float2(x, y))
+//            if (MonsterBuffer[i].monsterNextCoord.x == (float) x
+//                && MonsterBuffer[i].monsterNextCoord.y == (float) y)
 //            {
 //                return;
 //            }
 //        }
 //    }
+//    float2 mTargetCoord = PathFinderSharedBuffer[0].targetTileCoord.xy;
+//    float searchTileSize = PathFinderSharedBuffer[0].searchSize;
+    
 //    if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
 //			&& x < mTargetCoord.x + searchTileSize
 //			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
 //			&& y < mTargetCoord.y + searchTileSize
-//			&& tiles[y * 10 + x].isWall == false
-//			&& tiles[y * 10 + x].onMonster == false
-//			&& tiles[y * 10 + x].inClose == false)
+//			&& TilesBuffer[y * 10 + x].isWall == false
+//			&& TilesBuffer[y * 10 + x].onMonster == false
+//			&& TilesBuffer[y * 10 + x].inClose == false)
 //    {
-//        if (allowDiagonal)
+//        if (PathFinderSharedBuffer[0].allowdiagonal)
 //        {
-//            if (tiles[curTile.tileCoord.y * 10 + x].isWall
-//					&& tiles[y * 10 + curTile.tileCoord.x].isWall)
+//            if (TilesBuffer[curTile.tileCoord.y * 10 + x].isWall
+//					&& TilesBuffer[y * 10 + curTile.tileCoord.x].isWall)
 //                return;
 //        }
-//        if (dontCrossCorner)
+//        if (PathFinderSharedBuffer[0].dontcrosscorner)
 //        {
-//            if (tiles[y * 10 + curTile.tileCoord.x].isWall || tiles[curTile.tileCoord.y * 10 + x].isWall)
+//            if (TilesBuffer[y * 10 + curTile.tileCoord.x].isWall || TilesBuffer[curTile.tileCoord.y * 10 + x].isWall)
 //                return;
 //        }
-//        Tile neighborTile = tiles[y * 10 + x];
+//        Tile neighborTile = TilesBuffer[y * 10 + x];
 //        int moveCost = curTile.G
 //						 + (curTile.tileCoord.x - x == 0
 //						 || curTile.tileCoord.y - y == 0 ? 10 : 14);
@@ -315,9 +322,10 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
 //            neighborTile.parentCoord = curTile.tileCoord;
 
 //            neighborTile.inOpen = true;
-//            ++openBufferIndex;
-//            neighborTile.openIndex = openBufferIndex;
-//            //openbuffer[openBufferIndex] = neighborTile;
+//            ++openSize;
+//            openBuffer[openSize] = neighborTile;
 //        }
 //    }
 //}
+
+#endif

@@ -207,8 +207,9 @@ namespace m
 		//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eSixteenDirection::RightUp2;
 		//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eSixteenDirection::RightUp1;
 
-		if (Input::GetKeyUp(eKeyCode::C))
+		if (((Player*)GetOwner())->GetFMID() != -1 && PlayerInfo::player->StopF())
 		{
+			((Player*)GetOwner())->SetFMID(-1);
 			mAnimationType = ePlayerAnimationType::Attack1;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])

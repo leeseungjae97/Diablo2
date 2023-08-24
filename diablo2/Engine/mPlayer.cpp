@@ -5,6 +5,7 @@
 #include "mTime.h"
 #include "mCamera.h"
 #include "mApplication.h"
+#include "mMonsterManager.h"
 #include "mMouseManager.h"
 
 extern m::Application application;
@@ -14,6 +15,8 @@ namespace m
 		: MoveAbleObject(iniPos, 300.f)
 		, mHp(nullptr)
 		, mMp(nullptr)
+		, mFollowingMonsterId(-1)
+		, moveAdjacent(false)
 	{
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
 		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
@@ -33,10 +36,7 @@ namespace m
 
 		if (nullptr == TileManager::hoverTile) return;
 		Vector2 curCoord = TileManager::GetPlayerPositionCoord();
-		Vector2 mouseCoord = TileManager::GetHoverTileCoord();
-
-		mPathFinder->AstarPathFinding(curCoord, mouseCoord);
-		mPathFinder->PlayerMove(this);
+		Vector2 targetCoord = TileManager::GetHoverTileCoord();
 
 		if (GetBattleState() == eBattleState::Cast
 			|| GetBattleState() == eBattleState::Dead
@@ -56,21 +56,20 @@ namespace m
 			Vector3 tempPrev = GET_POS(this);
 			Vector3 tempDest = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
-			float maxX = max(tempDest.x, tempPrev.x);
-			float maxY = max(tempDest.y, tempPrev.y);
+			//float maxX = max(tempDest.x, tempPrev.x);
+			//float maxY = max(tempDest.y, tempPrev.y);
 
-			float minX = min(tempDest.x, tempPrev.x);
-			float minY = min(tempDest.y, tempPrev.y);
+			//float minX = min(tempDest.x, tempPrev.x);
+			//float minY = min(tempDest.y, tempPrev.y);
 
-			fSpeed = 0.0f;
 			vDirection = tempDest - tempPrev;
 			vDirection.Normalize();
 		}
 		if (!MouseManager::GetMouseOnUI()
+			&& mFollowingMonsterId == -1
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
-			fSpeed = 300.f;
-			if (fSpeed != 0.f && !mPathFinder->PathChange())
+			if (!mPathFinder->PathChange(false))
 			{
 				if (!TileManager::hoverTile->GetIsWall())
 				{
@@ -91,6 +90,10 @@ namespace m
 					vDirection = destPosition - prevPosition;
 					vDirection.Normalize();
 				}
+			}
+			if (MouseManager::GetMouseHoverMonsterTileCoord() != Vector2(-1.f, -1.f))
+			{
+				mFollowingMonsterId = MouseManager::GetMouseHoverMonsterId();
 			}
 		}
 		float maxX = max(curPosition.x, prevPosition.x);
@@ -114,6 +117,17 @@ namespace m
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
+		if(mFollowingMonsterId != -1)
+		{
+			targetCoord = MonsterManager::monsters[mFollowingMonsterId]->GetCoord();
+			mPathFinder->AstarPathFinding(curCoord, targetCoord);
+			mPathFinder->PathChange(true);
+		}else
+		{
+			mPathFinder->AstarPathFinding(curCoord, targetCoord);
+		}
+		mPathFinder->PlayerMove(this);
+
 		MoveAbleObject::Update();
 	}
 	void Player::LateUpdate()

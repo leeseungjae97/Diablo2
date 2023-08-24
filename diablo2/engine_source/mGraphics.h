@@ -125,46 +125,50 @@ struct DebugMesh
 	m::math::Matrix projection;
 	m::enums::eColor color;
 
-	bool visible;
+	BOOL visible;
 	float radius;
 	float duration;
 	float time;
 };
-struct PathFinderSharedData
-{
-	m::math::Vector2 startCoord;
-	m::math::Vector2 targetCoord;
-	float searchSize;
-};
-struct FoundedPath
-{
-	m::math::Vector2 foundPaths;
-};
+//struct PathFinderSharedData
+//{
+//	BOOL findStart = false;
+//	m::math::Vector2 startTileCoord;
+//	m::math::Vector2 targetTileCoord;
+//
+//	float searchSize;
+//
+//	BOOL allowdiagonal = true;
+//	BOOL dontcrosscorner = true;
+//
+//	int xLength;
+//	int yLength;
+//
+//	BOOL isMonster;
+//	int monsterId;
+//};
+//struct FoundedPath
+//{
+//	m::math::Vector2 foundPaths;
+//};
 struct ComputeTile
 {
 	m::math::Vector4 tilePosition;
 	m::math::Vector2 tileSize;
 	m::math::Vector2 tileCoord;
 
-	m::math::Vector2 parentCoord;
-	m::math::Vector2 ttt;
+	//m::math::Vector2 parentCoord;
 
-	//bool isWall;
-	//bool onMonster;
-	//bool isWall1;
-	//bool onMonster2;
+	//BOOL isWall;
+	//BOOL onMonster;
 
 	//UINT willOnMonsterCount;
 
-	//bool inClose;
-	//bool inOpen;
+	//BOOL inClose;
+	//BOOL inOpen;
 
 	//int G;
 	//int H;
-
-	//UINT openIndex;
-	//UINT closedIndex;
-	//UINT pathIndex;
 };
 struct ComputeTileSharedData
 {
@@ -172,22 +176,22 @@ struct ComputeTileSharedData
 	m::math::Vector4 playerPos;
 	UINT tileCount;
 	UINT monsterCount;
-	bool hoverUI;
-};
-struct PathfindingTile
-{
-
+	BOOL hoverUI = false;
 };
 struct ComputedTileCoord
 {
 	m::math::Vector2 mouseHoverTileCoord = m::math::Vector2(-1.f, -1.f);
 	m::math::Vector2 playerStandTileCoord = m::math::Vector2(-1.f, -1.f);
+	m::math::Vector2 hoverMonsterTileCoord = m::math::Vector2(-1.f, -1.f);
+	int hoverMonsterId = -1;
+	BOOL hoverMonster = false;
 };
 struct ComputeMonster
 {
 	m::math::Vector4 monsterPos;
+	m::math::Vector3 monsterSize;
 	m::math::Vector2 monsterNextCoord;
-	UINT monsterCount;
+	int monsterCount;
 };
 struct ComputedMonsterCoord
 {

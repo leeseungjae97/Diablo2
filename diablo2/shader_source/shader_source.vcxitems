@@ -95,5 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)global.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)global_compute_variables.hlsli" />
   </ItemGroup>
 </Project>

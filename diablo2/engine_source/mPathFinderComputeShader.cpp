@@ -2,13 +2,15 @@
 namespace m::graphics
 {
 	PathFinderComputeShader::PathFinderComputeShader(int x, int y, int z)
-		: mPathFinderTileBuffer(nullptr)
+		: ComputeShader(x, y, z)
+		, mPathFinderTileBuffer(nullptr)
 		, mCamera(nullptr)
 	{
 	}
 
 	PathFinderComputeShader::PathFinderComputeShader()
-		: mPathFinderTileBuffer(nullptr)
+		: ComputeShader(1, 1, 1)
+		, mPathFinderTileBuffer(nullptr)
 		, mCamera(nullptr)
 	{
 	}
@@ -19,14 +21,15 @@ namespace m::graphics
 
 	void PathFinderComputeShader::Binds()
 	{
-		if(nullptr != mPathFinderTileBuffer
-			&& mPathFinderTileBuffer->buffer)
-		{
-			mPathFinderTileBuffer->BindUAV(0);
-		}
-		mGroupX;
-		mGroupY;
-		mGroupZ;
+		//if(nullptr != mPathFinderTileBuffer
+		//	&& mPathFinderTileBuffer->buffer)
+		//{
+		//	mPathFinderTileBuffer->BindUAV(0);
+		//}
+
+		//mGroupX;
+		//mGroupY;
+		//mGroupZ;
 	}
 
 	void PathFinderComputeShader::Clear()
@@ -40,9 +43,9 @@ namespace m::graphics
 
 	void PathFinderComputeShader::OnExcute()
 	{
-		ComputeShader::OnExcute();
+		//ComputeShader::OnExcute();
 
-		Clear();
+		//Clear();
 
 		// GetData
 	}

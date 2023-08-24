@@ -13,7 +13,7 @@ namespace m
 		static void Release();
 		static Vector2 GetHoverTileCoord();
 		static Vector2 GetPlayerPositionCoord();
-
+		static Vector3 GetPlayerPosition();
 
 		static TILES pathFindingTiles;
 		static Tile* hoverTile;

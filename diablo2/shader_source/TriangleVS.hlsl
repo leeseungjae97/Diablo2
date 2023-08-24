@@ -1,4 +1,5 @@
-#include "global.hlsli"
+//#include "global.hlsli"
+
 struct VSIn
 {
     float3 Pos : POSITION;

@@ -13,11 +13,11 @@ namespace m
 		PathFinder();
 		~PathFinder();
 
-		void AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1);
+		void AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1, Vector2 monsterAroundCoord = Vector2(-1.f, -1.f));
 
 		void InSightPathFinding(Vector2 startCoord, Vector2 targetCoord);
 
-		bool PathChange();
+		bool PathChange(bool moveAdjacent = false);
 
 		void ClearPath();
 
@@ -55,6 +55,7 @@ namespace m
 
 		float direct1[4][2];
 		float direct2[4][2];
+		float direct[8][2];
 
 		int dy;
 		int dx;

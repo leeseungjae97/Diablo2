@@ -3,6 +3,7 @@ namespace m
 {
 	PathFinderSystem::PathFinderSystem()
 	{
+		mCS = Resources::Find<PathFinderComputeShader>(L"PathFinderComputeShader");
 	}
 
 	PathFinderSystem::~PathFinderSystem()

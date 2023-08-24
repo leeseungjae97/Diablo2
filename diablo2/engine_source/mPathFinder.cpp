@@ -21,6 +21,9 @@ namespace m
 		, dontCrossCorner(true)
 		, direct1{ { 1, 1 }, { 1, -1 }, { -1, -1 }, { -1,  1 } }
 		, direct2{ { 1, 0 }, { 0,  1 }, { -1,  0 }, {  0, -1 } }
+		, direct
+			{{ 1, 1 }, { 1, -1 }, { -1, -1 }, { -1,  1 }
+			,  { 1, 0 }, { 0,  1 }, { -1,  0 }, {  0, -1 }}
 		, dy(0)
 		, dx(0)
 		, searchTileSize(20)
@@ -49,30 +52,39 @@ namespace m
 		curTile = nullptr;
 	}
 
-	void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
+	void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize, Vector2 monsterAroundCoord)
 	{
-
-		if(mMonsterOwner)
-		{
-			
-		}
 		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
 		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
+		//if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetOnMonster()) return;
 
 		if(nullptr == mMonsterOwner)
+		{
 			if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
+		}
+		else
+		{
+			if (mMonsterOwner->GetPathChange() == false
+				&& mMonsterOwner->GetPrevCurCoord() == startCoord 
+				&& mMonsterOwner->GetTargetCoord() == targetCoord)
+			{
+				return;
+			}
+		}
+		
+		mStartCoord = startCoord;
+		mTargetCoord = targetCoord;
 
 		if (searchSize == -1)
-			searchTileSize = fabs(targetCoord.x - startCoord.x) + fabs(targetCoord.y - startCoord.y);
+			searchTileSize = fabs(mTargetCoord.x - mStartCoord.x) + fabs(mTargetCoord.y - mStartCoord.y);
 		else searchTileSize = searchSize;
 
 		pathVector.clear();
 
-		mStartCoord = startCoord;
-		mTargetCoord = targetCoord;
+		
 
-		startTile = TileManager::pathFindingTiles[startCoord.y][startCoord.x];
-		targetTile = TileManager::pathFindingTiles[targetCoord.y][targetCoord.x];
+		startTile = TileManager::pathFindingTiles[mStartCoord.y][mStartCoord.x];
+		targetTile = TileManager::pathFindingTiles[mTargetCoord.y][mTargetCoord.x];
 
 		openVector.push_back(startTile);
 		int i;
@@ -146,23 +158,10 @@ namespace m
 
 	void PathFinder::openVectorAdd(int y, int x)
 	{
-		if(mMonsterOwner)
-		{
-			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
-			{
-				if (mMonsterOwner->GetMonsterId() == i) continue;
-				if (MonsterManager::monsters[i]->GetNextMoveCoord() == Vector2(x, y))
-				{
-					return;
-				}
-			}
-		}
-
 		if (mMonsterOwner
-			&& mMonsterOwner->GetNextMoveCoord() != Vector2(x, y)
+			&& mMonsterOwner->GetNextMoveCoord() == Vector2(x, y)
 			&& TileManager::pathFindingTiles[y][x]->GetMonsterNext() != 0)
 			return;
-
 		if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
 			&& x < mTargetCoord.x + searchTileSize
 			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
@@ -201,88 +200,96 @@ namespace m
 	}
 	void PathFinder::InSightPathFinding(Vector2 startCoord, Vector2 targetCoord)
 	{
-		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
-		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
+		//if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
+		//if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
 
-		if (mStartCoord == startCoord
-			&&
-			mTargetCoord == targetCoord)
-			return;
+		//if (mStartCoord == startCoord
+		//	&&
+		//	mTargetCoord == targetCoord)
+		//	return;
 
-		pathVector.clear();
+		//pathVector.clear();
 
-		mStartCoord = startCoord;
-		mTargetCoord = targetCoord;
+		//mStartCoord = startCoord;
+		//mTargetCoord = targetCoord;
 
-		startTile = TileManager::pathFindingTiles[startCoord.y][startCoord.x];
-		targetTile = TileManager::pathFindingTiles[targetCoord.y][targetCoord.x];
+		//startTile = TileManager::pathFindingTiles[startCoord.y][startCoord.x];
+		//targetTile = TileManager::pathFindingTiles[targetCoord.y][targetCoord.x];
 
-		openVector.push_back(startTile);
+		//openVector.push_back(startTile);
 
-		bool find = false;
-		while(!openVector.empty())
-		{
-			curTile = openVector.front();
-			Vector2 curCoord = curTile->GetCoord();
-			std::erase(openVector, curTile);
+		//bool find = false;
+		//while(!openVector.empty())
+		//{
+		//	curTile = openVector.front();
+		//	Vector2 curCoord = curTile->GetCoord();
+		//	std::erase(openVector, curTile);
 
-			if (abs(mStartCoord.x - curCoord.x) > 10) continue;
-			if (abs(mStartCoord.y - curCoord.y) > 10) continue;
+		//	if (abs(mStartCoord.x - curCoord.x) > 10) continue;
+		//	if (abs(mStartCoord.y - curCoord.y) > 10) continue;
 
-			bfsPathFinderExcept.clear();
+		//	bfsPathFinderExcept.clear();
 
-			if (curCoord.x > targetCoord.x)
-				bfsPathFinderExcept.push_back(2); // {-1, 0}
-			else if (curCoord.x < targetCoord.x)
-				bfsPathFinderExcept.push_back(0); // {1, 0}
-			if (curCoord.y > targetCoord.y)
-				bfsPathFinderExcept.push_back(3); // {0, -1}
-			else if (curCoord.y < targetCoord.y)
-				bfsPathFinderExcept.push_back(1); // {0, 1}
+		//	if (curCoord.x > targetCoord.x)
+		//		bfsPathFinderExcept.push_back(2); // {-1, 0}
+		//	else if (curCoord.x < targetCoord.x)
+		//		bfsPathFinderExcept.push_back(0); // {1, 0}
+		//	if (curCoord.y > targetCoord.y)
+		//		bfsPathFinderExcept.push_back(3); // {0, -1}
+		//	else if (curCoord.y < targetCoord.y)
+		//		bfsPathFinderExcept.push_back(1); // {0, 1}
 
-			if (bfsPathFinderExcept.size() == 0)
-				break;
+		//	if (bfsPathFinderExcept.size() == 0)
+		//		break;
 
-			for (int i = 0; i < bfsPathFinderExcept.size(); ++i)
-			{
-				dx = curTile->GetCoord().x + direct2[bfsPathFinderExcept[i]][0];
-				dy = curTile->GetCoord().y + direct2[bfsPathFinderExcept[i]][1];
+		//	for (int i = 0; i < bfsPathFinderExcept.size(); ++i)
+		//	{
+		//		dx = curTile->GetCoord().x + direct2[bfsPathFinderExcept[i]][0];
+		//		dy = curTile->GetCoord().y + direct2[bfsPathFinderExcept[i]][1];
 
-				if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength) continue;
-				Tile* tile = TileManager::pathFindingTiles[dy][dx];
-				if (tile->GetIsWall()) continue;
-				if (tile->GetOnMonster()) continue;
-				tile->SetParentTile(curTile);
-				openVector.push_back(tile);
-				if (tile == targetTile)
-				{
-					find = true;
-					break;
-				}
-			}
-			if (find) break;
-		}
-		while(curTile != startTile)
-		{
-			pathVector.push_back(curTile);
-			curTile = curTile->GetParentTile();
-		}
-		for (Tile* tile : openVector)
-			tile->SetParentTile(nullptr);
-		openVector.clear();
+		//		if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength) continue;
+		//		Tile* tile = TileManager::pathFindingTiles[dy][dx];
+		//		if (tile->GetIsWall()) continue;
+		//		if (tile->GetOnMonster()) continue;
+		//		if (tile->GetMonsterNext() != 0) continue;
+		//		tile->SetParentTile(curTile);
+		//		openVector.push_back(tile);
+		//		if (tile == targetTile)
+		//		{
+		//			find = true;
+		//			break;
+		//		}
+		//	}
+		//	if (find) break;
+		//}
+		//while(curTile != startTile)
+		//{
+		//	pathVector.push_back(curTile);
+		//	curTile = curTile->GetParentTile();
+		//}
+		//for (Tile* tile : openVector)
+		//	tile->SetParentTile(nullptr);
+		//openVector.clear();
 	}
-	bool PathFinder::PathChange()
+
+	bool PathFinder::PathChange(bool moveAdjacent)
 	{
 		finalPathVector = pathVector;
 		if (!finalPathVector.empty())
 		{
 			std::erase(finalPathVector, finalPathVector.front());
-			if(mMonsterOwner)
+			if(moveAdjacent)
 			{
 				if (!finalPathVector.empty())
 					finalPathVector.pop_back();
 			}
+			if (mMonsterOwner)
+			{
+				if (!finalPathVector.empty()) mMonsterOwner->PathChange(true);
+				else mMonsterOwner->PathChange(false);
+			}
 			if (finalPathVector.empty()) return false;
+
 			return true;
 		}
 		return false;
@@ -296,15 +303,15 @@ namespace m
 		mOwner->SetNextMoveCoord(subTargetTile->GetCoord());
 		subTargetTile->SetMonsterNext();
 
-		if(subTargetTile->GetOnMonster())
-		{
-			subTargetTile->UnSetMonsterNext();
-			ClearPath();
-			return false;
-		}
-
 		if (subTargetTile->GetCoord() != mOwner->GetCoord())
 		{
+			if (subTargetTile->GetOnMonster())
+			{
+				subTargetTile->UnSetMonsterNext();
+				ClearPath();
+				return false;
+			}
+
 			Vector3 subPos = GET_POS(subTargetTile);
 
 			Vector3 prevPosition = GET_POS(mOwner);

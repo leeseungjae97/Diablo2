@@ -234,8 +234,9 @@ namespace m
 		//	|| mMonster->GetRangeCollider()->GetOnStay()
 		//	&& mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			
-		if (mMonster->GetArrival())
+		if (mMonster->Arrival())
 		{
+			
 			if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			{
 				fDelay += Time::fDeltaTime();
@@ -250,6 +251,9 @@ namespace m
 					{
 						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], false);
 					}
+				}else
+				{
+					GetOwner()->SetBattleState(GameObject::Idle);
 				}
 			}
 		}

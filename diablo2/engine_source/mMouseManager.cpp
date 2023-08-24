@@ -10,7 +10,9 @@ extern m::Application application;
 namespace m
 {
 	bool MouseManager::mMouseOnUI = false;
-
+	bool MouseManager::mMouseOnMonster = false;
+	Vector2 MouseManager::hoverMonsterTileCoord = Vector2(-1.f, -1.f);
+	int MouseManager::hoverMonsterId = -1;
 	Vector3 MouseManager::UnprojectionMousePos(float z, Camera* camera)
 	{
 		Matrix proj = Matrix::Identity;

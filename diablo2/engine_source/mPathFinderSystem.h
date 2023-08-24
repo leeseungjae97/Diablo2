@@ -1,6 +1,7 @@
 #pragma once
 #include "mMeshRenderer.h"
 #include "mStructedBuffer.h"
+#include "mPathFinderComputeShader.h"
 
 namespace m
 {

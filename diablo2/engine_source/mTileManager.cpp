@@ -176,7 +176,6 @@ namespace m
 			}
 		}
 		Scene* curScene = SceneManager::GetActiveScene();
-
 		GameObject* tiles = new GameObject();
 		tiles->SetCamera(camera);
 		curScene->AddGameObject(eLayerType::Tile, tiles);
@@ -211,5 +210,9 @@ namespace m
 	Vector2 TileManager::GetPlayerPositionCoord()
 	{
 		return nullptr == playerStandTile ? Vector2::Zero : playerStandTile->GetCoord();
+	}
+	Vector3 TileManager::GetPlayerPosition()
+	{
+		return nullptr == playerStandTile ? Vector3::Zero : GET_POS(playerStandTile);
 	}
 }

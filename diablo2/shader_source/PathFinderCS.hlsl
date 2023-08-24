@@ -1,42 +1,112 @@
 #include "global.hlsli"
-//RWStructuredBuffer<PathfindingTile> openBuffer : register(u0);
-//RWStructuredBuffer<PathfindingTile> closeBuffer : register(u1);
-//RWStructuredBuffer<Tile> pathBuffer : register(u0);
-//RWStructuredBuffer<PathfindingShared> sharedBuffer : register(u1);
-//RWStructuredBuffer<PathfindingTile> tilesBuffer : register(u2);
 
-[numthreads(1, 1, 1)]
-void main( uint3 DTid : SV_DispatchThreadID )
+RWStructuredBuffer<Tile> TileBuffer : register(u0);
+RWStructuredBuffer<Tile> openBuffer : register(u1);
+RWStructuredBuffer<Tile> closeBuffer : register(u2);
+RWStructuredBuffer<Monster> MonsterBuffer : register(u3);
+RWStructuredBuffer<PathFinderSharedData> PathFinderSharedBuffer : register(u4);
+RWStructuredBuffer<Tile> PathTileBuffer : register(u5);
+
+[numthreads(5, 5, 5)]
+void main(uint3 DTid : SV_DispatchThreadID)
 {
-    //uint3 groupThreadID : SV_GroupThreadID;
-    //uint3 groupIndex : SV_GroupIndex;
-    //uint tileIndex : SV_PrimitiveID;
-    //uint tileIndex : SV_InstanceID;
+    //if (DTid.x > 100)
+        //return;
     
-    //Tile openBuffer[1000] = { };
-    //Tile closeBuffer[10000] = { };
+    float2 targetCoord = float2(PathFinderSharedBuffer[0].targetTileCoord.x, PathFinderSharedBuffer[0].targetTileCoord.y);
+    float2 startCoord = float2(PathFinderSharedBuffer[0].startTileCoord.x, PathFinderSharedBuffer[0].startTileCoord.y);
     
-    //int openIdx = sharedBuffer[0].pathBufferIndex;
-    //while (openIdx != 0)
+    Tile targetTile = TileBuffer[targetCoord.y * 10 + targetCoord.x];
+    Tile startTile = TileBuffer[startCoord.y * 10 + startCoord.x];
+    
+    int xLength = PathFinderSharedBuffer[0].xLength;
+    int yLength = PathFinderSharedBuffer[0].yLength;
+    
+    int dy = 0;
+    int dx = 0;
+    if (DTid.x == 0)
     {
-        //while (openBuffer[openIdx].erased == true) ++openIndex;
+        Tile tile = TileBuffer[startCoord.y * 10 + startCoord.x];
+        openBuffer[0] = tile;
+    }
+    
+    
+    int openSize = 1;
+    int openIdx = 0;
+    int closeSize = 0;
+   
+    int i = 0;
+    while (openIdx <= openSize)
+    {
+        Tile curTile;
+        if (openIdx == 0 && openSize == 0)
+        {
+            curTile = openBuffer[openIdx];
+        }
+        else
+        {
+            while (openBuffer[openIdx].inOpen == false)
+                ++openIdx;
+            
+            if (openIdx > openSize)
+                return;
+            
+            curTile = openBuffer[openIdx];
+        }
         
-        //PathfindingTile tile = openBuffer[openIdx];
         
-        //for (int i = 0; i < openIdx; ++i)
-        //{
-        //    if (openBuffer[openIdx].G + openBuffer[openIdx].H <=
-        //        tile.G + tile.H
-        //        && openBuffer[openIdx].H < tile.H)
-        //    {
-        //        tile = openBuffer[i];
-        //    }
-        //}
+        
+        for (i = openIdx; i < openSize; ++i)
+        {
+            if (openBuffer[i].G + openBuffer[i].H <= curTile.G + curTile.H
+                && openBuffer[i].H < curTile.H)
+            {
+                curTile = openBuffer[i];
+            }
+        }
 
-        //openBuffer[tile.inOpenBufferIndex].erased;
+        openBuffer[openIdx].inOpen = false;
         
-        //closeBuffer[sharedBuffer[0].closedBufferIndex] = tile;
+        curTile.inClose = true;
         
-        //openBufferAdd(0, 0, float2(), 1.f, tile, 0, true, true, false, 1);
+        closeBuffer[closeSize] = curTile;
+        ++closeSize;
+        
+        if (curTile.tileCoord.x == targetTile.tileCoord.x
+         && curTile.tileCoord.y == targetTile.tileCoord.y)
+        {
+            int idx = 0;
+            Tile targetCurTile = targetTile;
+            while (targetCurTile.tileCoord.x != startTile.tileCoord.x
+                || targetCurTile.tileCoord.y != startTile.tileCoord.y)
+            {
+                PathTileBuffer[idx] = targetCurTile;
+                ++idx;
+                targetCurTile = TileBuffer[targetCurTile.parentCoord.y * 10 + targetCurTile.parentCoord.x];
+            }
+            PathTileBuffer[idx] = startTile;
+            ++idx;
+        }
+        if (PathFinderSharedBuffer[0].allowdiagonal)
+        {
+            for (i = 0; i < 4; ++i)
+            {
+                dy = curTile.tileCoord.y + direct1[i][0];
+                dx = curTile.tileCoord.x + direct1[i][1];
+                if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength)
+                    continue;
+                
+                //openTilesAdd(dy, dx, DTid, TileBuffer, MonsterBuffer, PathFinderSharedBuffer, openTiles, openIdx, openSize, curTile);
+            }
+        }
+        for (i = 0; i < 4; ++i)
+        {
+            dy = curTile.tileCoord.y + direct2[i][0];
+            dx = curTile.tileCoord.x + direct2[i][1];
+            if (dy < 0 || dx < 0 || dy >= yLength || dx >= xLength)
+                continue;
+            
+            //openTilesAdd(dy, dx, DTid, TileBuffer, MonsterBuffer, PathFinderSharedBuffer, openTiles, openIdx, openSize, curTile);
+        }
     }
 }

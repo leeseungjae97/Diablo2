@@ -23,7 +23,13 @@ void main( uint3 DTid : SV_DispatchThreadID )
     {
         TileCoordBuffer[0].mouseHoverTileCoord = float2(-1.f, -1.f);
         TileCoordBuffer[0].playerStandTileCoord = float2(-1.f, -1.f);
+        TileCoordBuffer[0].hoverMonsterTileCoord = float2(-1.f, -1.f);
+        //TileCoordBuffer[0].hoverMonsterId = -1;
+
     }
+    if (TileBuffer[DTid.x].tileCoord.x == -1.f
+        || TileBuffer[DTid.x].tileCoord.y == -1.f)
+        return;
     
     float2 scale = TileBuffer[DTid.x].tileSize;
     float2 pos = TileBuffer[DTid.x].tilePosition.xy;
@@ -48,6 +54,19 @@ void main( uint3 DTid : SV_DispatchThreadID )
         if (PointIntersectRhombus(pos, scale, otherPos) == true)
         {
             MonsterCoordBuffer[i].monsterCoord = TileBuffer[DTid.x].tileCoord;
+        }
+    }
+    
+    otherPos = TileSharedBuffer[0].mousePos.xy;
+    for (uint i = 0; i < TileSharedBuffer[0].monsterCount; ++i)
+    {
+        pos = MonsterBuffer[i].monsterPos.xy;
+        scale = MonsterBuffer[i].monsterSize.xy;
+        if (PointIntersectRhombus(pos, scale, otherPos) == true)
+        {
+            TileCoordBuffer[0].hoverMonster = true;
+            TileCoordBuffer[0].hoverMonsterId = i;
+            TileCoordBuffer[0].hoverMonsterTileCoord = MonsterCoordBuffer[i].monsterCoord;
         }
     }
 }
