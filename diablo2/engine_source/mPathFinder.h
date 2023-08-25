@@ -1,6 +1,8 @@
 #pragma once
 #include "_Engine.h"
 #include "mTileManager.h"
+//#include "mPathFinderSystem.h"
+#include "mTileDrawSystem.h"
 
 namespace m
 {
@@ -30,6 +32,8 @@ namespace m
 
 		void SetMonsterOwner(Monster* mon) { mMonsterOwner = mon; }
 		Vector2 GetTargetCoord() { return mTargetCoord; }
+
+
 	private:
 		void openVectorAdd(int y, int x);
 
@@ -65,5 +69,8 @@ namespace m
 		float searchTileSize;
 
 		Monster* mMonsterOwner;
+
+		//PathFinderSystem* mPFSS;
+		TileDrawSystem* mTDS;
 	};
 }

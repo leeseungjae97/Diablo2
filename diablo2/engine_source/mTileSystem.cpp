@@ -52,17 +52,17 @@ namespace m
 			//computeTiles[i].G = 0;
 			//computeTiles[i].H = 0;
 		}
-		mTileBuffer = new graphics::StructedBuffer();
+		mTileBuffer = new graphics::StructuredBuffer();
 		mTileBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, computeTiles, true);
 
-		mTileSharedBuffer = new graphics::StructedBuffer();
+		mTileSharedBuffer = new graphics::StructuredBuffer();
 		mTileSharedBuffer->Create(sizeof(ComputeTileSharedData), 1, eViewType::UAV, nullptr, true);
 
-		mComputedTileCoordBuffer = new graphics::StructedBuffer();
+		mComputedTileCoordBuffer = new graphics::StructuredBuffer();
 		mComputedTileCoordBuffer->Create(sizeof(ComputedTileCoord), 1, eViewType::UAV, nullptr, true);
 
-		mMonsterBuffer = new graphics::StructedBuffer();
-		mGetMonsterComputedCoordBuffer = new graphics::StructedBuffer();
+		mMonsterBuffer = new graphics::StructuredBuffer();
+		mGetMonsterComputedCoordBuffer = new graphics::StructuredBuffer();
 	}
 
 	TileSystem::~TileSystem()
@@ -116,7 +116,7 @@ namespace m
 			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"noneRect");
 			SetMaterial(material);
 		}
-		mCS->SetCamera(GetOwner()->GetCamera());
+		//mCS->SetCamera(GetOwner()->GetCamera());
 	}
 
 	void TileSystem::LateUpdate()
@@ -179,7 +179,7 @@ namespace m
 
 	void TileSystem::Render()
 	{
-		MeshRenderer::Render();
+		//MeshRenderer::Render();
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
 		mTileBuffer->BindSRV(eShaderStage::VS, 11);        
 		mTileBuffer->BindSRV(eShaderStage::GS, 11);

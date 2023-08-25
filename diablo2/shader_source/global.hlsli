@@ -149,6 +149,8 @@ Texture2D albedoTexture : register(t0);
 Texture2D atlasTexture : register(t12);
 Texture2D noiseTexture : register(t15);
 
+//StructuredBuffer<Tile> pathTiles : register(t16);
+
 SamplerState pointSampler : register(s0);
 SamplerState anisotropicSampler : register(s1);
 
@@ -277,19 +279,11 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
 //            , int openSize
 //            , Tile curTile)
 //{
-//    if (PathFinderSharedBuffer[0].isMonster)
-//    {
-//        for (int i = 0; i < MonsterBuffer[0].monsterCount; ++i)
-//        {
-//            if (PathFinderSharedBuffer[0].monsterId == i)
-//                continue;
-//            if (MonsterBuffer[i].monsterNextCoord.x == (float) x
-//                && MonsterBuffer[i].monsterNextCoord.y == (float) y)
-//            {
-//                return;
-//            }
-//        }
-//    }
+//    if (PathFinderSharedBuffer[0].isMonster
+//			&& mMonsterOwner - > GetNextMoveCoord() == Vector2(x, y)
+//			&& TileManager::pathFindingTiles[y][x] - > GetMonsterNext() != 0)
+//        return;
+    
 //    float2 mTargetCoord = PathFinderSharedBuffer[0].targetTileCoord.xy;
 //    float searchTileSize = PathFinderSharedBuffer[0].searchSize;
     
@@ -325,7 +319,6 @@ bool PointIntersectRhombus(float2 pos, float2 scale, float2 otherPos)
 //            neighborTile.parentCoord = curTile.tileCoord;
 
 //            neighborTile.inOpen = true;
-//            ++openSize;
 //            openBuffer[openSize] = neighborTile;
 //        }
 //    }

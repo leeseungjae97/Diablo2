@@ -11,7 +11,10 @@ namespace m
 			// 리소스맵에서 데이터 탐색
 			std::map<std::wstring, std::shared_ptr<Resource>>::iterator iter = mResources.find(key);
 			if (iter != mResources.end())
+			{
+				iter->second->SetKey(key);
 				return std::dynamic_pointer_cast<T>(iter->second);
+			}
 
 			return nullptr;
 		};

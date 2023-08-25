@@ -17,8 +17,8 @@ namespace m
 		virtual void Render() override;
 
 	private:
-		graphics::StructedBuffer* mBuffer;
-		graphics::StructedBuffer* mSharedBuffer;
+		graphics::StructuredBuffer* mBuffer;
+		graphics::StructuredBuffer* mSharedBuffer;
 		std::shared_ptr<ParticleComputeShader> mCS;
 
 		UINT    mCount;

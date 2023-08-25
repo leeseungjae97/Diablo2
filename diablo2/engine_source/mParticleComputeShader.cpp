@@ -35,7 +35,7 @@ namespace m::graphics
 			mSharedBuffer->Clear();
 	}
 
-	void ParticleComputeShader::SetParticleBuffer(StructedBuffer* particleBuffer)
+	void ParticleComputeShader::SetParticleBuffer(StructuredBuffer* particleBuffer)
 	{
 		mParticleBuffer = particleBuffer;
 

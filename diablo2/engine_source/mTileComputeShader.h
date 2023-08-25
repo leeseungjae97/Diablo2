@@ -14,24 +14,24 @@ namespace m::graphics
         virtual void Binds() override;
         virtual void Clear() override;
 
-        void SetTileBuffer(StructedBuffer* buffer) { mTileBuffer = buffer; }
-        void SetSharedBuffer(StructedBuffer* buffer) { mSharedBuffer = buffer; }
-        void SetTileCoordBuffer(StructedBuffer* buffer) { mTileCoordBuffer = buffer; }
-        void SetMonsterBuffer(StructedBuffer* buffer) { mMonsterBuffer = buffer; }
-        void SetMonsterCoordBuffer(StructedBuffer* buffer) { mMonsterCoordBuffer = buffer; }
+        void SetTileBuffer(StructuredBuffer* buffer) { mTileBuffer = buffer; }
+        void SetSharedBuffer(StructuredBuffer* buffer) { mSharedBuffer = buffer; }
+        void SetTileCoordBuffer(StructuredBuffer* buffer) { mTileCoordBuffer = buffer; }
+        void SetMonsterBuffer(StructuredBuffer* buffer) { mMonsterBuffer = buffer; }
+        void SetMonsterCoordBuffer(StructuredBuffer* buffer) { mMonsterCoordBuffer = buffer; }
 
         virtual void OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord** data2, int size2);
 
-        void SetCamera(Camera* camera) { mCamera = camera; }
-        Camera* GetCamera() { return mCamera; }
+        //void SetCamera(Camera* camera) { mCamera = camera; }
+        //Camera* GetCamera() { return mCamera; }
 
     private:
-        StructedBuffer* mTileBuffer;
-        StructedBuffer* mSharedBuffer;
-        StructedBuffer* mTileCoordBuffer;
-        StructedBuffer* mMonsterBuffer;
-        StructedBuffer* mMonsterCoordBuffer;
-        Camera* mCamera;
+        StructuredBuffer* mTileBuffer;
+        StructuredBuffer* mSharedBuffer;
+        StructuredBuffer* mTileCoordBuffer;
+        StructuredBuffer* mMonsterBuffer;
+        StructuredBuffer* mMonsterCoordBuffer;
+        //Camera* mCamera;
     };
 }
 

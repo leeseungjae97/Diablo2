@@ -139,6 +139,9 @@
     <Filter Include="Resources\Resource\PathFinderComputeShader">
       <UniqueIdentifier>{11d7f25d-ca6d-4c31-9f58-8525c918bdc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Resource\TileDrawComputeShader">
+      <UniqueIdentifier>{3eb734b1-8ef5-430c-ab06-569ab115b703}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -307,6 +310,7 @@
       <Filter>GameObject\Component\PathFinderSystem</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -439,6 +443,7 @@
       <Filter>GameObject\Component\PathFinderSystem</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

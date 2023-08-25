@@ -51,6 +51,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileComputeShader.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileComputeShader.h" />

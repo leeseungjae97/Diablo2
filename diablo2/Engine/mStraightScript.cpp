@@ -146,7 +146,7 @@ namespace m
 	}
 	void StraightScript::OnCollisionEnter(Collider2D* other)
 	{
-		if (other->GetColliderFunctionType() == eColliderFunctionType::TilePos)
+		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
 		{
 			switch (dynamic_cast<Skill*>(GetOwner())->GetLayerType())
 			{

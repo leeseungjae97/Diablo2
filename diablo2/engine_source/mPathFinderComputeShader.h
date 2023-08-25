@@ -12,7 +12,7 @@ namespace m::graphics
         PathFinderComputeShader();
         virtual ~PathFinderComputeShader();
 
-        void SetPathFinderTileBuffer(StructedBuffer* buffer) { mPathFinderTileBuffer = buffer; }
+        void SetPathFinderTileBuffer(StructuredBuffer* buffer) { mPathFinderTileBuffer = buffer; }
 
         virtual void Binds() override;
         virtual void Clear() override;
@@ -23,7 +23,7 @@ namespace m::graphics
         Camera* GetCamera() { return mCamera; }
 
     private:
-        StructedBuffer* mPathFinderTileBuffer;
+        StructuredBuffer* mPathFinderTileBuffer;
 
         Camera* mCamera;
     };

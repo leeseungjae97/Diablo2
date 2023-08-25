@@ -29,4 +29,24 @@ namespace m
 	{
 		MeshRenderer::Render();
 	}
+
+	void PathFinderSystem::OpenVectorAdd(Tile* curTile)
+	{
+		// SetData
+		// Tile
+		// isWall
+		// onMonster
+		// inClose
+		// G
+		// H
+
+		// SharedData
+		// IsMonster
+		// GetNextMoveCoord
+		// GetMonsterNext
+
+
+		// GetData
+		// openVector 
+	}
 }

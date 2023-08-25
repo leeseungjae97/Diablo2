@@ -31,7 +31,8 @@ namespace m
 	void Player::Update()
 	{
 		Vector3 curPosition = GET_POS(this);
-
+		destPosition.z = curPosition.z;
+		prevPosition.z = curPosition.z;
 		if (nullptr == TileManager::hoverTile) return;
 		Vector2 curCoord = TileManager::GetPlayerPositionCoord();
 		Vector2 targetCoord = TileManager::GetHoverTileCoord();
@@ -114,7 +115,6 @@ namespace m
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
-
 		MoveAbleObject::Update();
 	}
 	void Player::LateUpdate()

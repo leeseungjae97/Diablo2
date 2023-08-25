@@ -2,7 +2,7 @@
 #include "mMeshRenderer.h"
 #include "mStructedBuffer.h"
 #include "mPathFinderComputeShader.h"
-
+#include "mPathFinder.h"
 namespace m
 {
     class PathFinderSystem :
@@ -17,10 +17,13 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-    private:
-        graphics::StructedBuffer* mBuffer;
+        //void SetPathFinder(PathFinder* pathfinder) { mOwnerpathFinder = pathfinder; }
 
+        void OpenVectorAdd(Tile* curTile);
+    private:
+        graphics::StructuredBuffer* mBuffer;
         std::shared_ptr<PathFinderComputeShader> mCS;
+        //PathFinder* mOwnerpathFinder;
     };
 }
 

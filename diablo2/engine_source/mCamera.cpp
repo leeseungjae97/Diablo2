@@ -211,16 +211,9 @@ namespace m
 
 		if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(mPos), Vector2(mWidth, mHeight), GET_VEC2_F_VEC3_D(GET_POS(gameObj))))
 		{
-			//if (gameObj->GetLayerType() == eLayerType::Tile)
-			//{
-			//	TileManager::notCulledTiles.push_back(dynamic_cast<Tile*>(gameObj));
-			//	return true;
-			//}
 			gameObj->SetCulled(false);
 			return true;
 		}
-
-		//if (gameObj->GetLayerType() == eLayerType::Tile) return false;
 
 		gameObj->SetCulled(true);
 		return false;
@@ -229,10 +222,6 @@ namespace m
 	{
 		for (GameObject* gameObj : mOpaqueGameObjects)
 		{
-			if(gameObj->GetName() == L"pathFindingTiles")
-			{
-				int a = 0;
-			}
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
@@ -245,10 +234,6 @@ namespace m
 	{
 		for (GameObject* gameObj : mCutOutGameObjects)
 		{
-			if (gameObj->GetName() == L"pathFindingTiles")
-			{
-				int a = 0;
-			}
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;
@@ -261,10 +246,6 @@ namespace m
 	{
 		for (GameObject* gameObj : mTransparentGameObjects)
 		{
-			if (gameObj->GetName() == L"pathFindingTiles")
-			{
-				int a = 0;
-			}
 			if (gameObj == nullptr)
 				continue;
 			if (gameObj->GetCulled()) continue;

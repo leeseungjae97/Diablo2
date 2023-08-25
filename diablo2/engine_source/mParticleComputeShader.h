@@ -13,11 +13,11 @@ namespace m::graphics
 		virtual void Binds() override;
 		virtual void Clear() override;
 
-		void SetParticleBuffer(StructedBuffer* particleBuffer);
-		void SetSharedBuffer(StructedBuffer* sharedBuffer) { mSharedBuffer = sharedBuffer; }
+		void SetParticleBuffer(StructuredBuffer* particleBuffer);
+		void SetSharedBuffer(StructuredBuffer* sharedBuffer) { mSharedBuffer = sharedBuffer; }
 	private:
-		StructedBuffer* mParticleBuffer;
-		StructedBuffer* mSharedBuffer;
+		StructuredBuffer* mParticleBuffer;
+		StructuredBuffer* mSharedBuffer;
     };
 }
 

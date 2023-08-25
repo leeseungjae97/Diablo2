@@ -176,12 +176,12 @@ namespace m
 			}
 		}
 		Scene* curScene = SceneManager::GetActiveScene();
-		GameObject* tiles = new GameObject();
-		tiles->SetCamera(camera);
-		curScene->AddGameObject(eLayerType::Tile, tiles);
-		SET_POS_XYZ(tiles, 0.f, 0.f, 1.f);
-		SET_SCALE_XYZ(tiles, TileManager::tileXSize, TileManager::tileYSize, 1.f);
-		curTileSystem = ADD_COMP(tiles, TileSystem);
+		GameObject* tileDrawObject = new GameObject();
+		tileDrawObject->SetCamera(camera);
+		curScene->AddGameObject(eLayerType::Tile, tileDrawObject);
+		SET_POS_XYZ(tileDrawObject, 0.f, 0.f, 1.f);
+		SET_SCALE_XYZ(tileDrawObject, TileManager::tileXSize, TileManager::tileYSize, 1.f);
+		curTileSystem = ADD_COMP(tileDrawObject, TileSystem);
 	}
 
 	void TileManager::TilesUpdate()

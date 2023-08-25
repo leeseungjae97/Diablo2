@@ -26,6 +26,7 @@ namespace m
 		, vDirection(Vector2::Zero)
 		, bGetHit(false)
 		, bMove(false)
+		, mCoord(Vector2(0.f, 0.f))
 	{
 		SET_POS_VEC(this, iniPos);
 
@@ -54,6 +55,8 @@ namespace m
 		if(useAstar)
 			mPathFinder = new PathFinder();
 		ADD_COMP(this, MeshRenderer);
+
+		
 	}
 	MoveAbleObject::~MoveAbleObject()
 	{
@@ -66,11 +69,17 @@ namespace m
 	void MoveAbleObject::Update()
 	{
 		GameObject::Update();
+		
+		Vector3 pos = GET_POS(this);
+		if(GetLayerType() == eLayerType::Player)
+		{
+			pos.z = 1.f + ((TileManager::playerStandTile->GetCoord().x * 0.0001f) + (TileManager::playerStandTile->GetCoord().y * 0.0001f));
+		}else
+		{
+			pos.z = 1.f + ((mCoord.x * 0.0001f) + (mCoord.y * 0.0001f));
+		}
+		SET_POS_VEC(this, pos);
 
-		if (GetBattleState() == eBattleState::Dead
-			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Hit
-			|| GetBattleState() == eBattleState::Cast) return;
 	}
 	void MoveAbleObject::LateUpdate()
 	{

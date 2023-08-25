@@ -3,7 +3,7 @@
 
 namespace m::graphics
 {
-	StructedBuffer::StructedBuffer()
+	StructuredBuffer::StructuredBuffer()
 		: GpuBuffer()
 		, mReadBuffer(nullptr)
 		, mWriteBuffer(nullptr)
@@ -16,11 +16,11 @@ namespace m::graphics
 		, mUAVSlot(0)
 	{
 	}
-	StructedBuffer::~StructedBuffer()
+	StructuredBuffer::~StructuredBuffer()
 	{
 	}
 
-	bool StructedBuffer::Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess)
+	bool StructuredBuffer::Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess)
 	{
 		if (buffer)
 		{
@@ -103,7 +103,7 @@ namespace m::graphics
 
 		return true;
 	}
-	bool StructedBuffer::CreateRWBuffer()
+	bool StructuredBuffer::CreateRWBuffer()
 	{
 		D3D11_BUFFER_DESC wDesc(desc);
 
@@ -130,7 +130,7 @@ namespace m::graphics
 		return true;
 	}
 
-	void StructedBuffer::SetData(void* data, UINT bufferCount)
+	void StructuredBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
 			Create(mSize, bufferCount, mType, data);
@@ -139,7 +139,7 @@ namespace m::graphics
 
 		GetDevice()->CopyResource(buffer.Get(), mWriteBuffer.Get());
 	}
-	void StructedBuffer::GetData(void* data, UINT size)
+	void StructuredBuffer::GetData(void* data, UINT size)
 	{
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
@@ -149,7 +149,7 @@ namespace m::graphics
 			GetDevice()->ReadBuffer(mReadBuffer.Get(), data, size);
 	}
 	template <typename T>
-	void StructedBuffer::GetData(T** data, UINT size)
+	void StructuredBuffer::GetData(T** data, UINT size)
 	{
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
@@ -159,7 +159,7 @@ namespace m::graphics
 			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
 	}
 	template <typename T>
-	void StructedBuffer::GetDatas(T** data, UINT size)
+	void StructuredBuffer::GetDatas(T** data, UINT size)
 	{
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
@@ -168,18 +168,18 @@ namespace m::graphics
 		else
 			GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, size);
 	}
-	void StructedBuffer::BindSRV(eShaderStage stage, UINT slot)
+	void StructuredBuffer::BindSRV(eShaderStage stage, UINT slot)
 	{
 		mSRVSlot = slot;
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
-	void StructedBuffer::BindUAV(UINT slot)
+	void StructuredBuffer::BindUAV(UINT slot)
 	{
 		mUAVSlot = slot;
 		UINT i = -1;
 		GetDevice()->BindUnorderedAccess(slot, mUAV.GetAddressOf(), &i);
 	}
-	void StructedBuffer::Clear()
+	void StructuredBuffer::Clear()
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
 		GetDevice()->BindShaderResource(eShaderStage::VS, mSRVSlot, &srv);

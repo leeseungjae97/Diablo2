@@ -63,10 +63,10 @@ namespace m
 			
 		}
 
-		mBuffer = new graphics::StructedBuffer();
+		mBuffer = new graphics::StructuredBuffer();
 		mBuffer->Create(sizeof(Particle), 10, eViewType::UAV, particles);
 
-		//mSharedBuffer = new graphics::StructedBuffer();
+		//mSharedBuffer = new graphics::StructuredBuffer();
 		//mSharedBuffer->Create(sizeof(ParticleShared), 1, eViewType::UAV, particles, true);
 		//mBuffer->SetData(particles, 10);
 	}

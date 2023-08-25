@@ -5,6 +5,7 @@
 #include "mTileSystem.h"
 #include "mMonsterManager.h"
 #include "mTileSystem.h"
+#include "mSceneManager.h"
 
 #include "../Engine/mMoveAbleObject.h"
 namespace m
@@ -27,6 +28,7 @@ namespace m
 		, dy(0)
 		, dx(0)
 		, searchTileSize(20)
+		//, mPFSS(nullptr)
 	{
 		bfsPathFinderExcept.reserve(5);
 		finalPathVector.reserve(300);
@@ -39,7 +41,18 @@ namespace m
 		yLength = TileManager::pathFindingTiles.size();
 		xLength = TileManager::pathFindingTiles[0].size();
 
+		//GameObject* pathFinderOwner = new GameObject();
+		//mPFSS = ADD_COMP(pathFinderOwner, PathFinderSystem);
+		//mPFSS->SetPathFinder(this);
+		//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Tile, pathFinderOwner);
 
+		GameObject* drawPathTileObject = new GameObject();
+		SET_POS_XYZ(drawPathTileObject, 0.f, 0.f, 1.f);
+		SET_SCALE_XYZ(drawPathTileObject, TileManager::tileXSize, TileManager::tileYSize,1.f);
+		mTDS = ADD_COMP(drawPathTileObject, TileDrawSystem);
+
+		drawPathTileObject->SetCamera(SceneManager::GetActiveScene()->GetSceneMainCamera());
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Tile, drawPathTileObject);
 	}
 	PathFinder::~PathFinder()
 	{
@@ -303,6 +316,8 @@ namespace m
 		mOwner->SetNextMoveCoord(subTargetTile->GetCoord());
 		subTargetTile->SetMonsterNext();
 
+		mTDS->MakePathTileBuffer(finalPathVector);
+
 		if (subTargetTile->GetCoord() != mOwner->GetCoord())
 		{
 			if (subTargetTile->GetOnMonster())
@@ -357,6 +372,7 @@ namespace m
 	{
 		if (finalPathVector.empty()) return false;
 
+		mTDS->MakePathTileBuffer(finalPathVector);
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != TileManager::GetPlayerPositionCoord())
 		{

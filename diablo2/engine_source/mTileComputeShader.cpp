@@ -14,13 +14,13 @@ namespace m::graphics
 		, mTileCoordBuffer(nullptr)
 		, mMonsterBuffer(nullptr)
 		, mMonsterCoordBuffer(nullptr)
-		, mCamera(nullptr)
+		//, mCamera(nullptr)
 	{
 	}
 
 	TileComputeShader::~TileComputeShader()
 	{
-		mCamera = nullptr;
+		//mCamera = nullptr;
 	}
 
 	void TileComputeShader::Binds()

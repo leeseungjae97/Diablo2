@@ -94,7 +94,7 @@
       <Filter>Script\SkillScript</Filter>
     </ClCompile>
     <ClCompile Include="mStraightScript.cpp">
-      <Filter>Script\StraightSkillScript</Filter>
+      <Filter>Script\StraightScript</Filter>
     </ClCompile>
     <ClCompile Include="mSkillOverlay.cpp">
       <Filter>SkillOverlay</Filter>
@@ -210,7 +210,7 @@
       <Filter>Script\SkillScript</Filter>
     </ClInclude>
     <ClInclude Include="mStraightScript.h">
-      <Filter>Script\StraightSkillScript</Filter>
+      <Filter>Script\StraightScript</Filter>
     </ClInclude>
     <ClInclude Include="mSkillOverlay.h">
       <Filter>SkillOverlay</Filter>
@@ -344,9 +344,6 @@
     <Filter Include="Script\SkillScript">
       <UniqueIdentifier>{21faa739-1af3-4d1f-95ef-ccc4e2fb118c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\StraightSkillScript">
-      <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Skill\SkillStraight">
       <UniqueIdentifier>{455f21af-c08e-4f6f-a6df-396416800f35}</UniqueIdentifier>
     </Filter>
@@ -382,6 +379,9 @@
     </Filter>
     <Filter Include="Hand\MonsterHand">
       <UniqueIdentifier>{66e1b167-9da1-4fd8-96fd-a7eef6cc9e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\StraightScript">
+      <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

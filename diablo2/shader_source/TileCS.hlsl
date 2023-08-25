@@ -31,6 +31,11 @@ void main( uint3 DTid : SV_DispatchThreadID )
         || TileBuffer[DTid.x].tileCoord.y == -1.f)
         return;
     
+    uint tileCount = TileSharedBuffer[0].tileCount / 2;
+    if (TileBuffer[DTid.x].tileCoord.x > 100.f
+        || TileBuffer[DTid.x].tileCoord.y > 100.f)
+        return;
+    
     float2 scale = TileBuffer[DTid.x].tileSize;
     float2 pos = TileBuffer[DTid.x].tilePosition.xy;
     float2 otherPos = TileSharedBuffer[0].mousePos.xy;

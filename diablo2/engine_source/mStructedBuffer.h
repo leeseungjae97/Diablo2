@@ -3,12 +3,12 @@
 
 namespace m::graphics
 {
-    class StructedBuffer :
+    class StructuredBuffer :
         public GpuBuffer
     {
     public:
-		StructedBuffer();
-		~StructedBuffer();
+		StructuredBuffer();
+		~StructuredBuffer();
 
 		bool Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess = false);
 		bool CreateRWBuffer();
