@@ -57,6 +57,7 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      mDSV;
 		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>   mUAV;
 
+		UINT mSlot;
 		UINT mWidth;
 		UINT mHeight;
 

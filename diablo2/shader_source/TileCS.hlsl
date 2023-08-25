@@ -24,7 +24,7 @@ void main( uint3 DTid : SV_DispatchThreadID )
         TileCoordBuffer[0].mouseHoverTileCoord = float2(-1.f, -1.f);
         TileCoordBuffer[0].playerStandTileCoord = float2(-1.f, -1.f);
         TileCoordBuffer[0].hoverMonsterTileCoord = float2(-1.f, -1.f);
-        //TileCoordBuffer[0].hoverMonsterId = -1;
+        TileCoordBuffer[0].hoverMonsterId = -1;
 
     }
     if (TileBuffer[DTid.x].tileCoord.x == -1.f

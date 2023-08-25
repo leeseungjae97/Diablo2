@@ -17,6 +17,9 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void BindsMaterials();
+		void ClearMaterials();
+		void AddMaterial(std::shared_ptr<Material> mat);
 		void SetComputedData();
 
 		ComputedMonsterCoord* GetComputedMonsterCoord() { return mComputedCoords; }
@@ -29,9 +32,9 @@ namespace m
 		graphics::StructedBuffer* mGetMonsterComputedCoordBuffer;
 
 		std::shared_ptr<TileComputeShader> mCS;
+		std::vector<std::shared_ptr<Material>> materials;
 
 		ComputedTileCoord* mCoordData;
-		//std::vector<ComputedMonsterCoord> mComputedCoords;
 		ComputedMonsterCoord* mComputedCoords;
 	};
 }

@@ -52,7 +52,7 @@ namespace m
 		curTile = nullptr;
 	}
 
-	void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize, Vector2 monsterAroundCoord)
+	void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
 		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
 		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
@@ -65,8 +65,8 @@ namespace m
 		else
 		{
 			if (mMonsterOwner->GetPathChange() == false
-				&& mMonsterOwner->GetPrevCurCoord() == startCoord 
-				&& mMonsterOwner->GetTargetCoord() == targetCoord)
+				&& mStartCoord == startCoord 
+				&& mTargetCoord == targetCoord)
 			{
 				return;
 			}

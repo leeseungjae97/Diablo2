@@ -13,7 +13,7 @@ namespace m
 		PathFinder();
 		~PathFinder();
 
-		void AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1, Vector2 monsterAroundCoord = Vector2(-1.f, -1.f));
+		void AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1);
 
 		void InSightPathFinding(Vector2 startCoord, Vector2 targetCoord);
 

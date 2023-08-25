@@ -15,8 +15,6 @@ namespace m
 		: MoveAbleObject(iniPos, 300.f)
 		, mHp(nullptr)
 		, mMp(nullptr)
-		, mFollowingMonsterId(-1)
-		, moveAdjacent(false)
 	{
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
 		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
@@ -48,6 +46,10 @@ namespace m
 			mPathFinder->ClearPath();
 		}
 
+
+		mPathFinder->PlayerMove(this);
+
+		mPathFinder->AstarPathFinding(curCoord, targetCoord);
 		if (!MouseManager::GetMouseOnUI()
 			&& Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
@@ -66,7 +68,6 @@ namespace m
 			vDirection.Normalize();
 		}
 		if (!MouseManager::GetMouseOnUI()
-			&& mFollowingMonsterId == -1
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			if (!mPathFinder->PathChange(false))
@@ -91,10 +92,6 @@ namespace m
 					vDirection.Normalize();
 				}
 			}
-			if (MouseManager::GetMouseHoverMonsterTileCoord() != Vector2(-1.f, -1.f))
-			{
-				mFollowingMonsterId = MouseManager::GetMouseHoverMonsterId();
-			}
 		}
 		float maxX = max(curPosition.x, prevPosition.x);
 		float maxY = max(curPosition.y, prevPosition.y);
@@ -117,16 +114,6 @@ namespace m
 			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
-		if(mFollowingMonsterId != -1)
-		{
-			targetCoord = MonsterManager::monsters[mFollowingMonsterId]->GetCoord();
-			mPathFinder->AstarPathFinding(curCoord, targetCoord);
-			mPathFinder->PathChange(true);
-		}else
-		{
-			mPathFinder->AstarPathFinding(curCoord, targetCoord);
-		}
-		mPathFinder->PlayerMove(this);
 
 		MoveAbleObject::Update();
 	}

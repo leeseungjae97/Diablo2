@@ -10,6 +10,7 @@ struct GSOut
 {
     float4 Pos : SV_Position;
     float2 UV : TEXCOORD;
+    uint Instance : SV_InstanceID;
 };
 
 [maxvertexcount(6)]
@@ -38,6 +39,11 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
     Out[1].UV = float2(1.0f, 0.0f);
     Out[2].UV = float2(1.0f, 1.0f);
     Out[3].UV = float2(0.0f, 1.0f);
+    
+    Out[0].Instance = In[0].Instance;
+    Out[1].Instance = In[0].Instance;
+    Out[2].Instance = In[0].Instance;
+    Out[3].Instance = In[0].Instance;
     
     output.Append(Out[0]);
     output.Append(Out[1]);

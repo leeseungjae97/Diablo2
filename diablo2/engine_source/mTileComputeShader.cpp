@@ -28,7 +28,9 @@ namespace m::graphics
 		if (nullptr != mTileBuffer
 			&&
 			mTileBuffer->buffer)
+		{
 			mTileBuffer->BindUAV(0);
+		}
 
 		if (nullptr != mSharedBuffer
 			&&
@@ -83,17 +85,13 @@ namespace m::graphics
 			mMonsterCoordBuffer->Clear();
 	}
 
-	//void TileComputeShader::OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord* data2, int size2)
 	void TileComputeShader::OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord** data2, int size2)
 	{
 		ComputeShader::OnExcute();
 
 		Clear();
 
-
 		mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
-		//if (nullptr != mGetMonsterComputedCoordBuffer && nullptr != mMonsterBuffer)
-		//	mGetMonsterComputedCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 		if(nullptr != mMonsterCoordBuffer && nullptr != mMonsterBuffer)
 			mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 		

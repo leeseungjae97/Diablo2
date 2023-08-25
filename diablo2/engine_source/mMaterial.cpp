@@ -27,8 +27,19 @@ namespace m::graphics
 		if(mShader)
 			mShader->Binds();
 	}
+
+	void Material::Binds(UINT slot)
+	{
+		if (mTexture)
+			mTexture->BindShaderResource(eShaderStage::PS, slot);
+
+		if (mShader)
+			mShader->Binds();
+	}
+
 	void Material::Clear()
 	{
-		mTexture->Clear();
+		//if (mTexture)
+			mTexture->Clear();
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "mComputeShader.h"
 #include "mStructedBuffer.h"
-
+#include "mMaterial.h"
 namespace m::graphics
 {
     class TileComputeShader :
@@ -20,7 +20,6 @@ namespace m::graphics
         void SetMonsterBuffer(StructedBuffer* buffer) { mMonsterBuffer = buffer; }
         void SetMonsterCoordBuffer(StructedBuffer* buffer) { mMonsterCoordBuffer = buffer; }
 
-        //virtual void OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord* data2, int size2);
         virtual void OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord** data2, int size2);
 
         void SetCamera(Camera* camera) { mCamera = camera; }

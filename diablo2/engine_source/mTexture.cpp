@@ -10,6 +10,7 @@ namespace m::graphics
 		, mImage{}
 		, mTexture(nullptr)
 		, mSRV(nullptr)
+		, mSlot(0)
 		, mDesc{}
 	{
 	}
@@ -192,7 +193,7 @@ namespace m::graphics
 			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 				return S_FALSE;
 		}
-
+		
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()
@@ -211,28 +212,34 @@ namespace m::graphics
 
 	void Texture::BindShaderResource(eShaderStage stage, UINT startSlot)
 	{
-		GetDevice()->BindShaderResource(stage, startSlot, mSRV.GetAddressOf());
+		mSlot = startSlot;
+		GetDevice()->BindShaderResource(stage, mSlot, mSRV.GetAddressOf());
 	}
 	void Texture::BindUnorderedAccessViews(UINT slot)
 	{
+		mSlot = slot;
 		UINT i = -1;
-		GetDevice()->BindUnorderedAccess(slot, mUAV.GetAddressOf(), &i);
+		GetDevice()->BindUnorderedAccess(mSlot, mUAV.GetAddressOf(), &i);
 	}
 	void Texture::ClearUnorderedAccessViews(UINT slot)
 	{
 		ID3D11UnorderedAccessView* p = nullptr;
 		UINT i = -1;
-		GetDevice()->BindUnorderedAccess(slot, &p, &i);
+		GetDevice()->BindUnorderedAccess(mSlot, &p, &i);
 	}
 	void Texture::Clear()
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
-
-		GetDevice()->BindShaderResource(eShaderStage::VS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::DS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::GS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
+		int slot = 0;
+		if(this != nullptr )
+		{
+			slot = mSlot;
+		}
+		GetDevice()->BindShaderResource(eShaderStage::VS, slot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::DS, slot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::GS, slot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::HS, slot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::CS, slot, &srv);
+		GetDevice()->BindShaderResource(eShaderStage::PS, slot, &srv);
 	}
 }

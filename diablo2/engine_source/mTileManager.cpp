@@ -162,13 +162,13 @@ namespace m
 				{
 					tile->SetIsWall(true);
 					//SET_MATERIAL(tile, L"redTile");
-					tile->SetSaveMaterial(RESOURCE_FIND(Material, L"redTile"));
+					//tile->SetSaveMaterial(RESOURCE_FIND(Material, L"redTile"));
 				}
 				else
 				{
 					tile->SetIsWall(false);
 					//SET_MATERIAL(tile, L"greenOutlineTile");
-					tile->SetSaveMaterial(RESOURCE_FIND(Material, L"greenOutlineTile"));
+					//tile->SetSaveMaterial(RESOURCE_FIND(Material, L"greenOutlineTile"));
 				}
 				SET_SCALE_XYZ(tile, tileXSize, tileYSize, 1.f);
 				SET_POS_XYZ(tile, fX, fY, 1.f);

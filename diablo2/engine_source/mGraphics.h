@@ -157,9 +157,11 @@ struct ComputeTile
 	m::math::Vector2 tileSize;
 	m::math::Vector2 tileCoord;
 
+	BOOL isWall;
+
 	//m::math::Vector2 parentCoord;
 
-	//BOOL isWall;
+	
 	//BOOL onMonster;
 
 	//UINT willOnMonsterCount;

@@ -24,6 +24,12 @@ namespace m
 
 		mCS = Resources::Find<TileComputeShader>(L"TileComputeShader");
 
+		std::shared_ptr<Material> greenTile = RESOURCE_FIND(Material, L"greenTileD");
+		std::shared_ptr<Material> redTile = Resources::Find<Material>(L"redTileD");
+		
+		AddMaterial(greenTile);
+		AddMaterial(redTile);
+		
 		ComputeTile computeTiles[10000] = {};
 		for(int i = 0 ; i < 10000; ++i)
 		{
@@ -36,7 +42,7 @@ namespace m
 			//computeTiles[i].parentCoord = Vector2(-1.f, -1.f);
 
 			//computeTiles[i].onMonster = false;
-			//computeTiles[i].isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
+			computeTiles[i].isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
 
 			//computeTiles[i].willOnMonsterCount = 0;
 
@@ -88,8 +94,7 @@ namespace m
 			mGetMonsterComputedCoordBuffer = nullptr;
 		}
 		mCoordData = nullptr;
-		//mComputedCoords.resize(0);
-		//mComputedCoords.clear();
+		materials.clear();
 	}
 
 	void TileSystem::Initialize()
@@ -166,9 +171,6 @@ namespace m
 		mCS->SetTileBuffer(mTileBuffer);
 		mCS->SetSharedBuffer(mTileSharedBuffer);
 		mCS->SetTileCoordBuffer(mComputedTileCoordBuffer);
-
-
-		//mCS->OnExcute(&mCoordData, 1, mComputedCoords.data(), MonsterManager::monsters.size());
 		
 		mCS->OnExcute(&mCoordData, 1, &mComputedCoords, MonsterManager::monsters.size());
 
@@ -183,11 +185,7 @@ namespace m
 		mTileBuffer->BindSRV(eShaderStage::GS, 11);
 		mTileBuffer->BindSRV(eShaderStage::PS, 11);
 
-		//mMonsterBuffer->BindSRV(eShaderStage::VS, 12);
-		//mMonsterBuffer->BindSRV(eShaderStage::GS, 12);
-		//mMonsterBuffer->BindSRV(eShaderStage::PS, 12);
-		//mMonsterBuffer->BindSRV(eShaderStage::CS, 12);
-
+		BindsMaterials();
 		GetMaterial()->Binds();
 		GetMesh()->RenderInstanced(10000);
 
@@ -196,12 +194,31 @@ namespace m
 		mComputedTileCoordBuffer->Clear();
 		mMonsterBuffer->Clear();
 		mGetMonsterComputedCoordBuffer->Clear();
+		//ClearMaterials();
+	}
+	void TileSystem::BindsMaterials()
+	{
+		for(int i = 0 ; i < materials.size() ; ++i)
+		{
+			materials[i]->Binds(i + 1);
+		}
+	}
+	void TileSystem::ClearMaterials()
+	{
+		for (int i = 0; i < materials.size(); ++i)
+		{
+			materials[i]->Clear();
+		}
+	}
+	void TileSystem::AddMaterial(std::shared_ptr<Material> mat)
+	{
+		materials.push_back(mat);
 	}
 
 	void TileSystem::SetComputedData()
 	{
-		MouseManager::SetMouseOnMonster(false);
-		MouseManager::SetMouseHoverMonsterTileCoord(Vector2(-1.f, -1.f));
+		//MouseManager::SetMouseOnMonster(false);
+		//MouseManager::SetMouseHoverMonsterTileCoord(Vector2(-1.f, -1.f));
 		//MouseManager::SetMouseHoverMonsterId(-1);
 		if (!MonsterManager::monsters.empty())
 		{
@@ -227,7 +244,7 @@ namespace m
 
 		if (nullptr != mCoordData)
 		{
-			int id = mCoordData->hoverMonsterId;
+			
 			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
 			if (mouseCoord != Vector2(-1.f, -1.f))
 			{
@@ -239,17 +256,13 @@ namespace m
 			{
 				TileManager::playerStandTile = TileManager::pathFindingTiles[playerCoord.y][playerCoord.x];
 			}
-			Vector2 mouseHMSTC = mCoordData->hoverMonsterTileCoord;
-			if(mouseHMSTC != Vector2(-1.f, -1.f))
-			{
-				MouseManager::SetMouseHoverMonsterTileCoord(mouseHMSTC);
-				MouseManager::SetMouseOnMonster(mCoordData->hoverMonster);
-				MouseManager::SetMouseHoverMonsterId(id);
-				//if (PlayerInfo::player)
-				//	PlayerInfo::player->SetFMID(id);
-			}
-			
-			
+			//int id = mCoordData->hoverMonsterId;
+			//if(id != -1)
+			//{
+			//	MouseManager::SetMouseHoverMonsterId(id);
+			//	Vector2 coord = MonsterManager::monsters[id]->GetCoord();
+			//	MouseManager::SetMouseHoverMonsterTileCoord(coord);
+			//}
 		}
 	}
 }
