@@ -172,6 +172,10 @@ struct ComputeTile
 	//int G;
 	//int H;
 };
+struct TrapColor
+{
+	m::math::Vector4 color;
+};
 struct ComputeTileSharedData
 {
 	m::math::Vector4 mousePos;

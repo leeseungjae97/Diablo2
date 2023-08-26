@@ -90,8 +90,8 @@ namespace m
 			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
 			skill->SetClickMaterial(Resources::Find<Material>(clickSkillName));
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
-			skill->SetDeClickMaterial(Resources::Find<Material>(L"testDebugRect"));
-			skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
+			skill->SetDeClickMaterial(Resources::Find<Material>(skillName));
+			//skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
 			skill->SetState(NoRenderUpdate);
 			coldSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
@@ -109,8 +109,8 @@ namespace m
 			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
 			skill->SetClickMaterial(Resources::Find<Material>(clickSkillName));
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
-			skill->SetDeClickMaterial(Resources::Find<Material>(L"testDebugRect"));
-			skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
+			skill->SetDeClickMaterial(Resources::Find<Material>(skillName));
+			//skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
 			skill->SetState(NoRenderUpdate);
 			lightSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
@@ -128,8 +128,8 @@ namespace m
 			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
 			skill->SetClickMaterial(Resources::Find<Material>(clickSkillName));
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
-			skill->SetDeClickMaterial(Resources::Find<Material>(L"testDebugRect"));
-			skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
+			skill->SetDeClickMaterial(Resources::Find<Material>(skillName));
+			//skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
 			skill->SetState(NoRenderUpdate);
 			fireSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);

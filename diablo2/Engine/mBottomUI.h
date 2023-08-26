@@ -18,6 +18,8 @@ namespace m
     private:
         std::vector<Inven*> pockets;
         std::vector<Inven*> exPockets;
+        Inven* mPocketUI;
+        UI* mExPocketUI;
         bool bBelt;
     };
 }

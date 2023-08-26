@@ -243,100 +243,13 @@ namespace m
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
 		AddGameObject(eLayerType::Camera, uiCamera);
 
-		//inventory = new Inventory(cameraComp2);
-		//inventory->SetState(GameObject::NoRenderUpdate);
+		inventory = new Inventory(cameraComp2);
+		inventory->SetState(GameObject::NoRenderUpdate);
 
-		//skillUp = new SkillUp(cameraComp2);
-		//skillUp->SetState(GameObject::NoRenderUpdate);
+		skillUp = new SkillUp(cameraComp2);
+		skillUp->SetState(GameObject::NoRenderUpdate);
 
-		//uiBottomBar = new BottomUI(cameraComp2);
-
-		UI* uiMp = new UI();
-		AddGameObject(eLayerType::UI, uiMp);
-		uiMp->SetCamera(cameraComp2);
-		SET_MESH(uiMp, L"RectMesh");
-		SET_MATERIAL(uiMp, L"mpUi");
-		GET_TEX(uiMp, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(uiMp, tex, 0.f);
-		SET_POS_XYZ(uiMp, RESOL_H_WID - 117.f * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f, -1.f);
-
-	
-		UVUI* mp = new UVUI();
-		AddGameObject(eLayerType::UI, mp);
-		mp->SetCamera(cameraComp2);
-		SET_MESH(mp, L"RectMesh");
-		SET_MATERIAL(mp, L"mp");
-		GET_TEX(mp, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(mp, tex, 0.f);
-		SET_POS_XYZ(mp, RESOL_H_WID - 140.f * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
-
-
-		UI* mpOverlapHands = new UI();
-		AddGameObject(eLayerType::UI, mpOverlapHands);
-		mpOverlapHands->SetCamera(cameraComp2);
-		SET_MESH(mpOverlapHands, L"RectMesh");
-		SET_MATERIAL(mpOverlapHands, L"mpOverlapHands");
-		GET_TEX(mpOverlapHands, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(mpOverlapHands, tex, 0.f);
-		SET_POS_XYZ(mpOverlapHands, RESOL_H_WID - 135.f * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
-		
-		UI* uiHp = new UI();
-		AddGameObject(eLayerType::UI, uiHp);
-		uiHp->SetCamera(cameraComp2);
-		SET_MESH(uiHp, L"RectMesh");
-		SET_MATERIAL(uiHp, L"hpUi");
-		GET_TEX(uiHp, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(uiHp, tex, 0.f);
-		SET_POS_XYZ(uiHp, -RESOL_H_WID + 117.f * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
-
-		UVUI* hp = new UVUI();
-		AddGameObject(eLayerType::UI, hp);
-		hp->SetCamera(cameraComp2);
-		hp->SetName(L"hp");
-		SET_MESH(hp, L"RectMesh");
-		SET_MATERIAL(hp, L"hp");
-		GET_TEX(hp, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(hp, tex, 0.f);
-		SET_POS_XYZ(hp, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
-
-		PlayerInfo::player->SetHpUI(hp);
-
-		UI* hpOverlapHands = new UI();
-		AddGameObject(eLayerType::UI, hpOverlapHands);
-		hpOverlapHands->SetCamera(cameraComp2);
-		SET_MESH(hpOverlapHands, L"RectMesh");
-		SET_MATERIAL(hpOverlapHands, L"hpOverlapHands");
-		GET_TEX(hpOverlapHands, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(hpOverlapHands, tex, 0.f);
-		SET_POS_XYZ(hpOverlapHands, RESOL_H_WID + 137.f * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + 97.f * Texture::GetHeiRatio() / 2.f, -1.f);
-
-		SkillShortCutButton* skillShortCutLeft = new SkillShortCutButton(0);
-		AddGameObject(eLayerType::UI, skillShortCutLeft);
-		skillShortCutLeft->SetCamera(cameraComp2);
-		SET_MESH(skillShortCutLeft, L"RectMesh");
-		SET_MATERIAL(skillShortCutLeft, L"normalAttackIcon");
-
-		GET_TEX(skillShortCutLeft, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCutLeft, tex, 0.f);
-		SET_POS_XYZ(skillShortCutLeft, -470.f - tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
-
-		SkillShortCutButton* skillShortCutRight = new SkillShortCutButton(1);
-		AddGameObject(eLayerType::UI, skillShortCutRight);
-		skillShortCutRight->SetCamera(cameraComp2);
-		SET_MESH(skillShortCutRight, L"RectMesh");
-		SET_MATERIAL(skillShortCutRight, L"normalAttackIcon");
-
-		GET_TEX(skillShortCutRight, tex);
-		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCutRight, tex, 0.f);
-		SET_POS_XYZ(skillShortCutRight, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
-					, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
+		uiBottomBar = new BottomUI(cameraComp2);
 	}
 	void PlayScene::Update()
 	{

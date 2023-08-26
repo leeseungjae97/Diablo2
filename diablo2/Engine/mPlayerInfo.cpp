@@ -19,8 +19,6 @@ namespace m
 	Player* PlayerInfo::player = nullptr;
 	eSkillType PlayerInfo::skillTypes[2] = {};
 
-	std::vector<InvenItem*> PlayerInfo::inventoryItems;
-	std::vector<InvenItem*> PlayerInfo::pocketPosions;
 	void PlayerInfo::Initialize()
 	{
 		skillPoint = 100;
@@ -38,34 +36,6 @@ namespace m
 
 		SetSkill(0, eSkillType::normalAttack);
 		SetSkill(1, eSkillType::fireBolt);
-	}
-
-	void PlayerInfo::PocketToInventory(InvenItem* item)
-	{
-		std::vector<InvenItem*>::iterator iter = pocketPosions.begin();
-
-		while (iter != pocketPosions.end())
-		{
-			if( (*(iter)) != item)
-				iter++;
-			else
-				iter = pocketPosions.erase(iter);
-		}
-		inventoryItems.push_back(item);
-	}
-
-	void PlayerInfo::InventoryToPocket(InvenItem* item)
-	{
-		std::vector<InvenItem*>::iterator iter = inventoryItems.begin();
-
-		while (iter != inventoryItems.end())
-		{
-			if ((*(iter)) != item)
-				iter++;
-			else
-				iter = inventoryItems.erase(iter);
-		}
-		pocketPosions.push_back(item);
 	}
 
 	void PlayerInfo::CalHpPercent()

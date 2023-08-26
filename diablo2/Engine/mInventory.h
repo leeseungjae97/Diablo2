@@ -20,10 +20,10 @@ namespace m
         std::vector<Inven*>& GetInvens() { return invens; }
         std::vector<Inven*>& GetEquiments() { return equiments; }
         std::vector<InvenItem*>& GetInvenItems() { return invenItems; }
-        GameObject* GetInvensCollider() { return invensCollider; }
+        Inven* GetInvensCollider() { return invensCollider; }
 
     private:
-        GameObject* invensCollider;
+        Inven* invensCollider;
         std::vector<Inven*> invens;
         std::vector<Inven*> equiments;
         std::vector<InvenItem*> invenItems; // x 28 y 28

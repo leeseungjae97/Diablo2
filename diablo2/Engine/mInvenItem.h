@@ -24,11 +24,11 @@ namespace m
         void SetClickFunction() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item)->FrontGameObject(this); }
 
         void InvenItemInit();
-        void ChangeBoolIntersectArea(Vector3 areaPos, bool _bV);
+        void ChangeFillIntersectArea(Vector2 areaPos, bool _bV);
         bool CheckLimitIntersectItems(int limit);
         void DeployItem();
-        bool CheckItemSizeIntersectInventory(Vector3 comparePos);
-        bool CheckItemSizeIntersectItem(Vector3 comparePos);
+        bool CheckItemSizeIntersectInventory(Vector2 comparePos);
+        bool CheckItemSizeIntersectItem(Vector2 comparePos);
     private:
         bool bSetMouseFollow;
         Vector3 prevPosition;

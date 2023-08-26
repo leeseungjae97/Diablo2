@@ -123,6 +123,10 @@ struct LightAttribute
     float angle;
     int pad;
 };
+struct TrappingColor
+{
+    float4 color;
+};
 struct Particle
 {
     float4 position;
@@ -206,7 +210,6 @@ float4 GaussianBlur(float2 UV)
     
     return Out;
 }
-
 void CalculateLight2D(in out float4 lightColor, float3 position, int idx)
 {
     if (0 == lightsAttribute[idx].type)

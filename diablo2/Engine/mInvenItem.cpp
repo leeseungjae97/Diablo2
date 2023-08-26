@@ -8,6 +8,7 @@
 
 #include "mInven.h"
 #include "mInventory.h"
+#include "mMouseManager.h"
 
 
 namespace m
@@ -72,6 +73,8 @@ namespace m
 
 		for (int i = 0; i < invens.size(); ++i)
 		{
+			Vector2 invenPos= invens[i]->GetPos();
+			Vector2 invenSize= invens[i]->GetSize();
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
@@ -83,18 +86,16 @@ namespace m
 				//{
 				//	
 				//}
-				MAKE_VEC2_F_VEC3(sub1, GET_POS(invens[i]));
-				sub1 += GET_VEC2_F_VEC3_D(GET_SCALE(invens[i])) / 2.f;
-
-				Vector3 subPos = Vector3(sub1.x + subScale.x, sub1.y - subScale.y, prevPosition.z);
+				Vector2 sub1 = invenPos + (invenSize / 2.f);
+				Vector2 subPos = Vector2(sub1.x + subScale.x, sub1.y - subScale.y);
 				//Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
 
 				if (CheckItemSizeIntersectItem(subPos)) continue;
 				//if (!CheckLimitIntersectItems(0)) continue;
 
-				prevPosition = subPos;
+				prevPosition = Vector3(subPos.x , subPos.y, prevPosition.z);
 				SET_POS_VEC(this, prevPosition);
-				ChangeBoolIntersectArea(prevPosition, true);
+				ChangeFillIntersectArea(subPos, true);
 				break;
 			}
 			else
@@ -102,30 +103,29 @@ namespace m
 				if (invens[i]->GetFill()) continue;
 
 
-				if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
-				if (CheckItemSizeIntersectItem(GET_POS(invens[i]))) continue;
+				if (!CheckItemSizeIntersectInventory(invens[i]->GetPos())) continue;
+				if (CheckItemSizeIntersectItem(invens[i]->GetPos())) continue;
 
-				prevPosition = GET_POS(invens[i]);
+				prevPosition = Vector3(invenPos.x, invenPos.y, prevPosition.z);
 				SET_POS_VEC(this, prevPosition);
-				ChangeBoolIntersectArea(prevPosition, true);
+				ChangeFillIntersectArea(invenPos, true);
 				break;
 			}
 			
 		}
 	}
-	void InvenItem::ChangeBoolIntersectArea(Vector3 areaPos, bool _bV)
+	void InvenItem::ChangeFillIntersectArea(Vector2 areaPos, bool _bV)
 	{
 		std::vector<Inven*> invens = mInventory->GetInvens();
 		for (int y = 0; y < 4; ++y)
 		{
 			for (int x = 0; x < 10; ++x)
 			{
-				MAKE_VEC2_F_VEC3(invenPos, GET_POS(invens[y * 10 + x]));
-				MAKE_VEC2_F_VEC3(invenScale, GET_SCALE(invens[y * 10 + x]));
-				MAKE_VEC2_F_VEC3(prevPos, areaPos);
+				Vector2 invenPos = invens[y * 10 + x]->GetPos();
+				Vector2 invenSize = invens[y * 10 + x]->GetSize();
 				MAKE_VEC2_F_VEC3(thisScale, GET_SCALE(this));
 
-				if (Vector2::RectIntersectRect(invenPos, invenScale, prevPos, thisScale))
+				if (Vector2::RectIntersectRect(invenPos, invenSize, areaPos, thisScale))
 				{
 					invens[y * 10 + x]->SetFill(_bV);
 				}
@@ -156,32 +156,37 @@ namespace m
 		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 		
-
+		Vector3 mousePos = MouseManager::UnprojectionMousePos(GET_POS(this).z, GetCamera());
+		MAKE_VEC2_F_VEC3(mousePosV2, mousePos);
 		for (int i = 0; i < invens.size(); ++i)
 		{
+			Vector2 invenPos = invens[i]->GetPos();
+			Vector2 invenSize = invens[i]->GetSize();
+
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
 				Vector2 subScale = thisScaleV2 / 2.0f;
 				Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
-				if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
-												, GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
+
+
+				if (Vector2::PointIntersectRect(invenPos
+												, invenSize
 												, leftTop))
 				{
-					MAKE_VEC2_F_VEC3(invenPos, GET_POS(invens[i]));
-					Vector2 invenScale = GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]));
-					invenPos.x -= invenScale.x / 2.f;
-					invenPos.y += invenScale.y / 2.f;
+					
+					invenPos.x -= invens[i]->GetSize().x / 2.f;
+					invenPos.y += invens[i]->GetSize().y / 2.f;
 
-					Vector3 finalPos = Vector3(invenPos.x + thisScaleV2.x / 2.f, invenPos.y - thisScaleV2.y / 2.f, prevPosition.z);
+					Vector2 finalPos = Vector2(invenPos.x + thisScaleV2.x / 2.f, invenPos.y - thisScaleV2.y / 2.f);
 
 					if (!CheckLimitIntersectItems(2)) continue;
 					//if (CheckItemSizeIntersectItem(finalPos)) continue;
 
-					ChangeBoolIntersectArea(prevPosition, false);
-					SET_POS_VEC(this, finalPos);
-					prevPosition = finalPos;
-					ChangeBoolIntersectArea(finalPos, true);
+					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false);
+					SET_POS_VEC(this, Vector3(finalPos.x, finalPos.y, prevPosition.z));
+					prevPosition = Vector3(finalPos.x, finalPos.y, prevPosition.z);
+					ChangeFillIntersectArea(finalPos, true);
 
 					if (bSetMouseFollow)
 					{
@@ -204,15 +209,16 @@ namespace m
 			}
 			else
 			{
-				if (invens[i]->GetHover())
+				if(Vector2::PointIntersectRect(invens[i]->GetPos(), invens[i]->GetSize(), mousePosV2))
 				{
 					if (!CheckLimitIntersectItems(2)) continue;
-					if (!CheckItemSizeIntersectInventory(GET_POS(invens[i]))) continue;
+					if (!CheckItemSizeIntersectInventory(invens[i]->GetPos())) continue;
 
-					ChangeBoolIntersectArea(prevPosition, false);
-					SET_POS_VEC(this, GET_POS(invens[i]));
-					prevPosition = GET_POS(invens[i]);
-					ChangeBoolIntersectArea(GET_POS(this), true);
+					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false);
+					Vector3 invenPosV3 = Vector3(invenPos.x, invenPos.y, prevPosition.z);
+					SET_POS_VEC(this, invenPosV3);
+					prevPosition = invenPosV3;
+					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(GET_POS(this)), true);
 
 					if (bSetMouseFollow)
 					{
@@ -237,25 +243,24 @@ namespace m
 
 		for (Inven* eq : mInventory->GetEquiments())
 		{
-			MAKE_VEC2_F_VEC3(eqPos, GET_POS(eq));
-			MAKE_VEC2_F_VEC3(eqScale, GET_SCALE(eq));
+			Vector2 eqPos = eq->GetPos();
+			Vector2 eqScale = eq->GetSize();
 			if (Vector2::RectIntersectRect(eqPos, eqScale, thisPosV2, thisScaleV2))
 			{
-				SET_POS_VEC(this, GET_POS(eq));
+				SET_POS_VEC(this, Vector3(eqPos.x, eqPos.y, prevPosition.z));
 				return;
 			}
 		}
 		SET_POS_VEC(this, prevPosition);
 	}
-	bool InvenItem::CheckItemSizeIntersectInventory(Vector3 comparePos)
+	bool InvenItem::CheckItemSizeIntersectInventory(Vector2 comparePos)
 	{
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 
-		GameObject* inC = mInventory->GetInvensCollider();
-
-		GET_VEC2_F_VEC3(inventoryOutLinePos, GET_POS(inC));
-		GET_VEC2_F_VEC3(inventoryOutLineScale, GET_SCALE(inC));
+		Inven* inC = mInventory->GetInvensCollider();
+		inventoryOutLinePos = inC->GetPos();
+		inventoryOutLineScale = inC->GetSize();
 		if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 			|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 		{
@@ -266,7 +271,7 @@ namespace m
 		}
 		return true;
 	}
-	bool InvenItem::CheckItemSizeIntersectItem(Vector3 comparePos)
+	bool InvenItem::CheckItemSizeIntersectItem(Vector2 comparePos)
 	{
 		std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
 

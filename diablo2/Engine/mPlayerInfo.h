@@ -17,14 +17,8 @@ namespace m
 		static float mp;
 		static int learnedSkill[3][10];
 
-		static std::vector<InvenItem*> inventoryItems;
-		static std::vector<InvenItem*> pocketPosions;
-
 		static Player* player;
 
-
-		static void PocketToInventory(InvenItem* item);
-		static void InventoryToPocket(InvenItem* item);
 		static void CalHpPercent();
 		static void Initialize();
 

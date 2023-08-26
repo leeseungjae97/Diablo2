@@ -142,6 +142,9 @@
     <Filter Include="Resources\Resource\TileDrawComputeShader">
       <UniqueIdentifier>{3eb734b1-8ef5-430c-ab06-569ab115b703}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\TrappingColor">
+      <UniqueIdentifier>{7a2d8c09-39d5-437d-908c-03af335b908d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -311,6 +314,7 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTrappingColor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -444,6 +448,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTrappingColor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

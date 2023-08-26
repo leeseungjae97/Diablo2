@@ -17,6 +17,8 @@ namespace m
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3((startX + indexX * intervalX) * Texture::GetWidRatio(), (startY - indexY * intervalY) * Texture::GetHeiRatio(), -1.f));
+
+		mTC = ADD_COMP(this, TrappingColor);
 	}
 	SkillButton::~SkillButton()
 	{
@@ -32,8 +34,12 @@ namespace m
 
 		if (bCanClick)
 		{
-			mr->SetMaterial(DeClickMaterial);
-			if(GetHover()) mr->SetMaterial(DeClickMaterial);
+			mTC->SetColor(Vector4(1.f, 1.f, 1.f, 1.f));
+			//mr->SetMaterial(DeClickMaterial);
+			//if(GetHover()) mr->SetMaterial(DeClickMaterial);
+		}else
+		{
+			mTC->SetColor(Vector4(0.5f, 0.5f, 0.5f, 1.f));
 		}
 	}
 	void SkillButton::LateUpdate()

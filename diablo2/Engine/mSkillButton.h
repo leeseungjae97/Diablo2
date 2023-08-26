@@ -1,5 +1,6 @@
 #pragma once
 #include "mButton.h"
+#include "mTrappingColor.h"
 
 #include "../engine_source/mMaterial.h"
 
@@ -27,6 +28,7 @@ namespace m
 		void SetDeClickMaterial(std::shared_ptr<Material> material) { DeClickMaterial = material; }
 		void SetDeClickHoverMaterial(std::shared_ptr<Material> material) { DeClickHoverMaterial = material; }
 
+		void SetColor(Vector4 color) { if(mTC) mTC->SetColor(color); }
 	private:
 		bool bCanClick;
 		int indexX;
@@ -39,5 +41,7 @@ namespace m
 
 		std::shared_ptr<Material> DeClickMaterial;
 		std::shared_ptr<Material> DeClickHoverMaterial;
+
+		TrappingColor* mTC;
 	};
 }

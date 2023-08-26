@@ -1,4 +1,5 @@
 #include "global.hlsli"
+
 StructuredBuffer<TrappingColor> colorBuffer : register(t1);
 
 struct VSIn
@@ -15,24 +16,19 @@ struct VSOut
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
-
-
 float4 main(VSOut In) : SV_TARGET
 {
     float4 color = (float4) 0.0f;
-
     color = albedoTexture.Sample(pointSampler, In.UV);
-        
-    float4 lightColor = float4(0.2f, 0.2f, 0.2f, 1.0f);
     
-    for (int i = 0; i < 2; i++)
+    float4 lightColor = float4(0.1f, 0.1f, 0.1f, 1.0f);
+    
+    for (int i = 0; i < 2; ++i)
     {
-        CalculateLight2D(lightColor, In.WorldPos, i);
+        lightColor += colorBuffer[0].color;
     }
     
     color *= lightColor;
-    
-    color += colorBuffer[0].color;
     
     if(color.a <= 0.0f)
         discard;
