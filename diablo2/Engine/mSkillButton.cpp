@@ -7,13 +7,15 @@ namespace m
 							 , float _startX, float _startY
 							 , float _intervalX, float _intervalY
 							 , int _skillIndex)
-		: indexX(_indexX)
+		: Button(false)
+		, indexX(_indexX)
 		, indexY(_indexY)
 		, startX(_startX)
 		, startY(_startY)
 		, intervalX(_intervalX)
 		, intervalY(_intervalY)
 		, skillIndex(_skillIndex)
+		, bCanClick(false)
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3((startX + indexX * intervalX) * Texture::GetWidRatio(), (startY - indexY * intervalY) * Texture::GetHeiRatio(), -1.f));
@@ -22,6 +24,7 @@ namespace m
 	}
 	SkillButton::~SkillButton()
 	{
+
 	}
 	void SkillButton::Initialize()
 	{
@@ -30,17 +33,6 @@ namespace m
 	void SkillButton::Update()
 	{
 		Button::Update();
-		MeshRenderer* mr = GetComponent<MeshRenderer>();
-
-		if (bCanClick)
-		{
-			mTC->SetColor(Vector4(1.f, 1.f, 1.f, 1.f));
-			//mr->SetMaterial(DeClickMaterial);
-			//if(GetHover()) mr->SetMaterial(DeClickMaterial);
-		}else
-		{
-			mTC->SetColor(Vector4(0.5f, 0.5f, 0.5f, 1.f));
-		}
 	}
 	void SkillButton::LateUpdate()
 	{

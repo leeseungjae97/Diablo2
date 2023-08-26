@@ -1,13 +1,15 @@
 #pragma once
 
 #include "mInvenItem.h"
+#include "mGameObject.h"
+
 namespace m
 {
-	class Inven
+	class EmptyRect
 	{
 	public:
-		Inven();
-		~Inven();
+		EmptyRect();
+		~EmptyRect();
 
 		bool GetFill() { return bFill; }
 		void SetFill(bool fill) { bFill = fill; }
@@ -23,12 +25,19 @@ namespace m
 		void SetPos(float x, float y) { mPos = Vector2(x, y); }
 		Vector2 GetPos() { return mPos; }
 
+		bool MouseHover(float z, Camera* camera);
+		bool MouseClick(float z, Camera* camera);
+
+		void SetState(GameObject::eState state) { mState = state; }
+		GameObject::eState GetState() { return mState; }
+
 	private:
 		Vector2 mPos;
 		Vector2 mSize;
 
 		InvenItem* mFillItem;
-
+		GameObject::eState mState;
+		
 		bool bFill;
 	};
 }

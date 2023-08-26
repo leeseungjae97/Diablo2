@@ -47,10 +47,10 @@
     <ClCompile Include="mGridScript.cpp">
       <Filter>Script\GridScript</Filter>
     </ClCompile>
-    <ClCompile Include="mInven.cpp">
+    <ClCompile Include="mEmptyRect.cpp">
       <Filter>UI\ItemPlaced\Inven</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillUp.cpp">
+    <ClCompile Include="mSkillStatus.cpp">
       <Filter>UI\Skill</Filter>
     </ClCompile>
     <ClCompile Include="mPlayerInfo.cpp" />
@@ -163,10 +163,10 @@
     <ClInclude Include="mGridScript.h">
       <Filter>Script\GridScript</Filter>
     </ClInclude>
-    <ClInclude Include="mInven.h">
+    <ClInclude Include="mEmptyRect.h">
       <Filter>UI\ItemPlaced\Inven</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillUp.h">
+    <ClInclude Include="mSkillStatus.h">
       <Filter>UI\Skill</Filter>
     </ClInclude>
     <ClInclude Include="mPlayerInfo.h" />

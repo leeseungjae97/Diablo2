@@ -90,7 +90,7 @@ namespace m
 	void Animation::Binds()
 	{
 		// texture bind
-		mAtlas->BindShaderResource(eShaderStage::PS, 12);
+		mAtlas->BindShaderResource(eShaderStage::PS, 16);
 
 		// AnimationCB
 		renderer::AnimatorCB data = {};

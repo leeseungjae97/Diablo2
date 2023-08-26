@@ -122,11 +122,7 @@
 									break;\
 								case m::eSkillFunctionType::MutiFall:\
 								{\
-									Matrix proj = Matrix::Identity;\
-									Matrix view = Matrix::Identity;\
-									proj = GetOwner()->GetCamera()->GetPrivateProjectionMatrix();\
-									view = GetOwner()->GetCamera()->GetPrivateViewMatrix();\
-									Vector3 unprojMousePos = Input::GetUnprojectionMousePos(GET_POS(GetOwner()).z, proj, view);\
+									Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());\
 									unprojMousePos.y += 300.f;\
 									unprojMousePos.z = GET_POS(GetOwner()).z;\
 									skill = new SkillMultiFire(unprojMousePos, skillType, 20, SkillMultiFire::eFireType::Random, fireLayerType, Vector2(200.f, 50.f));\

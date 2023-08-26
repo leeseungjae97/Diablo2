@@ -47,13 +47,14 @@ namespace m
 
 	void TileDrawSystem::Render()
 	{
-		MeshRenderer::Render();
+		//MeshRenderer::Render();
 
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
 		mPathTileBuffer->BindSRV(eShaderStage::VS, 16);
 		mPathTileBuffer->BindSRV(eShaderStage::GS, 16);
 		mPathTileBuffer->BindSRV(eShaderStage::PS, 16);
 
+		GetMesh()->BindBuffer();
 		GetMaterial()->Binds();
 		GetMesh()->RenderInstanced(mTileSize);
 

@@ -8,6 +8,7 @@ namespace m
 	{
 	public:
 		UI();
+		UI(bool useDefaultMeshRenderer);
 		virtual ~UI();
 
 		virtual void Initialize() override;

@@ -14,6 +14,12 @@ namespace m
 	{
 		AddComponent<MeshRenderer>();
 	}
+
+	UI::UI(bool useDefaultMeshRenderer)
+	{
+
+	}
+
 	UI::~UI()
 	{}
 	void UI::Initialize()

@@ -1,11 +1,11 @@
 #pragma once
-#include "mComponent.h"
+#include "mMeshRenderer.h"
 #include "mStructedBuffer.h"
 
 namespace m
 {
     class TrappingColor :
-        public Component
+        public MeshRenderer
     {
     public:
         TrappingColor();
@@ -16,9 +16,9 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        void SetColor(Vector4 color) { mTrappinColor.color = color; }
+        void SetColor(Vector4 color) { mTrappingColor.color = color; }
     private:
-        TrapColor mTrappinColor;
+        TrapColor mTrappingColor;
         graphics::StructuredBuffer* mTrappingColorBuffer;
     };
 }

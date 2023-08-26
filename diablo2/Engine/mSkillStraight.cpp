@@ -1,5 +1,6 @@
 #include "mSkillStraight.h"
 
+#include "mMouseManager.h"
 #include "../engine_source/SkillLookUpTables.h"
 #include "../engine_source/mAnimator.h"
 #include "../engine_source/mMeshRenderer.h"
@@ -48,8 +49,7 @@ namespace m
 			Vector3 destVector = Vector3::One;
 			if (GetLayerType() == eLayerType::PlayerSkill)
 			{
-				destVector = Input::GetUnprojectionMousePos(destPosition.z
-															, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+				destVector = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 			}
 			else destVector = GET_POS(TileManager::playerStandTile);
 			prevPosition = GET_POS(this);

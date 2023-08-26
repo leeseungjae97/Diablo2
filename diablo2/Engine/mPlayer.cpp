@@ -54,8 +54,8 @@ namespace m
 		if (!MouseManager::GetMouseOnUI()
 			&& Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
-			Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-				, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+			
+			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 			Vector3 tempPrev = GET_POS(this);
 			Vector3 tempDest = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 
@@ -75,9 +75,7 @@ namespace m
 			{
 				if (!TileManager::hoverTile->GetIsWall())
 				{
-					Vector3 unprojMousePos = Input::GetUnprojectionMousePos(destPosition.z
-						, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
-
+					Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 					prevPosition = GET_POS(this);
 					destPosition = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
 

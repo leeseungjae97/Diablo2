@@ -1,16 +1,17 @@
 #pragma once
+#include "mMaterial.h"
 #include "../engine_source/mUI.h"
 
 namespace m
 {
     class SkillButton;
     class Button;
-    class SkillUp :
+    class SkillStatus :
         public UI
     {
     public:
-        SkillUp(Camera* camera);
-        virtual ~SkillUp();
+        SkillStatus(Camera* camera);
+        virtual ~SkillStatus();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -27,6 +28,7 @@ namespace m
         std::shared_ptr<Material> skillP1;
         std::shared_ptr<Material> skillP2;
         std::shared_ptr<Material> skillP3;
+
         Button* coldBtn;
         Button* fireBtn;
         Button* lightBtn;
@@ -42,7 +44,7 @@ namespace m
         
         std::vector<UI*> nums;
 
-        int skillSetNum;
+        int skillTreeSelectNum;
         int skillTree[10][10];
     };
 }

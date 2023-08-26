@@ -22,7 +22,7 @@
 #include "mInventory.h"
 #include "mInvenItem.h"
 #include "mGridScript.h"
-#include "mSkillUp.h"
+#include "mSkillStatus.h"
 #include "mCollider2D.h"
 #include "mPlayerScript.h"
 #include "mMonsterScript.h"
@@ -246,7 +246,7 @@ namespace m
 		inventory = new Inventory(cameraComp2);
 		inventory->SetState(GameObject::NoRenderUpdate);
 
-		skillUp = new SkillUp(cameraComp2);
+		skillUp = new SkillStatus(cameraComp2);
 		skillUp->SetState(GameObject::NoRenderUpdate);
 
 		uiBottomBar = new BottomUI(cameraComp2);

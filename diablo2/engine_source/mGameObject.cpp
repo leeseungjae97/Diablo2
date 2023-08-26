@@ -1,6 +1,7 @@
 #include "mGameObject.h"
 #include "mRenderer.h"
 #include "mGraphicDevice_DX11.h"
+#include "mMouseManager.h"
 #include "mTransform.h"
 #include "mScript.h"
 namespace m
@@ -112,21 +113,9 @@ namespace m
 		MAKE_VEC2_F_VEC3(mPosV2, mPos);
 		MAKE_VEC2_F_VEC3(mScaleV2, mScale);
 
-		Matrix proj = Matrix::Identity;
-		Matrix view = Matrix::Identity;
-
-		if (nullptr == GetCamera())
-		{
-			proj = Camera::GetProjectionMatrix();
-			view = Camera::GetViewMatrix();
-		}
-		else
-		{
-			proj = GetCamera()->GetPrivateProjectionMatrix();
-			view = GetCamera()->GetPrivateViewMatrix();
-		}
-
-		Vector3 unprojMousePos = Input::GetUnprojectionMousePos(mPos.z, proj, view);
+		if (nullptr == GetCamera()) return;
+		
+		Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(mPos.z, GetCamera());
 		MAKE_VEC2_F_VEC3(unpMPosV2, unprojMousePos);
 		if (bRhombus)
 		{

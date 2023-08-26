@@ -1,4 +1,4 @@
-#include "mSkillUp.h"
+#include "mSkillStatus.h"
 
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTransform.h"
@@ -12,11 +12,11 @@
 
 namespace m
 {
-	SkillUp::SkillUp(Camera* camera)
+	SkillStatus::SkillStatus(Camera* camera)
 		: coldBtn(nullptr)
 		, fireBtn(nullptr)
 		, lightBtn(nullptr)
-		, skillSetNum(0)
+		, skillTreeSelectNum(0)
 	{
 		SetCamera(camera);
 		Transform* tr = GetComponent<Transform>();
@@ -44,7 +44,7 @@ namespace m
 		coldBtn->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"noneRect"));
 		coldBtn->GetComponent<Transform>()->SetScale(Vector3(91.f * Texture::GetWidRatio(), 110.f * Texture::GetHeiRatio(), 0.f));
 		coldBtn->GetComponent<Transform>()->SetPosition(Vector3(tr->GetPosition().x + 30.f * Texture::GetWidRatio() + 91.f * Texture::GetWidRatio() / 2.f, 450.f - 170.f - 110.f * Texture::GetHeiRatio(), -1.0f));
-		//coldBtn->SetClickFunction([](SkillUp* ss) { ; });
+		//coldBtn->SetClickFunction([](SkillStatus* ss) { ; });
 		buttons.push_back(coldBtn);
 		curScene->AddGameObject(eLayerType::UI, coldBtn);
 
@@ -86,12 +86,10 @@ namespace m
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
 			skill->SetCamera(GetCamera());
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
-			skill->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
+			skill->GetComponent<TrappingColor>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			skill->GetComponent<TrappingColor>()->SetMaterial(Resources::Find<Material>(skillName));
 			skill->SetClickMaterial(Resources::Find<Material>(clickSkillName));
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
-			skill->SetDeClickMaterial(Resources::Find<Material>(skillName));
-			//skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
 			skill->SetState(NoRenderUpdate);
 			coldSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
@@ -105,12 +103,10 @@ namespace m
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
 			skill->SetCamera(GetCamera());
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
-			skill->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
+			skill->GetComponent<TrappingColor>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			skill->GetComponent<TrappingColor>()->SetMaterial(Resources::Find<Material>(skillName));
 			skill->SetClickMaterial(Resources::Find<Material>(clickSkillName));
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
-			skill->SetDeClickMaterial(Resources::Find<Material>(skillName));
-			//skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
 			skill->SetState(NoRenderUpdate);
 			lightSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
@@ -124,12 +120,10 @@ namespace m
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
 			skill->SetCamera(GetCamera());
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
-			skill->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			skill->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(skillName));
+			skill->GetComponent<TrappingColor>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			skill->GetComponent<TrappingColor>()->SetMaterial(Resources::Find<Material>(skillName));
 			skill->SetClickMaterial(Resources::Find<Material>(clickSkillName));
 			skill->SetNormalMaterial(Resources::Find<Material>(skillName));
-			skill->SetDeClickMaterial(Resources::Find<Material>(skillName));
-			//skill->SetDeClickHoverMaterial(Resources::Find<Material>(L"invenRect"));
 			skill->SetState(NoRenderUpdate);
 			fireSkills.push_back(skill);
 			curScene->AddGameObject(eLayerType::UI, skill);
@@ -137,28 +131,14 @@ namespace m
 		skills = coldSkills;
 		GetSkillTree(iColdAdjacencyMatrix);
 
-		//for (int i = 0; i < 10; ++i)
-		//{
-		//	SkillButton* btn = skills[i];
-		//	bool noAntec = true;
-		//	for (int j = 0; j < 10; ++j)
-		//	{
-		//		if (skillTree[i][j] > learnSkills[j]) noAntec = false;
-		//	}
-		//	if (noAntec) btn->SetCanClick(true);
-
-		//	if (learnSkills[btn->GetSkillIndex()] != 0
-		//		|| btn->GetCanClick())
-		//		btn->SetState(GetState());
-		//}
 	}
-	SkillUp::~SkillUp()
+	SkillStatus::~SkillStatus()
 	{}
-	void SkillUp::Initialize()
+	void SkillStatus::Initialize()
 	{
 		UI::Initialize();
 	}
-	void SkillUp::Update()
+	void SkillStatus::Update()
 	{
 		UI::Update();
 		if (buttons[0]->GetState() != GetState())
@@ -171,7 +151,7 @@ namespace m
 			GetComponent<MeshRenderer>()->SetMaterial(skillP1);
 			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
 			skills = coldSkills;
-			skillSetNum = 0;
+			skillTreeSelectNum = 0;
 			GetSkillTree(iColdAdjacencyMatrix);
 		}
 		
@@ -180,7 +160,7 @@ namespace m
 			GetComponent<MeshRenderer>()->SetMaterial(skillP2);
 			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
 			skills = lightSkills;
-			skillSetNum = 1;
+			skillTreeSelectNum = 1;
 			GetSkillTree(iLightAdjacencyMatrix);
 		}
 
@@ -189,7 +169,7 @@ namespace m
 			GetComponent<MeshRenderer>()->SetMaterial(skillP3);
 			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
 			skills = fireSkills;
-			skillSetNum = 2;
+			skillTreeSelectNum = 2;
 			GetSkillTree(iFireAdjacencyMatrix);
 		}
 
@@ -200,17 +180,19 @@ namespace m
 			noAntec = true;
 			for (int j = 0; j < 10; ++j)
 			{
-				if (skillTree[i][j] > PlayerInfo::learnedSkill[skillSetNum][j]) noAntec = false;
+				if (skillTree[i][j] > PlayerInfo::learnedSkill[skillTreeSelectNum][j]) noAntec = false;
 			}
+
+			btn->SetState(GetState());
+
 			if (noAntec)
 			{
 				btn->SetCanClick(true);
-				btn->SetState(GetState());
 			}	
 		}
 		for (SkillButton* btn : skills)
 		{
-			if (PlayerInfo::learnedSkill[skillSetNum][btn->GetSkillIndex()] != 0)
+			if (PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()] != 0)
 			{
 				btn->SetCanClick(false);
 			}
@@ -221,21 +203,21 @@ namespace m
 			{
 				if (btn->GetOneClick())
 				{
-					PlayerInfo::learnedSkill[skillSetNum][btn->GetSkillIndex()]++;
+					PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()]++;
 					PlayerInfo::skillPoint--;
 				}
 			}
 		}
 	}
-	void SkillUp::LateUpdate()
+	void SkillStatus::LateUpdate()
 	{
 		UI::LateUpdate();
 	}
-	void SkillUp::Render()
+	void SkillStatus::Render()
 	{
 		UI::Render();
 	}
-	void SkillUp::GetSkillTree(int(*_skillTree)[10])
+	void SkillStatus::GetSkillTree(int(*_skillTree)[10])
 	{
 		for (int i = 0; i < 10; ++i)
 		{

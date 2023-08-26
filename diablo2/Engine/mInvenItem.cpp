@@ -6,7 +6,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mCollider2D.h"
 
-#include "mInven.h"
+#include "mEmptyRect.h"
 #include "mInventory.h"
 #include "mMouseManager.h"
 
@@ -49,8 +49,8 @@ namespace m
 			if (bSetMouseFollow)
 			{
 				MAKE_POS(pos, this);
-				Vector3 unprojMousePos = Input::GetUnprojectionMousePos(pos.z
-																		, GetCamera()->GetPrivateProjectionMatrix(), GetCamera()->GetPrivateViewMatrix());
+				
+				Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(pos.z, GetCamera());
 				unprojMousePos.z = pos.z;
 				SET_POS_VEC(this, unprojMousePos);
 			}
@@ -66,7 +66,7 @@ namespace m
 	}
 	void InvenItem::InvenItemInit()
 	{
-		std::vector<Inven*> invens = mInventory->GetInvens();
+		std::vector<EmptyRect*> invens = mInventory->GetInvens();
 		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 		Vector2 subScale = thisScaleV2 / 2.0f;
@@ -116,7 +116,7 @@ namespace m
 	}
 	void InvenItem::ChangeFillIntersectArea(Vector2 areaPos, bool _bV)
 	{
-		std::vector<Inven*> invens = mInventory->GetInvens();
+		std::vector<EmptyRect*> invens = mInventory->GetInvens();
 		for (int y = 0; y < 4; ++y)
 		{
 			for (int x = 0; x < 10; ++x)
@@ -152,12 +152,10 @@ namespace m
 	}
 	void InvenItem::DeployItem()
 	{
-		std::vector<Inven*> invens = mInventory->GetInvens();
+		std::vector<EmptyRect*> invens = mInventory->GetInvens();
 		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
-		
-		Vector3 mousePos = MouseManager::UnprojectionMousePos(GET_POS(this).z, GetCamera());
-		MAKE_VEC2_F_VEC3(mousePosV2, mousePos);
+
 		for (int i = 0; i < invens.size(); ++i)
 		{
 			Vector2 invenPos = invens[i]->GetPos();
@@ -209,7 +207,7 @@ namespace m
 			}
 			else
 			{
-				if(Vector2::PointIntersectRect(invens[i]->GetPos(), invens[i]->GetSize(), mousePosV2))
+				if(invens[i]->MouseHover(prevPosition.z, GetCamera()))
 				{
 					if (!CheckLimitIntersectItems(2)) continue;
 					if (!CheckItemSizeIntersectInventory(invens[i]->GetPos())) continue;
@@ -241,7 +239,7 @@ namespace m
 			}
 		}
 
-		for (Inven* eq : mInventory->GetEquiments())
+		for (EmptyRect* eq : mInventory->GetEquiments())
 		{
 			Vector2 eqPos = eq->GetPos();
 			Vector2 eqScale = eq->GetSize();
@@ -258,7 +256,7 @@ namespace m
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 
-		Inven* inC = mInventory->GetInvensCollider();
+		EmptyRect* inC = mInventory->GetInvensCollider();
 		inventoryOutLinePos = inC->GetPos();
 		inventoryOutLineScale = inC->GetSize();
 		if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f

@@ -40,7 +40,7 @@ namespace m
 		{
 			for (int x = 0; x < 10; x++)
 			{
-				Inven* invenRect = new Inven();
+				EmptyRect* invenRect = new EmptyRect();
 				invenRect->SetPos(Vector2(65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
 					, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y)));
 				invenRect->SetSize(Vector2((288.f / 10.f) * Texture::GetWidRatio()
@@ -49,34 +49,34 @@ namespace m
 			}
 		}
 
-		invenWeapon1Left = new Inven();
+		invenWeapon1Left = new EmptyRect();
 		invenWeapon1Left->SetSize(60.f * Texture::GetWidRatio()
 			, 115.f * Texture::GetHeiRatio());
-		invenWeapon1Right = new Inven();
+		invenWeapon1Right = new EmptyRect();
 		invenWeapon1Right->SetSize(60.f * Texture::GetWidRatio()
 			, 116.f * Texture::GetHeiRatio());
-		invenRingLeft = new Inven();
+		invenRingLeft = new EmptyRect();
 		invenRingLeft->SetSize(30.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
-		invenRingRight = new Inven();
+		invenRingRight = new EmptyRect();
 		invenRingRight->SetSize(30.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
-		invenAmulet = new Inven();
+		invenAmulet = new EmptyRect();
 		invenAmulet->SetSize(30.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
-		invenBelt = new Inven();
+		invenBelt = new EmptyRect();
 		invenBelt->SetSize(60.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
-		invenHelmet = new Inven();
+		invenHelmet = new EmptyRect();
 		invenHelmet->SetSize(60.f * Texture::GetWidRatio()
 			, 60.f * Texture::GetHeiRatio());
-		invenShoes = new Inven();
+		invenShoes = new EmptyRect();
 		invenShoes->SetSize(60.f * Texture::GetWidRatio()
 			, 61.f * Texture::GetHeiRatio());
-		invenGlove = new Inven();
+		invenGlove = new EmptyRect();
 		invenGlove->SetSize(60.f * Texture::GetWidRatio()
 			, 61.f * Texture::GetHeiRatio());
-		invenArmor = new Inven();
+		invenArmor = new EmptyRect();
 		invenArmor->SetSize(62.f * Texture::GetWidRatio()
 			, 89.f * Texture::GetHeiRatio());
 
@@ -134,7 +134,7 @@ namespace m
 		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetMetaDataWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetMetaDataHeight() / 2.f), 0.f);
 
 
-		invensCollider = new Inven();
+		invensCollider = new EmptyRect();
 		invensCollider->SetSize(300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio());
 		invensCollider->SetPos((15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (-15.f + (-120.f / 2.f)) * Texture::GetHeiRatio());
 
@@ -191,7 +191,7 @@ namespace m
 	}
 	Inventory::~Inventory()
 	{
-		for(Inven* inven : invens)
+		for(EmptyRect* inven : invens)
 		{
 			if (inven)
 			{
@@ -199,7 +199,7 @@ namespace m
 				inven = nullptr;
 			}
 		}
-		for(Inven* eq : equiments)
+		for(EmptyRect* eq : equiments)
 		{
 			if(eq)
 			{

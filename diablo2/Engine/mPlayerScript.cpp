@@ -5,6 +5,7 @@
 #include "../engine_source/mAnimator.h"
 #include "../engine_source/mResources.h"
 #include "../engine_source/mMaterial.h"
+#include "../engine_source/mMouseManager.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mAnimation.h"

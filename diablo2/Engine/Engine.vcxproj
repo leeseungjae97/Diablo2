@@ -167,7 +167,7 @@
     <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mHand.h" />
     <ClInclude Include="mHandScript.h" />
-    <ClInclude Include="mInven.h" />
+    <ClInclude Include="mEmptyRect.h" />
     <ClInclude Include="mInventory.h" />
     <ClInclude Include="mBackground.h" />
     <ClInclude Include="mButton.h" />
@@ -194,7 +194,7 @@
     <ClInclude Include="mSkillScript.h" />
     <ClInclude Include="mSkillShortCutButton.h" />
     <ClInclude Include="mSkillStraight.h" />
-    <ClInclude Include="mSkillUp.h" />
+    <ClInclude Include="mSkillStatus.h" />
     <ClInclude Include="mStraightScript.h" />
     <ClInclude Include="mTile.h" />
     <ClInclude Include="mTileScript.h" />
@@ -209,7 +209,7 @@
     <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mHand.cpp" />
     <ClCompile Include="mHandScript.cpp" />
-    <ClCompile Include="mInven.cpp" />
+    <ClCompile Include="mEmptyRect.cpp" />
     <ClCompile Include="mInventory.cpp" />
     <ClCompile Include="LoadScenes.h" />
     <ClCompile Include="mBackground.cpp" />
@@ -237,7 +237,7 @@
     <ClCompile Include="mSkillScript.cpp" />
     <ClCompile Include="mSkillShortCutButton.cpp" />
     <ClCompile Include="mSkillStraight.cpp" />
-    <ClCompile Include="mSkillUp.cpp" />
+    <ClCompile Include="mSkillStatus.cpp" />
     <ClCompile Include="mStraightScript.cpp" />
     <ClCompile Include="mTile.cpp" />
     <ClCompile Include="mTileScript.cpp" />

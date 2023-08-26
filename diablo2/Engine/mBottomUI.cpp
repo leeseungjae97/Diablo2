@@ -4,7 +4,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTexture.h"
 
-#include "mInven.h"
+#include "mEmptyRect.h"
 #include "mMouseManager.h"
 #include "mPlayerInfo.h"
 #include "mPlayer.h"
@@ -121,7 +121,7 @@ namespace m
 
 		for (int i = 0; i < 4; ++i)
 		{
-			Inven* pocket = new Inven();
+			EmptyRect* pocket = new EmptyRect();
 			pocket->SetSize(30.f * Texture::GetWidRatio()
 				, 31.f * Texture::GetHeiRatio());
 			pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30.f * i) * Texture::GetWidRatio()
@@ -132,14 +132,14 @@ namespace m
 
 		for (int i = 0; i < 8; ++i)
 		{
-			Inven* pocket = new Inven();
+			EmptyRect* pocket = new EmptyRect();
 			pocket->SetSize(30.f * Texture::GetWidRatio()
 				, 31.f * Texture::GetHeiRatio());
 			pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30 * (i % 4)) * Texture::GetWidRatio()
 				, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio() + (pocket->GetSize().y * (i / 4 + 1)));
 			exPockets.push_back(pocket);
 		}
-		mPocketUI = new Inven();
+		mPocketUI = new EmptyRect();
 		mPocketUI->SetPos(pockets[1]->GetPos().x + pockets[1]->GetSize().x / 2.f
 			, pockets[0]->GetPos().y + 3.f);
 		mPocketUI->SetSize(
@@ -161,7 +161,7 @@ namespace m
 	}
 	BottomUI::~BottomUI()
 	{
-		for(Inven* pocket : pockets)
+		for(EmptyRect* pocket : pockets)
 		{
 			if(pocket)
 			{
@@ -169,7 +169,7 @@ namespace m
 				pocket = nullptr;
 			}
 		}
-		for (Inven* pocket : exPockets)
+		for (EmptyRect* pocket : exPockets)
 		{
 			if (pocket)
 			{

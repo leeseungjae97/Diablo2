@@ -10,6 +10,7 @@ namespace m
 	{
 	public:
 		Button();
+		Button(bool useDefaultMeshRenderer);
 		virtual ~Button();
 
 		virtual void Initialize();

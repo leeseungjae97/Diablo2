@@ -15,6 +15,12 @@ namespace m
 		: bClick(false)
 	{
 	}
+
+	Button::Button(bool useDefaultMeshRenderer)
+		: UI(useDefaultMeshRenderer)
+	{
+	}
+
 	Button::~Button()
 	{}
 	void Button::Initialize()
@@ -23,7 +29,7 @@ namespace m
 	{
 		UI::Update();
 
-		if (GetState() != GameObject::RenderUpdate) return;
+		//if (GetState() != GameObject::RenderUpdate) return;
 
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
 		if (GetHover())

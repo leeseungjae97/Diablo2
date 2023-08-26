@@ -2,7 +2,7 @@
 #include "../engine_source/mUI.h"
 namespace m
 {
-    class Inven;
+    class EmptyRect;
     class BottomUI :
         public UI
     {
@@ -16,9 +16,9 @@ namespace m
         virtual void Render() override;
 
     private:
-        std::vector<Inven*> pockets;
-        std::vector<Inven*> exPockets;
-        Inven* mPocketUI;
+        std::vector<EmptyRect*> pockets;
+        std::vector<EmptyRect*> exPockets;
+        EmptyRect* mPocketUI;
         UI* mExPocketUI;
         bool bBelt;
     };

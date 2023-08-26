@@ -4,7 +4,7 @@ namespace m
 {
     class Inventory;
     class Pocket;
-    class SkillUp;
+    class SkillStatus;
     class Tile;
     class BottomUI;
     class PlayScene :
@@ -21,7 +21,7 @@ namespace m
     private:
         GameObject* camera;
         Inventory* inventory;
-        SkillUp* skillUp;
+        SkillStatus* skillUp;
         BottomUI* uiBottomBar;
     };
 }

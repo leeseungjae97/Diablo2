@@ -108,10 +108,6 @@ struct PathFinderSharedData
     bool isMonster;
     int monsterId;
 };
-struct FoundedPath
-{
-    
-};
 struct LightAttribute
 {
     float4 color;
@@ -147,13 +143,10 @@ StructuredBuffer<Monster> monsters : register(t12);
 StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
 StructuredBuffer<Particle> particles : register(t14);
 
-
 Texture2D albedoTexture : register(t0);
 
-Texture2D atlasTexture : register(t12);
 Texture2D noiseTexture : register(t15);
-
-//StructuredBuffer<Tile> pathTiles : register(t16);
+Texture2D atlasTexture : register(t16);
 
 SamplerState pointSampler : register(s0);
 SamplerState anisotropicSampler : register(s1);
