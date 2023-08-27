@@ -1,6 +1,7 @@
 #pragma once
 #include "mButton.h"
 
+#include "../engine_source/mDrawMaterials.h"
 #include "../engine_source/SkillLookUpTables.h"
 
 namespace m
@@ -16,11 +17,17 @@ namespace m
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
-        
+
+        void SetSkillBtnPos();
         int GetSkillIndex() { return mSkillIndex; }
     private:
         eSkillType mSkillType;
         int mSkillIndex;
+
+        std::vector<std::shared_ptr<Material>> skillMats;
+        std::vector<Vector2> skillMatPos;
+
+        DrawMaterials* mDMS;
     };
 }
 

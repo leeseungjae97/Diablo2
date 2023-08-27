@@ -151,6 +151,12 @@ struct DebugMesh
 //{
 //	m::math::Vector2 foundPaths;
 //};
+
+struct DrawObject
+{
+	m::math::Vector4 position;
+	m::math::Vector2 size;
+};
 struct ComputeTile
 {
 	m::math::Vector4 tilePosition;

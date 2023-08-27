@@ -18,6 +18,8 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 
+		bool GetCanClick() { return bCanClick; }
+		void SetCanClick(bool _DeClick) { bCanClick = _DeClick; }
 		bool GetClick() { return bClick; }
 		bool GetOneClick() {
 			bool syncClick = bOneClick;
@@ -30,6 +32,7 @@ namespace m
 		void SetNormalMaterial(std::shared_ptr<Material> material) { mNormalMaterial = material; }
 
 	private:
+		bool bCanClick;
 		bool bClick;
 		bool bOneClick;
 		void (*fClickFunctionPtr)();

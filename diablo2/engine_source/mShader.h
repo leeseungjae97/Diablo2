@@ -25,6 +25,8 @@ namespace m
 
 		void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { mTopology = topology; }
 
+		void UseGS() { bGSUse = true; }
+		void CloseGS() { bGSUse = false; }
 	private:
 		ID3D11InputLayout* mInputLayout;
 		D3D11_PRIMITIVE_TOPOLOGY mTopology;
@@ -39,11 +41,14 @@ namespace m
 		Microsoft::WRL::ComPtr<ID3D11HullShader> mHS;
 		Microsoft::WRL::ComPtr<ID3D11DomainShader> mDS;
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
+		Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGSN;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
 
 		eRSType mRSType;
 		eDSType mDSType;
 		eBSType mBSType;
+
+		bool bGSUse;
 	};
 }
 

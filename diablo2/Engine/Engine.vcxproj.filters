@@ -117,7 +117,9 @@
     <ClCompile Include="mHand.cpp">
       <Filter>Hand</Filter>
     </ClCompile>
-    <ClCompile Include="mMonsterHand.cpp" />
+    <ClCompile Include="mMonsterHand.cpp">
+      <Filter>Hand\MonsterHand</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -233,7 +235,9 @@
     <ClInclude Include="mHand.h">
       <Filter>Hand</Filter>
     </ClInclude>
-    <ClInclude Include="mMonsterHand.h" />
+    <ClInclude Include="mMonsterHand.h">
+      <Filter>Hand\MonsterHand</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -298,9 +302,6 @@
     </Filter>
     <Filter Include="UI\Skill">
       <UniqueIdentifier>{70d998e3-38f7-4f8f-a6e1-92c1d0f994d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI\Button\SkillButton">
-      <UniqueIdentifier>{28a42525-9aa3-41f5-bb42-5287cb25ee30}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\ItemPlaced">
       <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>

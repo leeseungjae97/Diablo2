@@ -180,6 +180,7 @@ namespace m
 			noAntec = true;
 			for (int j = 0; j < 10; ++j)
 			{
+				// 현재 스킬 활성화 위한 기반 스킬 활성화 확인
 				if (skillTree[i][j] > PlayerInfo::learnedSkill[skillTreeSelectNum][j]) noAntec = false;
 			}
 
@@ -190,21 +191,21 @@ namespace m
 				btn->SetCanClick(true);
 			}	
 		}
-		for (SkillButton* btn : skills)
-		{
-			if (PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()] != 0)
-			{
-				btn->SetCanClick(false);
-			}
-		}
+		//for (SkillButton* btn : skills)
+		//{
+		//	if (PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()] == 0)
+		//	{
+		//		btn->SetCanClick(false);
+		//	}
+		//}
 		if (PlayerInfo::skillPoint != 0)
 		{
 			for (SkillButton* btn : skills)
 			{
 				if (btn->GetOneClick())
 				{
-					PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()]++;
-					PlayerInfo::skillPoint--;
+					++PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()];
+					--PlayerInfo::skillPoint;
 				}
 			}
 		}

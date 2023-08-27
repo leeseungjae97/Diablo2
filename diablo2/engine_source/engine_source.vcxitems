@@ -17,6 +17,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mDrawMaterials.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollider2D.cpp" />
@@ -62,6 +63,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mDrawMaterials.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MonsterHandLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MoveAbleObjectAnimLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />

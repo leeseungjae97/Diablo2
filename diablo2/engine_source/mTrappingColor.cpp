@@ -21,26 +21,14 @@ namespace m
 
 	void TrappingColor::Initialize()
 	{
-		MeshRenderer::Initialize();
 	}
 
 	void TrappingColor::Update()
 	{
-		MeshRenderer::Update();
-		//MeshRenderer* mr = GET_COMP(GetOwner(), MeshRenderer);
-		//if (mr && nullptr == GetMaterial() && nullptr == GetMesh())
-		//{
-		//	if (mr->GetMaterial()) SetMaterial(mr->GetMaterial());
-		//	if (mr->GetMesh()) SetMesh(mr->GetMesh());
-		//}
-		//
-		//
-		SetColor(Vector4(0.1f, 0.1f, 0.1f, 1.f));
 	}
 
 	void TrappingColor::LateUpdate()
 	{
-		MeshRenderer::LateUpdate();
 		mTrappingColorBuffer->SetData(&mTrappingColor, 1);
 	}
 

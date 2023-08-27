@@ -17,14 +17,11 @@ namespace m
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
-		bool GetCanClick() { return bCanClick; }
-		void SetCanClick(bool _DeClick) { bCanClick = _DeClick; }
 
 		int GetSkillIndex() { return skillIndex; }
 
 		void SetColor(Vector4 color) { if(mTC) mTC->SetColor(color); }
 	private:
-		bool bCanClick;
 		int indexX;
 		int indexY;
 		float startX;

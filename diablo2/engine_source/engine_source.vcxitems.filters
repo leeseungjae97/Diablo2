@@ -145,6 +145,9 @@
     <Filter Include="GameObject\Component\TrappingColor">
       <UniqueIdentifier>{7a2d8c09-39d5-437d-908c-03af335b908d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\DrawMaterials">
+      <UniqueIdentifier>{d9f44996-2134-4e61-a2e7-6049e6e30f0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -312,9 +315,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderSystem.h">
       <Filter>GameObject\Component\PathFinderSystem</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mTrappingColor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mDrawMaterials.h">
+      <Filter>GameObject\Component\DrawMaterials</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTrappingColor.h">
+      <Filter>GameObject\Component\TrappingColor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h">
+      <Filter>Resources\Resource\TileDrawComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.h">
+      <Filter>Resources\Resource\PathFinderComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -446,9 +458,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderSystem.cpp">
       <Filter>GameObject\Component\PathFinderSystem</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)mTrappingColor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mDrawMaterials.cpp">
+      <Filter>GameObject\Component\DrawMaterials</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTrappingColor.cpp">
+      <Filter>GameObject\Component\TrappingColor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp">
+      <Filter>Resources\Resource\TileDrawComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.cpp">
+      <Filter>Resources\Resource\PathFinderComputeShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

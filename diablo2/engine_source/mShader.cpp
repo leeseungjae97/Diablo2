@@ -10,6 +10,7 @@ namespace m
 		, mRSType(eRSType::SolidBack)
 		, mDSType(eDSType::LessEqua)
 		, mBSType(eBSType::AlphaBlend)
+		, bGSUse(false)
 	{}
 	Shader::~Shader()
 	{
@@ -59,7 +60,8 @@ namespace m
 		GetDevice()->BindInputLayout(mInputLayout);
 
 		GetDevice()->BindVertexShader(mVS.Get());
-		GetDevice()->BindGeometryShader(mGS.Get());
+		if(bGSUse) GetDevice()->BindGeometryShader(mGS.Get());
+		else GetDevice()->BindGeometryShader(mGSN.Get());
 		GetDevice()->BindPixelShader(mPS.Get());
 
 		Microsoft::WRL::ComPtr<ID3D11RasterizerState> rsState = renderer::rasterizerStates[(UINT)mRSType];

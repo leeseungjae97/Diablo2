@@ -13,6 +13,7 @@ namespace m
 {
 	Button::Button()
 		: bClick(false)
+		, bCanClick(true)
 	{
 	}
 
@@ -30,6 +31,7 @@ namespace m
 		UI::Update();
 
 		//if (GetState() != GameObject::RenderUpdate) return;
+		if (!bCanClick) return;
 
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
 		if (GetHover())

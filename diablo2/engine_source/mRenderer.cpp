@@ -430,6 +430,7 @@ namespace renderer
 
 		std::shared_ptr<Shader> noLightShader = std::make_shared<Shader>();
 		noLightShader->Create(eShaderStage::VS, L"NoLightSpriteVS.hlsl", "main");
+		//noLightShader->Create(eShaderStage::GS, L"DrawGS.hlsl", "main");
 		noLightShader->Create(eShaderStage::PS, L"NoLightSpritePS.hlsl", "main");
 		m::Resources::Insert(L"NoLightShader", noLightShader);
 
@@ -461,6 +462,7 @@ namespace renderer
 		//m::Resources::Insert(L"PathFinderComputeShader", pathSystemComputeShader);
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
+		paritcleShader->UseGS();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
@@ -471,6 +473,7 @@ namespace renderer
 		m::Resources::Insert(L"ParticleShader", paritcleShader);
 
 		std::shared_ptr<Shader> tileShader = std::make_shared<Shader>();
+		tileShader->UseGS();
 		tileShader->Create(eShaderStage::VS, L"TileVS.hlsl", "main");
 		tileShader->Create(eShaderStage::GS, L"TileGS.hlsl", "main");
 		tileShader->Create(eShaderStage::PS, L"TilePS.hlsl", "main");
@@ -481,6 +484,7 @@ namespace renderer
 		m::Resources::Insert(L"TileShader", tileShader);
 
 		std::shared_ptr<Shader> tileDrawShader = std::make_shared<Shader>();
+		tileDrawShader->UseGS();
 		tileDrawShader->Create(eShaderStage::VS, L"TileDrawVS.hlsl", "main");
 		tileDrawShader->Create(eShaderStage::GS, L"TileDrawGS.hlsl", "main");
 		tileDrawShader->Create(eShaderStage::PS, L"TileDrawPS.hlsl", "main");
@@ -641,9 +645,9 @@ namespace renderer
 		//MAKE_MATERIAL(tileShader, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
 		MAKE_MATERIAL(noLightShader, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
 
-		MAKE_MATERIAL(tileShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
-		MAKE_MATERIAL(tileShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
-		MAKE_MATERIAL(tileShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
+		//MAKE_MATERIAL(tileShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
+		//MAKE_MATERIAL(tileShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
+		//MAKE_MATERIAL(tileShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
 #pragma endregion
 #pragma region ETC
 		//MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");

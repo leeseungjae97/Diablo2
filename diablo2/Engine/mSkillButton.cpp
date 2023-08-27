@@ -15,7 +15,6 @@ namespace m
 		, intervalX(_intervalX)
 		, intervalY(_intervalY)
 		, skillIndex(_skillIndex)
-		, bCanClick(false)
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3((startX + indexX * intervalX) * Texture::GetWidRatio(), (startY - indexY * intervalY) * Texture::GetHeiRatio(), -1.f));
@@ -33,6 +32,17 @@ namespace m
 	void SkillButton::Update()
 	{
 		Button::Update();
+		if(GetCanClick())
+		{
+			mTC->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.f));
+		}else
+		{
+			mTC->SetColor(Vector4(0.2f, 0.2f, 0.2f, 1.f));
+		}
+		if(GetHover())
+		{
+			mTC->SetColor(Vector4(0.0f, 0.0f, 1.0f, 1.f));
+		}
 	}
 	void SkillButton::LateUpdate()
 	{

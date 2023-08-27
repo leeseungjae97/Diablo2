@@ -39,6 +39,11 @@ cbuffer Noise : register(b6)
 {
     float4 noiseTextureSize;
 }
+struct DrawObject
+{
+    float4 position;
+    float2 size;
+};
 struct Tile
 {
     float4 tilePosition;

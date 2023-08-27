@@ -133,7 +133,7 @@ namespace m::graphics
 	void StructuredBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
-			Create(mSize, bufferCount, mType, data);
+			Create(mSize, bufferCount, mType, data, true);
 		else
 			GetDevice()->BindBuffer(mWriteBuffer.Get(), data, mSize * bufferCount);
 
