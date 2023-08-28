@@ -524,6 +524,10 @@ namespace renderer
 #pragma region Particle
 		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
+
+		MAKE_MATERIAL_PATH(spriteShader, L"skill_image_test", L"..\\Resources\\texture\\ui\\skill\\test"
+			, 48, 48, 10, L"skillImageTest");
+
 #pragma region Monster SKill
 		MAKE_MATERIAL_PATH(spriteShader, L"red_lightning_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\red_lightning_crash"
 						   , 71, 88, 20, L"redLightningCrash");

@@ -13,43 +13,53 @@ namespace m
 		, mSkillIndex(skillIndex)
 	{
 		//SetClickMaterial(RESOURCE_FIND(Material, L"normalAttackClickIcon"));
-		SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
+		//SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
 
 		for(int i = 0 ; i < 10; ++i)
 		{
 			if (skillFunctionTypes[i] == eSkillFunctionType::Buff
 				|| skillFunctionTypes[i] == eSkillFunctionType::Passive) continue;
-			skillMats.push_back(RESOURCE_FIND(Material, wsColdSkillNames[i]));
+			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsColdSkillNames[i]);
+			skillTexs.push_back(mat->GetTexture());
 		}
 		for (int i = 0; i < 10; ++i)
 		{
 			if (skillFunctionTypes[i + 9] == eSkillFunctionType::Buff
 				|| skillFunctionTypes[i + 9] == eSkillFunctionType::Passive) continue;
-			skillMats.push_back(RESOURCE_FIND(Material, wsLightningSkillNames[i]));
+			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsLightningSkillNames[i]);
+			skillTexs.push_back(mat->GetTexture());
 		}
 		for (int i = 0; i < 10; ++i)
 		{
 			if (skillFunctionTypes[i + 18] == eSkillFunctionType::Buff
 				|| skillFunctionTypes[i + 18] == eSkillFunctionType::Passive) continue;
-			skillMats.push_back(RESOURCE_FIND(Material, wsFireSkillNames[i]));
+			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsFireSkillNames[i]);
+			skillTexs.push_back(mat->GetTexture());
 		}
 		SetSkillBtnPos();
-		Scene* curScene = SceneManager::GetActiveScene();
-		for (int i = 0; i < skillMats.size(); ++i)
-		{
-			Button* mBtn = new Button();
-			mBtn->SetCamera(GetCamera());
-			curScene->AddGameObject(eLayerType::UI, mBtn);
-			SET_MESH(mBtn, L"RectMesh");
-			SET_MATERIAL_D(mBtn, skillMats[i]);
-			MAKE_GET_TEX(mBtn, tex);
-			SET_SCALE_TEX_SIZE_WITH_RAT(mBtn, tex, 1.f);
-			SET_POS_XYZ(mBtn, skillMatPos[i].x, skillMatPos[i].y, -1.f);
 
-		}
+		//Scene* curScene = SceneManager::GetActiveScene();
+		//for (int i = 0; i < skillMats.size(); ++i)
+		//{
+		//	Button* mBtn = new Button();
+		//	//mBtn->SetCamera(GetCamera());
+		//	curScene->AddGameObject(eLayerType::UI, mBtn);
+		//	SET_MESH(mBtn, L"RectMesh");
+		//	SET_MATERIAL_D(mBtn, skillMats[i]);
+		//	MAKE_GET_TEX(mBtn, tex);
+		//	SET_SCALE_TEX_SIZE_WITH_RAT(mBtn, tex, 1.f);
+		//	SET_POS_XYZ(mBtn, skillMatPos[i].x, skillMatPos[i].y, -1.f);
+		//	buttons.push_back(mBtn);
+
+		//}
 		//mDMS = ADD_COMP(this, DrawMaterials);
 		//mDMS->SetMaterials(skillMats);
-		
+		std::shared_ptr<Texture> texture = nullptr;
+		texture->MergeTex(skillTexs, skillMatPos, 48, 48, 10, L"skillsClick");
+		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+		mr->SetMesh(RESOURCE_FIND(Mesh, L"RectMesh"));
+		mr->SetMaterial(RESOURCE_FIND(Material, L"skllsClick"));
+		SetCanClick(false);
 	}
 	SkillShortCutButton::~SkillShortCutButton()
 	{
@@ -61,7 +71,12 @@ namespace m
 	void SkillShortCutButton::Update()
 	{
 		Button::Update();
-	
+		
+		//for(int i = 0; i < buttons.size(); ++i)
+		//{
+		//	buttons[i]->SetCamera(GetCamera());
+		//}
+
 		if (PlayerInfo::GetSkill(mSkillIndex) != mSkillType)
 		{
 			mSkillType = PlayerInfo::GetSkill(mSkillIndex);
@@ -100,13 +115,13 @@ namespace m
 
 					//storePos.x = (xPos * 30.f) + pos.x;
 					//storePos.y = (yPos * 30.f) + pos.y;
-					storePos.x = 30.f * xPos;
-					storePos.y = 30.f * yPos;
+					storePos.x = (float)i;
+					storePos.y = (float)j;
 					++xPos;
 					skillMatPos.push_back(storePos);
 				}else
 				{
-					skillMatPos.push_back(Vector2(0.f, 0.f));
+					skillMatPos.push_back(Vector2(-1.f, -1.f));
 				}
 			}
 			xPos = 1;

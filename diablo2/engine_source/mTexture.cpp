@@ -19,6 +19,57 @@ namespace m::graphics
 	{
 
 	}
+	HRESULT Texture::MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, const std::wstring& mergedTextureName)
+	{
+		ScratchImage atlasImage;
+		UINT imageCount = mergeTextures.size();
+		UINT column = imageCount / oneLength;
+		UINT atWid = perWidth * oneLength;
+		UINT atHei = perHeight * column;
+		atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, atWid, atHei, 1, 1);
+
+		UINT row = atHei / 3;
+
+		for(int i = 0; i < mergeTextures.size(); ++i)
+		{
+			ScratchImage* image = mergeTextures[i]->GetScratchImage();
+
+			ScratchImage convertedImage;
+			Convert(image->GetImages(), image->GetImageCount(), image->GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
+
+			if (texturePosition[i] == Vector2(-1.f, -1.f)) continue;
+
+			UINT wid = atWid - (perWidth * texturePosition[i].x);
+			UINT hei = atHei - (perHeight * texturePosition[i].y);
+
+			CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, convertedImage.GetMetadata().width, convertedImage.GetMetadata().height),
+				*atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, wid, hei);
+		}
+
+		CreateShaderResourceView
+		(
+			GetDevice()->GetID3D11Device()
+			, atlasImage.GetImages()
+			, atlasImage.GetImageCount()
+			, atlasImage.GetMetadata()
+			, mSRV.GetAddressOf()
+		);
+
+		mWidth = mImage.GetMetadata().width;
+		mHeight = mImage.GetMetadata().height;
+
+		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+
+		mImage.Initialize2D(
+			atlasImage.GetMetadata().format,
+			atlasImage.GetMetadata().width,
+			atlasImage.GetMetadata().height,
+			atlasImage.GetMetadata().arraySize,
+			atlasImage.GetMetadata().mipLevels
+		);
+
+		return S_OK;
+	}
 	HRESULT Texture::CreateTex(UINT perWidth, UINT perHeight, UINT oneAnimLength, const std::wstring& path)
 	{
 		ScratchImage atlasImage;
@@ -61,8 +112,13 @@ namespace m::graphics
 
 			ScratchImage convertedImage;
 			hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
+			if (FAILED(hr))
+			{
 
-			if (FAILED(hr)) return hr;
+				HRESULT hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
+				if (FAILED(hr)) return hr;
+			}
+
 
 			if(xidx != 0) sumWidth += convertedImage.GetMetadata().width;	
 

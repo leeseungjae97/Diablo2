@@ -243,6 +243,14 @@ namespace m
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
 		AddGameObject(eLayerType::Camera, uiCamera);
 
+		//GameObject* qwe = new GameObject();
+		//qwe->SetCamera(cameraComp2);
+		//AddGameObject(eLayerType::UI, qwe);
+		//ADD_COMP(qwe, MeshRenderer);
+		//SET_MESH(qwe, L"RectMesh");
+		//SET_MATERIAL(qwe, L"skillImageTest");
+		//SET_SCALE_XYZ(qwe, 100.f, 100.f, 1.f);
+
 		inventory = new Inventory(cameraComp2);
 		inventory->SetState(GameObject::NoRenderUpdate);
 

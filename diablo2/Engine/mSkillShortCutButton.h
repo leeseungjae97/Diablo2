@@ -24,10 +24,8 @@ namespace m
         eSkillType mSkillType;
         int mSkillIndex;
 
-        std::vector<std::shared_ptr<Material>> skillMats;
+        std::vector<std::shared_ptr<Texture>> skillTexs;
         std::vector<Vector2> skillMatPos;
-
-        DrawMaterials* mDMS;
     };
 }
 

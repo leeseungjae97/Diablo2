@@ -19,6 +19,7 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
+		HRESULT MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, const std::wstring& mergedTextureName);
 		HRESULT CreateTex(UINT avgFileWidth, UINT avgFileHeight, UINT oneAnimLength, const std::wstring& path);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
@@ -33,6 +34,8 @@ namespace m::graphics
 
 		size_t GetMetaDataWidth() { return mImage.GetMetadata().width; }
 		size_t GetMetaDataHeight() { return mImage.GetMetadata().height; }
+
+		ScratchImage* GetScratchImage() { return &mImage; }
 
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
