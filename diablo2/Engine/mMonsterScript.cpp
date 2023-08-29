@@ -29,6 +29,7 @@ namespace m
 
 	{
 		curMonsterData = T{};
+		mClass = curMonsterData.mClass;
 	}
 	template <typename T>
 	MonsterScript<T>::~MonsterScript()
