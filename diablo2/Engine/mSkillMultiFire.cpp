@@ -23,7 +23,7 @@ namespace m
 	{
 		std::default_random_engine generator(std::time(nullptr));
 		SET_MESH(this, L"PointMesh");
-		SET_MATERIAL(this, L"AnimationMaterial");
+		SET_MATERIAL(this, L"noneRect");
 		
 		for (int i = 0; i < count; ++i)
 		{

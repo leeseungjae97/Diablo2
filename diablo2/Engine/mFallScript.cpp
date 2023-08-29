@@ -62,7 +62,7 @@ namespace m
 				, accessorySkillAnimLength[(int)mACType]
 				, Vector2::Zero
 				, 0.03f
-				, 0.5f
+				, 0.8f
 			);
 			
 			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
@@ -74,7 +74,7 @@ namespace m
 				, crashLength[(int)crashType]
 				, Vector2::Zero
 				, 0.03f
-				, 0.5f
+				, 0.8f
 			);
 		}
 		mAnimator->StartEvent(crashNames[(int)crashType] + L"anim") = [this]()

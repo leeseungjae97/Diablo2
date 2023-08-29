@@ -34,15 +34,30 @@ namespace m
 		
 		for (int i = 0; i < mDirectionCount; ++i)
 		{
-			mAnimator->Create(
-				skillAnimNames[(int)mType] + sixteenDirectionString[i]
-				, tex->GetTexture()
-				, Vector2(0.0f, skillSizes[(int)mType].y * i)
-				, skillSizes[(int)mType]
-				, skillAnimLength[(int)mType]
-				, Vector2::Zero
-				, 0.05f
-			);
+			if (mDirectionCount < 16)
+			{
+				int m = pathEightDirections[i];
+				mAnimator->Create(
+					skillAnimNames[(int)mType] + sixteenDirectionString[m]
+					, tex->GetTexture()
+					, Vector2(0.0f, skillSizes[(int)mType].y * i)
+					, skillSizes[(int)mType]
+					, skillAnimLength[(int)mType]
+					, Vector2::Zero
+					, 0.05f
+				);
+			}else
+			{
+				mAnimator->Create(
+					skillAnimNames[(int)mType] + sixteenDirectionString[i]
+					, tex->GetTexture()
+					, Vector2(0.0f, skillSizes[(int)mType].y * i)
+					, skillSizes[(int)mType]
+					, skillAnimLength[(int)mType]
+					, Vector2::Zero
+					, 0.05f
+				);
+			}
 		}
 		if (mCrashType == eCrashType::Overlay) return;
 
@@ -63,6 +78,23 @@ namespace m
 		{
 			GetOwner()->SetState(GameObject::eState::Delete);
 		};
+
+		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
+		mAnimator->Create(
+			L"noneRectAnim"
+			, noneMat->GetTexture()
+			, Vector2::Zero
+			, Vector2(20.f, 20.f)
+			, 1
+			, Vector2::Zero
+			, 0.03f
+			, 0.3f
+		);
+
+		mAnimator->PlayAnimation(L"noneRectAnim", false);
+
+		//mAnimator->Create();
+		//mAnimator->PlayAnimation();
 	}
 	void StraightScript::Update()
 	{

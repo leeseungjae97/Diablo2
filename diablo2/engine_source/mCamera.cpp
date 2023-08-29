@@ -202,6 +202,7 @@ namespace m
 			|| gameObj->GetLayerType() == eLayerType::Monster
 			|| gameObj->GetLayerType() == eLayerType::MonsterSkill
 			|| gameObj->GetLayerType() == eLayerType::PlayerSkill
+			|| gameObj->GetLayerType() == eLayerType::AdapterSkill
 			|| gameObj->GetLayerType() == eLayerType::Tile
 			|| gameObj->GetLayerType() == eLayerType::Background)
 		{
@@ -224,6 +225,9 @@ namespace m
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (gameObj->GetState() == GameObject::NoRenderNoUpdate
+				|| gameObj->GetState() == GameObject::NoRenderUpdate)
+				continue;
 			if (gameObj->GetCulled()) continue;
 
 			gameObj->Render();
@@ -236,6 +240,9 @@ namespace m
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (gameObj->GetState() == GameObject::NoRenderNoUpdate
+				|| gameObj->GetState() == GameObject::NoRenderUpdate)
+				continue;
 			if (gameObj->GetCulled()) continue;
 
 			gameObj->Render();
@@ -247,6 +254,9 @@ namespace m
 		for (GameObject* gameObj : mTransparentGameObjects)
 		{
 			if (gameObj == nullptr)
+				continue;
+			if (gameObj->GetState() == GameObject::NoRenderNoUpdate
+				|| gameObj->GetState() == GameObject::NoRenderUpdate)
 				continue;
 			if (gameObj->GetCulled()) continue;
 

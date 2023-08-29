@@ -8,8 +8,8 @@ namespace m
 {
 	void InitializeScenes()
 	{
+		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 		SceneManager::CreateScene<SelectCharacterScene>(L"SelectCharacterScene");
 		SceneManager::CreateScene<MainMenuScene>(L"MainMenuScene");
-		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 	}
 }

@@ -12,6 +12,7 @@
 #include "mCameraScript.h"
 #include "mButton.h"
 #include "mBackground.h"
+#include "mBackgroundScript.h"
 
 namespace m
 {
@@ -54,12 +55,15 @@ namespace m
 		AddGameObject(eLayerType::UI, logo);
 		SET_MAIN_CAMERA(logo);
 		SET_MESH(logo, L"RectMesh");
-		SET_MATERIAL(logo, L"testLogo");
-		GET_TEX(logo, tex);
-		SET_POS_XYZ(logo, 0.f, 0.f, 1.0f);
-		SET_SCALE_FULL(logo, 0.f);
+		SET_MATERIAL(logo, L"AnimationMaterial");
+		ADD_COMP(logo, Animator);
+		BackgroundScript* bgs = ADD_COMP(logo, BackgroundScript);
+		bgs->SetAnimString(L"logos");
+		tex = RESOURCE_FIND(Texture, L"test_logo");
+
 		SET_POS_XYZ(logo, 0.f, RESOL_H_HEI - (tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f), 1.f);
 		SET_SCALE_TEX_SIZE_WITH_RAT(logo, tex, 0.f);
+
 
 		Button* btn1 = new Button();
 		AddGameObject(eLayerType::UI, btn1);

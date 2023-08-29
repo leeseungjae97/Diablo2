@@ -37,6 +37,17 @@ namespace m
 	void TileDrawSystem::Update()
 	{
 		MeshRenderer::Update();
+		if (Input::GetKeyDown(eKeyCode::A))
+		{
+			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenTileDTileDrawShader");
+			SetMaterial(material);
+		}
+		if(Input::GetKeyDown(eKeyCode::D))
+		{
+			std::shared_ptr<Material> nonMaterial = RESOURCE_FIND(Material, L"noneRectTileDrawShader");
+			SetMaterial(nonMaterial);
+		}
+
 		//mCS->SetCamera(GetOwner()->GetCamera());
 	}
 

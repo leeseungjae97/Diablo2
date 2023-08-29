@@ -1,5 +1,6 @@
 #include "mSkillShortCutButton.h"
 
+#include "mMouseManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mTexture.h"
@@ -11,55 +12,52 @@ namespace m
 	SkillShortCutButton::SkillShortCutButton(int skillIndex)
 		: mSkillType(eSkillType::normalAttack)
 		, mSkillIndex(skillIndex)
+		, skillImages(nullptr)
+		, prevSkillPoint(0)
 	{
 		//SetClickMaterial(RESOURCE_FIND(Material, L"normalAttackClickIcon"));
 		//SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
 
 		for(int i = 0 ; i < 10; ++i)
 		{
-			if (skillFunctionTypes[i] == eSkillFunctionType::Buff
-				|| skillFunctionTypes[i] == eSkillFunctionType::Passive) continue;
+			if (skillFunctionTypes[i] == eSkillFunctionType::Passive) continue;
 			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsColdSkillNames[i]);
 			skillTexs.push_back(mat->GetTexture());
+			skillTypes.push_back((eSkillType)i);
 		}
 		for (int i = 0; i < 10; ++i)
 		{
-			if (skillFunctionTypes[i + 9] == eSkillFunctionType::Buff
-				|| skillFunctionTypes[i + 9] == eSkillFunctionType::Passive) continue;
+			if (skillFunctionTypes[i + 10] == eSkillFunctionType::Passive) continue;
 			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsLightningSkillNames[i]);
 			skillTexs.push_back(mat->GetTexture());
+			skillTypes.push_back((eSkillType)(i + 10));
 		}
 		for (int i = 0; i < 10; ++i)
 		{
-			if (skillFunctionTypes[i + 18] == eSkillFunctionType::Buff
-				|| skillFunctionTypes[i + 18] == eSkillFunctionType::Passive) continue;
+			if (skillFunctionTypes[i + 20] == eSkillFunctionType::Passive) continue;
 			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsFireSkillNames[i]);
 			skillTexs.push_back(mat->GetTexture());
+			skillTypes.push_back((eSkillType)(i + 20));
 		}
 		SetSkillBtnPos();
 
-		//Scene* curScene = SceneManager::GetActiveScene();
-		//for (int i = 0; i < skillMats.size(); ++i)
-		//{
-		//	Button* mBtn = new Button();
-		//	//mBtn->SetCamera(GetCamera());
-		//	curScene->AddGameObject(eLayerType::UI, mBtn);
-		//	SET_MESH(mBtn, L"RectMesh");
-		//	SET_MATERIAL_D(mBtn, skillMats[i]);
-		//	MAKE_GET_TEX(mBtn, tex);
-		//	SET_SCALE_TEX_SIZE_WITH_RAT(mBtn, tex, 1.f);
-		//	SET_POS_XYZ(mBtn, skillMatPos[i].x, skillMatPos[i].y, -1.f);
-		//	buttons.push_back(mBtn);
+		skillImages = new UI();
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, skillImages);
 
-		//}
-		//mDMS = ADD_COMP(this, DrawMaterials);
-		//mDMS->SetMaterials(skillMats);
-		std::shared_ptr<Texture> texture = nullptr;
-		texture->MergeTex(skillTexs, skillMatPos, 48, 48, 10, L"skillsClick");
-		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
-		mr->SetMesh(RESOURCE_FIND(Mesh, L"RectMesh"));
-		mr->SetMaterial(RESOURCE_FIND(Material, L"skllsClick"));
-		SetCanClick(false);
+		SET_MESH(skillImages, L"RectMesh");
+
+		SHARED_MAT mat = std::make_shared<Material>();
+		mat->SetShader(RESOURCE_FIND(Shader, L"NoLightShader"));
+
+		std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+		texture->MergeTex(skillTexs, skillMatPos, 48, 48, 9, 1, L"skillsClick");
+
+		mat->SetTexture(texture);
+		SET_MATERIAL_D(skillImages, mat);
+
+		SET_SCALE_TEX_SIZE(skillImages, texture, -1.f);
+
+		skillImages->SetState(NoRenderUpdate);
 	}
 	SkillShortCutButton::~SkillShortCutButton()
 	{
@@ -71,18 +69,30 @@ namespace m
 	void SkillShortCutButton::Update()
 	{
 		Button::Update();
-		
-		//for(int i = 0; i < buttons.size(); ++i)
-		//{
-		//	buttons[i]->SetCamera(GetCamera());
-		//}
+
+		MakeSkillShortCutImage();
+
+		if(nullptr == skillImages->GetCamera())
+			skillImages->SetCamera(GetCamera());
+
+		if(GetOneClick())
+		{
+			eState st = skillImages->GetState();
+			skillImages->SetState(st == NoRenderUpdate ? RenderUpdate : NoRenderUpdate);
+		}
+		if(!GetHover())
+		{
+			if(Input::GetKeyDown(eKeyCode::LBUTTON)) skillImages->SetState(NoRenderUpdate);
+		}
+
+		GetHoverClickSkill();
 
 		if (PlayerInfo::GetSkill(mSkillIndex) != mSkillType)
 		{
 			mSkillType = PlayerInfo::GetSkill(mSkillIndex);
-			
-			SetClickMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
-			//SetNormalMaterial(RESOURCE_FIND(Material, wsSkillIconNames[(int)mSkillType]));
+			SET_MATERIAL(this, wsSkillIconNames[(int)mSkillType]);
+			//SetNormalMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
+			//SetClickMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
 		}
 	}
 	void SkillShortCutButton::LateUpdate()
@@ -93,39 +103,93 @@ namespace m
 	{
 		Button::Render();
 	}
+	eSkillType SkillShortCutButton::GetHoverClickSkill()
+	{
+		Vector3 posV3 = GET_POS(skillImages);
+		Vector3 imageScale = GET_SCALE(skillImages);
 
+		Vector2 scale = Vector2(48.f, 48.f);
+
+		Vector3 mouseV3 = MouseManager::UnprojectionMousePos(-1, GetCamera());
+		MAKE_VEC2_F_VEC3(posV2, posV3);
+		MAKE_VEC2_F_VEC3(mouseV2, mouseV3);
+
+		for(int i = 0 ; i < skillMatPos.size(); ++i)
+		{
+			if (skillMatPos[i] == Vector2(-1.f, -1.f)) continue;
+
+			Vector2 skillPos;
+			skillPos.x = (posV2.x - (imageScale.x / 2.f)) + (((skillMatPos[i].x + 1) * scale.x) - scale.x / 2.f);
+			skillPos.y = (posV2.y + (imageScale.y / 2.f)) - (((skillMatPos[i].y + 1) * scale.y) - scale.y / 2.f);
+
+			if (Vector2::PointIntersectRect(skillPos, scale, mouseV2))
+			{
+				if(Input::GetKeyDown(eKeyCode::LBUTTON))
+				{
+					PlayerInfo::SetSkill(mSkillIndex, skillTypes[i]);
+					//return ;
+				}
+			}
+		}
+		return eSkillType::END;
+	}
+	void SkillShortCutButton::MakeSkillShortCutImage()
+	{
+		if(GET_POS(skillImages) == Vector3(0.f, 0.f, 0.f))
+		{
+			Vector3 mSkillPos = GET_POS(this);
+			Vector3 mScale = GET_SCALE(this);
+			Vector3 skillScale = GET_SCALE(skillImages);
+			mSkillPos.y += (mScale.y / 2.f) + (skillScale.y / 2.f) + 10.f;
+			mSkillPos.x += skillScale.x / 2.f;
+			if(mSkillIndex == 0 )
+			{
+				mSkillPos.x -= mScale.x / 2.f;
+			}
+			SET_POS_XYZ(skillImages, mSkillPos.x, mSkillPos.y, -1.f);
+		}
+		if (prevSkillPoint == PlayerInfo::skillPoint) return;
+
+		prevSkillPoint = PlayerInfo::skillPoint;
+
+		SetSkillBtnPos();
+		MeshRenderer* mr = GET_COMP(skillImages, MeshRenderer);
+		SHARED_MAT mat = mr->GetMaterial();
+
+		std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+		texture->MergeTex(skillTexs, skillMatPos, 48, 48, 9, 1, L"skillsClick");
+		mat->GetTexture()->Clear();
+		mat->SetTexture(texture);
+
+		//SET_MATERIAL_D(skillImages, mat);
+		SET_SCALE_TEX_SIZE(skillImages, texture, -1.f);
+	}
 	void SkillShortCutButton::SetSkillBtnPos()
 	{
-		//콜드 - 파이어 - 라이트닝 순
-		//배운 스킬의 나열은 밑에서부터
-		//라이트닝을 배우지 않았다면 파이어가 첫번째 열, 파이어를 배우지 않았다면 콜드가 첫번째 열
-		bool learnSkill = false;
-		int yPos = 1;
-		int xPos = 1;
-		Vector3 pos = GET_POS(this);
-		for (int i = 2; i >= 0; --i)
+		skillMatPos.clear();
+
+		float yPos = 0.0f;
+		float xPos = 0.0f;
+		// cold 0, light 1, fire 2
+		for (int i = 0; i < 3; ++i)
 		{
-			learnSkill = false;
 			for (int j = 0; j < 10; ++j)
 			{
+				if (skillFunctionTypes[i * 10 + j] == eSkillFunctionType::Passive)
+					continue;
+
 				if (PlayerInfo::learnedSkill[i][j] > 0)
 				{
-					Vector2 storePos;
-					learnSkill = true;
-
-					//storePos.x = (xPos * 30.f) + pos.x;
-					//storePos.y = (yPos * 30.f) + pos.y;
-					storePos.x = (float)i;
-					storePos.y = (float)j;
+					skillMatPos.push_back(Vector2(xPos, yPos));
 					++xPos;
-					skillMatPos.push_back(storePos);
-				}else
+				}
+				else
 				{
 					skillMatPos.push_back(Vector2(-1.f, -1.f));
 				}
 			}
-			xPos = 1;
-			if (learnSkill) ++yPos;
+			xPos = 0.f;
+			++yPos;
 		}
 	}
 }

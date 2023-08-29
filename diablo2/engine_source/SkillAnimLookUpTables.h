@@ -120,7 +120,7 @@ namespace m
 	};
 	int plusPathEightDirections[5] = {
 		pathSixteenDirections[(int)eSixteenDirection::Up],
-		pathSixteenDirections[(int)eSixteenDirection::RightUp1],		
+		pathSixteenDirections[(int)eSixteenDirection::RightUp1],
 		pathSixteenDirections[(int)eSixteenDirection::Right],		
 		pathSixteenDirections[(int)eSixteenDirection::RightDown1],
 		pathSixteenDirections[(int)eSixteenDirection::Down],

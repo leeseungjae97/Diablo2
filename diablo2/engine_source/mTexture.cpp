@@ -19,30 +19,31 @@ namespace m::graphics
 	{
 
 	}
-	HRESULT Texture::MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, const std::wstring& mergedTextureName)
+	HRESULT Texture::MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, UINT addtionCount, const std::wstring& mergedTextureName)
 	{
 		ScratchImage atlasImage;
-		UINT imageCount = mergeTextures.size();
-		UINT column = imageCount / oneLength;
+		UINT imageCount = texturePosition.size() + addtionCount;
+		UINT column = imageCount <= oneLength ? 1 : imageCount / oneLength;
+
 		UINT atWid = perWidth * oneLength;
 		UINT atHei = perHeight * column;
 		atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, atWid, atHei, 1, 1);
 
-		UINT row = atHei / 3;
-
-		for(int i = 0; i < mergeTextures.size(); ++i)
+		int index = 0;
+		for(std::shared_ptr<Texture> tex : mergeTextures)
 		{
-			ScratchImage* image = mergeTextures[i]->GetScratchImage();
+			const ScratchImage& image = tex->GetScratchImage();
+			Vector2 pos = texturePosition[index];
+			++index;
 
-			ScratchImage convertedImage;
-			Convert(image->GetImages(), image->GetImageCount(), image->GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
+			if (pos == Vector2(-1.f, -1.f)) continue;
 
-			if (texturePosition[i] == Vector2(-1.f, -1.f)) continue;
+			UINT wid = perWidth * (UINT)pos.x;
+			UINT hei = perHeight * (UINT)pos.y;
 
-			UINT wid = atWid - (perWidth * texturePosition[i].x);
-			UINT hei = atHei - (perHeight * texturePosition[i].y);
+			
 
-			CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, convertedImage.GetMetadata().width, convertedImage.GetMetadata().height),
+			CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height),
 				*atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, wid, hei);
 		}
 
@@ -55,9 +56,6 @@ namespace m::graphics
 			, mSRV.GetAddressOf()
 		);
 
-		mWidth = mImage.GetMetadata().width;
-		mHeight = mImage.GetMetadata().height;
-
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
 		mImage.Initialize2D(
@@ -67,6 +65,9 @@ namespace m::graphics
 			atlasImage.GetMetadata().arraySize,
 			atlasImage.GetMetadata().mipLevels
 		);
+
+		mWidth = mImage.GetMetadata().width;
+		mHeight = mImage.GetMetadata().height;
 
 		return S_OK;
 	}
@@ -112,12 +113,7 @@ namespace m::graphics
 
 			ScratchImage convertedImage;
 			hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
-			if (FAILED(hr))
-			{
-
-				HRESULT hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
-				if (FAILED(hr)) return hr;
-			}
+			if (FAILED(hr)) return hr;
 
 
 			if(xidx != 0) sumWidth += convertedImage.GetMetadata().width;	

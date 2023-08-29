@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mBackgroundScript.h" />
     <ClInclude Include="mBottomUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="mBackgroundScript.cpp" />
     <ClCompile Include="mBottomUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />

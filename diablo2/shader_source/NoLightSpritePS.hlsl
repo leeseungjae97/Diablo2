@@ -29,7 +29,6 @@ float4 main(VSOut In) : SV_TARGET
         //color *= colorBuffer[0].color;
     }
     
-    
     if (color.a <= 0.0f)
         discard;
     

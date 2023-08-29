@@ -120,6 +120,9 @@
     <ClCompile Include="mMonsterHand.cpp">
       <Filter>Hand\MonsterHand</Filter>
     </ClCompile>
+    <ClCompile Include="mBackgroundScript.cpp">
+      <Filter>Script\BackgroundScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -237,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="mMonsterHand.h">
       <Filter>Hand\MonsterHand</Filter>
+    </ClInclude>
+    <ClInclude Include="mBackgroundScript.h">
+      <Filter>Script\BackgroundScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +389,9 @@
     </Filter>
     <Filter Include="Script\StraightScript">
       <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\BackgroundScript">
+      <UniqueIdentifier>{1e99d770-5c12-4515-9c62-4029574580f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

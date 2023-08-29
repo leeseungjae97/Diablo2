@@ -624,6 +624,7 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"character_select_1", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreationscreenEXP.png", L"characterSelect1");
 		MAKE_MATERIAL(noLightShader, L"charactercreation_test", L"..\\Resources\\texture\\ui\\characterSelect\\charactercreation_.png", L"charactercreationTest");
 		MAKE_MATERIAL(noLightShader, L"test_logo", L"..\\Resources\\texture\\ui\\mainMenu\\test_logo.png", L"testLogo");
+		MAKE_MATERIAL(noLightShader, L"logo_s", L"..\\Resources\\texture\\ui\\mainMenu\\logos.png", L"logos");
 #pragma endregion
 #pragma region Buttons
 		MAKE_MATERIAL(noLightShader, L"m_medium_button_blank", L"..\\Resources\\texture\\ui\\buttons\\MediumButtonBlank.png", L"mMediumButtonBlank");
@@ -855,10 +856,12 @@ namespace renderer
 			LightAttribute attribute = light->GetAttribute();
 			lightsAttributes.push_back(attribute);
 		}
-
-		lightsBuffer->SetData(lightsAttributes.data(), lightsAttributes.size());
-		lightsBuffer->BindSRV(eShaderStage::VS, 13);
-		lightsBuffer->BindSRV(eShaderStage::PS, 13);
+		if(!lightsAttributes.empty())
+		{
+			lightsBuffer->SetData(lightsAttributes.data(), lightsAttributes.size());
+			lightsBuffer->BindSRV(eShaderStage::VS, 13);
+			lightsBuffer->BindSRV(eShaderStage::PS, 13);
+		}
 	}
 	void BindNoiseTexture()
 	{

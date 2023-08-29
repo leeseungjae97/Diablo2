@@ -22,7 +22,7 @@ namespace m
 	void PlayerInfo::Initialize()
 	{
 		skillPoint = 100;
-		Tile* tile2 = TileManager::pathFindingTiles[60][60];
+		Tile* tile2 = TileManager::pathFindingTiles[60][10];
 		Vector3 pos2 = GET_POS(tile2);
 
 		player = new Player(pos2);
@@ -34,9 +34,8 @@ namespace m
 		ADD_COMP(player, Animator);
 		//player->AddComponent<OverlayEffectSkillScript>(1);
 
-		learnedSkill[0][1] = 1;
-		learnedSkill[1][1] = 1;
-		learnedSkill[2][1] = 1;
+		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
+		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
 
 		SetSkill(0, eSkillType::normalAttack);
 		SetSkill(1, eSkillType::fireBolt);

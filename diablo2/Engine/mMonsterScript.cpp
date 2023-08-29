@@ -41,17 +41,22 @@ namespace m
 
 		Scene* curScene = SceneManager::GetActiveScene();
 		Monster* monster = dynamic_cast<Monster*>(GetOwner());
+
 		//mLeftHand = new MonsterHand(monster, curMonsterData.mMonsterType, false);
-		mRightHand = new MonsterHand(monster, curMonsterData.mMonsterType, true);
 
-		//mLeftHand->SetCamera(GetOwner()->GetCamera());
-		mRightHand->SetCamera(GetOwner()->GetCamera());
-		Animator* rightAnimator = GET_COMP(mRightHand, Animator);
-		rightAnimator->SetSyncAnimator(mAnimator);
-		rightAnimator->Sync();
+		if (curMonsterData.bHandAnim)
+		{
+			mRightHand = new MonsterHand(monster, curMonsterData.mMonsterType, true);
 
+			//mLeftHand->SetCamera(GetOwner()->GetCamera());
+			mRightHand->SetCamera(GetOwner()->GetCamera());
+			Animator* rightAnimator = GET_COMP(mRightHand, Animator);
+			rightAnimator->SetSyncAnimator(mAnimator);
+			rightAnimator->Sync();
+			curScene->AddGameObject(eLayerType::Monster, mRightHand);
+		}
 		//curScene->AddGameObject(eLayerType::Monster, mLeftHand);
-		curScene->AddGameObject(eLayerType::Monster, mRightHand);
+
 
 		int m = 0;
 		for (int i = 0; i < (UINT)T::eAnimationType::End; ++i)
@@ -59,7 +64,7 @@ namespace m
 			if (curMonsterData.textureString[i] == L"") continue;
 
 			SHARED_MAT mat = RESOURCE_FIND(Material, curMonsterData.textureString[i]);
-			
+
 			for (int j = 0; j < 8; ++j)
 			{
 				if (curMonsterData.bPathImage) m = pathEightDirections[j];
@@ -176,7 +181,8 @@ namespace m
 			mDirection = mMinusDirections[abs(n)];
 
 		//mLeftHand->SetDirection(mDirection);
-		mRightHand->SetDirection(mDirection);
+		if (mRightHand)
+			mRightHand->SetDirection(mDirection);
 
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Idle
 			|| mMonster->GetBattleState() == GameObject::eBattleState::Run)
@@ -233,10 +239,10 @@ namespace m
 		//if (mMonster->GetRangeCollider()->GetOnEnter()
 		//	|| mMonster->GetRangeCollider()->GetOnStay()
 		//	&& mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-			
+
 		if (mMonster->Arrival())
 		{
-			
+
 			if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
 			{
 				fDelay += Time::fDeltaTime();
@@ -251,7 +257,8 @@ namespace m
 					{
 						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], false);
 					}
-				}else
+				}
+				else
 				{
 					GetOwner()->SetBattleState(GameObject::Idle);
 				}
@@ -268,7 +275,8 @@ namespace m
 			}
 		}
 		//mLeftHand->SetAniType((int)mAnimationType);
-		mRightHand->SetAniType((int)mAnimationType);
+		if (mRightHand)
+			mRightHand->SetAniType((int)mAnimationType);
 
 		if (
 			GetOwner()->GetBattleState() != GameObject::Idle
@@ -310,7 +318,8 @@ namespace m
 			}
 		}
 		//mLeftHand->SetAniType((int)mAnimationType);
-		mRightHand->SetAniType((int)mAnimationType);
+		if (mRightHand)
+			mRightHand->SetAniType((int)mAnimationType);
 	}
 	template <typename T>
 	void MonsterScript<T>::LateUpdate()

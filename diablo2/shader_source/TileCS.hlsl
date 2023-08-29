@@ -56,6 +56,11 @@ void main( uint3 DTid : SV_DispatchThreadID )
     for (uint i = 0; i < TileSharedBuffer[0].monsterCount; ++i)
     {
         otherPos = MonsterBuffer[i].monsterPos.xy;
+        
+        if (TileBuffer[DTid.x].tileCoord.x > 100.f
+        || TileBuffer[DTid.x].tileCoord.y > 100.f)
+            break;
+        
         if (PointIntersectRhombus(pos, scale, otherPos) == true)
         {
             MonsterCoordBuffer[i].monsterCoord = TileBuffer[DTid.x].tileCoord;
