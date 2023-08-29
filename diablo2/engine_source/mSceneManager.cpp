@@ -6,7 +6,8 @@ namespace m
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-		mActiveScene = LoadScene(L"MainMenuScene");
+		//mActiveScene = LoadScene(L"MainMenuScene");
+		mActiveScene = LoadScene(L"PlayScene");
 		srand((unsigned int)time(NULL));
 	}
 	void SceneManager::Update()
