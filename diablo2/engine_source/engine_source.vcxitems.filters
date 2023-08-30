@@ -148,6 +148,9 @@
     <Filter Include="GameObject\Component\DrawMaterials">
       <UniqueIdentifier>{d9f44996-2134-4e61-a2e7-6049e6e30f0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\StashManager">
+      <UniqueIdentifier>{9aa8e472-4395-4e28-bfb1-ce0cb89039e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -327,6 +330,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.h">
       <Filter>Resources\Resource\PathFinderComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mStashManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -470,6 +474,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinderComputeShader.cpp">
       <Filter>Resources\Resource\PathFinderComputeShader</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mStashManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

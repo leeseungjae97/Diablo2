@@ -2,6 +2,7 @@
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/ItemLookUpTables.h"
+#include "../engine_source/mStashManager.h"
 
 namespace m
 {
@@ -27,7 +28,12 @@ namespace m
         int GetInvenXSpace() { return iInvenXSpace; }
         int GetInvenYSpace() { return iInvenYSpace; }
 
+        void SetStashType(StashManager::eStashType type) { mStashType = type; }
+        StashManager::eStashType GetStashType() { return mStashType; }
+
     private:
+        StashManager::eStashType mStashType;
+
         eItemType mType;
         int iInvenXSpace;
         int iInvenYSpace;

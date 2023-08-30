@@ -49,7 +49,7 @@ namespace m
 		if (nullptr != mActiveScene)
 		{
 			mActiveScene->OnExit();
-			MonsterManager::ClearMonster();
+			//MonsterManager::ClearMonster();
 			mActiveScene = iter->second;
 			mActiveScene->OnEnter();
 		}

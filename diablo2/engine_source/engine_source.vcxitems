@@ -50,6 +50,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mStashManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mStashManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h" />

@@ -48,6 +48,7 @@ namespace m
 			}
 			if (bSetMouseFollow)
 			{
+				MouseManager::SetMouseFollow(this);
 				MAKE_POS(pos, this);
 				
 				Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(pos.z, GetCamera());

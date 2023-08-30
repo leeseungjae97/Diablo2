@@ -1,6 +1,6 @@
 #pragma once
 #include "mCamera.h"
-
+#include "../Engine/mItem.h"
 namespace m
 {
 	class MouseManager
@@ -17,6 +17,7 @@ namespace m
 		static void SetMouseHoverMonsterId(int id) { hoverMonsterId = id; }
 
 		static Vector3 UnprojectionMousePos(float z, Camera* camera);
+		static void SetMouseFollow(Item* item) { mMouseFollowItem = item; }
 
 		static void Initialize();
 		static void Update();
@@ -29,6 +30,8 @@ namespace m
 
 		static Vector2 hoverMonsterTileCoord;
 		static int hoverMonsterId;
+
+		static Item* mMouseFollowItem;
 	};
 }
 
