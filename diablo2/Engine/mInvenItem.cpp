@@ -258,8 +258,8 @@ namespace m
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 
 		EmptyRect* inC = mInventory->GetInvensCollider();
-		inventoryOutLinePos = inC->GetPos();
-		inventoryOutLineScale = inC->GetSize();
+		Vector2 inventoryOutLinePos = inC->GetPos();
+		Vector2 inventoryOutLineScale = inC->GetSize();
 		eItem mItem = GetEItem();
 		if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 			|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)

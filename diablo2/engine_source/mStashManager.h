@@ -1,6 +1,8 @@
 #pragma once
 #include "_Engine.h"
 
+#include "../Engine/mEmptyRect.h"
+
 namespace m
 {
 	class Camera;
@@ -25,10 +27,21 @@ namespace m
 		static bool StashItem(Item* item);
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
 
+		template <typename T>
+		void AddItem(T* item);
+
+		template <typename T>
+		void EraseItem(T* item);
 
 	private:
 		static Camera* mCurCamera;
 		static std::vector<Stash> stashPositions;
+		static EmptyRect* invensCollider;
+		static std::vector<EmptyRect*> invens;
+		static std::vector<EmptyRect*> equiments;
+		static std::vector<InvenItem*> invenItems;
+
+		//std::vector<PocketItem*>
 		
 	};
 }

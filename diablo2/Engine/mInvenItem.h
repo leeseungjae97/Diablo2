@@ -29,16 +29,8 @@ namespace m
         bool CheckItemSizeIntersectInventory(Vector2 comparePos);
         bool CheckItemSizeIntersectItem(Vector2 comparePos);
     private:
-
-        Vector3 prevPosition;
-
-        Vector2 inventoryOutLinePos;
-        Vector2 inventoryOutLineScale;
-
+        Vector3 prevPosition;;
         Inventory* mInventory;
-        BottomUI* mBottomUI;
-        
-
     };
 }
 

@@ -38,12 +38,9 @@ namespace m
         eItem GetEItem() { return mItem; }
         void SetEItem(eItem item) { mItem = item; }
 
-        void SetStash(GameObject* stash) { mStash = stash; }
-        GameObject* GetStash() { return mStash; }
-
     private:
         StashManager::eStashType mStashType;
-        GameObject* mStash;
+        
         bool bSetMouseFollow;
 
         eItemType mType;
