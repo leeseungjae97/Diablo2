@@ -23,9 +23,11 @@ namespace m
 	}
 
 	Button::~Button()
-	{}
+	{
+	}
 	void Button::Initialize()
-	{}
+	{
+	}
 	void Button::Update()
 	{
 		UI::Update();
@@ -47,7 +49,7 @@ namespace m
 			{
 				bClick = true;
 
-				if(mClickedMaterial)
+				if (mClickedMaterial)
 					mr->SetMaterial(mClickedMaterial);
 			}
 			if (Input::GetKeyUp(eKeyCode::LBUTTON))
@@ -59,7 +61,7 @@ namespace m
 		if (!Input::GetKey(eKeyCode::LBUTTON))
 		{
 			bClick = false;
-			if(mNormalMaterial)
+			if (mNormalMaterial)
 				mr->SetMaterial(mNormalMaterial);
 		}
 	}

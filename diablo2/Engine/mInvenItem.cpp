@@ -16,16 +16,15 @@ namespace m
 	InvenItem::InvenItem(eItem item, Inventory* inventory)
 		: Item(itemTypeTable[(UINT)item])
 		, mInventory(inventory)
-		, bSetMouseFollow(false)
-		, mItem(item)
 	{
 		ADD_COMP(this, Collider2D);
 		ADD_COMP(this, MeshRenderer);
 
 		SET_MESH(this, L"RectMesh");
-		SET_MATERIAL(this, itemNameTable[(UINT)mItem]);
+		SET_MATERIAL(this, itemNameTable[(UINT)item]);
 
-		SET_SCALE_XYZ(this, 27.f * itemInvenDisplayScale[(UINT)mItem][0] * Texture::GetWidRatio(), 27.f * itemInvenDisplayScale[(UINT)mItem][1] * Texture::GetHeiRatio(), 0.f);
+		SET_SCALE_XYZ(this, 27.f * itemInvenDisplayScale[(UINT)item][0] * Texture::GetWidRatio()
+			, 27.f * itemInvenDisplayScale[(UINT)item][1] * Texture::GetHeiRatio(), 0.f);
 
 		InvenItemInit();
 	}
@@ -44,9 +43,9 @@ namespace m
 			if (Input::GetKeyDownOne(eKeyCode::LBUTTON))
 			{
 				DeployItem();
-				bSetMouseFollow = bSetMouseFollow ? false : true;
+				SetMouseFollow(GetMouseFollow() ? false : true);
 			}
-			if (bSetMouseFollow)
+			if (GetMouseFollow())
 			{
 				MouseManager::SetMouseFollow(this);
 				MAKE_POS(pos, this);
@@ -76,6 +75,7 @@ namespace m
 		{
 			Vector2 invenPos= invens[i]->GetPos();
 			Vector2 invenSize= invens[i]->GetSize();
+			eItem mItem = GetEItem();
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
@@ -161,7 +161,7 @@ namespace m
 		{
 			Vector2 invenPos = invens[i]->GetPos();
 			Vector2 invenSize = invens[i]->GetSize();
-
+			eItem mItem = GetEItem();
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
@@ -187,7 +187,7 @@ namespace m
 					prevPosition = Vector3(finalPos.x, finalPos.y, prevPosition.z);
 					ChangeFillIntersectArea(finalPos, true);
 
-					if (bSetMouseFollow)
+					if (GetMouseFollow())
 					{
 						std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
 						for (int i = 0; i < invenItems.size(); ++i)
@@ -219,7 +219,7 @@ namespace m
 					prevPosition = invenPosV3;
 					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(GET_POS(this)), true);
 
-					if (bSetMouseFollow)
+					if (GetMouseFollow())
 					{
 						std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
 						for (int i = 0; i < invenItems.size(); ++i)
@@ -260,6 +260,7 @@ namespace m
 		EmptyRect* inC = mInventory->GetInvensCollider();
 		inventoryOutLinePos = inC->GetPos();
 		inventoryOutLineScale = inC->GetSize();
+		eItem mItem = GetEItem();
 		if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 			|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 		{
@@ -276,6 +277,7 @@ namespace m
 
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
+		eItem mItem = GetEItem();
 		if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 			|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 		{

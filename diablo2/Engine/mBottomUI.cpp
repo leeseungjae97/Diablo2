@@ -126,7 +126,7 @@ namespace m
 				, 31.f * Texture::GetHeiRatio());
 			pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30.f * i) * Texture::GetWidRatio()
 				, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio());
-			
+
 			pockets.push_back(pocket);
 		}
 
@@ -155,15 +155,15 @@ namespace m
 		SET_POS_XYZ(mExPocketUI
 			, (exPockets[1]->GetPos().x + exPockets[1]->GetSize().x / 2.f) + 1.f
 			, (exPockets[0]->GetPos().y + exPockets[0]->GetSize().y / 2.f) + 3.f
-			,-1.f);
+			, -1.f);
 		mExPocketUI->SetState(NoRenderUpdate);
 		curScene->AddGameObject(eLayerType::UI, mExPocketUI);
 	}
 	BottomUI::~BottomUI()
 	{
-		for(EmptyRect* pocket : pockets)
+		for (EmptyRect* pocket : pockets)
 		{
-			if(pocket)
+			if (pocket)
 			{
 				delete pocket;
 				pocket = nullptr;
@@ -193,12 +193,12 @@ namespace m
 		Vector3 mousePosV3 = MouseManager::UnprojectionMousePos(-1.f, GetCamera());
 		Vector2 mousePos = Vector2(mousePosV3.x, mousePosV3.y);
 		bool hoverRect = false;
-		if(Vector2::PointIntersectRect(mPocketUI->GetPos(), mPocketUI->GetSize(), mousePos))
+		if (Vector2::PointIntersectRect(mPocketUI->GetPos(), mPocketUI->GetSize(), mousePos))
 		{
 			hoverRect = true;
 			mExPocketUI->SetState(eState::RenderUpdate);
 		}
-		if(!hoverRect && !mExPocketUI->GetHover())
+		if (!hoverRect && !mExPocketUI->GetHover())
 		{
 			mExPocketUI->SetState(eState::NoRenderUpdate);
 		}

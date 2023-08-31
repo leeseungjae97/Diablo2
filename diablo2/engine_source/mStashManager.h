@@ -1,10 +1,10 @@
 #pragma once
 #include "_Engine.h"
 
-#include "../Engine/mItem.h"
-
 namespace m
 {
+	class Camera;
+	class Item;
 	class StashManager
 	{
 	public:
@@ -14,10 +14,21 @@ namespace m
 			Shop,
 			End
 		};
-		void StashHover();
-		static std::vector<Vector2, eStashType> stashPositions;
+		struct Stash
+		{
+			Vector2 pos;
+			Vector2 size;
+			eStashType type;
+		};
+		static eStashType GetHoverStashType();
+		static void AddStash(Vector2 pos, Vector2 size, eStashType type);
+		static bool StashItem(Item* item);
+		static void SetCamera(Camera* camera) { mCurCamera = camera; }
+
 
 	private:
+		static Camera* mCurCamera;
+		static std::vector<Stash> stashPositions;
 		
 	};
 }

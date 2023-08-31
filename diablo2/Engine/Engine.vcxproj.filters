@@ -48,7 +48,7 @@
       <Filter>Script\GridScript</Filter>
     </ClCompile>
     <ClCompile Include="mEmptyRect.cpp">
-      <Filter>UI\ItemPlaced\Inven</Filter>
+      <Filter>UI\ItemPlaced\EmptyRect</Filter>
     </ClCompile>
     <ClCompile Include="mSkillStatus.cpp">
       <Filter>UI\Skill</Filter>
@@ -123,6 +123,7 @@
     <ClCompile Include="mBackgroundScript.cpp">
       <Filter>Script\BackgroundScript</Filter>
     </ClCompile>
+    <ClCompile Include="mStash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -169,7 +170,7 @@
       <Filter>Script\GridScript</Filter>
     </ClInclude>
     <ClInclude Include="mEmptyRect.h">
-      <Filter>UI\ItemPlaced\Inven</Filter>
+      <Filter>UI\ItemPlaced\EmptyRect</Filter>
     </ClInclude>
     <ClInclude Include="mSkillStatus.h">
       <Filter>UI\Skill</Filter>
@@ -244,6 +245,7 @@
     <ClInclude Include="mBackgroundScript.h">
       <Filter>Script\BackgroundScript</Filter>
     </ClInclude>
+    <ClInclude Include="mStash.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -311,9 +313,6 @@
     </Filter>
     <Filter Include="UI\ItemPlaced">
       <UniqueIdentifier>{8748243c-70f1-46ea-8c6c-9db7759e954f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI\ItemPlaced\Inven">
-      <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\ItemPlaced\Inventory">
       <UniqueIdentifier>{ccfd0c92-cbcc-40b4-b2a9-08bd1f06b386}</UniqueIdentifier>
@@ -392,6 +391,9 @@
     </Filter>
     <Filter Include="Script\BackgroundScript">
       <UniqueIdentifier>{1e99d770-5c12-4515-9c62-4029574580f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ItemPlaced\EmptyRect">
+      <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

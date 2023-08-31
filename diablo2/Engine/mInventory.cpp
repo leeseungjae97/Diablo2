@@ -244,4 +244,27 @@ namespace m
 	{
 		UI::Render();
 	}
+
+    void Inventory::AddItem(Item* item)
+    {
+		eItem eI = item->GetEItem();
+		Scene* curScene = SceneManager::GetActiveScene();
+
+		InvenItem* addItem = new InvenItem(eI, this);
+
+		addItem->SetCamera(GetCamera());
+		addItem->SetState(GameObject::NoRenderUpdate);
+		ADD_COMP(addItem, ItemScript);
+		curScene->AddGameObject(eLayerType::Item, addItem);
+		invenItems.push_back(addItem);
+    }
+
+    void Inventory::EraseItem(Item* item)
+    {
+		InvenItem* mItem = dynamic_cast<InvenItem*>(item);
+		if(mItem)
+		{
+			std::erase(invenItems, mItem);
+		}
+    }
 }

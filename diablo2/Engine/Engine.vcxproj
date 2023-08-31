@@ -196,6 +196,7 @@
     <ClInclude Include="mSkillShortCutButton.h" />
     <ClInclude Include="mSkillStraight.h" />
     <ClInclude Include="mSkillStatus.h" />
+    <ClInclude Include="mStash.h" />
     <ClInclude Include="mStraightScript.h" />
     <ClInclude Include="mTile.h" />
     <ClInclude Include="mTileScript.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="mSkillShortCutButton.cpp" />
     <ClCompile Include="mSkillStraight.cpp" />
     <ClCompile Include="mSkillStatus.cpp" />
+    <ClCompile Include="mStash.cpp" />
     <ClCompile Include="mStraightScript.cpp" />
     <ClCompile Include="mTile.cpp" />
     <ClCompile Include="mTileScript.cpp" />

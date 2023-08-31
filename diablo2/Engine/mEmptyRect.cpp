@@ -12,7 +12,17 @@ namespace m
 	EmptyRect::~EmptyRect()
 	{}
 
-	bool EmptyRect::MouseHover(float z, Camera* camera)
+    void EmptyRect::AddItem(Item* item)
+    {
+		//TODO:1
+    }
+
+    void EmptyRect::EraseItem(Item* item)
+    {
+		//TODO:2
+    }
+
+    bool EmptyRect::MouseHover(float z, Camera* camera)
 	{
 		Vector3 mousePos = MouseManager::UnprojectionMousePos(z, camera);
 		MAKE_VEC2_F_VEC3(mousePosV2, mousePos);

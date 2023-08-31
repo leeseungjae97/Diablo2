@@ -1,4 +1,5 @@
 #pragma once
+#include "mStashManager.h"
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/ItemLookUpTables.h"
@@ -31,10 +32,23 @@ namespace m
         void SetStashType(StashManager::eStashType type) { mStashType = type; }
         StashManager::eStashType GetStashType() { return mStashType; }
 
+        bool GetMouseFollow() { return bSetMouseFollow; }
+        void SetMouseFollow(bool _b) { bSetMouseFollow = _b; }
+
+        eItem GetEItem() { return mItem; }
+        void SetEItem(eItem item) { mItem = item; }
+
+        void SetStash(GameObject* stash) { mStash = stash; }
+        GameObject* GetStash() { return mStash; }
+
     private:
         StashManager::eStashType mStashType;
+        GameObject* mStash;
+        bool bSetMouseFollow;
 
         eItemType mType;
+        eItem mItem;
+
         int iInvenXSpace;
         int iInvenYSpace;
 

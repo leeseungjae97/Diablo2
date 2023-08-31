@@ -1,12 +1,14 @@
 #pragma once
-#include "../engine_source/mUI.h"
+#include "mStash.h"
+
 #include "mInvenItem.h"
 #include "mEmptyRect.h"
+
 namespace m
 {
     class Button;
     class Inventory :
-        public UI
+        public UI, public Stash
     {
     public:
         Inventory(Camera* camera);
@@ -17,9 +19,13 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
+        virtual void AddItem(Item* item) override;
+        virtual void EraseItem(Item* item) override;
+
         std::vector<EmptyRect*>& GetInvens() { return invens; }
         std::vector<EmptyRect*>& GetEquiments() { return equiments; }
         std::vector<InvenItem*>& GetInvenItems() { return invenItems; }
+
         EmptyRect* GetInvensCollider() { return invensCollider; }
 
     private:
