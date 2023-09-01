@@ -1,6 +1,7 @@
 #include "mBottomUI.h"
 
 #include "../engine_source/mSceneManager.h"
+#include "../engine_source/mStashManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTexture.h"
 
@@ -15,7 +16,7 @@ namespace m
 {
 	BottomUI::BottomUI(Camera* camera)
 		: bBelt(false)
-		, mPocketUI(nullptr)
+		//, mPocketUI(nullptr)
 		, mExPocketUI(nullptr)
 	{
 		SetCamera(camera);
@@ -119,32 +120,35 @@ namespace m
 		SET_POS_XYZ(skillShortCutRight, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
 			, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		for (int i = 0; i < 4; ++i)
-		{
-			EmptyRect* pocket = new EmptyRect();
-			pocket->SetSize(30.f * Texture::GetWidRatio()
-				, 31.f * Texture::GetHeiRatio());
-			pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30.f * i) * Texture::GetWidRatio()
-				, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio());
+		//for (int i = 0; i < 4; ++i)
+		//{
+		//	EmptyRect* pocket = new EmptyRect();
+		//	pocket->SetSize(30.f * Texture::GetWidRatio()
+		//		, 31.f * Texture::GetHeiRatio());
+		//	pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30.f * i) * Texture::GetWidRatio()
+		//		, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio());
 
-			pockets.push_back(pocket);
-		}
+		//	pockets.push_back(pocket);
+		//}
 
-		for (int i = 0; i < 8; ++i)
-		{
-			EmptyRect* pocket = new EmptyRect();
-			pocket->SetSize(30.f * Texture::GetWidRatio()
-				, 31.f * Texture::GetHeiRatio());
-			pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30 * (i % 4)) * Texture::GetWidRatio()
-				, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio() + (pocket->GetSize().y * (i / 4 + 1)));
-			exPockets.push_back(pocket);
-		}
-		mPocketUI = new EmptyRect();
-		mPocketUI->SetPos(pockets[1]->GetPos().x + pockets[1]->GetSize().x / 2.f
-			, pockets[0]->GetPos().y + 3.f);
-		mPocketUI->SetSize(
-			30.f * 4.f * Texture::GetWidRatio()
-			, (31.f * Texture::GetHeiRatio()) + 3.f);
+		//for (int i = 0; i < 8; ++i)
+		//{
+		//	EmptyRect* pocket = new EmptyRect();
+		//	pocket->SetSize(30.f * Texture::GetWidRatio()
+		//		, 31.f * Texture::GetHeiRatio());
+		//	pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30 * (i % 4)) * Texture::GetWidRatio()
+		//		, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio() + (pocket->GetSize().y * (i / 4 + 1)));
+		//	exPockets.push_back(pocket);
+		//}
+
+		//mPocketUI = new EmptyRect();
+		//mPocketUI->SetPos(pockets[1]->GetPos().x + pockets[1]->GetSize().x / 2.f
+		//	, pockets[0]->GetPos().y + 3.f);
+		//mPocketUI->SetSize(
+		//	30.f * 4.f * Texture::GetWidRatio()
+		//	, (31.f * Texture::GetHeiRatio()) + 3.f);
+
+		std::vector<EmptyRect*> exPockets = StashManager::GetExPockets();
 
 		mExPocketUI = new UI();
 		mExPocketUI->SetCamera(camera);
@@ -161,27 +165,27 @@ namespace m
 	}
 	BottomUI::~BottomUI()
 	{
-		for (EmptyRect* pocket : pockets)
-		{
-			if (pocket)
-			{
-				delete pocket;
-				pocket = nullptr;
-			}
-		}
-		for (EmptyRect* pocket : exPockets)
-		{
-			if (pocket)
-			{
-				delete pocket;
-				pocket = nullptr;
-			}
-		}
-		if (mPocketUI)
-		{
-			delete mPocketUI;
-			mPocketUI = nullptr;
-		}
+		//for (EmptyRect* pocket : pockets)
+		//{
+		//	if (pocket)
+		//	{
+		//		delete pocket;
+		//		pocket = nullptr;
+		//	}
+		//}
+		//for (EmptyRect* pocket : exPockets)
+		//{
+		//	if (pocket)
+		//	{
+		//		delete pocket;
+		//		pocket = nullptr;
+		//	}
+		//}
+		//if (mPocketUI)
+		//{
+		//	delete mPocketUI;
+		//	mPocketUI = nullptr;
+		//}
 	}
 	void BottomUI::Initialize()
 	{
@@ -193,7 +197,8 @@ namespace m
 		Vector3 mousePosV3 = MouseManager::UnprojectionMousePos(-1.f, GetCamera());
 		Vector2 mousePos = Vector2(mousePosV3.x, mousePosV3.y);
 		bool hoverRect = false;
-		if (Vector2::PointIntersectRect(mPocketUI->GetPos(), mPocketUI->GetSize(), mousePos))
+		EmptyRect* pocket = StashManager::GetPocketCollider();
+		if (Vector2::PointIntersectRect(pocket->GetPos(), pocket->GetSize(), mousePos))
 		{
 			hoverRect = true;
 			mExPocketUI->SetState(eState::RenderUpdate);

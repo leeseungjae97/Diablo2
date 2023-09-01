@@ -18,29 +18,28 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        std::vector<EmptyRect*>& GetInvens() { return invens; }
-        std::vector<EmptyRect*>& GetEquiments() { return equiments; }
-        std::vector<InvenItem*>& GetInvenItems() { return invenItems; }
+        //std::vector<EmptyRect*>& GetInvens() { return invens; }
+        //std::vector<EmptyRect*>& GetEquiments() { return equiments; }
+        //std::vector<InvenItem*>& GetInvenItems() { return invenItems; }
 
-        EmptyRect* GetInvensCollider() { return invensCollider; }
+        //EmptyRect* GetInvensCollider() { return invensCollider; }
 
     private:
-        EmptyRect* invensCollider;
-        std::vector<EmptyRect*> invens;
-        std::vector<EmptyRect*> equiments;
-        std::vector<InvenItem*> invenItems; // x 28 y 28
-        //std::vector<PocketItem*>
+        //EmptyRect* invensCollider;
+        //std::vector<EmptyRect*> invens;
+        //std::vector<EmptyRect*> equiments;
+        //std::vector<InvenItem*> invenItems; // x 28 y 28
 
-        EmptyRect* invenWeapon1Left;   // x 60 y 117
-        EmptyRect* invenWeapon1Right;  // x 60 y 117
-        EmptyRect* invenRingLeft;      // x 30 y 31
-        EmptyRect* invenRingRight;     // x 30 y 31
-        EmptyRect* invenAmulet;        // x 30 y 31
-        EmptyRect* invenBelt;          // x 60 y 31
-        EmptyRect* invenHelmet;        // x 60 y 60
-        EmptyRect* invenShoes;         // x 60 y 61
-        EmptyRect* invenGlove;         // x 60 y 61
-        EmptyRect* invenArmor;         // x 62 y 89
+        //EmptyRect* invenWeapon1Left;   // x 60 y 117
+        //EmptyRect* invenWeapon1Right;  // x 60 y 117
+        //EmptyRect* invenRingLeft;      // x 30 y 31
+        //EmptyRect* invenRingRight;     // x 30 y 31
+        //EmptyRect* invenAmulet;        // x 30 y 31
+        //EmptyRect* invenBelt;          // x 60 y 31
+        //EmptyRect* invenHelmet;        // x 60 y 60
+        //EmptyRect* invenShoes;         // x 60 y 61
+        //EmptyRect* invenGlove;         // x 60 y 61
+        //EmptyRect* invenArmor;         // x 62 y 89
         Button* closeBtn;
 
     };

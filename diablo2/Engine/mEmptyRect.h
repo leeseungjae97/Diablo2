@@ -2,18 +2,14 @@
 
 #include "mInvenItem.h"
 #include "mGameObject.h"
-#include "mStash.h"
 
 namespace m
 {
-	class EmptyRect : public Stash
+	class EmptyRect
 	{
 	public:
 		EmptyRect();
 		~EmptyRect();
-
-		virtual void AddItem(Item* item) override;
-		virtual void EraseItem(Item* item) override;
 
 		bool GetFill() { return bFill; }
 		void SetFill(bool fill) { bFill = fill; }

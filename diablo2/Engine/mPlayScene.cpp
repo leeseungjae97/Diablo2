@@ -63,7 +63,7 @@ namespace m
 
 		SHARED_TEX tex;
 
-		camera = new GameObject();
+		GameObject* camera = new GameObject();
 		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
@@ -317,6 +317,7 @@ namespace m
 		Camera* cameraComp2 = ADD_COMP(uiCamera, Camera);
 		cameraComp2->TurnLayerMask(eLayerType::Player, false);
 		AddGameObject(eLayerType::Camera, uiCamera);
+		SetSceneUICamera(cameraComp2);
 
 		//GameObject* qwe = new GameObject();
 		//qwe->SetCamera(cameraComp2);

@@ -2,12 +2,11 @@
 
 namespace m
 {
-	Item::Item(eItemType type)
-		: mType(type)
+	Item::Item(eItem type)
+		: mType(itemTypeTable[(UINT)type])
+		, mItem(type)
 		, mInvenMaterial()
 		, mFieldMaterial()
-		, iInvenXSpace(0)
-		, iInvenYSpace(0)
 	{}
 	Item::~Item()
 	{}

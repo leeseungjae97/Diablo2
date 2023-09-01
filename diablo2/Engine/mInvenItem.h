@@ -12,7 +12,7 @@ namespace m
         public Item
     {
     public:
-        InvenItem(eItem item, Inventory* inventory);
+        InvenItem(eItem item);
         virtual ~InvenItem();
 
         virtual void Initialize() override;
@@ -28,9 +28,10 @@ namespace m
         void DeployItem();
         bool CheckItemSizeIntersectInventory(Vector2 comparePos);
         bool CheckItemSizeIntersectItem(Vector2 comparePos);
+
+        void SetItems();
     private:
-        Vector3 prevPosition;;
-        Inventory* mInventory;
+        Vector3 prevPosition;
     };
 }
 

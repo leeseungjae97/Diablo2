@@ -2,7 +2,7 @@
 namespace m
 {
 	FieldItem::FieldItem(eItem item)
-		: Item(itemTypeTable[(int)item])
+		: Item(item)
 	{}
 	FieldItem::~FieldItem()
 	{}

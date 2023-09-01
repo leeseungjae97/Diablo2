@@ -13,7 +13,8 @@ namespace m
 	bool MouseManager::mMouseOnMonster = false;
 	Vector2 MouseManager::hoverMonsterTileCoord = Vector2(-1.f, -1.f);
 	int MouseManager::hoverMonsterId = -1;
-	Item* MouseManager::mMouseFollowItem = nullptr;
+	InvenItem* MouseManager::mMouseFollowItem = nullptr;
+
 	Vector3 MouseManager::UnprojectionMousePos(float z, Camera* camera)
 	{
 		Matrix proj = Matrix::Identity;

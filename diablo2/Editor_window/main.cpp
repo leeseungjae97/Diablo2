@@ -6,6 +6,7 @@
 #include "../engine_source/mApplication.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mSceneManager.h"
+#include "../engine_source/mStashManager.h"
 #include "../engine_source/mTileManager.h"
 //#include "..\engine_source\mFontWrapper.h"
 #include "guiEditor.h"
@@ -78,6 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     m::SceneManager::Release();
+    m::StashManager::Release();
     m::TileManager::Release();
     //m::FontWrapper::Release();
     gui::Editor::Release();

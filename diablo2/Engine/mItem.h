@@ -12,7 +12,7 @@ namespace m
     {
     public:
 
-        Item(eItemType type);
+        Item(eItem type);
         virtual ~Item();
 
         virtual void Initialize() override;
@@ -22,12 +22,6 @@ namespace m
 
         void SetItemType(eItemType type) { mType = type; }
         eItemType GetItemType() { return mType; }
-
-        void SetInvenXSpace(int spaceX) { iInvenXSpace = spaceX; }
-        void SetInvenYSpace(int spaceY) { iInvenYSpace = spaceY; }
-
-        int GetInvenXSpace() { return iInvenXSpace; }
-        int GetInvenYSpace() { return iInvenYSpace; }
 
         void SetStashType(StashManager::eStashType type) { mStashType = type; }
         StashManager::eStashType GetStashType() { return mStashType; }
@@ -45,9 +39,6 @@ namespace m
 
         eItemType mType;
         eItem mItem;
-
-        int iInvenXSpace;
-        int iInvenYSpace;
 
         float fFieldXSpace;
         float fFieldYSpace;

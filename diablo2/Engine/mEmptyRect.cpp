@@ -12,16 +12,6 @@ namespace m
 	EmptyRect::~EmptyRect()
 	{}
 
-    void EmptyRect::AddItem(Item* item)
-    {
-		//TODO:1
-    }
-
-    void EmptyRect::EraseItem(Item* item)
-    {
-		//TODO:2
-    }
-
     bool EmptyRect::MouseHover(float z, Camera* camera)
 	{
 		Vector3 mousePos = MouseManager::UnprojectionMousePos(z, camera);

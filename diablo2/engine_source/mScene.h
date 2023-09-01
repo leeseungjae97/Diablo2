@@ -40,8 +40,11 @@ namespace m
 		Layer* GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 		void SetSceneMainCamera(Camera* camera) { sceneMainCamera = camera; }
 		Camera* GetSceneMainCamera() { return sceneMainCamera; }
+		void SetSceneUICamera(Camera* camera) { sceneUICamera = camera; }
+		Camera* GetSceneUICamera() { return sceneUICamera; }
 	private:
 		Camera* sceneMainCamera;
+		Camera* sceneUICamera;
 		std::vector<Layer*> mLayers;
 	};
 }

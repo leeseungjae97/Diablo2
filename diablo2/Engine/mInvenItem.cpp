@@ -5,6 +5,7 @@
 #include "../engine_source/mTransform.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mCollider2D.h"
+#include "../engine_source/mStashManager.h"
 
 #include "mEmptyRect.h"
 #include "mInventory.h"
@@ -13,9 +14,8 @@
 
 namespace m
 {
-	InvenItem::InvenItem(eItem item, Inventory* inventory)
-		: Item(itemTypeTable[(UINT)item])
-		, mInventory(inventory)
+	InvenItem::InvenItem(eItem item)
+		: Item(item)
 	{
 		ADD_COMP(this, Collider2D);
 		ADD_COMP(this, MeshRenderer);
@@ -47,13 +47,15 @@ namespace m
 			}
 			if (GetMouseFollow())
 			{
-				MouseManager::SetMouseFollow(this);
+				StashManager::SetFollowItem(this);
+				//MouseManager::SetMouseFollow(this);
 				MAKE_POS(pos, this);
 				
 				Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(pos.z, GetCamera());
 				unprojMousePos.z = pos.z;
 				SET_POS_VEC(this, unprojMousePos);
 			}
+			//else MouseManager::SetMouseFollow(nullptr);
 		}
 	}
 	void InvenItem::LateUpdate()
@@ -66,7 +68,7 @@ namespace m
 	}
 	void InvenItem::InvenItemInit()
 	{
-		std::vector<EmptyRect*> invens = mInventory->GetInvens();
+		std::vector<EmptyRect*> invens = StashManager::GetInvens();
 		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 		Vector2 subScale = thisScaleV2 / 2.0f;
@@ -79,17 +81,8 @@ namespace m
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
-				//Vector2 subScale = thisScaleV2 / 2.0f;
-				//Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
-				//if (Vector2::PointIntersectRect(GET_VEC2_F_VEC3_D(GET_POS(invens[i]))
-				//								, GET_VEC2_F_VEC3_D(GET_SCALE(invens[i]))
-				//								, leftTop))
-				//{
-				//	
-				//}
 				Vector2 sub1 = invenPos + (invenSize / 2.f);
 				Vector2 subPos = Vector2(sub1.x + subScale.x, sub1.y - subScale.y);
-				//Vector3 subPos = Vector3(sub1.x, sub1.y - subScale.y, prevPosition.z);
 
 				if (CheckItemSizeIntersectItem(subPos)) continue;
 				//if (!CheckLimitIntersectItems(0)) continue;
@@ -117,7 +110,7 @@ namespace m
 	}
 	void InvenItem::ChangeFillIntersectArea(Vector2 areaPos, bool _bV)
 	{
-		std::vector<EmptyRect*> invens = mInventory->GetInvens();
+		std::vector<EmptyRect*> invens = StashManager::GetInvens();
 		for (int y = 0; y < 4; ++y)
 		{
 			for (int x = 0; x < 10; ++x)
@@ -135,7 +128,7 @@ namespace m
 	}
 	bool InvenItem::CheckLimitIntersectItems(int limit)
 	{
-		std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+		std::vector<InvenItem*> invenItems = StashManager::GetInvenItems();
 		int intersectItemCnt = 0;
 		for (InvenItem* item : invenItems)
 		{
@@ -153,7 +146,7 @@ namespace m
 	}
 	void InvenItem::DeployItem()
 	{
-		std::vector<EmptyRect*> invens = mInventory->GetInvens();
+		std::vector<EmptyRect*> invens = StashManager::GetInvens();
 		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(this));
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 
@@ -189,7 +182,7 @@ namespace m
 
 					if (GetMouseFollow())
 					{
-						std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+						std::vector<InvenItem*> invenItems = StashManager::GetInvenItems();
 						for (int i = 0; i < invenItems.size(); ++i)
 						{
 							if (this != invenItems[i])
@@ -221,7 +214,7 @@ namespace m
 
 					if (GetMouseFollow())
 					{
-						std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+						std::vector<InvenItem*> invenItems = StashManager::GetInvenItems();
 						for (int i = 0; i < invenItems.size(); ++i)
 						{
 							if (this != invenItems[i])
@@ -240,7 +233,7 @@ namespace m
 			}
 		}
 
-		for (EmptyRect* eq : mInventory->GetEquiments())
+		for (EmptyRect* eq : StashManager::GetEquiments())
 		{
 			Vector2 eqPos = eq->GetPos();
 			Vector2 eqScale = eq->GetSize();
@@ -257,7 +250,7 @@ namespace m
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));
 
-		EmptyRect* inC = mInventory->GetInvensCollider();
+		EmptyRect* inC = StashManager::GetInvensCollider();
 		Vector2 inventoryOutLinePos = inC->GetPos();
 		Vector2 inventoryOutLineScale = inC->GetSize();
 		eItem mItem = GetEItem();
@@ -273,7 +266,7 @@ namespace m
 	}
 	bool InvenItem::CheckItemSizeIntersectItem(Vector2 comparePos)
 	{
-		std::vector<InvenItem*> invenItems = mInventory->GetInvenItems();
+		std::vector<InvenItem*> invenItems = StashManager::GetInvenItems();
 
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(this));

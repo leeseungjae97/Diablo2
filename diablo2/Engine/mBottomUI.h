@@ -16,9 +16,9 @@ namespace m
         virtual void Render() override;
 
     private:
-        std::vector<EmptyRect*> pockets;
-        std::vector<EmptyRect*> exPockets;
-        EmptyRect* mPocketUI;
+        //std::vector<EmptyRect*> pockets;
+        //std::vector<EmptyRect*> exPockets;
+        //EmptyRect* mPocketUI;
         UI* mExPocketUI;
         bool bBelt;
     };

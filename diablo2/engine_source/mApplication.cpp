@@ -43,6 +43,7 @@ namespace m
 		Input::Initialize();
 		//FontWrapper::Initialize();
 		renderer::Initialize();
+		StashManager::InitStash();
 		SceneManager::Initialize();
 		//gui::Editor::Initialize();
 	}
@@ -52,8 +53,9 @@ namespace m
 		Time::Update();
 		Input::Update();
 		// Scene -> Layer -> Entity
-		SceneManager::Update();
 		MouseManager::Update();
+		StashManager::Update();
+		SceneManager::Update();
 		CollisionManager::Update();
 	}
 

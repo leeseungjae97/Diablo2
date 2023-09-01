@@ -19,7 +19,6 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
     private:
-        GameObject* camera;
         Inventory* inventory;
         SkillStatus* skillUp;
         BottomUI* uiBottomBar;
