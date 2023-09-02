@@ -6,6 +6,8 @@
 #include "mApplication.h"
 #include "mUI.h"
 
+#include "../Engine/mInvenItem.h"
+
 extern m::Application application;
 namespace m
 {
@@ -35,12 +37,34 @@ namespace m
 		return Vector3(unprojMousePos.x , unprojMousePos.y, z);
 	}
 
-	void MouseManager::Initialize()
-	{
+    void MouseManager::SetMouseFollow(InvenItem* item)
+    {
+		if(mMouseFollowItem != item)
+		    mMouseFollowItem = item;
+    }
 
+    void MouseManager::Initialize()
+	{
+	}
+    void MouseManager::Update()
+	{
+		UpdateMouseHoverUI();
+		UpdateMouseFollow();
+	}
+	void MouseManager::MouseOut()
+	{
+	    
+	}
+	void MouseManager::UpdateMouseFollow()
+	{
+		if (nullptr == mMouseFollowItem) return;
+		MAKE_POS(pos, mMouseFollowItem);
+		Vector3 unprojMousePos = UnprojectionMousePos(pos.z, mMouseFollowItem->GetCamera());
+		unprojMousePos.z = pos.z;
+		SET_POS_VEC(mMouseFollowItem, unprojMousePos);
 	}
 
-	void MouseManager::Update()
+	void MouseManager::UpdateMouseHoverUI()
 	{
 		Scene* scene = SceneManager::GetActiveScene();
 		Layer* layer = scene->GetLayer(eLayerType::UI);
@@ -51,7 +75,7 @@ namespace m
 			auto gameUI = dynamic_cast<UI*>(gameObj);
 			if (nullptr == gameUI ||
 				gameUI->GetState() != GameObject::eState::RenderUpdate) continue;
-			 
+
 			if (gameUI->GetHover())
 			{
 				mMouseOnUI = true;
@@ -61,7 +85,12 @@ namespace m
 		mMouseOnUI = false;
 	}
 
-	void MouseManager::LateUpdate()
+    void MouseManager::FreeMouseFollow()
+    {
+		if (mMouseFollowItem) mMouseFollowItem = nullptr;
+    }
+
+    void MouseManager::LateUpdate()
 	{}
 
 	void MouseManager::Render()

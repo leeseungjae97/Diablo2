@@ -35,92 +35,6 @@ namespace m
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameObject(eLayerType::UI, this);
 
-		float invenZ = GET_POS(this).z;
-		//for (int y = 0; y < 4; y++)
-		//{
-		//	for (int x = 0; x < 10; x++)
-		//	{
-		//		EmptyRect* invenRect = new EmptyRect();
-		//		invenRect->SetPos(Vector2(65.f + ((288.f / 10.f) * Texture::GetWidRatio() * x)
-		//			, -51.f + (-(114.f / 4.f) * Texture::GetHeiRatio() * y)));
-		//		invenRect->SetSize(Vector2((288.f / 10.f) * Texture::GetWidRatio()
-		//			, (114.f / 4.f) * Texture::GetHeiRatio()));
-		//		invens.push_back(invenRect);
-		//	}
-		//}
-
-		//invenWeapon1Left = new EmptyRect();
-		//invenWeapon1Left->SetSize(60.f * Texture::GetWidRatio()
-		//	, 115.f * Texture::GetHeiRatio());
-		//invenWeapon1Right = new EmptyRect();
-		//invenWeapon1Right->SetSize(60.f * Texture::GetWidRatio()
-		//	, 116.f * Texture::GetHeiRatio());
-		//invenRingLeft = new EmptyRect();
-		//invenRingLeft->SetSize(30.f * Texture::GetWidRatio()
-		//	, 31.f * Texture::GetHeiRatio());
-		//invenRingRight = new EmptyRect();
-		//invenRingRight->SetSize(30.f * Texture::GetWidRatio()
-		//	, 31.f * Texture::GetHeiRatio());
-		//invenAmulet = new EmptyRect();
-		//invenAmulet->SetSize(30.f * Texture::GetWidRatio()
-		//	, 31.f * Texture::GetHeiRatio());
-		//invenBelt = new EmptyRect();
-		//invenBelt->SetSize(60.f * Texture::GetWidRatio()
-		//	, 31.f * Texture::GetHeiRatio());
-		//invenHelmet = new EmptyRect();
-		//invenHelmet->SetSize(60.f * Texture::GetWidRatio()
-		//	, 60.f * Texture::GetHeiRatio());
-		//invenShoes = new EmptyRect();
-		//invenShoes->SetSize(60.f * Texture::GetWidRatio()
-		//	, 61.f * Texture::GetHeiRatio());
-		//invenGlove = new EmptyRect();
-		//invenGlove->SetSize(60.f * Texture::GetWidRatio()
-		//	, 61.f * Texture::GetHeiRatio());
-		//invenArmor = new EmptyRect();
-		//invenArmor->SetSize(62.f * Texture::GetWidRatio()
-		//	, 89.f * Texture::GetHeiRatio());
-
-		//invenWeapon1Left->SetPos((17.f * Texture::GetWidRatio())
-		//	+ invenWeapon1Left->GetSize().x / 2.f, (RESOL_H_HEI - 110.f * Texture::GetHeiRatio()) - invenWeapon1Left->GetSize().y / 2.f);
-
-		//invenWeapon1Right->SetPos((248.f * Texture::GetWidRatio())
-		//	+ invenWeapon1Right->GetSize().x / 2.f, (RESOL_H_HEI - 110.f * Texture::GetHeiRatio()) - invenWeapon1Right->GetSize().y / 2.f);
-
-		//invenRingLeft->SetPos((91.f * Texture::GetWidRatio())
-		//	+ invenRingLeft->GetSize().x / 2.f, (RESOL_H_HEI - 240.f * Texture::GetHeiRatio()) - invenRingLeft->GetSize().y / 2.f);
-
-		//invenRingRight->SetPos((205.f * Texture::GetWidRatio())
-		//	+ invenRingRight->GetSize().x / 2.f, (RESOL_H_HEI - 239.f * Texture::GetHeiRatio()) - invenRingRight->GetSize().y / 2.f);
-
-		//invenAmulet->SetPos((205.f * Texture::GetWidRatio())
-		//	+ invenAmulet->GetSize().x / 2.f, (RESOL_H_HEI - 95.f * Texture::GetHeiRatio()) - invenAmulet->GetSize().y / 2.f);
-
-		//invenBelt->SetPos((133.f * Texture::GetWidRatio())
-		//	+ invenBelt->GetSize().x / 2.f, (RESOL_H_HEI - 240.f * Texture::GetHeiRatio()) - invenBelt->GetSize().y / 2.f);
-
-		//invenHelmet->SetPos((132.f * Texture::GetWidRatio())
-		//	+ invenHelmet->GetSize().x / 2.f, (RESOL_H_HEI - 65.0f * Texture::GetHeiRatio()) - invenHelmet->GetSize().y / 2.f);
-
-		//invenShoes->SetPos((248.f * Texture::GetWidRatio())
-		//	+ invenShoes->GetSize().x / 2.f, (RESOL_H_HEI - 240.f * Texture::GetHeiRatio()) - invenShoes->GetSize().y / 2.f);
-
-		//invenGlove->SetPos((17.f * Texture::GetWidRatio())
-		//	+ invenGlove->GetSize().x / 2.f, (RESOL_H_HEI - 240.f * Texture::GetHeiRatio()) - invenGlove->GetSize().y / 2.f);
-
-		//invenArmor->SetPos((132.f * Texture::GetWidRatio())
-		//	+ invenArmor->GetSize().x / 2.f, (RESOL_H_HEI - 138.f * Texture::GetHeiRatio()) - invenArmor->GetSize().y / 2.f);
-
-		//equiments.push_back(invenWeapon1Left);
-		//equiments.push_back(invenWeapon1Right);
-		//equiments.push_back(invenRingLeft);
-		//equiments.push_back(invenRingRight);
-		//equiments.push_back(invenAmulet);
-		//equiments.push_back(invenBelt);
-		//equiments.push_back(invenHelmet);
-		//equiments.push_back(invenShoes);
-		//equiments.push_back(invenGlove);
-		//equiments.push_back(invenArmor);
-
 		closeBtn = new Button();
 		curScene->AddGameObject(eLayerType::UI, closeBtn);
 		closeBtn->SetCamera(GetCamera());
@@ -142,7 +56,6 @@ namespace m
 			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1);
 
 			hpPosion->SetCamera(GetCamera());
-			hpPosion->SetName(L"1");
 			hpPosion->SetState(GameObject::NoRenderUpdate);
 			ADD_COMP(hpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
@@ -153,7 +66,6 @@ namespace m
 			InvenItem* mpPosion = new InvenItem(eItem::mpPosion1);
 
 			mpPosion->SetState(GameObject::NoRenderUpdate);
-			mpPosion->SetName(L"2");
 			mpPosion->SetCamera(GetCamera());
 			ADD_COMP(mpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
@@ -164,7 +76,6 @@ namespace m
 			InvenItem* orb1 = new InvenItem(eItem::jaredsStone);
 
 			orb1->SetState(GameObject::NoRenderUpdate);
-			orb1->SetName(L"3");
 			orb1->SetCamera(GetCamera());
 			ADD_COMP(orb1, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, orb1);
@@ -191,7 +102,7 @@ namespace m
 			StashManager::AddItem(cap, StashManager::eStashType::Inventory);
 		}
 
-
+		StashManager::InitItems(StashManager::eStashType::Inventory);
 	}
 	Inventory::~Inventory()
 	{

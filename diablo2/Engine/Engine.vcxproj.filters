@@ -123,12 +123,6 @@
     <ClCompile Include="mBackgroundScript.cpp">
       <Filter>Script\BackgroundScript</Filter>
     </ClCompile>
-    <ClCompile Include="mShopItem.cpp">
-      <Filter>Item\ShopItem</Filter>
-    </ClCompile>
-    <ClCompile Include="mPocketItem.cpp">
-      <Filter>Item\PocketItem</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -249,12 +243,6 @@
     </ClInclude>
     <ClInclude Include="mBackgroundScript.h">
       <Filter>Script\BackgroundScript</Filter>
-    </ClInclude>
-    <ClInclude Include="mShopItem.h">
-      <Filter>Item\ShopItem</Filter>
-    </ClInclude>
-    <ClInclude Include="mPocketItem.h">
-      <Filter>Item\PocketItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,12 +392,6 @@
     </Filter>
     <Filter Include="UI\ItemPlaced\EmptyRect">
       <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\PocketItem">
-      <UniqueIdentifier>{8b4abeee-7033-45b6-9bf0-945288a5a960}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item\ShopItem">
-      <UniqueIdentifier>{5025f395-68cb-4581-80f4-1cdadd7940c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

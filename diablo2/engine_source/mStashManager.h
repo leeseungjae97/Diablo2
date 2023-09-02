@@ -1,15 +1,13 @@
 #pragma once
-#include "mGameObject.h"
 #include "_Engine.h"
+
+#include "mGameObject.h"
 
 namespace m
 {
 	class InvenItem;
-	class PocketItem;
-	class ShopItem;
 	class EmptyRect;
 	class Camera;
-	class Item;
 	class StashManager
 	{
 	public:
@@ -30,17 +28,20 @@ namespace m
 			eStashType type;
 		};
 
-		static eStashType GetHoverStashType();
+		//static eStashType GetHoverStashType();
+		static void Initialize();
 		static void InitStash();
 		static void InitStashPos(Vector2 pos, Vector2 size, eStashType type);
+		static void InitItems(eStashType type);
+
 		static void Release();
 		static void Update();
 
-		static void ItemHoverStashPos();
+		static bool ItemDeploy();
+		static bool DeployTetris(eStashType type);
+		static bool DeployException(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType);
+		static void MoveOtherStash(InvenItem* item, eStashType stashTypeMove);
 
-		static void MoveOtherStash(InvenItem* item, eStashType stashTypeMove, Vector3 stashPos);
-
-		static bool AvailableDeployItem(Item* item);
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
 
 		static void AddItem(InvenItem* item, eStashType stashType);
@@ -75,16 +76,17 @@ namespace m
 
 		static void SetInventoryVisible(GameObject::eState state) { eInventoryState = state; }
 
-		static void SetFollowItem(InvenItem* item) { mFollowItem = item; }
-		static InvenItem* GetFollowItem() { return mFollowItem; }
-
+		static void ChangeFillIntersectArea(Vector2 areaPos, bool _bV, InvenItem* item, eStashType type);
+		static bool CheckItemSizeIntersectOutline(Vector2 comparePos, InvenItem* item, eStashType type);
+		static bool CheckItemSizeIntersectItem(Vector2 leftTopPlusScale, InvenItem* item, eStashType type);
+		static bool CheckLimitIntersectItems(int limit, eStashType type);
 	private:
 		static void inventoryUpdate();
 		static void shopInventoryUpdate();
 		static void pocketInventoryUpdate();
 
 		static Camera* mCurCamera;
-		static std::vector<Stash> stashPositions;
+		//static std::vector<Stash> stashPositions;
 
 		static EmptyRect* invensCollider;
 		static EmptyRect* shopInvensCollider;
@@ -114,8 +116,6 @@ namespace m
 
 		static GameObject::eState eInventoryState;
 		static GameObject::eState eShopInventoryState;
-
-		static InvenItem* mFollowItem;
 	};
 }
 

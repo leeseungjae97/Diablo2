@@ -43,7 +43,7 @@ namespace m
 		Input::Initialize();
 		//FontWrapper::Initialize();
 		renderer::Initialize();
-		StashManager::InitStash();
+		StashManager::Initialize();
 		SceneManager::Initialize();
 		//gui::Editor::Initialize();
 	}

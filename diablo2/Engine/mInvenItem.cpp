@@ -8,7 +8,6 @@
 #include "../engine_source/mStashManager.h"
 
 #include "mEmptyRect.h"
-#include "mInventory.h"
 #include "mMouseManager.h"
 
 
@@ -23,10 +22,11 @@ namespace m
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, itemNameTable[(UINT)item]);
 
+		SET_POS_XYZ(this, -10.f, -10.f,-1.f);
 		SET_SCALE_XYZ(this, 27.f * itemInvenDisplayScale[(UINT)item][0] * Texture::GetWidRatio()
 			, 27.f * itemInvenDisplayScale[(UINT)item][1] * Texture::GetHeiRatio(), 0.f);
 
-		InvenItemInit();
+		//InvenItemInit();
 	}
 	InvenItem::~InvenItem()
 	{
@@ -42,20 +42,18 @@ namespace m
 		{
 			if (Input::GetKeyDownOne(eKeyCode::LBUTTON))
 			{
-				DeployItem();
 				SetMouseFollow(GetMouseFollow() ? false : true);
 			}
-			if (GetMouseFollow())
-			{
-				StashManager::SetFollowItem(this);
-				//MouseManager::SetMouseFollow(this);
-				MAKE_POS(pos, this);
-				
-				Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(pos.z, GetCamera());
-				unprojMousePos.z = pos.z;
-				SET_POS_VEC(this, unprojMousePos);
-			}
-			//else MouseManager::SetMouseFollow(nullptr);
+		}
+
+		if (GetMouseFollow())
+		{
+			MouseManager::SetMouseFollow(this);
+		}
+		else
+		{
+			if (this == MouseManager::GetMouseFollow())
+				MouseManager::FreeMouseFollow();
 		}
 	}
 	void InvenItem::LateUpdate()
@@ -85,14 +83,14 @@ namespace m
 				Vector2 subPos = Vector2(sub1.x + subScale.x, sub1.y - subScale.y);
 
 				if (CheckItemSizeIntersectItem(subPos)) continue;
-				//if (!CheckLimitIntersectItems(0)) continue;
 
 				prevPosition = Vector3(subPos.x , subPos.y, prevPosition.z);
 				SET_POS_VEC(this, prevPosition);
 				ChangeFillIntersectArea(subPos, true);
 				break;
 			}
-			else
+			if (itemInvenDisplayScale[(UINT)mItem][0] == 1.f
+				&& itemInvenDisplayScale[(UINT)mItem][1] == 1.f)
 			{
 				if (invens[i]->GetFill()) continue;
 
@@ -105,9 +103,9 @@ namespace m
 				ChangeFillIntersectArea(invenPos, true);
 				break;
 			}
-			
 		}
 	}
+
 	void InvenItem::ChangeFillIntersectArea(Vector2 areaPos, bool _bV)
 	{
 		std::vector<EmptyRect*> invens = StashManager::GetInvens();
@@ -126,6 +124,7 @@ namespace m
 			}
 		}
 	}
+
 	bool InvenItem::CheckLimitIntersectItems(int limit)
 	{
 		std::vector<InvenItem*> invenItems = StashManager::GetInvenItems();
@@ -144,6 +143,7 @@ namespace m
 		}
 		return true;
 	}
+
 	void InvenItem::DeployItem()
 	{
 		std::vector<EmptyRect*> invens = StashManager::GetInvens();
@@ -173,7 +173,6 @@ namespace m
 					Vector2 finalPos = Vector2(invenPos.x + thisScaleV2.x / 2.f, invenPos.y - thisScaleV2.y / 2.f);
 
 					if (!CheckLimitIntersectItems(2)) continue;
-					//if (CheckItemSizeIntersectItem(finalPos)) continue;
 
 					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false);
 					SET_POS_VEC(this, Vector3(finalPos.x, finalPos.y, prevPosition.z));
@@ -237,14 +236,48 @@ namespace m
 		{
 			Vector2 eqPos = eq->GetPos();
 			Vector2 eqScale = eq->GetSize();
-			if (Vector2::RectIntersectRect(eqPos, eqScale, thisPosV2, thisScaleV2))
+			if (Vector2::PointIntersectRect(eqPos, eqScale, thisPosV2))
 			{
 				SET_POS_VEC(this, Vector3(eqPos.x, eqPos.y, prevPosition.z));
 				return;
 			}
 		}
+
+		for(EmptyRect* pocket : StashManager::GetPockets())
+		{
+			Vector2 pocketPos = pocket->GetPos();
+			Vector2 pocketScale = pocket->GetSize();
+			if (Vector2::PointIntersectRect(pocketPos, pocketScale, thisPosV2))
+			{
+				SET_POS_VEC(this, Vector3(pocketPos.x, pocketPos.y, prevPosition.z));
+				return;
+			}
+		}
+
+		for (EmptyRect* pocket : StashManager::GetExPockets())
+		{
+			Vector2 pocketPos = pocket->GetPos();
+			Vector2 pocketScale = pocket->GetSize();
+			if (Vector2::PointIntersectRect(pocketPos, pocketScale, thisPosV2))
+			{
+				SET_POS_VEC(this, Vector3(pocketPos.x, pocketPos.y, prevPosition.z));
+				return;
+			}
+		}
+
+		for (EmptyRect* pocket : StashManager::GetShopInvens())
+		{
+			Vector2 pocketPos = pocket->GetPos();
+			Vector2 pocketScale = pocket->GetSize();
+			if (Vector2::PointIntersectRect(pocketPos, pocketScale, thisPosV2))
+			{
+				SET_POS_VEC(this, Vector3(pocketPos.x, pocketPos.y, prevPosition.z));
+				return;
+			}
+		}
 		SET_POS_VEC(this, prevPosition);
 	}
+
 	bool InvenItem::CheckItemSizeIntersectInventory(Vector2 comparePos)
 	{
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
@@ -264,6 +297,7 @@ namespace m
 		}
 		return true;
 	}
+
 	bool InvenItem::CheckItemSizeIntersectItem(Vector2 comparePos)
 	{
 		std::vector<InvenItem*> invenItems = StashManager::GetInvenItems();

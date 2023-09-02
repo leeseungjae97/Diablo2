@@ -30,6 +30,9 @@ namespace m
         bool CheckItemSizeIntersectItem(Vector2 comparePos);
 
         void SetItems();
+
+        Vector3 GetPrevPosition() { return prevPosition; }
+        void SetPrevPosition(Vector3 prevPos) { prevPosition = prevPos; }
     private:
         Vector3 prevPosition;
     };

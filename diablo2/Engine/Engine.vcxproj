@@ -186,9 +186,7 @@
     <ClInclude Include="mPlayerInfo.h" />
     <ClInclude Include="mPlayerScript.h" />
     <ClInclude Include="mPlayScene.h" />
-    <ClInclude Include="mPocketItem.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
-    <ClInclude Include="mShopItem.h" />
     <ClInclude Include="mSkill.h" />
     <ClInclude Include="mSkillMultiFire.h" />
     <ClInclude Include="mSkillButton.h" />
@@ -232,9 +230,7 @@
     <ClCompile Include="mPlayerInfo.cpp" />
     <ClCompile Include="mPlayerScript.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
-    <ClCompile Include="mPocketItem.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
-    <ClCompile Include="mShopItem.cpp" />
     <ClCompile Include="mSkill.cpp" />
     <ClCompile Include="mSkillMultiFire.cpp" />
     <ClCompile Include="mSkillButton.cpp" />

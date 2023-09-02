@@ -1,5 +1,7 @@
 #include "mSceneManager.h"
 #include "mMonsterManager.h"
+#include "mStashManager.h"
+
 namespace m
 {
 	Scene* SceneManager::mActiveScene = nullptr;
@@ -14,6 +16,7 @@ namespace m
 	{
 		if(mActiveScene)
 			mActiveScene->Update();
+
 	}
 	void SceneManager::LateUpdate()
 	{

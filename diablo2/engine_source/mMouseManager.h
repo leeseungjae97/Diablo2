@@ -16,14 +16,20 @@ namespace m
 		static int GetMouseHoverMonsterId() { return hoverMonsterId; }
 		static void SetMouseHoverMonsterId(int id) { hoverMonsterId = id; }
 
+		static void MouseOut();
 		static Vector3 UnprojectionMousePos(float z, Camera* camera);
-		static void SetMouseFollow(InvenItem* item) { mMouseFollowItem = item; }
+		static void SetMouseFollow(InvenItem* item);
 
 		static void Initialize();
 		static void Update();
 		static void LateUpdate();
 		static void Render();
+
+		static void UpdateMouseFollow();
+		static void UpdateMouseHoverUI();
+
 		static InvenItem* GetMouseFollow() { return mMouseFollowItem; }
+        static void FreeMouseFollow();
 
     private:
 		static bool mMouseOnUI;
