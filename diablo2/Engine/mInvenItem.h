@@ -22,19 +22,16 @@ namespace m
 
         void SetClickFunction() { SceneManager::GetActiveScene()->GetLayer(eLayerType::Item)->FrontGameObject(this); }
 
-        void InvenItemInit();
-        void ChangeFillIntersectArea(Vector2 areaPos, bool _bV);
-        bool CheckLimitIntersectItems(int limit);
-        void DeployItem();
-        bool CheckItemSizeIntersectInventory(Vector2 comparePos);
-        bool CheckItemSizeIntersectItem(Vector2 comparePos);
-
-        void SetItems();
-
         Vector3 GetPrevPosition() { return prevPosition; }
         void SetPrevPosition(Vector3 prevPos) { prevPosition = prevPos; }
+
+        void ItemFunction() { bDoItemFunction = true; }
+        void ItemFunctionStop() { bDoItemFunction = false; }
+
+        bool GetDoItemFunction() { return bDoItemFunction; }
     private:
         Vector3 prevPosition;
+        bool bDoItemFunction;
     };
 }
 

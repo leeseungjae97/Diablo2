@@ -123,6 +123,7 @@
     <ClCompile Include="mBackgroundScript.cpp">
       <Filter>Script\BackgroundScript</Filter>
     </ClCompile>
+    <ClCompile Include="mPosionScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -244,6 +245,7 @@
     <ClInclude Include="mBackgroundScript.h">
       <Filter>Script\BackgroundScript</Filter>
     </ClInclude>
+    <ClInclude Include="mPosionScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -392,6 +394,9 @@
     </Filter>
     <Filter Include="UI\ItemPlaced\EmptyRect">
       <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\PosionScript">
+      <UniqueIdentifier>{118d517c-507f-40cc-896d-b320bb78e071}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

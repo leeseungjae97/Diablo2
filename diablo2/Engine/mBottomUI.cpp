@@ -86,8 +86,6 @@ namespace m
 		SET_POS_XYZ(hp, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
 			, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		PlayerInfo::player->SetHpUI(hp);
-
 		UI* hpOverlapHands = new UI();
 		curScene->AddGameObject(eLayerType::UI, hpOverlapHands);
 		hpOverlapHands->SetCamera(camera);
@@ -120,33 +118,8 @@ namespace m
 		SET_POS_XYZ(skillShortCutRight, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
 			, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		//for (int i = 0; i < 4; ++i)
-		//{
-		//	EmptyRect* pocket = new EmptyRect();
-		//	pocket->SetSize(30.f * Texture::GetWidRatio()
-		//		, 31.f * Texture::GetHeiRatio());
-		//	pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30.f * i) * Texture::GetWidRatio()
-		//		, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio());
-
-		//	pockets.push_back(pocket);
-		//}
-
-		//for (int i = 0; i < 8; ++i)
-		//{
-		//	EmptyRect* pocket = new EmptyRect();
-		//	pocket->SetSize(30.f * Texture::GetWidRatio()
-		//		, 31.f * Texture::GetHeiRatio());
-		//	pocket->SetPos(GET_POS(this).x + 23.f * Texture::GetWidRatio() + (pocket->GetSize().x / 2.f) + (30 * (i % 4)) * Texture::GetWidRatio()
-		//		, GET_POS(this).y - pocket->GetSize().y / 2.f - 14.f * Texture::GetHeiRatio() + (pocket->GetSize().y * (i / 4 + 1)));
-		//	exPockets.push_back(pocket);
-		//}
-
-		//mPocketUI = new EmptyRect();
-		//mPocketUI->SetPos(pockets[1]->GetPos().x + pockets[1]->GetSize().x / 2.f
-		//	, pockets[0]->GetPos().y + 3.f);
-		//mPocketUI->SetSize(
-		//	30.f * 4.f * Texture::GetWidRatio()
-		//	, (31.f * Texture::GetHeiRatio()) + 3.f);
+		PlayerInfo::player->SetHpUI(hp);
+		PlayerInfo::player->SetMpUI(mp);
 
 		std::vector<EmptyRect*> exPockets = StashManager::GetExPockets();
 
@@ -165,27 +138,6 @@ namespace m
 	}
 	BottomUI::~BottomUI()
 	{
-		//for (EmptyRect* pocket : pockets)
-		//{
-		//	if (pocket)
-		//	{
-		//		delete pocket;
-		//		pocket = nullptr;
-		//	}
-		//}
-		//for (EmptyRect* pocket : exPockets)
-		//{
-		//	if (pocket)
-		//	{
-		//		delete pocket;
-		//		pocket = nullptr;
-		//	}
-		//}
-		//if (mPocketUI)
-		//{
-		//	delete mPocketUI;
-		//	mPocketUI = nullptr;
-		//}
 	}
 	void BottomUI::Initialize()
 	{

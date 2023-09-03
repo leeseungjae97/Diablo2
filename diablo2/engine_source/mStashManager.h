@@ -28,11 +28,12 @@ namespace m
 			eStashType type;
 		};
 
-		//static eStashType GetHoverStashType();
 		static void Initialize();
-		static void InitStash();
-		static void InitStashPos(Vector2 pos, Vector2 size, eStashType type);
+		static void InitStash();		
+
 		static void InitItems(eStashType type);
+		static void InitTetris(eStashType type);
+		static void InitException(eStashType type);
 
 		static void Release();
 		static void Update();
@@ -45,7 +46,7 @@ namespace m
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
 
 		static void AddItem(InvenItem* item, eStashType stashType);
-		static void EraseItem(InvenItem* item);
+		static void EraseItem(InvenItem* item, bool bgracePeriod = false);
 
 		static std::vector<EmptyRect*>& GetInvens() { return invens; }
 		static std::vector<EmptyRect*>& GetEquiments() { return equiments; }
@@ -80,7 +81,6 @@ namespace m
 		static bool CheckInvensFill(int leftTopInvenIndex, InvenItem* item, eStashType type);
 		static void ChangeFillIntersectArea(Vector2 areaPos, bool _bV, InvenItem* item, eStashType type);
 		static bool CheckItemSizeIntersectOutline(Vector2 comparePos, InvenItem* item, eStashType type);
-		//static bool CheckFillSetction(Vector2 leftTopPlusScale, InvenItem* item, eStashType type);
 		static bool CheckLimitIntersectItems(int limit, eStashType type);
 	private:
 		static InvenItem* getPocketPosItem(int index);
@@ -93,7 +93,6 @@ namespace m
 		static void usePocketPosion();
 
 		static Camera* mCurCamera;
-		//static std::vector<Stash> stashPositions;
 
 		static EmptyRect* invensCollider;
 		static EmptyRect* shopInvensCollider;
@@ -122,10 +121,13 @@ namespace m
 		static std::vector<InvenItem*> pocketItems;
 		static std::vector<InvenItem*> exPocketItems;
 		static std::vector<InvenItem*> shopItems;
+		static std::vector<InvenItem*> equimentItems;
 
 		static GameObject::eState eInventoryState;
 		static GameObject::eState eShopInventoryState;
 		static GameObject::eState eExPocketState;
+
+		//static GameObject* m;
 	};
 }
 

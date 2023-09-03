@@ -43,7 +43,6 @@ namespace m
 		void SetPrevPosition(Vector3 prevPos) { prevPosition = prevPos; }
 		void SetDirection(Vector3 direction) { vDirection = direction; }
 
-
 		bool GetHit() { return bGetHit; }
 		void SetHit(bool hit) { bGetHit = hit; }
 

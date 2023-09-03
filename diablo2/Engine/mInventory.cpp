@@ -47,11 +47,6 @@ namespace m
 		SET_SCALE_TEX_SIZE_WITH_RAT(closeBtn, tex, 0.0f);
 		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetMetaDataWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetMetaDataHeight() / 2.f), 0.f);
 
-
-		//invensCollider = new EmptyRect();
-		//invensCollider->SetSize(300.f * Texture::GetWidRatio(), 120.f * Texture::GetHeiRatio());
-		//invensCollider->SetPos((15.f + (300.f / 2.f)) * Texture::GetWidRatio(), (-15.f + (-120.f / 2.f)) * Texture::GetHeiRatio());
-
 		{
 			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1);
 
@@ -59,17 +54,15 @@ namespace m
 			hpPosion->SetState(GameObject::NoRenderUpdate);
 			ADD_COMP(hpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, hpPosion);
-			//invenItems.push_back(hpPosion);
 			StashManager::AddItem(hpPosion, StashManager::eStashType::Inventory);
 		}
 		{
 			InvenItem* mpPosion = new InvenItem(eItem::mpPosion1);
 
-			mpPosion->SetState(GameObject::NoRenderUpdate);
+			mpPosion->SetState(GameObject::RenderUpdate);
 			mpPosion->SetCamera(GetCamera());
 			ADD_COMP(mpPosion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, mpPosion);
-			//invenItems.push_back(mpPosion);
 			StashManager::AddItem(mpPosion, StashManager::eStashType::Inventory);
 		}
 		{
@@ -79,7 +72,6 @@ namespace m
 			orb1->SetCamera(GetCamera());
 			ADD_COMP(orb1, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, orb1);
-			//invenItems.push_back(orb1);
 			StashManager::AddItem(orb1, StashManager::eStashType::Inventory);
 		}
 		{
@@ -89,7 +81,6 @@ namespace m
 			leaderArmor->SetCamera(GetCamera());
 			ADD_COMP(leaderArmor, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, leaderArmor);
-			//invenItems.push_back(leaderArmor);
 			StashManager::AddItem(leaderArmor, StashManager::eStashType::Inventory);
 		}
 		{
@@ -102,7 +93,46 @@ namespace m
 			StashManager::AddItem(cap, StashManager::eStashType::Inventory);
 		}
 
+		{
+			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1);
+
+			hpPosion->SetCamera(GetCamera());
+			hpPosion->SetState(GameObject::RenderUpdate);
+			ADD_COMP(hpPosion, ItemScript);
+			curScene->AddGameObject(eLayerType::Item, hpPosion);
+			StashManager::AddItem(hpPosion, StashManager::eStashType::PocketInven);
+		}
+		{
+			InvenItem* hpPosion = new InvenItem(eItem::hpPosion1);
+
+			hpPosion->SetCamera(GetCamera());
+			hpPosion->SetState(GameObject::RenderUpdate);
+			ADD_COMP(hpPosion, ItemScript);
+			curScene->AddGameObject(eLayerType::Item, hpPosion);
+			StashManager::AddItem(hpPosion, StashManager::eStashType::PocketInven);
+		}
+		{
+			InvenItem* hpPosion = new InvenItem(eItem::mpPosion1);
+
+			hpPosion->SetCamera(GetCamera());
+			hpPosion->SetState(GameObject::RenderUpdate);
+			ADD_COMP(hpPosion, ItemScript);
+			curScene->AddGameObject(eLayerType::Item, hpPosion);
+			StashManager::AddItem(hpPosion, StashManager::eStashType::PocketInven);
+		}
+		{
+			InvenItem* hpPosion = new InvenItem(eItem::mpPosion1);
+
+			hpPosion->SetCamera(GetCamera());
+			hpPosion->SetState(GameObject::RenderUpdate);
+			ADD_COMP(hpPosion, ItemScript);
+			curScene->AddGameObject(eLayerType::Item, hpPosion);
+			StashManager::AddItem(hpPosion, StashManager::eStashType::PocketInven);
+		}
+
 		StashManager::InitItems(StashManager::eStashType::Inventory);
+		StashManager::InitItems(StashManager::eStashType::PocketInven);
+		//StashManager::InitItems(StashManager::eStashType::ExPocketInven);
 	}
 	Inventory::~Inventory()
 	{

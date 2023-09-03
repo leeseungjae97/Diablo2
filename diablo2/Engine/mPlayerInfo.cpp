@@ -15,6 +15,8 @@ namespace m
 	float PlayerInfo::hpCapacity = 100.f;
 	float PlayerInfo::hpPercent = 1.f;
 	float PlayerInfo::mp = 100.f;
+	float PlayerInfo::mpCapacity = 100.f;
+	float PlayerInfo::mpPercent = 1.f;
 
 	Player* PlayerInfo::player = nullptr;
 	eSkillType PlayerInfo::skillTypes[2] = {};
@@ -45,7 +47,10 @@ namespace m
 	{
 		hpPercent = (hpCapacity - hp) / hpCapacity;
 	}
-
+	void PlayerInfo::CalMpPercent()
+	{
+		mpPercent = (mpCapacity - mp) / mpCapacity;
+	}
 	eSkillType PlayerInfo::GetSkill(int num)
 	{
 		if (num > 2 || num < 0) return eSkillType::END;

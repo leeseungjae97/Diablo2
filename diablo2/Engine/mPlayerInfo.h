@@ -15,11 +15,14 @@ namespace m
 		static float hpCapacity;
 		static float hpPercent;
 		static float mp;
+		static float mpCapacity;
+		static float mpPercent;
 		static int learnedSkill[3][10];
 
 		static Player* player;
 
 		static void CalHpPercent();
+		static void CalMpPercent();
 		static void Initialize();
 
 		static eSkillType GetSkill(int num);

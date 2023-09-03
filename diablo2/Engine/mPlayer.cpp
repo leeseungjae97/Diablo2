@@ -123,4 +123,51 @@ namespace m
 	{
 		MoveAbleObject::Render();
 	}
+
+    void Player::Hit(int damage)
+	{
+		if (PlayerInfo::hp - damage < 0) PlayerInfo::hp = 0;
+		else PlayerInfo::hp -= damage;
+
+		PlayerInfo::CalHpPercent();
+		mHp->SetUVCoord(PlayerInfo::hpPercent);
+
+		SetHit(true);
+	}
+
+    void Player::UseMana(int mana)
+    {
+		if (PlayerInfo::mp - mana < 0) PlayerInfo::mp = 0;
+		else PlayerInfo::mp -= mana;
+
+		PlayerInfo::CalMpPercent();
+		mMp->SetUVCoord(PlayerInfo::mpPercent);
+    }
+
+    void Player::RestoreHp(int hp)
+    {
+		if(PlayerInfo::hp + hp < PlayerInfo::hpCapacity)
+		{
+			PlayerInfo::hp += hp;
+		}else
+		{
+			PlayerInfo::hp = PlayerInfo::hpCapacity;
+		}
+		PlayerInfo::CalHpPercent();
+		mHp->SetUVCoord(PlayerInfo::hpPercent);
+    }
+
+    void Player::RestoreMp(int mp)
+    {
+		if (PlayerInfo::mp + mp < PlayerInfo::mpCapacity)
+		{
+			PlayerInfo::mp += mp;
+		}
+		else
+		{
+			PlayerInfo::mp = PlayerInfo::mpCapacity;
+		}
+		PlayerInfo::CalMpPercent();
+		mMp->SetUVCoord(PlayerInfo::mpPercent);
+    }
 }

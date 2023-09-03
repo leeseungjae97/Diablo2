@@ -186,6 +186,7 @@
     <ClInclude Include="mPlayerInfo.h" />
     <ClInclude Include="mPlayerScript.h" />
     <ClInclude Include="mPlayScene.h" />
+    <ClInclude Include="mPosionScript.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
     <ClInclude Include="mSkill.h" />
     <ClInclude Include="mSkillMultiFire.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="mPlayerInfo.cpp" />
     <ClCompile Include="mPlayerScript.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
+    <ClCompile Include="mPosionScript.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
     <ClCompile Include="mSkill.cpp" />
     <ClCompile Include="mSkillMultiFire.cpp" />

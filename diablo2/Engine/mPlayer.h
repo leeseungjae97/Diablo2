@@ -21,16 +21,11 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
-        void Hit(int damage) { 
-            if (PlayerInfo::hp - damage < 0) PlayerInfo::hp = 0;
-            else PlayerInfo::hp -= damage; 
+        void Hit(int damage);
 
-            PlayerInfo::CalHpPercent();
-            mHp->SetUVCoord(PlayerInfo::hpPercent);
-            
-            SetHit(true);
-        }
-
+        void UseMana(int mana);
+        void RestoreHp(int hp);
+        void RestoreMp(int mp);
         UVUI* GetHpUI() { return mHp; }
         UVUI* GetMpUI() { return mMp; }
 

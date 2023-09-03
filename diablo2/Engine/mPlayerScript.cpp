@@ -143,6 +143,7 @@ namespace m
 				if (bFire)
 				{
 					Skill* skill = nullptr;
+					PlayerInfo::player->UseMana(10);
 					MAKE_SKILL(PlayerInfo::GetSkill(activeSkillIndex), skill, GET_POS(PlayerInfo::player), eLayerType::PlayerSkill);
 					bFire = false;
 				}
