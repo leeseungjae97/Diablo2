@@ -26,6 +26,8 @@ namespace m
 		SET_SCALE_XYZ(this, 27.f * itemInvenDisplayScale[(UINT)item][0] * Texture::GetWidRatio()
 			, 27.f * itemInvenDisplayScale[(UINT)item][1] * Texture::GetHeiRatio(), 0.f);
 
+		prevPosition = GET_POS(this);
+
 		//InvenItemInit();
 	}
 	InvenItem::~InvenItem()

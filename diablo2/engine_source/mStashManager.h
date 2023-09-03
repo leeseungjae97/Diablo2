@@ -45,7 +45,6 @@ namespace m
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
 
 		static void AddItem(InvenItem* item, eStashType stashType);
-
 		static void EraseItem(InvenItem* item);
 
 		static std::vector<EmptyRect*>& GetInvens() { return invens; }
@@ -75,15 +74,23 @@ namespace m
 		static std::vector<InvenItem*> GetShopItems() { return shopItems; }
 
 		static void SetInventoryVisible(GameObject::eState state) { eInventoryState = state; }
+		static void SetExPocketVisible(GameObject::eState state) { eExPocketState = state; }
 
+		static bool CheckItemCenterPosIntersectItem(Vector2 centerPosFromInvenLeftTop, InvenItem* item, eStashType type);
+		static bool CheckInvensFill(int leftTopInvenIndex, InvenItem* item, eStashType type);
 		static void ChangeFillIntersectArea(Vector2 areaPos, bool _bV, InvenItem* item, eStashType type);
 		static bool CheckItemSizeIntersectOutline(Vector2 comparePos, InvenItem* item, eStashType type);
-		static bool CheckItemSizeIntersectItem(Vector2 leftTopPlusScale, InvenItem* item, eStashType type);
+		//static bool CheckFillSetction(Vector2 leftTopPlusScale, InvenItem* item, eStashType type);
 		static bool CheckLimitIntersectItems(int limit, eStashType type);
 	private:
+		static InvenItem* getPocketPosItem(int index);
+		static InvenItem* getExPocketPosItem(int index);
+		static void reArrangePocket();
+		static void reArrangeExPocket();
 		static void inventoryUpdate();
 		static void shopInventoryUpdate();
 		static void pocketInventoryUpdate();
+		static void usePocketPosion();
 
 		static Camera* mCurCamera;
 		//static std::vector<Stash> stashPositions;
@@ -99,6 +106,7 @@ namespace m
 		static std::vector<EmptyRect*> pockets;
 		static std::vector<EmptyRect*> exPockets;
 
+
 		static EmptyRect* invenWeapon1Left;   // x 60 y 117
 		static EmptyRect* invenWeapon1Right;  // x 60 y 117
 		static EmptyRect* invenRingLeft;      // x 30 y 31
@@ -112,10 +120,12 @@ namespace m
 
 		static std::vector<InvenItem*> invenItems;
 		static std::vector<InvenItem*> pocketItems;
+		static std::vector<InvenItem*> exPocketItems;
 		static std::vector<InvenItem*> shopItems;
 
 		static GameObject::eState eInventoryState;
 		static GameObject::eState eShopInventoryState;
+		static GameObject::eState eExPocketState;
 	};
 }
 

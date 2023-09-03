@@ -202,10 +202,12 @@ namespace m
 		{
 			hoverRect = true;
 			mExPocketUI->SetState(eState::RenderUpdate);
+			StashManager::SetExPocketVisible(eState::RenderUpdate);
 		}
 		if (!hoverRect && !mExPocketUI->GetHover())
 		{
 			mExPocketUI->SetState(eState::NoRenderUpdate);
+			StashManager::SetExPocketVisible(eState::NoRenderUpdate);
 		}
 	}
 	void BottomUI::LateUpdate()

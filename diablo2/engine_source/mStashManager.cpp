@@ -17,6 +17,7 @@ namespace m
 
 	std::vector<InvenItem*> StashManager::invenItems = {};
 	std::vector<InvenItem*> StashManager::pocketItems = {};
+	std::vector<InvenItem*> StashManager::exPocketItems = {};
 	std::vector<InvenItem*> StashManager::shopItems = {};
 
 	EmptyRect* StashManager::invenWeapon1Left = nullptr;
@@ -39,6 +40,7 @@ namespace m
 
 	GameObject::eState StashManager::eInventoryState = GameObject::eState::NoRenderNoUpdate;
 	GameObject::eState StashManager::eShopInventoryState = GameObject::eState::NoRenderNoUpdate;
+	GameObject::eState StashManager::eExPocketState = GameObject::eState::NoRenderNoUpdate;
 
 	//StashManager::eStashType StashManager::GetHoverStashType()
 	//{
@@ -258,7 +260,7 @@ namespace m
 					Vector2 invenLeftTop = invenPos + (invenSize / 2.f);
 					Vector2 centerPosFromInvenLeftTop = Vector2(invenLeftTop.x + subScale.x, invenLeftTop.y - subScale.y);
 
-					if (CheckItemSizeIntersectItem(centerPosFromInvenLeftTop, curItem, type)) continue;
+					if (CheckItemCenterPosIntersectItem(centerPosFromInvenLeftTop, curItem, type)) continue;
 
 					curItem->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z));
 					SET_POS_XYZ(curItem, centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z);
@@ -271,7 +273,7 @@ namespace m
 					if (curInven->GetFill()) continue;
 
 					if (CheckItemSizeIntersectOutline(invenPos, curItem, type)) continue;
-					if (CheckItemSizeIntersectItem(invenPos, curItem, type)) continue;
+					if (CheckItemCenterPosIntersectItem(invenPos, curItem, type)) continue;
 
 					curItem->SetPrevPosition(Vector3(invenPos.x, invenPos.y, curPos.z));
 					SET_POS_XYZ(curItem, invenPos.x, invenPos.y, curPos.z);
@@ -347,8 +349,8 @@ namespace m
 		pocketInventoryUpdate();
 		shopInventoryUpdate();
 
-		if (ItemDeploy())
-			MouseManager::FreeMouseFollow();
+		ItemDeploy();
+		MouseManager::FreeMouseFollow();
 	}
 
 	bool StashManager::ItemDeploy()
@@ -389,56 +391,69 @@ namespace m
 		{
 			type = eStashType::ExPocketInven;
 		}
+
 		if (type != eStashType::End)
 		{
 			if (DeployException(type, {}, { (int)eItemType::Posion }))
 				return true;
 		}
-		
-		if (DeployException(eStashType::Equiment, { 1,2,3 }, {}))
+
+		if (DeployException(eStashType::Equiment, { (int)eItemType::Posion, (int)eItemType::Scroll }, {}))
 			return true;
 
-		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(item));
-		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(item));
 		SET_POS_VEC(item, item->GetPrevPosition());
 
 		return false;
 	}
 	bool StashManager::DeployException(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType)
 	{
-		InvenItem* followItem = MouseManager::GetMouseFollow();
+		InvenItem* item = MouseManager::GetMouseFollow();
 
-		for (int except : exceptType)
-			if ((eItemType)except == followItem->GetItemType()) return false;
-
-		bool matchType = false;
-		for (int except : acceptType)
-			if ((eItemType)except == followItem->GetItemType()) matchType = true;
-
-		if (!matchType) return false;
-
-		Vector3 prevPosition = followItem->GetPrevPosition();
-
-		std::vector<EmptyRect*>* items = nullptr;
-
-		if (type == eStashType::PocketInven) items = &pockets;
-		if (type == eStashType::ExPocketInven) items = &exPockets;
-		if (type == eStashType::Equiment) items = &equiments;
-
-		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(followItem));
-
-		for (int i = 0; i < items->size(); ++i)
+		if(!exceptType.empty())
 		{
-			Vector2 itemPos = (*items)[i]->GetPos();
-			Vector2 itemScale = (*items)[i]->GetSize();
+			for (int except : exceptType)
+				if ((eItemType)except == item->GetItemType()) return false;
+		}
+
+		if(!acceptType.empty())
+		{
+			bool matchType = false;
+			for (int except : acceptType)
+				if ((eItemType)except == item->GetItemType()) matchType = true;
+
+			if (!matchType) return false;
+		}
+		
+
+		Vector3 prevPosition = item->GetPrevPosition();
+
+		std::vector<EmptyRect*>* _invens = nullptr;
+
+		if (type == eStashType::PocketInven) _invens = &pockets;
+		if (type == eStashType::ExPocketInven) _invens = &exPockets;
+		if (type == eStashType::Equiment) _invens = &equiments;
+
+		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(item));
+
+		for (int i = 0; i < _invens->size(); ++i)
+		{
+			Vector2 itemPos = (*_invens)[i]->GetPos();
+			Vector2 itemScale = (*_invens)[i]->GetSize();
 			if (Vector2::PointIntersectRect(itemPos, itemScale, thisPosV2))
 			{
-				SET_POS_VEC(followItem, Vector3(itemPos.x, itemScale.y, prevPosition.z));
-				MoveOtherStash(followItem, eStashType::ExPocketInven);
+				ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition)
+					, false, item, item->GetStashType());
+
+				SET_POS_VEC(item, Vector3(itemPos.x, itemPos.y, prevPosition.z));
+				MoveOtherStash(item, type);
+
+				ChangeFillIntersectArea(Vector2(itemPos.x, itemPos.y)
+					, true, item, type);
+
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	bool StashManager::DeployTetris(eStashType type)
 	{
@@ -471,121 +486,123 @@ namespace m
 			Vector2 invenPos = (*_invens)[i]->GetPos();
 			Vector2 invenSize = (*_invens)[i]->GetSize();
 
-			// 아이템의 크기가 1, 1보다 클 때.
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
 				Vector2 subScale = thisScaleV2 / 2.0f;
-				Vector2 leftTop = Vector2(invenPos.x - subScale.x, invenPos.y + subScale.y);
+				Vector2 leftTop = Vector2(thisPosV2.x - subScale.x, thisPosV2.y + subScale.y);
 
-				// 아이템의 leftTop을 구해 invenPos와 충돌하는지 확인
 				if (Vector2::PointIntersectRect(invenPos
 					, invenSize
 					, leftTop))
 				{
-
 					invenPos.x -= (*_invens)[i]->GetSize().x / 2.f;
 					invenPos.y += (*_invens)[i]->GetSize().y / 2.f;
 
-					Vector2 finalPos = Vector2(invenPos.x + thisScaleV2.x / 2.f, invenPos.y - thisScaleV2.y / 2.f);
+					Vector2 centerPosInvenleftTopPlus = Vector2(invenPos.x + thisScaleV2.x / 2.f, invenPos.y - thisScaleV2.y / 2.f);
 
 					// 충돌한 위치에 이미 아이템이 2개 이상있다면 continue
-					if (CheckLimitIntersectItems(2, eStashType::Inventory)) continue;
-					if (CheckItemSizeIntersectOutline(finalPos, item, type)) continue;
+					if (CheckLimitIntersectItems(2, type)) continue;
+					if (CheckItemSizeIntersectOutline(centerPosInvenleftTopPlus, item, type)) continue;
 
-					// 이전에 아이템이 있던 영역 false fill
-					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false, item, eStashType::Inventory);
+					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false, item, type);
 
-					// 아이템의 pos 변경
-					SET_POS_VEC(item, Vector3(finalPos.x, finalPos.y, prevPosition.z));
-					// 아이템의 이전 위치 변경
-					item->SetPrevPosition(GET_POS(item));
+					SET_POS_VEC(item, Vector3(centerPosInvenleftTopPlus.x, centerPosInvenleftTopPlus.y, prevPosition.z));
+					item->SetPrevPosition(Vector3(centerPosInvenleftTopPlus.x, centerPosInvenleftTopPlus.y, prevPosition.z));
 
-					// 아이템이 이동할 영역 false true
-					ChangeFillIntersectArea(finalPos, true, item, eStashType::Inventory);
+					ChangeFillIntersectArea(centerPosInvenleftTopPlus, true, item, type);
 
-					// 이동할 위치에 item이 존재한다면 해당 item을 mousefollow로 만들고 현재 item 해당위치에 지정
-					// 수정해야됨 TODO:
+					//if(CheckInvensFill(i, item, type))
+					//{
+					//}
 					for (int i = 0; i < _invenItems->size(); ++i)
 					{
 						if (item != (*_invenItems)[i])
 						{
+							// 한개만 충돌한 경우
 							if ((*_invenItems)[i]->GetComponent<Collider2D>()->GetOnEnter() ||
 								(*_invenItems)[i]->GetComponent<Collider2D>()->GetOnStay())
 							{
-								(*_invenItems)[i]->SetMouseFollow(true);
+								// 이미 hover인 경우 예외처리.
+								if(!(*_invenItems)[i]->GetHover())
+								    (*_invenItems)[i]->SetMouseFollow(true);
 
-								SET_POS_VEC((*_invenItems)[i], GET_POS(item));
+							    //item->SetMouseFollow(false);
+								//SET_POS_VEC((*_invenItems)[i], GET_POS(item));
 								break;
 							}
 						}
 					}
+					MoveOtherStash(item, type);
 					return true;
 				}
 			}
-			else
+			if (itemInvenDisplayScale[(UINT)mItem][0] == 1.f
+				&& itemInvenDisplayScale[(UINT)mItem][1] == 1.f)
 			{
 				// 아이템의 크기가 1, 1 이하인 것.
 				if ((*_invens)[i]->MouseHover(prevPosition.z, mCurCamera))
 				{
-					if (CheckLimitIntersectItems(2, eStashType::Inventory)) continue;
-					//if (CheckItemSizeIntersectOutline(invens[i]->GetPos())) continue;
+					if (CheckLimitIntersectItems(2, type)) continue;
+					if (CheckItemSizeIntersectOutline(invenPos, item, type)) continue;
 
-					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false, item, eStashType::Inventory);
+					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false, item, type);
 					Vector3 invenPosV3 = Vector3(invenPos.x, invenPos.y, prevPosition.z);
 					SET_POS_VEC(item, invenPosV3);
 					item->SetPrevPosition(invenPosV3);
-					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(GET_POS(item)), true, item, eStashType::Inventory);
+					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(GET_POS(item)), true, item, type);
 
-					for (int i = 0; i < _invenItems->size(); ++i)
-					{
-						if (item != (*_invenItems)[i])
-						{
-							if ((*_invenItems)[i]->GetComponent<Collider2D>()->GetOnEnter() ||
-								(*_invenItems)[i]->GetComponent<Collider2D>()->GetOnStay())
-							{
-								(*_invenItems)[i]->SetMouseFollow(true);
-								SET_POS_VEC((*_invenItems)[i], GET_POS(item));
-								break;
-							}
-						}
-					}
+					//for (int i = 0; i < _invenItems->size(); ++i)
+					//{
+					//	if (item != (*_invenItems)[i])
+					//	{
+					//		if ((*_invenItems)[i]->GetComponent<Collider2D>()->GetOnEnter() ||
+					//			(*_invenItems)[i]->GetComponent<Collider2D>()->GetOnStay())
+					//		{
+					//			//(*_invenItems)[i]->SetMouseFollow(true);
+					//			//item->SetMouseFollow(false);
+					//			//SET_POS_VEC((*_invenItems)[i], GET_POS(item));
+					//			//SET_POS_VEC((*_invenItems)[i], invenPosV3);
+					//			break;
+					//		}
+					//	}
+					//}
+					MoveOtherStash(item, type);
 					return true;
 				}
 			}
 		}
+		return false;
 	}
 	void StashManager::MoveOtherStash(InvenItem* item, eStashType stashTypeMove)
 	{
 		eStashType stashType = item->GetStashType();
+
 		if (stashType == eStashType::Inventory)
 			std::erase(invenItems, item);
 
 		if (stashType == eStashType::ExPocketInven)
-			std::erase(pocketItems, item);
+			std::erase(exPocketItems, item);
 
-		if (stashType == eStashType::PocketInven)
+	    if(stashType == eStashType::PocketInven)
 			std::erase(pocketItems, item);
 
 		if (stashType == eStashType::Shop)
 			std::erase(shopItems, item);
 
+		item->SetStashType(stashTypeMove);
 
 		if (stashTypeMove == eStashType::Inventory)
-		{
 			invenItems.push_back(item);
-		}
-
-		if (stashTypeMove == eStashType::PocketInven
-			|| stashTypeMove == eStashType::ExPocketInven)
-		{
+		
+		if (stashTypeMove == eStashType::PocketInven)
 			pocketItems.push_back(item);
-		}
+
+        if(stashTypeMove == eStashType::ExPocketInven)
+			exPocketItems.push_back(item);
 
 		if (stashTypeMove == eStashType::Shop)
-		{
 			shopItems.push_back(item);
-		}
 	}
 
 	void StashManager::inventoryUpdate()
@@ -612,6 +629,47 @@ namespace m
 
 	void StashManager::pocketInventoryUpdate()
 	{
+		for(InvenItem* pocketItem : pocketItems)
+		{
+			if (pocketItem->GetStashType() == eStashType::ExPocketInven)
+				pocketItem->SetState(eExPocketState);
+		}
+
+		usePocketPosion();
+	}
+
+	InvenItem* StashManager::getPocketPosItem(int index)
+	{
+		Vector2 pocketInvenPos = pockets[index]->GetPos();
+		Vector2 pocketInvenSize = pockets[index]->GetSize();
+
+		for(InvenItem* item : pocketItems)
+		{
+			if (Vector2::PointIntersectRect(pocketInvenPos, pocketInvenSize, GET_VEC2_F_VEC3_D(GET_POS(item))))
+			{
+				return item;
+			}
+		}
+		return nullptr;
+	}
+
+	InvenItem* StashManager::getExPocketPosItem(int index)
+	{
+		Vector2 pocketInvenPos = exPockets[index]->GetPos();
+		Vector2 pocketInvenSize = exPockets[index]->GetSize();
+
+		for (InvenItem* item : exPocketItems)
+		{
+			if (Vector2::PointIntersectRect(pocketInvenPos, pocketInvenSize, GET_VEC2_F_VEC3_D(GET_POS(item))))
+			{
+				return item;
+			}
+		}
+		return nullptr;
+	}
+
+	void StashManager::usePocketPosion()
+	{
 		int keyIndex = -1;
 		if (Input::GetKeyDownOne(eKeyCode::_1))
 		{
@@ -631,7 +689,44 @@ namespace m
 		}
 		if (keyIndex != -1)
 		{
+			InvenItem* item = getPocketPosItem(keyIndex);
+			if(item) EraseItem(item);
+		}
+		reArrangePocket();
+	}
+	void StashManager::reArrangePocket()
+	{
+		for(int i = 0 ; i < pockets.size(); ++i)
+		{
+			InvenItem* item = getPocketPosItem(i);
+			Vector2 pocketPos = pockets[i]->GetPos();
+			if(nullptr == item)
+			{
+				InvenItem* item1= getExPocketPosItem(i);
+				if (nullptr != item1)
+				{
+				    MoveOtherStash(item1, eStashType::PocketInven);
+					SET_POS_XYZ(item1, pocketPos.x, pocketPos.y, -1.f);
+				}
+			}
+		}
+		reArrangeExPocket();
+	}
 
+	void StashManager::reArrangeExPocket()
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			InvenItem* item = getExPocketPosItem(i);
+			if(nullptr == item)
+			{
+				item = getExPocketPosItem(i + 4);
+				if(nullptr != item)
+				{
+					Vector2 pocketInvenPos = exPockets[i]->GetPos();
+					SET_POS_XYZ(item, pocketInvenPos.x, pocketInvenPos.y, -1.f);
+				}
+			}
 		}
 	}
 
@@ -669,12 +764,14 @@ namespace m
 		{
 			std::erase(shopItems, item);
 		}
+
+		item->SetState(GameObject::Delete);
 	}
 
 	bool StashManager::CheckItemSizeIntersectOutline(Vector2 comparePos, InvenItem* item, eStashType type)
 	{
 		MAKE_VEC2_F_VEC3(thisPosV2, comparePos);
-		MAKE_VEC2_F_VEC3(thisScaleV2, GET_POS(item));
+		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(item));
 
 		EmptyRect* inC = nullptr;
 
@@ -696,18 +793,14 @@ namespace m
 		}
 		return false;
 	}
-
-	bool StashManager::CheckItemSizeIntersectItem(Vector2 centerPosFromInvenLeftTop, InvenItem* item, eStashType type)
+	bool StashManager::CheckItemCenterPosIntersectItem(Vector2 centerPosFromInvenLeftTop, InvenItem* item, eStashType type)
 	{
 		std::vector<InvenItem*>* items = nullptr;
-
 		if (type == eStashType::Inventory) items = &invenItems;
 		if (type == eStashType::Shop) items = &shopItems;
-
 		MAKE_VEC2_F_VEC3(thisScaleV2, GET_SCALE(item));
 		//MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(item));
 		eItem mItem = item->GetEItem();
-
 		if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 			|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 		{
@@ -716,7 +809,6 @@ namespace m
 				InvenItem* item = (*items)[i];
 				MAKE_VEC2_F_VEC3(itemPosV2, GET_POS(item));
 				MAKE_VEC2_F_VEC3(itemScaleV2, GET_SCALE(item));
-
 				if (Vector2::RectIntersectRect(itemPosV2, itemScaleV2, centerPosFromInvenLeftTop, thisScaleV2))
 					return true;
 				//InvenItem* item = (*items)[i];
@@ -724,10 +816,32 @@ namespace m
 				//	|| GET_COMP(item, Collider2D)->GetOnEnter())
 				//{
 				//	return true;
-				//}
 			}
 		}
 		return false;
+	}
+
+	bool StashManager::CheckInvensFill(int leftTopInvenIndex, InvenItem* item, eStashType type)
+	{
+		std::vector<EmptyRect*>* _invens = nullptr;
+
+		if (type == eStashType::Inventory) _invens = &invens;
+		if (type == eStashType::Shop) _invens = &shopInvens;
+
+		eItem mItem = item->GetEItem();
+
+		int dx = (leftTopInvenIndex % 10)+ (int)itemInvenDisplayScale[(UINT)mItem][0];
+		int dy = (leftTopInvenIndex / 10) + (int)itemInvenDisplayScale[(UINT)mItem][1];
+
+		for(int y = leftTopInvenIndex; y < dy; ++y)
+		{
+			for (int x = leftTopInvenIndex; x < dx; ++x)
+			{
+				if ((y * 10 + x) >= _invens->size()) return false;
+				if ((*_invens)[y * 10 + x]->GetFill()) return false;
+			}
+		}
+		return true;
 	}
 	void StashManager::ChangeFillIntersectArea(Vector2 centerPosFromInvenLeftTop, bool _bV, InvenItem* item, eStashType type)
 	{
@@ -751,6 +865,28 @@ namespace m
 			}
 		}
 	}
+	//bool StashManager::CheckFillSetction(Vector2 centerPosFromInvenLeftTop, InvenItem* item, eStashType type)
+	//{
+	//	std::vector<EmptyRect*>* items = nullptr;
+
+	//	if (type == eStashType::Inventory) items = &invens;
+	//	if (type == eStashType::Shop) items = &shopInvens;
+
+	//	if (nullptr == items) return false;
+
+	//	for (int i = 0; i < items->size(); ++i)
+	//	{
+	//		Vector2 invenPos = (*items)[i]->GetPos();
+	//		Vector2 invenSize = (*items)[i]->GetSize();
+
+	//		MAKE_VEC2_F_VEC3(thisScale, GET_SCALE(item));
+
+	//		if (Vector2::RectIntersectRect(invenPos, invenSize, centerPosFromInvenLeftTop, thisScale))
+	//		{
+	//			//(*items)[i]->SetFill(_bV);
+	//		}
+	//	}
+	//}
 	bool StashManager::CheckLimitIntersectItems(int limit, eStashType type)
 	{
 		std::vector<InvenItem*>* items = nullptr;
