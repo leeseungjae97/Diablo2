@@ -44,6 +44,14 @@ namespace m
 		//helmet
 		L"cap",
 	};
+	std::wstring fieldItemTable[(int)eItem::END] = {
+		L"hpPosionField",
+		L"mpPosionField",
+		L"stoneField",
+		L"leaderArmorField",
+		L"capField"
+	};
+	
 	eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
 		eItemType::Posion,

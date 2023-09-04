@@ -6,7 +6,7 @@ namespace m
         public Item
     {
     public:
-        FieldItem(eItem item);
+        FieldItem(eItem item, Vector3 initPos);
         virtual ~FieldItem();
 
         virtual void Initialize() override;

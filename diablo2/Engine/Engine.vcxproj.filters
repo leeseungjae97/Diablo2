@@ -123,7 +123,9 @@
     <ClCompile Include="mBackgroundScript.cpp">
       <Filter>Script\BackgroundScript</Filter>
     </ClCompile>
-    <ClCompile Include="mPosionScript.cpp" />
+    <ClCompile Include="mPosionScript.cpp">
+      <Filter>Script\PosionScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -245,14 +247,13 @@
     <ClInclude Include="mBackgroundScript.h">
       <Filter>Script\BackgroundScript</Filter>
     </ClInclude>
-    <ClInclude Include="mPosionScript.h" />
+    <ClInclude Include="mPosionScript.h">
+      <Filter>Script\PosionScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
       <UniqueIdentifier>{54b77dc0-4334-4b63-a526-4319e45a8ea4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Layer">
-      <UniqueIdentifier>{15bfba6b-8a12-4b28-93b3-845d6c822bf7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Script">
       <UniqueIdentifier>{1911ea2b-855b-494d-bcd2-d2f42ad0e9c7}</UniqueIdentifier>
