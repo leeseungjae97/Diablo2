@@ -15,7 +15,8 @@
 
 #include "mPlayer.h"
 #include "mMonster.h"
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
+#include "mPlayerStatus.h"
 
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
@@ -143,8 +144,8 @@ namespace m
 				if (bFire)
 				{
 					Skill* skill = nullptr;
-					PlayerInfo::player->UseMana(10);
-					MAKE_SKILL(PlayerInfo::GetSkill(activeSkillIndex), skill, GET_POS(PlayerInfo::player), eLayerType::PlayerSkill);
+					PlayerManager::player->UseMana(10);
+					MAKE_SKILL(PlayerManager::GetSkill(activeSkillIndex), skill, GET_POS(PlayerManager::player), eLayerType::PlayerSkill);
 					bFire = false;
 				}
 			};
@@ -179,10 +180,10 @@ namespace m
 	}
 	void PlayerScript::Update()
 	{
-		if (nullptr == PlayerInfo::player)
+		if (nullptr == PlayerManager::player)
 			return;
 
-		Vector3 direction = PlayerInfo::player->GetDirection();
+		Vector3 direction = PlayerManager::player->GetDirection();
 
 		float degree = RadianToDegree(atan2(direction.x, direction.y));
 		int n = degree / (180.f / 9.f);
@@ -209,7 +210,7 @@ namespace m
 		//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eSixteenDirection::RightUp2;
 		//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eSixteenDirection::RightUp1;
 
-		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerInfo::player->StopF()
+		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerManager::player->StopF()
 		//	&& ((Player*)GetOwner())->GetAttack())
 		//{
 		//	((Player*)GetOwner())->SetFMID(-1);
@@ -230,7 +231,7 @@ namespace m
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
 		}
-		if (PlayerInfo::player->GetHit())
+		if (PlayerManager::player->GetHit())
 		{
 			mAnimationType = ePlayerAnimationType::GetHit;
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
@@ -245,7 +246,7 @@ namespace m
 			)
 			return;
 
-		if (PlayerInfo::player->StopF())
+		if (PlayerManager::player->StopF())
 		{
 			GetOwner()->SetBattleState(GameObject::Idle);
 			mAnimationType = ePlayerAnimationType::Natural;
@@ -291,18 +292,18 @@ namespace m
 	}
 	void PlayerScript::Hit(bool hit, GameObject::eBattleState state)
 	{
-		PlayerInfo::player->SetHit(hit);
+		PlayerManager::player->SetHit(hit);
 		GetOwner()->SetBattleState(state);
 		//mRSO->ActiveOverlay();
 	}
 	void PlayerScript::AttackProgress()
 	{
-		if (PlayerInfo::player->GetRangeCollider()->GetOnEnter()
-			|| PlayerInfo::player->GetRangeCollider()->GetOnStay())
+		if (PlayerManager::player->GetRangeCollider()->GetOnEnter()
+			|| PlayerManager::player->GetRangeCollider()->GetOnStay())
 		{
 			if (!bDamage)
 			{
-				for (Collider2D* col : PlayerInfo::player->GetRangeCollider()->GetCollidereds())
+				for (Collider2D* col : PlayerManager::player->GetRangeCollider()->GetCollidereds())
 				{
 					Monster* mon = dynamic_cast<Monster*>(col->GetOwner());
 					mon->Hit(10);

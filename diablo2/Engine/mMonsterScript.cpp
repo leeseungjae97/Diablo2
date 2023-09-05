@@ -8,7 +8,7 @@
 
 #include "mPlayer.h"
 #include "mMonster.h"
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 
 #include "mSkillMultiFire.h"
 
@@ -192,8 +192,8 @@ namespace m
 			{
 				//if (mMonster ->GetSightCollider()->GetOnEnter()
 				//	|| mMonster ->GetSightCollider()->GetOnStay()
-				//	&& mMonster ->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-				if (mMonster->GetSightCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+				//	&& mMonster ->GetSightCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+				if (mMonster->GetSightCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 				{
 					GetOwner()->SetBattleState(GameObject::Cast);
 					mAnimationType = T::eAnimationType::SpecialCast;
@@ -239,12 +239,12 @@ namespace m
 		}
 		//if (mMonster->GetRangeCollider()->GetOnEnter()
 		//	|| mMonster->GetRangeCollider()->GetOnStay()
-		//	&& mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		//	&& mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 
 		if (mMonster->Arrival())
 		{
 
-			if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+			if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 			{
 				fDelay += Time::fDeltaTime();
 				if (curMonsterData.fAttackDelay <= fDelay)
@@ -363,11 +363,11 @@ namespace m
 	template<typename T>
 	void MonsterScript<T>::AttackProgress()
 	{
-		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			if (!bDamaged)
 			{
-				PlayerInfo::player->Hit(10);
+				PlayerManager::player->Hit(10);
 				bDamaged = true;
 			}
 		}

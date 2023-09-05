@@ -7,7 +7,7 @@
 
 #include "mButton.h"
 #include "mSkillButton.h"
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 
 
 namespace m
@@ -181,7 +181,7 @@ namespace m
 			for (int j = 0; j < 10; ++j)
 			{
 				// 현재 스킬 활성화 위한 기반 스킬 활성화 확인
-				if (skillTree[i][j] > PlayerInfo::learnedSkill[skillTreeSelectNum][j]) noAntec = false;
+				if (skillTree[i][j] > PlayerManager::learnedSkill[skillTreeSelectNum][j]) noAntec = false;
 			}
 
 			btn->SetState(GetState());
@@ -193,19 +193,19 @@ namespace m
 		}
 		//for (SkillButton* btn : skills)
 		//{
-		//	if (PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()] == 0)
+		//	if (PlayerManager::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()] == 0)
 		//	{
 		//		btn->SetCanClick(false);
 		//	}
 		//}
-		if (PlayerInfo::skillPoint != 0)
+		if (PlayerManager::skillPoint != 0)
 		{
 			for (SkillButton* btn : skills)
 			{
 				if (btn->GetOneClick())
 				{
-					++PlayerInfo::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()];
-					--PlayerInfo::skillPoint;
+					++PlayerManager::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()];
+					--PlayerManager::skillPoint;
 				}
 			}
 		}

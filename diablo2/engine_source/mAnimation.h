@@ -11,12 +11,14 @@ namespace m
 	class Animation : public Resource
 	{
 	public:
-		struct Sprite	
+		struct Sprite
 		{
 			Vector2 leftTop;
 			Vector2 size;
 			Vector2 offset;
 			Vector2 atlasSize;
+			Vector2 offsetOfCenterPos;
+
 			float duration;
 			float alpha;
 
@@ -39,24 +41,33 @@ namespace m
 		void Update();
 		void LateUpdate();
 		void Render();
+		void Create(std::wstring name
+			, std::shared_ptr<graphics::Texture> atlas
+			, Vector2 leftTop
+			, Vector2 size
+			, UINT columnLength
+			, Vector2 offset = Vector2::Zero
+			, Vector2 offsetOfCenterPos = Vector2::Zero
+			, float duration = 0.0f
+			, float alpha = 1.0f);
 
 		void Create(std::wstring name
-					, std::shared_ptr<graphics::Texture> atlas
-					, Vector2 leftTop
-					, Vector2 size
-					, UINT columnLength
-					, Vector2 offset = Vector2::Zero
-					, float duration = 0.0f
-					, float alpha = 1.0f);
+			, std::shared_ptr<graphics::Texture> atlas
+			, Vector2 leftTop
+			, Vector2 size
+			, UINT columnLength
+			, Vector2 offset = Vector2::Zero
+			, float duration = 0.0f
+			, float alpha = 1.0f);
 
 		void Binds();
 		void Reset();
 
 		void SetStop() { mbStop = true; }
-		void SetIndex			(int index) { mCurIndex = index; }
-		void SetStartIndex		(int index) { mAnimStartIndex = index; }
-		void SetProgressIndex	(int index) { mAnimProgressIndex = index; }
-		void SetEndIndex		(int index) { mAnimEndIndex = index; }
+		void SetIndex(int index) { mCurIndex = index; }
+		void SetStartIndex(int index) { mAnimStartIndex = index; }
+		void SetProgressIndex(int index) { mAnimProgressIndex = index; }
+		void SetEndIndex(int index) { mAnimEndIndex = index; }
 		const Sprite& GetCurrentSprite() { return mSprites[mCurIndex]; }
 
 		int GetIndex() { return mCurIndex; }

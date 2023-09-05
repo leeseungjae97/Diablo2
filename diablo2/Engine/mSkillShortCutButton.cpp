@@ -5,7 +5,7 @@
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mTexture.h"
 
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 
 namespace m
 {
@@ -87,9 +87,9 @@ namespace m
 
 		GetHoverClickSkill();
 
-		if (PlayerInfo::GetSkill(mSkillIndex) != mSkillType)
+		if (PlayerManager::GetSkill(mSkillIndex) != mSkillType)
 		{
-			mSkillType = PlayerInfo::GetSkill(mSkillIndex);
+			mSkillType = PlayerManager::GetSkill(mSkillIndex);
 			SET_MATERIAL(this, wsSkillIconNames[(int)mSkillType]);
 			//SetNormalMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
 			//SetClickMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
@@ -126,7 +126,7 @@ namespace m
 			{
 				if(Input::GetKeyDown(eKeyCode::LBUTTON))
 				{
-					PlayerInfo::SetSkill(mSkillIndex, skillTypes[i]);
+					PlayerManager::SetSkill(mSkillIndex, skillTypes[i]);
 					//return ;
 				}
 			}
@@ -148,9 +148,9 @@ namespace m
 			}
 			SET_POS_XYZ(skillImages, mSkillPos.x, mSkillPos.y, -1.f);
 		}
-		if (prevSkillPoint == PlayerInfo::skillPoint) return;
+		if (prevSkillPoint == PlayerManager::skillPoint) return;
 
-		prevSkillPoint = PlayerInfo::skillPoint;
+		prevSkillPoint = PlayerManager::skillPoint;
 
 		SetSkillBtnPos();
 		MeshRenderer* mr = GET_COMP(skillImages, MeshRenderer);
@@ -178,7 +178,7 @@ namespace m
 				if (skillFunctionTypes[i * 10 + j] == eSkillFunctionType::Passive)
 					continue;
 
-				if (PlayerInfo::learnedSkill[i][j] > 0)
+				if (PlayerManager::learnedSkill[i][j] > 0)
 				{
 					skillMatPos.push_back(Vector2(xPos, yPos));
 					++xPos;

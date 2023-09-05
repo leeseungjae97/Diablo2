@@ -7,7 +7,7 @@
 #include "mMouseManager.h"
 #include "mCollisionManager.h"
 
-#include "../Engine/mPlayerInfo.h"
+#include "..\Engine\mPlayerManager.h"
 #include "../Engine/mPlayer.h"
 
 #include "../editor_source/guiEditor.h"
@@ -89,8 +89,8 @@ namespace m
 
 		//wchar_t szFloat[100] = {};
 		//Vector3 pp = Vector3::Zero;
-		//if(PlayerInfo::player)
-		//pp = GET_POS(PlayerInfo::player);
+		//if(PlayerManager::player)
+		//pp = GET_POS(PlayerManager::player);
 		//Vector2 coord = Vector2(0.f, 0.f);
 
 		//if(TileManager::playerStandTile)

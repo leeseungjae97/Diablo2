@@ -22,6 +22,7 @@ namespace m::enums
 		Grid,
 		Background,
 		Tile,
+		FieldItem,
 		Wall,
 		Player,
 		PlayerBody,
@@ -34,7 +35,7 @@ namespace m::enums
 		MonsterSkill,
 		UI,
 		Item,
-		End = 16,
+		End = 20,
 	};
 	enum class eResourceType
 	{

@@ -7,7 +7,7 @@ namespace m
 {
 	class Player;
 	class InvenItem;
-	class PlayerInfo
+	class PlayerManager
 	{
 	public:
 		static int skillPoint;

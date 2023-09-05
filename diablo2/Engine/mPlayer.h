@@ -3,7 +3,7 @@
 #include "../engine_source/mCamera.h"
 #include "../engine_source/mTileManager.h"
 
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 #include "mMoveAbleObject.h"
 #include "mUVUI.h"
 namespace m

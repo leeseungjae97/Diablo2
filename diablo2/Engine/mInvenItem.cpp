@@ -55,7 +55,6 @@ namespace m
 				SetMouseFollow(GetMouseFollow() ? false : true);
 			}
 		}
-
 		if (GetMouseFollow())
 		{
 			MouseManager::SetMouseFollow(this);

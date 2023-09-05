@@ -3,7 +3,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mAnimator.h"
 
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 #include "mMonster.h"
 namespace m
 {
@@ -22,7 +22,7 @@ namespace m
 		else
 		{
 		
-			eSkillCastType castType = skillCastTypes[(UINT)PlayerInfo::GetSkill(mCurIndex)];
+			eSkillCastType castType = skillCastTypes[(UINT)PlayerManager::GetSkill(mCurIndex)];
 
 			if (castType == eSkillCastType::END) return;
 

@@ -56,6 +56,40 @@ namespace m
 	{
 	}
 	void Animation::Create(std::wstring name
+		, std::shared_ptr<graphics::Texture> atlas
+		, Vector2 leftTop
+		, Vector2 size
+		, UINT columnLength
+		, Vector2 offset
+		, Vector2 offsetOfCenterPos
+		, float duration
+		, float alpha)
+	{
+		SetKey(name);
+		mAtlas = atlas;
+
+		float width = (float)atlas->GetMetaDataWidth();
+		float height = (float)atlas->GetMetaDataHeight();
+
+		for (size_t i = 0; i < columnLength; i++)
+		{
+			Sprite sprite = {};
+			sprite.leftTop.x = leftTop.x + (i * size.x) / width;
+			sprite.leftTop.y = leftTop.y / height;
+			sprite.size.x = size.x / width;
+			sprite.size.y = size.y / height;
+			sprite.offset.x = offset.x / width;
+			sprite.offset.y = offset.y / height;
+			sprite.offsetOfCenterPos.x = offsetOfCenterPos.x / width;
+			sprite.offsetOfCenterPos.y = offsetOfCenterPos.y / height;
+			sprite.atlasSize = Vector2(size.x / width, size.y / height);
+			sprite.duration = duration;
+			sprite.alpha = alpha;
+
+			mSprites.push_back(sprite);
+		}
+	}
+	void Animation::Create(std::wstring name
 						   , std::shared_ptr<graphics::Texture> atlas
 						   , Vector2 leftTop
 						   , Vector2 size
@@ -99,6 +133,7 @@ namespace m
 		data.spriteSize = mSprites[mCurIndex].size;
 		data.spriteOffset = mSprites[mCurIndex].offset;
 		data.atlasSize = mSprites[mCurIndex].atlasSize;
+		data.spriteOffsetOfCenterPos = mSprites[mCurIndex].offsetOfCenterPos;
 		data.animationType = 1;
 		data.alpha = mSprites[mCurIndex].alpha;
 

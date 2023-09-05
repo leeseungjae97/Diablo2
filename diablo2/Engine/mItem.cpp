@@ -7,6 +7,7 @@ namespace m
 		, mItem(type)
 		, mInvenMaterial()
 		, mFieldMaterial()
+	    , mStashType(StashManager::eStashType::End)
 	{}
 	Item::~Item()
 	{}

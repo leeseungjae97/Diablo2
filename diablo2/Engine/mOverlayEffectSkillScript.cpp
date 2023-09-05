@@ -3,7 +3,7 @@
 #include "../engine_source/mMeshRenderer.h"
 
 #include "mSkill.h"
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 
 namespace m
 {
@@ -82,7 +82,7 @@ namespace m
 	}
 	void OverlayEffectSkillScript::UpdateOverlaySkill()
 	{
-		//if (mType == PlayerInfo::GetSkill(skillIndex)) return;
+		//if (mType == PlayerManager::GetSkill(skillIndex)) return;
 		if (skillIndex == -1)
 		{
 			if (eSkillType::END != mType)
@@ -109,7 +109,7 @@ namespace m
 		}
 		else
 		{
-			mType = PlayerInfo::GetSkill(skillIndex);
+			mType = PlayerManager::GetSkill(skillIndex);
 			eSkillCastType castType = skillCastTypes[(int)mType];
 
 			if (castNames[(int)castType] == L"") return;

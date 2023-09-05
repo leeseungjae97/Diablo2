@@ -13,6 +13,8 @@ namespace m
 {
 	bool MouseManager::mMouseOnUI = false;
 	bool MouseManager::mMouseOnMonster = false;
+	bool MouseManager::bFreeMouse = false;
+
 	Vector2 MouseManager::hoverMonsterTileCoord = Vector2(-1.f, -1.f);
 	int MouseManager::hoverMonsterId = -1;
 	InvenItem* MouseManager::mMouseFollowItem = nullptr;
@@ -48,6 +50,7 @@ namespace m
 	}
     void MouseManager::Update()
 	{
+		if (bFreeMouse) FreeMouseFollow();
 		UpdateMouseHoverUI();
 		UpdateMouseFollow();
 	}
@@ -88,6 +91,12 @@ namespace m
     void MouseManager::FreeMouseFollow()
     {
 		if (mMouseFollowItem) mMouseFollowItem = nullptr;
+		bFreeMouse = false;
+    }
+
+    void MouseManager::FreeMouseFollowNextUpdate()
+    {
+		bFreeMouse = true;
     }
 
     void MouseManager::LateUpdate()

@@ -28,13 +28,14 @@
 #include "mMonsterScript.h"
 #include "mBottomUI.h"
 #include "mUVUI.h"
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 #include "mSkillShortCutButton.h"
 #include "mParticleSystem.h"
 #include "mOverlayEffectSkillScript.h"
 #include "mFallScript.h"
 #include "mTileSystem.h"
 #include "mCameraScript.h"
+#include "mFieldItem.h"
 
 extern m::Application application;
 namespace m
@@ -88,12 +89,12 @@ namespace m
 
 		SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
 
-		PlayerInfo::Initialize();
+		PlayerManager::Initialize();
 
-		SET_MAIN_CAMERA(PlayerInfo::player);
-		AddGameObject(eLayerType::Player, PlayerInfo::player);
-		ADD_COMP(PlayerInfo::player, PlayerScript);
-		GetSceneMainCamera()->SetFollowObject(PlayerInfo::player);
+		SET_MAIN_CAMERA(PlayerManager::player);
+		AddGameObject(eLayerType::Player, PlayerManager::player);
+		ADD_COMP(PlayerManager::player, PlayerScript);
+		GetSceneMainCamera()->SetFollowObject(PlayerManager::player);
 
 		//GameObject* qwe = new GameObject();
 		//SET_MAIN_CAMERA(qwe);
@@ -281,6 +282,11 @@ namespace m
 			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
 		}
+
+
+		FieldItem* testField = new FieldItem(eItem::hpPosion1, Vector3(10.f, 10.f, 1.f));
+		SET_MAIN_CAMERA(testField);
+		AddGameObject(eLayerType::FieldItem, testField);
 
 		//for(int i = 0 ; i < 30; ++i)
 		//{

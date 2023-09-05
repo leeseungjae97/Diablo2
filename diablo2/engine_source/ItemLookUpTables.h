@@ -51,6 +51,13 @@ namespace m
 		L"leaderArmorField",
 		L"capField"
 	};
+	std::wstring fieldItemAnimTable[(int)eItem::END] = {
+		L"hpPosionAnim",
+		L"mpPosionAnim",
+		L"stoneAnim",
+		L"leaderArmorAnim",
+		L"capAnim",
+	};
 	
 	eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
@@ -63,9 +70,16 @@ namespace m
 		eItemType::Helmet,
 
 	};
-	float itemFieldSpaceTable[(int)eItem::END][2] = {
-
+	m::math::Vector2 itemFieldAnimSpaceTable[(int)eItem::END] = {
+		{20.f, 159.f}
+		,{20.f, 159.f}
+		,{20.f, 159.f}
+		,{20.f, 159.f}
+		,{20.f, 159.f}
 	};
+	//float itemFieldSpaceTable[(int)eItem::END][2] = {
+
+	//};
 	// 28.f, 28.f = one inven = 1.f, 1.f
 	float itemInvenDisplayScale[(int)eItem::END][2] = {
 		{1.f, 1.f},

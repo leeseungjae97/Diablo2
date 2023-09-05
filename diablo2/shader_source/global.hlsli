@@ -19,6 +19,8 @@ cbuffer Animator : register(b3)
     float2 SpriteSize;
     float2 SpriteOffset;
     float2 AtlasSize;
+    float2 SpriteOffsetOfCenterPos;
+    
     uint animationType;
     float mAlpha;
 }

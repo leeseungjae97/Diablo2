@@ -53,7 +53,7 @@
     <ClCompile Include="mSkillStatus.cpp">
       <Filter>UI\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="mPlayerInfo.cpp" />
+    <ClCompile Include="mPlayerManager.cpp" />
     <ClCompile Include="mInventory.cpp">
       <Filter>UI\ItemPlaced\Inventory</Filter>
     </ClCompile>
@@ -126,6 +126,10 @@
     <ClCompile Include="mPosionScript.cpp">
       <Filter>Script\PosionScript</Filter>
     </ClCompile>
+    <ClCompile Include="mPlayerStatus.cpp" />
+    <ClCompile Include="mSkillOrb.cpp">
+      <Filter>Skill\SkillOrb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -177,7 +181,7 @@
     <ClInclude Include="mSkillStatus.h">
       <Filter>UI\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="mPlayerInfo.h" />
+    <ClInclude Include="mPlayerManager.h" />
     <ClInclude Include="mInventory.h">
       <Filter>UI\ItemPlaced\Inventory</Filter>
     </ClInclude>
@@ -249,6 +253,10 @@
     </ClInclude>
     <ClInclude Include="mPosionScript.h">
       <Filter>Script\PosionScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mPlayerStatus.h" />
+    <ClInclude Include="mSkillOrb.h">
+      <Filter>Skill\SkillOrb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +406,9 @@
     </Filter>
     <Filter Include="Script\PosionScript">
       <UniqueIdentifier>{118d517c-507f-40cc-896d-b320bb78e071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillOrb">
+      <UniqueIdentifier>{e8331bc0-4f49-4ab0-9c98-2ca3dc210ef4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

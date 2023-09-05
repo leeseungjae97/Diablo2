@@ -517,6 +517,16 @@ namespace renderer
 		std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
 		std::shared_ptr<Shader> tileShader = m::Resources::Find<Shader>(L"TileShader");
 		std::shared_ptr<Shader> tileDrawShader = m::Resources::Find<Shader>(L"TileDrawShader");
+
+#pragma region FieldItem
+		MAKE_MATERIAL_PATH(spriteShader, L"hp_posion_anim", L"..\\Resources\\texture\\field_items\\hp_posion_anim"
+            ,20, 159, 17, L"hpPosionAnim");
+		MAKE_MATERIAL(spriteShader, L"hp_posion_field", L"..\\Resources\\texture\\field_items\\hp_posion_field.png", L"hpPosionField");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"mp_posion_anim", L"..\\Resources\\texture\\field_items\\mp_posion_anim"
+			, 20, 159, 17, L"mpPosionAnim");
+		MAKE_MATERIAL(spriteShader, L"mp_posion_field", L"..\\Resources\\texture\\field_items\\mp_posion_field.png", L"mpPosionField");
+#pragma endregion
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 #pragma endregion

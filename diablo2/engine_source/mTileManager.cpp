@@ -4,7 +4,7 @@
 #include "mMouseManager.h"
 #include "mMonsterManager.h"
 
-#include "../Engine/mPlayerInfo.h"
+#include "..\Engine\mPlayerManager.h"
 #include "../Engine/mPlayer.h"
 #include "../Engine/mMonster.h"
 

@@ -6,6 +6,7 @@
 namespace m
 {
 	class InvenItem;
+	class FieldItem;
 	class EmptyRect;
 	class Camera;
 	class StashManager
@@ -41,6 +42,8 @@ namespace m
 		static bool ItemDeploy();
 		static bool DeployTetris(eStashType type);
 		static bool DeployException(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType);
+		static void ChangeFieldItemToInvenItem(FieldItem* item);
+		static bool ChangeInvenItemToFieldItem(InvenItem* item);
 		static void MoveOtherStash(InvenItem* item, eStashType stashTypeMove);
 
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
@@ -82,6 +85,8 @@ namespace m
 		static void ChangeFillIntersectArea(Vector2 areaPos, bool _bV, InvenItem* item, eStashType type);
 		static bool CheckItemSizeIntersectOutline(Vector2 comparePos, InvenItem* item, eStashType type);
 		static bool CheckLimitIntersectItems(int limit, eStashType type);
+
+		static bool AddItemTetris(InvenItem* item, eStashType type);
 	private:
 		static InvenItem* getPocketPosItem(int index);
 		static InvenItem* getExPocketPosItem(int index);
@@ -98,6 +103,7 @@ namespace m
 		static EmptyRect* shopInvensCollider;
 		static EmptyRect* pocketCollider;
 		static EmptyRect* exPocketCollider;
+		static EmptyRect* inventoryCollider;
 
 		static std::vector<EmptyRect*> invens;
 		static std::vector<EmptyRect*> equiments;
@@ -127,7 +133,7 @@ namespace m
 		static GameObject::eState eShopInventoryState;
 		static GameObject::eState eExPocketState;
 
-		//static GameObject* m;
+		static GameObject* m;
 	};
 }
 

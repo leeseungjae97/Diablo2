@@ -32,7 +32,7 @@ namespace m
         eItem GetEItem() { return mItem; }
         void SetEItem(eItem item) { mItem = item; }
 
-    private:
+    protected:
         StashManager::eStashType mStashType;
         
         bool bSetMouseFollow;

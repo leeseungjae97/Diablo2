@@ -46,15 +46,13 @@ namespace m
 			destPosition = curPosition;
 			mPathFinder->ClearPath();
 		}
-
-
+		
 		mPathFinder->PlayerMove(this);
 
 		mPathFinder->AstarPathFinding(curCoord, targetCoord);
 		if (!MouseManager::GetMouseOnUI()
 			&& Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
-			
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 			Vector3 tempPrev = GET_POS(this);
 			Vector3 tempDest = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
@@ -69,6 +67,7 @@ namespace m
 			vDirection.Normalize();
 		}
 		if (!MouseManager::GetMouseOnUI()
+			&& nullptr == MouseManager::GetMouseFollow()
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			if (!mPathFinder->PathChange(false))
@@ -126,48 +125,48 @@ namespace m
 
     void Player::Hit(int damage)
 	{
-		if (PlayerInfo::hp - damage < 0) PlayerInfo::hp = 0;
-		else PlayerInfo::hp -= damage;
+		if (PlayerManager::hp - damage < 0) PlayerManager::hp = 0;
+		else PlayerManager::hp -= damage;
 
-		PlayerInfo::CalHpPercent();
-		mHp->SetUVCoord(PlayerInfo::hpPercent);
+		PlayerManager::CalHpPercent();
+		mHp->SetUVCoord(PlayerManager::hpPercent);
 
 		SetHit(true);
 	}
 
     void Player::UseMana(int mana)
     {
-		if (PlayerInfo::mp - mana < 0) PlayerInfo::mp = 0;
-		else PlayerInfo::mp -= mana;
+		if (PlayerManager::mp - mana < 0) PlayerManager::mp = 0;
+		else PlayerManager::mp -= mana;
 
-		PlayerInfo::CalMpPercent();
-		mMp->SetUVCoord(PlayerInfo::mpPercent);
+		PlayerManager::CalMpPercent();
+		mMp->SetUVCoord(PlayerManager::mpPercent);
     }
 
     void Player::RestoreHp(int hp)
     {
-		if(PlayerInfo::hp + hp < PlayerInfo::hpCapacity)
+		if(PlayerManager::hp + hp < PlayerManager::hpCapacity)
 		{
-			PlayerInfo::hp += hp;
+			PlayerManager::hp += hp;
 		}else
 		{
-			PlayerInfo::hp = PlayerInfo::hpCapacity;
+			PlayerManager::hp = PlayerManager::hpCapacity;
 		}
-		PlayerInfo::CalHpPercent();
-		mHp->SetUVCoord(PlayerInfo::hpPercent);
+		PlayerManager::CalHpPercent();
+		mHp->SetUVCoord(PlayerManager::hpPercent);
     }
 
     void Player::RestoreMp(int mp)
     {
-		if (PlayerInfo::mp + mp < PlayerInfo::mpCapacity)
+		if (PlayerManager::mp + mp < PlayerManager::mpCapacity)
 		{
-			PlayerInfo::mp += mp;
+			PlayerManager::mp += mp;
 		}
 		else
 		{
-			PlayerInfo::mp = PlayerInfo::mpCapacity;
+			PlayerManager::mp = PlayerManager::mpCapacity;
 		}
-		PlayerInfo::CalMpPercent();
-		mMp->SetUVCoord(PlayerInfo::mpPercent);
+		PlayerManager::CalMpPercent();
+		mMp->SetUVCoord(PlayerManager::mpPercent);
     }
 }

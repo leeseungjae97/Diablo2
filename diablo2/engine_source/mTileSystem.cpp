@@ -6,7 +6,7 @@
 #include "mMonsterManager.h"
 #include "mInput.h"
 
-#include "../Engine/mPlayerInfo.h"
+#include "..\Engine\mPlayerManager.h"
 #include "../Engine/mPlayer.h"
 #include "../Engine/mMonster.h"
 
@@ -130,9 +130,9 @@ namespace m
 		Vector4 mousePos = Vector4(mouseV3.x, mouseV3.y, 1.f, 0.f);
 		data.mousePos = mousePos;
 
-		if (PlayerInfo::player)
+		if (PlayerManager::player)
 		{
-			Vector3 posV3 = GET_POS(PlayerInfo::player);
+			Vector3 posV3 = GET_POS(PlayerManager::player);
 			Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
 			data.playerPos = pos;
 		}

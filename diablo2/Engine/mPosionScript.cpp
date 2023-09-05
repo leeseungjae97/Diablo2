@@ -1,6 +1,6 @@
 #include "mPosionScript.h"
 
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 #include "mPlayer.h"
 #include "mInvenItem.h"
 
@@ -27,10 +27,10 @@ namespace m
         if(static_cast<InvenItem*>(GetOwner())->GetDoItemFunction())
         {
             if (mOwnerItem == eItem::hpPosion1)
-                PlayerInfo::player->RestoreHp(10);
+                PlayerManager::player->RestoreHp(10);
 
             if (mOwnerItem == eItem::mpPosion1)
-                PlayerInfo::player->RestoreMp(10);
+                PlayerManager::player->RestoreMp(10);
 
             GetOwner()->SetState(GameObject::eState::Delete);
         }

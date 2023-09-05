@@ -70,6 +70,42 @@ namespace m
 	{
 	}
 	void Animator::Create(const std::wstring& name
+		, std::shared_ptr<graphics::Texture> atlas
+		, Vector2 leftTop
+		, Vector2 size
+		, UINT columnLength
+		, Vector2 offset
+		, Vector2 offsetOfCenterPos
+		, float duration
+		, float alpha)
+	{
+		Animation* animation = FindAnimation(name);
+		if (nullptr != animation)
+			return;
+
+		animation = new Animation();
+		animation->SetKey(name);
+
+		animation->Create(name
+			, atlas
+			, leftTop
+			, size
+			, columnLength
+			, offset
+			, offsetOfCenterPos
+			, duration
+			, alpha);
+
+		mAnimations.insert(std::make_pair(name, animation));
+
+		Events* events = FindEvents(name);
+		if (nullptr != events)
+			return;
+
+		events = new Events();
+		mEvents.insert(std::make_pair(name, events));
+	}
+	void Animator::Create(const std::wstring& name
 						  , std::shared_ptr<graphics::Texture> atlas
 						  , Vector2 leftTop
 						  , Vector2 size

@@ -7,7 +7,7 @@
 
 #include "mEmptyRect.h"
 #include "mMouseManager.h"
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 #include "mPlayer.h"
 #include "mSkillShortCutButton.h"
 #include "mUVUI.h"
@@ -100,7 +100,7 @@ namespace m
 		curScene->AddGameObject(eLayerType::UI, skillShortCutLeft);
 		skillShortCutLeft->SetCamera(camera);
 		SET_MESH(skillShortCutLeft, L"RectMesh");
-		SET_MATERIAL(skillShortCutLeft, wsSkillIconNames[(int)PlayerInfo::GetSkill(0)]);
+		SET_MATERIAL(skillShortCutLeft, wsSkillIconNames[(int)PlayerManager::GetSkill(0)]);
 
 		GET_TEX(skillShortCutLeft, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCutLeft, tex, 0.f);
@@ -111,15 +111,15 @@ namespace m
 		curScene->AddGameObject(eLayerType::UI, skillShortCutRight);
 		skillShortCutRight->SetCamera(camera);
 		SET_MESH(skillShortCutRight, L"RectMesh");
-		SET_MATERIAL(skillShortCutRight, wsSkillIconNames[(int)PlayerInfo::GetSkill(1)]);
+		SET_MATERIAL(skillShortCutRight, wsSkillIconNames[(int)PlayerManager::GetSkill(1)]);
 
 		GET_TEX(skillShortCutRight, tex);
 		SET_SCALE_TEX_SIZE_WITH_RAT(skillShortCutRight, tex, 0.f);
 		SET_POS_XYZ(skillShortCutRight, 470.f + tex->GetMetaDataWidth() * Texture::GetWidRatio() / 2.f
 			, -RESOL_H_HEI + tex->GetMetaDataHeight() * Texture::GetHeiRatio() / 2.f, -1.f);
 
-		PlayerInfo::player->SetHpUI(hp);
-		PlayerInfo::player->SetMpUI(mp);
+		PlayerManager::player->SetHpUI(hp);
+		PlayerManager::player->SetMpUI(mp);
 
 		std::vector<EmptyRect*> exPockets = StashManager::GetExPockets();
 

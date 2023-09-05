@@ -1,6 +1,6 @@
 #include "mStraightScript.h"
 
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 
 #include "mSkillStraight.h"
 #include "mPlayerScript.h"
@@ -192,7 +192,7 @@ namespace m
 			{
 				if (mCrashType == eCrashType::Overlay)
 				{
-					//PlayerScript* ps = PlayerInfo::player->GetComponent<PlayerScript>();
+					//PlayerScript* ps = PlayerManager::player->GetComponent<PlayerScript>();
 					PlayerScript* ps = other->GetOwner()->GetComponent<PlayerScript>();
 
 					SET_SCALE_XYZ(ps->GetHSO()

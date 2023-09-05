@@ -3,7 +3,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
 
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 #include "mPlayer.h"
 
 namespace m
@@ -65,8 +65,8 @@ namespace m
 
 		//if (sightCollider->GetOnEnter()
 		//	|| sightCollider->GetOnStay()
-		//	&& sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
-		if (sightCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		//	&& sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			bool move = mPathFinder->MonsterMove(this);
 
@@ -110,7 +110,7 @@ namespace m
 			fStartDistance = fRemainDistance;
 			destPosition = TileManager::GetPlayerPosition();
 		}
-		//if (rangeCollider->SearchObjectGameObjectId(PlayerInfo::player->GetGameObjectId()))
+		//if (rangeCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		//{
 		//	
 		//}

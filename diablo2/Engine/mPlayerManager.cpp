@@ -1,4 +1,4 @@
-#include "mPlayerInfo.h"
+#include "mPlayerManager.h"
 
 #include "../engine_source/mTileManager.h"
 #include "../engine_source/mMeshRenderer.h"
@@ -9,23 +9,24 @@
 #include "mOverlayEffectSkillScript.h"
 namespace m
 {
-	int PlayerInfo::learnedSkill[3][10]= {};
-	int PlayerInfo::skillPoint = 0;
-	float PlayerInfo::hp = 100.f;
-	float PlayerInfo::hpCapacity = 100.f;
-	float PlayerInfo::hpPercent = 1.f;
-	float PlayerInfo::mp = 100.f;
-	float PlayerInfo::mpCapacity = 100.f;
-	float PlayerInfo::mpPercent = 1.f;
+	int PlayerManager::learnedSkill[3][10]= {};
+	int PlayerManager::skillPoint = 0;
+	float PlayerManager::hp = 100.f;
+	float PlayerManager::hpCapacity = 100.f;
+	float PlayerManager::hpPercent = 1.f;
+	float PlayerManager::mp = 100.f;
+	float PlayerManager::mpCapacity = 100.f;
+	float PlayerManager::mpPercent = 1.f;
 
-	Player* PlayerInfo::player = nullptr;
-	eSkillType PlayerInfo::skillTypes[2] = {};
+	Player* PlayerManager::player = nullptr;
+	eSkillType PlayerManager::skillTypes[2] = {};
 
-	void PlayerInfo::Initialize()
+	void PlayerManager::Initialize()
 	{
 		skillPoint = 100;
 		Tile* tile2 = TileManager::pathFindingTiles[60][10];
-		Vector3 pos2 = GET_POS(tile2);
+		//Vector3 pos2 = GET_POS(tile2);
+		Vector3 pos2 = Vector3(10.f, 10.f, 1.f);
 
 		player = new Player(pos2);
 		//SET_MAIN_CAMERA(player);
@@ -43,39 +44,39 @@ namespace m
 		SetSkill(1, eSkillType::fireBolt);
 	}
 
-	void PlayerInfo::CalHpPercent()
+	void PlayerManager::CalHpPercent()
 	{
 		hpPercent = (hpCapacity - hp) / hpCapacity;
 	}
-	void PlayerInfo::CalMpPercent()
+	void PlayerManager::CalMpPercent()
 	{
 		mpPercent = (mpCapacity - mp) / mpCapacity;
 	}
-	eSkillType PlayerInfo::GetSkill(int num)
+	eSkillType PlayerManager::GetSkill(int num)
 	{
 		if (num > 2 || num < 0) return eSkillType::END;
 
 		return skillTypes[num];
 	}
 
-	void PlayerInfo::SetSkill(int num, eSkillType type)
+	void PlayerManager::SetSkill(int num, eSkillType type)
 	{
 		if (num > 2) return;
 
 		skillTypes[num] = type;
 	}
 
-	eSkillType PlayerInfo::SetColdSkillType(eColdSkillType type)
+	eSkillType PlayerManager::SetColdSkillType(eColdSkillType type)
 	{
 		return (eSkillType)type;
 	}
 
-	eSkillType PlayerInfo::SetFireSkillType(eFireSkillType type)
+	eSkillType PlayerManager::SetFireSkillType(eFireSkillType type)
 	{
 		return (eSkillType)((UINT)type + (UINT)eSkillType::coldMastery);
 	}
 
-	eSkillType PlayerInfo::SetLightningSkillType(eLightningSkillType type)
+	eSkillType PlayerManager::SetLightningSkillType(eLightningSkillType type)
 	{
 		return (eSkillType)((UINT)type + (UINT)eSkillType::lightningMastery);
 	}

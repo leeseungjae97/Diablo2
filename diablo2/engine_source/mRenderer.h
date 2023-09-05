@@ -28,6 +28,7 @@ namespace renderer
 		Vector2 spriteSize;
 		Vector2 spriteOffset;
 		Vector2 atlasSize;
+		Vector2 spriteOffsetOfCenterPos;
 		UINT animationType = 0;
 		float alpha;
 	};

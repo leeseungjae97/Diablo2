@@ -30,10 +30,12 @@ namespace m
 
 		static InvenItem* GetMouseFollow() { return mMouseFollowItem; }
         static void FreeMouseFollow();
+        static void FreeMouseFollowNextUpdate();
 
     private:
 		static bool mMouseOnUI;
 		static bool mMouseOnMonster;
+		static bool bFreeMouse;
 
 		static Vector2 hoverMonsterTileCoord;
 		static int hoverMonsterId;

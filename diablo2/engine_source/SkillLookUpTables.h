@@ -208,6 +208,45 @@ namespace m
 
 		eSkillFunctionType::None,// L"normalAttackIcon"
 	};
+	int SkillDamageCofTable[(int)eSkillType::END] = {
+		10,// L"iceBolt",
+		0,// L"frozenArmor",
+		10,// L"frostNova",
+		10,// L"iceBlast",
+		0,// L"shiverArmor",
+		10,// L"clacialSpike",
+		10,// L"blizzard",
+		0,// L"chillingArmor",
+		10,// L"frozenOrb",
+		0,// L"coldMastery",
+
+		10,// L"chargedBolt",
+		10,// L"staticField",
+		10,// L"telekinesis",
+		10,// L"nove",
+		10,// L"lightning",
+		10,// L"chainLightning",
+		0,// L"teleport",
+		10,// L"thunderStorm",
+		0,// L"energyShield",
+		0,// L"lightningMastery",
+
+		10,// L"fireBolt",
+		0,// L"warmth",
+		10,// L"inferno",
+		10,// L"blaze",
+		10,// L"fireBall",
+		10,// L"fireWall",
+		0,// L"enchant",
+		10,// L"meteor",
+		0,// L"fireMastery",
+		10,// L"hydra",
+
+		//Monster
+		5,// L"diabloLightning",
+
+		0,// L"normalAttack"
+	};
 	std::wstring skillAnimNames[(int)eSkillType::END] = {
 		L"iceBolt", // L"iceBoltClickIcon",
 		L"frozenArmor", // L"frozenArmorClickIcon",
@@ -363,7 +402,7 @@ namespace m
 		L"fireMasteryClickIcon",
 		L"hydraClickIcon",
 	};
-
+	
 	int iColdAdjacencyMatrix[(int)eColdSkillType::END][(int)eColdSkillType::END] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// 	L"iceBoltIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// 	L"frozenArmorIcon",",
