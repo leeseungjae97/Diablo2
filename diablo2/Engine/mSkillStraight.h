@@ -17,6 +17,8 @@ namespace m
 
         virtual void Hit(int damage) override;
 
+        void SetLimitDistance(float distance) { limitDistance = distance; }
+
         void StopMove() { bMove = false; }
     private:
         StraightScript* ss;
