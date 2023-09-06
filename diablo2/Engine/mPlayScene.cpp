@@ -1,5 +1,7 @@
 #include "mPlayScene.h"
 
+#include "mAudioListener.h"
+#include "mAudioSource.h"
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTransform.h"
@@ -69,6 +71,7 @@ namespace m
 		AddGameObject(eLayerType::Camera, camera);
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
 		//ADD_COMP(camera, CameraScript);
+		ADD_COMP(camera, AudioListener);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
@@ -91,11 +94,18 @@ namespace m
 
 		PlayerManager::Initialize();
 
+		//AudioSource* as = ADD_COMP(PlayerManager::player, AudioSource);
+		//as->SetClip(RESOURCE_LOAD(AudioClip, L"test1", L"..\\Resources\\sound\\ambient\\creature\\bat1.wav"));
+		//as->SetLoop(true);
+		//as->Play();
+
+
 		SET_MAIN_CAMERA(PlayerManager::player);
 		AddGameObject(eLayerType::Player, PlayerManager::player);
 		ADD_COMP(PlayerManager::player, PlayerScript);
 		GetSceneMainCamera()->SetFollowObject(PlayerManager::player);
 
+		//Resources\sound\ambient\creature;
 		//GameObject* qwe = new GameObject();
 		//SET_MAIN_CAMERA(qwe);
 		//AddGameObject(eLayerType::Skill, qwe);

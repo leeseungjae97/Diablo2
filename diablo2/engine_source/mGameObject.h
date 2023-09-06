@@ -3,6 +3,7 @@
 #include "mComponent.h"
 #include "mScript.h"
 #include "mCamera.h"
+#include "mScript.h"
 
 namespace m
 {
@@ -142,7 +143,7 @@ namespace m
 		std::vector<Script*>& GetScripts() { return mScripts; }
 		std::vector<Component*> GetComponents() { return mComponents; }
 
-		bool GetCulled() { return bCulled; }
+    		bool GetCulled() { return bCulled; }
 		void SetCulled(bool cull) { bCulled = cull; }
 
 		bool IsRhombus() { return bRhombus; }

@@ -151,7 +151,7 @@ StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
 StructuredBuffer<Particle> particles : register(t14);
 
 Texture2D albedoTexture : register(t0);
-
+Texture2D gameView : register(t61);
 Texture2D noiseTexture : register(t15);
 Texture2D atlasTexture : register(t16);
 

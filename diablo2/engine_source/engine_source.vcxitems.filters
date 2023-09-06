@@ -151,6 +151,21 @@
     <Filter Include="Manager\StashManager">
       <UniqueIdentifier>{9aa8e472-4395-4e28-bfb1-ce0cb89039e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fmod">
+      <UniqueIdentifier>{040bb018-746d-418c-8231-580cd34c00b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FontWrapper">
+      <UniqueIdentifier>{d936c00a-769f-451a-860e-bc09d492a5df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\AudioListener">
+      <UniqueIdentifier>{3d2d1e1e-4ad2-48e6-8a9e-cb5419822d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource\AudioClip">
+      <UniqueIdentifier>{53b63cd4-4030-4e48-bca5-41d9f9ccf6d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\AudioSource">
+      <UniqueIdentifier>{aace1823-ab14-4da3-a2ac-2bcb6a495be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -333,6 +348,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mStashManager.h">
       <Filter>Manager\StashManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFmod.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAudioListener.h">
+      <Filter>GameObject\Component\AudioListener</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAudioClip.h">
+      <Filter>Resources\Resource\AudioClip</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAudioSource.h">
+      <Filter>GameObject\Component\AudioSource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h">
+      <Filter>FontWrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -478,6 +508,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mStashManager.cpp">
       <Filter>Manager\StashManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFmod.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAudioListener.cpp">
+      <Filter>GameObject\Component\AudioListener</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAudioClip.cpp">
+      <Filter>Resources\Resource\AudioClip</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAudioSource.cpp">
+      <Filter>GameObject\Component\AudioSource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp">
+      <Filter>FontWrapper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

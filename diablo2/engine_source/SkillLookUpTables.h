@@ -8,6 +8,7 @@ namespace m
 		MultiStraight,
 		Fall,
 		MutiFall,
+		Orb,
 		Buff,
 		Passive,
 		None,
@@ -178,7 +179,7 @@ namespace m
 		eSkillFunctionType::Straight,// L"clacialSpikeIcon",
 		eSkillFunctionType::MutiFall,// L"blizzardIcon",
 		eSkillFunctionType::Buff,// L"chillingArmorIcon",
-		eSkillFunctionType::Straight,// L"frozenOrbIcon",
+		eSkillFunctionType::Orb,// L"frozenOrbIcon",
 		eSkillFunctionType::Passive,// L"coldMasteryIcon",
 
 		eSkillFunctionType::Straight,// L"chargedBoltIcon",

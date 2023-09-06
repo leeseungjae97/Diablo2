@@ -29,6 +29,7 @@ namespace m
 		bool StopF() { return fRemainDistance < fStartDistance ? false : true; }
 		float GetRemainDistance() { return fRemainDistance; }
 		float GetStartDistance() { return fStartDistance; }
+		void SetInitializePosition(Vector3 initPos);
 
 		void SetRemainDistance(float rd) { fRemainDistance = rd; }
 		void SetStartDistance(float sd) { fStartDistance = sd; }
@@ -62,6 +63,7 @@ namespace m
 
 		Vector3 prevPosition;
 		Vector3 destPosition;
+		Vector3 initPosition;
 		Vector3 vDirection;
 		Vector3 vS;
 

@@ -8,9 +8,11 @@
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mStashManager.h"
 #include "../engine_source/mTileManager.h"
+#include "../engine_source/mFmod.h"
 //#include "..\engine_source\mFontWrapper.h"
 #include "guiEditor.h"
 #include "LoadScenes.h"
+#include "engine_source/mFontWrapper.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..//x64//Debug//Engine.lib")
@@ -81,7 +83,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     m::SceneManager::Release();
     m::StashManager::Release();
     m::TileManager::Release();
-    //m::FontWrapper::Release();
+    m::Fmod::Release();
+    m::FontWrapper::Release();
     gui::Editor::Release();
     return (int) msg.wParam;
 }
@@ -161,9 +164,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_PAINT    - 주 창을 그립니다.
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
-//
+
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
     switch (message)
     {
     case WM_COMMAND:
@@ -191,6 +199,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+    //case WM_DPICHANGED:
+    //    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+    //    {
+    //        //const int dpi = HIWORD(wParam);
+    //        //printf("WM_DPICHANGED to %d (%.0f%%)\n", dpi, (float)dpi / 96.0f * 100.0f);
+    //        const RECT* suggested_rect = (RECT*)lParam;
+    //        ::SetWindowPos(hWnd, nullptr, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
+    //    }
+    //    break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

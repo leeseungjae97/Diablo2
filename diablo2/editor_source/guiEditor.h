@@ -7,9 +7,14 @@
 #include "guiEditorObject.h"
 #include "guiDebugObject.h"
 
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
 namespace gui
 {
-	class Editor
+    class Dockspace;
+    class Editor
 	{
 	public:
 		static void Initialize();
@@ -23,10 +28,18 @@ namespace gui
 		static void DebugRender(const DebugMesh& mesh);
 
 	private:
-		static std::vector<Widget*> mWidgets;
+		static void imguiInit();
+		static void imguiRender();
+		static void imguiRelease();
+
+	private:
+		static std::map<std::wstring, Widget*> mWidgets;
 		static std::vector<EditorObject*> mEditorObjects;
 		static std::vector<DebugObject*> mDebugObjects;
 
 		static bool noRender;
+		static ImGuiIO mIO;
+
+		static Dockspace* mDockspace;
 	};
 }

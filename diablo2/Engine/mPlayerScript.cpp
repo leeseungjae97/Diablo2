@@ -21,6 +21,7 @@
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
 #include "mSkillMultiFire.h"
+#include "mSkillOrb.h"
 #include "mSkill.h"
 
 extern m::Application application;

@@ -15,7 +15,17 @@ namespace m
         virtual void Render() override;
 
     private:
+        void fireRandomDegreeSkill(SkillStraight* skill);
+        void fireCircle();
+    private:
+        std::vector<SkillStraight*> sectionSkills;
+        std::vector<float> sectionTimes;
 
+        bool bCameraUpdate;
+        float mRandomCircleDegree;
+        float mAccSkillTime;
+
+        int mSectionActiveCount;
     }; 
 }
 

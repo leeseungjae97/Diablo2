@@ -60,6 +60,7 @@ namespace m
 			}
 		}
 		if (mCrashType == eCrashType::Overlay) return;
+		if (mSkillCrashType == eSkillCrashType::END) return;
 
 		SHARED_MAT mat1 = RESOURCE_FIND(Material, crashNames[(int)mSkillCrashType]);
 		mAnimator->Create(crashNames[(int)mSkillCrashType] + L"anim"

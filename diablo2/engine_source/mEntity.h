@@ -18,3 +18,22 @@ namespace m {
 		UINT64 mColliderID;
 	};
 }
+
+namespace gui
+{
+	class Entity
+	{
+	public:
+		Entity();
+		virtual ~Entity();
+
+		void SetName(const std::string& name) { mName = name; }
+		std::string& GetName() { return mName; }
+		void SetID(UINT64 id) { mColliderID = id; }
+		UINT64 GetID() { return mColliderID; }
+
+	private:
+		std::string mName;
+		UINT64 mColliderID;
+	};
+}

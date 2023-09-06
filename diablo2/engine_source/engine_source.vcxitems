@@ -17,7 +17,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mDrawMaterials.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFmod.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mPathFinder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollider2D.cpp" />
@@ -64,7 +69,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mDrawMaterials.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFmod.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MonsterHandLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MoveAbleObjectAnimLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />

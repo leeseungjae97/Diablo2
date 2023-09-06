@@ -139,6 +139,14 @@
 									SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);\
 								}\
 									break;\
+								case m::eSkillFunctionType::Orb:\
+								{\
+									skill = new SkillOrb(skillType, GET_POS(GetOwner()), 300.f);\
+									skill->SetCamera(GetOwner()->GetCamera());\
+									skill->SkillFire();\
+									SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, skill);\
+								}\
+									break;\
 								case m::eSkillFunctionType::None:\
 									break;\
 								case m::eSkillFunctionType::END:\

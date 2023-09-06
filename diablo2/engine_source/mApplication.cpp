@@ -6,6 +6,8 @@
 #include "mSceneManager.h"
 #include "mMouseManager.h"
 #include "mCollisionManager.h"
+#include "mFmod.h"
+#include "mFontWrapper.h"
 
 #include "..\Engine\mPlayerManager.h"
 #include "../Engine/mPlayer.h"
@@ -41,7 +43,9 @@ namespace m
 	{
 		Time::Initiailize();
 		Input::Initialize();
-		//FontWrapper::Initialize();
+		Fmod::Initialize();
+        FontWrapper::Initialize();
+
 		renderer::Initialize();
 		StashManager::Initialize();
 		SceneManager::Initialize();
@@ -66,10 +70,10 @@ namespace m
 
 	void Application::Render()
 	{
-		Time::Render();
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
-
+		Time::Render();
+		FontWrapper::DrawFont(L"TEXT", 10.f, 30.f, 20, FONT_RGBA(255, 0, 255, 255));
 		//HDC hdc2 = GetDC(mHwnd);
 		//DrawText(hdc2, szFloat, iLen, &rt, DT_WORDBREAK);
 

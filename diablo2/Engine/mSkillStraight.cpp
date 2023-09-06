@@ -46,14 +46,24 @@ namespace m
 			//ss->
 			bSkillFire = false;
 			bMove = true;
-			Vector3 destVector = Vector3::One;
-			if (GetLayerType() == eLayerType::PlayerSkill)
+			
+			if(destPosition == initPosition)
 			{
-				destVector = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
+				Vector3 destVector = Vector3::One;
+				if (GetLayerType() == eLayerType::PlayerSkill)
+				{
+					destVector = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
+				}
+				else destVector = GET_POS(TileManager::playerStandTile);
+				destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
+			}else
+			{
+				int a = 0;
 			}
-			else destVector = GET_POS(TileManager::playerStandTile);
+
+
 			prevPosition = GET_POS(this);
-			destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
+		
 
 			float maxX = max(destPosition.x, prevPosition.x);
 			float maxY = max(destPosition.y, prevPosition.y);

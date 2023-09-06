@@ -39,9 +39,11 @@ namespace m
 
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
 		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
+		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
+		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::fireBolt);
+		SetSkill(1, eSkillType::frozenOrb);
 	}
 
 	void PlayerManager::CalHpPercent()

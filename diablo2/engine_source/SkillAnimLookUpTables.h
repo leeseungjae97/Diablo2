@@ -143,7 +143,7 @@ namespace m
 		0.f,// clacialSpike
 		200.f,// blizzard
 		0.f,// chillingArmor
-		0.f,// frozenOrb
+		200.f,// frozenOrb
 		0.f,// coldMastery
 		//
 		0.f,// chargedBolt
@@ -180,7 +180,7 @@ namespace m
 		0, // clacialSpike
 		0, // blizzard
 		0, // chillingArmor
-		0, // frozenOrb
+		16, // frozenOrb
 		0, // coldMastery
 		//
 		5, // chargedBolt
@@ -218,7 +218,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// clacialSpike,
 		m::math::Vector2(0.f, 0.f),// blizzard,
 		m::math::Vector2(0.f, 0.f),// chillingArmor,
-		m::math::Vector2(0.f, 0.f),// frozenOrb,
+		m::math::Vector2(54.f, 53.f),// frozenOrb,
 		m::math::Vector2(0.f, 0.f),// coldMastery,
 
 		m::math::Vector2(0.f, 0.f),// chargedBolt,
@@ -295,7 +295,7 @@ namespace m
 		eSkillCastType::END,// clacialSpike
 		eSkillCastType::IceCast3,// blizzard
 		eSkillCastType::END,// chillingArmor
-		eSkillCastType::END,// frozenOrb
+		eSkillCastType::IceCast3,// frozenOrb
 		eSkillCastType::END,// coldMastery
 
 		eSkillCastType::END,// chargedBolt

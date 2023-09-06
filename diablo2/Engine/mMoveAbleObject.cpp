@@ -19,6 +19,7 @@ namespace m
 		: GameObject()
 		, prevPosition(iniPos)
 		, destPosition(iniPos)
+	    , initPosition(iniPos)
 		, vS(iniPos)
 		, fSpeed(speed)
 		, fStartDistance(0.f)
@@ -89,4 +90,12 @@ namespace m
 	{
 		GameObject::Render();
 	}
+
+    void MoveAbleObject::SetInitializePosition(Vector3 initPos)
+    {
+		prevPosition = initPos;
+		destPosition = initPos;
+		initPosition = initPos;
+		vS = initPos;
+    }
 }

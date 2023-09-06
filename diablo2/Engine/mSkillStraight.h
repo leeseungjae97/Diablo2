@@ -18,6 +18,7 @@ namespace m
         virtual void Hit(int damage) override;
 
         void SetLimitDistance(float distance) { limitDistance = distance; }
+        float GetLimitDistance() { return limitDistance; }
 
         void StopMove() { bMove = false; }
     private:

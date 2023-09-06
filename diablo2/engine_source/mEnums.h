@@ -13,6 +13,8 @@ namespace m::enums
 		Animator,
 		Script,
 		Light,
+		AudioListener,
+		AudioSource,
 		Camera,
 		End,
 	};
@@ -45,6 +47,7 @@ namespace m::enums
 		Mesh,
 		Animation,
 		ComputeShader,
+		AudioClip,
 		End,
 	};
 	enum class eColliderType

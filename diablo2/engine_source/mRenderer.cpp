@@ -572,6 +572,11 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_cast_1"
 						   , 145, 133, 16, L"fireCast1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"frozen_orb", L"..\\Resources\\texture\\skill_effect\\missile\\frozen_orb"
+			, 54, 53, 16, L"frozenOrb");
+
+
 #pragma endregion
 #pragma region Monster
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\natural"
