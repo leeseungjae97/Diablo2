@@ -14,13 +14,17 @@ namespace m
     {
         SetLimitDistance(400.f);
 
-        for(float i = 0.0f ; i <= 1.f ;)
+        //for(float i = 0.0f ; i <= 1.f ;)
+        //{
+        //    SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 600.f);
+        //    sectionSkills.push_back(ss);
+        //    i += 0.05f;
+        //}
+        for(int i = 0 ; i < 30; ++i)
         {
-            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 300.f);
-            SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
-            sectionSkills.push_back(ss);
-            sectionTimes.push_back(i);
-            i += 0.05f;
+            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 600.f);
+            ss->SetName(L"orb");
+            sectionSkills2.push_back(ss);
         }
     }
 
@@ -38,11 +42,34 @@ namespace m
         SkillStraight::Update();
         if(!bCameraUpdate)
         {
-            for (SkillStraight* ss : sectionSkills) ss->SetCamera(GetCamera());
-            bCameraUpdate = true;
-        }
+            //for (SkillStraight* ss : sectionSkills)
+            //{
+            //    ss->SetCamera(GetCamera());
+            //    SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
+            //}
 
-        mAccSkillTime += Time::fDeltaTime();
+            for (SkillStraight* ss : sectionSkills2)
+            {
+                ss->SetCamera(GetCamera());
+                SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
+            }
+            bCameraUpdate = true;
+
+            fireCircle();
+        }
+        if(!bMove)
+        {
+            //for (SkillStraight* ss : sectionSkills)
+            //{
+            //    ss->SetState(Delete);
+            //}
+
+            for (SkillStraight* ss : sectionSkills2)
+            {
+                ss->SetState(Delete);
+            }
+        }
+        /*mAccSkillTime += Time::fDeltaTime();
         if(mSectionActiveCount < sectionSkills.size()
             &&
             mAccSkillTime >= 0.05f)
@@ -54,8 +81,8 @@ namespace m
         }
         if (mSectionActiveCount >= sectionSkills.size())
         {
-            // circle fire
-        }
+            
+        }*/
     }
 
     void SkillOrb::LateUpdate()
@@ -94,16 +121,38 @@ namespace m
     }
     void SkillOrb::fireCircle()
     {
-        Vector3 pos = GET_POS(this);
-        for(int i = 0; i < 20; ++i )
+        
+        for(float i = 0; i < sectionSkills2.size(); ++i )
         {
-            float theta = DegreeToRadian(360 / 20 * i);
-            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, pos, 300.f);
-            ss->SetDestPosition(Vector3(cosf(theta), sinf(theta), pos.z));
-            ss->SetCamera(GetCamera());
-            ss->SkillFire();
+            Vector3 pos = GET_POS(this);
+            SET_POS_VEC(sectionSkills2[i], pos);
+            sectionSkills2[i]->SetInitializePosition(pos);
+            float degree = 360 / sectionSkills2.size() * (i + 1);
 
-            SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
+            float theta = DegreeToRadian(degree);
+
+            //if (degree >= 180) theta *= -1;
+
+            pos.y += cosf(theta);
+            pos.x += sinf(theta);
+
+            //if (degree >= 180)
+            //    pos.y -= cosf(theta);
+            //else 
+            //    pos.y += cosf(theta);
+
+
+            //if (degree >= 180)
+            //{
+            //    pos.y -= cosf(theta);
+            //    pos.x -= sinf(theta);
+            //}
+            //else if (degree < 180)
+            //{
+
+            //}
+            sectionSkills2[i]->SetDestPosition(pos);
+            sectionSkills2[i]->SkillFire();
         }
     }
 }

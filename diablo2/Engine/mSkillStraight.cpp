@@ -12,6 +12,9 @@ namespace m
 		:Skill(type, iniPos, false, true)
 		, limitDistance(1000.f)
 	{
+		bMadePath = true;
+		
+
 		SetSpeed(speed);
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
@@ -22,9 +25,13 @@ namespace m
 		{
 			ss = AddComponent<StraightScript>(8);
 			rangeCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
+			bSixteenDirection = false;
 		}
-		else 
+		else
+		{
 			ss = AddComponent<StraightScript>();
+			bSixteenDirection = true;
+		}
 	}
 	SkillStraight::~SkillStraight()
 	{
@@ -56,11 +63,7 @@ namespace m
 				}
 				else destVector = GET_POS(TileManager::playerStandTile);
 				destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
-			}else
-			{
-				int a = 0;
 			}
-
 
 			prevPosition = GET_POS(this);
 		
@@ -78,8 +81,8 @@ namespace m
 		}
 		if (bMove)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
+			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
 
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}

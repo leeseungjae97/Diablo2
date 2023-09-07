@@ -190,6 +190,7 @@
     <ClInclude Include="mPosionScript.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
     <ClInclude Include="mSkill.h" />
+    <ClInclude Include="mSkillCurve.h" />
     <ClInclude Include="mSkillOrb.h" />
     <ClInclude Include="mSkillMultiFire.h" />
     <ClInclude Include="mSkillButton.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="mPosionScript.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
     <ClCompile Include="mSkill.cpp" />
+    <ClCompile Include="mSkillCurve.cpp" />
     <ClCompile Include="mSkillOrb.cpp" />
     <ClCompile Include="mSkillMultiFire.cpp" />
     <ClCompile Include="mSkillButton.cpp" />

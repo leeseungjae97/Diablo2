@@ -39,7 +39,8 @@ namespace m
 	void MonsterScript<T>::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
-
+		dynamic_cast<MoveAbleObject*>(GetOwner())->SetMadePath(curMonsterData.bPathImage);
+		dynamic_cast<MoveAbleObject*>(GetOwner())->SetSixteenDirection(false);
 		Scene* curScene = SceneManager::GetActiveScene();
 		Monster* monster = dynamic_cast<Monster*>(GetOwner());
 
@@ -152,10 +153,10 @@ namespace m
 
 		mMonster = static_cast<Monster*>(GetOwner());
 
-		if (curMonsterData.bPathImage) mPlusDirections = plusPathEightDirections;
-		else mPlusDirections = plusEightDirection;
-		if (curMonsterData.bPathImage) mMinusDirections = minusPathEightDirections;
-		else mMinusDirections = minusEightDirection;
+		if (curMonsterData.bPathImage) mPlusDirections = pathPlusEightDirections;
+		else mPlusDirections = plusEightDirections;
+		if (curMonsterData.bPathImage) mMinusDirections = pathMinusEightDirections;
+		else mMinusDirections = minusEightDirections;
 	}
 	template <typename T>
 	void MonsterScript<T>::Update()

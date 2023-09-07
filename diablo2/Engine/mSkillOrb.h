@@ -19,7 +19,7 @@ namespace m
         void fireCircle();
     private:
         std::vector<SkillStraight*> sectionSkills;
-        std::vector<float> sectionTimes;
+        std::vector<SkillStraight*> sectionSkills2;
 
         bool bCameraUpdate;
         float mRandomCircleDegree;

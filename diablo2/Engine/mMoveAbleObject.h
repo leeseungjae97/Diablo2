@@ -31,6 +31,9 @@ namespace m
 		float GetStartDistance() { return fStartDistance; }
 		void SetInitializePosition(Vector3 initPos);
 
+		void AddZWeight();
+		void AdjustmentMovementSpeedAccordingAngle();
+
 		void SetRemainDistance(float rd) { fRemainDistance = rd; }
 		void SetStartDistance(float sd) { fStartDistance = sd; }
 
@@ -56,6 +59,9 @@ namespace m
 		Collider2D* GetTilePositionCollider() { return tilePositionCollider; }
 		Collider2D* GetHitAreaCollider() { return bodyBoxCollider; }
 
+		void SetMadePath(bool madePath) { bMadePath = madePath; }
+		void SetSixteenDirection(bool sixteenDirection) { bSixteenDirection = sixteenDirection; }
+
 	protected:
 		Collider2D* rangeCollider;
 		Collider2D* tilePositionCollider;
@@ -70,6 +76,7 @@ namespace m
 		float fRemainDistance;
 		float fStartDistance;
 		float fSpeed;
+		float fAdjustSpeed;
 
 		bool bGetHit;
 
@@ -78,6 +85,9 @@ namespace m
 		PathFinder* mPathFinder;
 
 		Vector2 mCoord;
+
+		bool bMadePath;
+		bool bSixteenDirection;
 	};
 }
 

@@ -175,7 +175,7 @@ namespace m
 				= [this]() { Hit(false, GameObject::eBattleState::Idle); };
 		}
 
-		mDirection = eSixteenDirection::Down;
+		mDirection = (int)eSixteenDirection::Down;
 		mAnimationType = ePlayerAnimationType::Natural;
 		mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], true);
 	}
@@ -193,23 +193,6 @@ namespace m
 			mDirection = plusSixteenDirections[n];
 		else
 			mDirection = minusSixteenDirections[abs(n)];
-		//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = eSixteenDirection::Up;
-		//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = eSixteenDirection::LeftUp3;
-		//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = eSixteenDirection::LeftUp2;
-		//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = eSixteenDirection::LeftUp1;
-		//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = eSixteenDirection::Left;
-		//else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = eSixteenDirection::LeftDown3;
-		//else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = eSixteenDirection::LeftDown2;
-		//else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = eSixteenDirection::LeftDown1;
-		//else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = eSixteenDirection::Down;
-		//else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = eSixteenDirection::Down;
-		//else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = eSixteenDirection::RightDown3;
-		//else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = eSixteenDirection::RightDown2;
-		//else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = eSixteenDirection::RightDown1;
-		//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = eSixteenDirection::Right;
-		//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = eSixteenDirection::RightUp3;
-		//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = eSixteenDirection::RightUp2;
-		//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = eSixteenDirection::RightUp1;
 
 		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerManager::player->StopF()
 		//	&& ((Player*)GetOwner())->GetAttack())

@@ -130,6 +130,9 @@
     <ClCompile Include="mSkillOrb.cpp">
       <Filter>Skill\SkillOrb</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillCurve.cpp">
+      <Filter>Skill\SkillCurve</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -257,6 +260,9 @@
     <ClInclude Include="mPlayerStatus.h" />
     <ClInclude Include="mSkillOrb.h">
       <Filter>Skill\SkillOrb</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillCurve.h">
+      <Filter>Skill\SkillCurve</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +415,9 @@
     </Filter>
     <Filter Include="Skill\SkillOrb">
       <UniqueIdentifier>{e8331bc0-4f49-4ab0-9c98-2ca3dc210ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillCurve">
+      <UniqueIdentifier>{2a35cf6e-0e54-4675-bbb2-e15106ea60a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

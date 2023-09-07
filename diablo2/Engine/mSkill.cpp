@@ -32,20 +32,20 @@ namespace m
 	}
 	void Skill::Initialize()
 	{
-		GameObject::Initialize();
+		MoveAbleObject::Initialize();
 	}
 	void Skill::Update()
 	{
-		GameObject::Update();
+		MoveAbleObject::Update();
 		//mOESS->Update();
 	}
 	void Skill::LateUpdate()
 	{
-		GameObject::LateUpdate();
+		MoveAbleObject::LateUpdate();
 	}
 	void Skill::Render()
 	{
-		GameObject::Render();
+		MoveAbleObject::Render();
 	}
 	void Skill::Hit(int damage)
 	{

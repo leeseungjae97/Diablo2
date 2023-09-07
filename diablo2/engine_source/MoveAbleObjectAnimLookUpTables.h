@@ -126,34 +126,36 @@ namespace m
 		8,
 		1,
 	};
-	eSixteenDirection plusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
-		eSixteenDirection::RightUp1,
-		eSixteenDirection::RightUp2,
-		eSixteenDirection::RightUp3,
-		eSixteenDirection::Right,
-		eSixteenDirection::RightDown1,
-		eSixteenDirection::RightDown2,
-		eSixteenDirection::RightDown3,
-		eSixteenDirection::Down
+	int plusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+		(int)eSixteenDirection::Up,
+		(int)eSixteenDirection::RightUp1,
+		(int)eSixteenDirection::RightUp2,
+		(int)eSixteenDirection::RightUp3,
+		(int)eSixteenDirection::Right,
+		(int)eSixteenDirection::RightDown1,
+		(int)eSixteenDirection::RightDown2,
+		(int)eSixteenDirection::RightDown3,
+		(int)eSixteenDirection::Down
 	};
-	eSixteenDirection minusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
-		eSixteenDirection::Up,
-		eSixteenDirection::LeftUp3,
-		eSixteenDirection::LeftUp2,
-		eSixteenDirection::LeftUp1,
-		eSixteenDirection::Left,
-		eSixteenDirection::LeftDown3,
-		eSixteenDirection::LeftDown2,
-		eSixteenDirection::LeftDown1,
-		eSixteenDirection::Down,
+	int minusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+		(int)eSixteenDirection::Up,
+		(int)eSixteenDirection::LeftUp3,
+		(int)eSixteenDirection::LeftUp2,
+		(int)eSixteenDirection::LeftUp1,
+		(int)eSixteenDirection::Left,
+		(int)eSixteenDirection::LeftDown3,
+		(int)eSixteenDirection::LeftDown2,
+		(int)eSixteenDirection::LeftDown1,
+		(int)eSixteenDirection::Down,
 	};
-	int plusEightDirection[5] = {
+	int plusEightDirections[5] = {
+		(int)eSixteenDirection::Up,
 		(int)eSixteenDirection::RightUp1,
 		(int)eSixteenDirection::Right,
 		(int)eSixteenDirection::RightDown1,
 		(int)eSixteenDirection::Down,
 	};
-	int minusEightDirection[5] = {
+	int minusEightDirections[5] = {
 		(int)eSixteenDirection::Up,
 		(int)eSixteenDirection::LeftUp1,
 		(int)eSixteenDirection::Left,

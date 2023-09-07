@@ -26,19 +26,17 @@ namespace m
 		else mType = dSkill->GetSkillType();
 
 		SHARED_MAT tex = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
-		Vector2 size = Vector2::Zero;
 
 		mSkillCrashType = skillCrashTypes[(UINT)mType];
 		mCrashType = crashFunction[(int)mSkillCrashType];
 
-		
 		for (int i = 0; i < mDirectionCount; ++i)
 		{
-			if (mDirectionCount < 16)
+			if (mDirectionCount == 8)
 			{
 				int m = pathEightDirections[i];
 				mAnimator->Create(
-					skillAnimNames[(int)mType] + sixteenDirectionString[m]
+					skillAnimNames[(int)mType] + pathSixteenDirectionString[m]
 					, tex->GetTexture()
 					, Vector2(0.0f, skillSizes[(int)mType].y * i)
 					, skillSizes[(int)mType]
@@ -49,7 +47,7 @@ namespace m
 			}else
 			{
 				mAnimator->Create(
-					skillAnimNames[(int)mType] + sixteenDirectionString[i]
+					skillAnimNames[(int)mType] + pathSixteenDirectionString[i]
 					, tex->GetTexture()
 					, Vector2(0.0f, skillSizes[(int)mType].y * i)
 					, skillSizes[(int)mType]
@@ -124,11 +122,12 @@ namespace m
 		int n = 0;
 		if (mDirectionCount == 16)
 		{
-			n = degree / (180.f / 9.f);
+			n = degree / (180.f / 18.f);
 			if (n > 0) 
 				mDirection = pathPlusSixteenDirections[n];
 			else
-				mDirection = minusPathSixteenDirections[abs(n)];
+				mDirection = pathMinusSixteenDirections[abs(n)];
+
 			//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSixTeenDirection::Up;
 			//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSixTeenDirection::LeftUp3;
 			//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSixTeenDirection::LeftUp2;
@@ -151,9 +150,9 @@ namespace m
 		{
 			n = degree / (180.f / 5.f);
 			if (n > 0)
-				mDirection = plusPathEightDirections[n];
+				mDirection = pathPlusEightDirections[n];
 			else
-				mDirection = minusPathEightDirections[abs(n)];
+				mDirection = pathMinusEightDirections[abs(n)];
 			//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSixTeenDirection::Up;
 			//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSixTeenDirection::LeftUp1;
 			//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSixTeenDirection::Left;
@@ -167,8 +166,8 @@ namespace m
 
 
 		if(nullptr == mAnimator->GetActiveAnimation() ||
-			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + sixteenDirectionString[mDirection])
-			mAnimator->PlayAnimation(skillAnimNames[(int)mType] + sixteenDirectionString[mDirection], true);
+			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
+			mAnimator->PlayAnimation(skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection], true);
 	}
 	void StraightScript::LateUpdate()
 	{

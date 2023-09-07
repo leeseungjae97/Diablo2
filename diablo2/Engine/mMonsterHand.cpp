@@ -55,10 +55,10 @@ namespace m
 
 		if(mHandScript->GetRightHand())
 		{
-			if (direction == pathSixteenDirections[(int)eSixteenDirection::Left]
-				|| direction == pathSixteenDirections[(int)eSixteenDirection::LeftUp1]
-				|| direction == pathSixteenDirections[(int)eSixteenDirection::RightUp1]
-				|| direction == pathSixteenDirections[(int)eSixteenDirection::Up])
+			if (direction == (int)ePathSixteenDirection::Left
+				|| direction == (int)ePathSixteenDirection::LeftUp1
+				|| direction == (int)ePathSixteenDirection::RightUp1
+				|| direction == (int)ePathSixteenDirection::Up)
 			{
 				if (pos.z == 1.f) ++pos.z;
 				//SceneManager::GetActiveScene()->GetLayer(eLayerType::Monster)->ChangeLayerIndexGameObject(this, mOwner);

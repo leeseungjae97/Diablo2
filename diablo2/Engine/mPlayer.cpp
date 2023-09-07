@@ -12,10 +12,12 @@ extern m::Application application;
 namespace m
 {
 	Player::Player(Vector3 iniPos)
-		: MoveAbleObject(iniPos, 300.f)
+		: MoveAbleObject(iniPos, 500.f)
 		, mHp(nullptr)
 		, mMp(nullptr)
 	{
+		bMadePath = false;
+		bSixteenDirection = true;
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
 		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
 		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
@@ -108,8 +110,8 @@ namespace m
 		//}
 		if (fRemainDistance < fStartDistance)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
+			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 		MoveAbleObject::Update();

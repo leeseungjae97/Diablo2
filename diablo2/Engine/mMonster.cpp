@@ -121,8 +121,8 @@ namespace m
 		}
 		if (fRemainDistance < fStartDistance)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fSpeed * Time::fDeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fSpeed * Time::fDeltaTime());
+			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 		//MoveAbleObject::Update();
