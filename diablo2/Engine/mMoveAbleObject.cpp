@@ -102,176 +102,41 @@ namespace m
 	{
 		float degree = RadianToDegree(atan2(vDirection.x, vDirection.y));
 		
-		//int direction;
 		float degreeWeight = 0.f;
 		float devideNum = 0.f;
-		//int* plusDirection = nullptr;
-		//int* minusDirection = nullptr;
+
 		if(bMadePath)
 		{
 			if (bSixteenDirection)
 			{
 				devideNum = 18.f;
 				degreeWeight = degree / (180.f / devideNum);
-				//if (degreeIndex > 0)
-				//	plusDirection = pathPlusSixteenDirections;
-				//else
-				//	minusDirection = pathMinusSixteenDirections;
 			}else
 			{
 				devideNum = 5.f;
 				degreeWeight = degree / (180.f / devideNum);
-				//if (degreeIndex > 0)
-				//	plusDirection = pathPlusEightDirections;
-				//else
-				//	minusDirection = pathMinusEightDirections;
 			}
 		}else
 		{
 			if (bSixteenDirection)
 			{
-				devideNum = 9.f;
+				devideNum = 18.f;
 				degreeWeight = degree / (180.f / devideNum);
-				//if (degreeIndex > 0)
-				//	plusDirection = plusSixteenDirections;
-				//else
-				//	minusDirection = minusSixteenDirections;
 			}
 			else
 			{
 				devideNum = 5.f;
 				degreeWeight = degree / (180.f / devideNum);
-				//if (degreeIndex > 0)
-				//	plusDirection = plusEightDirections;
-				//else
-				//	minusDirection = minusEightDirections;
 			}
 		}
 
-		// 0 ~ 9
-		
-		//
-		//float c = m / (devideNum / 2.f);
-		if(GetName() == L"orb")
-		{
-		    if(math::areAlmostEqual(18.f, degreeWeight)
-				&& math::areAlmostEqual(0.f, degreeWeight))
-		    {
-				int a = 0;
-		    }
-		}
-
-		float reductionSpeed = fSpeed / 2.f;
+		float reductionSpeed = fSpeed / 1.2f;
 		float middleDegreeIndex = (devideNum) / 2.f;
 
-		float weight = fabs(fabs(degreeWeight) - middleDegreeIndex);
-		float adjustmentedSpeed = reductionSpeed / (devideNum + 1.f);
+		float weight = fabs(middleDegreeIndex - fabs(degreeWeight));
+		float adjustmentedSpeed = reductionSpeed / devideNum;
 
 		fAdjustSpeed = fSpeed - (adjustmentedSpeed * weight);
-
-		//float middleIndex = (devideNum / 2.f);
-		//float weight = fabs(fabs(degreeIndex) - middleIndex);
-		//float adjustmentSpeed = fSpeed / middleIndex;
-
-		//fAdjustSpeed = fSpeed - (adjustmentSpeed * weight);
-
-		//fAdjustSpeed = fSpeed - (m - (fabs(n) * c));
-		//fAdjustSpeed = fSpeed - (fabs(n) * 20.f);
-		//fAdjustSpeed = fSpeed - (fSpeed / (abs(n) == 0 ? 1 : abs(n) * 10.f));
-		//fAdjustSpeed = fSpeed - (n * 10.f);
-	/*	if (n > 0)
-			direction = (int)plusDirection[n];
-		else
-			direction = (int)minusDirection[abs(n)];
-		if (bMadePath)
-		{
-			switch (direction)
-			{
-			case (int)ePathSixteenDirection::Right:
-			case (int)ePathSixteenDirection::Left:
-			{
-				fAdjustSpeed = fSpeed;
-			}
-			break;
-			case (int)ePathSixteenDirection::Down:
-			case (int)ePathSixteenDirection::Up:
-			{
-				fAdjustSpeed = fSpeed - 100.f;
-			}
-			break;
-			case (int)ePathSixteenDirection::LeftDown1:
-			case (int)ePathSixteenDirection::LeftUp3:
-			case (int)ePathSixteenDirection::RightUp1:
-			case (int)ePathSixteenDirection::RightDown3:
-			{
-				fAdjustSpeed = fSpeed - 90.f;
-			}
-			break;
-			case (int)ePathSixteenDirection::RightUp2:
-			case (int)ePathSixteenDirection::LeftDown2:
-			case (int)ePathSixteenDirection::RightDown2:
-			case (int)ePathSixteenDirection::LeftUp2:
-			{
-				fAdjustSpeed = fSpeed - 50.f;
-			}
-			break;
-			case (int)ePathSixteenDirection::RightDown1:
-			case (int)ePathSixteenDirection::RightUp3:
-			case (int)ePathSixteenDirection::LeftDown3:
-			case (int)ePathSixteenDirection::LeftUp1:
-			{
-				fAdjustSpeed = fSpeed - 20.f;
-			}
-			break;
-			default:
-			{
-				fAdjustSpeed = fSpeed;
-			}
-			break;
-			}
-		}else
-		{
-			switch (direction)
-			{
-			case (int)eSixteenDirection::Down:
-			case (int)eSixteenDirection::Up:
-			{
-				fAdjustSpeed = fSpeed / 2.f;
-			}
-			break;
-			case (int)eSixteenDirection::RightUp1:
-			case (int)eSixteenDirection::LeftDown1:
-			case (int)eSixteenDirection::RightDown1:
-			case (int)eSixteenDirection::LeftUp1:
-			{
-				fAdjustSpeed = fSpeed / 1.4f;
-			}
-			break;
-
-			case (int)eSixteenDirection::RightUp2:
-			case (int)eSixteenDirection::LeftDown2:
-			case (int)eSixteenDirection::RightDown2:
-			case (int)eSixteenDirection::LeftUp2:
-			{
-				fAdjustSpeed = fSpeed / 1.3f;
-			}
-			break;
-
-			case (int)eSixteenDirection::RightUp3:
-			case (int)eSixteenDirection::LeftDown3:
-			case (int)eSixteenDirection::RightDown3:
-			case (int)eSixteenDirection::LeftUp3:
-			{
-				fAdjustSpeed = fSpeed / 1.2f;
-			}
-			break;
-			default:
-			{
-				fAdjustSpeed = fSpeed;
-			}
-			break;
-			}
-		}*/
 	}
 	void MoveAbleObject::SetInitializePosition(Vector3 initPos)
 	{

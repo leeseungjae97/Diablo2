@@ -2,6 +2,7 @@
 
 #include "mInput.h"
 #include "mSceneManager.h"
+#include "mSkillCurve.h"
 
 namespace m
 {
@@ -22,7 +23,7 @@ namespace m
         //}
         for(int i = 0 ; i < 30; ++i)
         {
-            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 600.f);
+            SkillCurve* ss = new SkillCurve(eSkillType::iceBolt, Vector3::Zero, 600.f);
             ss->SetName(L"orb");
             sectionSkills2.push_back(ss);
         }
@@ -48,7 +49,7 @@ namespace m
             //    SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
             //}
 
-            for (SkillStraight* ss : sectionSkills2)
+            for (SkillCurve* ss : sectionSkills2)
             {
                 ss->SetCamera(GetCamera());
                 SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
@@ -64,7 +65,7 @@ namespace m
             //    ss->SetState(Delete);
             //}
 
-            for (SkillStraight* ss : sectionSkills2)
+            for (SkillCurve* ss : sectionSkills2)
             {
                 ss->SetState(Delete);
             }
@@ -127,30 +128,14 @@ namespace m
             Vector3 pos = GET_POS(this);
             SET_POS_VEC(sectionSkills2[i], pos);
             sectionSkills2[i]->SetInitializePosition(pos);
+            
             float degree = 360 / sectionSkills2.size() * (i + 1);
+            float theta = DegreeToRadian(degree + 90.f);
 
-            float theta = DegreeToRadian(degree);
-
-            //if (degree >= 180) theta *= -1;
-
-            pos.y += cosf(theta);
             pos.x += sinf(theta);
+            pos.y += cosf(theta);
 
-            //if (degree >= 180)
-            //    pos.y -= cosf(theta);
-            //else 
-            //    pos.y += cosf(theta);
-
-
-            //if (degree >= 180)
-            //{
-            //    pos.y -= cosf(theta);
-            //    pos.x -= sinf(theta);
-            //}
-            //else if (degree < 180)
-            //{
-
-            //}
+            //sectionSkills2[i]->SetCurveAngle(0.2f);
             sectionSkills2[i]->SetDestPosition(pos);
             sectionSkills2[i]->SkillFire();
         }

@@ -2,6 +2,7 @@
 #include "mSkillStraight.h"
 namespace m
 {
+    class SkillCurve;
     class SkillOrb :
         public SkillStraight
     {
@@ -19,7 +20,7 @@ namespace m
         void fireCircle();
     private:
         std::vector<SkillStraight*> sectionSkills;
-        std::vector<SkillStraight*> sectionSkills2;
+        std::vector<SkillCurve*> sectionSkills2;
 
         bool bCameraUpdate;
         float mRandomCircleDegree;

@@ -118,7 +118,7 @@ namespace m
 		Vector3 direction = ((SkillStraight*)GetOwner())->GetDirection();
 
 		float degree = RadianToDegree(atan2(direction.x, direction.y));
-		//float degree = 0;
+
 		int n = 0;
 		if (mDirectionCount == 16)
 		{
@@ -163,7 +163,10 @@ namespace m
 			//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::Right;
 			//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
 		}
-
+		if(mDirection == (int)ePathSixteenDirection::Down)
+		{
+			int a = 0;
+		}
 
 		if(nullptr == mAnimator->GetActiveAnimation() ||
 			mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
