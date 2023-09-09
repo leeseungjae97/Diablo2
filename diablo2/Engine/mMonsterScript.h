@@ -55,6 +55,7 @@ namespace m
 		int mDirection;
 		int* mPlusDirections;
 		int* mMinusDirections;
+		std::wstring* animStrings;
 
 		bool bFire;
 		bool bDamaged;

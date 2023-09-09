@@ -98,7 +98,7 @@ namespace m
 		(int)ePathSixteenDirection::Right,
 	};
 	//int pathPlusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
-	int pathPlusSixteenDirections[18] = {
+	int pathPlusSixteenDirections[19] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::RightUp1,
 		(int)ePathSixteenDirection::RightUp1,
@@ -117,9 +117,10 @@ namespace m
 		(int)ePathSixteenDirection::RightDown3,
 		(int)ePathSixteenDirection::RightDown3,
 		(int)ePathSixteenDirection::Down,
+		(int)ePathSixteenDirection::Down,
 	};
 	//int pathMinusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
-	int pathMinusSixteenDirections[18] = {
+	int pathMinusSixteenDirections[19] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::LeftUp3,
 		(int)ePathSixteenDirection::LeftUp3,
@@ -137,6 +138,7 @@ namespace m
 		(int)ePathSixteenDirection::LeftDown2,
 		(int)ePathSixteenDirection::LeftDown1,
 		(int)ePathSixteenDirection::LeftDown1,
+		(int)ePathSixteenDirection::Down,
 		(int)ePathSixteenDirection::Down,
 	};
 	int pathPlusEightDirections[5] = {

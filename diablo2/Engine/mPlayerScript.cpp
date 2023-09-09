@@ -249,10 +249,20 @@ namespace m
 
 			int prevIndex = 0;
 			if (subStr1 == sorceressAnimationString[(UINT)ePlayerAnimationType::Run])
+			{
 				prevIndex = mAnimator->GetAnimationIndex();
+			}
 			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], true);
 			if (mAnimationType == ePlayerAnimationType::Run)
-				mAnimator->SetAnimationIndex(prevIndex);
+			{
+				if (prevIndex != 0)
+				{
+					if(prevIndex + 1 < mAnimator->GetActiveAnimation()->GetAltasLength())
+					    mAnimator->SetAnimationIndex(prevIndex + 1);
+					else
+						mAnimator->SetAnimationIndex(prevIndex);
+				}
+			}
 		}
 
 	}

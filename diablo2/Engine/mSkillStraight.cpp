@@ -8,9 +8,10 @@
 
 namespace m
 {
-	SkillStraight::SkillStraight(eSkillType type, Vector3 iniPos, float speed)
+	SkillStraight::SkillStraight(eSkillType type, Vector3 iniPos, float speed, bool useLimitDistance)
 		:Skill(type, iniPos, false, true)
 		, limitDistance(1000.f)
+	    , useLimit(useLimitDistance)
 	{
 		bMadePath = true;
 		
@@ -87,8 +88,9 @@ namespace m
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 		
-		Vector2 diff = (Vector2(prevPosition.x, prevPosition.y) - Vector2(curPosition.x, curPosition.y));
-		if (limitDistance <= diff.Length())
+		moveDistance = (Vector2(prevPosition.x, prevPosition.y) - Vector2(curPosition.x, curPosition.y)).Length();
+		if (useLimit && 
+			limitDistance <= moveDistance)
 		{
 			bMove = false;
 			SetState(eState::Delete);

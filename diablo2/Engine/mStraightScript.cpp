@@ -13,6 +13,7 @@ namespace m
 	StraightScript::StraightScript(int _directionCount)
 		: mDirectionCount(_directionCount)
 		, mCrashType(eCrashType::END)
+	    , bNoHit(false)
 	{
 	}
 	StraightScript::~StraightScript()
@@ -71,11 +72,13 @@ namespace m
 						  , 0.7f);
 		mAnimator->StartEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
 		{
-			dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
+			if(dynamic_cast<SkillStraight*>(GetOwner()))
+			    dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
 		};
 		mAnimator->EndEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
 		{
-			GetOwner()->SetState(GameObject::eState::Delete);
+			if (this)
+			    GetOwner()->SetState(GameObject::eState::Delete);
 		};
 
 		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
@@ -98,7 +101,7 @@ namespace m
 	void StraightScript::Update()
 	{
 		//if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
-		if (((Skill*)GetOwner())->GetSkillCrash())
+		if (((Skill*)GetOwner())->GetSkillCrash() && !bNoHit)
 		{
 			eSkillCrashType crashType = skillCrashTypes[(UINT)mType];
 			if (crashFunction[(int)crashType] == eCrashType::Collide)
@@ -148,7 +151,7 @@ namespace m
 		}
 		else
 		{
-			n = degree / (180.f / 5.f);
+			n = degree / (180.f / 4.f);
 			if (n > 0)
 				mDirection = pathPlusEightDirections[n];
 			else
@@ -162,10 +165,6 @@ namespace m
 			//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSixTeenDirection::RightDown1;
 			//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::Right;
 			//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
-		}
-		if(mDirection == (int)ePathSixteenDirection::Down)
-		{
-			int a = 0;
 		}
 
 		if(nullptr == mAnimator->GetActiveAnimation() ||

@@ -7,7 +7,7 @@ namespace m
         public Skill
     {
     public:
-        SkillStraight(eSkillType type, Vector3 iniPos, float speed);
+        SkillStraight(eSkillType type, Vector3 iniPos, float speed, bool useLimitDistance = true);
         virtual ~SkillStraight();
 
         virtual void Initialize() override;
@@ -19,11 +19,14 @@ namespace m
 
         void SetLimitDistance(float distance) { limitDistance = distance; }
         float GetLimitDistance() { return limitDistance; }
-
+        float GetMoveDistance() { return moveDistance; }
         void StopMove() { bMove = false; }
     private:
         StraightScript* ss;
         float limitDistance;
+        bool useLimit;
+
+        float moveDistance;
     };
 }
 

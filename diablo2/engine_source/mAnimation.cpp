@@ -103,7 +103,7 @@ namespace m
 
 		float width = (float)atlas->GetMetaDataWidth();
 		float height = (float)atlas->GetMetaDataHeight();
-
+		mLength = columnLength;
 		for (size_t i = 0; i < columnLength; i++)
 		{
 			Sprite sprite = {};

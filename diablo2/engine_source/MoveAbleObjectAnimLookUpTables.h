@@ -23,19 +23,19 @@ namespace m
 		End,
 	};
 	std::wstring sorceressAnimationString[(UINT)ePlayerAnimationType::End] = {
-		L"sorceressAttack1_anim",
-		L"sorceressAttack2_anim",
-		L"sorceressBlock_anim",
-		L"sorceressGetHit_anim",
-		L"sorceressKick_anim",
-		L"sorceressNatural_anim",
-		L"sorceressRun_anim",
-		L"sorceressSpecial1_anim",
-		L"sorceressSpecialCast_anim",
-		L"sorceressTownNatural_anim",
-		L"sorceressTownWalk_anim",
-		L"sorceressWalk_anim",
-		L"sorceressDead_anim",
+		L"sorceressAttack1_anim@",
+		L"sorceressAttack2_anim@",
+		L"sorceressBlock_anim@",
+		L"sorceressGetHit_anim@",
+		L"sorceressKick_anim@",
+		L"sorceressNatural_anim@",
+		L"sorceressRun_anim@",
+		L"sorceressSpecial1_anim@",
+		L"sorceressSpecialCast_anim@",
+		L"sorceressTownNatural_anim@",
+		L"sorceressTownWalk_anim@",
+		L"sorceressWalk_anim@",
+		L"sorceressDead_anim@",
 	};
 	enum class eSixteenDirection
 	{

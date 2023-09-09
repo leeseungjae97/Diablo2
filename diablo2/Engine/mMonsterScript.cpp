@@ -59,6 +59,18 @@ namespace m
 		}
 		//curScene->AddGameObject(eLayerType::Monster, mLeftHand);
 
+		if (curMonsterData.bPathImage)
+		{
+			mPlusDirections = pathPlusEightDirections;
+			mMinusDirections = pathMinusEightDirections;
+			animStrings = pathSixteenDirectionString;
+		}
+		else
+		{
+			mPlusDirections = plusEightDirections;
+			mMinusDirections = minusEightDirections;
+			animStrings = sixteenDirectionString;
+		}
 
 		int m = 0;
 		for (int i = 0; i < (UINT)T::eAnimationType::End; ++i)
@@ -69,10 +81,11 @@ namespace m
 
 			for (int j = 0; j < 8; ++j)
 			{
-				if (curMonsterData.bPathImage) m = pathEightDirections[j];
-				else m = eEightDirection[j];
+				if (!curMonsterData.bPathImage) m = eEightDirection[j];
+				else m = j;
+
 				mAnimator->Create(
-					curMonsterData.animationString[i] + sixteenDirectionString[m]
+					curMonsterData.animationString[i] + animStrings[m]
 					, mat->GetTexture()
 					, Vector2(0.0f, curMonsterData.animationSizes[i].y * j)
 					, curMonsterData.animationSizes[i]
@@ -82,7 +95,7 @@ namespace m
 				);
 				if (i == (UINT)T::eAnimationType::Natural)
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						mAnimator->SetAnimationStartIndex(0);
@@ -90,43 +103,43 @@ namespace m
 				}
 				if (i == (UINT)T::eAnimationType::Attack1)
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						AnimationStart(GameObject::eBattleState::Attack);
 						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::Attack1]);
 					};
-					mAnimator->EndEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						fDelay = 0.f;
 						AnimationComplete(GameObject::eBattleState::Idle);
 						mAnimator->SetAnimationProgressIndex(0);
 					};
-					mAnimator->ProgressEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]() { AttackProgress(); };
 				}
 				if (i == (UINT)T::eAnimationType::Hit)
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						Hit(true, GameObject::eBattleState::Hit);
 						//mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::Hit]);
 					};
-					mAnimator->EndEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]() { Hit(false, GameObject::eBattleState::Idle); };
 				}
 				if (i == (UINT)T::eAnimationType::SpecialCast)
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::SpecialCast]);
 						mAnimator->SetAnimationEndIndex(curMonsterData.animEndIndex[(UINT)T::eAnimationType::SpecialCast]);
 						//mAnimator->SetAnimationProgressStartIndex(curMonsterData.animProgressStartIndex[i]);
 					};
-					mAnimator->ProgressEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						//Skill* st = new SkillStraight(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), 300.f);
@@ -138,7 +151,7 @@ namespace m
 						if (nullptr == mSkill
 							|| mSkill->GetSkillFire()) GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
 					};
-					mAnimator->EndEvent(curMonsterData.animationString[i] + sixteenDirectionString[m])
+					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						if (nullptr == mSkill
@@ -148,15 +161,10 @@ namespace m
 			}
 		}
 		mAnimationType = T::eAnimationType::Natural;
-		mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], true);
+		mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 
 		mMonster = static_cast<Monster*>(GetOwner());
-
-		if (curMonsterData.bPathImage) mPlusDirections = pathPlusEightDirections;
-		else mPlusDirections = plusEightDirections;
-		if (curMonsterData.bPathImage) mMinusDirections = pathMinusEightDirections;
-		else mMinusDirections = minusEightDirections;
 	}
 	template <typename T>
 	void MonsterScript<T>::Update()
@@ -175,7 +183,7 @@ namespace m
 		degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
 
 
-		int n = degree / (180.f / 5.f);
+		int n = degree / (180.f / 4.f);
 
 		if (n > 0)
 			mDirection = mPlusDirections[n];
@@ -199,11 +207,11 @@ namespace m
 					GetOwner()->SetBattleState(GameObject::Cast);
 					mAnimationType = T::eAnimationType::SpecialCast;
 					SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection])
+					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 					{
 						if (curMonsterData.mMonsterType == eMonsterType::Diablo)
 						{
-							mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], true);
+							mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
 							mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::SpecialCast]);
 
 							mSkill = new SkillMultiFire(
@@ -231,9 +239,9 @@ namespace m
 			}
 			mAnimationType = T::eAnimationType::SpecialCast;
 			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection])
+			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
-				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], true);
+				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
 				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::SpecialCast]);
 				mAnimator->SetAnimationIndex(prevIndex);
 			}
@@ -255,9 +263,9 @@ namespace m
 					GetOwner()->SetBattleState(GameObject::Attack);
 					mAnimationType = T::eAnimationType::Attack1;
 					SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection])
+					if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 					{
-						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], false);
+						mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
 					}
 				}
 				else
@@ -271,9 +279,9 @@ namespace m
 			//GetOwner()->SetBattleState(GameObject::Hit);
 			mAnimationType = T::eAnimationType::Hit;
 			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection])
+			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
-				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], false);
+				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
 			}
 		}
 		//mLeftHand->SetAniType((int)mAnimationType);
@@ -298,7 +306,7 @@ namespace m
 			mAnimationType = T::eAnimationType::Run;
 		}
 
-		if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection]
+		if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection]
 			&& curMonsterData.textureString[(UINT)mAnimationType] != L"")
 		{
 
@@ -312,7 +320,7 @@ namespace m
 				prevIndex = mAnimator->GetAnimationIndex();
 			}
 
-			mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + sixteenDirectionString[mDirection], true);
+			mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
 			if (mAnimationType == T::eAnimationType::Run)
 			{
 				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);

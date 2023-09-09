@@ -113,7 +113,7 @@ namespace m
 				degreeWeight = degree / (180.f / devideNum);
 			}else
 			{
-				devideNum = 5.f;
+				devideNum = 4.f;
 				degreeWeight = degree / (180.f / devideNum);
 			}
 		}else
@@ -125,12 +125,12 @@ namespace m
 			}
 			else
 			{
-				devideNum = 5.f;
+				devideNum = 4.f;
 				degreeWeight = degree / (180.f / devideNum);
 			}
 		}
 
-		float reductionSpeed = fSpeed / 1.2f;
+		float reductionSpeed = fSpeed / 1.1f;
 		float middleDegreeIndex = (devideNum) / 2.f;
 
 		float weight = fabs(middleDegreeIndex - fabs(degreeWeight));

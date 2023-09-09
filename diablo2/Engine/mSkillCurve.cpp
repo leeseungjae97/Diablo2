@@ -6,10 +6,11 @@ namespace m
 {
 	SkillCurve::SkillCurve(eSkillType type, Vector3 iniPos, float speed)
 		: Skill(type, iniPos, false, true)
-		, mCurveDegree(0.f)
-		, mCurveDistance(0.f)
-		, mAccCurveTheta(0.f)
+		, mOriginDegree(0.f)
+		, mAddCurve(5.f)
 		, macc(0.f)
+	    , bLock(false)
+	    , iLockCount(0)
     {
 		bMadePath = true;
 
@@ -31,7 +32,7 @@ namespace m
 			ss = AddComponent<StraightScript>();
 			bSixteenDirection = true;
 		}
-		mCurveDegree = 0.f;
+		
     }
 
     SkillCurve::~SkillCurve()
@@ -58,15 +59,6 @@ namespace m
     {
 		Skill::Render();
     }
-	Vector2 SkillCurve::bezierInterpolate(Vector2 p0, Vector2 p1, Vector2 p2, float t)
-	{
-		float u = 1.0f - t;
-		float tt = t * t;
-		float uu = u * u;
-
-		Vector2 p = uu * p0 + (2 * u * t) * p1 + tt * p2;
-		return p;
-	}
     void SkillCurve::moveCurve()
     {
         Vector3 curPosition = GET_POS(this);
@@ -79,30 +71,32 @@ namespace m
 			prevPosition = GET_POS(this);
 
 			vDirection = destPosition - prevPosition;
+			mOriginDegree = RadianToDegree(atan2(vDirection.y, vDirection.x));
+
 			vDirection.Normalize();
 		}
-		
+
 		macc += Time::fDeltaTime();
-		if(macc > 1.f)
+		if(math::areAlmostEqual(macc, 0.2f, 0.1f) && !bLock)
 		{
-			mCurveDegree += 20.f;
-			macc = 0.f;
-			float theta = DegreeToRadian(mCurveDegree);
-			XMVECTOR rotationQuaternion = XMQuaternionRotationAxis(XMVectorSet(0, 1, 0, 0), theta);
-			vDirection = XMVector3Rotate(vDirection, rotationQuaternion);
+			++iLockCount;
+			if(iLockCount >= 5) bLock = true;
+			
+			mOriginDegree -= mAddCurve;
+
+			//vDirection.x = cosf(DegreeToRadian(mOriginDegree));
+			//vDirection.y = sinf(DegreeToRadian(mOriginDegree));
+
+			vDirection.x += cosf(DegreeToRadian(mOriginDegree));
+			vDirection.y += sinf(DegreeToRadian(mOriginDegree));
+
+			vDirection.Normalize();
 		}
 		
 		if (bMove)
 		{
-			//float fMoveX = curPosition.x + (vDirection.x * sinf(mAccCurveTheta) * fAdjustSpeed * Time::fDeltaTime());
-			//float fMoveY = curPosition.y + (vDirection.y * cosf(mAccCurveTheta) * fAdjustSpeed * Time::fDeltaTime());
-
 			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
-
-			//float fMoveX = mp.x + (fAdjustSpeed * Time::fDeltaTime());
-			//float fMoveY = mp.y + (fAdjustSpeed * Time::fDeltaTime());
-
 
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}

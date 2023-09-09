@@ -68,8 +68,10 @@ namespace m
 		void SetStartIndex(int index) { mAnimStartIndex = index; }
 		void SetProgressIndex(int index) { mAnimProgressIndex = index; }
 		void SetEndIndex(int index) { mAnimEndIndex = index; }
+
 		const Sprite& GetCurrentSprite() { return mSprites[mCurIndex]; }
 
+		int GetAltasLength() { return mLength; }
 		int GetIndex() { return mCurIndex; }
 		int GetProgressIndex() { return mAnimProgressIndex; }
 		int GetEndIndex() { return mEndIndex; }
@@ -83,6 +85,7 @@ namespace m
 		std::vector<Sprite> mSprites;
 		int mEndIndex;
 		int mCurIndex;
+		int mLength;
 
 		int mAnimEndIndex;
 		int mAnimStartIndex;

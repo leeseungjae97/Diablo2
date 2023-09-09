@@ -16,23 +16,19 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        void SetCurveAngle(float degree) { mCurveDegree = degree; }
-        void SetCurveDistance(float distance) { mCurveDistance = distance; }
-
+        void SetAddCurve(float degree) { mAddCurve = degree; }
     private:
-        Vector2 bezierInterpolate(Vector2 p0, Vector2 p1, Vector2 p2, float t);
         void moveCurve();
 
     private:
-        float mCurveDegree;
-        float mAccCurveTheta;
-        float mCurveDistance;
+        float mOriginDegree;
+        float mAddCurve;
         float macc;
+        
         StraightScript* ss;
-        Vector2 controlPosition;
 
-        bool m = false;
-        int n = 0;
+        bool bLock;
+        int iLockCount;
     };
 }
 

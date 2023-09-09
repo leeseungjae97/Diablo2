@@ -18,8 +18,11 @@ namespace m
         virtual void OnCollisionEnter(Collider2D* other) override;
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
+
+        void SetNoHit(bool hit) { bNoHit = hit; }
     private:
         int mDirectionCount;
+        bool bNoHit;
         eSixteenDirection* mDirections;
         eSkillCrashType mSkillCrashType;
         eCrashType mCrashType;

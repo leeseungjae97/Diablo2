@@ -16,16 +16,27 @@ namespace m
         virtual void Render() override;
 
     private:
-        void fireRandomDegreeSkill(SkillStraight* skill);
+        void fireThreeWayDegreeSkill(SkillStraight* skill);
         void fireCircle();
+
     private:
         std::vector<SkillStraight*> sectionSkills;
         std::vector<SkillCurve*> sectionSkills2;
 
         bool bCameraUpdate;
-        float mRandomCircleDegree;
+        int mAddCircleDegree;
+        int mAccDegree;
+        int iLock;
+        
+
+        int iInitDegrees[3] = {-135, -45, 45};
+        int iAddDegrees[3] = {135, 90, 60};
+        int iNDuplicates[3] = {};
+        int iMDuplicates[3] = {};
+        int iNumUse;
         float mAccSkillTime;
 
+        bool bFireCircle;
         int mSectionActiveCount;
     }; 
 }
