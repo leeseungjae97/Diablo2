@@ -14,6 +14,7 @@ namespace m
 	{
 		IceCrash1,
 		FireCrash1,
+		FireCrash2,
 		RedLightningCrash,
 
 		END
@@ -27,12 +28,28 @@ namespace m
 
 		END
 	};
+	enum class eIndicatorType
+	{
+		MeteorTargetIndicator,
+		END,
+	};
+	std::wstring indicatorNames[(int)eIndicatorType::END] = {
+	L"meteorTargetIndicator",
+	};
+	m::math::Vector2 indicatorSizes[(int)eIndicatorType::END] = {
+		Vector2(112.f, 74.f),
+	};
+	int indicatorLength[(int)eIndicatorType::END] = {
+		17,
+	};
 	std::wstring crashNames[(int)eSkillCrashType::END] = {
 		L"iceCrash1",
 		L"fireCrash1",
+		L"fireCrash2",
 		L"redLightningCrash",
 	};
 	eCrashType crashFunction[(int)eSkillCrashType::END] = {
+		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Overlay,
@@ -46,11 +63,13 @@ namespace m
 	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 		m::math::Vector2(113.f, 72.f),
 		m::math::Vector2(78.f, 70.f),
+		m::math::Vector2(208.f, 174.f),
 		m::math::Vector2(71.f, 88.f),
 	};
 	int crashLength[(int)eSkillCrashType::END] = {
 		6,
 		12,
+		16,
 		20,
 	};
 
@@ -97,7 +116,7 @@ namespace m
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::Right,
 	};
-	//int pathPlusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+
 	int pathPlusSixteenDirections[19] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::RightUp1,
@@ -119,7 +138,7 @@ namespace m
 		(int)ePathSixteenDirection::Down,
 		(int)ePathSixteenDirection::Down,
 	};
-	//int pathMinusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+
 	int pathMinusSixteenDirections[19] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::LeftUp3,
@@ -141,6 +160,7 @@ namespace m
 		(int)ePathSixteenDirection::Down,
 		(int)ePathSixteenDirection::Down,
 	};
+
 	int pathPlusEightDirections[5] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::RightUp2,
@@ -149,6 +169,7 @@ namespace m
 		(int)ePathSixteenDirection::Down,
 
 	};
+
 	int pathMinusEightDirections[5] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::LeftUp2,
@@ -156,6 +177,7 @@ namespace m
 		(int)ePathSixteenDirection::LeftDown2,
 		(int)ePathSixteenDirection::Down,
 	};
+
 	std::wstring pathSixteenDirectionString[(UINT)eSixteenDirection::End] = {
 			L"left_down_2",
 			L"left_up_2",
@@ -174,72 +196,6 @@ namespace m
 			L"right_down_1",
 			L"right_down_3",
 	};
-	//int pathSixteenDirections[(int)eSixteenDirection::End]
-	//{
-	//	(int)eSixteenDirection::Left,		
-	//	(int)eSixteenDirection::Down,
-	//	(int)eSixteenDirection::Up,
-	//	(int)eSixteenDirection::RightUp1,
-	//	(int)eSixteenDirection::LeftUp1,
-	//	(int)eSixteenDirection::LeftDown1,
-	//	(int)eSixteenDirection::RightUp2,
-	//	(int)eSixteenDirection::RightUp3,
-	//	(int)eSixteenDirection::LeftUp2,
-	//	(int)eSixteenDirection::LeftDown2,
-	//	(int)eSixteenDirection::Right,
-	//	(int)eSixteenDirection::RightDown1,
-	//	(int)eSixteenDirection::LeftUp3,
-	//	(int)eSixteenDirection::LeftDown3,
-	//	(int)eSixteenDirection::RightDown2,
-	//	(int)eSixteenDirection::RightDown3,
-	//};
-	//int pathEightDirections[8] = {
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftDown1],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftUp1],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightUp1],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightDown1],
-	//	pathSixteenDirections[(int)eSixteenDirection::Down],
-	//	pathSixteenDirections[(int)eSixteenDirection::Left],
-	//	pathSixteenDirections[(int)eSixteenDirection::Up],
-	//	pathSixteenDirections[(int)eSixteenDirection::Right],
-	//};
-	//int pathPlusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
-	//	pathSixteenDirections[(int)eSixteenDirection::Up],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightUp2],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightUp1],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightUp3],
-	//	pathSixteenDirections[(int)eSixteenDirection::Right],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightDown2],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightDown1],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightDown3],
-	//	pathSixteenDirections[(int)eSixteenDirection::Down],
-	//};
-	//int pathMinusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
-	//	pathSixteenDirections[(int)eSixteenDirection::Up],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftUp3],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftUp1],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftUp2],
-	//	pathSixteenDirections[(int)eSixteenDirection::Left],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftDown3],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftDown1],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftDown2],
-	//	pathSixteenDirections[(int)eSixteenDirection::Down],
-	//};
-	//int pathPlusEightDirections[5] = {
-	//	pathSixteenDirections[(int)eSixteenDirection::Up],
-	//	pathSixteenDirections[(int)eSixteenDirection::RightUp1],
-	//	pathSixteenDirections[(int)eSixteenDirection::Right],		
-	//	pathSixteenDirections[(int)eSixteenDirection::RightDown1],
-	//	pathSixteenDirections[(int)eSixteenDirection::Down],
-	//	
-	//};
-	//int pathMinusEightDirections[5] = {
-	//	pathSixteenDirections[(int)eSixteenDirection::Up],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftUp1],
-	//	pathSixteenDirections[(int)eSixteenDirection::Left],
-	//	pathSixteenDirections[(int)eSixteenDirection::LeftDown1],
-	//	pathSixteenDirections[(int)eSixteenDirection::Down],
-	//};
 
 	float skillSpeed[(int)eSkillType::END] = {
 		300.f,// iceBolt
@@ -271,7 +227,7 @@ namespace m
 		0.f,// fireBall
 		0.f,// fireWall
 		0.f,// enchant
-		0.f,// meteor
+		300.f,// meteor
 		0.f,// fireMastery
 		0.f,// hydra
 		//
@@ -296,7 +252,7 @@ namespace m
 		0, // nove
 		0, // lightning
 		0, // chainLightning
-		0, // teleport
+		18, // teleport
 		0, // thunderStorm
 		0, // energyShield
 		0, // lightningMastery
@@ -308,7 +264,7 @@ namespace m
 		0, // fireBall
 		0, // fireWall
 		0, // enchant
-		0, // meteor
+		12, // meteor
 		0, // fireMastery
 		0, // hydra
 		//
@@ -334,7 +290,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// nove,
 		m::math::Vector2(0.f, 0.f),// lightning,
 		m::math::Vector2(0.f, 0.f),// chainLightning,
-		m::math::Vector2(0.f, 0.f),// teleport,
+		m::math::Vector2(136.f, 154.f),// teleport,
 		m::math::Vector2(0.f, 0.f),// thunderStorm,
 		m::math::Vector2(0.f, 0.f),// energyShield,
 		m::math::Vector2(0.f, 0.f),// lightningMastery,
@@ -346,7 +302,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// fireBall,
 		m::math::Vector2(0.f, 0.f),// fireWall,
 		m::math::Vector2(0.f, 0.f),// enchant,
-		m::math::Vector2(0.f, 0.f),// meteor,
+		m::math::Vector2(77.f, 125.f),// meteor,
 		m::math::Vector2(0.f, 0.f),// fireMastery,
 		m::math::Vector2(0.f, 0.f),// hydra,
 
@@ -384,7 +340,7 @@ namespace m
 		eSkillCrashType::END,// fireBall
 		eSkillCrashType::END,// fireWall
 		eSkillCrashType::END,// enchant
-		eSkillCrashType::END,// meteor
+		eSkillCrashType::FireCrash2,// meteor
 		eSkillCrashType::END,// fireMastery
 		eSkillCrashType::END,// hydra
 
@@ -423,7 +379,7 @@ namespace m
 		eSkillCastType::END,// fireBall
 		eSkillCastType::END,// fireWall
 		eSkillCastType::END,// enchant
-		eSkillCastType::END,// meteor
+		eSkillCastType::FireCast1,// meteor
 		eSkillCastType::END,// fireMastery
 		eSkillCastType::END,// hydra
 
@@ -434,23 +390,29 @@ namespace m
 	{
 		Blizzard1,
 		Blizzard3,
+		MeteorHead,
 		END
 	};
 	std::wstring accessorySkillNames[(int)eAccessorySkillType::END] = {
 		L"blizzard1",
 		L"blizzard3",
+		L"meteorHead",
+
 	};
 	m::math::Vector2 accessorySkillAnimSize[(int)eAccessorySkillType::END] = {
 		Vector2(97.f, 153.f),
 		Vector2(59.f, 198.f),
+		Vector2(22.f, 22.f),
 
 	};
 	int accessorySkillAnimLength[(int)eAccessorySkillType::END] = {
 		8,
 		6,
+		12,
 	};
 	eSkillCrashType accessorySkillCrashTypes[(int)eAccessorySkillType::END] = {
 		eSkillCrashType::IceCrash1,
 		eSkillCrashType::IceCrash1,
+		eSkillCrashType::END,
 	};
 }

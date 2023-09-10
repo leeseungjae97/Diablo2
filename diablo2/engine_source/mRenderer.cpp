@@ -534,10 +534,6 @@ namespace renderer
 #pragma region Particle
 		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
-
-		MAKE_MATERIAL_PATH(spriteShader, L"skill_image_test", L"..\\Resources\\texture\\ui\\skill\\test"
-			, 48, 48, 10, L"skillImageTest");
-
 #pragma region Monster SKill
 		MAKE_MATERIAL_PATH(spriteShader, L"red_lightning_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\red_lightning_crash"
 						   , 71, 88, 20, L"redLightningCrash");
@@ -545,16 +541,42 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
 						   , 252, 190, 15, L"diabloLightning");
 #pragma endregion
-#pragma region Skill
+#pragma region Overlay
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_3", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_3"
-						   , 127, 148, 16, L"iceCast3");
+			, 127, 148, 16, L"iceCast3");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_2", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_2"
-						   , 115, 123, 15, L"iceCast2");
+			, 115, 123, 15, L"iceCast2");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_1"
-						   , 97, 55, 15, L"iceCast1");
+			, 97, 55, 15, L"iceCast1");
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_cast_1"
+			, 145, 133, 16, L"fireCast1");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_crash_1"
-						   , 113, 72, 6, L"iceCrash1");
+			, 113, 72, 6, L"iceCrash1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_crash_1"
+			, 78, 70, 12, L"fireCrash1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_crash_2", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_crash_2"
+			, 208, 174, 16, L"fireCrash2");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire1"
+			, 66, 89, 37, L"fire1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_2", L"..\\Resources\\texture\\skill_effect\\overlay\\fire2"
+			, 66, 167, 37, L"fire2");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_3", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3"
+			, 66, 136, 37, L"fire3");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"meteor_target_indicator", L"..\\Resources\\texture\\skill_effect\\overlay\\meteor_target_indicator"
+			, 112,74, 17, L"meteorTargetIndicator");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"_teleport", L"..\\Resources\\texture\\skill_effect\\overlay\\teleport"
+			, 136, 154, 18, L"teleport");
+#pragma endregion
+#pragma region Skill
+		
 
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
 						   , 92, 55, 6, L"iceBolt");
@@ -567,14 +589,14 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\fire_bolt"
 						   , 116, 66, 5, L"fireBolt");
 
-		MAKE_MATERIAL_PATH(spriteShader, L"fire_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_crash_1"
-						   , 78, 70, 12, L"fireCrash1");
-
-		MAKE_MATERIAL_PATH(spriteShader, L"fire_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_cast_1"
-						   , 145, 133, 16, L"fireCast1");
-
 		MAKE_MATERIAL_PATH(spriteShader, L"frozen_orb", L"..\\Resources\\texture\\skill_effect\\missile\\frozen_orb"
 			, 54, 53, 16, L"frozenOrb");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"meteor_head", L"..\\Resources\\texture\\skill_effect\\missile\\meteor_head"
+			, 22, 22, 12, L"meteorHead");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"meteor_tail", L"..\\Resources\\texture\\skill_effect\\missile\\meteor_tail"
+			, 77, 125, 12, L"meteor");
 
 
 #pragma endregion

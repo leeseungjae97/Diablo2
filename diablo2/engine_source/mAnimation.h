@@ -79,13 +79,16 @@ namespace m
 		bool IsProgress() { return mbProgress; }
 		bool IsStop() { return mbStop; }
 
+
 	private:
+		int mLength;
 		std::shared_ptr<graphics::Texture> mAtlas;
+
 		Animator* mAnimator;
 		std::vector<Sprite> mSprites;
 		int mEndIndex;
 		int mCurIndex;
-		int mLength;
+		
 
 		int mAnimEndIndex;
 		int mAnimStartIndex;

@@ -19,6 +19,7 @@ namespace m
         virtual void Render() override;
 
         virtual void SetSkillType(eSkillType type) { mType = type; }
+
         //virtual void OnCollisionEnter(Collider2D* other) override;
         //virtual void OnCollisionStay(Collider2D* other) override;
         //virtual void OnCollisionExit(Collider2D* other) override;

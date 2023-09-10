@@ -114,7 +114,19 @@
 									break;\
 								case m::eSkillFunctionType::Fall:\
 								{\
-									skill = new SkillFall(skillType, vector3Pos);\
+									Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());\
+									unprojMousePos.y += 300.f;\
+									unprojMousePos.z = GET_POS(GetOwner()).z;\
+									skill = new SkillFall(skillType, unprojMousePos);\
+									skill->SetCamera(GetOwner()->GetCamera());\
+									skill->SkillFire();\
+									SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);\
+								}\
+								case m::eSkillFunctionType::FallExplosion:\
+								{\
+									Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());\
+									unprojMousePos.z = GET_POS(GetOwner()).z;\
+									skill = new SkillFallExplosion(skillType, unprojMousePos, fireLayerType);\
 									skill->SetCamera(GetOwner()->GetCamera());\
 									skill->SkillFire();\
 									SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);\

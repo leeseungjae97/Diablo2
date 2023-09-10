@@ -7,21 +7,26 @@ namespace m
 		, mActiveAnimation(nullptr)
 		, mbLoop(false)
 		, bSyncPlay(false)
+	    , bCopyComponent(false)
 	{
 
 	}
-	Animator::~Animator()
-	{
-		for (auto& iter : mAnimations)
-		{
-			delete iter.second;
-			iter.second = nullptr;
-		}
 
-		for (auto& iter : mEvents)
+    Animator::~Animator()
+	{
+		if(!bCopyComponent)
 		{
-			delete iter.second;
-			iter.second = nullptr;
+			for (auto& iter : mAnimations)
+			{
+				delete iter.second;
+				iter.second = nullptr;
+			}
+
+			for (auto& iter : mEvents)
+			{
+				delete iter.second;
+				iter.second = nullptr;
+			}
 		}
 	}
 	void Animator::Initialize()
@@ -141,6 +146,8 @@ namespace m
 	}
 	void Animator::SyncPlay()
 	{
+		if (nullptr == mSyncAnimator) return;
+
 		int index = mSyncAnimator->GetActiveAnimation()->GetIndex();
 
 		if(!mActiveAnimation->GetEndIndex() < index)
@@ -234,4 +241,9 @@ namespace m
 
 		return events->progressEvent.mEvent;
 	}
+
+    void Animator::Copy()
+    {
+		bCopyComponent = true;
+    }
 }

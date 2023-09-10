@@ -20,6 +20,7 @@
 
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
+#include "mSkillFallExplosion.h"
 #include "mSkillMultiFire.h"
 #include "mSkillOrb.h"
 #include "mSkill.h"

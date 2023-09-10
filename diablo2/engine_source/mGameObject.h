@@ -150,6 +150,10 @@ namespace m
 		void SetIsRhombus(bool r) { bRhombus = r; }
 
 		const UINT GetGameObjectId() { return iGameObjectId; }
+
+		void CopyAnimator(int count, Animator* animator);
+		void PlayCopyAnimator(const std::wstring playName, bool loop);
+		void ReleaseCopyAnimator();
 	private:
 		eState mState;
 		eLayerType mLayerType;
@@ -166,6 +170,8 @@ namespace m
 
 		UINT iGameObjectId;
 		static UINT GameObjectIdDispender;
+
+		std::vector<GameObject*> subobjects;
 	};
 }
 

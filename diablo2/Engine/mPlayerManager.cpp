@@ -38,12 +38,14 @@ namespace m
 		//player->AddComponent<OverlayEffectSkillScript>(1);
 
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
+		learnedSkill[2][(int)eFireSkillType::meteor] = 1;
+		learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
 		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
 		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
 		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::frozenOrb);
+		SetSkill(1, eSkillType::meteor);
 	}
 
 	void PlayerManager::CalHpPercent()

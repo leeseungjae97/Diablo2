@@ -6,7 +6,9 @@ namespace m
 	{
 		Straight,
 		MultiStraight,
+		Blizzard,
 		Fall,
+		FallExplosion,
 		MutiFall,
 		Orb,
 		Buff,
@@ -188,7 +190,7 @@ namespace m
 		eSkillFunctionType::Straight,// L"noveIcon",
 		eSkillFunctionType::Straight,// L"lightningIcon",
 		eSkillFunctionType::Straight,// L"chainLightningIcon",
-		eSkillFunctionType::Straight,// L"teleportIcon",
+		eSkillFunctionType::Buff,// L"teleportIcon",
 		eSkillFunctionType::Straight,// L"thunderStormIcon",
 		eSkillFunctionType::Straight,// L"energyShieldIcon",
 		eSkillFunctionType::Passive,// L"lightningMasteryIcon",
@@ -200,7 +202,7 @@ namespace m
 		eSkillFunctionType::Straight,// L"fireBallIcon",
 		eSkillFunctionType::Straight,// L"fireWallIcon",
 		eSkillFunctionType::Buff,// L"enchantIcon",
-		eSkillFunctionType::Straight,// L"meteorIcon",
+		eSkillFunctionType::FallExplosion,// L"meteorIcon",
 		eSkillFunctionType::Passive,// L"fireMasteryIcon",
 		eSkillFunctionType::Straight,// L"hydraIcon",
 

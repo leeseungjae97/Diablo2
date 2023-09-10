@@ -2,6 +2,7 @@
 #include "mRenderer.h"
 #include "mGraphicDevice_DX11.h"
 #include "mMouseManager.h"
+#include "mSceneManager.h"
 #include "mTransform.h"
 #include "mScript.h"
 namespace m
@@ -138,5 +139,55 @@ namespace m
 			else bHover = false;
 		}
 		
+	}
+
+    void GameObject::CopyAnimator(int count, Animator* animator)
+    {
+		if (!subobjects.empty())
+		{
+			ReleaseCopyAnimator();
+		}
+		animator->GetActiveAnimation()->GetAltasLength();
+		Vector3 pos = GET_POS(this);
+		Vector3 scale = GET_SCALE(this);
+		for (int i = 0; i < count; ++i)
+		{
+			GameObject* obj = new GameObject();
+			obj->SetName(L"animatorObject");
+			obj->SetCamera(mCamera);
+			SceneManager::GetActiveScene()->AddGameObject(mLayerType, obj);
+			pos.x += 10.f;
+			pos.y += 10.f;
+			SET_POS_VEC(obj, pos);
+			SET_SCALE_VEC(obj, scale);
+			Animator* anim = ADD_COMP(obj, Animator);
+
+			anim->SetAnimations(animator->GetAnimations());
+			anim->SetEvents(animator->GetEvents());
+			anim->SetSpriteSheet(animator->GetSpriteSheet());
+			anim->SetActiveAnimation(animator->GetActiveAnimation());
+			anim->SetLoop(animator->GetLoop());
+			anim->SetSyncAnimator(animator);
+			anim->Copy();
+
+			subobjects.push_back(obj);
+		}
+    }
+
+	void GameObject::PlayCopyAnimator(const std::wstring playName, bool loop)
+	{
+		for (GameObject* obj: subobjects)
+		{
+			Animator* animator = GET_COMP(obj, Animator);
+			
+			animator->PlayAnimation(playName, loop);
+			animator->SyncPlay();
+		}
+	}
+
+	void GameObject::ReleaseCopyAnimator()
+	{
+		for (GameObject* obj : subobjects) obj->SetState(Delete);
+		subobjects.clear();
 	}
 }

@@ -74,24 +74,40 @@ namespace m
 		std::function<void()>& ProgressEvent(const std::wstring key);
 
 		Animation* GetActiveAnimation() { return mActiveAnimation; }
+		std::map<std::wstring, Animation*> GetAnimations() { return mAnimations; }
+		std::map<std::wstring, Events*> GetEvents() { return mEvents; }
+		std::shared_ptr<Texture> GetSpriteSheet() { return mSpriteSheet; }
+		bool GetLoop() { return mbLoop; }
 
 		void SetAnimationStartIndex(int index) { mActiveAnimation->SetStartIndex(index); }
 		void SetAnimationProgressIndex(int index) { mActiveAnimation->SetProgressIndex(index); }
 		void SetAnimationEndIndex(int index) { index != 0 ? mActiveAnimation->SetEndIndex(index) : void(); }
 		void SetAnimationIndex(int index) { mActiveAnimation->SetIndex(index); }
+		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
+
 		void SetSyncAnimator(Animator* sync) { mSyncAnimator = sync; }
 		void Sync() { bSyncPlay = true; }
 		void DeSync() { bSyncPlay = false; }
-		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
+		
+		void SetAnimations(std::map<std::wstring, Animation*> animations) { mAnimations = animations; }
+		void SetEvents(std::map<std::wstring, Events*> events) { mEvents = events; }
+		void SetSpriteSheet(std::shared_ptr<Texture> sheet) { mSpriteSheet = sheet; }
+		void SetActiveAnimation(Animation* animation) { mActiveAnimation = animation; }
+		void SetLoop(bool loop) { mbLoop = loop; }
 
-	private:
+		void Copy();
+
+    private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		std::shared_ptr<Texture> mSpriteSheet;
 		Animator* mSyncAnimator;
 		Animation* mActiveAnimation;
 		bool mbLoop;
+
 		bool bSyncPlay;
+
+		bool bCopyComponent;
 	};
 }
 

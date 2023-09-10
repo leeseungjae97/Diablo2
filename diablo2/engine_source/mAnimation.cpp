@@ -10,7 +10,7 @@ namespace m
 		, mAtlas(nullptr)
 		, mAnimator(nullptr)
 		, mSprites{}
-		, mCurIndex(-1)
+		, mCurIndex(0)
 		, mEndIndex(0)
 		, mTime(0.0f)
 		, mAnimStartIndex(0)

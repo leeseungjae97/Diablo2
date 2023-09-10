@@ -133,6 +133,10 @@
     <ClCompile Include="mSkillCurve.cpp">
       <Filter>Skill\SkillCurve</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillFallExplosion.cpp">
+      <Filter>Skill\SkillFallExplosion</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillIndicator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -264,6 +268,10 @@
     <ClInclude Include="mSkillCurve.h">
       <Filter>Skill\SkillCurve</Filter>
     </ClInclude>
+    <ClInclude Include="mSkillFallExplosion.h">
+      <Filter>Skill\SkillFallExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillIndicator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -418,6 +426,9 @@
     </Filter>
     <Filter Include="Skill\SkillCurve">
       <UniqueIdentifier>{2a35cf6e-0e54-4675-bbb2-e15106ea60a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillFallExplosion">
+      <UniqueIdentifier>{a01b8847-401e-46a1-986b-6b18421b62e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

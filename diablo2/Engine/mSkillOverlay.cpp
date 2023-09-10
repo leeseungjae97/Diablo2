@@ -7,7 +7,7 @@
 #include "mMonster.h"
 namespace m
 {
-	SkillOverlay::SkillOverlay(int index)
+	SkillOverlay::SkillOverlay(int index, eSkillCastType ecType)
 		: mCurIndex(index)
 	{
 		ADD_COMP(this, MeshRenderer);

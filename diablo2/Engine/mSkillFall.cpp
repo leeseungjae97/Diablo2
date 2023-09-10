@@ -6,26 +6,38 @@
 
 namespace m
 {
-	SkillFall::SkillFall(eSkillType type, Vector3 iniPos, eAccessorySkillType _acType)
+	SkillFall::SkillFall(eSkillType type, Vector3 iniPos, float fallHeight
+		, bool diagonalFall, bool deco, eAccessorySkillType _acType
+	)
 		: Skill(type, iniPos)
+	    , fInitYValue(iniPos.y)
+	    , mDiagonalFall(diagonalFall)
+	    , mFallHeight(fallHeight)
+	    , degreeUpdate(false)
+	    , mSkillType(type)
+	    , mAcType(_acType)
 	{
-		//fSpeed = 100.f;
 		ADD_COMP(this, Animator);
-		Collider2D* col = ADD_COMP(this, Collider2D);
-		col->AddExceptType(GetSkillOwnerLayer());
+		if(!deco)
+		    Collider2D* col = ADD_COMP(this, Collider2D);
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
-		eAccessorySkillType acType = _acType;
+		
 		if (type == eSkillType::blizzard)
+			_acType = (eAccessorySkillType)(rand() % 2);
+
+		if (_acType != eAccessorySkillType::END)
 		{
-			int mr = rand() % 2;
-			acType = (eAccessorySkillType)mr;
-			SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)acType].x
-						  , accessorySkillAnimSize[(UINT)acType].y, 1.f);
-			mFs = AddComponent<FallScript>(acType);
+			SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)_acType].x
+				, accessorySkillAnimSize[(UINT)_acType].y, 1.f);
+			mFs = AddComponent<FallScript>(_acType);
+		}else
+		{
+			SET_SCALE_XYZ(this, skillSizes[(UINT)type].x
+				, skillSizes[(UINT)type].y, 1.f);
+			mFs = AddComponent<FallScript>();
 		}
-		fInitYValue = iniPos.y;
 	}
 	SkillFall::~SkillFall()
 	{
@@ -33,16 +45,13 @@ namespace m
 	void SkillFall::Update()
 	{
 		Skill::Update();
-		Vector3 mPos =GET_POS(this);
+		
+		fallArrival();
 
-		if (Arrival(fInitYValue - 300, mPos.y, fInitYValue))
-		{
-			bMove = false;
-			if(mFs)
-				mFs->Arrival();
-		}
 		if (bSkillFire)
 		{
+			adjustmentPosition();
+			
 			bSkillFire = false;
 			if(mFs)
 				mFs->SkillFire();
@@ -50,8 +59,7 @@ namespace m
 		}
 		if (bMove)
 		{
-			mPos.y = mPos.y - fSpeed * Time::fDeltaTime();
-			SET_POS_VEC(this, mPos);
+			fall();
 		}
 	}
 	void SkillFall::LateUpdate()
@@ -65,5 +73,55 @@ namespace m
 	void SkillFall::Initialize()
 	{
 		Skill::Initialize();
+	}
+	void SkillFall::fallArrival()
+	{
+		Vector3 mPos = GET_POS(this);
+		if (Arrival(fInitYValue - mFallHeight, mPos.y, fInitYValue))
+		{
+			bMove = false;
+			if (mFs)
+				mFs->Arrival();
+		}
+	}
+	void SkillFall::fall()
+	{
+		Vector3 mPos = GET_POS(this);
+		if (mDiagonalFall)
+		{
+			//mPos.x += cosf(DegreeToRadian(mFallDegree));
+
+			//mPos.y -= mPos.y - fSpeed * Time::fDeltaTime();
+		}
+		mPos.y += vDirection.y * fSpeed * Time::fDeltaTime();
+		mPos.x += vDirection.x * fSpeed * Time::fDeltaTime();
+		SET_POS_VEC(this, mPos);
+	}
+	void SkillFall::adjustmentPosition()
+	{
+		Vector3 mPos = GET_POS(this);
+		if (mDiagonalFall)
+		{
+		    destPosition = mPos;
+			destPosition.y -= mFallHeight;
+
+			mPos.x -= mFallHeight / 4.f;
+
+			Vector3 curPosition = mPos;
+			SET_POS_VEC(this, curPosition);
+
+			vDirection = destPosition - curPosition;
+			vDirection.Normalize();
+		}else
+		{
+			destPosition = mPos;
+			destPosition.y -= mFallHeight;
+
+			Vector3 curPosition = mPos;
+			SET_POS_VEC(this, curPosition);
+
+			vDirection = destPosition - curPosition;
+			vDirection.Normalize();
+		}
 	}
 }

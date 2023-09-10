@@ -1,5 +1,6 @@
 #include "mSkillScript.h"
 
+#include "../engine_source/mAnimator.h"
 namespace m
 {
 	SkillScript::SkillScript()
@@ -21,7 +22,8 @@ namespace m
 	void SkillScript::Render()
 	{
 	}
-	//void SkillScript::OnCollisionEnter(Collider2D* other)
+
+    //void SkillScript::OnCollisionEnter(Collider2D* other)
 	//{
 	//}
 	//void SkillScript::OnCollisionStay(Collider2D* other)

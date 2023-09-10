@@ -84,9 +84,6 @@ namespace m
 			
 			mOriginDegree -= mAddCurve;
 
-			//vDirection.x = cosf(DegreeToRadian(mOriginDegree));
-			//vDirection.y = sinf(DegreeToRadian(mOriginDegree));
-
 			vDirection.x += cosf(DegreeToRadian(mOriginDegree));
 			vDirection.y += sinf(DegreeToRadian(mOriginDegree));
 

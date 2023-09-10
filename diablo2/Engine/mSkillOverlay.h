@@ -8,7 +8,7 @@ namespace m
 		: public GameObject
 	{
 	public:
-		SkillOverlay(int index = -1);
+		SkillOverlay(int index = -1, eSkillCastType ecType = eSkillCastType::END);
 		virtual ~SkillOverlay();
 
 		virtual void Update() override;
