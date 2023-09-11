@@ -143,7 +143,7 @@ namespace m
 		std::vector<Script*>& GetScripts() { return mScripts; }
 		std::vector<Component*> GetComponents() { return mComponents; }
 
-    		bool GetCulled() { return bCulled; }
+		bool GetCulled() { return bCulled; }
 		void SetCulled(bool cull) { bCulled = cull; }
 
 		bool IsRhombus() { return bRhombus; }
@@ -151,9 +151,20 @@ namespace m
 
 		const UINT GetGameObjectId() { return iGameObjectId; }
 
-		void CopyAnimator(int count, Animator* animator);
-		void PlayCopyAnimator(const std::wstring playName, bool loop);
-		void ReleaseCopyAnimator();
+		void CreateAnimators(
+			int count
+			, Animator* animator
+			, const std::wstring& name
+			, std::shared_ptr<graphics::Texture> atlas
+			, Vector2 leftTop
+			, Vector2 size
+			, UINT columnLength
+			, Vector2 offset = Vector2::Zero
+			, float duration = 0.0f
+			, float alpha = 1.0f
+		);
+		void PlayAnimators(const std::wstring playName, bool loop, Vector2 size);
+		void ReleaseAnimators();
 	private:
 		eState mState;
 		eLayerType mLayerType;
@@ -170,6 +181,12 @@ namespace m
 
 		UINT iGameObjectId;
 		static UINT GameObjectIdDispender;
+		Vector2 direct1[4] = {
+			Vector2(-1, -1)
+		    ,Vector2(-1, 1)
+		    ,Vector2(1, 1)
+		    ,Vector2(1, -1)
+		};
 
 		std::vector<GameObject*> subobjects;
 	};

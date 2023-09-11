@@ -27,8 +27,6 @@ namespace m
         eSkillType mSkillType;
         int mSkillIndex;
         
-
-
         UI* skillImages;
 
         std::vector<Vector2> skillMatPos;

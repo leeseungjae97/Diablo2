@@ -47,7 +47,8 @@ namespace m
 
 	}
 	PlayScene::~PlayScene()
-	{}
+	{
+	}
 	void PlayScene::Initialize()
 	{
 		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
@@ -90,7 +91,7 @@ namespace m
 		Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
 		Vector3 centerPos = GET_POS(centerTile);
 
-		SET_POS_XYZ(map, centerPos.x, centerPos.y , 1.f);
+		SET_POS_XYZ(map, centerPos.x, centerPos.y, 1.f);
 
 		PlayerManager::Initialize();
 
@@ -104,18 +105,70 @@ namespace m
 		AddGameObject(eLayerType::Player, PlayerManager::player);
 		ADD_COMP(PlayerManager::player, PlayerScript);
 		GetSceneMainCamera()->SetFollowObject(PlayerManager::player);
+		{
+			Tile* tile = TileManager::pathFindingTiles[0][0];
+			Vector3 pos = GET_POS(tile);
 
+			GameObject* qwe = new GameObject();
+			SET_MAIN_CAMERA(qwe);
+			AddGameObject(eLayerType::Skill, qwe);
+			ADD_COMP(qwe, MeshRenderer);
+			//Animator* anim = ADD_COMP(qwe, Animator);
+			SET_POS_VEC(qwe, pos);
+
+			SET_MESH(qwe, L"RectMesh");
+
+			//SET_MATERIAL(qwe, L"AnimationMaterial");
+
+			//SET_MATERIAL(qwe, L"fire3");
+			//MAKE_GET_TEX(qwe, tex);
+			//SET_SCALE_TEX_SIZE(qwe, tex, 1.f);
+
+			std::shared_ptr<Texture> mergeTexture = std::make_shared<Texture>();
+
+			std::shared_ptr<Texture> tex1 = RESOURCE_FIND(Texture, L"balrog_hit_body");
+			//std::shared_ptr<Texture> tex2 = RESOURCE_FIND(Texture, L"fire_2");
+			//std::shared_ptr<Texture> tex3 = RESOURCE_FIND(Texture, L"fire_3");
+
+			std::vector<std::shared_ptr<Texture>> texes;
+
+			texes.push_back(tex1);
+			//texes.push_back(tex2);
+			//texes.push_back(tex3);
+
+
+			mergeTexture->MergeTex2(texes
+				, tex1->GetMetaDataWidth()
+				, tex1->GetMetaDataHeight()
+				, 1
+			);
+			
+			Resources::Insert(L"mergeFireImage", mergeTexture);
+
+			std::shared_ptr<Material> mat1 = std::make_shared<Material>();
+			mat1->SetShader(RESOURCE_FIND(Shader, L"SpriteShader"));
+			mat1->SetRenderingMode(eRenderingMode::Transparent);
+			mat1->SetTexture(mergeTexture);
+
+			SET_MATERIAL_D(qwe, mat1);
+			SET_SCALE_TEX_SIZE(qwe, mergeTexture, 1.f);
+		}
 		//Resources\sound\ambient\creature;
-		//GameObject* qwe = new GameObject();
-		//SET_MAIN_CAMERA(qwe);
-		//AddGameObject(eLayerType::Skill, qwe);
-		//ADD_COMP(qwe, MeshRenderer);
-		//ADD_COMP(qwe, Animator);
-		//SET_MESH(qwe, L"RectMesh");
-		//SET_MATERIAL(qwe, L"AnimationMaterial");
-		//SET_SCALE_XYZ(qwe, 100.f, 100.f, 1.f);
-		//FallScript * fs = qwe->AddComponent<FallScript>(eAccessorySkillType::Blizzard1);
-		//fs->SkillFire();
+
+
+		//eSkillCrashType mCrashType = skillCrashTypes[(int)eSkillType::meteor];
+		//SHARED_MAT crashMat = RESOURCE_FIND(Material, L"fireCrash2");
+
+		//anim->Create(
+		//	L"fireCrash2anim"
+		//	, crashMat->GetTexture()
+		//	, Vector2::Zero
+		//	, crashSizes[(int)mCrashType]
+		//	, crashLength[(int)mCrashType]
+		//	, Vector2::Zero
+		//	, 0.03f
+		//);
+		//anim->PlayAnimation(L"fireCrash2anim", true);
 
 		//GameObject* particle = new GameObject();
 		//SET_MAIN_CAMERA(particle);

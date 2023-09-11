@@ -19,6 +19,7 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
+		HRESULT MergeTex2(std::vector<std::shared_ptr<Texture>> mergeTextures, UINT perWidth, UINT perHeight, int count);
 		HRESULT MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, UINT addtionCount = 0, const std::wstring& mergedTextureName = L"");
 		HRESULT CreateTex(UINT avgFileWidth, UINT avgFileHeight, UINT oneAnimLength, const std::wstring& path);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
@@ -36,6 +37,7 @@ namespace m::graphics
 		size_t GetMetaDataHeight() { return mImage.GetMetadata().height; }
 
 		const ScratchImage& GetScratchImage() { return mImage; }
+		ScratchImage GetScratchImageH() { return std::move(mImage); }
 
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
@@ -50,6 +52,8 @@ namespace m::graphics
 		void SetDSV(Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv) { mDSV = dsv; }
 		void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture);
 		//void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
+	private:
+		ScratchImage loadImage(const std::wstring& path);
 
 	private:
 		static float fWidRatio;

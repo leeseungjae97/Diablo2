@@ -19,8 +19,76 @@ namespace m::graphics
 	{
 
 	}
+	HRESULT Texture::MergeTex2(std::vector<std::shared_ptr<Texture>> mergeTextures, UINT width, UINT height, int count)
+	{
+		ScratchImage atlasImage;
+		HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+
+	    atlasImage.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, width + 10.f, height + 10.f, 1, 1);
+		;
+		//for(int i = 0 ; i < mergeTextures.size(); ++i)
+
+		
+		for (std::shared_ptr<Texture> tex : mergeTextures)
+		{
+
+			//int randIndex = rand() % mergeTextures.size();
+
+			//int randPosX = rand() % 10;
+			//int randPosY = rand() % 10;
+
+			//++randPosX;
+			//++randPosY;
+
+			//std::shared_ptr<Texture> tex = mergeTextures[i];
+			const ScratchImage& image = tex->GetScratchImage();
+
+			//ScratchImage convertedImage;
+			//convertedImage.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
+			//hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_B8G8R8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
+			//if (FAILED(hr))
+			//{
+			//	return hr;
+			//}
+
+			//hr = CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height)
+			hr = CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height)
+				,*atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, 10, 10);
+
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+		}
+		CreateShaderResourceView
+		(
+			GetDevice()->GetID3D11Device()
+			, atlasImage.GetImages()
+			, atlasImage.GetImageCount()
+			, atlasImage.GetMetadata()
+			, mSRV.GetAddressOf()
+		);
+
+		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+
+		mImage.Initialize2D(
+			atlasImage.GetMetadata().format,
+			atlasImage.GetMetadata().width,
+			atlasImage.GetMetadata().height,
+			atlasImage.GetMetadata().arraySize,
+			atlasImage.GetMetadata().mipLevels
+		);
+
+		mWidth = atlasImage.GetMetadata().width;
+		mHeight = atlasImage.GetMetadata().height;
+		//CoUninitialize();
+		return S_OK;
+	}
+
 	HRESULT Texture::MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, UINT addtionCount, const std::wstring& mergedTextureName)
 	{
+		//= CoInitializeEx(nullptr, COINIT_MULTITHREADED)
+		HRESULT hr;
 		ScratchImage atlasImage;
 		UINT imageCount = texturePosition.size() + addtionCount;
 		UINT column = imageCount <= oneLength ? 1 : imageCount / oneLength;
@@ -28,7 +96,6 @@ namespace m::graphics
 		UINT atWid = perWidth * oneLength;
 		UINT atHei = perHeight * column;
 		atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, atWid, atHei, 1, 1);
-
 		int index = 0;
 		for(std::shared_ptr<Texture> tex : mergeTextures)
 		{
@@ -40,8 +107,6 @@ namespace m::graphics
 
 			UINT wid = perWidth * (UINT)pos.x;
 			UINT hei = perHeight * (UINT)pos.y;
-
-			
 
 			CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height),
 				*atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, wid, hei);
@@ -66,22 +131,23 @@ namespace m::graphics
 			atlasImage.GetMetadata().mipLevels
 		);
 
-		mWidth = mImage.GetMetadata().width;
-		mHeight = mImage.GetMetadata().height;
-
+		mWidth = atlasImage.GetMetadata().width;
+		mHeight = atlasImage.GetMetadata().height;
+		//CoUninitialize();
 		return S_OK;
 	}
+	
 	HRESULT Texture::CreateTex(UINT perWidth, UINT perHeight, UINT oneAnimLength, const std::wstring& path)
 	{
-		ScratchImage atlasImage;
 		HRESULT hr = S_OK;
+		ScratchImage atlasImage;
 		UINT sumWidth = 0;
 		UINT fileCount = 0;
 
 		wchar_t ext[_MAX_EXT] = {};
 		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, _MAX_EXT);
 		ScratchImage image;
-		
+		image;
 		std::filesystem::path fs(path);
 
 		mPerWidth = perWidth;
@@ -109,14 +175,25 @@ namespace m::graphics
 			else if (_wcsicmp(ext, L".tga") == 0)hr = LoadFromTGAFile(fullName.c_str(), nullptr, image);
 			else if (_wcsicmp(ext, L".hdr") == 0) hr = LoadFromHDRFile(fullName.c_str(), nullptr, image);
 			else hr = LoadFromWICFile(fullName.c_str(), WIC_FLAGS_NONE, nullptr, image);
-			if (FAILED(hr)) return hr;
+			if(FAILED(hr))
+			{
+				return hr;
+			}
+			//image = loadImage(fullName.c_str());
+			//if (image.GetMetadata().width == 0 && image.GetMetadata().height == 0)
+			//{
+			//	return E_FAIL;
+			//}
 
 			ScratchImage convertedImage;
 			hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
-			if (FAILED(hr)) return hr;
+			if (FAILED(hr))
+			{
+				return hr;
+			}
 
 
-			if(xidx != 0) sumWidth += convertedImage.GetMetadata().width;	
+			if(xidx != 0) sumWidth += convertedImage.GetMetadata().width;
 
 			if (sumWidth >= mPerWidth * oneAnimLength)
 			{
@@ -145,8 +222,8 @@ namespace m::graphics
 			, mSRV.GetAddressOf()
 		);
 
-		mWidth = mImage.GetMetadata().width;
-		mHeight = mImage.GetMetadata().height;
+		mWidth = atlasImage.GetMetadata().width;
+		mHeight = atlasImage.GetMetadata().height;
 
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
@@ -157,6 +234,7 @@ namespace m::graphics
 			atlasImage.GetMetadata().arraySize,
 			atlasImage.GetMetadata().mipLevels
 		);
+		//CoUninitialize();
 	}
 	bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
 	{
@@ -224,41 +302,128 @@ namespace m::graphics
 
 		return true;
 	}
-	HRESULT Texture::Load(const std::wstring& path)
+	ScratchImage Texture::loadImage(const std::wstring& path)
 	{
+		//= CoInitializeEx(nullptr, COINIT_MULTITHREADED)
+		HRESULT hr;
 		wchar_t szExtension[50] = {};
 		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 50);
 
+		ScratchImage image;
+		
 		std::wstring extension = szExtension;
 		if (extension == L".dds" || extension == L".DDS")
 		{
-			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
-				return S_FALSE;
+			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, image)))
+			{
+				image.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
+				return image;
+			}
+				
 		}
 		else if (extension == L".tga" || extension == L".TGA")
 		{
-			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, mImage)))
-				return S_FALSE;
+			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, image)))
+			{
+				image.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
+				return image;
+			}
 		}
-		else // WIC (png, jpg, jpeg, bmp )
+		else
 		{
-			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
-				return S_FALSE;
+			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, image)))
+			{
+				image.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
+				return image;
+			}
 		}
-		
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()
-			, mImage.GetImages()
-			, mImage.GetImageCount()
-			, mImage.GetMetadata()
+			, image.GetImages()
+			, image.GetImageCount()
+			, image.GetMetadata()
 			, mSRV.GetAddressOf()
 		);
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
-		mWidth = mImage.GetMetadata().width;
-		mHeight = mImage.GetMetadata().height;
+		mImage.Initialize2D(
+			image.GetMetadata().format,
+			image.GetMetadata().width,
+			image.GetMetadata().height,
+			image.GetMetadata().arraySize,
+			image.GetMetadata().mipLevels
+		);
 
+		mWidth = image.GetMetadata().width;
+		mHeight = image.GetMetadata().height;
+
+		//CoUninitialize();
+		return image;
+	}
+	HRESULT Texture::Load(const std::wstring& path)
+	{
+		//= CoInitializeEx(nullptr, COINIT_MULTITHREADED)
+		HRESULT hr;
+		wchar_t szExtension[50] = {};
+		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 50);
+
+		ScratchImage image;
+		std::wstring extension = szExtension;
+		if (extension == L".dds" || extension == L".DDS")
+		{
+			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, image)))
+				return S_FALSE;
+		}
+		else if (extension == L".tga" || extension == L".TGA")
+		{
+			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, image)))
+				return S_FALSE;
+		}
+		else // WIC (png, jpg, jpeg, bmp )
+		{
+			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, image)))
+				return S_FALSE;
+		}
+		
+		if (image.GetMetadata().format == DXGI_FORMAT_R8G8B8A8_UNORM)
+		{
+			int a = 0;
+		}
+		else if (image.GetMetadata().format == DXGI_FORMAT_B8G8R8A8_UNORM)
+		{
+			int a = 0;
+		}
+		else if (image.GetMetadata().format == DXGI_FORMAT_B8G8R8A8_UNORM_SRGB)
+		{
+			int a = 0;
+		}
+		else
+		{
+			int a = 0;
+		}
+		CreateShaderResourceView
+		(
+			GetDevice()->GetID3D11Device()
+			, image.GetImages()
+			, image.GetImageCount()
+			, image.GetMetadata()
+			, mSRV.GetAddressOf()
+		);
+		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+
+		mImage.Initialize2D(
+			image.GetMetadata().format,
+			image.GetMetadata().width,
+			image.GetMetadata().height,
+			image.GetMetadata().arraySize,
+			image.GetMetadata().mipLevels
+		);
+
+		mWidth = image.GetMetadata().width;
+		mHeight = image.GetMetadata().height;
+
+		//CoUninitialize();
 		return S_OK;
 	}
 

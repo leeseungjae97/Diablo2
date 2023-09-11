@@ -22,10 +22,9 @@ namespace m
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
 
-		eSkillCrashType crashType;
 		if (mACType == eAccessorySkillType::END)
 		{
-			crashType = skillCrashTypes[(int)mType];
+			mCrashType = skillCrashTypes[(int)mType];
 			SHARED_MAT mat = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
 			mAnimator->Create(
 				skillAnimNames[(int)mType] + L"anim"
@@ -37,13 +36,24 @@ namespace m
 				, 0.03f
 			);
 			
-			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
-			mAnimator->Create(
-				crashNames[(int)crashType] + L"anim"
+			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
+			GetOwner()->CreateAnimators(
+				4
+				, mAnimator
+				,crashNames[(int)mCrashType] + L"anim"
 				, crashMat->GetTexture()
 				, Vector2::Zero
-				, crashSizes[(int)crashType]
-				, crashLength[(int)crashType]
+				, crashSizes[(int)mCrashType]
+				, crashLength[(int)mCrashType]
+				, Vector2::Zero
+				, 0.03f
+			);
+			mAnimator->Create(
+				crashNames[(int)mCrashType] + L"anim"
+				, crashMat->GetTexture()
+				, Vector2::Zero
+				, crashSizes[(int)mCrashType]
+				, crashLength[(int)mCrashType]
 				, Vector2::Zero
 				, 0.03f
 			);
@@ -62,31 +72,45 @@ namespace m
 				, 0.03f
 			);
 			
-			crashType = accessorySkillCrashTypes[(int)mACType];
-			if (crashType != eSkillCrashType::END)
+			mCrashType = accessorySkillCrashTypes[(int)mACType];
+			if (mCrashType != eSkillCrashType::END)
 			{
-				SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
-				mAnimator->Create(
-					crashNames[(int)crashType] + L"anim"
+				SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
+				GetOwner()->CreateAnimators(
+					4
+					, mAnimator
+					, crashNames[(int)mCrashType] + L"anim"
 					, crashMat->GetTexture()
 					, Vector2::Zero
-					, crashSizes[(int)crashType]
-					, crashLength[(int)crashType]
+					, crashSizes[(int)mCrashType]
+					, crashLength[(int)mCrashType]
+					, Vector2::Zero
+					, 0.03f
+				);
+				mAnimator->Create(
+					crashNames[(int)mCrashType] + L"anim"
+					, crashMat->GetTexture()
+					, Vector2::Zero
+					, crashSizes[(int)mCrashType]
+					, crashLength[(int)mCrashType]
 					, Vector2::Zero
 					, 0.03f
 				);
 			}
 		}
-		if (crashType != eSkillCrashType::END)
+		if (mCrashType != eSkillCrashType::END)
 		{
-			mAnimator->StartEvent(crashNames[(int)crashType] + L"anim") = [this]()
+			mAnimator->StartEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
 			{
-				Vector3 mPos = GET_POS(GetOwner());
-				mPos.y -= 45.f;
-				mPos.x += 20.f;
-				SET_POS_VEC(GetOwner(), mPos);
+				if(mCrashType == eSkillCrashType::IceCrash1)
+				{
+					Vector3 mPos = GET_POS(GetOwner());
+					mPos.y -= 45.f;
+					mPos.x += 20.f;
+					SET_POS_VEC(GetOwner(), mPos);
+				}
 			};
-			mAnimator->EndEvent(crashNames[(int)crashType] + L"anim") = [this]()
+			mAnimator->EndEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
 			{
 				Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 				if (col->GetOnStay())
@@ -117,7 +141,6 @@ namespace m
 		);
 
 		mAnimator->PlayAnimation(L"noneRectAnim", false);
-		GetOwner()->CopyAnimator(4, mAnimator);
 	}
 	void FallScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -137,7 +160,7 @@ namespace m
 				eSkillCrashType crashType = skillCrashTypes[(int)mType];
 				if (crashType == eSkillCrashType::END)
 				{
-					GetOwner()->ReleaseCopyAnimator();
+					GetOwner()->ReleaseAnimators();
 					GetOwner()->SetState(GameObject::eState::Delete);
 				}
 				if (crashType != eSkillCrashType::END
@@ -152,7 +175,7 @@ namespace m
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					GetOwner()->PlayCopyAnimator(skillAnimNames[(int)mType] + L"anim", false);
+					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType]);
 				}	
 			}
 			else
@@ -160,7 +183,7 @@ namespace m
 				eSkillCrashType crashType = accessorySkillCrashTypes[(int)mACType];
 				if (crashType == eSkillCrashType::END)
 				{
-					GetOwner()->ReleaseCopyAnimator();
+					GetOwner()->ReleaseAnimators();
 					GetOwner()->SetState(GameObject::eState::Delete);
 				}
 				if (crashType != eSkillCrashType::END
@@ -175,7 +198,7 @@ namespace m
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					GetOwner()->PlayCopyAnimator(skillAnimNames[(int)mType] + L"anim", false);
+					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType]);
 				}
 			}
 			bArrival = false;
@@ -190,6 +213,7 @@ namespace m
 			else
 			{
 				mAnimator->PlayAnimation(accessorySkillNames[(int)mACType] + L"anim", true);
+
 			}
 				
 		}

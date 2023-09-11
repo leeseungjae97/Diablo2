@@ -23,21 +23,22 @@ namespace m
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
-		
-		if (type == eSkillType::blizzard)
-			_acType = (eAccessorySkillType)(rand() % 2);
 
-		if (_acType != eAccessorySkillType::END)
-		{
-			SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)_acType].x
-				, accessorySkillAnimSize[(UINT)_acType].y, 1.f);
-			mFs = AddComponent<FallScript>(_acType);
-		}else
-		{
-			SET_SCALE_XYZ(this, skillSizes[(UINT)type].x
-				, skillSizes[(UINT)type].y, 1.f);
-			mFs = AddComponent<FallScript>();
-		}
+		//if (type == eSkillType::blizzard)
+		//	_acType = (eAccessorySkillType)(rand() % 2);
+
+		//if (_acType != eAccessorySkillType::END)
+		//{
+		//	SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)_acType].x
+		//		, accessorySkillAnimSize[(UINT)_acType].y, 1.f);
+		//	mFs = AddComponent<FallScript>(_acType);
+		//}
+		//else
+		//{
+		//	SET_SCALE_XYZ(this, skillSizes[(UINT)type].x
+		//		, skillSizes[(UINT)type].y, 1.f);
+		//	mFs = AddComponent<FallScript>();
+		//}
 	}
 	SkillFall::~SkillFall()
 	{
@@ -73,6 +74,21 @@ namespace m
 	void SkillFall::Initialize()
 	{
 		Skill::Initialize();
+		if (mSkillType == eSkillType::blizzard)
+			mAcType = (eAccessorySkillType)(rand() % 2);
+
+		if (mAcType != eAccessorySkillType::END)
+		{
+			SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)mAcType].x
+				, accessorySkillAnimSize[(UINT)mAcType].y, 1.f);
+			mFs = AddComponent<FallScript>(mAcType);
+		}
+		else
+		{
+			SET_SCALE_XYZ(this, skillSizes[(UINT)mSkillType].x
+				, skillSizes[(UINT)mSkillType].y, 1.f);
+			mFs = AddComponent<FallScript>();
+		}
 	}
 	void SkillFall::fallArrival()
 	{

@@ -23,6 +23,7 @@ namespace m
 		virtual void OnCollisionExit(Collider2D* other) override;
 	private:
 		eAccessorySkillType mACType;
+		eSkillCrashType mCrashType;
 
 		bool bSkillFire;
 		bool bArrival;

@@ -17,8 +17,9 @@ namespace m
         initYpos.y += 1000.f;
         
         SkillFall* body = new SkillFall(type, initYpos, 1000.f, true);
-        body->SetSpeed(1000.f / 2.f);
         SceneManager::GetActiveScene()->AddGameObject(layerType, body);
+        body->Initialize();
+        body->SetSpeed(1000.f / 2.f);
         skills.push_back(body);
 
         if(type == eSkillType::meteor)
@@ -27,7 +28,9 @@ namespace m
                 initYpos.x + 10.f
                 , initYpos.y - 29.f
                 , iniPos.z);
-            SkillFall* acc = new SkillFall(type, meteorHeadPos, 1000.f, true, true, eAccessorySkillType::MeteorHead);
+            SkillFall* acc = new SkillFall(type, meteorHeadPos, 1000.f
+                , true, true
+                , eAccessorySkillType::MeteorHead);
             acc->SetSpeed(1000.f / 2.f);
             skills.push_back(acc);
             SceneManager::GetActiveScene()->AddGameObject(layerType, acc);

@@ -6,6 +6,7 @@
 #include "../engine_source/mTexture.h"
 
 #include "mPlayerManager.h"
+#include "mTileManager.h"
 
 namespace m
 {
