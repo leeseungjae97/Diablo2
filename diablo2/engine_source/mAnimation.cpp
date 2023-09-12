@@ -34,19 +34,32 @@ namespace m
 			return;
 
 		mTime += Time::DeltaTime();
-
 		if (mSprites[mCurIndex].duration <= mTime)
 		{
-			mCurIndex++;
 			mTime = 0.0f;
-
-			if (mEndIndex <= mCurIndex)
+			if (mbReverse)
 			{
-				//mCurIndex = mSprites.size() - 1;
-				mCurIndex = mEndIndex - 1;
-				mbComplete = true;
+				--mCurIndex;
+
+				if (mAnimStartIndex >= mCurIndex)
+				{
+					mCurIndex = mAnimStartIndex;
+					mbComplete = true;
+				}
+			}
+			else
+			{
+				++mCurIndex;
+
+				if (mEndIndex <= mCurIndex)
+				{
+					//mCurIndex = mSprites.size() - 1;
+					mCurIndex = mEndIndex - 1;
+					mbComplete = true;
+				}
 			}
 		}
+		
 		if (mCurIndex == mAnimProgressIndex)
 		{
 			mbProgress = true;
@@ -149,7 +162,20 @@ namespace m
 		mbComplete = false;
 		mbProgress = false;
 		mbStop = false;
-		mCurIndex = mAnimStartIndex;
-		mEndIndex = mAnimEndIndex == 0 ? mSprites.size() : mAnimEndIndex;
+		if(mbReverse)
+		{
+			mCurIndex = mAnimEndIndex == 0 ? mSprites.size() : mAnimEndIndex; 
+			mEndIndex = mAnimStartIndex;
+		}else
+		{
+			mCurIndex = mAnimStartIndex;
+			mEndIndex = mAnimEndIndex == 0 ? mSprites.size() : mAnimEndIndex;
+		}
 	}
+
+    void Animation::SetReverse(bool loop)
+    {
+		mbReverse = true;
+		mAnimator->SetLoop(loop);
+    }
 }

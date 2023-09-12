@@ -363,6 +363,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h">
       <Filter>FontWrapper</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AffectOverlayLookUpTable.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">

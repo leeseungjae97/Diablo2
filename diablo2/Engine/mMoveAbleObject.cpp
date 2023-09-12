@@ -30,6 +30,8 @@ namespace m
 		, bGetHit(false)
 		, bMove(false)
 	    , bMadePath(false)
+	    , bCanDamaged(false)
+	    , fCanDamagedDelay(0.f)
 		, bSixteenDirection(false)
 		, mCoord(Vector2(0.f, 0.f))
 	{
@@ -74,8 +76,9 @@ namespace m
 	void MoveAbleObject::Update()
 	{
 		GameObject::Update();
-		AddZWeight();
-		AdjustmentMovementSpeedAccordingAngle();
+		addZWeight();
+		adjustmentMovementSpeedAccordingAngle();
+		damagedDelay();
 	}
 	void MoveAbleObject::LateUpdate()
 	{
@@ -85,20 +88,31 @@ namespace m
 	{
 		GameObject::Render();
 	}
-	void MoveAbleObject::AddZWeight()
+	void MoveAbleObject::damagedDelay()
+	{
+		if (!bCanDamaged) fCanDamagedDelay += Time::fDeltaTime();
+		if (fCanDamagedDelay >= 1.f)
+		{
+			bCanDamaged = true;
+			fCanDamagedDelay = 0.f;
+		}
+	}
+	void MoveAbleObject::addZWeight()
 	{
 		Vector3 pos = GET_POS(this);
 		if (GetLayerType() == eLayerType::Player)
 		{
-			pos.z = 1.f + ((TileManager::playerStandTile->GetCoord().x * 0.0001f) + (TileManager::playerStandTile->GetCoord().y * 0.0001f));
+			//pos.z = 1.f + ((TileManager::playerStandTile->GetCoord().x * 0.0001f) + (TileManager::playerStandTile->GetCoord().y * 0.0001f));
+			pos.z = 1.f + ((TileManager::GetPlayerPosition().x * 0.0001f) + (TileManager::GetPlayerPosition().y * 0.0001f));
 		}
 		else
 		{
-			pos.z = 1.f + ((mCoord.x * 0.0001f) + (mCoord.y * 0.0001f));
+			//pos.z = 1.f + ((mCoord.x * 0.0001f) + (mCoord.y * 0.0001f));
+			pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
 		}
 		SET_POS_VEC(this, pos);
 	}
-	void MoveAbleObject::AdjustmentMovementSpeedAccordingAngle()
+	void MoveAbleObject::adjustmentMovementSpeedAccordingAngle()
 	{
 		float degree = RadianToDegree(atan2(vDirection.x, vDirection.y));
 		

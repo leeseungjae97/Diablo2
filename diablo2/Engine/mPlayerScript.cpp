@@ -20,6 +20,7 @@
 
 #include "mSkillStraight.h"
 #include "mSkillFall.h"
+#include "mSkillBuff.h"
 #include "mSkillFallExplosion.h"
 #include "mSkillMultiFire.h"
 #include "mSkillOrb.h"
@@ -37,7 +38,6 @@ namespace m
 		, mHSO(nullptr)
 		, activeSkillIndex(0)
 		, bFire(false)
-		, bDamage(false)
 	{
 	}
 
@@ -146,8 +146,16 @@ namespace m
 				if (bFire)
 				{
 					Skill* skill = nullptr;
+					SkillBuff* skillBuff = nullptr;
 					PlayerManager::player->UseMana(10);
-					MAKE_SKILL(PlayerManager::GetSkill(activeSkillIndex), skill, GET_POS(PlayerManager::player), eLayerType::PlayerSkill);
+					MAKE_SKILL(
+						PlayerManager::GetSkill(activeSkillIndex)
+						, activeSkillIndex
+						,skill
+						,skillBuff
+						,GET_POS(PlayerManager::player)
+						, eLayerType::PlayerSkill);
+
 					bFire = false;
 				}
 			};
@@ -180,21 +188,22 @@ namespace m
 		mAnimationType = ePlayerAnimationType::Natural;
 		mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], true);
 	}
-	void PlayerScript::Update()
+    void PlayerScript::Update()
 	{
 		if (nullptr == PlayerManager::player)
 			return;
 
-		Vector3 direction = PlayerManager::player->GetDirection();
+		MakeDirection();
 
-		float degree = RadianToDegree(atan2(direction.x, direction.y));
 
-		int n = degree / (180.f / 9.f);
+		//if (!bCanDamaged)
+		//	fCanDamagedDelay += Time::fDeltaTime();
 
-		if (n > 0)
-			mDirection = plusSixteenDirections[n];
-		else
-			mDirection = minusSixteenDirections[abs(n)];
+		//if (fCanDamagedDelay >= 1.f)
+		//{
+		//	bCanDamaged = true;
+		//	fCanDamagedDelay = 0.f;
+		//}
 
 		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerManager::player->StopF()
 		//	&& ((Player*)GetOwner())->GetAttack())
@@ -211,11 +220,7 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
 			mAnimationType = ePlayerAnimationType::SpecialCast;
-			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
-			mRSO->ActiveOverlay();
-			activeSkillIndex = 1;
-			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
-				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
+			SpecialCastAnimation(1);
 		}
 		if (PlayerManager::player->GetHit())
 		{
@@ -242,7 +247,73 @@ namespace m
 			GetOwner()->SetBattleState(GameObject::Run);
 			mAnimationType = ePlayerAnimationType::Run;
 		}
+		ElseAnimationPlay();
+	}
+	void PlayerScript::LateUpdate()
+	{
+	}
+	void PlayerScript::Render()
+	{
+	}
+	void PlayerScript::Complete()
+	{
+	}
+	void PlayerScript::AnimationStart(GameObject::eBattleState state)
+	{
+		GetOwner()->SetBattleState(state);
+	}
+	void PlayerScript::AnimationComplete(GameObject::eBattleState state)
+	{
+		GetOwner()->SetBattleState(state);
+	}
+	void PlayerScript::Hit(bool hit, GameObject::eBattleState state)
+	{
+		PlayerManager::player->SetHit(hit);
+		GetOwner()->SetBattleState(state);
+		//mRSO->ActiveOverlay();
+	}
+	void PlayerScript::AttackProgress()
+	{
+		if (PlayerManager::player->GetRangeCollider()->GetOnEnter()
+			|| PlayerManager::player->GetRangeCollider()->GetOnStay())
+		{
+			for (Collider2D* col : PlayerManager::player->GetRangeCollider()->GetCollidereds())
+			{
+				Monster* mon = dynamic_cast<Monster*>(col->GetOwner());
+				mon->Hit(10);
+			}
+		}
+	}
+	void PlayerScript::MakeDirection()
+	{
+		Vector3 direction = PlayerManager::player->GetDirection();
 
+		float degree = RadianToDegree(atan2(direction.x, direction.y));
+
+		int n = degree / (180.f / 9.f);
+
+		if (n > 0)
+			mDirection = plusSixteenDirections[n];
+		else
+			mDirection = minusSixteenDirections[abs(n)];
+	}
+
+    void PlayerScript::SpecialCastAnimation(int skillIndex)
+    {
+		if (skillIndex == 1)
+			mRSO->ActiveOverlay();
+	    else
+			mLSO->ActiveOverlay();
+
+		activeSkillIndex = skillIndex;
+		SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
+		
+		if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
+			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
+    }
+
+    void PlayerScript::ElseAnimationPlay()
+    {
 		if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
 		{
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
@@ -258,54 +329,12 @@ namespace m
 			{
 				if (prevIndex != 0)
 				{
-					if(prevIndex + 1 < mAnimator->GetActiveAnimation()->GetAltasLength())
-					    mAnimator->SetAnimationIndex(prevIndex + 1);
+					if (prevIndex + 1 < mAnimator->GetActiveAnimation()->GetAltasLength())
+						mAnimator->SetAnimationIndex(prevIndex + 1);
 					else
 						mAnimator->SetAnimationIndex(prevIndex);
 				}
 			}
 		}
-
-	}
-	void PlayerScript::LateUpdate()
-	{
-	}
-	void PlayerScript::Render()
-	{
-	}
-	void PlayerScript::Complete()
-	{
-	}
-	void PlayerScript::AnimationStart(GameObject::eBattleState state)
-	{
-		bDamage = false;
-		GetOwner()->SetBattleState(state);
-	}
-	void PlayerScript::AnimationComplete(GameObject::eBattleState state)
-	{
-		bDamage = false;
-		GetOwner()->SetBattleState(state);
-	}
-	void PlayerScript::Hit(bool hit, GameObject::eBattleState state)
-	{
-		PlayerManager::player->SetHit(hit);
-		GetOwner()->SetBattleState(state);
-		//mRSO->ActiveOverlay();
-	}
-	void PlayerScript::AttackProgress()
-	{
-		if (PlayerManager::player->GetRangeCollider()->GetOnEnter()
-			|| PlayerManager::player->GetRangeCollider()->GetOnStay())
-		{
-			if (!bDamage)
-			{
-				for (Collider2D* col : PlayerManager::player->GetRangeCollider()->GetCollidereds())
-				{
-					Monster* mon = dynamic_cast<Monster*>(col->GetOwner());
-					mon->Hit(10);
-				}
-				bDamage = true;
-			}
-		}
-	}
+    }
 };

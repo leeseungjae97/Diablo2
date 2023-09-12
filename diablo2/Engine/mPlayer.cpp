@@ -15,6 +15,8 @@ namespace m
 		: MoveAbleObject(iniPos, 500.f)
 		, mHp(nullptr)
 		, mMp(nullptr)
+		, bCanDamaged(false)
+		, fCanDamagedDelay(0.f)
 	{
 		bMadePath = false;
 		bSixteenDirection = true;
@@ -127,13 +129,18 @@ namespace m
 
     void Player::Hit(int damage)
 	{
-		if (PlayerManager::hp - damage < 0) PlayerManager::hp = 0;
-		else PlayerManager::hp -= damage;
+		if (bCanDamaged)
+		{
+			bCanDamaged = false;
 
-		PlayerManager::CalHpPercent();
-		mHp->SetUVCoord(PlayerManager::hpPercent);
+			if (PlayerManager::hp - damage < 0) PlayerManager::hp = 0;
+			else PlayerManager::hp -= damage;
 
-		SetHit(true);
+			PlayerManager::CalHpPercent();
+			mHp->SetUVCoord(PlayerManager::hpPercent);
+
+			SetHit(true);
+		}
 	}
 
     void Player::UseMana(int mana)

@@ -163,7 +163,21 @@ namespace m
 			, float duration = 0.0f
 			, float alpha = 1.0f
 		);
-		void PlayAnimators(const std::wstring playName, bool loop, Vector2 size);
+		//void CreateAnimators(
+		//	int count
+		//	, std::vector<std::wstring> names
+		//	, std::vector<std::shared_ptr<graphics::Texture>> textures
+		//	, std::vector<Vector2> leftTops
+		//	, std::vector<Vector2> sizes
+		//	, std::vector<UINT> columnLengths
+		//	, std::vector<Vector2> offsets
+		//	, std::vector<float> durations
+		//	, std::vector<float> alphas
+		//	, std::vector<Vector3> poss
+		//);
+		//void PlayRandPosAnimators(const std::wstring playName, bool loop, Vector2 size);
+		//void PlayAnimators(std::vector<std::wstring>, bool loop, std::vector<Vector3> pos, int loopStartIndex = 0, int loopEndIndex = 0, int loopCount = 0);
+		void PlayAnimators(const std::wstring playName, bool loop, Vector2 size, bool useDirect, Collider2D* col);
 		void ReleaseAnimators();
 	private:
 		eState mState;

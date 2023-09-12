@@ -18,12 +18,15 @@ namespace m
 
         bool ReturnCrash();
     private:
+        void afterFall();
         void updateSkills();
 
     private:
-
         std::vector<SkillFall*> skills;
         SkillIndicator* mIndicator;
+
+        bool bAfterFall;
+
     };
 }
 

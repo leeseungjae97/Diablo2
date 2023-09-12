@@ -136,7 +136,21 @@
     <ClCompile Include="mSkillFallExplosion.cpp">
       <Filter>Skill\SkillFallExplosion</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillIndicator.cpp" />
+    <ClCompile Include="mTileAffectOverlay.cpp">
+      <Filter>Objects\TileAffectOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillBuff.cpp">
+      <Filter>Skill\SkillBuff</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillIndicator.cpp">
+      <Filter>SkillIndicator</Filter>
+    </ClCompile>
+    <ClCompile Include="mAffectOverlayScript.cpp">
+      <Filter>Script\AffectOverlayScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mTeleportScript.cpp">
+      <Filter>Script\TeleportScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -271,7 +285,21 @@
     <ClInclude Include="mSkillFallExplosion.h">
       <Filter>Skill\SkillFallExplosion</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillIndicator.h" />
+    <ClInclude Include="mTileAffectOverlay.h">
+      <Filter>Objects\TileAffectOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillBuff.h">
+      <Filter>Skill\SkillBuff</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillIndicator.h">
+      <Filter>SkillIndicator</Filter>
+    </ClInclude>
+    <ClInclude Include="mAffectOverlayScript.h">
+      <Filter>Script\AffectOverlayScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mTeleportScript.h">
+      <Filter>Script\TeleportScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -429,6 +457,21 @@
     </Filter>
     <Filter Include="Skill\SkillFallExplosion">
       <UniqueIdentifier>{a01b8847-401e-46a1-986b-6b18421b62e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\TileAffectOverlay">
+      <UniqueIdentifier>{2ca29e00-20e9-4eb0-baa2-45c4019fef16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\AffectOverlayScript">
+      <UniqueIdentifier>{0bbdeeaa-c947-4874-aa49-9f1826745340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkillIndicator">
+      <UniqueIdentifier>{08b4a096-0fc7-4a52-951a-c2f4b460c585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\TeleportScript">
+      <UniqueIdentifier>{653a08da-4879-4a59-993b-07d73561a097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillBuff">
+      <UniqueIdentifier>{1acd69a6-2ab1-426d-a081-f4c9be1986aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -64,6 +64,7 @@ namespace m
 		void Reset();
 
 		void SetStop() { mbStop = true; }
+		void SetReverse(bool loop);
 		void SetIndex(int index) { mCurIndex = index; }
 		void SetStartIndex(int index) { mAnimStartIndex = index; }
 		void SetProgressIndex(int index) { mAnimProgressIndex = index; }
@@ -79,7 +80,7 @@ namespace m
 		bool IsProgress() { return mbProgress; }
 		bool IsStop() { return mbStop; }
 
-
+		void SetAnimator(Animator* animator) { mAnimator = animator; }
 	private:
 		int mLength;
 		std::shared_ptr<graphics::Texture> mAtlas;
@@ -89,7 +90,6 @@ namespace m
 		int mEndIndex;
 		int mCurIndex;
 		
-
 		int mAnimEndIndex;
 		int mAnimStartIndex;
 		int mAnimProgressIndex;
@@ -98,6 +98,7 @@ namespace m
 		bool mbComplete;
 		bool mbProgress;
 		bool mbStop;
+		bool mbReverse;
 	};
 }
 

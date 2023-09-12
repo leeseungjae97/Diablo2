@@ -574,6 +574,10 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"_teleport", L"..\\Resources\\texture\\skill_effect\\overlay\\teleport"
 			, 136, 154, 18, L"teleport");
+
+		MAKE_MATERIAL(spriteShader, L"fire_1_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire1.png", L"fire1s");
+		MAKE_MATERIAL(spriteShader, L"fire_2_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire2.png", L"fire2s");
+		MAKE_MATERIAL(spriteShader, L"fire_3_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3.png", L"fire3s");
 #pragma endregion
 #pragma region Skill
 		
@@ -598,7 +602,7 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"meteor_tail", L"..\\Resources\\texture\\skill_effect\\missile\\meteor_tail"
 			, 77, 125, 12, L"meteor");
 
-
+		
 #pragma endregion
 #pragma region Monster
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\natural"

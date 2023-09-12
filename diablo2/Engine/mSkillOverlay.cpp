@@ -21,7 +21,6 @@ namespace m
 		}
 		else
 		{
-		
 			eSkillCastType castType = skillCastTypes[(UINT)PlayerManager::GetSkill(mCurIndex)];
 
 			if (castType == eSkillCastType::END) return;

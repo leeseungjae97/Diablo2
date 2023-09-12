@@ -88,7 +88,7 @@ namespace m
 		void SetSyncAnimator(Animator* sync) { mSyncAnimator = sync; }
 		void Sync() { bSyncPlay = true; }
 		void DeSync() { bSyncPlay = false; }
-		
+
 		void SetAnimations(std::map<std::wstring, Animation*> animations) { mAnimations = animations; }
 		void SetEvents(std::map<std::wstring, Events*> events) { mEvents = events; }
 		void SetSpriteSheet(std::shared_ptr<Texture> sheet) { mSpriteSheet = sheet; }
@@ -97,12 +97,16 @@ namespace m
 
 		void Copy();
 
-    private:
+		int GetLoopCount() { return iLoopCount; }
+
+	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		std::shared_ptr<Texture> mSpriteSheet;
 		Animator* mSyncAnimator;
 		Animation* mActiveAnimation;
+
+		int iLoopCount;
 		bool mbLoop;
 
 		bool bSyncPlay;

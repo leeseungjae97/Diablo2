@@ -11,7 +11,7 @@ namespace m
 	)
 		: Skill(type, iniPos)
 	    , fInitYValue(iniPos.y)
-	    , mDiagonalFall(diagonalFall)
+	    , bDiagonalFall(diagonalFall)
 	    , mFallHeight(fallHeight)
 	    , degreeUpdate(false)
 	    , mSkillType(type)
@@ -98,12 +98,13 @@ namespace m
 			bMove = false;
 			if (mFs)
 				mFs->Arrival();
+			//SetArrival(true);
 		}
 	}
 	void SkillFall::fall()
 	{
 		Vector3 mPos = GET_POS(this);
-		if (mDiagonalFall)
+		if (bDiagonalFall)
 		{
 			//mPos.x += cosf(DegreeToRadian(mFallDegree));
 
@@ -116,7 +117,7 @@ namespace m
 	void SkillFall::adjustmentPosition()
 	{
 		Vector3 mPos = GET_POS(this);
-		if (mDiagonalFall)
+		if (bDiagonalFall)
 		{
 		    destPosition = mPos;
 			destPosition.y -= mFallHeight;

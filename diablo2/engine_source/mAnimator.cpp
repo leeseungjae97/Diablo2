@@ -8,6 +8,7 @@ namespace m
 		, mbLoop(false)
 		, bSyncPlay(false)
 	    , bCopyComponent(false)
+	    , iLoopCount(0)
 	{
 
 	}
@@ -41,6 +42,9 @@ namespace m
 		if (mActiveAnimation->IsComplete() && mbLoop)
 		{
 			Events* events = FindEvents(mActiveAnimation->GetKey());
+
+			++iLoopCount;
+
 			if (events)
 				events->completeEvent();
 			mActiveAnimation->Reset();
@@ -89,6 +93,7 @@ namespace m
 			return;
 
 		animation = new Animation();
+		animation->SetAnimator(this);
 		animation->SetKey(name);
 
 		animation->Create(name
@@ -124,6 +129,7 @@ namespace m
 			return;
 
 		animation = new Animation();
+		animation->SetAnimator(this);
 		animation->SetKey(name);
 
 		animation->Create(name
@@ -176,6 +182,7 @@ namespace m
 	}
 	void Animator::PlayAnimation(const std::wstring& name, bool loop)
 	{
+		iLoopCount = 0;
 		Animation* prevAnimation = mActiveAnimation;
 		Events* events;
 		if (prevAnimation != nullptr)

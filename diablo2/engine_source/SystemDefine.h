@@ -102,7 +102,7 @@
 #define GET_VEC2_F_VEC3(vector2, vector3) vector2 = Vector2(vector3.x, vector3.y);
 #define GET_VEC2_F_VEC3_D(vector3) Vector2(vector3.x, vector3.y)
 
-#define MAKE_SKILL(skillType, skill, vector3Pos, fireLayerType) switch (skillFunctionTypes[(int)skillType])\
+#define MAKE_SKILL(skillType, activeSkillIndex, skill, skillbuff,vector3Pos, fireLayerType) switch (skillFunctionTypes[(int)skillType])\
 								{\
 								case m::eSkillFunctionType::Straight:\
 								{\
@@ -149,6 +149,14 @@
 									skill->SetCamera(GetOwner()->GetCamera());\
 									skill->SkillFire();\
 									SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);\
+								}\
+									break;\
+								case m::eSkillFunctionType::Buff:\
+								{\
+									skillbuff = new SkillBuff(GetOwner(), activeSkillIndex, skillType);\
+									skillbuff->SetCamera(GetOwner()->GetCamera());\
+									skillbuff->ActiveOverlay();\
+									SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, skillbuff);\
 								}\
 									break;\
 								case m::eSkillFunctionType::Orb:\

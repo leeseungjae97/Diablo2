@@ -17,6 +17,9 @@ namespace m
         ~PlayerScript();
 
         virtual void Initialize() override;
+        void MakeDirection();
+        void SpecialCastAnimation(int skillIndex);
+        void ElseAnimationPlay();
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
@@ -48,7 +51,6 @@ namespace m
 
         int activeSkillIndex;
         bool bFire;
-        bool bDamage;
     };
 }
 

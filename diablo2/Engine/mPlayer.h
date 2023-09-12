@@ -32,17 +32,12 @@ namespace m
         void SetHpUI(UVUI* hp) { mHp = hp; }
         void SetMpUI(UVUI* mp) { mMp = mp; }
 
-        //int GetFMID() { return mFollowingMonsterId; }
-        //void SetFMID(int id) { mFollowingMonsterId = id; }
-
-        //bool GetAttack() { return bAttack; }
-        //void SetAttack(bool attack) { bAttack = attack; }
     private:
         UVUI* mHp;
         UVUI* mMp;
 
-        //int mFollowingMonsterId;
-        //bool bAttack;
+        bool bCanDamaged;
+        float fCanDamagedDelay;
     };
 }
 

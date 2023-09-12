@@ -34,6 +34,8 @@ namespace m
 
 		Vector3 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
+
+		void SetScale(Vector3 scale);
 		eColliderType GetType() { return mType; }
 
 		void AddExceptType(eLayerType type) { exceptTypes.push_back(type); }
@@ -82,6 +84,7 @@ namespace m
 		bool bVisible;
 
 		bool bResize;
+		bool bCustomSize;
 	};
 }
 

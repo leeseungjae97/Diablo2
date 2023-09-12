@@ -25,6 +25,7 @@ namespace m
 		IceCast2,
 		IceCast3,
 		FireCast1,
+		Teleport,
 
 		END
 	};
@@ -59,12 +60,14 @@ namespace m
 		L"iceCast2",
 		L"iceCast3",
 		L"fireCast1",
+		L"teleport",
 	};
 	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 		m::math::Vector2(113.f, 72.f),
 		m::math::Vector2(78.f, 70.f),
 		m::math::Vector2(208.f, 174.f),
 		m::math::Vector2(71.f, 88.f),
+
 	};
 	int crashLength[(int)eSkillCrashType::END] = {
 		6,
@@ -78,12 +81,21 @@ namespace m
 		m::math::Vector2(115.f, 123.f),
 		m::math::Vector2(127.f, 148.f),
 		m::math::Vector2(145.f, 133.f),
+		m::math::Vector2(136.f, 154.f),
+	};
+	m::math::Vector2 castOffset[(int)eSkillCastType::END] = {
+	    m::math::Vector2(0.f, 0.f),
+	    m::math::Vector2(0.f, 0.f),
+	    m::math::Vector2(0.f, 0.f),
+	    m::math::Vector2(0.f, 0.f),
+	    m::math::Vector2(8.f, 0.f),
 	};
 	int castLength[(int)eSkillCastType::END] = {
 		15,
 		15,
 		16,
 		16,
+		18,
 	};
 
 	enum class ePathSixteenDirection
@@ -367,7 +379,7 @@ namespace m
 		eSkillCastType::END,// nove
 		eSkillCastType::END,// lightning
 		eSkillCastType::END,// chainLightning
-		eSkillCastType::END,// teleport
+		eSkillCastType::Teleport,// teleport
 		eSkillCastType::END,// thunderStorm
 		eSkillCastType::END,// energyShield
 		eSkillCastType::END,// lightningMastery

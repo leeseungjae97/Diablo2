@@ -137,10 +137,16 @@ namespace m
 	}
 	void Monster::Hit(int damage)
 	{
-		if (hp - damage < 0) hp = 0;
-		else hp -= damage;
+		if(bCanDamaged)
+		{
+			bCanDamaged = false;
 
-		hpPercent = hpCapacity - hp / hpCapacity;
-		SetHit(true);
+			if (hp - damage < 0) hp = 0;
+			else hp -= damage;
+
+			hpPercent = hpCapacity - hp / hpCapacity;
+			SetHit(true);
+		}
+		
 	}
 }

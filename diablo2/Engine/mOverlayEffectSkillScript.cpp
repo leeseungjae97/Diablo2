@@ -31,7 +31,7 @@ namespace m
 			, 1
 			, Vector2::Zero
 			, 0.03f
-			, 0.3f
+			, 0.8f
 		);
 		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
@@ -98,7 +98,7 @@ namespace m
 					, crashLength[(int)crashType]
 					, Vector2::Zero
 					, 0.03f
-					, 0.7f
+					, 0.8f
 				);
 				//mAnimator->StartEvent(crashNames[(int)crashType] + L"anim")
 				//	= [this]()
@@ -122,14 +122,11 @@ namespace m
 				, Vector2::Zero
 				, castSizes[(int)castType]
 				, castLength[(int)castType]
-				, Vector2::Zero
+				, castOffset[(int)castType]
 				, 0.03f
-				, 0.3f
+				, 0.8f
 			);
 		}
-		
-		
-	
 		//mAnimator->StartEvent(skillCastNames[(int)mType] + L"anim") = [this]()
 		//{
 		//	bPlaySkill = false;

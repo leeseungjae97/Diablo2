@@ -31,8 +31,7 @@ namespace m
 		float GetStartDistance() { return fStartDistance; }
 		void SetInitializePosition(Vector3 initPos);
 
-		void AddZWeight();
-		void AdjustmentMovementSpeedAccordingAngle();
+
 
 		void SetRemainDistance(float rd) { fRemainDistance = rd; }
 		void SetStartDistance(float sd) { fStartDistance = sd; }
@@ -61,6 +60,10 @@ namespace m
 
 		void SetMadePath(bool madePath) { bMadePath = madePath; }
 		void SetSixteenDirection(bool sixteenDirection) { bSixteenDirection = sixteenDirection; }
+	private:
+		void damagedDelay();
+		void addZWeight();
+		void adjustmentMovementSpeedAccordingAngle();
 
 	protected:
 		Collider2D* rangeCollider;
@@ -88,6 +91,9 @@ namespace m
 
 		bool bMadePath;
 		bool bSixteenDirection;
+
+		bool bCanDamaged;
+		float fCanDamagedDelay;
 	};
 }
 

@@ -36,8 +36,7 @@ namespace m::graphics
 		size_t GetMetaDataWidth() { return mImage.GetMetadata().width; }
 		size_t GetMetaDataHeight() { return mImage.GetMetadata().height; }
 
-		const ScratchImage& GetScratchImage() { return mImage; }
-		ScratchImage GetScratchImageH() { return std::move(mImage); }
+		ScratchImage& GetScratchImage() { return mImage; }
 
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }

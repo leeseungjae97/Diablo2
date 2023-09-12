@@ -35,7 +35,11 @@ namespace m
 				, Vector2::Zero
 				, 0.03f
 			);
-			
+			mAnimator->EndEvent(skillAnimNames[(int)mType] + L"anim") = [this]()
+			{
+				dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+			};
+
 			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
 			GetOwner()->CreateAnimators(
 				4
@@ -71,6 +75,10 @@ namespace m
 				, Vector2::Zero
 				, 0.03f
 			);
+			mAnimator->EndEvent(accessorySkillNames[(int)mACType] + L"anim") = [this]()
+			{
+				dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+			};
 			
 			mCrashType = accessorySkillCrashTypes[(int)mACType];
 			if (mCrashType != eSkillCrashType::END)
@@ -175,7 +183,7 @@ namespace m
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType]);
+					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType] , true, col);
 				}	
 			}
 			else
@@ -198,7 +206,7 @@ namespace m
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType]);
+					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType], true, col);
 				}
 			}
 			bArrival = false;

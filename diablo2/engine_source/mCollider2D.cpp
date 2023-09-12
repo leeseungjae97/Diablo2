@@ -20,6 +20,7 @@ namespace m
 		, bOnExit(false)
 		, bVisible(true)
 		, bResize(false)
+	    , bCustomSize(false)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
@@ -68,8 +69,16 @@ namespace m
 			}
 			scale.x *= mSize.x;
 			scale.y *= mSize.y;
-			mScale = scale;
+			if(!bCustomSize)
+			    mScale = scale;
 		}
+
+		if (bCustomSize)
+		{
+			mScale *= mSize.x;
+			mScale *= mSize.y;
+		}
+			
 
 		mRotation = tr->GetRotation();
 		
@@ -168,7 +177,14 @@ namespace m
 			script->OnCollisionExit(other);
 		}
 	}
-	bool Collider2D::SearchObjectGameObjectId(UINT gameObjectId)
+
+    void Collider2D::SetScale(Vector3 scale)
+    {
+		mScale = scale;
+		bCustomSize = true;
+    }
+
+    bool Collider2D::SearchObjectGameObjectId(UINT gameObjectId)
 	{
 		for (Collider2D* col : collidereds)
 		{

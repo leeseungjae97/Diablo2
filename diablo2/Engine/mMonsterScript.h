@@ -19,10 +19,17 @@ namespace m
 		virtual ~MonsterScript();
 
 		virtual void Initialize() override;
+        
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void MakeDirection();
+		void SpecialAttackAnimationConitnue();
+		void SpecialAttackAnimation();
+		void AttackAnimation();
+		void HitAnimation();
+		void ElseAnimationPlay();
 		//virtual void OnCollisionEnter(Collider2D* other) override;
 		//virtual void OnCollisionStay(Collider2D* other) override;
 		//virtual void OnCollisionExit(Collider2D* other) override;
@@ -58,8 +65,7 @@ namespace m
 		std::wstring* animStrings;
 
 		bool bFire;
-		bool bDamaged;
-		float fDelay;
+		float fAttackDelay;
 		float degree;
 	};
 }

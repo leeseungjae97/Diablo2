@@ -161,10 +161,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mAffectOverlayScript.h" />
     <ClInclude Include="mBackgroundScript.h" />
     <ClInclude Include="mBottomUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mSkillBuff.h" />
+    <ClInclude Include="mTeleportScript.h" />
+    <ClInclude Include="mTileAffectOverlay.h" />
     <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mHand.h" />
     <ClInclude Include="mHandScript.h" />
@@ -210,10 +214,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="mAffectOverlayScript.cpp" />
     <ClCompile Include="mBackgroundScript.cpp" />
     <ClCompile Include="mBottomUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mSkillBuff.cpp" />
+    <ClCompile Include="mTeleportScript.cpp" />
+    <ClCompile Include="mTileAffectOverlay.cpp" />
     <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mHand.cpp" />
     <ClCompile Include="mHandScript.cpp" />

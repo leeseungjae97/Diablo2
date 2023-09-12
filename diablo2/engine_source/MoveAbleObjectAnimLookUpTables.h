@@ -291,7 +291,7 @@ namespace m
 			math::Vector2(222.f, 157.f),	// Attack
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
-			math::Vector2(192.f, 145.f),	// Hit
+			math::Vector2(197.f, 145.f),	// Hit
 			math::Vector2(191.f, 148.f),	// Natural
 			math::Vector2(171.f, 153.f),	// Run
 			math::Vector2(0.f, 0.f),

@@ -105,54 +105,67 @@ namespace m
 		AddGameObject(eLayerType::Player, PlayerManager::player);
 		ADD_COMP(PlayerManager::player, PlayerScript);
 		GetSceneMainCamera()->SetFollowObject(PlayerManager::player);
-		{
-			Tile* tile = TileManager::pathFindingTiles[0][0];
-			Vector3 pos = GET_POS(tile);
 
-			GameObject* qwe = new GameObject();
-			SET_MAIN_CAMERA(qwe);
-			AddGameObject(eLayerType::Skill, qwe);
-			ADD_COMP(qwe, MeshRenderer);
-			//Animator* anim = ADD_COMP(qwe, Animator);
-			SET_POS_VEC(qwe, pos);
+		Tile* tile5 = TileManager::pathFindingTiles[0][0];
+		Vector3 pos4 = GET_POS(tile5);
 
-			SET_MESH(qwe, L"RectMesh");
+		//GameObject* qwe = new GameObject();
+		//SET_MAIN_CAMERA(qwe);
+		//AddGameObject(eLayerType::Skill, qwe);
+		//ADD_COMP(qwe, MeshRenderer);
+		////Animator* anim = ADD_COMP(qwe, Animator);
+		//SET_POS_VEC(qwe, pos4);
 
-			//SET_MATERIAL(qwe, L"AnimationMaterial");
+		//SET_MESH(qwe, L"RectMesh");
 
-			//SET_MATERIAL(qwe, L"fire3");
-			//MAKE_GET_TEX(qwe, tex);
-			//SET_SCALE_TEX_SIZE(qwe, tex, 1.f);
+		//SHARED_MAT mat1 = RESOURCE_FIND(Material, L"balrogAttackRH");
+		//SHARED_MAT mat2 = RESOURCE_FIND(Material, L"fire2s");
+		//std::shared_ptr<Texture> tex3 = RESOURCE_FIND(Texture, L"fire_3");
+		
 
-			std::shared_ptr<Texture> mergeTexture = std::make_shared<Texture>();
+		//std::vector<std::shared_ptr<Texture>> texes;
 
-			std::shared_ptr<Texture> tex1 = RESOURCE_FIND(Texture, L"balrog_hit_body");
-			//std::shared_ptr<Texture> tex2 = RESOURCE_FIND(Texture, L"fire_2");
-			//std::shared_ptr<Texture> tex3 = RESOURCE_FIND(Texture, L"fire_3");
+		//texes.push_back(mat1->GetTexture());
+		//texes.push_back(mat2->GetTexture());
+		//texes.push_back(tex3);
 
-			std::vector<std::shared_ptr<Texture>> texes;
+		//GUID format = GetWICCodec(WIC_CODEC_PNG);
+		//SaveToWICFile(
+		//	*mat1->GetTexture()->GetScratchImage().GetImage(0, 0, 0)
+		//	//*mat1->GetTexture()->GetScratchImage().GetImages()
+		//	, WIC_FLAGS::WIC_FLAGS_NONE
+		//	, format
+		//	, L"save1.png"
+		//	, nullptr
+		//);
 
-			texes.push_back(tex1);
-			//texes.push_back(tex2);
-			//texes.push_back(tex3);
+		//std::shared_ptr<Texture> mergeTexture = std::make_shared<Texture>();
+		//mergeTexture->MergeTex2(texes
+		//	, mat1->GetTexture()->GetMetaDataWidth()
+		//	, mat1->GetTexture()->GetMetaDataHeight()
+		//	, 1
+		//);
 
+		//Resources::Insert(L"mergeFireImage", mergeTexture);
 
-			mergeTexture->MergeTex2(texes
-				, tex1->GetMetaDataWidth()
-				, tex1->GetMetaDataHeight()
-				, 1
-			);
-			
-			Resources::Insert(L"mergeFireImage", mergeTexture);
+		//std::shared_ptr<Material> mat5 = std::make_shared<Material>();
+		//mat5->SetShader(RESOURCE_FIND(Shader, L"SpriteShader"));
+		////mat5->SetRenderingMode(eRenderingMode::Transparent);
+		//mat5->SetTexture(mergeTexture);
 
-			std::shared_ptr<Material> mat1 = std::make_shared<Material>();
-			mat1->SetShader(RESOURCE_FIND(Shader, L"SpriteShader"));
-			mat1->SetRenderingMode(eRenderingMode::Transparent);
-			mat1->SetTexture(mergeTexture);
+		//SET_MATERIAL_D(qwe, mat5);
+		//SET_SCALE_TEX_SIZE(qwe, mergeTexture, 1.f);
+		//SET_MATERIAL(qwe, L"AnimationMaterial");
 
-			SET_MATERIAL_D(qwe, mat1);
-			SET_SCALE_TEX_SIZE(qwe, mergeTexture, 1.f);
-		}
+		//SET_MATERIAL(qwe, L"fire3");
+		//MAKE_GET_TEX(qwe, tex);
+		//SET_SCALE_TEX_SIZE(qwe, tex, 1.f);
+
+		
+		//fire_1_s
+		//fire_2_s
+		//fire_3_s
+	
 		//Resources\sound\ambient\creature;
 
 

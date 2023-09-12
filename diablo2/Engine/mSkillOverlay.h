@@ -16,7 +16,7 @@ namespace m
 		virtual void Render() override;
 		virtual void Initialize() override;
 
-		void ActiveOverlay() { bActiveOverlay = true; }
+		virtual void ActiveOverlay() { bActiveOverlay = true; }
 
 		void SetActiveOwner(GameObject* owner);
 	private:

@@ -42,7 +42,6 @@ namespace m::graphics
 		mRenderTarget->SetTexture(renderTarget);
 
 		//mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
-
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView = nullptr;
 		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget->GetTexture().Get()
 										, nullptr, renderTargetView.GetAddressOf());
