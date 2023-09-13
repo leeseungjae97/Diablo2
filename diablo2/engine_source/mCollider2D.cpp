@@ -125,7 +125,7 @@ namespace m
 						iter = col->GetCollidereds().erase(iter);
 						break;
 					}
-					else iter++;
+					else ++iter;
 				}
 			}
 			collidereds.clear();

@@ -11,8 +11,8 @@ namespace m
 		{
 			if (gameObj == nullptr)
 				continue;
-			if (gameObj->GetState() == GameObject::eState::Delete) 
-				continue;
+			//if (gameObj->GetState() == GameObject::eState::Delete) 
+				//continue;
 
 			delete gameObj;
 			gameObj = nullptr;
@@ -24,8 +24,10 @@ namespace m
 	}
 	void Layer::Update()
 	{
+		int a = 0;
 		for (GameObject* gameObj : mGameObjects)
 		{
+			++a;
 			if (gameObj->GetState() == GameObject::eState::NoRenderNoUpdate
 				|| gameObj->GetState() == GameObject::eState::Delete
 				|| gameObj->GetState() == GameObject::eState::RenderNoUpdate)
@@ -87,7 +89,7 @@ namespace m
 				continue;
 			}
 
-			iter++;
+			++iter;
 		}
 
 		//메모리 해제
@@ -132,7 +134,7 @@ namespace m
 				iter = mGameObjects.erase(iter);
 				break;
 			}
-			else iter++;
+			else ++iter;
 		}
 		mGameObjects.push_back(gameObj);
 	}
@@ -148,7 +150,7 @@ namespace m
 				iter = mGameObjects.erase(iter);
 				break;
 			}
-			else iter++;
+			else ++iter;
 		}
 		iter = mGameObjects.begin();
 		while (iter != mGameObjects.end())
@@ -157,7 +159,7 @@ namespace m
 			{
 				break;
 			}
-			else iter++;
+			else ++iter;
 		}
 		mGameObjects.insert(iter, gameObj);
 	}

@@ -221,19 +221,30 @@ namespace m
 		//	}
 		//}
 
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[53][78];
+		//	Vector3 pos = GET_POS(tile);
+		//	Monster* monster = new Monster(pos, MDDiablo().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	SET_MESH(monster, L"RectMesh");
+		//	SET_MATERIAL(monster, L"AnimationMaterial");
+		//	ADD_COMP(monster, Animator);
+		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//}
 		{
-			Tile* tile = TileManager::pathFindingTiles[53][78];
+			Tile* tile = TileManager::pathFindingTiles[0][0];
 			Vector3 pos = GET_POS(tile);
-			Monster* monster = new Monster(pos, MDDiablo().fSpeed);
+			Monster* monster = new Monster(pos, MDAndariel().fSpeed);
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			SET_MESH(monster, L"RectMesh");
 			SET_MATERIAL(monster, L"AnimationMaterial");
 			ADD_COMP(monster, Animator);
-			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+			MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
 		}
-
 
 		{
 			Tile* tile = TileManager::pathFindingTiles[50][50];

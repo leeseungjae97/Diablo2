@@ -1,5 +1,5 @@
 #pragma once
-#include "mMoveAbleObject.h"
+#include "mGameObject.h"
 
 #include "../engine_source/AffectOverlayLookUpTable.h"
 
@@ -8,7 +8,7 @@ namespace m
     class AffectOverlayScript;
 
     class TileAffectOverlay :
-        public MoveAbleObject
+        public GameObject
     {
     public:
         TileAffectOverlay(Vector3 initPos, eAffectOverlayType type, eLayerType mOwnerType);
@@ -19,7 +19,9 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
-        virtual void Hit(int damage);
+        void ActiveOverlay();
+    private:
+        void addZWeight();
     private:
         AffectOverlayScript* mAOS;
     };

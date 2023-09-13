@@ -133,6 +133,7 @@ namespace m
 						}
 					}
 				}
+				GetOwner()->ReleaseAnimators();
 				GetOwner()->SetState(GameObject::eState::Delete);
 			};
 		}

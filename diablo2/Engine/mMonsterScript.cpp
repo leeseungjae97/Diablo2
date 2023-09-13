@@ -333,6 +333,8 @@ namespace m
 			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
+
+				//MonsterSpecialSkill(specialIndex);
 				if (curMonsterData.mMonsterType == eMonsterType::Diablo)
 				{
 					mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
@@ -340,8 +342,8 @@ namespace m
 
 					mSkill = new SkillMultiFire(
 						GET_POS(GetOwner())
-						, curMonsterData.mSpecialCastSkillType
-						, curMonsterData.mSpecialCastSkillCount
+						, curMonsterData.mSpecialCastSkill1
+						, curMonsterData.mSpecialCastSkill1Count
 						, SkillMultiFire::eFireType::Linear
 						, eLayerType::MonsterSkill);
 					mSkill->SetCamera(GetOwner()->GetCamera());

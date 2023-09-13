@@ -45,7 +45,7 @@ namespace m
 		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::meteor);
+		SetSkill(1, eSkillType::teleport);
 	}
 
 	void PlayerManager::CalHpPercent()

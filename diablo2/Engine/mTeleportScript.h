@@ -2,6 +2,7 @@
 #include "../engine_source/mScript.h"
 namespace m
 {
+    class Tile;
     class MoveAbleObject;
 
     class TeleportScript :
@@ -20,6 +21,7 @@ namespace m
 
     private:
         void checkWallIfWallGetNearByCoord();
+        void getNearByCoord(Tile* targetTile);
 
     private:
         GameObject* mOwner;

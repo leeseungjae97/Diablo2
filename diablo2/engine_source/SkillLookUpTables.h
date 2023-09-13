@@ -98,6 +98,7 @@ namespace m
 
 		// Monster
 		DiabloLightning,
+		AndarielPoisonAttack,
 		END
 	};
 	std::wstring wsSkillIconNames[(int)eSkillType::END] = {

@@ -291,6 +291,7 @@ namespace m
 		float degree = RadianToDegree(atan2(direction.x, direction.y));
 
 		int n = degree / (180.f / 9.f);
+		if (n > 8) n = 8;
 
 		if (n > 0)
 			mDirection = plusSixteenDirections[n];

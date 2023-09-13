@@ -238,19 +238,19 @@ namespace m
 		//	Vector2 curCoord = curTile->GetCoord();
 		//	std::erase(openVector, curTile);
 
-		//	if (abs(mStartCoord.x - curCoord.x) > 10) continue;
-		//	if (abs(mStartCoord.y - curCoord.y) > 10) continue;
+			//if (abs(mStartCoord.x - curCoord.x) > 10) continue;
+			//if (abs(mStartCoord.y - curCoord.y) > 10) continue;
 
-		//	bfsPathFinderExcept.clear();
+			//bfsPathFinderExcept.clear();
 
-		//	if (curCoord.x > targetCoord.x)
-		//		bfsPathFinderExcept.push_back(2); // {-1, 0}
-		//	else if (curCoord.x < targetCoord.x)
-		//		bfsPathFinderExcept.push_back(0); // {1, 0}
-		//	if (curCoord.y > targetCoord.y)
-		//		bfsPathFinderExcept.push_back(3); // {0, -1}
-		//	else if (curCoord.y < targetCoord.y)
-		//		bfsPathFinderExcept.push_back(1); // {0, 1}
+			//if (curCoord.x > targetCoord.x)
+			//	bfsPathFinderExcept.push_back(2); // {-1, 0}
+			//else if (curCoord.x < targetCoord.x)
+			//	bfsPathFinderExcept.push_back(0); // {1, 0}
+			//if (curCoord.y > targetCoord.y)
+			//	bfsPathFinderExcept.push_back(3); // {0, -1}
+			//else if (curCoord.y < targetCoord.y)
+			//	bfsPathFinderExcept.push_back(1); // {0, 1}
 
 		//	if (bfsPathFinderExcept.size() == 0)
 		//		break;

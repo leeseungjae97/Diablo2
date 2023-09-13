@@ -535,11 +535,26 @@ namespace renderer
 		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
 #pragma region Monster SKill
-		MAKE_MATERIAL_PATH(spriteShader, L"red_lightning_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\red_lightning_crash"
-						   , 71, 88, 20, L"redLightningCrash");
-
 		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
 						   , 252, 190, 15, L"diabloLightning");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_poison_attack", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\andariel_poison_attack"
+			, 65, 65, 24, L"andarielPoisonAttack");
+#pragma endregion
+
+#pragma region Monster Overlay
+		MAKE_MATERIAL_PATH(spriteShader, L"red_lightning_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\red_lightning_crash"
+			, 71, 88, 20, L"redLightningCrash");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_skill_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_skill_overlay"
+			, 162, 107, 18, L"andarielSkillOverlay");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_dead_overlay"
+			, 101, 161, 23, L"andarielDeadOverlay");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_flame_death", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_flame_death"
+			, 38, 122, 15, L"andarielFlameDeath");
+
+		MAKE_MATERIAL(spriteShader, L"mephisto_attack2_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_attack2_overlay.png", L"mephistoAttack2Overlay");
+		MAKE_MATERIAL(spriteShader, L"mephisto_death_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_death_overlay.png", L"mephistoAttack2Overlay");
+
 #pragma endregion
 #pragma region Overlay
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_3", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_3"
@@ -580,9 +595,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"fire_3_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3.png", L"fire3s");
 #pragma endregion
 #pragma region Skill
-		
-
-		MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
+        MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
 						   , 92, 55, 6, L"iceBolt");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"blizzard_1", L"..\\Resources\\texture\\skill_effect\\missile\\blizzard\\blizzard1"
@@ -615,7 +628,6 @@ namespace renderer
 			, 222, 157, 16, L"balrogAttack");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_dead_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\dead"
 			, 210, 179, 20, L"balrogDead");
-
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\natural"
 			, 161, 74, 8, L"balrogNaturalRH");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_hit_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\hit"
@@ -624,7 +636,21 @@ namespace renderer
 			, 152, 76, 8, L"balrogRunRH");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_attack1_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\attack"
 			, 207, 165, 16, L"balrogAttackRH");
-#pragma endregion
+
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_natural", L"..\\Resources\\texture\\enemy\\andariel\\natural"
+			, 178, 179, 16, L"andarielNatural");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_attack", L"..\\Resources\\texture\\enemy\\andariel\\attack"
+			, 247, 248, 16, L"andarielAttack");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_special", L"..\\Resources\\texture\\enemy\\andariel\\special"
+			, 212, 182, 18, L"andarielSpecial");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_walk", L"..\\Resources\\texture\\enemy\\andariel\\walk"
+			, 148, 184, 12, L"andarielWalk");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_hit", L"..\\Resources\\texture\\enemy\\andariel\\hit"
+			, 173, 180, 6, L"andarielHit");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_to_dead", L"..\\Resources\\texture\\enemy\\andariel\\to_dead"
+			, 203, 232, 23, L"andarielToDead");
+		MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead", L"..\\Resources\\texture\\enemy\\andariel\\dead"
+			, 177, 116, 1, L"andarielDead");
 
 		MAKE_MATERIAL(spriteShader, L"diablo_natural", L"..\\Resources\\texture\\enemy\\diablo\\diablo_natural.png", L"diabloNatural");
 		MAKE_MATERIAL(spriteShader, L"diablo_walk", L"..\\Resources\\texture\\enemy\\diablo\\diablo_walk.png", L"diabloWalk");
@@ -639,6 +665,23 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"diablo_special3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special3.png", L"diabloSpecial3");
 		MAKE_MATERIAL(spriteShader, L"diablo_special4", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special4.png", L"diabloSpecial4");
 		MAKE_MATERIAL(spriteShader, L"diablo_dead", L"..\\Resources\\texture\\enemy\\diablo\\diablo_dead.png", L"diabloDead");
+
+		MAKE_MATERIAL(spriteShader, L"duriel_natural", L"..\\Resources\\texture\\enemy\\duriel\\duriel_natural.png", L"durielNatural");
+		MAKE_MATERIAL(spriteShader, L"duriel_attack1", L"..\\Resources\\texture\\enemy\\duriel\\duriel_attack1.png", L"durielAttack1");
+		MAKE_MATERIAL(spriteShader, L"duriel_attack2", L"..\\Resources\\texture\\enemy\\duriel\\duriel_attack2.png", L"durielAttack2");
+		MAKE_MATERIAL(spriteShader, L"duriel_dead", L"..\\Resources\\texture\\enemy\\duriel\\duriel_dead.png", L"durielDead");
+		MAKE_MATERIAL(spriteShader, L"duriel_get_hit", L"..\\Resources\\texture\\enemy\\duriel\\duriel_get_hit.png", L"durielGetHit");
+		MAKE_MATERIAL(spriteShader, L"duriel_to_dead", L"..\\Resources\\texture\\enemy\\duriel\\duriel_to_dead.png", L"durielToDead");
+		MAKE_MATERIAL(spriteShader, L"duriel_walk", L"..\\Resources\\texture\\enemy\\duriel\\duriel_walk.png", L"durielWalk");
+
+		MAKE_MATERIAL(spriteShader, L"mephisto_natural", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_natural.png", L"mephistoNatural");
+		MAKE_MATERIAL(spriteShader, L"mephisto_attack1", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_attack1.png", L"mephistoAttack1");
+		MAKE_MATERIAL(spriteShader, L"mephisto_attack2", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_attack2.png", L"mephistoAttack2");
+		MAKE_MATERIAL(spriteShader, L"mephisto_dead", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_dead.png", L"mephistoDead");
+		MAKE_MATERIAL(spriteShader, L"mephisto_get_hit", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_get_hit.png", L"mephistoGetHit");
+		MAKE_MATERIAL(spriteShader, L"mephisto_to_dead", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_to_dead.png", L"mephistoToDead");
+		MAKE_MATERIAL(spriteShader, L"mephisto_walk", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_walk.png", L"mephistoWalk");
+
 #pragma endregion
 
 #pragma region Characters

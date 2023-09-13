@@ -225,17 +225,6 @@ namespace m::graphics
 			tt++;
 			xidx++;
 		}
-		GUID format = GetWICCodec(WIC_CODEC_PNG);
-		if (path == L"..\\Resources\\texture\\enemy\\balrog\\rh\\attack")
-		{
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"save6.png"
-				, nullptr
-			);
-		}
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()

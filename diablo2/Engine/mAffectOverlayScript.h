@@ -22,13 +22,13 @@ namespace m
 
         void SetLoopCount(int count) { iMaxLoopCount = count; }
 
+        void ActiveAffectOverlay() { bAtiveAffectOverlay = true; }
     private:
-        Collider2D* mCol;
         int iCurLoopCount;
         int iMaxLoopCount;
-        bool bCauseDamage;
-        float fDamageInterval;
         eAffectOverlayType mOverlayType;
+
+        bool bAtiveAffectOverlay;
     };
 }
 

@@ -10,8 +10,8 @@ namespace m
 	AffectOverlayScript::AffectOverlayScript(eAffectOverlayType type)
 		: iCurLoopCount(0)
 		, iMaxLoopCount(0)
-		, mCol(nullptr)
 		, mOverlayType(type)
+	    , bAtiveAffectOverlay(false)
 	{
 
 	}
@@ -23,7 +23,6 @@ namespace m
 	void AffectOverlayScript::Initialize()
 	{
 		SkillScript::Initialize();
-		mCol = GET_COMP(GetOwner(), Collider2D);
 		mAnimator = GET_COMP(GetOwner(), Animator);
 
 		SHARED_MAT mat = RESOURCE_FIND(Material, affectOverlayNames[(int)mOverlayType]);
@@ -52,14 +51,30 @@ namespace m
 		{
 			iCurLoopCount = mAnimator->GetLoopCount();
 		};
-		mAnimator->PlayAnimation(affectOverlayNames[(int)mOverlayType] + L"anim", true);
 		
+		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
+		mAnimator->Create(
+			L"noneRectAnim"
+			, noneMat->GetTexture()
+			, Vector2::Zero
+			, Vector2(20.f, 20.f)
+			, 1
+			, Vector2::Zero
+			, 0.03f
+		);
+
+		mAnimator->PlayAnimation(L"noneRectAnim", false);
 	}
 
 	void AffectOverlayScript::Update()
 	{
 		SkillScript::Update();
-
+		if(bAtiveAffectOverlay)
+		{
+			ADD_COMP(GetOwner(), Collider2D);
+			bAtiveAffectOverlay = false;
+			mAnimator->PlayAnimation(affectOverlayNames[(int)mOverlayType] + L"anim", true);
+		}
 		if (iCurLoopCount >= iMaxLoopCount)
 		{
 			mAnimator->SetAnimationStartIndex(0);
@@ -92,8 +107,7 @@ namespace m
 				dynamic_cast<Player*>(other->GetOwner())->Hit(10);
 		}
 	}
-
-	//void AffectOverlayScript::OnCollisionExit(Collider2D* other)
+    //void AffectOverlayScript::OnCollisionExit(Collider2D* other)
 	//{
 	//	SkillScript::OnCollisionExit(other);
 	//}
