@@ -24,7 +24,7 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		virtual void Hit(int damage) = 0;
+		virtual void Hit(int damage, bool attackStun = true) = 0;
 		bool Stop() { return fSpeed == 0.0f ? true : false; }
 		bool StopF() { return fRemainDistance < fStartDistance ? false : true; }
 		float GetRemainDistance() { return fRemainDistance; }

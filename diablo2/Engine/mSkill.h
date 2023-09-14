@@ -26,7 +26,7 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        virtual void Hit(int damage) override;
+        virtual void Hit(int damage, bool attackStun = true) override;
         eSkillType GetSkillType() { return mSkillType; }
 
         bool GetSkillFire() { return bSkillFire; }

@@ -8,7 +8,9 @@
 
 namespace m
 {
-	class Monster;
+    class SkillOverlay;
+    class SkillBuff;
+    class Monster;
 	class Animator;
 	template <typename T>
 	class MonsterScript :
@@ -47,14 +49,23 @@ namespace m
 		int GetDirection() { return mDirection; }
 		float GetDegree() { return degree; }
 	private:
+		void makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos
+			, eLayerType fireLayerType, int addFunction, int skillCount);
+
+	private:
 		T curMonsterData;
 		std::vector<SHARED_TEX> texs;
 		Animator* mAnimator;
 		T::eAnimationType mAnimationType;
 
 		Skill* mSkill;
+		SkillBuff* mSkillBuff;
+		bool skillMake;
+
 		MonsterHand* mLeftHand;
 		MonsterHand* mRightHand;
+
+		SkillOverlay* mSO;
 
 		Monster* mMonster;
 		eMonsterClass mClass;

@@ -225,6 +225,19 @@ namespace m::graphics
 			tt++;
 			xidx++;
 		}
+
+		if(path == L"..\\Resources\\texture\\enemy\\andariel\\special")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"save4.png"
+				, nullptr
+			);
+		}
+		
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()
@@ -233,10 +246,6 @@ namespace m::graphics
 			, atlasImage.GetMetadata()
 			, mSRV.GetAddressOf()
 		);
-
-		mWidth = mImage.GetMetadata().width;
-		mHeight = mImage.GetMetadata().height;
-
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
 		mImage.Initialize2D(
@@ -246,6 +255,9 @@ namespace m::graphics
 			atlasImage.GetMetadata().arraySize,
 			atlasImage.GetMetadata().mipLevels
 		);
+
+		mWidth = mImage.GetMetadata().width;
+		mHeight = mImage.GetMetadata().height;
 	}
 	bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
 	{

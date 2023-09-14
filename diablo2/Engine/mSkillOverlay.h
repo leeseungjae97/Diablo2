@@ -17,8 +17,9 @@ namespace m
 		virtual void Initialize() override;
 
 		virtual void ActiveOverlay() { bActiveOverlay = true; }
-
 		void SetActiveOwner(GameObject* owner);
+		GameObject* GetActiveOwner() { return mActiveOwner; }
+		void SetSkillCastType(eSkillCastType type);
 	private:
 		int mCurIndex;
 		OverlayEffectSkillScript* mOESS;

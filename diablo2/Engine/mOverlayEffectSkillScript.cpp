@@ -10,6 +10,7 @@ namespace m
 	OverlayEffectSkillScript::OverlayEffectSkillScript(int index)
 		: skillIndex(index)
 		, bPlaySkill(false)
+	    , mCastType(eSkillCastType::END)
 		, bHit(true)
 		
 	{
@@ -45,7 +46,10 @@ namespace m
 			{
 				eSkillCrashType crashType = skillCrashTypes[(int)mType];
 				if (crashNames[(int)crashType] != L"")
+				{
+					SET_SCALE_XYZ(GetOwner(), crashSizes[(int)crashType].x, crashSizes[(int)crashType].y, 1.f);
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
+				}
 				bPlaySkill = false;
 			}
 			else
@@ -53,8 +57,12 @@ namespace m
 				eSkillCastType castType = skillCastTypes[(int)mType];
 				if (castNames[(int)castType] != L"")
 				{
+					
 					if (mAnimator->GetActiveAnimation()->GetKey() != castNames[(int)castType] + L"anim")
+					{
+						SET_SCALE_XYZ(GetOwner(), castSizes[(int)castType].x, castSizes[(int)castType].y, 1.f);
 						mAnimator->PlayAnimation(castNames[(int)castType] + L"anim", false);
+					}
 				}
 				bPlaySkill = false;
 			}
@@ -82,7 +90,6 @@ namespace m
 	}
 	void OverlayEffectSkillScript::UpdateOverlaySkill()
 	{
-		//if (mType == PlayerManager::GetSkill(skillIndex)) return;
 		if (skillIndex == -1)
 		{
 			if (eSkillType::END != mType)
@@ -100,11 +107,10 @@ namespace m
 					, 0.03f
 					, 0.8f
 				);
-				//mAnimator->StartEvent(crashNames[(int)crashType] + L"anim")
-				//	= [this]()
-				//{
-				//	bHit = true;
-				//};
+			}
+			if(mCastType != eSkillCastType::END)
+			{
+
 			}
 		}
 		else
@@ -127,9 +133,5 @@ namespace m
 				, 0.8f
 			);
 		}
-		//mAnimator->StartEvent(skillCastNames[(int)mType] + L"anim") = [this]()
-		//{
-		//	bPlaySkill = false;
-		//};
 	}
 }

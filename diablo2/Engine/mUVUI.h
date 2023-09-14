@@ -1,5 +1,8 @@
 #pragma once
 #include "../engine_source/mUI.h"
+
+#include "../engine_source/mMaterial.h"
+
 namespace m
 {
     class UVUI :
@@ -17,8 +20,15 @@ namespace m
         void SetUVCoord(float uv) { mUVCoord = uv; }
         float GetUVCoord() { return mUVCoord; }
 
+        void SetOriginMaterial(std::shared_ptr<graphics::Material> mat) { mOriginMaterial = mat; }
+        void SetAddictionMaterial(std::shared_ptr<graphics::Material> mat) { mAddictionMaterial = mat; }
+
+        void SetAddiction();
+        void SetOrigin();
     private:
         float mUVCoord;
+        std::shared_ptr<graphics::Material> mAddictionMaterial;
+        std::shared_ptr<graphics::Material> mOriginMaterial;
     };
 }
 

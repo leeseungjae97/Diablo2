@@ -21,8 +21,7 @@ namespace m
         virtual void LateUpdate();
         virtual void Render();
 
-        void Hit(int damage);
-
+        void Hit(int damage, bool attackStun = true);
         void UseMana(int mana);
         void RestoreHp(int hp);
         void RestoreMp(int mp);
@@ -32,12 +31,27 @@ namespace m
         void SetHpUI(UVUI* hp) { mHp = hp; }
         void SetMpUI(UVUI* mp) { mMp = mp; }
 
+        void Addiction(int damage, float addictionTime, int tickCount);
+        bool GetAddiction() { return bAddiction; }
+
+    private:
+        void timeWaitAttack();
+        void attackedAddition();
     private:
         UVUI* mHp;
         UVUI* mMp;
 
         bool bCanDamaged;
         float fCanDamagedDelay;
+
+        float fAcc;
+        float fTotalAcc;
+        int iPastTick;
+        bool bAddiction;
+        float fAddictionTime;
+        int fAddictionTickCount;
+        int fAccDamage;
+        int iAddictionDamage;
     };
 }
 

@@ -41,17 +41,21 @@ namespace m
 			};
 
 			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
-			GetOwner()->CreateAnimators(
-				4
-				, mAnimator
-				,crashNames[(int)mCrashType] + L"anim"
-				, crashMat->GetTexture()
-				, Vector2::Zero
-				, crashSizes[(int)mCrashType]
-				, crashLength[(int)mCrashType]
-				, Vector2::Zero
-				, 0.03f
-			);
+			if(mType == eSkillType::meteor)
+			{
+				GetOwner()->CreateAnimators(
+					4
+					, mAnimator
+					, crashNames[(int)mCrashType] + L"anim"
+					, crashMat->GetTexture()
+					, Vector2::Zero
+					, crashSizes[(int)mCrashType]
+					, crashLength[(int)mCrashType]
+					, Vector2::Zero
+					, 0.03f
+				);
+			}
+		
 			mAnimator->Create(
 				crashNames[(int)mCrashType] + L"anim"
 				, crashMat->GetTexture()
@@ -84,17 +88,22 @@ namespace m
 			if (mCrashType != eSkillCrashType::END)
 			{
 				SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
-				GetOwner()->CreateAnimators(
-					4
-					, mAnimator
-					, crashNames[(int)mCrashType] + L"anim"
-					, crashMat->GetTexture()
-					, Vector2::Zero
-					, crashSizes[(int)mCrashType]
-					, crashLength[(int)mCrashType]
-					, Vector2::Zero
-					, 0.03f
-				);
+				if (mType == eSkillType::meteor)
+				{
+					GetOwner()->CreateAnimators(
+						4
+						, mAnimator
+						, crashNames[(int)mCrashType] + L"anim"
+						, crashMat->GetTexture()
+						, Vector2::Zero
+						, crashSizes[(int)mCrashType]
+						, crashLength[(int)mCrashType]
+						, Vector2::Zero
+						, 0.03f
+					);
+				}
+
+
 				mAnimator->Create(
 					crashNames[(int)mCrashType] + L"anim"
 					, crashMat->GetTexture()
@@ -184,7 +193,8 @@ namespace m
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType] , true, col);
+					if (mType == eSkillType::meteor)
+					    GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType] , true, col);
 				}	
 			}
 			else
@@ -207,7 +217,9 @@ namespace m
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
 					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType], true, col);
+
+					if (mType == eSkillType::meteor)
+					    GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType], true, col);
 				}
 			}
 			bArrival = false;

@@ -47,6 +47,7 @@ namespace m
 		UVUI* mp = new UVUI();
 		curScene->AddGameObject(eLayerType::UI, mp);
 		mp->SetCamera(camera);
+		mp->SetOriginMaterial(RESOURCE_FIND(Material, L"mp"));
 		SET_MESH(mp, L"RectMesh");
 		SET_MATERIAL(mp, L"mp");
 		GET_TEX(mp, tex);
@@ -79,6 +80,8 @@ namespace m
 		curScene->AddGameObject(eLayerType::UI, hp);
 		hp->SetCamera(camera);
 		hp->SetName(L"hp");
+		hp->SetOriginMaterial(RESOURCE_FIND(Material, L"hp"));
+		hp->SetAddictionMaterial(RESOURCE_FIND(Material, L"addictionHp"));
 		SET_MESH(hp, L"RectMesh");
 		SET_MATERIAL(hp, L"hp");
 		GET_TEX(hp, tex);

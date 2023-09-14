@@ -4,6 +4,8 @@
 #include "../engine_source/mGameObject.h"
 
 #include "mOverlayEffectSkillScript.h"
+#include "mSkill.h"
+#include "mSkillBuff.h"
 #include "mSkillOverlay.h"
 namespace m
 {
@@ -39,6 +41,12 @@ namespace m
         SkillOverlay* GetHSO() { return mHSO; }
         SkillOverlay* GetRSO() { return mRSO; }
         SkillOverlay* GetLSO() { return mLSO; }
+
+    private:
+        void makeSkill(eSkillType skill
+            , int activeSkillIndex
+            , Vector3 vector3Pos
+            , eLayerType fireLayer);
 
     private:
         Animator* mAnimator;

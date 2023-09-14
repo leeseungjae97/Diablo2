@@ -39,7 +39,7 @@ namespace m
 	};
 	enum class eSixteenDirection
 	{
-		Down,	
+		Down,
 		LeftDown1,
 		LeftDown2,
 		LeftDown3,
@@ -185,25 +185,21 @@ namespace m
 		int animStartIndex[5] = {};
 		int animEndIndex[5] = {};
 		int animProgressStartIndex[5] = {};
+		int iBehavior = 0;
 
 		float fSpeed = 100.f;
 		float fAttackDelay = 1.5f;
 		float hp = 100;
 		float hpCapacity = hp;
-		eSkillType mSpecialCastSkill1 = eSkillType::END;
-		eSkillType mSpecialCastSkill2 = eSkillType::END;
-		eSkillType mSpecialCastSkill3 = eSkillType::END;
-		eSkillType mSpecialCastSkill4 = eSkillType::END;
+		eSkillType mSpecialSkills[4] = {
+			eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+		};
+		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
 
-		int mSpecialMonsterSkill1Function = 0;
-		int mSpecialMonsterSkill2Function = 0;
-		int mSpecialMonsterSkill3Function = 0;
-		int mSpecialMonsterSkill4Function = 0;
-
-		int mSpecialCastSkill1Count = 20;
-		int mSpecialCastSkill2Count = 20;
-		int mSpecialCastSkill3Count = 20;
-		int mSpecialCastSkill4Count = 20;
+		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
 
 		eMonsterType mMonsterType = eMonsterType::End;
 		eMonsterClass mClass = eMonsterClass::Normal;
@@ -240,21 +236,16 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialCastSkill1 = eSkillType::END;
-		eSkillType mSpecialCastSkill2 = eSkillType::END;
-		eSkillType mSpecialCastSkill3 = eSkillType::END;
-		eSkillType mSpecialCastSkill4 = eSkillType::END;
-		
-		int mSpecialMonsterSkill1Function = 0;
-		int mSpecialMonsterSkill2Function = 0;
-		int mSpecialMonsterSkill3Function = 0;
-		int mSpecialMonsterSkill4Function = 0;
+		eSkillType mSpecialSkills[4] = {
+	        eSkillType::END
+	        ,eSkillType::END
+	        ,eSkillType::END
+	        ,eSkillType::END
+		};
+		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
 
-		int mSpecialCastSkill1Count = 0;
-		int mSpecialCastSkill2Count = 0;
-		int mSpecialCastSkill3Count = 0;
-		int mSpecialCastSkill4Count = 0;
-
+		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
+		int iBehavior = 4;
 		eMonsterType mMonsterType = eMonsterType::Balrog;
 		eMonsterClass mClass = eMonsterClass::Normal;
 
@@ -407,20 +398,20 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialCastSkill1 = eSkillType::DiabloLightning;
-		eSkillType mSpecialCastSkill2 = eSkillType::END;
-		eSkillType mSpecialCastSkill3 = eSkillType::END;
-		eSkillType mSpecialCastSkill4 = eSkillType::END;
+		eSkillType mSpecialSkills[4] = {
+	        eSkillType::DiabloLightning
+		    ,eSkillType::END
+		    ,eSkillType::END
+		    ,eSkillType::END
+		};
+		int mSpecialSkillAddFunction[4] = {
+		    0/*eFireType::Linear*/
+		    ,0
+		    ,0
+		    ,0 };
 
-		int mSpecialMonsterSkill1Function = 0;
-		int mSpecialMonsterSkill2Function = 0;
-		int mSpecialMonsterSkill3Function = 0;
-		int mSpecialMonsterSkill4Function = 0;
-
-		int mSpecialCastSkill1Count = 20;
-		int mSpecialCastSkill2Count = 20;
-		int mSpecialCastSkill3Count = 20;
-		int mSpecialCastSkill4Count = 20;
+		int mSpecialSkillCount[4] = { 20, 0, 0, 0 };
+		int iBehavior = 12;
 
 		eMonsterType mMonsterType = eMonsterType::Diablo;
 		eMonsterClass mClass = eMonsterClass::Boss;
@@ -443,6 +434,7 @@ namespace m
 			L"diabloSpecial3",
 			L"diabloSpecial4",
 			L"diabloDead",
+			//L"diabloToDead",
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
 			L"diabloAttack1_anim@",
@@ -457,7 +449,8 @@ namespace m
 			L"diabloSpecial2_anim@",
 			L"diabloSpecial3_anim@",
 			L"diabloSpecial4_anim@",
-			L"diabloDead@",
+			L"diabloDead_anim@",
+			L"diabloToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
 			math::Vector2(0.f, 0.f), // Attack1
@@ -575,20 +568,19 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialCastSkill1 = eSkillType::AndarielPoisonAttack;
-		eSkillType mSpecialCastSkill2 = eSkillType::END;
-		eSkillType mSpecialCastSkill3 = eSkillType::END;
-		eSkillType mSpecialCastSkill4 = eSkillType::END;
+		eSkillType mSpecialSkills[4] = {
+		eSkillType::AndarielPoisonAttack
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+		};
+		int mSpecialSkillAddFunction[4] = {
+		    2/*eFireType::Radial*/
+		    ,0
+		    ,0
+		    ,0 };
 
-		int mSpecialMonsterSkill1Function = 0;
-		int mSpecialMonsterSkill2Function = 0;
-		int mSpecialMonsterSkill3Function = 0;
-		int mSpecialMonsterSkill4Function = 0;
-
-		int mSpecialCastSkill1Count = 18;
-		int mSpecialCastSkill2Count = 20;
-		int mSpecialCastSkill3Count = 20;
-		int mSpecialCastSkill4Count = 20;
+		int mSpecialSkillCount[4] = { 10, 0, 0, 0 };
 
 		eMonsterType mMonsterType = eMonsterType::Andariel;
 		eMonsterClass mClass = eMonsterClass::Boss;
@@ -597,35 +589,35 @@ namespace m
 		bool bHandAnim = false;
 
 		std::wstring textureString[(UINT)eAnimationType::End] = {
-			L"andarielAttack",
-			L"",
-			L"",
-			L"andarielHit",
-			L"andarielNatural",
-			L"andarielWalk",
-			L"",
-			L"andarielSpecial",
-			L"",
-			L"",
-			L"",
-			L"",
-			L"andarielDead",
+			L"andarielAttack",// Attack1
+			L"",			  // Attack2
+			L"",			  // Block
+			L"andarielHit",	  // Hit
+			L"andarielNatural",// Natural,
+			L"andarielWalk",  // Run
+			L"",			  // Walk
+			L"andarielSpecial",// SpecialCast,
+			L"",			  // Special1
+			L"",			  // Special2
+			L"",			 // Special3
+			L"",			 // Special4
+			L"andarielDead", // Dead
 			L"andarielToDead",
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
-			L"andarielAttack_anim@",
-            L"",
-            L"",
-            L"andarielHit_anim@",
-			L"andarielNatural_anim@",
-			L"andarielWalk_anim@",
-            L"",
-            L"andarielSpecial_anim@",
-            L"",
-            L"",
-            L"",
-            L"",
-            L"andarielDead_anim@",
+			L"andarielAttack_anim@",// Attack1
+			L"",					// Attack2
+			L"",					// Block
+			L"andarielHit_anim@",	// Hit
+			L"andarielNatural_anim@",// Natural,
+			L"andarielWalk_anim@",	// Run
+			L"",					// Walk
+			L"andarielSpecial_anim@",// SpecialCast,
+			L"",					// Special1
+			L"",					// Special2
+			L"",				   // Special3
+			L"",				   // Special4
+			L"andarielDead_anim@", // Dead
 			L"andarielToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
@@ -729,7 +721,7 @@ namespace m
 			0, // Natural
 			0, // Run
 			0, // Walk
-			0, // SpecialCast
+			17, // SpecialCast
 			0, // Special1
 			0, // Special2
 			0, // Special3
@@ -747,66 +739,62 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialCastSkill1 = eSkillType::AndarielPoisonAttack;
-		eSkillType mSpecialCastSkill2 = eSkillType::END;
-		eSkillType mSpecialCastSkill3 = eSkillType::END;
-		eSkillType mSpecialCastSkill4 = eSkillType::END;
+		eSkillType mSpecialSkills[4] = {
+		    eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+		};
+		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
 
-		int mSpecialMonsterSkill1Function = 0;
-		int mSpecialMonsterSkill2Function = 0;
-		int mSpecialMonsterSkill3Function = 0;
-		int mSpecialMonsterSkill4Function = 0;
+		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
 
-		int mSpecialCastSkill1Count = 18;
-		int mSpecialCastSkill2Count = 20;
-		int mSpecialCastSkill3Count = 20;
-		int mSpecialCastSkill4Count = 20;
 
 		eMonsterType mMonsterType = eMonsterType::Duriel;
 		eMonsterClass mClass = eMonsterClass::Boss;
 
-		bool bPathImage = true;
+		bool bPathImage = false;
 		bool bHandAnim = false;
 
 		std::wstring textureString[(UINT)eAnimationType::End] = {
-			L"andarielAttack",
+			L"durielAttack1",
+			L"durielAttack2",
 			L"",
-			L"",
-			L"andarielHit",
-			L"andarielNatural",
-			L"andarielWalk",
-			L"",
-			L"andarielSpecial",
-			L"",
+			L"durielHit",
+			L"durielNatural",
+			L"durielWalk",
 			L"",
 			L"",
 			L"",
-			L"andarielDead",
-			L"andarielToDead",
+			L"",
+			L"",
+			L"",
+			L"durielDead",
+			L"durielToDead",
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
-			L"andarielAttack_anim@",
+			L"durielAttack1_anim@",
+			L"durielAttack2_anim@",
 			L"",
-			L"",
-			L"andarielHit_anim@",
-			L"andarielNatural_anim@",
-			L"andarielWalk_anim@",
-			L"",
-			L"andarielSpecial_anim@",
-			L"",
+			L"durielHit_anim@",
+			L"durielNatural_anim@",
+			L"durielWalk_anim@",
 			L"",
 			L"",
 			L"",
-			L"andarielDead_anim@",
-			L"andarielToDead_anim@",
+			L"",
+			L"",
+			L"",
+			L"durielDead_anim@",
+			L"durielToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
-			math::Vector2(0.f, -10.f), // Attack1
+			math::Vector2(0.f, 0.f), // Attack1
 			math::Vector2(0.f, 0.f),	// Attack2
 			math::Vector2(0.f, 0.f),	// Block
 			math::Vector2(0.f, 0.f),	// Hit
 			math::Vector2(0.f, 0.f),	// Natural
-			math::Vector2(0.f, 15.f),	// Run
+			math::Vector2(0.f, 0.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
 			math::Vector2(0.f, 0.f),	// SpecialCast
 			math::Vector2(0.f, 0.f),	// Special1
@@ -816,20 +804,20 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
-			math::Vector2(247.f, 248.f),	// Attack1
-			math::Vector2(),	// Attack2
+			math::Vector2(301.f, 201.f),	// Attack1
+			math::Vector2(287.f, 188.f),	// Attack2
 			math::Vector2(),	// Block
-			math::Vector2(173.f, 180.f),	// Hit
-			math::Vector2(178.f, 179.f),	// Natural
-			math::Vector2(148.f, 184.f),	// Run
+			math::Vector2(207.f, 188.f),	// Hit
+			math::Vector2(172.f, 186.f),	// Natural
+			math::Vector2(253.f, 225.f),	// Run
 			math::Vector2(),	// Walk
-			math::Vector2(212.f, 182.f),	// SpecialCast
+			math::Vector2(),	// SpecialCast
 			math::Vector2(),	// Special1
 			math::Vector2(),	// Special2
 			math::Vector2(),	// Special3
 			math::Vector2(),	// Special4
-			math::Vector2(177.f, 116.f),					// Dead
-			math::Vector2(203.f, 232.f),					// ToDead
+			math::Vector2(263.f, 160.f),					// Dead
+			math::Vector2(266.f, 232.f),					// ToDead
 
 		};
 		float animationDuration[(UINT)eAnimationType::End] = {
@@ -848,20 +836,20 @@ namespace m
 			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
-			16,// Attack1
-			0,// Attack2
+			10,// Attack1
+			15,// Attack2
 			0, // Block
 			6, // Hit
-			16,// Natural
-			12, // Run
+			12,// Natural
+			16, // Run
 			0, // Walk
-			18,// SpecialCast
+			0,// SpecialCast
 			0,// Special1
 			0, // Special2
 			0, // Special3
 			0	, // Special4
 			1, // Dead
-			23, // ToDead
+			25, // ToDead
 		};
 		int animStartIndex[(UINT)eAnimationType::End] = {
 			0,// Attack1
@@ -894,7 +882,7 @@ namespace m
 			0, // Dead
 		};
 		int animProgressStartIndex[(UINT)eAnimationType::End] = {
-			0,// Attack1
+			5,// Attack1
 			0, // Attack2
 			0, // Block
 			0, // Hit
@@ -919,20 +907,15 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialCastSkill1 = eSkillType::AndarielPoisonAttack;
-		eSkillType mSpecialCastSkill2 = eSkillType::END;
-		eSkillType mSpecialCastSkill3 = eSkillType::END;
-		eSkillType mSpecialCastSkill4 = eSkillType::END;
+		eSkillType mSpecialSkills[4] = {
+			eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+		};
+		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
 
-		int mSpecialMonsterSkill1Function = 0;
-		int mSpecialMonsterSkill2Function = 0;
-		int mSpecialMonsterSkill3Function = 0;
-		int mSpecialMonsterSkill4Function = 0;
-
-		int mSpecialCastSkill1Count = 18;
-		int mSpecialCastSkill2Count = 20;
-		int mSpecialCastSkill3Count = 20;
-		int mSpecialCastSkill4Count = 20;
+		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
 
 		eMonsterType mMonsterType = eMonsterType::Mephisto;
 		eMonsterClass mClass = eMonsterClass::Boss;

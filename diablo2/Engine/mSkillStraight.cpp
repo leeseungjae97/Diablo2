@@ -52,6 +52,7 @@ namespace m
 		if(bSkillFire)
 		{
 			//ss->
+			ss->SkillFire();
 			bSkillFire = false;
 			bMove = true;
 			
@@ -62,7 +63,7 @@ namespace m
 				{
 					destVector = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 				}
-				else destVector = GET_POS(TileManager::playerStandTile);
+				else destVector = TileManager::GetPlayerPosition();
 				destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
 			}
 
@@ -104,7 +105,7 @@ namespace m
 	{
 		Skill::Render();
 	}
-	void SkillStraight::Hit(int damage)
+	void SkillStraight::Hit(int damage, bool attackStun)
 	{
 
 	}

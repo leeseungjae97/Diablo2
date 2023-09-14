@@ -135,7 +135,7 @@ namespace m
 	{
 		MoveAbleObject::Render();
 	}
-	void Monster::Hit(int damage)
+	void Monster::Hit(int damage, bool attackStun)
 	{
 		if(bCanDamaged)
 		{
@@ -145,7 +145,8 @@ namespace m
 			else hp -= damage;
 
 			hpPercent = hpCapacity - hp / hpCapacity;
-			SetHit(true);
+			if(attackStun)
+			    SetHit(true);
 		}
 		
 	}

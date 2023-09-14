@@ -8,6 +8,7 @@ namespace m
 	{
 		Overlay,
 		Collide,
+		Addiction,
 		END,
 	};
 	enum class eSkillCrashType
@@ -16,6 +17,7 @@ namespace m
 		FireCrash1,
 		FireCrash2,
 		RedLightningCrash,
+		Poison,
 
 		END
 	};
@@ -26,6 +28,8 @@ namespace m
 		IceCast3,
 		FireCast1,
 		Teleport,
+
+		AndarielPoisonCast,
 
 		END
 	};
@@ -48,12 +52,14 @@ namespace m
 		L"fireCrash1",
 		L"fireCrash2",
 		L"redLightningCrash",
+		L"",
 	};
 	eCrashType crashFunction[(int)eSkillCrashType::END] = {
 		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Overlay,
+		eCrashType::Addiction,
 	};
 	std::wstring castNames[(int)eSkillCastType::END] = {
 		L"iceCast1",
@@ -61,12 +67,14 @@ namespace m
 		L"iceCast3",
 		L"fireCast1",
 		L"teleport",
+		L"andarielSkillOverlay",
 	};
 	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 		m::math::Vector2(113.f, 72.f),
 		m::math::Vector2(78.f, 70.f),
 		m::math::Vector2(208.f, 174.f),
 		m::math::Vector2(71.f, 88.f),
+		m::math::Vector2(0.f, 0.f),
 
 	};
 	int crashLength[(int)eSkillCrashType::END] = {
@@ -74,6 +82,7 @@ namespace m
 		12,
 		16,
 		20,
+		0,
 	};
 
 	m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
@@ -82,6 +91,7 @@ namespace m
 		m::math::Vector2(127.f, 148.f),
 		m::math::Vector2(145.f, 133.f),
 		m::math::Vector2(136.f, 154.f),
+		m::math::Vector2(162.f, 107.f),
 	};
 	m::math::Vector2 castOffset[(int)eSkillCastType::END] = {
 	    m::math::Vector2(0.f, 0.f),
@@ -89,12 +99,14 @@ namespace m
 	    m::math::Vector2(0.f, 0.f),
 	    m::math::Vector2(0.f, 0.f),
 	    m::math::Vector2(8.f, 0.f),
+	    m::math::Vector2(0.f, 0.f),
 	};
 	int castLength[(int)eSkillCastType::END] = {
 		15,
 		15,
 		16,
 		16,
+		18,
 		18,
 	};
 
@@ -245,6 +257,8 @@ namespace m
 		//
 		0.f,// normalAttack
 
+		300.f, // diablo lightning
+		300.f, // andariel poison
 	};
 	int skillAnimLength[(int)eSkillType::END] = {
 		6, // iceBolt
@@ -283,6 +297,7 @@ namespace m
 		0, // normalAttack
 
 		15,
+		24,
 	};
 	m::math::Vector2 skillSizes[(int)eSkillType::END] = {
 		m::math::Vector2(92.f, 55.f),// iceBolt,
@@ -321,6 +336,7 @@ namespace m
 		m::math::Vector2(0.f),// normalAttack,
 
 		m::math::Vector2(252.f, 190.f),
+		m::math::Vector2(65.f, 65.f),
 	};
 	eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
 		eSkillCrashType::IceCrash1,// iceBolt
@@ -360,6 +376,7 @@ namespace m
 
 		//Monster
 		eSkillCrashType::RedLightningCrash,
+		eSkillCrashType::Poison,
 	};
 	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
 		eSkillCastType::IceCast1,// iceBolt
@@ -396,6 +413,10 @@ namespace m
 		eSkillCastType::END,// hydra
 
 		eSkillCastType::END,// normalAttack
+
+		eSkillCastType::END,// diablo lightning
+		eSkillCastType::AndarielPoisonCast,// andariel poison
+
 	};
 
 	enum class eAccessorySkillType

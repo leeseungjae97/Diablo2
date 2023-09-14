@@ -18,6 +18,7 @@ namespace m
 		{
 			//crashNames[0];
 			mOESS = AddComponent<OverlayEffectSkillScript>(mCurIndex);
+			mOESS->SetSkillCastType(ecType);
 		}
 		else
 		{
@@ -62,4 +63,17 @@ namespace m
 		mActiveOwner = owner;
 		SetCamera(mActiveOwner->GetCamera());
 	}
+
+    void SkillOverlay::SetSkillCastType(eSkillCastType type)
+    {
+		if(mOESS)
+		{
+			mOESS->SetSkillCastType(type);
+
+			SET_SCALE_XYZ(this
+				, castSizes[(UINT)type].x
+				, castSizes[(UINT)type].y, 1.f);
+		}
+			
+    }
 }

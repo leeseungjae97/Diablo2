@@ -10,6 +10,7 @@ namespace m
 		Fall,
 		FallExplosion,
 		MutiFall,
+		Raidal,
 		Orb,
 		Buff,
 		Passive,
@@ -207,10 +208,10 @@ namespace m
 		eSkillFunctionType::Passive,// L"fireMasteryIcon",
 		eSkillFunctionType::Straight,// L"hydraIcon",
 
+		eSkillFunctionType::None,// L"normalAttackIcon"
 		//Monster
 		eSkillFunctionType::MultiStraight,// L"diabloLightning",
-
-		eSkillFunctionType::None,// L"normalAttackIcon"
+		eSkillFunctionType::Raidal,// L"AndarielPoisonAttack",
 	};
 	int SkillDamageCofTable[(int)eSkillType::END] = {
 		10,// L"iceBolt",
@@ -290,6 +291,7 @@ namespace m
 
 		// Monster
 		L"diabloLightning",
+		L"andarielPoisonAttack",
 	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",

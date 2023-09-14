@@ -17,6 +17,14 @@ namespace m
 		, mMp(nullptr)
 		, bCanDamaged(false)
 		, fCanDamagedDelay(0.f)
+		, bAddiction(false)
+		, fAddictionTime(0.f)
+	    , fAddictionTickCount(0)
+		, iAddictionDamage(0)
+		, fAcc(0.f)
+	    , fTotalAcc(0.f)
+	    , iPastTick(0)
+	    , fAccDamage(0)
 	{
 		bMadePath = false;
 		bSixteenDirection = true;
@@ -50,6 +58,10 @@ namespace m
 			destPosition = curPosition;
 			mPathFinder->ClearPath();
 		}
+
+
+		timeWaitAttack();
+		attackedAddition();
 		
 		mPathFinder->PlayerMove(this);
 
@@ -126,8 +138,45 @@ namespace m
 	{
 		MoveAbleObject::Render();
 	}
+	void Player::timeWaitAttack()
+	{
+		if (!bCanDamaged)
+			fCanDamagedDelay += Time::fDeltaTime();
 
-    void Player::Hit(int damage)
+		if (fCanDamagedDelay >= 1.f)
+		{
+			bCanDamaged = true;
+			fCanDamagedDelay = 0.f;
+		}
+	}
+
+    void Player::attackedAddition()
+    {
+		if (bAddiction)
+		{
+			fAcc += Time::fDeltaTime();
+			//fTotalAcc += fAcc;
+
+			if(fAcc >= fAddictionTime / (float)fAddictionTickCount)
+			{
+				//++iPastTick;
+				fAccDamage += iAddictionDamage / fAddictionTickCount;
+				Hit(iAddictionDamage / fAddictionTickCount, false);
+				fAcc = 0.f;
+			}
+			if (fAccDamage >= iAddictionDamage)
+			{
+				bAddiction = false;
+				fAcc = 0.f;
+				fAccDamage = 0.f;
+				//fTotalAcc = 0.f;
+				//iPastTick = 0;
+				mHp->SetOrigin();
+			}
+		}
+    }
+
+    void Player::Hit(int damage, bool attackStun)
 	{
 		if (bCanDamaged)
 		{
@@ -139,34 +188,36 @@ namespace m
 			PlayerManager::CalHpPercent();
 			mHp->SetUVCoord(PlayerManager::hpPercent);
 
-			SetHit(true);
+			if(attackStun)
+			    SetHit(true);
 		}
 	}
 
-    void Player::UseMana(int mana)
-    {
+	void Player::UseMana(int mana)
+	{
 		if (PlayerManager::mp - mana < 0) PlayerManager::mp = 0;
 		else PlayerManager::mp -= mana;
 
 		PlayerManager::CalMpPercent();
 		mMp->SetUVCoord(PlayerManager::mpPercent);
-    }
+	}
 
-    void Player::RestoreHp(int hp)
-    {
-		if(PlayerManager::hp + hp < PlayerManager::hpCapacity)
+	void Player::RestoreHp(int hp)
+	{
+		if (PlayerManager::hp + hp < PlayerManager::hpCapacity)
 		{
 			PlayerManager::hp += hp;
-		}else
+		}
+		else
 		{
 			PlayerManager::hp = PlayerManager::hpCapacity;
 		}
 		PlayerManager::CalHpPercent();
 		mHp->SetUVCoord(PlayerManager::hpPercent);
-    }
+	}
 
-    void Player::RestoreMp(int mp)
-    {
+	void Player::RestoreMp(int mp)
+	{
 		if (PlayerManager::mp + mp < PlayerManager::mpCapacity)
 		{
 			PlayerManager::mp += mp;
@@ -177,5 +228,25 @@ namespace m
 		}
 		PlayerManager::CalMpPercent();
 		mMp->SetUVCoord(PlayerManager::mpPercent);
-    }
+	}
+
+	void Player::Addiction(int damage, float addictionTime, int tickCount)
+	{
+		if(bAddiction)
+		{
+			fAddictionTickCount += (float)tickCount;
+			fAddictionTime += addictionTime;
+			iAddictionDamage += damage;
+		}else
+		{
+			fAddictionTickCount = (float)tickCount;
+			fAddictionTime = addictionTime;
+
+			iAddictionDamage = damage;
+
+			bAddiction = true;
+			mHp->SetAddiction();
+		}
+		
+	}
 }

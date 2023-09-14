@@ -222,7 +222,7 @@ namespace m
 		//}
 
 		//{
-		//	Tile* tile = TileManager::pathFindingTiles[53][78];
+		//	Tile* tile = TileManager::pathFindingTiles[0][0];
 		//	Vector3 pos = GET_POS(tile);
 		//	Monster* monster = new Monster(pos, MDDiablo().fSpeed);
 		//	SET_MAIN_CAMERA(monster);
@@ -233,20 +233,33 @@ namespace m
 		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//}
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[0][0];
+		//	Vector3 pos = GET_POS(tile);
+		//	Monster* monster = new Monster(pos, MDAndariel().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	SET_MESH(monster, L"RectMesh");
+		//	SET_MATERIAL(monster, L"AnimationMaterial");
+		//	ADD_COMP(monster, Animator);
+		//	MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//}
+
 		{
 			Tile* tile = TileManager::pathFindingTiles[0][0];
 			Vector3 pos = GET_POS(tile);
-			Monster* monster = new Monster(pos, MDAndariel().fSpeed);
+			Monster* monster = new Monster(pos, MDDuriel().fSpeed);
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			SET_MESH(monster, L"RectMesh");
 			SET_MATERIAL(monster, L"AnimationMaterial");
 			ADD_COMP(monster, Animator);
-			MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+			MonsterScript<MDDuriel>* ms = ADD_COMP(monster, MonsterScript<MDDuriel>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
 		}
 
-		{
+	/*	{
 			Tile* tile = TileManager::pathFindingTiles[50][50];
 			Vector3 pos = GET_POS(tile);
 			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
@@ -368,7 +381,7 @@ namespace m
 			ADD_COMP(monster, Animator);
 			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
-		}
+		}*/
 
 
 		FieldItem* testField = new FieldItem(eItem::hpPosion1, Vector3(10.f, 10.f, 1.f));

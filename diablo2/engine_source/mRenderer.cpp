@@ -641,8 +641,9 @@ namespace renderer
 			, 178, 179, 16, L"andarielNatural");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_attack", L"..\\Resources\\texture\\enemy\\andariel\\attack"
 			, 247, 248, 16, L"andarielAttack");
-		MAKE_MATERIAL_PATH(spriteShader, L"andariel_special", L"..\\Resources\\texture\\enemy\\andariel\\special"
-			, 212, 182, 18, L"andarielSpecial");
+		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_special", L"..\\Resources\\texture\\enemy\\andariel\\special"
+		//	, 212, 182, 18, L"andarielSpecial");
+		MAKE_MATERIAL(spriteShader, L"andariel_special", L"..\\Resources\\texture\\enemy\\andariel\\andariel_special_cast.png", L"andarielSpecial");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_walk", L"..\\Resources\\texture\\enemy\\andariel\\walk"
 			, 148, 184, 12, L"andarielWalk");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_hit", L"..\\Resources\\texture\\enemy\\andariel\\hit"
@@ -670,7 +671,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"duriel_attack1", L"..\\Resources\\texture\\enemy\\duriel\\duriel_attack1.png", L"durielAttack1");
 		MAKE_MATERIAL(spriteShader, L"duriel_attack2", L"..\\Resources\\texture\\enemy\\duriel\\duriel_attack2.png", L"durielAttack2");
 		MAKE_MATERIAL(spriteShader, L"duriel_dead", L"..\\Resources\\texture\\enemy\\duriel\\duriel_dead.png", L"durielDead");
-		MAKE_MATERIAL(spriteShader, L"duriel_get_hit", L"..\\Resources\\texture\\enemy\\duriel\\duriel_get_hit.png", L"durielGetHit");
+		MAKE_MATERIAL(spriteShader, L"duriel_get_hit", L"..\\Resources\\texture\\enemy\\duriel\\duriel_get_hit.png", L"durielHit");
 		MAKE_MATERIAL(spriteShader, L"duriel_to_dead", L"..\\Resources\\texture\\enemy\\duriel\\duriel_to_dead.png", L"durielToDead");
 		MAKE_MATERIAL(spriteShader, L"duriel_walk", L"..\\Resources\\texture\\enemy\\duriel\\duriel_walk.png", L"durielWalk");
 
@@ -771,6 +772,7 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"mp_ui", L"..\\Resources\\texture\\ui\\play\\ctrlpanelmana.png", L"mpUi");
 		MAKE_MATERIAL(noLightShader, L"ex_pocket", L"..\\Resources\\texture\\ui\\play\\ex_pocket.png", L"exPocket");
 		MAKE_MATERIAL(UVControlShader, L"hp_t", L"..\\Resources\\texture\\ui\\play\\life.png", L"hp");
+		MAKE_MATERIAL(UVControlShader, L"addiction_hp_t", L"..\\Resources\\texture\\ui\\play\\addiction_life.png", L"addictionHp");
 		MAKE_MATERIAL(UVControlShader, L"mp_t", L"..\\Resources\\texture\\ui\\play\\mana.png", L"mp");
 		MAKE_MATERIAL(noLightShader, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
 		MAKE_MATERIAL(noLightShader, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");

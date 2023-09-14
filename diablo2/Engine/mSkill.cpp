@@ -47,7 +47,7 @@ namespace m
 	{
 		MoveAbleObject::Render();
 	}
-	void Skill::Hit(int damage)
+	void Skill::Hit(int damage, bool attackStun)
 	{
 	}
 	void Skill::SetSkillOwnerLayer(eLayerType ownerType)

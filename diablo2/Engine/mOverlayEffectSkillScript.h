@@ -25,9 +25,12 @@ namespace m
         bool GetPlayOverLaySkill() { return bPlaySkill; }
 
         bool IsPlayHit() { return bHit; }
+
+        void SetSkillCastType(eSkillCastType type) { mCastType = type; }
     private:
         Animator* mAnimator;
         int skillIndex;
+        eSkillCastType mCastType;
         bool bPlaySkill;
         bool bHit;
     };

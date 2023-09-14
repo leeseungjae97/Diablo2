@@ -9,8 +9,11 @@
 #include "mPlayer.h"
 #include "mMonster.h"
 #include "mPlayerManager.h"
-
+#include "mSkillBuff.h"
+#include "mSkillFallExplosion.h"
+#include "mSkillOverlay.h"
 #include "mSkillMultiFire.h"
+#include "mSkillOrb.h"
 
 namespace m
 {
@@ -23,6 +26,7 @@ namespace m
 		, bFire(false)
 		, fAttackDelay(0.f)
 		, mDirection(0)
+	    , skillMake(false)
 		, mLeftHand(nullptr)
 		, mRightHand(nullptr)
 
@@ -42,6 +46,9 @@ namespace m
 		dynamic_cast<MoveAbleObject*>(GetOwner())->SetSixteenDirection(false);
 		Scene* curScene = SceneManager::GetActiveScene();
 		Monster* monster = dynamic_cast<Monster*>(GetOwner());
+		mSO = new SkillOverlay();
+		mSO->SetActiveOwner(GetOwner());
+		curScene->AddGameObject(eLayerType::MonsterSkill, mSO);
 
 		//mLeftHand = new MonsterHand(monster, curMonsterData.mMonsterType, false);
 
@@ -111,7 +118,7 @@ namespace m
 					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
-						fAttackDelay = 0.f;
+						//fAttackDelay = 0.f;
 						AnimationComplete(GameObject::eBattleState::Idle);
 						mAnimator->SetAnimationProgressIndex(0);
 					};
@@ -134,6 +141,11 @@ namespace m
 					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
+						//if (skillCastTypes[(int)skillType] != eSkillCastType::END)
+						//{
+						//	mSO->SetSkillCastType(skillCastTypes[(int)skillType]);
+						//	mSO->ActiveOverlay();
+						//}
 						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::SpecialCast]);
 						mAnimator->SetAnimationEndIndex(curMonsterData.animEndIndex[(UINT)T::eAnimationType::SpecialCast]);
 						//mAnimator->SetAnimationProgressStartIndex(curMonsterData.animProgressStartIndex[i]);
@@ -141,20 +153,56 @@ namespace m
 					mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
-						//Skill* st = new SkillStraight(curMonsterData.mSpecialCastSkillType, GET_POS(GetOwner()), 300.f);
-						//ADD_COMP(st, StraightScript);
-						//st->SetCamera(GetOwner()->GetCamera());
-						//st->SetSkillOwnerLayer(GetOwner()->GetLayerType());
-						//st->SkillFire();
-						//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, st);
-						if (nullptr == mSkill
-							|| mSkill->GetSkillFire()) GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+						if(skillMake)
+						{
+							if (nullptr != mSkill)
+							{
+								if (mSkill->GetSkillFire())
+								{
+									mMonster->SetBattleState(GameObject::eBattleState::Idle);
+									skillMake = false;
+								}
+							}
+							else
+							{
+								mMonster->SetBattleState(GameObject::eBattleState::Idle);
+								skillMake = false;
+							}
+						}
+						else
+						{
+							int randSkillIndex = 0;
+							eSkillType skilltype = curMonsterData.mSpecialSkills[randSkillIndex];
+							if (skilltype != eSkillType::END)
+							{
+								makeMonsterSkill(skilltype
+									, GET_POS(GetOwner())
+									, eLayerType::MonsterSkill
+									, curMonsterData.mSpecialSkillAddFunction[randSkillIndex]
+									, curMonsterData.mSpecialSkillCount[randSkillIndex]
+								);
+							}
+						}
 					};
 					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
-						if (nullptr == mSkill
-							|| mSkill->GetSkillFire()) GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+						//if (skillMake)
+						//{
+						//	if (nullptr != mSkill)
+						//	{
+						//		if (mSkill->GetSkillFire())
+						//		{
+						//			GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+						//			skillMake = false;
+						//		}
+						//	}
+						//	else
+						//	{
+						//		GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+						//		skillMake = false;
+						//	}
+						//}
 					};
 				}
 			}
@@ -173,7 +221,7 @@ namespace m
 			return;
 
 		MakeDirection();
-		
+
 		//if(!bCanDamaged)
 		//	fCanDamagedDelay += Time::fDeltaTime();
 
@@ -184,7 +232,8 @@ namespace m
 		//}
 
 
-		
+		//if (!skillMake)
+			
 		//if(mLeftHand)
 			//mLeftHand->SetDirection(mDirection);
 
@@ -194,7 +243,7 @@ namespace m
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Idle
 			|| mMonster->GetBattleState() == GameObject::eBattleState::Run)
 		{
-			if (rand() % 1000 == 7 && curMonsterData.textureString[(UINT)T::eAnimationType::SpecialCast] != L"")
+			if (rand() % 100 == 7 && curMonsterData.textureString[(UINT)T::eAnimationType::SpecialCast] != L"")
 			{
 				SpecialAttackAnimation();
 			}
@@ -222,27 +271,26 @@ namespace m
 			mRightHand->SetAniType((int)mAnimationType);
 
 		if (
-			GetOwner()->GetBattleState() != GameObject::Idle
-			&&
-			GetOwner()->GetBattleState() != GameObject::Run
+			GetOwner()->GetBattleState() == GameObject::Idle
+			|| GetOwner()->GetBattleState() == GameObject::Run
 			)
-			return;
-
-		if (mMonster->StopF())
 		{
-			GetOwner()->SetBattleState(GameObject::Idle);
-			mAnimationType = T::eAnimationType::Natural;
-		}
-		else
-		{
-			GetOwner()->SetBattleState(GameObject::Run);
-			mAnimationType = T::eAnimationType::Run;
-		}
+			if (mMonster->StopF())
+			{
+				GetOwner()->SetBattleState(GameObject::Idle);
+				mAnimationType = T::eAnimationType::Natural;
+			}
+			else
+			{
+				GetOwner()->SetBattleState(GameObject::Run);
+				mAnimationType = T::eAnimationType::Run;
+			}
 
-		ElseAnimationPlay();
-		//mLeftHand->SetAniType((int)mAnimationType);
-		if (mRightHand)
-			mRightHand->SetAniType((int)mAnimationType);
+			ElseAnimationPlay();
+			//mLeftHand->SetAniType((int)mAnimationType);
+			if (mRightHand)
+				mRightHand->SetAniType((int)mAnimationType);
+		}
 	}
 	template <typename T>
 	void MonsterScript<T>::ElseAnimationPlay()
@@ -272,6 +320,8 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::HitAnimation()
 	{
+		//if (mMonster->GetBattleState() != GameObject::eBattleState::Idle) return;
+
 		mAnimationType = T::eAnimationType::Hit;
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 		if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
@@ -283,11 +333,14 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::AttackAnimation()
 	{
+		if(mMonster->GetBattleState() != GameObject::eBattleState::Idle) return;
+
 		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			fAttackDelay += Time::fDeltaTime();
 			if (curMonsterData.fAttackDelay <= fAttackDelay)
 			{
+				fAttackDelay = 0.f;
 				//int randAttackMotion = rand() % 2 + 1;
 				//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
 				GetOwner()->SetBattleState(GameObject::Attack);
@@ -297,10 +350,6 @@ namespace m
 				{
 					mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
 				}
-			}
-			else
-			{
-				GetOwner()->SetBattleState(GameObject::Idle);
 			}
 		}
 	}
@@ -333,23 +382,8 @@ namespace m
 			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
-
-				//MonsterSpecialSkill(specialIndex);
-				if (curMonsterData.mMonsterType == eMonsterType::Diablo)
-				{
-					mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
-					mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::SpecialCast]);
-
-					mSkill = new SkillMultiFire(
-						GET_POS(GetOwner())
-						, curMonsterData.mSpecialCastSkill1
-						, curMonsterData.mSpecialCastSkill1Count
-						, SkillMultiFire::eFireType::Linear
-						, eLayerType::MonsterSkill);
-					mSkill->SetCamera(GetOwner()->GetCamera());
-					//mSkill->SetSkillOwnerLayer(eLayerType::MonsterSkill);
-					SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
-				}
+				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
+				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::SpecialCast]);
 			}
 		}
 	}
@@ -363,9 +397,9 @@ namespace m
 	{
 	}
 
-    template <typename T>
-    void MonsterScript<T>::MakeDirection()
-    {
+	template <typename T>
+	void MonsterScript<T>::MakeDirection()
+	{
 		Vector3 initPos = mMonster->GetPrevPosition();
 		Vector3 destPos = mMonster->GetDestPosition();
 
@@ -376,15 +410,16 @@ namespace m
 		degree = RadianToDegree(atan2(moveVector.x, moveVector.y));
 
 
-		int n = degree / (180.f / 4.f);
+		int n = degree / (180.f / 5.f);
+		if (n > 4) n = 4;
 
 		if (n > 0)
 			mDirection = mPlusDirections[n];
 		else
 			mDirection = mMinusDirections[abs(n)];
-    }
+	}
 
-    template <typename T>
+	template <typename T>
 	void MonsterScript<T>::AnimationStart(GameObject::eBattleState state)
 	{
 		GetOwner()->SetBattleState(state);
@@ -427,5 +462,86 @@ namespace m
 		mMonster->SetHit(hit);
 		GetOwner()->SetBattleState(state);
 	}
+	template<typename T>
+	void MonsterScript<T>::makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos
+		, eLayerType fireLayerType, int addFunction, int skillCount)
+	{
+		Vector3 targetPos = TileManager::GetPlayerPosition();
+		switch (skillFunctionTypes[(int)skillType])
+		{
+		case m::eSkillFunctionType::Straight:
+		{
+			mSkill = new SkillStraight(skillType, vector3Pos, skillSpeed[(int)skillType]); 
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+		}
+			break; 
+		case m::eSkillFunctionType::Fall:
+		{
+			mSkill = new SkillFall(skillType, targetPos);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+		}
+		case m::eSkillFunctionType::FallExplosion:
+		{
+			mSkill = new SkillFallExplosion(skillType, targetPos, fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+		}
+			break; 
+		case m::eSkillFunctionType::MutiFall:
+		{
+			mSkill = new SkillMultiFire(targetPos, skillType, skillCount, addFunction, fireLayerType, Vector2(200.f, 50.f));
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			//skill->SkillFire(); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+		}
+			break; 
+		case m::eSkillFunctionType::MultiStraight:
+		case m::eSkillFunctionType::Raidal:
+		{
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount, addFunction, fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			//skill->SkillFire(); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+		}
+			break; 
+		case m::eSkillFunctionType::Buff:
+		{
+			mSkillBuff= new SkillBuff(GetOwner(), -1, skillType); 
+			mSkillBuff->SetCamera(GetOwner()->GetCamera()); 
+			mSkillBuff->ActiveOverlay(); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, mSkillBuff);
+		}
+			break; 
+		case m::eSkillFunctionType::Orb:
+		{
+			mSkill = new SkillOrb(skillType, GET_POS(GetOwner()), 300.f);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, mSkill);
+		}
+			break; 
+		case m::eSkillFunctionType::None:
+			break; 
+		case m::eSkillFunctionType::END:
+			break; 
+		default:
+		{
+			mSkill = new Skill(skillType, vector3Pos);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+		}
+			break; 
+		}
 
+		if (nullptr != mSkill || nullptr != mSkillBuff)
+		{
+			skillMake = true;
+		}
+	}
 }

@@ -19,7 +19,7 @@ namespace m
         virtual void Render();
 
         void SetHpCapacity(int cap) { hp = hpCapacity = cap; }
-        void Hit(int damage);
+        void Hit(int damage, bool attackStun =true);
         Collider2D* GetSightCollider() { return sightCollider; }
 
         int GetMonsterId() { return monsterId; }
@@ -39,6 +39,8 @@ namespace m
         void PathChange(bool pc) { bPathChange = pc; }
         bool GetPathChange() { return bPathChange; }
 
+        void Addiction() { bAddiction = true; }
+
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
@@ -49,6 +51,7 @@ namespace m
         Vector2 prevTargetCoord;
 
         bool bPathChange;
+        bool bAddiction;
 
         int monsterId;
         float hp;
