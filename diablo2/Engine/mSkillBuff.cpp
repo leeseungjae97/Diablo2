@@ -1,6 +1,7 @@
 #include "mSkillBuff.h"
 
 #include "mTeleportScript.h"
+#include "mBuffScript.h"
 
 namespace m
 {
@@ -12,6 +13,10 @@ namespace m
         {
             TeleportScript* ts =ADD_COMP(this, TeleportScript);
             ts->SetTeleportOwner(mOwner);
+        }
+        else
+        {
+            BuffScript* bs = ADD_COMP(this, BuffScript);
         }
     }
 

@@ -214,6 +214,10 @@ namespace m
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
 		}
+		if (GetStun())
+		{
+			GetOwner()->SetBattleState(GameObject::Idle);
+		}
 
 		if (
 			GetOwner()->GetBattleState() != GameObject::Idle
@@ -270,6 +274,15 @@ namespace m
 		}
 	}
 
+    void PlayerScript::SetStun(float second)
+    {
+		dynamic_cast<Player*>(GetOwner())->Stun(second);
+    }
+	bool PlayerScript::GetStun()
+	{
+		return dynamic_cast<Player*>(GetOwner())->GetStun();
+	}
+
     void PlayerScript::makeSkill(eSkillType skillType, int activeSkillIndex, Vector3 vector3Pos, eLayerType fireLayerType)
     {
 		Skill* skill = nullptr;
@@ -322,7 +335,15 @@ namespace m
 			skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill); 
 		}
-			break; 
+			break;
+		case m::eSkillFunctionType::CircleFire:
+		{
+			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 64, (int)SkillMultiFire::eFireType::Circle, fireLayerType);
+			skill->SetCamera(GetOwner()->GetCamera());
+			skill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+		}
+		break;
 		case m::eSkillFunctionType::Buff:
 		{
 			skillBuff = new SkillBuff(GetOwner(), activeSkillIndex, skillType); 
@@ -333,7 +354,7 @@ namespace m
 			break; 
 		case m::eSkillFunctionType::Orb:
 		{
-			skill = new SkillOrb(skillType, GET_POS(GetOwner()), 300.f); 
+			skill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType]);
 			skill->SetCamera(GetOwner()->GetCamera()); 
 			skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, skill); 

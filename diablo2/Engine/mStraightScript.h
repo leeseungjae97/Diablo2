@@ -1,4 +1,5 @@
 #pragma once
+#include "MoveAbleObjectAnimLookUpTables.h"
 #include "mSkillScript.h"
 
 namespace m

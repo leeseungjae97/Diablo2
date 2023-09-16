@@ -161,11 +161,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="mAbnormalScript.h" />
     <ClInclude Include="mAffectOverlayScript.h" />
+    <ClInclude Include="mAuraScript.h" />
     <ClInclude Include="mBackgroundScript.h" />
     <ClInclude Include="mBottomUI.h" />
+    <ClInclude Include="mBuffScript.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mSkillAbnormal.h" />
+    <ClInclude Include="mAura.h" />
     <ClInclude Include="mSkillBuff.h" />
     <ClInclude Include="mTeleportScript.h" />
     <ClInclude Include="mTileAffectOverlay.h" />
@@ -214,11 +219,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="mAbnormalScript.cpp" />
     <ClCompile Include="mAffectOverlayScript.cpp" />
+    <ClCompile Include="mAuraScript.cpp" />
     <ClCompile Include="mBackgroundScript.cpp" />
     <ClCompile Include="mBottomUI.cpp" />
+    <ClCompile Include="mBuffScript.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mSkillAbnormal.cpp" />
+    <ClCompile Include="mAura.cpp" />
     <ClCompile Include="mSkillBuff.cpp" />
     <ClCompile Include="mTeleportScript.cpp" />
     <ClCompile Include="mTileAffectOverlay.cpp" />

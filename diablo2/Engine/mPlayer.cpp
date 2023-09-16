@@ -7,6 +7,7 @@
 #include "mApplication.h"
 #include "mMonsterManager.h"
 #include "mMouseManager.h"
+#include "mTrappingColor.h"
 
 extern m::Application application;
 namespace m
@@ -15,16 +16,6 @@ namespace m
 		: MoveAbleObject(iniPos, 500.f)
 		, mHp(nullptr)
 		, mMp(nullptr)
-		, bCanDamaged(false)
-		, fCanDamagedDelay(0.f)
-		, bAddiction(false)
-		, fAddictionTime(0.f)
-	    , fAddictionTickCount(0)
-		, iAddictionDamage(0)
-		, fAcc(0.f)
-	    , fTotalAcc(0.f)
-	    , iPastTick(0)
-	    , fAccDamage(0)
 	{
 		bMadePath = false;
 		bSixteenDirection = true;
@@ -59,9 +50,21 @@ namespace m
 			mPathFinder->ClearPath();
 		}
 
+		if (bStun)
+		{
+			fAccStun += Time::fDeltaTime();
+			if (fAccStun >= fStunSecond)
+			{
+				bStun = false;
+				fAccStun = 0.f;
+				fStunSecond = 0.f;
+			}
+		}
+		if(bAddiction) mHp->SetAddiction();
+		fNASAcc -= Time::fDeltaTime();
 
-		timeWaitAttack();
-		attackedAddition();
+		TimeWaitAttack();
+		AttackedAddition();
 		
 		mPathFinder->PlayerMove(this);
 
@@ -84,6 +87,7 @@ namespace m
 		}
 		if (!MouseManager::GetMouseOnUI()
 			&& nullptr == MouseManager::GetMouseFollow()
+			&& !bStun
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			if (!mPathFinder->PathChange(false))
@@ -122,10 +126,18 @@ namespace m
 		//{
 		//	fSpeed = 0.0f;
 		//}
-		if (fRemainDistance < fStartDistance)
+	
+		if (fRemainDistance < fStartDistance && !bStun)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
+			if(fNASAcc <= 0.f)
+			{
+				fNumericalAdjustmentSpeed = 0.f;
+			}
+
+			float fXFinalSpeed = fXAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fYFinalSpeed = fYAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fMoveX = curPosition.x + (vDirection.x * fXFinalSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fYFinalSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 		MoveAbleObject::Update();
@@ -138,39 +150,26 @@ namespace m
 	{
 		MoveAbleObject::Render();
 	}
-	void Player::timeWaitAttack()
-	{
-		if (!bCanDamaged)
-			fCanDamagedDelay += Time::fDeltaTime();
 
-		if (fCanDamagedDelay >= 1.f)
-		{
-			bCanDamaged = true;
-			fCanDamagedDelay = 0.f;
-		}
-	}
+	//void Player::timeWaitAttack()
+	//{
+		//if (!bCanDamaged)
+		//	fCanDamagedDelay += Time::fDeltaTime();
 
-    void Player::attackedAddition()
+		//if (fCanDamagedDelay >= 1.f)
+		//{
+		//	bCanDamaged = true;
+		//	fCanDamagedDelay = 0.f;
+		//}
+	//}
+
+    void Player::AttackedAddition()
     {
-		if (bAddiction)
+		MoveAbleObject::AttackedAddition();
+		if(bAddiction)
 		{
-			fAcc += Time::fDeltaTime();
-			//fTotalAcc += fAcc;
-
-			if(fAcc >= fAddictionTime / (float)fAddictionTickCount)
-			{
-				//++iPastTick;
-				fAccDamage += iAddictionDamage / fAddictionTickCount;
-				Hit(iAddictionDamage / fAddictionTickCount, false);
-				fAcc = 0.f;
-			}
 			if (fAccDamage >= iAddictionDamage)
 			{
-				bAddiction = false;
-				fAcc = 0.f;
-				fAccDamage = 0.f;
-				//fTotalAcc = 0.f;
-				//iPastTick = 0;
 				mHp->SetOrigin();
 			}
 		}
@@ -228,25 +227,5 @@ namespace m
 		}
 		PlayerManager::CalMpPercent();
 		mMp->SetUVCoord(PlayerManager::mpPercent);
-	}
-
-	void Player::Addiction(int damage, float addictionTime, int tickCount)
-	{
-		if(bAddiction)
-		{
-			fAddictionTickCount += (float)tickCount;
-			fAddictionTime += addictionTime;
-			iAddictionDamage += damage;
-		}else
-		{
-			fAddictionTickCount = (float)tickCount;
-			fAddictionTime = addictionTime;
-
-			iAddictionDamage = damage;
-
-			bAddiction = true;
-			mHp->SetAddiction();
-		}
-		
 	}
 }

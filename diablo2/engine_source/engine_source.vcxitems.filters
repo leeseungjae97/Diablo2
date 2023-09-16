@@ -166,6 +166,9 @@
     <Filter Include="GameObject\Component\AudioSource">
       <UniqueIdentifier>{aace1823-ab14-4da3-a2ac-2bcb6a495be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\AnimationTrappingColor">
+      <UniqueIdentifier>{7b63aeb9-6f69-4e4f-b956-2f9ae24c77a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -366,6 +369,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AffectOverlayLookUpTable.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.h">
+      <Filter>GameObject\Component\AnimationTrappingColor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -526,6 +532,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp">
       <Filter>FontWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.cpp">
+      <Filter>GameObject\Component\AnimationTrappingColor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

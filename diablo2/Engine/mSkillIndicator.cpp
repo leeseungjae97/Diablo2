@@ -16,7 +16,7 @@ namespace m
         SET_POS_VEC(this, initPos);
         
 
-        if(type != eIndicatorType::END)
+        if(type != eIndicatorType::End)
         {
             SHARED_MAT mat = RESOURCE_FIND(Material, indicatorNames[(int)type]);
 

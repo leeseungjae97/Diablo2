@@ -1,31 +1,95 @@
 #pragma once
 
-#include "MoveAbleObjectAnimLookUpTables.h"
+//#include "MoveAbleObjectAnimLookUpTables.h"
 
 namespace m
 {
+
+#pragma region Crash
 	enum class eCrashType
 	{
 		Overlay,
 		Collide,
 		Addiction,
+		Stun,
 		END,
 	};
 	enum class eSkillCrashType
 	{
 		IceCrash1,
+		IceCrash2,
+		//LightCrash1,
 		FireCrash1,
 		FireCrash2,
 		RedLightningCrash,
 		Poison,
+		StunAttack,
 
 		END
 	};
+	std::wstring crashNames[(int)eSkillCrashType::END] = {
+	L"iceCrash1",
+	L"iceCrash2",
+	L"fireCrash1",
+	L"fireCrash2",
+	L"redLightningCrash",
+	L"", // Poison
+	L"stun",
+	};
+	eCrashType crashFunction[(int)eSkillCrashType::END] = {
+		eCrashType::Collide,
+		eCrashType::Collide,
+		eCrashType::Collide,
+		eCrashType::Collide,
+		eCrashType::Overlay,
+		eCrashType::Addiction,
+		eCrashType::Stun,
+	};
+	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
+	m::math::Vector2(113.f, 72.f),
+	m::math::Vector2(83.f, 110.f),
+	m::math::Vector2(78.f, 70.f),
+	m::math::Vector2(208.f, 174.f),
+	m::math::Vector2(71.f, 88.f),
+	m::math::Vector2(0.f, 0.f),
+	m::math::Vector2(69.f, 49.f),
+
+	};
+	m::math::Vector2 crashCenterPos[(int)eSkillCrashType::END] = {
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 30.f),
+
+	};
+	int crashLength[(int)eSkillCrashType::END] = {
+	6,
+	16,
+	12,
+	16,
+	20,
+	0,
+	12,
+	};
+	bool crashLoop[(int)eSkillCrashType::END] = {
+		false,
+		false,
+		false,
+		false,
+		false,
+		true,
+	};
+#pragma endregion
+#pragma region Cast
 	enum class eSkillCastType
 	{
 		IceCast1,
 		IceCast2,
 		IceCast3,
+		LightCast1,
 		FireCast1,
 		Teleport,
 
@@ -33,82 +97,92 @@ namespace m
 
 		END
 	};
-	enum class eIndicatorType
-	{
-		MeteorTargetIndicator,
-		END,
-	};
-	std::wstring indicatorNames[(int)eIndicatorType::END] = {
-	L"meteorTargetIndicator",
-	};
-	m::math::Vector2 indicatorSizes[(int)eIndicatorType::END] = {
-		Vector2(112.f, 74.f),
-	};
-	int indicatorLength[(int)eIndicatorType::END] = {
-		17,
-	};
-	std::wstring crashNames[(int)eSkillCrashType::END] = {
-		L"iceCrash1",
-		L"fireCrash1",
-		L"fireCrash2",
-		L"redLightningCrash",
-		L"",
-	};
-	eCrashType crashFunction[(int)eSkillCrashType::END] = {
-		eCrashType::Collide,
-		eCrashType::Collide,
-		eCrashType::Collide,
-		eCrashType::Overlay,
-		eCrashType::Addiction,
-	};
 	std::wstring castNames[(int)eSkillCastType::END] = {
-		L"iceCast1",
-		L"iceCast2",
-		L"iceCast3",
-		L"fireCast1",
-		L"teleport",
-		L"andarielSkillOverlay",
+	L"iceCast1",
+	L"iceCast2",
+	L"iceCast3",
+	L"lightCast1",
+	L"fireCast1",
+	L"teleport",
+	L"andarielSkillOverlay",
 	};
-	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
-		m::math::Vector2(113.f, 72.f),
-		m::math::Vector2(78.f, 70.f),
-		m::math::Vector2(208.f, 174.f),
-		m::math::Vector2(71.f, 88.f),
-		m::math::Vector2(0.f, 0.f),
-
-	};
-	int crashLength[(int)eSkillCrashType::END] = {
-		6,
-		12,
-		16,
-		20,
-		0,
-	};
-
 	m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
 		m::math::Vector2(97.f, 55.f),
 		m::math::Vector2(115.f, 123.f),
 		m::math::Vector2(127.f, 148.f),
+		m::math::Vector2(164.f, 144.f),
 		m::math::Vector2(145.f, 133.f),
 		m::math::Vector2(136.f, 154.f),
 		m::math::Vector2(162.f, 107.f),
 	};
 	m::math::Vector2 castOffset[(int)eSkillCastType::END] = {
-	    m::math::Vector2(0.f, 0.f),
-	    m::math::Vector2(0.f, 0.f),
-	    m::math::Vector2(0.f, 0.f),
-	    m::math::Vector2(0.f, 0.f),
-	    m::math::Vector2(8.f, 0.f),
-	    m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(8.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 	};
 	int castLength[(int)eSkillCastType::END] = {
 		15,
 		15,
 		16,
+		10,
 		16,
 		18,
 		18,
 	};
+#pragma endregion
+#pragma region Aura
+	enum class eAuraType
+	{
+		HolyFreeze,
+		End,
+	};
+	enum class eAuraFunctionType
+	{
+	    Slow,
+		End,
+	};
+	std::wstring auraNames[(int)eAuraType::End] = {
+    L"holyFreeze",
+	};
+	m::math::Vector2 auraSizes[(int)eAuraType::End] = {
+		Vector2(114.f, 93.f),
+	};
+	m::math::Vector2 auraCenterPos[(int)eAuraType::End] = {
+		Vector2(0.f, 0.f),
+	};
+	int auraLength[(int)eAuraType::End] = {
+		15,
+	};
+	eAuraFunctionType auraFunction[(int)eAuraType::End] = {
+		eAuraFunctionType::Slow,
+	};
+	float auraFunctionValue[(int)eAuraFunctionType::End][2] = {
+		{-200.f, 5.f},
+		
+	};
+#pragma endregion
+#pragma region Indicator
+	enum class eIndicatorType
+	{
+		MeteorTargetIndicator,
+		End,
+	};
+	std::wstring indicatorNames[(int)eIndicatorType::End] = {
+	L"meteorTargetIndicator",
+	};
+	m::math::Vector2 indicatorSizes[(int)eIndicatorType::End] = {
+		Vector2(112.f, 74.f),
+	};
+	int indicatorLength[(int)eIndicatorType::End] = {
+		17,
+	};
+#pragma endregion
+
+
 
 	enum class ePathSixteenDirection
 	{
@@ -116,7 +190,7 @@ namespace m
 		LeftUp2,
 		RightUp2,
 		RightDown2,
-	    Down,
+		Down,
 		Left,
 		Up,
 		Right,
@@ -131,7 +205,7 @@ namespace m
 		End
 	};
 	int pathEightDirections[8] = {
-		(int)ePathSixteenDirection::	LeftDown2,
+		(int)ePathSixteenDirection::LeftDown2,
 		(int)ePathSixteenDirection::LeftUp2,
 		(int)ePathSixteenDirection::RightUp2,
 		(int)ePathSixteenDirection::RightDown2,
@@ -150,8 +224,8 @@ namespace m
 		(int)ePathSixteenDirection::RightUp2,
 		(int)ePathSixteenDirection::RightUp2,
 		(int)ePathSixteenDirection::RightUp3,
-		(int)ePathSixteenDirection::Right, 
-		(int)ePathSixteenDirection::Right, 
+		(int)ePathSixteenDirection::Right,
+		(int)ePathSixteenDirection::Right,
 		(int)ePathSixteenDirection::RightDown1,
 		(int)ePathSixteenDirection::RightDown2,
 		(int)ePathSixteenDirection::RightDown2,
@@ -202,7 +276,7 @@ namespace m
 		(int)ePathSixteenDirection::Down,
 	};
 
-	std::wstring pathSixteenDirectionString[(UINT)eSixteenDirection::End] = {
+	std::wstring pathSixteenDirectionString[16] = {
 			L"left_down_2",
 			L"left_up_2",
 			L"right_up_2",
@@ -224,7 +298,7 @@ namespace m
 	float skillSpeed[(int)eSkillType::END] = {
 		300.f,// iceBolt
 		0.f,// frozenArmor
-		0.f,// frostNova
+		1000.f,// frostNova
 		0.f,// iceBlast
 		0.f,// shiverArmor
 		0.f,// clacialSpike
@@ -236,7 +310,7 @@ namespace m
 		0.f,// chargedBolt
 		0.f,// staticField
 		0.f,// telekinesis
-		0.f,// nove
+		1000.f,// nova
 		0.f,// lightning
 		0.f,// chainLightning
 		0.f,// teleport
@@ -258,12 +332,16 @@ namespace m
 		0.f,// normalAttack
 
 		300.f, // diablo lightning
+		500.f, // diablo firenova
+		300.f, // diablo firestorm
+
 		300.f, // andariel poison
+		0,
 	};
 	int skillAnimLength[(int)eSkillType::END] = {
 		6, // iceBolt
 		0, // frozenArmor
-		0, // frostNova
+		14, // frostNova
 		0, // iceBlast
 		0, // shiverArmor
 		0, // clacialSpike
@@ -275,7 +353,7 @@ namespace m
 		5, // chargedBolt
 		0, // staticField
 		0, // telekinesis
-		0, // nove
+		13, // nova
 		0, // lightning
 		0, // chainLightning
 		18, // teleport
@@ -297,12 +375,103 @@ namespace m
 		0, // normalAttack
 
 		15,
+		8,
+		8,
+
 		24,
+		0,
+	};
+	int skillLoops[(int)eSkillType::END] = {
+		true, // iceBolt
+		true, // frozenArmor
+		false, // frostNova
+		true, // iceBlast
+		true, // shiverArmor
+		true, // clacialSpike
+		true, // blizzard
+		true, // chillingArmor
+		true, // frozenOrb
+		true, // coldMastery
+		//
+		true, // chargedBolt
+		true, // staticField
+		true, // telekinesis
+		false, // nova
+		true, // lightning
+		true, // chainLightning
+		false, // teleport
+		true, // thunderStorm
+		true, // energyShield
+		true, // lightningMastery
+		//
+		true, // fireBolt
+		true, // warmth
+		true, // inferno
+		true, // blaze
+		true, // fireBall
+		true, // fireWall
+		true, // enchant
+		true, // meteor
+		true, // fireMastery
+		true, // hydra
+		//
+		false, // normalAttack
+
+		true,
+		true,
+		true,
+
+		true,
+		false,
+	};
+
+    int skillAnimDirections[(int)eSkillType::END] = {
+		16, // iceBolt
+		16, // frozenArmor
+		16, // frostNova
+		16, // iceBlast
+		16, // shiverArmor
+		16, // clacialSpike
+		16, // blizzard
+		16, // chillingArmor
+		16, // frozenOrb
+		16, // coldMastery
+		//
+		16, // chargedBolt
+		16, // staticField
+		16, // telekinesis
+		16, // nova
+		16, // lightning
+		16, // chainLightning
+		16, // teleport
+		16, // thunderStorm
+		16, // energyShield
+		16, // lightningMastery
+		//
+		16, // fireBolt
+		16, // warmth
+		16, // inferno
+		16, // blaze
+		16, // fireBall
+		16, // fireWall
+		16, // enchant
+		16, // meteor
+		16, // fireMastery
+		16, // hydra
+		//
+		0, // normalAttack
+
+		8,
+		0,
+		16,
+
+		16,
+		16,
 	};
 	m::math::Vector2 skillSizes[(int)eSkillType::END] = {
 		m::math::Vector2(92.f, 55.f),// iceBolt,
 		m::math::Vector2(0.f, 0.f),// frozenArmor,
-		m::math::Vector2(0.f, 0.f),// frostNova,
+		m::math::Vector2(118.f, 69.f),// frostNova,
 		m::math::Vector2(0.f, 0.f),// iceBlast,
 		m::math::Vector2(0.f, 0.f),// shiverArmor,
 		m::math::Vector2(0.f, 0.f),// clacialSpike,
@@ -314,7 +483,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// chargedBolt,
 		m::math::Vector2(0.f, 0.f),// staticField,
 		m::math::Vector2(0.f, 0.f),// telekinesis,
-		m::math::Vector2(0.f, 0.f),// nove,
+		m::math::Vector2(70.f, 48.f),// nova,
 		m::math::Vector2(0.f, 0.f),// lightning,
 		m::math::Vector2(0.f, 0.f),// chainLightning,
 		m::math::Vector2(136.f, 154.f),// teleport,
@@ -336,12 +505,16 @@ namespace m
 		m::math::Vector2(0.f),// normalAttack,
 
 		m::math::Vector2(252.f, 190.f),
+		m::math::Vector2(66.f, 167.f),
+		m::math::Vector2(66.f, 167.f),
+
 		m::math::Vector2(65.f, 65.f),
+		m::math::Vector2(0.f, 0.f),
 	};
 	eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
-		eSkillCrashType::IceCrash1,// iceBolt
+		eSkillCrashType::IceCrash2,// iceBolt
 		eSkillCrashType::END,// frozenArmor
-		eSkillCrashType::END,// frostNova
+		eSkillCrashType::IceCrash2,// frostNova
 		eSkillCrashType::END,// iceBlast
 		eSkillCrashType::END,// shiverArmor
 		eSkillCrashType::END,// clacialSpike
@@ -353,7 +526,7 @@ namespace m
 		eSkillCrashType::END,// chargedBolt
 		eSkillCrashType::END,// staticField
 		eSkillCrashType::END,// telekinesis
-		eSkillCrashType::END,// nove
+		eSkillCrashType::END,// nova
 		eSkillCrashType::END,// lightning
 		eSkillCrashType::END,// chainLightning
 		eSkillCrashType::END,// teleport
@@ -376,12 +549,16 @@ namespace m
 
 		//Monster
 		eSkillCrashType::RedLightningCrash,
+		eSkillCrashType::END,
+		eSkillCrashType::END,
+
 		eSkillCrashType::Poison,
+		eSkillCrashType::StunAttack,
 	};
 	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
 		eSkillCastType::IceCast1,// iceBolt
 		eSkillCastType::END,// frozenArmor
-		eSkillCastType::END,// frostNova
+		eSkillCastType::IceCast3,// frostNova
 		eSkillCastType::IceCast2,// iceBlast
 		eSkillCastType::END,// shiverArmor
 		eSkillCastType::END,// clacialSpike
@@ -393,7 +570,7 @@ namespace m
 		eSkillCastType::END,// chargedBolt
 		eSkillCastType::END,// staticField
 		eSkillCastType::END,// telekinesis
-		eSkillCastType::END,// nove
+		eSkillCastType::LightCast1,// nova
 		eSkillCastType::END,// lightning
 		eSkillCastType::END,// chainLightning
 		eSkillCastType::Teleport,// teleport
@@ -406,7 +583,7 @@ namespace m
 		eSkillCastType::END,// inferno
 		eSkillCastType::END,// blaze
 		eSkillCastType::END,// fireBall
-		eSkillCastType::END,// fireWall
+		eSkillCastType::FireCast1,// fireWall
 		eSkillCastType::END,// enchant
 		eSkillCastType::FireCast1,// meteor
 		eSkillCastType::END,// fireMastery
@@ -415,8 +592,11 @@ namespace m
 		eSkillCastType::END,// normalAttack
 
 		eSkillCastType::END,// diablo lightning
-		eSkillCastType::AndarielPoisonCast,// andariel poison
+		eSkillCastType::END,// diablo firenova
+		eSkillCastType::END,// diablo firestorm
 
+		eSkillCastType::AndarielPoisonCast,// andariel poison
+		eSkillCastType::END,// duriel stun attack
 	};
 
 	enum class eAccessorySkillType

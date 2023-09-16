@@ -151,6 +151,19 @@
     <ClCompile Include="mTeleportScript.cpp">
       <Filter>Script\TeleportScript</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillAbnormal.cpp">
+      <Filter>Skill\SkillAbnormal</Filter>
+    </ClCompile>
+    <ClCompile Include="mAbnormalScript.cpp">
+      <Filter>Script\AbnormalScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mBuffScript.cpp">
+      <Filter>Script\BuffScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mAura.cpp">
+      <Filter>Skill\SkillAura</Filter>
+    </ClCompile>
+    <ClCompile Include="mAuraScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -300,6 +313,19 @@
     <ClInclude Include="mTeleportScript.h">
       <Filter>Script\TeleportScript</Filter>
     </ClInclude>
+    <ClInclude Include="mSkillAbnormal.h">
+      <Filter>Skill\SkillAbnormal</Filter>
+    </ClInclude>
+    <ClInclude Include="mAbnormalScript.h">
+      <Filter>Script\AbnormalScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mBuffScript.h">
+      <Filter>Script\BuffScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mAura.h">
+      <Filter>Skill\SkillAura</Filter>
+    </ClInclude>
+    <ClInclude Include="mAuraScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -472,6 +498,21 @@
     </Filter>
     <Filter Include="Skill\SkillBuff">
       <UniqueIdentifier>{1acd69a6-2ab1-426d-a081-f4c9be1986aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillAbnormal">
+      <UniqueIdentifier>{47700f98-c623-4b16-b1ef-4a894c21ce84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\AbnormalScript">
+      <UniqueIdentifier>{3208418c-5ddb-453c-a697-cda52a541f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\BuffScript">
+      <UniqueIdentifier>{a8004642-a0e7-4789-b3c9-9dcef3f0ded9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillAura">
+      <UniqueIdentifier>{de14fa07-25e2-4764-bc9a-b92f5185b11b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\AuraScript">
+      <UniqueIdentifier>{95e8eb54-f9fd-4012-9cb8-b50c35d01493}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

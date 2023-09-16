@@ -31,27 +31,14 @@ namespace m
         void SetHpUI(UVUI* hp) { mHp = hp; }
         void SetMpUI(UVUI* mp) { mMp = mp; }
 
-        void Addiction(int damage, float addictionTime, int tickCount);
-        bool GetAddiction() { return bAddiction; }
+        virtual void AttackedAddition() override;
 
     private:
-        void timeWaitAttack();
-        void attackedAddition();
+        //void timeWaitAttack();
+        
     private:
         UVUI* mHp;
         UVUI* mMp;
-
-        bool bCanDamaged;
-        float fCanDamagedDelay;
-
-        float fAcc;
-        float fTotalAcc;
-        int iPastTick;
-        bool bAddiction;
-        float fAddictionTime;
-        int fAddictionTickCount;
-        int fAccDamage;
-        int iAddictionDamage;
     };
 }
 

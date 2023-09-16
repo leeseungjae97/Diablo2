@@ -30,34 +30,49 @@ namespace m
 
 		mSkillCrashType = skillCrashTypes[(UINT)mType];
 		mCrashType = crashFunction[(int)mSkillCrashType];
-
-		for (int i = 0; i < mDirectionCount; ++i)
+		if(mDirectionCount == 0)
 		{
-			if (mDirectionCount == 8)
+			mAnimator->Create(
+				skillAnimNames[(int)mType] + L"anim"
+				, tex->GetTexture()
+				, Vector2(0.0f, 0.f)
+				, skillSizes[(int)mType]
+				, skillAnimLength[(int)mType]
+				, Vector2::Zero
+				, 0.03f
+			);
+		}else
+		{
+			for (int i = 0; i < mDirectionCount; ++i)
 			{
-				int m = pathEightDirections[i];
-				mAnimator->Create(
-					skillAnimNames[(int)mType] + pathSixteenDirectionString[m]
-					, tex->GetTexture()
-					, Vector2(0.0f, skillSizes[(int)mType].y * i)
-					, skillSizes[(int)mType]
-					, skillAnimLength[(int)mType]
-					, Vector2::Zero
-					, 0.05f
-				);
-			}else
-			{
-				mAnimator->Create(
-					skillAnimNames[(int)mType] + pathSixteenDirectionString[i]
-					, tex->GetTexture()
-					, Vector2(0.0f, skillSizes[(int)mType].y * i)
-					, skillSizes[(int)mType]
-					, skillAnimLength[(int)mType]
-					, Vector2::Zero
-					, 0.05f
-				);
+				if (mDirectionCount == 8)
+				{
+					int m = pathEightDirections[i];
+					mAnimator->Create(
+						skillAnimNames[(int)mType] + pathSixteenDirectionString[m]
+						, tex->GetTexture()
+						, Vector2(0.0f, skillSizes[(int)mType].y * i)
+						, skillSizes[(int)mType]
+						, skillAnimLength[(int)mType]
+						, Vector2::Zero
+						, 0.03f
+					);
+				}
+				else
+				{
+					mAnimator->Create(
+						skillAnimNames[(int)mType] + pathSixteenDirectionString[i]
+						, tex->GetTexture()
+						, Vector2(0.0f, skillSizes[(int)mType].y * i)
+						, skillSizes[(int)mType]
+						, skillAnimLength[(int)mType]
+						, Vector2::Zero
+						, 0.03f
+					);
+				}
 			}
 		}
+		
 		if (mCrashType == eCrashType::Overlay) return;
 		if (mSkillCrashType == eSkillCrashType::END) return;
 
@@ -105,6 +120,14 @@ namespace m
 	void StraightScript::Update()
 	{
 		//if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
+		if(bSkillFire
+			&& !skillLoops[(int)mType]
+			&& mAnimator->GetActiveAnimation()
+			&& mAnimator->GetActiveAnimation()->GetKey() == skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
+		{
+			if(mAnimator->GetActiveAnimation()->IsStop())
+    			GetOwner()->SetState(GameObject::eState::Delete);
+		}
 		if (((Skill*)GetOwner())->GetSkillCrash() && !bNoHit)
 		{
 			eSkillCrashType crashType = skillCrashTypes[(UINT)mType];
@@ -175,10 +198,18 @@ namespace m
 				//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::Right;
 				//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
 			}
-
-			if (nullptr == mAnimator->GetActiveAnimation() ||
-				mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
-				mAnimator->PlayAnimation(skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection], true);
+			if (mDirectionCount == 0)
+			{
+				if (nullptr == mAnimator->GetActiveAnimation() ||
+					mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + L"anim")
+					mAnimator->PlayAnimation(skillAnimNames[(int)mType] + L"anim", true);
+			}else
+			{
+				if (nullptr == mAnimator->GetActiveAnimation() ||
+					mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
+					mAnimator->PlayAnimation(skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection], skillLoops[(int)mType]);
+			}
+			
 		}
 		
 	}

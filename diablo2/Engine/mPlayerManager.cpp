@@ -26,7 +26,7 @@ namespace m
 		skillPoint = 100;
 		Tile* tile2 = TileManager::pathFindingTiles[60][10];
 		//Vector3 pos2 = GET_POS(tile2);
-		Vector3 pos2 = Vector3(10.f, 10.f, 1.f);
+		Vector3 pos2 = Vector3(20.f, 10.f, 1.f);
 
 		player = new Player(pos2);
 		//SET_MAIN_CAMERA(player);
@@ -40,12 +40,14 @@ namespace m
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
 		learnedSkill[2][(int)eFireSkillType::meteor] = 1;
 		learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
+		learnedSkill[1][(int)eLightningSkillType::nova] = 1;
 		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
+		learnedSkill[0][(int)eColdSkillType::frostNova] = 1;
 		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
 		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::teleport);
+		SetSkill(1, eSkillType::nova);
 	}
 
 	void PlayerManager::CalHpPercent()

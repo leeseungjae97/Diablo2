@@ -52,20 +52,25 @@ namespace m
 			SetState(eState::Delete);
 			return;
 		}
+		if (mMonsterClass != eMonsterClass::Boss
+			&& GetBattleState() == eBattleState::Hit)
+		{
+			fStartDistance = fRemainDistance;
+			destPosition = TileManager::GetPlayerPosition();
+		}
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Cast)
+		{
+			fStartDistance = fRemainDistance;
+			destPosition = TileManager::GetPlayerPosition();
+		}
 
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
-		//if (bodyBoxCollider->GetOnEnter()
-		//	|| bodyBoxCollider->GetOnStay())
-		//{
-		//	mPathFinder->ClearPath();
-		//}
 
-		//if (sightCollider->GetOnEnter()
-		//	|| sightCollider->GetOnStay()
-		//	&& sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			bool move = mPathFinder->MonsterMove(this);
@@ -97,19 +102,6 @@ namespace m
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
 
-		if (mMonsterClass != eMonsterClass::Boss
-			&& GetBattleState() == eBattleState::Hit)
-		{
-			fStartDistance = fRemainDistance;
-			destPosition = TileManager::GetPlayerPosition();
-		}
-		if (GetBattleState() == eBattleState::Dead
-			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Cast)
-		{
-			fStartDistance = fRemainDistance;
-			destPosition = TileManager::GetPlayerPosition();
-		}
 		//if (rangeCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		//{
 		//	
@@ -121,8 +113,14 @@ namespace m
 		}
 		if (fRemainDistance < fStartDistance)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
+			if (fNASAcc <= 0.f)
+			{
+				fNumericalAdjustmentSpeed = 0.f;
+			}
+			float fXFinalSpeed = fXAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fYFinalSpeed = fYAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fMoveX = curPosition.x + (vDirection.x * fXFinalSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fYFinalSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 		//MoveAbleObject::Update();

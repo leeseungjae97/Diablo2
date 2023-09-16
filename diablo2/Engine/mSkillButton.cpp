@@ -6,7 +6,8 @@ namespace m
 	SkillButton::SkillButton(int _indexX, int _indexY
 		, float _startX, float _startY
 		, float _intervalX, float _intervalY
-		, int _skillIndex)
+		, int _skillIndex
+	)
 		: Button(false)
 		, indexX(_indexX)
 		, indexY(_indexY)

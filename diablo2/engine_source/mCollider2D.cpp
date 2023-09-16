@@ -60,7 +60,7 @@ namespace m
 		{
 			if (mType == eColliderType::Circle)
 			{
-				scale.x = scale.y;
+				scale.y = scale.x / 2.f;
 			}
 			if (mType == eColliderType::Dot)
 			{

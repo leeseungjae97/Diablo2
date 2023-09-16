@@ -225,7 +225,12 @@ namespace m
 			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
 			{
 				Vector2 coord = MonsterManager::monsters[i]->GetCoord();
-				TileManager::pathFindingTiles[coord.y][coord.x]->SetOnMonster(false);
+				if (coord != Vector2(-1.f, -1.f)
+					&& coord.x < TileManager::tileXLen
+					&& coord.y < TileManager::tileYLen)
+				{
+					TileManager::pathFindingTiles[coord.y][coord.x]->SetOnMonster(false);
+				}
 			}
 		}
 
@@ -234,7 +239,9 @@ namespace m
 			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
 			{
 				Vector2 coord = mComputedCoords[i].monsterStandTileCoord;
-				if (coord != Vector2(-1.f, -1.f))
+				if (coord != Vector2(-1.f, -1.f)
+					&& coord.x < TileManager::tileXLen
+					&& coord.y < TileManager::tileYLen)
 				{
 					MonsterManager::monsters[i]->SetCoord(coord);
 					TileManager::pathFindingTiles[coord.y][coord.x]->SetOnMonster(true);
@@ -246,13 +253,17 @@ namespace m
 		{
 			
 			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
-			if (mouseCoord != Vector2(-1.f, -1.f))
+			if (mouseCoord != Vector2(-1.f, -1.f)
+				&& mouseCoord.x < TileManager::tileXLen
+				&& mouseCoord.y < TileManager::tileYLen)
 			{
 				TileManager::hoverTile = TileManager::pathFindingTiles[mouseCoord.y][mouseCoord.x];
 			}
 
 			Vector2 playerCoord = mCoordData->playerStandTileCoord;
-			if (playerCoord != Vector2(-1.f, -1.f))
+			if (playerCoord != Vector2(-1.f, -1.f)
+				&& playerCoord.x < TileManager::tileXLen
+				&& playerCoord.y < TileManager::tileYLen)
 			{
 				TileManager::playerStandTile = TileManager::pathFindingTiles[playerCoord.y][playerCoord.x];
 			}

@@ -2,6 +2,7 @@
 #include "mMath.h"
 //#include "MonsterHandLookUpTables.h"
 #include "SkillLookUpTables.h"
+#include "SkillAnimLookUpTables.h"
 
 namespace m
 {
@@ -197,6 +198,17 @@ namespace m
 			,eSkillType::END
 			,eSkillType::END
 		};
+
+		eAuraType passiveAura = eAuraType::End;
+		Vector2 auraOffSet = Vector2(0.f, 0.f);
+
+		eColliderFunctionType mSkillActiveColliderType[4] = {
+	    eColliderFunctionType::End
+	    , eColliderFunctionType::End
+	    , eColliderFunctionType::End
+	    , eColliderFunctionType::End
+		};
+		bool bSpecialSkillStopInProgress[4] = { false, false, false, false };
 		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
 
 		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
@@ -235,16 +247,27 @@ namespace m
 		float fAttackDelay = 2.5f;
 		float hp = 100;
 		float hpCapacity = hp;
-
-		eSkillType mSpecialSkills[4] = {
-	        eSkillType::END
-	        ,eSkillType::END
-	        ,eSkillType::END
-	        ,eSkillType::END
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
+		eSkillType mSpecialSkills[5] = {
+			eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
 		};
-		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
+		eColliderFunctionType mSkillActiveColliderType[5] = {
+	    eColliderFunctionType::End
+	    , eColliderFunctionType::End
+	    , eColliderFunctionType::End
+	    , eColliderFunctionType::End
+	    , eColliderFunctionType::End
+		};
+		eAuraType passiveAura = eAuraType::End;
+		Vector2 auraOffSet = Vector2(0.f, 0.f);
 
-		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
+		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
+
+		int mSpecialSkillCount[5] = { 0, 0, 0, 0 };
 		int iBehavior = 4;
 		eMonsterType mMonsterType = eMonsterType::Balrog;
 		eMonsterClass mClass = eMonsterClass::Normal;
@@ -398,19 +421,32 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialSkills[4] = {
-	        eSkillType::DiabloLightning
-		    ,eSkillType::END
-		    ,eSkillType::END
-		    ,eSkillType::END
+		eSkillType mSpecialSkills[5] = {
+			eSkillType::DiabloLightning
+			,eSkillType::DiabloFireNova
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
 		};
-		int mSpecialSkillAddFunction[4] = {
-		    0/*eFireType::Linear*/
-		    ,0
-		    ,0
-		    ,0 };
+		eColliderFunctionType mSkillActiveColliderType[5] = {
+		    eColliderFunctionType::Sight
+	        , eColliderFunctionType::Sight
+	        , eColliderFunctionType::End
+	        , eColliderFunctionType::End
+	        , eColliderFunctionType::End
+		};
+		eAuraType passiveAura = eAuraType::End;
+		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		bool bSpecialSkillStopInProgress[5] = { true, false, false, false, false };
+		int mSpecialSkillAddFunction[5] = {
+			0/*eFireType::Linear*/
+			,0
+			,0
+			,0
+			,0
+		};
 
-		int mSpecialSkillCount[4] = { 20, 0, 0, 0 };
+		int mSpecialSkillCount[5] = { 20, 40, 0, 0, 0 };
 		int iBehavior = 12;
 
 		eMonsterType mMonsterType = eMonsterType::Diablo;
@@ -460,7 +496,7 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Natural
 			math::Vector2(0.f, 15.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
-			math::Vector2(0.f, 0.f),	// SpecialCast
+			math::Vector2(0.f, -10.f),	// SpecialCast
 			math::Vector2(0.f, 0.f),	// Special1
 			math::Vector2(0.f, 0.f),	// Special2
 			math::Vector2(0.f, 0.f),	// Special3
@@ -568,19 +604,29 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialSkills[4] = {
+		eSkillType mSpecialSkills[5] = {
 		eSkillType::AndarielPoisonAttack
 			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 		};
-		int mSpecialSkillAddFunction[4] = {
-		    2/*eFireType::Radial*/
-		    ,0
-		    ,0
-		    ,0 };
+		eAuraType passiveAura = eAuraType::End;
+		Vector2 auraOffSet = Vector2(0.f, 0.f);
 
-		int mSpecialSkillCount[4] = { 10, 0, 0, 0 };
+		eColliderFunctionType mSkillActiveColliderType[5] = { eColliderFunctionType::Sight
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
+		};
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
+		int mSpecialSkillAddFunction[5] = {
+			2/*eFireType::Radial*/
+			,0
+			,0
+			,0 };
+
+		int mSpecialSkillCount[5] = { 10, 0, 0, 0 };
 
 		eMonsterType mMonsterType = eMonsterType::Andariel;
 		eMonsterClass mClass = eMonsterClass::Boss;
@@ -739,15 +785,27 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialSkills[4] = {
-		    eSkillType::END
+		eSkillType mSpecialSkills[5] = {
+			eSkillType::END
+			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 		};
-		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
+		eAuraType passiveAura = eAuraType::HolyFreeze;
+		Vector2 auraOffSet = Vector2(0.f, -30.f);
 
-		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
+		eColliderFunctionType mSkillActiveColliderType[5] = {
+	        eColliderFunctionType::Range
+	        , eColliderFunctionType::End
+	        , eColliderFunctionType::End
+	        , eColliderFunctionType::End
+	        , eColliderFunctionType::End
+		};
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
+		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
+
+		int mSpecialSkillCount[5] = { 0, 0, 0, 0 };
 
 
 		eMonsterType mMonsterType = eMonsterType::Duriel;
@@ -756,15 +814,18 @@ namespace m
 		bool bPathImage = false;
 		bool bHandAnim = false;
 
+		// Duriel have stun effect attack2
+		// categorization special
+
 		std::wstring textureString[(UINT)eAnimationType::End] = {
 			L"durielAttack1",
-			L"durielAttack2",
+			L"",
 			L"",
 			L"durielHit",
 			L"durielNatural",
 			L"durielWalk",
 			L"",
-			L"",
+			L"durielAttack2",
 			L"",
 			L"",
 			L"",
@@ -774,13 +835,13 @@ namespace m
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
 			L"durielAttack1_anim@",
-			L"durielAttack2_anim@",
+			L"",
 			L"",
 			L"durielHit_anim@",
 			L"durielNatural_anim@",
 			L"durielWalk_anim@",
 			L"",
-			L"",
+			L"durielAttack2_anim@",
 			L"",
 			L"",
 			L"",
@@ -789,14 +850,14 @@ namespace m
 			L"durielToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
-			math::Vector2(0.f, 0.f), // Attack1
+			math::Vector2(10.f, 0.f), // Attack1
 			math::Vector2(0.f, 0.f),	// Attack2
 			math::Vector2(0.f, 0.f),	// Block
 			math::Vector2(0.f, 0.f),	// Hit
 			math::Vector2(0.f, 0.f),	// Natural
 			math::Vector2(0.f, 0.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
-			math::Vector2(0.f, 0.f),	// SpecialCast
+			math::Vector2(-10.f, 0.f),	// SpecialCast
 			math::Vector2(0.f, 0.f),	// Special1
 			math::Vector2(0.f, 0.f),	// Special2
 			math::Vector2(0.f, 0.f),	// Special3
@@ -805,13 +866,13 @@ namespace m
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(301.f, 201.f),	// Attack1
-			math::Vector2(287.f, 188.f),	// Attack2
+			math::Vector2(),	// Attack2
 			math::Vector2(),	// Block
 			math::Vector2(207.f, 188.f),	// Hit
 			math::Vector2(172.f, 186.f),	// Natural
 			math::Vector2(253.f, 225.f),	// Run
 			math::Vector2(),	// Walk
-			math::Vector2(),	// SpecialCast
+			math::Vector2(287.f, 188.f),	// SpecialCast
 			math::Vector2(),	// Special1
 			math::Vector2(),	// Special2
 			math::Vector2(),	// Special3
@@ -837,13 +898,13 @@ namespace m
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
 			10,// Attack1
-			15,// Attack2
+			0,// Attack2
 			0, // Block
 			6, // Hit
 			12,// Natural
 			16, // Run
 			0, // Walk
-			0,// SpecialCast
+			15,// SpecialCast
 			0,// Special1
 			0, // Special2
 			0, // Special3
@@ -889,7 +950,7 @@ namespace m
 			0, // Natural
 			0, // Run
 			0, // Walk
-			0, // SpecialCast
+			8, // SpecialCast
 			0, // Special1
 			0, // Special2
 			0, // Special3
@@ -907,15 +968,28 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
-		eSkillType mSpecialSkills[4] = {
-			eSkillType::END
-			,eSkillType::END
-			,eSkillType::END
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
+
+		eSkillType mSpecialSkills[5] = {
+			eSkillType::lightning
+			,eSkillType::chargedBolt
+			,eSkillType::blizzard
+			,eSkillType::frostNova
 			,eSkillType::END
 		};
-		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
+		eColliderFunctionType mSkillActiveColliderType[5] = {
+	        eColliderFunctionType::Sight
+	        , eColliderFunctionType::Sight
+	        , eColliderFunctionType::Sight
+	        , eColliderFunctionType::Sight
+	        , eColliderFunctionType::End
+		};
+		eAuraType passiveAura = eAuraType::End;
+		Vector2 auraOffSet = Vector2(0.f, 0.f);
 
-		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
+		int mSpecialSkillAddFunction[5] = { 0,0,0,0, 0 };
+
+		int mSpecialSkillCount[5] = { 1, 1, 1, 1 };
 
 		eMonsterType mMonsterType = eMonsterType::Mephisto;
 		eMonsterClass mClass = eMonsterClass::Boss;

@@ -39,8 +39,6 @@ namespace m
         void PathChange(bool pc) { bPathChange = pc; }
         bool GetPathChange() { return bPathChange; }
 
-        void Addiction() { bAddiction = true; }
-
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
@@ -51,7 +49,6 @@ namespace m
         Vector2 prevTargetCoord;
 
         bool bPathChange;
-        bool bAddiction;
 
         int monsterId;
         float hp;

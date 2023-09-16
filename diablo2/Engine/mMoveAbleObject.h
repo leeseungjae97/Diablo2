@@ -29,9 +29,8 @@ namespace m
 		bool StopF() { return fRemainDistance < fStartDistance ? false : true; }
 		float GetRemainDistance() { return fRemainDistance; }
 		float GetStartDistance() { return fStartDistance; }
+
 		void SetInitializePosition(Vector3 initPos);
-
-
 
 		void SetRemainDistance(float rd) { fRemainDistance = rd; }
 		void SetStartDistance(float sd) { fStartDistance = sd; }
@@ -52,6 +51,9 @@ namespace m
 		void SetSpeed(float speed) { fSpeed = speed; }
 		float GetSpeed() { return fSpeed; }
 
+		void SetNumericalAdjustmentSpeed(float speed, float time);
+		float GetNumericalAdjustmentSpeed() { return fNumericalAdjustmentSpeed; }
+
 		void SetCoord(Vector2 coord) { mCoord = coord; }
 		Vector2 GetCoord() { return mCoord; }
 
@@ -60,6 +62,15 @@ namespace m
 
 		void SetMadePath(bool madePath) { bMadePath = madePath; }
 		void SetSixteenDirection(bool sixteenDirection) { bSixteenDirection = sixteenDirection; }
+
+		void Addiction(int damage, float addictionTime, int tickCount);
+		bool GetAddiction() { return bAddiction; }
+
+		void Stun(float second);
+		bool GetStun() { return bStun; }
+
+		virtual void TimeWaitAttack();
+		virtual void AttackedAddition();
 	private:
 		void damagedDelay();
 		void addZWeight();
@@ -79,8 +90,13 @@ namespace m
 		float fRemainDistance;
 		float fStartDistance;
 		float fSpeed;
-		float fAdjustSpeed;
+		float fXAdjustSpeed;
+		float fYAdjustSpeed;
 
+		float fNumericalAdjustmentSpeed;
+		float fNASAcc;
+		bool bCallSetNumericalAdjustmentSpeed;
+		
 		bool bGetHit;
 
 		bool bMove;
@@ -94,6 +110,17 @@ namespace m
 
 		bool bCanDamaged;
 		float fCanDamagedDelay;
+
+		bool bStun;
+		float fAccStun;
+		float fStunSecond;
+
+		float fAccAddiction;
+		bool bAddiction;
+		float fAddictionTime;
+		int fAddictionTickCount;
+		int fAccDamage;
+		int iAddictionDamage;
 	};
 }
 

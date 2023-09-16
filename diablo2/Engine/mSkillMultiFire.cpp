@@ -53,6 +53,10 @@ namespace m
 			{
 				sf = makeRadialStraight(startPos, type, initDegree, (float)i);
 			}
+			if (mFireType == eFireType::Circle)
+			{
+				sf = makeCircleStraights(startPos, type, (float)i);
+			}
 			SceneManager::GetActiveScene()->AddGameObject(layerType, sf);
 
 			skills.push_back(sf);
@@ -77,7 +81,8 @@ namespace m
 			}
 			bFirstUpdate = true;
 		}
-		if (mFireType == eFireType::Radial)
+		if (mFireType == eFireType::Radial
+			|| mFireType == eFireType::Circle)
 		{
 			for (Skill* sf : skills) sf->SkillFire();
 			SetState(GameObject::eState::Delete);
@@ -125,8 +130,22 @@ namespace m
 		Skill::Render();
 	}
 
-	SkillFall* SkillMultiFire::makeRandomFall(Vector2 randFireRange, Vector3 startPos
-		, eSkillType type, std::default_random_engine generator)
+    SkillStraight* SkillMultiFire::makeCircleStraights(Vector3 vector3, eSkillType type, float addDegree)
+    {
+		float degree = (360.f / (float)mCount) * addDegree;
+		float theta = DegreeToRadian(degree);
+	    SkillStraight* skill = new SkillStraight(type, vector3, skillSpeed[(int)type], true);
+		skill->SetInitializePosition(vector3);
+
+		vector3.x += cosf(theta);
+		vector3.y += sinf(theta);
+
+		skill->SetDestPosition(vector3);
+		return skill;
+    }
+
+    SkillFall* SkillMultiFire::makeRandomFall(Vector2 randFireRange, Vector3 startPos
+                                              , eSkillType type, std::default_random_engine generator)
 	{
 		int randX = rand() % (int)randFireRange.x;
 		int randY = rand() % (int)randFireRange.y;
@@ -142,7 +161,7 @@ namespace m
 		mSkillFireTimes.push_back(distribution(generator));
 		if (type == eSkillType::blizzard)
 		{
-			return new SkillFall(type, startPos, 300.f, false, false, eAccessorySkillType::Blizzard1);
+			return new SkillFall(type, startPos, skillSpeed[(int)type], false, false, eAccessorySkillType::Blizzard1);
 		}
 		return new SkillFall(type, startPos);
 	}
@@ -153,7 +172,7 @@ namespace m
 
 		float theta = DegreeToRadian(initDegree);
 
-		SkillStraight* skill = new SkillStraight(type, startPos, 300.f, true);
+		SkillStraight* skill = new SkillStraight(type, startPos, skillSpeed[(int)type], true);
 
 		skill->SetInitializePosition(startPos);
 

@@ -14,8 +14,10 @@ namespace m
             Linear,
             Random,
             Radial,
+            Circle,
             END,
         };
+
 
         
         SkillMultiFire(Vector3 iniPos
@@ -32,6 +34,7 @@ namespace m
         virtual void Render() override;
 
     private:
+        SkillStraight* makeCircleStraights(Vector3 vector3, eSkillType type, float addDegree);
         SkillFall* makeRandomFall(Vector2 vector2, Vector3 startPos, eSkillType type, std::default_random_engine generator);
         SkillStraight* makeRadialStraight(Vector3 startPos, eSkillType type
             , float initDegree, float addDegree);

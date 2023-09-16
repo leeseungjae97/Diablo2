@@ -48,7 +48,7 @@ namespace m
 				if (crashNames[(int)crashType] != L"")
 				{
 					SET_SCALE_XYZ(GetOwner(), crashSizes[(int)crashType].x, crashSizes[(int)crashType].y, 1.f);
-					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
+					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", crashLoop[(int)crashType]);
 				}
 				bPlaySkill = false;
 			}
@@ -104,6 +104,7 @@ namespace m
 					, crashSizes[(int)crashType]
 					, crashLength[(int)crashType]
 					, Vector2::Zero
+					, crashCenterPos[(int)crashType]
 					, 0.03f
 					, 0.8f
 				);

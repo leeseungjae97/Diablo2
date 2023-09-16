@@ -6,6 +6,7 @@
 #include "mCamera.h"
 #include "mApplication.h"
 #include "mMouseManager.h"
+#include "mTrappingColor.h"
 #include "SkillAnimLookUpTables.h"
 
 namespace m
@@ -22,17 +23,39 @@ namespace m
 		, destPosition(iniPos)
 		, initPosition(iniPos)
 		, vS(iniPos)
+
 		, fSpeed(speed)
-		, fAdjustSpeed(speed)
+		, fXAdjustSpeed(speed)
+		, fYAdjustSpeed(speed)
 		, fStartDistance(0.f)
 		, fRemainDistance(0.f)
 		, vDirection(Vector2::Zero)
+
 		, bGetHit(false)
+
 		, bMove(false)
+
 	    , bMadePath(false)
+
 	    , bCanDamaged(false)
 	    , fCanDamagedDelay(0.f)
+
 		, bSixteenDirection(false)
+
+	    , fNumericalAdjustmentSpeed(0.f)
+	    , bCallSetNumericalAdjustmentSpeed(false)
+
+		, bAddiction(false)
+		, fAddictionTime(0.f)
+		, fAddictionTickCount(0)
+		, iAddictionDamage(0)
+		, fAccAddiction(0.f)
+		, fAccDamage(0)
+
+		, bStun(false)
+		, fAccStun(0.f)
+		, fStunSecond(0.f)
+
 		, mCoord(Vector2(0.f, 0.f))
 	{
 		SET_POS_VEC(this, iniPos);
@@ -53,7 +76,7 @@ namespace m
 
 		if (useTilePos)
 		{
-			Vector3 scale = GET_SCALE(this);
+			//Vector3 scale = GET_SCALE(this);
 			tilePositionCollider = ADD_COMP(this, Collider2D);
 			tilePositionCollider->SetType(eColliderType::Dot);
 			tilePositionCollider->SetColliderFunctionType(eColliderFunctionType::TilePos);
@@ -61,9 +84,8 @@ namespace m
 
 		if (useAstar)
 			mPathFinder = new PathFinder();
-		ADD_COMP(this, MeshRenderer);
-
-
+		MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
+		mr->AddTrappingColorBuffer();
 	}
 	MoveAbleObject::~MoveAbleObject()
 	{
@@ -76,6 +98,7 @@ namespace m
 	void MoveAbleObject::Update()
 	{
 		GameObject::Update();
+
 		addZWeight();
 		adjustmentMovementSpeedAccordingAngle();
 		damagedDelay();
@@ -87,7 +110,80 @@ namespace m
 	void MoveAbleObject::Render()
 	{
 		GameObject::Render();
+		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+		if(fNASAcc > 0)
+		{
+			mr->SetTrappingColor(Vector4(0.f, 0.f, 10.f, 1.f));
+		}else
+		{
+			mr->SetTrappingColor(Vector4(0.f, 0.f, 0.f, 1.f));
+		}
 	}
+
+    void MoveAbleObject::SetNumericalAdjustmentSpeed(float speed, float time)
+    {
+		fNASAcc = time;
+		fNumericalAdjustmentSpeed = speed;
+		bCallSetNumericalAdjustmentSpeed = true;
+    }
+	void MoveAbleObject::Stun(float second)
+	{
+		fStunSecond = second;
+		bStun = true;
+	}
+	void MoveAbleObject::Addiction(int damage, float addictionTime, int tickCount)
+	{
+		if (bAddiction)
+		{
+			fAddictionTickCount += (float)tickCount;
+			fAddictionTime += addictionTime;
+			iAddictionDamage += damage;
+		}
+		else
+		{
+			fAddictionTickCount = (float)tickCount;
+			fAddictionTime = addictionTime;
+
+			iAddictionDamage = damage;
+
+			bAddiction = true;
+		}
+
+	}
+
+    void MoveAbleObject::TimeWaitAttack()
+    {
+		if (!bCanDamaged)
+			fCanDamagedDelay += Time::fDeltaTime();
+
+		if (fCanDamagedDelay >= 1.f)
+		{
+			bCanDamaged = true;
+			fCanDamagedDelay = 0.f;
+		}
+    }
+
+    void MoveAbleObject::AttackedAddition()
+    {
+		if (bAddiction)
+		{
+			fAccAddiction += Time::fDeltaTime();
+
+			if (fAccAddiction >= fAddictionTime / (float)fAddictionTickCount)
+			{
+				fAccDamage += iAddictionDamage / fAddictionTickCount;
+				Hit(iAddictionDamage / fAddictionTickCount, false);
+				fAccAddiction = 0.f;
+			}
+			if (fAccDamage >= iAddictionDamage)
+			{
+				bAddiction = false;
+				fAccAddiction = 0.f;
+				fAccDamage = 0.f;
+			}
+		}
+    }
+
 	void MoveAbleObject::damagedDelay()
 	{
 		if (!bCanDamaged) fCanDamagedDelay += Time::fDeltaTime();
@@ -114,43 +210,32 @@ namespace m
 	}
 	void MoveAbleObject::adjustmentMovementSpeedAccordingAngle()
 	{
-		float degree = RadianToDegree(atan2(vDirection.x, vDirection.y));
-		
-		float degreeWeight = 0.f;
-		float devideNum = 0.f;
+		//float degree = RadianToDegree(atan2(vDirection.y, vDirection.x));
+		//
+		//float degreeWeightIndex = 0.f;
+		//float devideNum = 0.f;
 
-		if(bMadePath)
-		{
-			if (bSixteenDirection)
-			{
-				devideNum = 18.f;
-				degreeWeight = degree / (180.f / devideNum);
-			}else
-			{
-				devideNum = 4.f;
-				degreeWeight = degree / (180.f / devideNum);
-			}
-		}else
-		{
-			if (bSixteenDirection)
-			{
-				devideNum = 18.f;
-				degreeWeight = degree / (180.f / devideNum);
-			}
-			else
-			{
-				devideNum = 4.f;
-				degreeWeight = degree / (180.f / devideNum);
-			}
-		}
+		//if (bSixteenDirection)
+		//{
+		//	devideNum = 18.f;
+		//	degreeWeightIndex = degree / (180.f / devideNum);
+		//}
+		//else
+		//{
+		//	devideNum = 5.f;
+		//	degreeWeightIndex = degree / (180.f / devideNum);
+		//}
+		//if (degreeWeightIndex > devideNum - 1.f) degreeWeightIndex = devideNum - 1.f;
+		//float reductionSpeed = fSpeed / 2.f;
+		//float middleDegreeIndex = (devideNum) / 2.f;
+		//float weight = fabs(middleDegreeIndex - fabs(degreeWeightIndex));
 
-		float reductionSpeed = fSpeed / 1.1f;
-		float middleDegreeIndex = (devideNum) / 2.f;
+		//float adjustmentedSpeed = reductionSpeed / middleDegreeIndex;
 
-		float weight = fabs(middleDegreeIndex - fabs(degreeWeight));
-		float adjustmentedSpeed = reductionSpeed / devideNum;
+		//float minorAxisSpeed = adjustmentedSpeed * weight;
 
-		fAdjustSpeed = fSpeed - (adjustmentedSpeed * weight);
+		fXAdjustSpeed = fSpeed;
+		fYAdjustSpeed = fSpeed / 2.f;
 	}
 	void MoveAbleObject::SetInitializePosition(Vector3 initPos)
 	{

@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAudioClip.cpp" />
@@ -70,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AffectOverlayLookUpTable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioSource.h" />

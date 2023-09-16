@@ -1,4 +1,5 @@
 #include "global.hlsli"
+StructuredBuffer<TrappingColor> colorBuffer : register(t20);
 
 struct VSIn
 {
@@ -35,12 +36,14 @@ float4 main(VSOut In) : SV_TARGET
     
     //float4 lightColor = float4(0.2f, 0.2f, 0.2f, 1.0f);
     float4 lightColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
-    
+    if (colorBuffer[0].color.w > 0.0f)
+    {
+        lightColor += colorBuffer[0].color;
+    }
     for (int i = 0; i < 2; i++)
     {
         CalculateLight2D(lightColor, In.WorldPos, i);
     }
-
     
     color *= lightColor;
     

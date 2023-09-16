@@ -2,6 +2,7 @@
 #include "mComponent.h"
 #include "mMesh.h"
 #include "mMaterial.h"
+#include "mStructedBuffer.h"
 
 namespace m
 {
@@ -22,9 +23,14 @@ namespace m
 		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
 		std::shared_ptr<Mesh> GetMesh() { return mMesh; }
 
+		void AddTrappingColorBuffer();
+		void SetTrappingColor(Vector4 color) { mTrappingColor.color = color; }
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;
+
+		TrapColor mTrappingColor;
+		graphics::StructuredBuffer* mTrappingColorBuffer;
     };
 }
 

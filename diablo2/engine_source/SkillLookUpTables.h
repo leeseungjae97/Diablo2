@@ -6,11 +6,13 @@ namespace m
 	{
 		Straight,
 		MultiStraight,
+		CircleFire,
 		Blizzard,
 		Fall,
 		FallExplosion,
 		MutiFall,
 		Raidal,
+		StunAttack,
 		Orb,
 		Buff,
 		Passive,
@@ -36,7 +38,7 @@ namespace m
 		chargedBolt,
 		staticField,
 		telekinesis,
-		nove,
+		nova,
 		lightning,
 		chainLightning,
 		teleport,
@@ -75,7 +77,7 @@ namespace m
 		chargedBolt,
 		staticField,
 		telekinesis,
-		nove,
+		nova,
 		lightning,
 		chainLightning,
 		teleport,
@@ -96,10 +98,14 @@ namespace m
 
 		normalAttack,
 
-
 		// Monster
 		DiabloLightning,
+		DiabloFireNova,
+		DiabloFireStorm,
+
 		AndarielPoisonAttack,
+		DurielStunAttack,
+
 		END
 	};
 	std::wstring wsSkillIconNames[(int)eSkillType::END] = {
@@ -117,7 +123,7 @@ namespace m
 		L"chargedBoltIcon",
 		L"staticFieldIcon",
 		L"telekinesisIcon",
-		L"noveIcon",
+		L"novaIcon",
 		L"lightningIcon",
 		L"chainLightningIcon",
 		L"teleportIcon",
@@ -153,7 +159,7 @@ namespace m
 		L"chargedBoltClickIcon",
 		L"staticFieldClickIcon",
 		L"telekinesisClickIcon",
-		L"noveClickIcon",
+		L"novaClickIcon",
 		L"lightningClickIcon",
 		L"chainLightningClickIcon",
 		L"teleportClickIcon",
@@ -177,7 +183,7 @@ namespace m
 	eSkillFunctionType skillFunctionTypes[(int)eSkillType::END] = {
 		eSkillFunctionType::Straight,// L"iceBoltIcon",
 		eSkillFunctionType::Straight,// L"frozenArmorIcon",
-		eSkillFunctionType::Straight,// L"frostNovaIcon",
+		eSkillFunctionType::CircleFire,// L"frostNovaIcon",
 		eSkillFunctionType::Straight,// L"iceBlastIcon",
 		eSkillFunctionType::Buff,// L"shiverArmorIcon",
 		eSkillFunctionType::Straight,// L"clacialSpikeIcon",
@@ -189,7 +195,7 @@ namespace m
 		eSkillFunctionType::Straight,// L"chargedBoltIcon",
 		eSkillFunctionType::Straight,// L"staticFieldIcon",
 		eSkillFunctionType::Straight,// L"telekinesisIcon",
-		eSkillFunctionType::Straight,// L"noveIcon",
+		eSkillFunctionType::CircleFire,// L"novaIcon",
 		eSkillFunctionType::Straight,// L"lightningIcon",
 		eSkillFunctionType::Straight,// L"chainLightningIcon",
 		eSkillFunctionType::Buff,// L"teleportIcon",
@@ -211,7 +217,11 @@ namespace m
 		eSkillFunctionType::None,// L"normalAttackIcon"
 		//Monster
 		eSkillFunctionType::MultiStraight,// L"diabloLightning",
+		eSkillFunctionType::CircleFire,// L"diabloFireNova",
+		eSkillFunctionType::MultiStraight,// L"diabloFireStorm",
+
 		eSkillFunctionType::Raidal,// L"AndarielPoisonAttack",
+		eSkillFunctionType::StunAttack,// L"AndarielPoisonAttack",
 	};
 	int SkillDamageCofTable[(int)eSkillType::END] = {
 		10,// L"iceBolt",
@@ -228,7 +238,7 @@ namespace m
 		10,// L"chargedBolt",
 		10,// L"staticField",
 		10,// L"telekinesis",
-		10,// L"nove",
+		10,// L"nova",
 		10,// L"lightning",
 		10,// L"chainLightning",
 		0,// L"teleport",
@@ -267,7 +277,7 @@ namespace m
 		L"chargedBolt",// L"chargedBoltClickIcon",
 		L"staticField",// L"staticFieldClickIcon",
 		L"telekinesis",// L"telekinesisClickIcon",
-		L"nove",// L"noveClickIcon",
+		L"nova",// L"novaClickIcon",
 		L"lightning",// L"lightningClickIcon",
 		L"chainLightning",// L"chainLightningClickIcon",
 		L"teleport",// L"teleportClickIcon",
@@ -291,7 +301,11 @@ namespace m
 
 		// Monster
 		L"diabloLightning",
+		L"diabloFireNova",
+		L"diabloFireNova",
+
 		L"andarielPoisonAttack",
+		L"",
 	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",
@@ -309,7 +323,7 @@ namespace m
 		{1,0},// L"chargedBoltIcon",
 		{0,1},// L"staticFieldIcon",
 		{2,1},// L"telekinesisIcon",
-		{0,2},// L"noveIcon",
+		{0,2},// L"novaIcon",
 		{1,2},// L"lightningIcon",
 		{1,3},// L"chainLightningIcon",
 		{2,3},// L"teleportIcon",
@@ -346,7 +360,7 @@ namespace m
 		L"chargedBoltIcon",
 		L"staticFieldIcon",
 		L"telekinesisIcon",
-		L"noveIcon",
+		L"novaIcon",
 		L"lightningIcon",
 		L"chainLightningIcon",
 		L"teleportIcon",
@@ -387,7 +401,7 @@ namespace m
 		L"chargedBoltClickIcon",
 		L"staticFieldClickIcon",
 		L"telekinesisClickIcon",
-		L"noveClickIcon",
+		L"novaClickIcon",
 		L"lightningClickIcon",
 		L"chainLightningClickIcon",
 		L"teleportClickIcon",
@@ -425,7 +439,7 @@ namespace m
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"chargedBoltIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"staticFieldIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"telekinesisIcon",
-		{0, 1, 0, 0, 0, 0, 0, 0, 0, 0},// L"noveIcon",
+		{0, 1, 0, 0, 0, 0, 0, 0, 0, 0},// L"novaIcon",
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"lightningIcon",
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0},// L"chainLightningIcon",
 		{0, 0, 1, 0, 0, 0, 0, 0, 0, 0},// L"teleportIcon",

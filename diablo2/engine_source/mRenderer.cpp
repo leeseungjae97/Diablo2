@@ -537,6 +537,10 @@ namespace renderer
 #pragma region Monster SKill
 		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
 						   , 252, 190, 15, L"diabloLightning");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"diablo_fire_nova", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_fire_nova"
+			, 66, 167, 8, L"diabloFireNova");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_poison_attack", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\andariel_poison_attack"
 			, 65, 65, 24, L"andarielPoisonAttack");
 #pragma endregion
@@ -557,17 +561,25 @@ namespace renderer
 
 #pragma endregion
 #pragma region Overlay
+		MAKE_MATERIAL_PATH(spriteShader, L"holy_freeze", L"..\\Resources\\texture\\skill_effect\\overlay\\holy_freeze"
+			, 114, 93, 15, L"holyFreeze");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_3", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_3"
 			, 127, 148, 16, L"iceCast3");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_2", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_2"
 			, 115, 123, 15, L"iceCast2");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_1"
 			, 97, 55, 15, L"iceCast1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"light_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\light_cast_1"
+			, 164, 144, 10, L"lightCast1");
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_cast_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_cast_1"
 			, 145, 133, 16, L"fireCast1");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_crash_1"
 			, 113, 72, 6, L"iceCrash1");
+		MAKE_MATERIAL_PATH(spriteShader, L"ice_crash_2", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_crash_2"
+			, 83, 110, 16, L"iceCrash2");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_crash_1"
 			, 78, 70, 12, L"fireCrash1");
@@ -590,9 +602,12 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"_teleport", L"..\\Resources\\texture\\skill_effect\\overlay\\teleport"
 			, 136, 154, 18, L"teleport");
 
-		MAKE_MATERIAL(spriteShader, L"fire_1_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire1.png", L"fire1s");
-		MAKE_MATERIAL(spriteShader, L"fire_2_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire2.png", L"fire2s");
-		MAKE_MATERIAL(spriteShader, L"fire_3_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3.png", L"fire3s");
+		MAKE_MATERIAL_PATH(spriteShader, L"_stun", L"..\\Resources\\texture\\skill_effect\\overlay\\stun"
+			, 69, 49, 12, L"stun");
+
+		//MAKE_MATERIAL(spriteShader, L"fire_1_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire1.png", L"fire1s");
+		//MAKE_MATERIAL(spriteShader, L"fire_2_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire2.png", L"fire2s");
+		//MAKE_MATERIAL(spriteShader, L"fire_3_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3.png", L"fire3s");
 #pragma endregion
 #pragma region Skill
         MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
@@ -614,6 +629,13 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"meteor_tail", L"..\\Resources\\texture\\skill_effect\\missile\\meteor_tail"
 			, 77, 125, 12, L"meteor");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"frost_nova", L"..\\Resources\\texture\\skill_effect\\missile\\frost_nova"
+			, 118, 69, 14, L"frostNova");
+
+
+		MAKE_MATERIAL_PATH(spriteShader, L"_nova", L"..\\Resources\\texture\\skill_effect\\missile\\nova"
+			, 70, 48, 13, L"nova");
 
 		
 #pragma endregion
@@ -839,7 +861,7 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"energy_shield_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\energy_shield.png", L"energyShieldIcon")
 		MAKE_MATERIAL(noLightShader, L"lightning_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning.png", L"lightningIcon")
 		MAKE_MATERIAL(noLightShader, L"lightning_mastery_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_mastery.png", L"lightningMasteryIcon")
-		MAKE_MATERIAL(noLightShader, L"nove_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove.png", L"noveIcon")
+		MAKE_MATERIAL(noLightShader, L"nova_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nova.png", L"novaIcon")
 		MAKE_MATERIAL(noLightShader, L"static_field_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field.png", L"staticFieldIcon")
 		MAKE_MATERIAL(noLightShader, L"telekinesis_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis.png", L"telekinesisIcon")
 		MAKE_MATERIAL(noLightShader, L"teleport_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport.png", L"teleportIcon")
@@ -849,7 +871,7 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"charged_bolt_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\charged_bolt_c.png", L"chargedBoltClickIcon")
 		MAKE_MATERIAL(noLightShader, L"static_field_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\static_field_c.png", L"staticFieldClickIcon")
 		MAKE_MATERIAL(noLightShader, L"telekinesis_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\telekinesis_c.png", L"telekinesisClickIcon")
-		MAKE_MATERIAL(noLightShader, L"nove_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nove_c.png", L"noveClickIcon")
+		MAKE_MATERIAL(noLightShader, L"nova_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\nova_c.png", L"novaClickIcon")
 		MAKE_MATERIAL(noLightShader, L"lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\lightning_c.png", L"lightningClickIcon")
 		MAKE_MATERIAL(noLightShader, L"chain_lightning_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\chain_lightning_c.png", L"chainLightningClickIcon")
 		MAKE_MATERIAL(noLightShader, L"teleport_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\lightning\\teleport_c.png", L"teleportClickIcon")

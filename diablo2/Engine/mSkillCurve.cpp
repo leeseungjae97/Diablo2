@@ -21,17 +21,14 @@ namespace m
 		SET_SCALE_XYZ(this, skillSizes[(int)type].x, skillSizes[(int)type].y, 1.f);
 		ADD_COMP(this, Animator);
 
-		if (type >= eSkillType::DiabloLightning)
+		ss = AddComponent<StraightScript>(skillAnimDirections[(int)type]);
+		if (skillAnimDirections[(int)type] == 16)
 		{
-			ss = AddComponent<StraightScript>(8);
 			rangeCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
 			bSixteenDirection = false;
 		}
 		else
-		{
-			ss = AddComponent<StraightScript>();
 			bSixteenDirection = true;
-		}
 		
     }
 
@@ -65,6 +62,7 @@ namespace m
 	
 		if (bSkillFire)
 		{
+			ss->SkillFire();
 			bSkillFire = false;
 			bMove = true;
 
@@ -92,8 +90,8 @@ namespace m
 		
 		if (bMove)
 		{
-			float fMoveX = curPosition.x + (vDirection.x * fAdjustSpeed * Time::fDeltaTime());
-			float fMoveY = curPosition.y + (vDirection.y * fAdjustSpeed * Time::fDeltaTime());
+			float fMoveX = curPosition.x + (vDirection.x * fXAdjustSpeed * Time::fDeltaTime());
+			float fMoveY = curPosition.y + (vDirection.y * fYAdjustSpeed * Time::fDeltaTime());
 
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}

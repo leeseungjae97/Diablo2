@@ -8,6 +8,7 @@
 
 namespace m
 {
+	class Aura;
     class SkillOverlay;
     class SkillBuff;
     class Monster;
@@ -28,7 +29,7 @@ namespace m
 
 		void MakeDirection();
 		void SpecialAttackAnimationConitnue();
-		void SpecialAttackAnimation();
+		void SpecialAttackAnimation(int skillIndex);
 		void AttackAnimation();
 		void HitAnimation();
 		void ElseAnimationPlay();
@@ -48,9 +49,13 @@ namespace m
 
 		int GetDirection() { return mDirection; }
 		float GetDegree() { return degree; }
+
+		Aura* GetAura() { return mAura; }
 	private:
+		void makeSkillCastAnimation(int type, int direction);
 		void makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos
 			, eLayerType fireLayerType, int addFunction, int skillCount);
+		Collider2D* getSkillActiveCollider();
 
 	private:
 		T curMonsterData;
@@ -61,11 +66,12 @@ namespace m
 		Skill* mSkill;
 		SkillBuff* mSkillBuff;
 		bool skillMake;
+		int iCurSkillIndex;
 
 		MonsterHand* mLeftHand;
 		MonsterHand* mRightHand;
 
-		SkillOverlay* mSO;
+		Aura* mAura;
 
 		Monster* mMonster;
 		eMonsterClass mClass;
@@ -73,6 +79,7 @@ namespace m
 		int mDirection;
 		int* mPlusDirections;
 		int* mMinusDirections;
+		
 		std::wstring* animStrings;
 
 		bool bFire;
