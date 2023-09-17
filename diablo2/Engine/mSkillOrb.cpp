@@ -19,18 +19,18 @@ namespace m
     {
         for(float i = 0.0f ; i <= 2.f ;)
         {
-            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 400.f);
+            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 400.f, true);
             ss->SetState(GameObject::eState::NoRenderUpdate);
             sectionSkills.push_back(ss);
             i += 0.1f;
         }
         for(int i = 0 ; i < 16; ++i)
         {
-            SkillCurve* ss = new SkillCurve(eSkillType::iceBolt, Vector3::Zero, 600.f);
-            ss->SetState(GameObject::eState::NoRenderNoUpdate);
-            sectionSkills2.push_back(ss);
+            SkillCurve* sc = new SkillCurve(eSkillType::iceBolt, Vector3::Zero, 600.f);
+            sc->SetState(GameObject::eState::NoRenderNoUpdate);
+            sectionSkills2.push_back(sc);
         }
-        StraightScript* ss=GET_COMP(this, StraightScript);
+        StraightScript* ss = GET_COMP(this, StraightScript);
         ss->SetNoHit(true);
     }
 

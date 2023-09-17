@@ -92,7 +92,7 @@ namespace m
 		GET_TEX(map, tex);
 		SET_SCALE_TEX_SIZE(map, tex, 1.f);
 		Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
-		Vector3 centerPos = GET_POS(centerTile);
+		Vector3 centerPos = centerTile->GetPos();
 
 		SET_POS_XYZ(map, centerPos.x, centerPos.y, 1.f);
 
@@ -110,7 +110,7 @@ namespace m
 		GetSceneMainCamera()->SetFollowObject(PlayerManager::player);
 
 		Tile* tile5 = TileManager::pathFindingTiles[0][1];
-		Vector3 pos4 = GET_POS(tile5);
+		Vector3 pos4 = tile5->GetPos();
 
 		//GameObject* qwe = new GameObject();
 		//SET_MAIN_CAMERA(qwe);
@@ -236,18 +236,18 @@ namespace m
 		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[0][0];
-		//	Vector3 pos = GET_POS(tile);
-		//	Monster* monster = new Monster(pos, MDAndariel().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//}
+		{
+			Tile* tile = TileManager::pathFindingTiles[0][0];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDAndariel().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
 
 		//{
 		//	Tile* tile = TileManager::pathFindingTiles[0][0];

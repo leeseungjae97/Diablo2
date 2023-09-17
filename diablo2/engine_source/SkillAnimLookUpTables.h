@@ -18,9 +18,12 @@ namespace m
 	{
 		IceCrash1,
 		IceCrash2,
-		//LightCrash1,
 		FireCrash1,
 		FireCrash2,
+		IceCrash1Overlay,
+		IceCrash2Overlay,
+		FireCrash1Overlay,
+		FireCrash2Overlay,
 		RedLightningCrash,
 		Poison,
 		StunAttack,
@@ -28,6 +31,10 @@ namespace m
 		END
 	};
 	std::wstring crashNames[(int)eSkillCrashType::END] = {
+	L"iceCrash1",
+	L"iceCrash2",
+	L"fireCrash1",
+	L"fireCrash2",
 	L"iceCrash1",
 	L"iceCrash2",
 	L"fireCrash1",
@@ -42,11 +49,19 @@ namespace m
 		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Overlay,
+		eCrashType::Overlay,
+		eCrashType::Overlay,
+		eCrashType::Overlay,
+		eCrashType::Overlay,
 		eCrashType::Addiction,
 		eCrashType::Stun,
 	};
 	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 	m::math::Vector2(113.f, 72.f),
+	m::math::Vector2(83.f, 110.f),
+	m::math::Vector2(78.f, 70.f),
+	m::math::Vector2(208.f, 174.f),
+			m::math::Vector2(113.f, 72.f),
 	m::math::Vector2(83.f, 110.f),
 	m::math::Vector2(78.f, 70.f),
 	m::math::Vector2(208.f, 174.f),
@@ -60,6 +75,10 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
+				m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 30.f),
@@ -70,11 +89,19 @@ namespace m
 	16,
 	12,
 	16,
+	6,
+	16,
+	12,
+	16,
 	20,
 	0,
 	12,
 	};
 	bool crashLoop[(int)eSkillCrashType::END] = {
+		false,
+		false,
+		false,
+		false,
 		false,
 		false,
 		false,
@@ -142,11 +169,11 @@ namespace m
 	};
 	enum class eAuraFunctionType
 	{
-	    Slow,
+		Slow,
 		End,
 	};
 	std::wstring auraNames[(int)eAuraType::End] = {
-    L"holyFreeze",
+	L"holyFreeze",
 	};
 	m::math::Vector2 auraSizes[(int)eAuraType::End] = {
 		Vector2(114.f, 93.f),
@@ -162,7 +189,7 @@ namespace m
 	};
 	float auraFunctionValue[(int)eAuraFunctionType::End][2] = {
 		{-200.f, 5.f},
-		
+
 	};
 #pragma endregion
 #pragma region Indicator
@@ -311,7 +338,7 @@ namespace m
 		0.f,// staticField
 		0.f,// telekinesis
 		1000.f,// nova
-		0.f,// lightning
+		300.f,// lightning
 		0.f,// chainLightning
 		0.f,// teleport
 		0.f,// thunderStorm
@@ -332,7 +359,7 @@ namespace m
 		0.f,// normalAttack
 
 		300.f, // diablo lightning
-		500.f, // diablo firenova
+		1000.f, // diablo firenova
 		300.f, // diablo firestorm
 
 		300.f, // andariel poison
@@ -354,7 +381,7 @@ namespace m
 		0, // staticField
 		0, // telekinesis
 		13, // nova
-		0, // lightning
+		8, // lightning
 		0, // chainLightning
 		18, // teleport
 		0, // thunderStorm
@@ -366,7 +393,7 @@ namespace m
 		0, // inferno
 		0, // blaze
 		0, // fireBall
-		0, // fireWall
+		8, // fireWall
 		0, // enchant
 		12, // meteor
 		0, // fireMastery
@@ -381,7 +408,7 @@ namespace m
 		24,
 		0,
 	};
-	int skillLoops[(int)eSkillType::END] = {
+	bool skillLoops[(int)eSkillType::END] = {
 		true, // iceBolt
 		true, // frozenArmor
 		false, // frostNova
@@ -425,7 +452,50 @@ namespace m
 		false,
 	};
 
-    int skillAnimDirections[(int)eSkillType::END] = {
+	bool skillHitDestory[(int)eSkillType::END] = {
+		true, // iceBolt
+		true, // frozenArmor
+		false, // frostNova
+		true, // iceBlast
+		true, // shiverArmor
+		true, // clacialSpike
+		true, // blizzard
+		true, // chillingArmor
+		true, // frozenOrb
+		true, // coldMastery
+		//
+		true, // chargedBolt
+		true, // staticField
+		true, // telekinesis
+		false, // nova
+		false, // lightning
+		true, // chainLightning
+		false, // teleport
+		true, // thunderStorm
+		true, // energyShield
+		true, // lightningMastery
+		//
+		true, // fireBolt
+		true, // warmth
+		true, // inferno
+		true, // blaze
+		true, // fireBall
+		false, // fireWall
+		true, // enchant
+		true, // meteor
+		true, // fireMastery
+		true, // hydra
+		//
+		false, // normalAttack
+
+		false,
+		false,
+		true,
+
+		true,
+		false,
+	};
+	int skillAnimDirections[(int)eSkillType::END] = {
 		16, // iceBolt
 		16, // frozenArmor
 		16, // frostNova
@@ -453,7 +523,7 @@ namespace m
 		16, // inferno
 		16, // blaze
 		16, // fireBall
-		16, // fireWall
+		0, // fireWall
 		16, // enchant
 		16, // meteor
 		16, // fireMastery
@@ -484,7 +554,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// staticField,
 		m::math::Vector2(0.f, 0.f),// telekinesis,
 		m::math::Vector2(70.f, 48.f),// nova,
-		m::math::Vector2(0.f, 0.f),// lightning,
+		m::math::Vector2(148.f, 106.f),// lightning,
 		m::math::Vector2(0.f, 0.f),// chainLightning,
 		m::math::Vector2(136.f, 154.f),// teleport,
 		m::math::Vector2(0.f, 0.f),// thunderStorm,
@@ -496,7 +566,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// inferno,
 		m::math::Vector2(0.f, 0.f),// blaze,
 		m::math::Vector2(0.f, 0.f),// fireBall,
-		m::math::Vector2(0.f, 0.f),// fireWall,
+		m::math::Vector2(66.f, 167.f),// fireWall,
 		m::math::Vector2(0.f, 0.f),// enchant,
 		m::math::Vector2(77.f, 125.f),// meteor,
 		m::math::Vector2(0.f, 0.f),// fireMastery,
@@ -511,10 +581,53 @@ namespace m
 		m::math::Vector2(65.f, 65.f),
 		m::math::Vector2(0.f, 0.f),
 	};
+	m::math::Vector2 skillOffsets[(int)eSkillType::END] = {
+		m::math::Vector2(0.f, 0.f),// iceBolt,
+		m::math::Vector2(0.f, 0.f),// frozenArmor,
+		m::math::Vector2(0.f, 0.f),// frostNova,
+		m::math::Vector2(0.f, 0.f),// iceBlast,
+		m::math::Vector2(0.f, 0.f),// shiverArmor,
+		m::math::Vector2(0.f, 0.f),// clacialSpike,
+		m::math::Vector2(0.f, 0.f),// blizzard,
+		m::math::Vector2(0.f, 0.f),// chillingArmor,
+		m::math::Vector2(0.f, 0.f),// frozenOrb,
+		m::math::Vector2(0.f, 0.f),// coldMastery,
+
+		m::math::Vector2(0.f, 0.f),// chargedBolt,
+		m::math::Vector2(0.f, 0.f),// staticField,
+		m::math::Vector2(0.f, 0.f),// telekinesis,
+		m::math::Vector2(0.f, 0.f),// nova,
+		m::math::Vector2(0.f, 0.f),// lightning,
+		m::math::Vector2(0.f, 0.f),// chainLightning,
+		m::math::Vector2(0.f, 0.f),// teleport,
+		m::math::Vector2(0.f, 0.f),// thunderStorm,
+		m::math::Vector2(0.f, 0.f),// energyShield,
+		m::math::Vector2(0.f, 0.f),// lightningMastery,
+
+		m::math::Vector2(0.f, 0.f),// fireBolt,
+		m::math::Vector2(0.f, 0.f),// warmth,
+		m::math::Vector2(0.f, 0.f),// inferno,
+		m::math::Vector2(0.f, 0.f),// blaze,
+		m::math::Vector2(0.f, 0.f),// fireBall,
+		m::math::Vector2(0.f, 0.f),// fireWall,
+		m::math::Vector2(0.f, 0.f),// enchant,
+		m::math::Vector2(0.f,0.f),// meteor,
+		m::math::Vector2(0.f, 0.f),// fireMastery,
+		m::math::Vector2(0.f, 0.f),// hydra,
+
+		m::math::Vector2(0.f),// normalAttack,
+
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 70.f),
+		m::math::Vector2(0.f, 0.f),
+
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+	};
 	eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
 		eSkillCrashType::IceCrash2,// iceBolt
 		eSkillCrashType::END,// frozenArmor
-		eSkillCrashType::IceCrash2,// frostNova
+		eSkillCrashType::IceCrash2Overlay,// frostNova
 		eSkillCrashType::END,// iceBlast
 		eSkillCrashType::END,// shiverArmor
 		eSkillCrashType::END,// clacialSpike
@@ -557,37 +670,37 @@ namespace m
 	};
 	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
 		eSkillCastType::IceCast1,// iceBolt
-		eSkillCastType::END,// frozenArmor
+		eSkillCastType::IceCast3,// frozenArmor
 		eSkillCastType::IceCast3,// frostNova
 		eSkillCastType::IceCast2,// iceBlast
-		eSkillCastType::END,// shiverArmor
-		eSkillCastType::END,// clacialSpike
+		eSkillCastType::IceCast3,// shiverArmor
+		eSkillCastType::IceCast2,// clacialSpike
 		eSkillCastType::IceCast3,// blizzard
-		eSkillCastType::END,// chillingArmor
+		eSkillCastType::IceCast3,// chillingArmor
 		eSkillCastType::IceCast3,// frozenOrb
-		eSkillCastType::END,// coldMastery
+		eSkillCastType::IceCast3,// coldMastery
 
-		eSkillCastType::END,// chargedBolt
-		eSkillCastType::END,// staticField
-		eSkillCastType::END,// telekinesis
+		eSkillCastType::LightCast1,// chargedBolt
+		eSkillCastType::LightCast1,// staticField
+		eSkillCastType::LightCast1,// telekinesis
 		eSkillCastType::LightCast1,// nova
-		eSkillCastType::END,// lightning
-		eSkillCastType::END,// chainLightning
+		eSkillCastType::LightCast1,// lightning
+		eSkillCastType::LightCast1,// chainLightning
 		eSkillCastType::Teleport,// teleport
-		eSkillCastType::END,// thunderStorm
-		eSkillCastType::END,// energyShield
-		eSkillCastType::END,// lightningMastery
+		eSkillCastType::LightCast1,// thunderStorm
+		eSkillCastType::LightCast1,// energyShield
+		eSkillCastType::LightCast1,// lightningMastery
 
 		eSkillCastType::FireCast1,// fireBolt
-		eSkillCastType::END,// warmth
-		eSkillCastType::END,// inferno
-		eSkillCastType::END,// blaze
-		eSkillCastType::END,// fireBall
+		eSkillCastType::FireCast1,// warmth
+		eSkillCastType::FireCast1,// inferno
+		eSkillCastType::FireCast1,// blaze
+		eSkillCastType::FireCast1,// fireBall
 		eSkillCastType::FireCast1,// fireWall
-		eSkillCastType::END,// enchant
+		eSkillCastType::FireCast1,// enchant
 		eSkillCastType::FireCast1,// meteor
-		eSkillCastType::END,// fireMastery
-		eSkillCastType::END,// hydra
+		eSkillCastType::FireCast1,// fireMastery
+		eSkillCastType::FireCast1,// hydra
 
 		eSkillCastType::END,// normalAttack
 

@@ -12,13 +12,19 @@ namespace m
 	Panel::~Panel()
 	{}
 	void Panel::Initialize()
-	{}
+	{
+		GameObject::Initialize();
+	}
 	void Panel::Update()
 	{
 		GameObject::Update();
 	}
 	void Panel::LateUpdate()
-	{}
+	{
+		GameObject::LateUpdate();
+	}
 	void Panel::Render()
-	{}
+	{
+		GameObject::Render();
+	}
 }

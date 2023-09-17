@@ -23,6 +23,7 @@ namespace m
         void SetNoHit(bool hit) { bNoHit = hit; }
 
         void SkillFire() { bSkillFire = true; }
+
     private:
         int mDirectionCount;
         bool bNoHit;

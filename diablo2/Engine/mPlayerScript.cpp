@@ -25,6 +25,7 @@
 #include "mSkillMultiFire.h"
 #include "mSkillOrb.h"
 #include "mSkill.h"
+#include "mSkillWall.h"
 
 extern m::Application application;
 namespace m
@@ -336,6 +337,21 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill); 
 		}
 			break;
+		case m::eSkillFunctionType::FixedMultiStraight:
+		{
+			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20
+				, (int)SkillMultiFire::eFireType::FixedLinear, fireLayerType, Vector2::Zero, GetOwner()->GetCamera(), 0.08f);
+			skill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+		}
+		break;
+		case m::eSkillFunctionType::Wall:
+		{
+			skill = new SkillWall(skillType, GET_POS(GetOwner()), GetOwner()->GetCamera(), eLayerType::PlayerSkill);
+			skill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+		}
+		break;
 		case m::eSkillFunctionType::CircleFire:
 		{
 			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 64, (int)SkillMultiFire::eFireType::Circle, fireLayerType);

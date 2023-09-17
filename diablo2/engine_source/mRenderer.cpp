@@ -94,10 +94,10 @@ namespace renderer
 													, shader->GetVSCode()
 													, shader->GetInputLayoutAddressOf());
 
-		shader = m::Resources::Find<Shader>(L"ParticleShader");
-		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-													, shader->GetVSCode()
-													, shader->GetInputLayoutAddressOf());
+		//shader = m::Resources::Find<Shader>(L"ParticleShader");
+		//m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+		//											, shader->GetVSCode()
+		//											, shader->GetInputLayoutAddressOf());
 
 		shader = m::Resources::Find<Shader>(L"TileShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
@@ -120,9 +120,9 @@ namespace renderer
 		GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
 		GetDevice()->BindSampler(eShaderStage::PS, 0, samplerState[(UINT)eSamplerType::Point].GetAddressOf());
 
-		samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-		GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
-		GetDevice()->BindSampler(eShaderStage::PS, 1, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		//samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+		//GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		//GetDevice()->BindSampler(eShaderStage::PS, 1, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 #pragma endregion
 #pragma region Rasterizer State
 		D3D11_RASTERIZER_DESC rasterizerDesc = {};
@@ -461,16 +461,16 @@ namespace renderer
 		//pathSystemComputeShader->Create(L"PathFinderCS.hlsl", "main");
 		//m::Resources::Insert(L"PathFinderComputeShader", pathSystemComputeShader);
 
-		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
-		paritcleShader->UseGS();
-		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
-		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
-		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
-		paritcleShader->SetRSState(eRSType::SolidNone);
-		paritcleShader->SetDSState(eDSType::None);
-		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		//std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
+		//paritcleShader->UseGS();
+		//paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		//paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
+		//paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		//paritcleShader->SetRSState(eRSType::SolidNone);
+		//paritcleShader->SetDSState(eDSType::None);
+		//paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 
-		m::Resources::Insert(L"ParticleShader", paritcleShader);
+		//m::Resources::Insert(L"ParticleShader", paritcleShader);
 
 		std::shared_ptr<Shader> tileShader = std::make_shared<Shader>();
 		tileShader->UseGS();
@@ -514,7 +514,7 @@ namespace renderer
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Shader> noLightShader = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
-		std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
+		//std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
 		std::shared_ptr<Shader> tileShader = m::Resources::Find<Shader>(L"TileShader");
 		std::shared_ptr<Shader> tileDrawShader = m::Resources::Find<Shader>(L"TileDrawShader");
 
@@ -532,7 +532,7 @@ namespace renderer
 #pragma endregion
 
 #pragma region Particle
-		MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
+		//MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
 #pragma endregion
 #pragma region Monster SKill
 		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
@@ -637,6 +637,11 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"_nova", L"..\\Resources\\texture\\skill_effect\\missile\\nova"
 			, 70, 48, 13, L"nova");
 
+		MAKE_MATERIAL_PATH(spriteShader, L"fire_wall", L"..\\Resources\\texture\\skill_effect\\missile\\fire_wall"
+			, 66, 167, 37, L"fireWall");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
+			, 148, 106, 8, L"lightning");
 		
 #pragma endregion
 #pragma region Monster

@@ -1,5 +1,6 @@
 #include "mFontWrapper.h"
 #include "mGraphicDevice_DX11.h"
+#include "mRenderer.h"
 
 namespace m
 {
@@ -20,6 +21,9 @@ namespace m
 
 	void FontWrapper::DrawFont(const wchar_t* str, float x, float y, float size, UINT rgb)
 	{
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::None];
+		GetDevice()->BindDepthStencilState(nullptr);
 		//RGB();
 		ID3D11DeviceContext* pContext = graphics::GetDevice()->GetID3D11DeviceContext();
 		mFontWrapper->DrawString(
@@ -29,8 +33,10 @@ namespace m
 			x,// X position
 			y,// Y position
 			rgb,// Text color, 0xAaBbGgRr
-			FW1_RESTORESTATE      // Flags (for example FW1_RESTORESTATE to keep context states unchanged)
+			FW1_RESTORESTATE
 		);
+		dsState = renderer::depthStencilStates[(UINT)eDSType::LessEqua];
+		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 
 	void FontWrapper::Release()

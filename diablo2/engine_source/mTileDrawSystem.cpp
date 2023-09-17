@@ -80,10 +80,10 @@ namespace m
 		ComputeTile* computeTiles = new ComputeTile[pathtiles.size()];
 		for (int i = 0; i < pathtiles.size(); ++i)
 		{
-			Vector3 posV3 = GET_POS(pathtiles[i]);
+			Vector3 posV3 = pathtiles[i]->GetPos();
 			Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
 			computeTiles[i].tilePosition = pos;
-			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(GET_SCALE(pathtiles[i]));
+			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(pathtiles[i]->GetScale());
 			computeTiles[i].isWall = false;
 			computeTiles[i].tileCoord = pathtiles[i]->GetCoord();
 		}

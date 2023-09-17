@@ -95,7 +95,10 @@ namespace m
 			{
 				if (!curMonsterData.bPathImage) m = eEightDirection[j];
 				else m = j;
-
+				if(curMonsterData.textureString[i] == L"diabloSpecial1")
+				{
+					int a = 0;
+				}
 				mAnimator->Create(
 					curMonsterData.animationString[i] + animStrings[m]
 					, mat->GetTexture()
@@ -173,9 +176,6 @@ namespace m
 		//if(mLeftHand)
 			//mLeftHand->SetDirection(mDirection);
 
-		if (mRightHand)
-			mRightHand->SetDirection(mDirection);
-
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Idle
 			|| mMonster->GetBattleState() == GameObject::eBattleState::Run
 			&& (nullptr == mSkill && nullptr == mSkillBuff))
@@ -183,9 +183,9 @@ namespace m
 			int selectSpecialSkillBranshNum = rand() % 1000;
 			if(selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special1
-				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
-				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special3
-				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
+				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
+				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special3
+				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
 				)
 			{
 			    if(curMonsterData.textureString[selectSpecialSkillBranshNum] != L"")
@@ -199,10 +199,10 @@ namespace m
 			SpecialAttackAnimationConitnue();
 		}
 
-		//if (mMonster->Arrival())
-		//{
-		//	AttackAnimation();
-		//}
+		if (mMonster->Arrival())
+		{
+			AttackAnimation();
+		}
 
 		if (curMonsterData.mClass != eMonsterClass::Boss && mMonster->GetHit())
 		{
@@ -302,13 +302,13 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::SpecialAttackAnimationConitnue()
 	{
-		WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
-		int prevIndex = 0;
-		if (subStr1 == curMonsterData.animationString[(UINT)T::eAnimationType::SpecialCast])
-		{
-			prevIndex = mAnimator->GetAnimationIndex();
-		}
-		mAnimationType = T::eAnimationType::SpecialCast;
+		if (mAnimationType != T::eAnimationType::SpecialCast) return;
+		//curMonsterData.bSpecialSkillStopInProgress[];
+
+		//WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
+
+		int prevIndex = mAnimator->GetAnimationIndex();
+
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 		if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 		{
@@ -342,27 +342,26 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::SpecialAttackAnimation(int skillIndex)
 	{
-		if (curMonsterData.animationSizes[(UINT)skillIndex] == Vector2::Zero) return;
+		if (curMonsterData.animationSizes[skillIndex] == Vector2::Zero) return;
 
 		Collider2D* speiclaAttackCollider = getSkillActiveCollider();
 
 		if (speiclaAttackCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
-			mAnimationType = T::eAnimationType(skillIndex);
 			GetOwner()->SetBattleState(GameObject::Cast);
-			//mAnimationType = T::eAnimationType::SpecialCast;
-
+			mAnimationType = static_cast<T::eAnimationType>(skillIndex);
 			SET_SCALE_XYZ(GetOwner()
-				, curMonsterData.animationSizes[(UINT)mAnimationType].x
-				, curMonsterData.animationSizes[(UINT)mAnimationType].y
-				, 0.f
+				, curMonsterData.animationSizes[skillIndex].x
+				, curMonsterData.animationSizes[skillIndex].y
+				, 1.f
 			);
-			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
+			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[skillIndex] + animStrings[mDirection])
 			{
-				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
+				mAnimator->PlayAnimation(curMonsterData.animationString[skillIndex] + animStrings[mDirection]
+					, curMonsterData.bSpecialSkillLoop[skillIndex - (int)T::eAnimationType::SpecialCast]);
 
-				if(curMonsterData.animStartIndex[(UINT)mAnimationType] != 0)
-				    mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
+				if(curMonsterData.animStartIndex[skillIndex] != 0)
+				    mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[skillIndex]);
 			}
 		}
 	}
@@ -396,6 +395,9 @@ namespace m
 			mDirection = mPlusDirections[n];
 		else
 			mDirection = mMinusDirections[abs(n)];
+
+		if (mRightHand)
+			mRightHand->SetDirection(mDirection);
 	}
 
 	template <typename T>
@@ -483,7 +485,11 @@ namespace m
 			}
 			else
 			{
-				iCurSkillIndex = 1;
+				iCurSkillIndex = type - (int)T::eAnimationType::SpecialCast;
+				if(type != 7)
+				{
+					int a = 0;
+				}
 				eSkillType skilltype = curMonsterData.mSpecialSkills[iCurSkillIndex];
 				if (skilltype != eSkillType::END)
 				{

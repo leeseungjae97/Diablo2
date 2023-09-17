@@ -29,13 +29,17 @@ namespace m
 		for (Collider2D* col : GetComponents<Collider2D>())
 		{
 			if (nullptr == col) continue;
+			
+			col->Release();
+		}
+		for (Collider2D* col : GetComponents<Collider2D>())
+		{
+			if (nullptr == col) continue;
 			std::erase(mComponents, col);
-			if (GetState() == eState::Delete)
-				col->Release();
-
 			delete col;
 			col = nullptr;
 		}
+
 		for (Component* comp : mComponents)
 		{
 			if (comp == nullptr)

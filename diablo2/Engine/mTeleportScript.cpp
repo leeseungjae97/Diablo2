@@ -47,7 +47,7 @@ namespace m
 		{
 			getNearByCoord(hoverTile);
 		}else{
-			Vector3 hoverTilePosition =GET_POS(hoverTile);
+			Vector3 hoverTilePosition = hoverTile->GetPos();
 			TileManager::playerStandTile = hoverTile;
 			SET_POS_VEC(mOwner, hoverTilePosition);
 			GetOwner()->SetState(GameObject::eState::Delete);

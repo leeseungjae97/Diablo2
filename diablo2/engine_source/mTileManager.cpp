@@ -170,8 +170,8 @@ namespace m
 					//SET_MATERIAL(tile, L"greenOutlineTile");
 					//tile->SetSaveMaterial(RESOURCE_FIND(Material, L"greenOutlineTile"));
 				}
-				SET_SCALE_XYZ(tile, tileXSize, tileYSize, 1.f);
-				SET_POS_XYZ(tile, fX, fY, 1.f);
+				tile->SetScale(Vector3(tileXSize, tileYSize, 1.f));
+				tile->SetPos(Vector3(fX, fY, 1.f));
 				pathFindingTiles[y][x] = tile;
 			}
 		}
@@ -213,6 +213,6 @@ namespace m
 	}
 	Vector3 TileManager::GetPlayerPosition()
 	{
-		return nullptr == playerStandTile ? Vector3::Zero : GET_POS(playerStandTile);
+		return nullptr == playerStandTile ? Vector3::Zero : playerStandTile->GetPos();
 	}
 }

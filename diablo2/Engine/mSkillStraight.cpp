@@ -8,28 +8,39 @@
 
 namespace m
 {
-	SkillStraight::SkillStraight(eSkillType type, Vector3 iniPos, float speed, bool useLimitDistance)
+	SkillStraight::SkillStraight(eSkillType type
+		, Vector3 iniPos
+		, float speed
+		, bool useLimitDistance
+		, bool useAnimator
+	)
 		:Skill(type, iniPos, false, true)
 		, limitDistance(1000.f)
 	    , useLimit(useLimitDistance)
 	{
 		bMadePath = true;
 		
-
 		SetSpeed(speed);
 		SET_MESH(this, L"RectMesh");
-		SET_MATERIAL(this, L"AnimationMaterial");
-		SET_SCALE_XYZ(this, skillSizes[(int)type].x, skillSizes[(int)type].y, 1.f);
-		ADD_COMP(this, Animator);
-
-		ss = AddComponent<StraightScript>(skillAnimDirections[(int)type]);
-		if(skillAnimDirections[(int)type] == 16)
+		if(useAnimator)
 		{
-			rangeCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
-			bSixteenDirection = false;
+			SET_MATERIAL(this, L"AnimationMaterial");
+			SET_SCALE_XYZ(this, skillSizes[(int)type].x, skillSizes[(int)type].y, 1.f);
+			ADD_COMP(this, Animator);
+
+			ss = AddComponent<StraightScript>(skillAnimDirections[(int)type]);
+			if (skillAnimDirections[(int)type] == 16)
+			{
+				rangeCollider->SetSize(Vector3(0.5f, 0.5f, 1.f));
+				bSixteenDirection = false;
+			}
+			else
+				bSixteenDirection = true;
 		}
-		else
-			bSixteenDirection = true;
+	    else
+		{
+			SET_MATERIAL(this, L"noneRect");
+		}
 	}
 	SkillStraight::~SkillStraight()
 	{
@@ -41,15 +52,13 @@ namespace m
 	void SkillStraight::Update()
 	{
 		Skill::Update();
-		//if (mbStopMove)
-		//{
-		//	fSpeed = 0.f;
-		//}
+
 		Vector3 curPosition = GET_POS(this);
 		if(bSkillFire)
 		{
-			//ss->
-			ss->SkillFire();
+			if(ss)
+			    ss->SkillFire();
+
 			bSkillFire = false;
 			bMove = true;
 			
@@ -84,7 +93,6 @@ namespace m
 
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
-		
 		moveDistance = (Vector2(prevPosition.x, prevPosition.y) - Vector2(curPosition.x, curPosition.y)).Length();
 		if (useLimit && 
 			limitDistance <= moveDistance)

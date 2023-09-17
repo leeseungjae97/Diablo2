@@ -7,7 +7,8 @@ namespace m
         public Skill
     {
     public:
-        SkillStraight(eSkillType type, Vector3 iniPos, float speed, bool useLimitDistance = true);
+        SkillStraight(eSkillType type, Vector3 iniPos, float speed, bool useLimitDistance = true
+                        , bool useAnimator = true);
         virtual ~SkillStraight();
 
         virtual void Initialize() override;

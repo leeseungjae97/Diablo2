@@ -1,5 +1,6 @@
 #include "mSkillMultiFire.h"
 
+#include "mMouseManager.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
@@ -12,7 +13,9 @@ namespace m
 		int count,
 		int fireType,
 		eLayerType layerType,
-		Vector2 randFireRange
+		Vector2 randFireRange,
+		Camera* camera,
+		float skillGenTime
 	)
 		: Skill(type, iniPos)
 		, mFireType((eFireType)fireType)
@@ -46,8 +49,18 @@ namespace m
 			}
 			if (mFireType == eFireType::Linear)
 			{
-				mSkillFireTimes.push_back(0.05f);
+				mSkillFireTimes.push_back(skillGenTime);
 				sf = new SkillStraight(type, startPos, 400.f);
+			}
+			if(mFireType == eFireType::FixedLinear)
+			{
+				mSkillFireTimes.push_back(skillGenTime);
+				Vector3 mousePos3 = MouseManager::UnprojectionMousePos(1.f, camera);
+				mousePos3.z = 1.f;
+				sf = new SkillStraight(type, startPos, 400.f);
+				sf->SetCamera(camera);
+				sf->SetDestPosition(mousePos3);
+				bFirstUpdate = true;
 			}
 			if (mFireType == eFireType::Radial)
 			{
@@ -104,7 +117,8 @@ namespace m
 				mAccTime = 0.f;
 			}
 		}
-		if (mFireType == eFireType::Linear)
+		if (mFireType == eFireType::Linear
+			|| mFireType == eFireType::FixedLinear)
 		{
 			if (mSkillFireTimes.size() <= curIndex)
 			{

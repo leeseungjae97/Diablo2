@@ -17,6 +17,7 @@ namespace m
         virtual void Render() override;
 
         void SetAddCurve(float degree) { mAddCurve = degree; }
+        void StopMove() { bMove = false; }
     private:
         void moveCurve();
 

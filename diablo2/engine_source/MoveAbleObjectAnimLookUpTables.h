@@ -192,7 +192,7 @@ namespace m
 		float fAttackDelay = 1.5f;
 		float hp = 100;
 		float hpCapacity = hp;
-		eSkillType mSpecialSkills[4] = {
+		eSkillType mSpecialSkills[5] = {
 			eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
@@ -202,16 +202,17 @@ namespace m
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
 
-		eColliderFunctionType mSkillActiveColliderType[4] = {
+		eColliderFunctionType mSkillActiveColliderType[5] = {
 	    eColliderFunctionType::End
 	    , eColliderFunctionType::End
 	    , eColliderFunctionType::End
 	    , eColliderFunctionType::End
+	    , eColliderFunctionType::End
 		};
-		bool bSpecialSkillStopInProgress[4] = { false, false, false, false };
-		int mSpecialSkillAddFunction[4] = { 0,0,0,0 };
-
-		int mSpecialSkillCount[4] = { 0, 0, 0, 0 };
+		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
+		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
+		int mSpecialSkillCount[5] = { 0, 0, 0, 0 };
 
 		eMonsterType mMonsterType = eMonsterType::End;
 		eMonsterClass mClass = eMonsterClass::Normal;
@@ -247,6 +248,7 @@ namespace m
 		float fAttackDelay = 2.5f;
 		float hp = 100;
 		float hpCapacity = hp;
+		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::END
@@ -424,19 +426,20 @@ namespace m
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::DiabloLightning
 			,eSkillType::DiabloFireNova
-			,eSkillType::END
+			,eSkillType::fireWall
 			,eSkillType::END
 			,eSkillType::END
 		};
 		eColliderFunctionType mSkillActiveColliderType[5] = {
 		    eColliderFunctionType::Sight
 	        , eColliderFunctionType::Sight
-	        , eColliderFunctionType::End
+	        , eColliderFunctionType::Sight
 	        , eColliderFunctionType::End
 	        , eColliderFunctionType::End
 		};
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		bool bSpecialSkillLoop[5] = {true,false, false, false, false};
 		bool bSpecialSkillStopInProgress[5] = { true, false, false, false, false };
 		int mSpecialSkillAddFunction[5] = {
 			0/*eFireType::Linear*/
@@ -496,7 +499,7 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Natural
 			math::Vector2(0.f, 15.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
-			math::Vector2(0.f, -10.f),	// SpecialCast
+			math::Vector2(0.f, -10.f),// SpecialCast
 			math::Vector2(0.f, 0.f),	// Special1
 			math::Vector2(0.f, 0.f),	// Special2
 			math::Vector2(0.f, 0.f),	// Special3
@@ -587,10 +590,10 @@ namespace m
 			0, // Run
 			0, // Walk
 			11, // SpecialCast
-			0, // Special1
-			0, // Special2
-			0, // Special3
-			0, // Special4
+			8, // Special1
+			5, // Special2
+			8, // Special3
+			8, // Special4
 			0, // Dead
 		};
 	};
@@ -619,9 +622,10 @@ namespace m
 			, eColliderFunctionType::End
 			, eColliderFunctionType::End
 		};
+		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
 		int mSpecialSkillAddFunction[5] = {
-			2/*eFireType::Radial*/
+			3/*eFireType::Radial*/
 			,0
 			,0
 			,0 };
@@ -802,6 +806,7 @@ namespace m
 	        , eColliderFunctionType::End
 	        , eColliderFunctionType::End
 		};
+		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
 		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
 
@@ -968,6 +973,7 @@ namespace m
 		float hp = 100;
 		float hpCapacity = hp;
 
+		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
 
 		eSkillType mSpecialSkills[5] = {

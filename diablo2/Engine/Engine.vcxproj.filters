@@ -163,7 +163,15 @@
     <ClCompile Include="mAura.cpp">
       <Filter>Skill\SkillAura</Filter>
     </ClCompile>
-    <ClCompile Include="mAuraScript.cpp" />
+    <ClCompile Include="mSkillFollower.cpp">
+      <Filter>Skill\SkillFollower</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillWall.cpp">
+      <Filter>Skill\SkillWall</Filter>
+    </ClCompile>
+    <ClCompile Include="mAuraScript.cpp">
+      <Filter>Script\AuraScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -325,7 +333,15 @@
     <ClInclude Include="mAura.h">
       <Filter>Skill\SkillAura</Filter>
     </ClInclude>
-    <ClInclude Include="mAuraScript.h" />
+    <ClInclude Include="mSkillFollower.h">
+      <Filter>Skill\SkillFollower</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillWall.h">
+      <Filter>Skill\SkillWall</Filter>
+    </ClInclude>
+    <ClInclude Include="mAuraScript.h">
+      <Filter>Script\AuraScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -513,6 +529,15 @@
     </Filter>
     <Filter Include="Script\AuraScript">
       <UniqueIdentifier>{95e8eb54-f9fd-4012-9cb8-b50c35d01493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillWall">
+      <UniqueIdentifier>{cfab5bbc-4dbc-478a-8c0f-0457fd15635d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\SkillFollower">
+      <UniqueIdentifier>{f59976c5-586c-4ba7-aa36-5a372f516f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TextPanel">
+      <UniqueIdentifier>{7a7b36c4-3234-4ac2-b87d-d39e2f8863be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

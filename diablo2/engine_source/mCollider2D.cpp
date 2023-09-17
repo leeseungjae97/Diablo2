@@ -60,7 +60,7 @@ namespace m
 		{
 			if (mType == eColliderType::Circle)
 			{
-				scale.y = scale.x / 2.f;
+				scale.y = scale.x;
 			}
 			if (mType == eColliderType::Dot)
 			{
@@ -136,7 +136,7 @@ namespace m
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end()) 
 			return;
 	
-		collidereds.push_back(other);
+		collidereds.emplace_back(other);
 
 		SetEnter();
 		const std::vector<Script*>& scripts

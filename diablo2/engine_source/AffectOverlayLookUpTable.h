@@ -24,7 +24,7 @@ std::wstring affectOverlayNames[(int)eAffectOverlayType::End] = {
 m::math::Vector2 affectOverlaySizes[(int)eAffectOverlayType::End] = {
     m::math::Vector2(66.f, 89.f),
     m::math::Vector2(66.f, 167.f),
-    m::math::Vector2(66.f, 136.f),
+    m::math::Vector2(66.f, 136.f),  
 };
 
 int affectOverlayLength[(int)eAffectOverlayType::End] = {

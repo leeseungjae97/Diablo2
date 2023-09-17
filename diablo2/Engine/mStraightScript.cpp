@@ -7,6 +7,7 @@
 #include "mSkill.h"
 #include "mPlayer.h"
 #include "mMonster.h"
+#include "mSkillCurve.h"
 
 namespace m
 {
@@ -39,6 +40,7 @@ namespace m
 				, skillSizes[(int)mType]
 				, skillAnimLength[(int)mType]
 				, Vector2::Zero
+				, skillOffsets[(int)mType]
 				, 0.03f
 			);
 		}else
@@ -55,6 +57,7 @@ namespace m
 						, skillSizes[(int)mType]
 						, skillAnimLength[(int)mType]
 						, Vector2::Zero
+						, skillOffsets[(int)mType]
 						, 0.03f
 					);
 				}
@@ -67,6 +70,7 @@ namespace m
 						, skillSizes[(int)mType]
 						, skillAnimLength[(int)mType]
 						, Vector2::Zero
+						, skillOffsets[(int)mType]
 						, 0.03f
 					);
 				}
@@ -85,12 +89,16 @@ namespace m
 				, crashSizes[(int)mSkillCrashType]
 				, crashLength[(int)mSkillCrashType]
 				, Vector2::Zero
+				,crashCenterPos[(int)mSkillCrashType]
 				, 0.03f
 				, 0.7f);
 			mAnimator->StartEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
 			{
 				if (dynamic_cast<SkillStraight*>(GetOwner()))
 					dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
+
+				if (dynamic_cast<SkillCurve*>(GetOwner()))
+					dynamic_cast<SkillCurve*>(GetOwner())->StopMove();
 			};
 			mAnimator->EndEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
 			{
@@ -98,7 +106,6 @@ namespace m
 					GetOwner()->SetState(GameObject::eState::Delete);
 			};
 		}
-		
 
 		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
 		mAnimator->Create(
@@ -112,10 +119,7 @@ namespace m
 			, 0.3f
 		);
 
-		mAnimator->PlayAnimation(L"noneRectAnim", false);
-
-		//mAnimator->Create();
-		//mAnimator->PlayAnimation();
+		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
 	void StraightScript::Update()
 	{
@@ -123,7 +127,8 @@ namespace m
 		if(bSkillFire
 			&& !skillLoops[(int)mType]
 			&& mAnimator->GetActiveAnimation()
-			&& mAnimator->GetActiveAnimation()->GetKey() == skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
+			&& mAnimator->GetActiveAnimation()->GetKey() 
+			== skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
 		{
 			if(mAnimator->GetActiveAnimation()->IsStop())
     			GetOwner()->SetState(GameObject::eState::Delete);
@@ -139,13 +144,11 @@ namespace m
 				}
 				return;
 			}
-			else
-			{
-				GetOwner()->SetState(GameObject::eState::Delete);
-			}
+			//else
+			//{
+			//	GetOwner()->SetState(GameObject::eState::Delete);
+			//}
 		}
-
-		//Vector3 direction = dynamic_cast<SkillStraight*>(GetOwner())->GetDirection();
 		if(bSkillFire)
 		{
 			Vector3 direction = ((SkillStraight*)GetOwner())->GetDirection();
@@ -161,24 +164,6 @@ namespace m
 					mDirection = pathPlusSixteenDirections[n];
 				else
 					mDirection = pathMinusSixteenDirections[abs(n)];
-
-				//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSixTeenDirection::Up;
-				//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSixTeenDirection::LeftUp3;
-				//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSixTeenDirection::LeftUp2;
-				//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = ePathSixTeenDirection::LeftUp1;
-				//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = ePathSixTeenDirection::Left;
-				//else if (degree < -fDivideDegree * 5 && degree > -fDivideDegree * 6) mDirection = ePathSixTeenDirection::LeftDown3;
-				//else if (degree < -fDivideDegree * 6 && degree > -fDivideDegree * 7) mDirection = ePathSixTeenDirection::LeftDown2;
-				//else if (degree < -fDivideDegree * 7 && degree > -fDivideDegree * 8) mDirection = ePathSixTeenDirection::LeftDown1;
-				//else if (degree < -fDivideDegree * 8 && degree > -fDivideDegree * 9) mDirection = ePathSixTeenDirection::Down;
-				//else if (degree <  fDivideDegree * 9 && degree >  fDivideDegree * 8) mDirection = ePathSixTeenDirection::Down;
-				//else if (degree <  fDivideDegree * 8 && degree >  fDivideDegree * 7) mDirection = ePathSixTeenDirection::RightDown3;
-				//else if (degree <  fDivideDegree * 7 && degree >  fDivideDegree * 6) mDirection = ePathSixTeenDirection::RightDown2;
-				//else if (degree <  fDivideDegree * 6 && degree >  fDivideDegree * 5) mDirection = ePathSixTeenDirection::RightDown1;
-				//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = ePathSixTeenDirection::Right;
-				//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSixTeenDirection::RightUp3;
-				//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::RightUp2;
-				//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
 			}
 			else
 			{
@@ -188,15 +173,6 @@ namespace m
 					mDirection = pathPlusEightDirections[n];
 				else
 					mDirection = pathMinusEightDirections[abs(n)];
-				//if (degree > -fDivideDegree && degree < fDivideDegree) mDirection = ePathSixTeenDirection::Up;
-				//else if (degree < -fDivideDegree && degree > -fDivideDegree * 2) mDirection = ePathSixTeenDirection::LeftUp1;
-				//else if (degree < -fDivideDegree * 2 && degree > -fDivideDegree * 3) mDirection = ePathSixTeenDirection::Left;
-				//else if (degree < -fDivideDegree * 3 && degree > -fDivideDegree * 4) mDirection = ePathSixTeenDirection::LeftDown1;
-				//else if (degree < -fDivideDegree * 4 && degree > -fDivideDegree * 5) mDirection = ePathSixTeenDirection::Down;
-				//else if (degree <  fDivideDegree * 5 && degree >  fDivideDegree * 4) mDirection = ePathSixTeenDirection::Down;
-				//else if (degree <  fDivideDegree * 4 && degree >  fDivideDegree * 3) mDirection = ePathSixTeenDirection::RightDown1;
-				//else if (degree <  fDivideDegree * 3 && degree >  fDivideDegree * 2) mDirection = ePathSixTeenDirection::Right;
-				//else if (degree <  fDivideDegree * 2 && degree >  fDivideDegree) mDirection = ePathSixTeenDirection::RightUp1;
 			}
 			if (mDirectionCount == 0)
 			{

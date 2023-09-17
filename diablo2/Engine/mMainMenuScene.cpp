@@ -13,6 +13,7 @@
 #include "mButton.h"
 #include "mBackground.h"
 #include "mBackgroundScript.h"
+#include "mFontWrapper.h"
 
 namespace m
 {
@@ -68,6 +69,9 @@ namespace m
 		Button* btn1 = new Button();
 		AddGameObject(eLayerType::UI, btn1);
 
+		btn1->SetText(L"게임시작");
+		btn1->SetTextSize(30.f);
+		btn1->SetTextColor(Vector4(255.f, 1.f, 255.f, 255.f));
 		SET_MAIN_CAMERA(btn1);
 		SET_MESH(btn1, L"RectMesh");
 		SET_MATERIAL(btn1, L"mWideButtonBlank");

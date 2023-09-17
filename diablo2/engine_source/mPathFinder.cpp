@@ -327,7 +327,7 @@ namespace m
 				return false;
 			}
 
-			Vector3 subPos = GET_POS(subTargetTile);
+			Vector3 subPos = subTargetTile->GetPos();
 
 			Vector3 prevPosition = GET_POS(mOwner);
 			Vector3 destPosition = subPos;
@@ -376,7 +376,7 @@ namespace m
 		Tile* subTargetTile = finalPathVector.front();
 		if (subTargetTile->GetCoord() != TileManager::GetPlayerPositionCoord())
 		{
-			Vector3 subPos = GET_POS(subTargetTile);
+			Vector3 subPos = subTargetTile->GetPos();
 
 			Vector3 prevPosition = GET_POS(mOwner);
 			Vector3 destPosition = subPos;

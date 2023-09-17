@@ -33,10 +33,10 @@ namespace m
 		ComputeTile computeTiles[10000] = {};
 		for(int i = 0 ; i < 10000; ++i)
 		{
-			Vector3 posV3 = GET_POS(TileManager::pathFindingTiles[i / 100][i % 100]);
+			Vector3 posV3 = TileManager::pathFindingTiles[i / 100][i % 100]->GetPos();
 			Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
 			computeTiles[i].tilePosition = pos;
-			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(GET_SCALE(TileManager::pathFindingTiles[i / 100][i % 100]));
+			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(TileManager::pathFindingTiles[i / 100][i % 100]->GetScale());
 			computeTiles[i].tileCoord = Vector2(i % 100, i / 100);
 
 			//computeTiles[i].parentCoord = Vector2(-1.f, -1.f);

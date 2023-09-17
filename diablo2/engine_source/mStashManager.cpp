@@ -651,7 +651,7 @@ namespace m
 		ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(item->GetPrevPosition()), false, item, item->GetStashType());
 
 		eItem ei = item->GetEItem();
-		Vector3 hoverPos = GET_POS(TileManager::hoverTile);
+		Vector3 hoverPos = TileManager::hoverTile->GetPos();
 
 		Scene* curScene = SceneManager::GetActiveScene();
 		Camera* battleCam = curScene->GetSceneMainCamera();

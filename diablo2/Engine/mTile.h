@@ -4,18 +4,12 @@
 
 namespace m
 {
-    class Tile :
-        public GameObject
+    class Tile
     {
     public:
         
         Tile();
         virtual ~Tile();
-
-        virtual void Initialize();
-        virtual void Update();
-        virtual void LateUpdate();
-        virtual void Render();
 
 
         bool GetIsWall() { return isWall; }
@@ -49,9 +43,18 @@ namespace m
 
         void SetSaveMaterial(std::shared_ptr<Material> mat) { saveMaterial = mat; }
         std::shared_ptr<Material> GetSaveMaterial() { return saveMaterial; }
+
+        Vector3 GetPos() { return mPos; }
+        void SetPos(Vector3 pos) { mPos = pos; }
+
+        Vector3 GetScale() { return mScale; }
+        void SetScale(Vector3 scale) { mScale = scale; }
+
     private:
         Tile* mParentTile;
         Vector2 mCoord;
+        Vector3 mPos;
+        Vector3 mScale;
         std::shared_ptr<Material> saveMaterial;
         bool isWall;
         bool onMonster;

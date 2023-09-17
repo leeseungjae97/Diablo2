@@ -73,14 +73,11 @@ namespace m
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
 		Time::Render();
-		FontWrapper::DrawFont(L"TEXT", 10.f, 30.f, 20, FONT_RGBA(255, 0, 255, 255));
-		//HDC hdc2 = GetDC(mHwnd);
-		//DrawText(hdc2, szFloat, iLen, &rt, DT_WORDBREAK);
 
-//#define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
-//		FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
 		//SceneManager::Render();
 		renderer::Render();
+		//FontWrapper::DrawFont(L"게임시작", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
+		//FontWrapper::DrawFont(L"TEST2", 20, 20, 100, FONT_RGBA(255, 0, 255, 255));
 	}
 	void Application::Destroy()
 	{

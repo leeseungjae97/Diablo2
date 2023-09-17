@@ -39,15 +39,44 @@ namespace m
 
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
 		learnedSkill[2][(int)eFireSkillType::meteor] = 1;
+        learnedSkill[2][(int)eFireSkillType::fireWall] = 1;
+
+		learnedSkill[2][(int)eFireSkillType::fireBall] = 0;
+		learnedSkill[2][(int)eFireSkillType::fireMastery] = 0;
+		learnedSkill[2][(int)eFireSkillType::warmth] = 0;
+		learnedSkill[2][(int)eFireSkillType::enchant] = 0;
+
+		learnedSkill[2][(int)eFireSkillType::hydra] = 0;
+		learnedSkill[2][(int)eFireSkillType::inferno] = 0;
+		learnedSkill[2][(int)eFireSkillType::blaze] = 0;
+		
+
 		learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
 		learnedSkill[1][(int)eLightningSkillType::nova] = 1;
+		learnedSkill[1][(int)eLightningSkillType::lightning] = 1;
+
+		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 0;
+		learnedSkill[1][(int)eLightningSkillType::chargedBolt] = 0;
+		learnedSkill[1][(int)eLightningSkillType::lightningMastery] = 0;
+		learnedSkill[1][(int)eLightningSkillType::energyShield] = 0;
+		learnedSkill[1][(int)eLightningSkillType::staticField] = 0;
+		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 0;
+		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 0;
+
 		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
 		learnedSkill[0][(int)eColdSkillType::frostNova] = 1;
 		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
 		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
 
+		learnedSkill[0][(int)eColdSkillType::chillingArmor] = 0;
+		learnedSkill[0][(int)eColdSkillType::clacialSpike] = 0;
+		learnedSkill[0][(int)eColdSkillType::coldMastery] = 0;
+		learnedSkill[0][(int)eColdSkillType::frozenArmor] = 0;
+		learnedSkill[0][(int)eColdSkillType::iceBlast] = 0;
+		learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
+
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::nova);
+		SetSkill(1, eSkillType::lightning);
 	}
 
 	void PlayerManager::CalHpPercent()
