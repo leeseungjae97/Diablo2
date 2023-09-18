@@ -172,6 +172,7 @@
     <ClCompile Include="mAuraScript.cpp">
       <Filter>Script\AuraScript</Filter>
     </ClCompile>
+    <ClCompile Include="mEnemyHpUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -342,6 +343,7 @@
     <ClInclude Include="mAuraScript.h">
       <Filter>Script\AuraScript</Filter>
     </ClInclude>
+    <ClInclude Include="mEnemyHpUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -538,6 +540,9 @@
     </Filter>
     <Filter Include="UI\TextPanel">
       <UniqueIdentifier>{7a7b36c4-3234-4ac2-b87d-d39e2f8863be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EnemyHpUI">
+      <UniqueIdentifier>{86920984-4e6c-4cc9-b0a9-4f7bc51c0f3a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

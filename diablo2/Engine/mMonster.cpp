@@ -13,8 +13,9 @@ namespace m
 		, mMonsterClass(eMonsterClass::Normal)
 		, hp(100.f)
 		, hpCapacity(100.f)
-		, hpPercent(100.f)
 	{
+		hpPercent = (hpCapacity - hp) / hpCapacity;
+
 		MonsterManager::AddMonster(this);
 
 		sightCollider = ADD_COMP(this, Collider2D);
@@ -52,31 +53,17 @@ namespace m
 			SetState(eState::Delete);
 			return;
 		}
-		if (mMonsterClass != eMonsterClass::Boss
-			&& GetBattleState() == eBattleState::Hit)
-		{
-			fStartDistance = fRemainDistance;
-			destPosition = TileManager::GetPlayerPosition();
-		}
-		if (GetBattleState() == eBattleState::Dead
-			|| GetBattleState() == eBattleState::Attack
-			|| GetBattleState() == eBattleState::Cast)
-		{
-			fStartDistance = fRemainDistance;
-			destPosition = TileManager::GetPlayerPosition();
-		}
 
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
-
-		if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if(targetCoord != prevTargetCoord)
 		{
-			bool move = mPathFinder->MonsterMove(this);
-
-			if(!move)
+			if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 			{
+				//bool move = mPathFinder->MonsterMove(this);
+			
 				if (mMonsterClass == eMonsterClass::Boss)
 				{
 					mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
@@ -90,9 +77,35 @@ namespace m
 				prevTargetCoord = targetCoord;
 
 				mPathFinder->PathChange(true);
+				//if (!move)
+				//{
+				//}
 			}
+		}else
+
+		bMove = true;
+		bool mChange = mPathFinder->MonsterMove(this);
+		if(mChange)
+		{
+			bAdjustmentDegree = false;
 		}
 		
+		
+		if (mMonsterClass != eMonsterClass::Boss
+			&& GetBattleState() == eBattleState::Hit)
+		{
+			fStartDistance = fRemainDistance;
+			destPosition = TileManager::GetPlayerPosition();
+			bMove = false;
+		}
+		if (GetBattleState() == eBattleState::Dead
+			|| GetBattleState() == eBattleState::Attack
+			|| GetBattleState() == eBattleState::Cast)
+		{
+			fStartDistance = fRemainDistance;
+			destPosition = TileManager::GetPlayerPosition();
+			bMove = false;
+		}
 
 		float maxX = max(curPosition.x, prevPosition.x);
 		float maxY = max(curPosition.y, prevPosition.y);
@@ -102,26 +115,29 @@ namespace m
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
 
-		//if (rangeCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
-		//{
-		//	
-		//}
-		if(Arrival())
+		if(!bMove)
 		{
-			//fStartDistance = fRemainDistance;
 			destPosition = TileManager::GetPlayerPosition();
 		}
-		if (fRemainDistance < fStartDistance)
+		if (fRemainDistance < fStartDistance && bMove)
 		{
+			SetAdjustmentDegree();
+
 			if (fNASAcc <= 0.f)
 			{
 				fNumericalAdjustmentSpeed = 0.f;
 			}
+
 			float fXFinalSpeed = fXAdjustSpeed + fNumericalAdjustmentSpeed;
 			float fYFinalSpeed = fYAdjustSpeed + fNumericalAdjustmentSpeed;
 			float fMoveX = curPosition.x + (vDirection.x * fXFinalSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fYFinalSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
+		}
+
+		if(bMove)
+		{
+			
 		}
 		//MoveAbleObject::Update();
 	}
@@ -142,10 +158,9 @@ namespace m
 			if (hp - damage < 0) hp = 0;
 			else hp -= damage;
 
-			hpPercent = hpCapacity - hp / hpCapacity;
+			hpPercent = (hpCapacity - hp) / hpCapacity;
 			if(attackStun)
 			    SetHit(true);
 		}
-		
 	}
 }

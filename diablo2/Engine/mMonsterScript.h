@@ -51,6 +51,8 @@ namespace m
 		float GetDegree() { return degree; }
 
 		Aura* GetAura() { return mAura; }
+
+		T GetcurMonsterData() { return curMonsterData; }
 	private:
 		void makeSkillCastAnimation(int type, int direction);
 		void makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos
@@ -59,6 +61,7 @@ namespace m
 
 	private:
 		T curMonsterData;
+
 		std::vector<SHARED_TEX> texs;
 		Animator* mAnimator;
 		T::eAnimationType mAnimationType;

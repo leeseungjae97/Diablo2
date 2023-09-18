@@ -15,7 +15,7 @@ namespace m
 			monster->SetMonsterId(monsters.size() - 1);
 		}
 		static void EraseMonster(Monster* monster);
-		static Monster* GetMonster(int monsterId) { return monsters[monsterId]; }
+		static Monster* GetMonster(int monsterId);
 		static void ClearMonster();
 		static std::vector<Monster*> monsters;
 	private:

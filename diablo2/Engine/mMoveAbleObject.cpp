@@ -35,15 +35,15 @@ namespace m
 
 		, bMove(false)
 
-	    , bMadePath(false)
+		, bMadePath(false)
 
-	    , bCanDamaged(false)
-	    , fCanDamagedDelay(0.f)
+		, bCanDamaged(false)
+		, fCanDamagedDelay(0.f)
 
 		, bSixteenDirection(false)
 
-	    , fNumericalAdjustmentSpeed(0.f)
-	    , bCallSetNumericalAdjustmentSpeed(false)
+		, fNumericalAdjustmentSpeed(0.f)
+		, bCallSetNumericalAdjustmentSpeed(false)
 
 		, bAddiction(false)
 		, fAddictionTime(0.f)
@@ -57,6 +57,8 @@ namespace m
 		, fStunSecond(0.f)
 
 		, mCoord(Vector2(0.f, 0.f))
+
+		, bAdjustmentDegree(false)
 	{
 		SET_POS_VEC(this, iniPos);
 
@@ -111,21 +113,22 @@ namespace m
 	{
 		GameObject::Render();
 		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
-		if(fNASAcc > 0)
+		if (fNASAcc > 0)
 		{
 			mr->SetTrappingColor(Vector4(0.f, 0.f, 10.f, 1.f));
-		}else
+		}
+		else
 		{
 			mr->SetTrappingColor(Vector4(0.f, 0.f, 0.f, 1.f));
 		}
 	}
 
-    void MoveAbleObject::SetNumericalAdjustmentSpeed(float speed, float time)
-    {
+	void MoveAbleObject::SetNumericalAdjustmentSpeed(float speed, float time)
+	{
 		fNASAcc = time;
 		fNumericalAdjustmentSpeed = speed;
 		bCallSetNumericalAdjustmentSpeed = true;
-    }
+	}
 	void MoveAbleObject::Stun(float second)
 	{
 		fStunSecond = second;
@@ -151,8 +154,8 @@ namespace m
 
 	}
 
-    void MoveAbleObject::TimeWaitAttack()
-    {
+	void MoveAbleObject::TimeWaitAttack()
+	{
 		if (!bCanDamaged)
 			fCanDamagedDelay += Time::fDeltaTime();
 
@@ -161,10 +164,10 @@ namespace m
 			bCanDamaged = true;
 			fCanDamagedDelay = 0.f;
 		}
-    }
+	}
 
-    void MoveAbleObject::AttackedAddition()
-    {
+	void MoveAbleObject::AttackedAddition()
+	{
 		if (bAddiction)
 		{
 			fAccAddiction += Time::fDeltaTime();
@@ -182,8 +185,39 @@ namespace m
 				fAccDamage = 0.f;
 			}
 		}
-    }
+	}
+	void MoveAbleObject::SetAdjustmentDegree()
+	{
+		if (!bAdjustmentDegree)
+		{
+			Vector3 _vD = vDirection;
+			float fMoveX1 = _vD.x * fXAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fMoveY1 = _vD.y * fYAdjustSpeed + fNumericalAdjustmentSpeed;
 
+			float fMoveX2 = _vD.x * fXAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fMoveY2 = _vD.y * fXAdjustSpeed + fNumericalAdjustmentSpeed;
+
+			Vector2 m1 = Vector2(fMoveX1, fMoveY1);
+			Vector2 m2 = Vector2(fMoveX2, fMoveY2);
+
+			m1.Normalize();
+			m2.Normalize();
+
+			float m1degree = RadianToDegree(atan2(m1.y, m1.x));
+			float theta = atan2(m1.y, m1.x) - atan2(m2.y, m2.x);
+
+			if (fabs(m1degree) > 90.f)
+			{
+				vDirection.y = _vD.y + sinf(theta * 2);
+			}
+			else
+			{
+				vDirection.y = _vD.y - sinf(theta * 2);
+			}
+			vDirection.Normalize();
+			bAdjustmentDegree = true;
+		}
+	}
 	void MoveAbleObject::damagedDelay()
 	{
 		if (!bCanDamaged) fCanDamagedDelay += Time::fDeltaTime();
@@ -211,26 +245,31 @@ namespace m
 	void MoveAbleObject::adjustmentMovementSpeedAccordingAngle()
 	{
 		//float degree = RadianToDegree(atan2(vDirection.y, vDirection.x));
-		//
+
 		//float degreeWeightIndex = 0.f;
 		//float devideNum = 0.f;
 
-		//if (bSixteenDirection)
+		//if (degree == 0.f)
 		//{
-		//	devideNum = 18.f;
-		//	degreeWeightIndex = degree / (180.f / devideNum);
+		//	fXAdjustSpeed = fSpeed;
+		//	fYAdjustSpeed = fSpeed;
 		//}
 		//else
 		//{
-		//	devideNum = 5.f;
-		//	degreeWeightIndex = degree / (180.f / devideNum);
+		//	if (fabs(degree) <= 90)
+		//	    degree = 90.f + (90.f - fabs(degree));
+
+		//	degreeWeightIndex = 180.f / fabs(degree);
+		//	float adjustmentedSpeed = fSpeed / degreeWeightIndex;
+		//	fXAdjustSpeed = adjustmentedSpeed;
+		//	fYAdjustSpeed = adjustmentedSpeed;
 		//}
+
 		//if (degreeWeightIndex > devideNum - 1.f) degreeWeightIndex = devideNum - 1.f;
-		//float reductionSpeed = fSpeed / 2.f;
-		//float middleDegreeIndex = (devideNum) / 2.f;
+
+		//float middleDegreeIndex = devideNum / 2.f;
 		//float weight = fabs(middleDegreeIndex - fabs(degreeWeightIndex));
 
-		//float adjustmentedSpeed = reductionSpeed / middleDegreeIndex;
 
 		//float minorAxisSpeed = adjustmentedSpeed * weight;
 

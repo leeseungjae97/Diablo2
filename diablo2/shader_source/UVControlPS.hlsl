@@ -19,13 +19,27 @@ float4 main(VSOut In) : SV_TARGET
 {
     float4 color = (float4) 0.0f;
     
-    if (In.UV.y < UVYCoord)
+    if (uvControlType == 1)
     {
-        discard;
+        if (In.UV.y < UVYCoord)
+        {
+            discard;
+        }
+        else
+        {
+            color = albedoTexture.Sample(pointSampler, In.UV);
+        }
     }
-    else
+    if (uvControlType == 2)
     {
-        color = albedoTexture.Sample(pointSampler, In.UV);
+        if (In.UV.x < 1.f - UVYCoord)
+        {
+            color = albedoTexture.Sample(pointSampler, In.UV);
+        }
+        else
+        {
+            discard;
+        }
     }
     
     //float4 lightColor = float4(0.2f, 0.2f, 0.2f, 1.0f);

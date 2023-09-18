@@ -20,12 +20,16 @@ namespace m
 		void SetActiveOwner(GameObject* owner);
 		GameObject* GetActiveOwner() { return mActiveOwner; }
 		void SetSkillCastType(eSkillCastType type);
-	private:
+		void SetLoopSecond(float x) { fLoopSecond = x; }
+
+    private:
 		int mCurIndex;
 		OverlayEffectSkillScript* mOESS;
 		eBattleState mOwnerBattleState;
 		GameObject* mActiveOwner;
 		bool bActiveOverlay;
+		float fLoopSecond;
+		float fAccLoop;
 	};
 }
 

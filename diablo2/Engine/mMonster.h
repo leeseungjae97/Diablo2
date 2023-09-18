@@ -28,7 +28,7 @@ namespace m
         void SetMonsterClass(eMonsterClass _class) { mMonsterClass = _class; }
         eMonsterClass GetMonsterClass() { return mMonsterClass; }
 
-        bool Arrival() { return bPathChange == false ? true : false; }
+        bool Arrival() { return bMove; }
 
         void SetNextMoveCoord(Vector2 coord) { mNextMoveCoord = coord; }
         Vector2 GetNextMoveCoord() { return mNextMoveCoord; }
@@ -36,8 +36,16 @@ namespace m
         Vector2 GetPrevCurCoord() { return prevCurCoord; }
         Vector2 GetTargetCoord() { return prevTargetCoord; }
 
-        void PathChange(bool pc) { bPathChange = pc; }
-        bool GetPathChange() { return bPathChange; }
+        //void PathChange(bool pc) { bPathChange = pc; }
+        //bool GetPathChange() { return bPathChange; }
+
+        void SetMonsterName(const std::wstring monsterName) { wsMonsterName = monsterName; }
+        void SetMonsterHp(float _hp) { hp = _hp; }
+
+        const std::wstring& GetMonsterName() { return wsMonsterName;}
+        float GetMonsterHp() { return hp; }
+
+        float GetMonsterHpPercent() { return hpPercent; }
 
     private:
         Collider2D* sightCollider;
@@ -48,12 +56,14 @@ namespace m
         Vector2 prevCurCoord;
         Vector2 prevTargetCoord;
 
-        bool bPathChange;
+        //bool bPathChange;
 
         int monsterId;
         float hp;
         float hpCapacity;
         float hpPercent;
+
+        std::wstring wsMonsterName;
     };
 }
 

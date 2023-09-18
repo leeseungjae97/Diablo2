@@ -36,8 +36,12 @@ namespace m
 		void SetParent(Transform* transform) { mParent = transform; }
 		Transform* GetParent() { return mParent; }
 
+		void UseRatio() { useTextureRatio = true; }
+
 		Matrix GetWorld() { return mWorld; }
 
+		Vector3 ProjectionPosition();
+		Vector3 ProjectionCetnerPosition(Vector2 fontSize);
 	private:
 		Vector3 mPosition;
 		Vector3 mRotation;
@@ -50,6 +54,8 @@ namespace m
 		Matrix mWorld;
 
 		Transform* mParent;
+
+		bool useTextureRatio;
     };
 }
 

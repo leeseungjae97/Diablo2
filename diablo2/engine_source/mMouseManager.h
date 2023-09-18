@@ -8,8 +8,7 @@ namespace m
 	public:
 		static void SetMouseOnUI(bool onui) { mMouseOnUI = onui; }
 		static bool GetMouseOnUI() { return mMouseOnUI; }
-		static void SetMouseOnMonster(bool onmonster) { mMouseOnMonster = onmonster; }
-		static bool GetMouseOnMonster() { return mMouseOnMonster; }
+		static int GetMouseOnMonsterId() { return mMouseHoverMonsterId; }
 		static void SetMouseHoverMonsterTileCoord(Vector2 monsterCoord) { hoverMonsterTileCoord = monsterCoord; }
 		static Vector2 GetMouseHoverMonsterTileCoord() { return hoverMonsterTileCoord; }
 
@@ -27,6 +26,7 @@ namespace m
 
 		static void UpdateMouseFollow();
 		static void UpdateMouseHoverUI();
+		static void UpdateMouseHoverMonster();
 
 		static InvenItem* GetMouseFollow() { return mMouseFollowItem; }
         static void FreeMouseFollow();
@@ -34,7 +34,8 @@ namespace m
 
     private:
 		static bool mMouseOnUI;
-		static bool mMouseOnMonster;
+		//static bool mMouseOnMonster;
+		static int mMouseHoverMonsterId;
 		static bool bFreeMouse;
 
 		static Vector2 hoverMonsterTileCoord;

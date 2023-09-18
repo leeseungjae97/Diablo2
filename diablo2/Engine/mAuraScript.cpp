@@ -2,6 +2,7 @@
 
 #include "mMaterial.h"
 #include "mMoveAbleObject.h"
+#include "mPlayer.h"
 #include "mTime.h"
 
 namespace m
@@ -83,8 +84,9 @@ namespace m
 			{
 			case eAuraFunctionType::Slow:
 			{
-				dynamic_cast<MoveAbleObject*>(other->GetOwner())->SetNumericalAdjustmentSpeed(fAuraFunctionValue1
-					, fAuraFunctionValue2);
+				if (dynamic_cast<Player*>(other->GetOwner()))
+					dynamic_cast<Player*>(other->GetOwner())->SetNumericalAdjustmentSpeed(fAuraFunctionValue1
+						, fAuraFunctionValue2);
 			}
 			break;
 			default:

@@ -22,7 +22,14 @@ namespace m
 		}
 	}
 
-	void MonsterManager::ClearMonster()
+    Monster* MonsterManager::GetMonster(int monsterId)
+    {
+		if(monsters.size() <= monsterId) return nullptr;
+
+		return monsters[monsterId];
+    }
+
+    void MonsterManager::ClearMonster()
 	{
 		if (!monsters.empty()) monsters.clear();
 	}

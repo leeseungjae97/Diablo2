@@ -26,8 +26,8 @@ namespace m
         StraightScript* ss;
         float limitDistance;
         bool useLimit;
-
         float moveDistance;
+        bool l;
     };
 }
 

@@ -167,6 +167,7 @@
     <ClInclude Include="mBackgroundScript.h" />
     <ClInclude Include="mBottomUI.h" />
     <ClInclude Include="mBuffScript.h" />
+    <ClInclude Include="mEnemyHpUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
     <ClInclude Include="mSkillAbnormal.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="mBackgroundScript.cpp" />
     <ClCompile Include="mBottomUI.cpp" />
     <ClCompile Include="mBuffScript.cpp" />
+    <ClCompile Include="mEnemyHpUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
     <ClCompile Include="mSkillAbnormal.cpp" />

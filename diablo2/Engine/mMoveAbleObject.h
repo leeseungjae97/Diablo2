@@ -69,6 +69,8 @@ namespace m
 		void Stun(float second);
 		bool GetStun() { return bStun; }
 
+		void SetAdjustmentDegree();
+
 		virtual void TimeWaitAttack();
 		virtual void AttackedAddition();
 	private:
@@ -121,6 +123,8 @@ namespace m
 		int fAddictionTickCount;
 		int fAccDamage;
 		int iAddictionDamage;
+
+		bool bAdjustmentDegree;
 	};
 }
 

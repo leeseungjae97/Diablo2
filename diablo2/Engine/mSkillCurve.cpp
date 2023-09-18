@@ -63,6 +63,7 @@ namespace m
 		if (bSkillFire)
 		{
 			if(ss)
+
 			    ss->SkillFire();
 
 			bSkillFire = false;

@@ -13,8 +13,10 @@ namespace m
 			return false;
 
 		ID3D11Device* pDevice = graphics::GetDevice()->GetID3D11Device();
-		if (FAILED(mFW1Factory->CreateFontWrapper(pDevice, L"Arial", &mFontWrapper)))
-			return false;
+		HRESULT hr = S_OK;
+		hr = (mFW1Factory->CreateFontWrapper(pDevice, L"HYGothic", &mFontWrapper));
+		//if(FAILED(hr)) hr = (mFW1Factory->CreateFontWrapper(pDevice, L"Arial", &mFontWrapper));
+
 
 		return true;
 	}
@@ -39,7 +41,19 @@ namespace m
 		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 
-	void FontWrapper::Release()
+    Vector2 FontWrapper::GetTextSize(const wchar_t* str, float size)
+    {
+		FW1_RECTF measuredSize(0, 0, 0, 0);
+
+		FW1_RECTF mSize = mFontWrapper->MeasureString(str, L"HYGothic", size, &measuredSize, FW1_NOWORDWRAP);
+		FLOAT width = mSize.Right - mSize.Left;
+		FLOAT height = mSize.Bottom - mSize.Top;
+		height += 5.f;
+		width += 5.f;
+		return Vector2(width, height);
+    }
+
+    void FontWrapper::Release()
 	{
 		mFW1Factory->Release();
 		mFW1Factory = nullptr;

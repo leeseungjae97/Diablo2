@@ -29,12 +29,18 @@
 					GET_TEX(object, p);
 						  
 
-#define SET_SCALE_TEX_SIZE_WITH_RAT(object, tex, z) GET_TRANS(object)->SetScale(Vector3(tex->GetMetaDataWidth() * Texture::GetWidRatio(), tex->GetMetaDataHeight() * Texture::GetHeiRatio(), z))
+#define SET_SCALE_TEX_SIZE_WITH_RAT(object, tex, z) GET_TRANS(object)->SetScale(Vector3(tex->GetMetaDataWidth() * Texture::GetWidRatio(), tex->GetMetaDataHeight() * Texture::GetHeiRatio(), z));\
+                                                    GET_TRANS(object)->UseRatio();\
+
 #define SET_SCALE_TEX_SIZE(object, tex, z) GET_TRANS(object)->SetScale(Vector3(tex->GetMetaDataWidth(), tex->GetMetaDataHeight(), z))
 #define SET_SCALE_XYZ(object, width, height, z) GET_TRANS(object)->SetScale(Vector3(width, height, z))
-#define SET_SCALE_XYZ_WITH_RAT(object, width, height, z) GET_TRANS(object)->SetScale(Vector3(width * Texture::GetWidRatio(), height * Texture::GetHeiRatio(), z))
+#define SET_SCALE_XYZ_WITH_RAT(object, width, height, z) GET_TRANS(object)->SetScale(Vector3(width * Texture::GetWidRatio(), height * Texture::GetHeiRatio(), z));\
+                                                        GET_TRANS(object)->UseRatio();\
+
 #define SET_SCALE_VEC(object, vector) GET_TRANS(object)->SetScale(vector)
-#define SET_SCALE_VEC_WTTH_RAT(object, vector) GET_TRANS(object)->SetScale(Vector3(vector.x * Texture::GetWidRatio(), vector.y * Texture::GetHeiRatio(), vector.z))
+#define SET_SCALE_VEC_WTTH_RAT(object, vector) GET_TRANS(object)->SetScale(Vector3(vector.x * Texture::GetWidRatio(), vector.y * Texture::GetHeiRatio(), vector.z));\
+                                               GET_TRANS(object)->UseRatio();\
+
 #define SET_SCALE_FULL(object, z) GET_TRANS(object)->SetScale(Vector3(RESOL_WID, RESOL_HEI, z));
 #define SET_SCALE_WIDTH_TH(object, width, tex, z) GET_TRANS(object)->SetScale(Vector3(width, tex->GetMetaDataHeight() * Texture::GetHeiRatio(), z))
 #define SET_SCALE_HEIGHT_TW(object), height, tex, z) GET_TRANS(object)->SetScale(Vector3(tex->GetMetaDataWidth() * Texture::GetWidRatio(), height, z))

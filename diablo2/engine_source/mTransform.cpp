@@ -14,6 +14,7 @@ namespace m
 		, mFoward(Vector3::Forward)
 		, mRight(Vector3::Right)
 		, mUp(Vector3::Up)
+	    , useTextureRatio(false)
 	{}
 
 	Transform::~Transform()
@@ -90,4 +91,39 @@ namespace m
 		cb->Bind(eShaderStage::PS);
 		cb->Bind(eShaderStage::CS);
 	}
+
+    Vector3 Transform::ProjectionPosition()
+    {
+		Matrix proj = Matrix::Identity;
+		Matrix view = Matrix::Identity;
+
+		if (nullptr == GetOwner()->GetCamera())
+		{
+			proj = Camera::GetProjectionMatrix();
+			view = Camera::GetViewMatrix();
+		}
+		else
+		{
+			proj = GetOwner()->GetCamera()->GetPrivateProjectionMatrix();
+			view = GetOwner()->GetCamera()->GetPrivateViewMatrix();
+		}
+		Viewport viewport = {
+		0.f,
+		0.f,
+		RESOL_WID,
+		RESOL_HEI,
+		10.f,
+	-1.f,
+		};
+		return viewport.Project(mPosition, proj, view, Matrix::Identity);
+    }
+
+    Vector3 Transform::ProjectionCetnerPosition(Vector2 fontSize)
+    {
+		Vector3 centerPos = ProjectionPosition();
+		centerPos.y -= fontSize.y / 2.f;
+		centerPos.x -= fontSize.x / 2.f;
+
+		return centerPos;
+    }
 }

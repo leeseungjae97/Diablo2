@@ -136,7 +136,7 @@ namespace m
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end()) 
 			return;
 	
-		collidereds.emplace_back(other);
+		collidereds.push_back(other);
 
 		SetEnter();
 		const std::vector<Script*>& scripts

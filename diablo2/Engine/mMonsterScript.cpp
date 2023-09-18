@@ -23,21 +23,21 @@ namespace m
 	MonsterScript<T>::MonsterScript()
 		: mAnimator(nullptr)
 		, mSkill(nullptr)
-		, mMonster(nullptr)
-		, mClass(eMonsterClass::Normal)
-		, bFire(false)
-		, fAttackDelay(0.f)
-		, mDirection(0)
+		, mSkillBuff(nullptr), skillMake(false)
 		, iCurSkillIndex(0)
-		, skillMake(false)
 		, mLeftHand(nullptr)
 		, mRightHand(nullptr)
-	    , mAura(nullptr)
+		, mAura(nullptr), mMonster(nullptr)
+		, mClass(eMonsterClass::Normal), mDirection(0), mPlusDirections(nullptr), mMinusDirections(nullptr)
+		, animStrings(nullptr)
+		, bFire(false)
+		, fAttackDelay(0.f)
+		, degree(0)
 
 	{
-		curMonsterData = T{};
 		mClass = curMonsterData.mClass;
 	}
+
 	template <typename T>
 	MonsterScript<T>::~MonsterScript()
 	{
@@ -51,7 +51,7 @@ namespace m
 		Scene* curScene = SceneManager::GetActiveScene();
 		Monster* monster = dynamic_cast<Monster*>(GetOwner());
 
-		if(curMonsterData.passiveAura != eAuraType::End)
+		if (curMonsterData.passiveAura != eAuraType::End)
 		{
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
 			curScene->AddGameObject(eLayerType::Aura, mAura);
@@ -95,7 +95,7 @@ namespace m
 			{
 				if (!curMonsterData.bPathImage) m = eEightDirection[j];
 				else m = j;
-				if(curMonsterData.textureString[i] == L"diabloSpecial1")
+				if (curMonsterData.textureString[i] == L"diabloSpecial1")
 				{
 					int a = 0;
 				}
@@ -178,17 +178,17 @@ namespace m
 
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Idle
 			|| mMonster->GetBattleState() == GameObject::eBattleState::Run
-			&& (nullptr == mSkill && nullptr == mSkillBuff))
+			/*&& (nullptr == mSkill && nullptr == mSkillBuff)*/)
 		{
 			int selectSpecialSkillBranshNum = rand() % 1000;
-			if(selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
+			if (selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special1
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special3
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
 				)
 			{
-			    if(curMonsterData.textureString[selectSpecialSkillBranshNum] != L"")
+				if (curMonsterData.textureString[selectSpecialSkillBranshNum] != L"")
 					SpecialAttackAnimation(selectSpecialSkillBranshNum);
 			}
 		}
@@ -278,7 +278,7 @@ namespace m
 	void MonsterScript<T>::AttackAnimation()
 	{
 		if (mMonster->GetBattleState() != GameObject::eBattleState::Idle) return;
-		
+
 
 		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
@@ -319,23 +319,25 @@ namespace m
 	template <typename T>
 	Collider2D* MonsterScript<T>::getSkillActiveCollider()
 	{
+		Monster* owner = dynamic_cast<Monster*>(GetOwner());
+		if (nullptr == owner) return nullptr;
 		switch (curMonsterData.mSkillActiveColliderType[iCurSkillIndex])
 		{
 		case eColliderFunctionType::Sight:
 		{
-			return mMonster->GetSightCollider();
+			return owner->GetSightCollider();
 		}
 		case eColliderFunctionType::Range:
 		{
-			return mMonster->GetRangeCollider();
+			return owner->GetRangeCollider();
 		}
 		case eColliderFunctionType::HitArea:
 		{
-			return mMonster->GetHitAreaCollider();
+			return owner->GetHitAreaCollider();
 		}
 		default:
 		{
-			return mMonster->GetSightCollider();
+			return owner->GetSightCollider();
 		}
 		}
 	}
@@ -346,7 +348,7 @@ namespace m
 
 		Collider2D* speiclaAttackCollider = getSkillActiveCollider();
 
-		if (speiclaAttackCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if (mMonster->GetSightCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			GetOwner()->SetBattleState(GameObject::Cast);
 			mAnimationType = static_cast<T::eAnimationType>(skillIndex);
@@ -360,8 +362,8 @@ namespace m
 				mAnimator->PlayAnimation(curMonsterData.animationString[skillIndex] + animStrings[mDirection]
 					, curMonsterData.bSpecialSkillLoop[skillIndex - (int)T::eAnimationType::SpecialCast]);
 
-				if(curMonsterData.animStartIndex[skillIndex] != 0)
-				    mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[skillIndex]);
+				if (curMonsterData.animStartIndex[skillIndex] != 0)
+					mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[skillIndex]);
 			}
 		}
 	}
@@ -486,10 +488,6 @@ namespace m
 			else
 			{
 				iCurSkillIndex = type - (int)T::eAnimationType::SpecialCast;
-				if(type != 7)
-				{
-					int a = 0;
-				}
 				eSkillType skilltype = curMonsterData.mSpecialSkills[iCurSkillIndex];
 				if (skilltype != eSkillType::END)
 				{
@@ -505,8 +503,13 @@ namespace m
 		mAnimator->EndEvent(curMonsterData.animationString[type] + animStrings[direction])
 			= [=]()
 		{
-			mMonster->SetBattleState(GameObject::eBattleState::Idle);
-			skillMake = false;
+			int mIndex = type - (int)T::eAnimationType::SpecialCast;
+			if(!curMonsterData.bSpecialSkillLoop[mIndex])
+			{
+				mMonster->SetBattleState(GameObject::eBattleState::Idle);
+				skillMake = false;
+			}
+			
 		};
 	}
 	template<typename T>

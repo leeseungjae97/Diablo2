@@ -267,12 +267,18 @@ namespace m
 			{
 				TileManager::playerStandTile = TileManager::pathFindingTiles[playerCoord.y][playerCoord.x];
 			}
-			//int id = mCoordData->hoverMonsterId;
+
+		 //   int id = mCoordData->hoverMonsterId;
 			//if(id != -1)
 			//{
 			//	MouseManager::SetMouseHoverMonsterId(id);
 			//	Vector2 coord = MonsterManager::monsters[id]->GetCoord();
-			//	MouseManager::SetMouseHoverMonsterTileCoord(coord);
+			//	if (coord != Vector2(-1.f, -1.f)
+			//		&& coord.x < TileManager::tileXLen
+			//		&& coord.y < TileManager::tileYLen)
+			//	{
+			//		MouseManager::SetMouseHoverMonsterTileCoord(coord);
+			//	}
 			//}
 		}
 	}

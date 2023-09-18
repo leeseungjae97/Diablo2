@@ -71,7 +71,7 @@ namespace m
 
 		btn1->SetText(L"게임시작");
 		btn1->SetTextSize(30.f);
-		btn1->SetTextColor(Vector4(255.f, 1.f, 255.f, 255.f));
+		btn1->SetTextColor(Vector4(255.f, 255.f, 255.f, 255.f));
 		SET_MAIN_CAMERA(btn1);
 		SET_MESH(btn1, L"RectMesh");
 		SET_MATERIAL(btn1, L"mWideButtonBlank");

@@ -77,8 +77,8 @@ namespace m
 		}
 		else
 		{
-			if (mMonsterOwner->GetPathChange() == false
-				&& mStartCoord == startCoord 
+			if (/*mMonsterOwner->GetPathChange() == false
+				&&*/ mStartCoord == startCoord 
 				&& mTargetCoord == targetCoord)
 			{
 				return;
@@ -296,11 +296,11 @@ namespace m
 				if (!finalPathVector.empty())
 					finalPathVector.pop_back();
 			}
-			if (mMonsterOwner)
-			{
-				if (!finalPathVector.empty()) mMonsterOwner->PathChange(true);
-				else mMonsterOwner->PathChange(false);
-			}
+			//if (mMonsterOwner)
+			//{
+				//if (!finalPathVector.empty()) mMonsterOwner->PathChange(true);
+				//else mMonsterOwner->PathChange(false);
+			//}
 			if (finalPathVector.empty()) return false;
 
 			return true;

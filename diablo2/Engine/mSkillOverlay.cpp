@@ -5,10 +5,14 @@
 
 #include "mPlayerManager.h"
 #include "mMonster.h"
+#include "mTime.h"
+
 namespace m
 {
 	SkillOverlay::SkillOverlay(int index, eSkillCastType ecType)
 		: mCurIndex(index)
+	    , fLoopSecond(0.f)
+	    , fAccLoop(0.f)
 	{
 		ADD_COMP(this, MeshRenderer);
 		ADD_COMP(this, Animator);
@@ -39,6 +43,14 @@ namespace m
 	void SkillOverlay::Update()
 	{
 		GameObject::Update();
+		fAccLoop += Time::fDeltaTime();
+		if(fLoopSecond != 0.f && fAccLoop >= fLoopSecond)
+		{
+			fAccLoop = 0.f;
+			fLoopSecond = 0.f;
+			mOESS->StopOverlaySkill();
+			bActiveOverlay = false;
+		}
 		if (bActiveOverlay)
 		{
 			mOESS->PlayOverlaySkill();

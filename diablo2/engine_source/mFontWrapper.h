@@ -23,8 +23,9 @@ namespace m
 	public:
 		static bool Initialize();
 		static void DrawFont(const wchar_t* str, float x, float y, float size, UINT rgb);
+		static Vector2 GetTextSize(const wchar_t* str, float size);
+		//static Vector2 GetDrawFontSize();
 		static void Release();
-
 
 	private:
 		static IFW1Factory* mFW1Factory;

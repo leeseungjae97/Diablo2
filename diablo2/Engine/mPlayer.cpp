@@ -5,6 +5,7 @@
 #include "mTime.h"
 #include "mCamera.h"
 #include "mApplication.h"
+#include "mFontWrapper.h"
 #include "mMonsterManager.h"
 #include "mMouseManager.h"
 #include "mTrappingColor.h"
@@ -129,9 +130,14 @@ namespace m
 	
 		if (fRemainDistance < fStartDistance && !bStun)
 		{
+			bAdjustmentDegree = false;
+			SetAdjustmentDegree();
+
 			if(fNASAcc <= 0.f)
 			{
 				fNumericalAdjustmentSpeed = 0.f;
+				
+				//SetAdjustmentDegree();
 			}
 
 			float fXFinalSpeed = fXAdjustSpeed + fNumericalAdjustmentSpeed;
@@ -149,6 +155,17 @@ namespace m
 	void Player::Render()
 	{
 		MoveAbleObject::Render();
+
+		wchar_t szFloat[100] = {};
+		swprintf_s(szFloat, 100, L"Player Coord(x) : %f\n Player Coord(y) : %f"
+			, TileManager::GetPlayerPositionCoord().x, TileManager::GetPlayerPositionCoord().y);
+
+		FontWrapper::DrawFont(szFloat, 10, 10, 10.f, FONT_RGBA(255, 0, 255, 255));
+
+		swprintf_s(szFloat, 100, L"Player Position(x) : %f\n Player Position(y) : %f"
+			, TileManager::GetPlayerPosition().x, TileManager::GetPlayerPosition().y);
+
+		FontWrapper::DrawFont(szFloat, 10, 40, 10.f, FONT_RGBA(255, 0, 255, 255));
 	}
 
 	//void Player::timeWaitAttack()

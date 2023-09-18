@@ -25,8 +25,11 @@ namespace m
 
         void SetAddiction();
         void SetOrigin();
+
+        void SetMType(int type) { mType = type; }
     private:
         float mUVCoord;
+        int mType;
         std::shared_ptr<graphics::Material> mAddictionMaterial;
         std::shared_ptr<graphics::Material> mOriginMaterial;
     };

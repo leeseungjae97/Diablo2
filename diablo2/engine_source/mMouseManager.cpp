@@ -4,6 +4,7 @@
 #include "mScene.h"
 #include "mLayer.h"
 #include "mApplication.h"
+#include "mMonsterManager.h"
 #include "mUI.h"
 
 #include "../Engine/mInvenItem.h"
@@ -12,7 +13,7 @@ extern m::Application application;
 namespace m
 {
 	bool MouseManager::mMouseOnUI = false;
-	bool MouseManager::mMouseOnMonster = false;
+	int MouseManager::mMouseHoverMonsterId = -1;
 	bool MouseManager::bFreeMouse = false;
 
 	Vector2 MouseManager::hoverMonsterTileCoord = Vector2(-1.f, -1.f);
@@ -53,6 +54,7 @@ namespace m
 		if (bFreeMouse) FreeMouseFollow();
 		UpdateMouseHoverUI();
 		UpdateMouseFollow();
+		UpdateMouseHoverMonster();
 	}
 	void MouseManager::MouseOut()
 	{
@@ -65,6 +67,21 @@ namespace m
 		Vector3 unprojMousePos = UnprojectionMousePos(pos.z, mMouseFollowItem->GetCamera());
 		unprojMousePos.z = pos.z;
 		SET_POS_VEC(mMouseFollowItem, unprojMousePos);
+	}
+	void MouseManager::UpdateMouseHoverMonster()
+	{
+		for (auto monster : MonsterManager::monsters)
+		{
+			if (nullptr == monster ||
+				monster->GetState() != GameObject::eState::RenderUpdate) continue;
+
+			if (monster->GetHover())
+			{
+				mMouseHoverMonsterId= monster->GetMonsterId();
+				return;
+			}
+		}
+		mMouseHoverMonsterId = -1;
 	}
 
 	void MouseManager::UpdateMouseHoverUI()

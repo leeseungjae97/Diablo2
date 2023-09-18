@@ -198,6 +198,7 @@ namespace m
 			,eSkillType::END
 			,eSkillType::END
 		};
+		const std::wstring wsMonsterName = L"";
 
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
@@ -266,6 +267,8 @@ namespace m
 		};
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
+
+		const std::wstring wsMonsterName = L"발록";
 
 		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
 
@@ -426,17 +429,19 @@ namespace m
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::DiabloLightning
 			,eSkillType::DiabloFireNova
-			,eSkillType::fireWall
+			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 		};
 		eColliderFunctionType mSkillActiveColliderType[5] = {
 		    eColliderFunctionType::Sight
 	        , eColliderFunctionType::Sight
-	        , eColliderFunctionType::Sight
+	        , eColliderFunctionType::End
 	        , eColliderFunctionType::End
 	        , eColliderFunctionType::End
 		};
+		const std::wstring wsMonsterName = L"디아블로";
+
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
 		bool bSpecialSkillLoop[5] = {true,false, false, false, false};
@@ -615,6 +620,8 @@ namespace m
 		};
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
+
+		const std::wstring wsMonsterName = L"안다리엘";
 
 		eColliderFunctionType mSkillActiveColliderType[5] = { eColliderFunctionType::Sight
 			, eColliderFunctionType::End
@@ -798,7 +805,7 @@ namespace m
 		};
 		eAuraType passiveAura = eAuraType::HolyFreeze;
 		Vector2 auraOffSet = Vector2(0.f, -30.f);
-
+		const std::wstring wsMonsterName = L"두리엘";
 		eColliderFunctionType mSkillActiveColliderType[5] = {
 	        eColliderFunctionType::Range
 	        , eColliderFunctionType::End
@@ -976,18 +983,19 @@ namespace m
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
 
+		const std::wstring wsMonsterName = L"메피스토";
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::lightning
 			,eSkillType::chargedBolt
-			,eSkillType::blizzard
-			,eSkillType::frostNova
+			,eSkillType::END
+			,eSkillType::END
 			,eSkillType::END
 		};
 		eColliderFunctionType mSkillActiveColliderType[5] = {
 	        eColliderFunctionType::Sight
 	        , eColliderFunctionType::Sight
-	        , eColliderFunctionType::Sight
-	        , eColliderFunctionType::Sight
+	        , eColliderFunctionType::End
+	        , eColliderFunctionType::End
 	        , eColliderFunctionType::End
 		};
 		eAuraType passiveAura = eAuraType::End;

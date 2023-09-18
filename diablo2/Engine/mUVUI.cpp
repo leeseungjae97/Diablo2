@@ -8,6 +8,7 @@ namespace m
 {
 	UVUI::UVUI()
 		: mUVCoord(0.0f)
+	    , mType(1)
 	{
 		mAddictionMaterial = RESOURCE_FIND(graphics::Material, L"addictionHp");
 	}
@@ -30,7 +31,7 @@ namespace m
 	{
 		renderer::UVControlCB data = {};
 		data.UVYCoord = mUVCoord;
-		data.uvControlType = 1;
+		data.uvControlType = mType;
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::UVControl];
 		cb->SetData(&data);
 

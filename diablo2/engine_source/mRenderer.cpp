@@ -785,8 +785,10 @@ namespace renderer
 		MAKE_MATERIAL(UVControlShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + UVControlShader->GetKey());
 		MAKE_MATERIAL(tileDrawShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + tileDrawShader->GetKey());
 #pragma endregion
+#pragma region InGame User Interface
+		MAKE_MATERIAL(UVControlShader, L"enemy_hp", L"..\\Resources\\texture\\ui\\play\\enemy_hp.png", L"enemyHp");
+#pragma endregion
 #pragma region Items
-
 		MAKE_MATERIAL(noLightShader, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
 		MAKE_MATERIAL(noLightShader, L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png", itemNameTable[(int)eItem::mpPosion1]);
 		MAKE_MATERIAL(noLightShader, L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png", itemNameTable[(int)eItem::jaredsStone]);
