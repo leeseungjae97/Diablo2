@@ -15,11 +15,13 @@ namespace m
         virtual void Render() override;
 
         void SetAbnormalCollider(Collider2D* col) { mAbnormalCollider = col; }
+        bool GetStatusAbnormal() { return bStatusAnomaly; }
     private:
         void abnormalAttack();
 
     private:
         Collider2D* mAbnormalCollider;
+        bool bStatusAnomaly;
     };
 }
 

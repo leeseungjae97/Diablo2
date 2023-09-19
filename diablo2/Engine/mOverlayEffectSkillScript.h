@@ -22,7 +22,7 @@ namespace m
         void UpdateOverlaySkill();
 
         void PlayOverlaySkill() { bPlaySkill = true; }
-        void StopOverlaySkill() { bPlaySkill = false; }
+        void StopOverlaySkill();
         bool GetPlayOverLaySkill() { return bPlaySkill; }
 
         bool IsPlayHit() { return bHit; }

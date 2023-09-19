@@ -394,11 +394,15 @@ namespace m
 			Vector3 vDirection = destPosition - prevPosition;
 			vDirection.Normalize();
 			mOwner->SetDirection(vDirection);
+
+			mOwner->AdDegree();
+			mOwner->SetAdjustmentDegree();
 		}
 		else
 		{
 			std::erase(finalPathVector, finalPathVector.front());
+			return true;
 		}
-		return true;
+		return false;
 	}
 }

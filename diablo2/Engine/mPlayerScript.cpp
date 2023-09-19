@@ -370,10 +370,10 @@ namespace m
 			break; 
 		case m::eSkillFunctionType::Orb:
 		{
-			skill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType]);
+			skill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
 			skill->SetCamera(GetOwner()->GetCamera()); 
 			skill->SkillFire(); 
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, skill); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
 		}
 			break; 
 		case m::eSkillFunctionType::None:

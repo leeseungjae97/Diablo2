@@ -71,7 +71,7 @@ namespace m
 		SkillScript::Update();
 		if(bAtiveAffectOverlay)
 		{
-			ADD_COMP(GetOwner(), Collider2D);
+			//ADD_COMP(GetOwner(), Collider2D);
 			bAtiveAffectOverlay = false;
 			mAnimator->PlayAnimation(affectOverlayNames[(int)mOverlayType] + L"anim", true);
 		}

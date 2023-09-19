@@ -37,11 +37,10 @@ namespace m
 		ADD_COMP(player, Animator);
 		//player->AddComponent<OverlayEffectSkillScript>(1);
 
-		learnedSkill[2][(int)eFireSkillType::fireBolt] = 0;
-		learnedSkill[2][(int)eFireSkillType::meteor] = 0;
-        learnedSkill[2][(int)eFireSkillType::fireWall] = 0;
-
-		learnedSkill[2][(int)eFireSkillType::fireBall] = 0;
+		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
+		learnedSkill[2][(int)eFireSkillType::meteor] = 1;
+        learnedSkill[2][(int)eFireSkillType::fireWall] = 1;
+		learnedSkill[2][(int)eFireSkillType::fireBall] = 1;
 
 		learnedSkill[2][(int)eFireSkillType::fireMastery] = 0;
 		learnedSkill[2][(int)eFireSkillType::warmth] = 0;
@@ -52,9 +51,9 @@ namespace m
 		learnedSkill[2][(int)eFireSkillType::blaze] = 0;
 		
 
-		learnedSkill[1][(int)eLightningSkillType::teleport] = 0;
-		learnedSkill[1][(int)eLightningSkillType::nova] = 0;
-		learnedSkill[1][(int)eLightningSkillType::lightning] = 0;
+		learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
+		learnedSkill[1][(int)eLightningSkillType::nova] = 1;
+		learnedSkill[1][(int)eLightningSkillType::lightning] = 1;
 
 		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 0;
 		learnedSkill[1][(int)eLightningSkillType::staticField] = 0;
@@ -66,13 +65,12 @@ namespace m
 		learnedSkill[1][(int)eLightningSkillType::energyShield] = 0;
 		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 0;
 
-		learnedSkill[0][(int)eColdSkillType::blizzard] = 0;
-		learnedSkill[0][(int)eColdSkillType::frostNova] = 0;
-		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 0;
-		learnedSkill[0][(int)eColdSkillType::iceBolt] = 0;
-
-		learnedSkill[0][(int)eColdSkillType::clacialSpike] = 0;
-		learnedSkill[0][(int)eColdSkillType::iceBlast] = 0;
+		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
+		learnedSkill[0][(int)eColdSkillType::frostNova] = 1;
+		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
+		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
+		learnedSkill[0][(int)eColdSkillType::clacialSpike] = 1;
+		learnedSkill[0][(int)eColdSkillType::iceBlast] = 1;
 
 
 		learnedSkill[0][(int)eColdSkillType::chillingArmor] = 0;

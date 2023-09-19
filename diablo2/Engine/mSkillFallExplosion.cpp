@@ -84,6 +84,7 @@ namespace m
 			if (mSkillType == eSkillType::meteor)
 			{
 				bAfterFall = true;
+				
 				activeAffectOverlay();
 			}
 		}

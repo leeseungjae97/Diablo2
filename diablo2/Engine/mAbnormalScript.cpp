@@ -49,7 +49,7 @@ namespace m
 
                     if (ps->GetStun()) return;
 
-                    ps->SetStun(0.5f);
+                    ps->SetStun(2.f);
                     SET_SCALE_XYZ(ps->GetHSO()
                         , crashSizes[(int)sct].x
                         , crashSizes[(int)sct].y
@@ -58,7 +58,8 @@ namespace m
                     OverlayEffectSkillScript* mOESS = ps->GetHSO()->GetComponent<OverlayEffectSkillScript>();
                     mOESS->SetSkillType(type);
                     ps->GetHSO()->ActiveOverlay();
-                    //ps->GetHSO()->SetLoopSecond(0.5f);
+                    ps->GetHSO()->SetLoopSecond(2.0f);
+                    bStatusAnomaly = true;
                 }
             }
         }

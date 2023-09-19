@@ -34,11 +34,11 @@ namespace m
 			, 0.03f
 			, 0.8f
 		);
-		mAnimator->PlayAnimation(L"noneRectAnim", true);
+		mAnimator->PlayAnimation(L"noneRectAnim", false);
 	}
 	void OverlayEffectSkillScript::Update()
 	{
-		if (mAnimator->GetActiveAnimation()->IsComplete())mAnimator->PlayAnimation(L"noneRectAnim", true);
+		if (mAnimator->GetActiveAnimation()->IsComplete()) mAnimator->PlayAnimation(L"noneRectAnim", false);
 		if (bPlaySkill)
 		{
 			UpdateOverlaySkill();
@@ -108,10 +108,10 @@ namespace m
 					, 0.03f
 					, 0.8f
 				);
-			}
-			if(mCastType != eSkillCastType::END)
-			{
-
+				//mAnimator->EndEvent(crashNames[(int)crashType] + L"anim") = [=]()
+				//{
+				//	mAnimator->PlayAnimation(L"noneRectAnim", true);
+				//};
 			}
 		}
 		else
@@ -133,6 +133,18 @@ namespace m
 				, 0.03f
 				, 0.8f
 			);
+			//mAnimator->EndEvent(castNames[(int)castType] + L"anim") = [=]()
+			//{
+			//	mAnimator->PlayAnimation(L"noneRectAnim", false);
+			//};
 		}
+		
 	}
+
+    void OverlayEffectSkillScript::StopOverlaySkill()
+    {
+		if (nullptr == mAnimator) return;
+
+		mAnimator->PlayAnimation(L"noneRectAnim", false);
+    }
 }

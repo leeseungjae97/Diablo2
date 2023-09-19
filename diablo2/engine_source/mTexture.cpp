@@ -113,12 +113,9 @@ namespace m::graphics
 			Vector2 pos = texturePosition[index];
 			++index;
 
-			if (pos == Vector2(-1.f, -1.f)) continue;
-
+			if (pos == Vector2(-99.f, -99.f)) continue;
 			UINT wid = perWidth * (UINT)pos.x;
 			UINT hei = perHeight * (UINT)pos.y;
-
-
 
 			CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height),
 				*atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, wid, hei);

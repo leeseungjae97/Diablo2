@@ -62,12 +62,25 @@ namespace m
 			}
 		}
 		if(bAddiction) mHp->SetAddiction();
-		fNASAcc -= Time::fDeltaTime();
+
+		if(bCallSetNumericalAdjustmentSpeed)
+		{
+			fNASAcc -= Time::fDeltaTime();
+			if(fNASAcc <= 0.f)
+			{
+				fNumericalAdjustmentSpeed = 0.f;
+				bCallSetNumericalAdjustmentSpeed = false;
+			}
+		}
+		
 
 		TimeWaitAttack();
 		AttackedAddition();
 		
-		mPathFinder->PlayerMove(this);
+		if(mPathFinder->PlayerMove(this))
+		{
+			
+		}
 
 		mPathFinder->AstarPathFinding(curCoord, targetCoord);
 		if (!MouseManager::GetMouseOnUI()
@@ -109,6 +122,8 @@ namespace m
 
 					vDirection = destPosition - prevPosition;
 					vDirection.Normalize();
+					AdDegree();
+					SetAdjustmentDegree();
 				}
 			}
 		}
@@ -127,21 +142,12 @@ namespace m
 		//{
 		//	fSpeed = 0.0f;
 		//}
+
 	
 		if (fRemainDistance < fStartDistance && !bStun)
 		{
-			bAdjustmentDegree = false;
-			SetAdjustmentDegree();
-
-			if(fNASAcc <= 0.f)
-			{
-				fNumericalAdjustmentSpeed = 0.f;
-				
-				//SetAdjustmentDegree();
-			}
-
 			float fXFinalSpeed = fXAdjustSpeed + fNumericalAdjustmentSpeed;
-			float fYFinalSpeed = fYAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fYFinalSpeed = fYAdjustSpeed + (fNumericalAdjustmentSpeed / 2.f);
 			float fMoveX = curPosition.x + (vDirection.x * fXFinalSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fYFinalSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);

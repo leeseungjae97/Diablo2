@@ -18,6 +18,7 @@ namespace m
 	{
 		IceCrash1,
 		IceCrash2,
+		IceCrash3,
 		FireCrash1,
 		FireCrash2,
 		IceCrash1Overlay,
@@ -33,6 +34,7 @@ namespace m
 	std::wstring crashNames[(int)eSkillCrashType::END] = {
 	L"iceCrash1",
 	L"iceCrash2",
+	L"iceCrash3",
 	L"fireCrash1",
 	L"fireCrash2",
 	L"iceCrash1",
@@ -48,6 +50,7 @@ namespace m
 		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Collide,
+		eCrashType::Collide,
 		eCrashType::Overlay,
 		eCrashType::Overlay,
 		eCrashType::Overlay,
@@ -59,9 +62,10 @@ namespace m
 	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 	m::math::Vector2(113.f, 72.f),
 	m::math::Vector2(83.f, 110.f),
+	m::math::Vector2(143.f, 107.f),
 	m::math::Vector2(78.f, 70.f),
 	m::math::Vector2(208.f, 174.f),
-			m::math::Vector2(113.f, 72.f),
+	m::math::Vector2(113.f, 72.f),
 	m::math::Vector2(83.f, 110.f),
 	m::math::Vector2(78.f, 70.f),
 	m::math::Vector2(208.f, 174.f),
@@ -71,6 +75,7 @@ namespace m
 
 	};
 	m::math::Vector2 crashCenterPos[(int)eSkillCrashType::END] = {
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -87,6 +92,7 @@ namespace m
 	int crashLength[(int)eSkillCrashType::END] = {
 	6,
 	16,
+	15,
 	12,
 	16,
 	6,
@@ -98,6 +104,8 @@ namespace m
 	12,
 	};
 	bool crashLoop[(int)eSkillCrashType::END] = {
+		false,
+		false,
 		false,
 		false,
 		false,
@@ -326,9 +334,9 @@ namespace m
 		300.f,// iceBolt
 		0.f,// frozenArmor
 		1000.f,// frostNova
-		0.f,// iceBlast
+		300.f,// iceBlast
 		0.f,// shiverArmor
-		0.f,// clacialSpike
+		300.f,// clacialSpike
 		200.f,// blizzard
 		0.f,// chillingArmor
 		200.f,// frozenOrb
@@ -349,7 +357,7 @@ namespace m
 		0.f,// warmth
 		0.f,// inferno
 		0.f,// blaze
-		0.f,// fireBall
+		300.f,// fireBall
 		0.f,// fireWall
 		0.f,// enchant
 		300.f,// meteor
@@ -369,9 +377,9 @@ namespace m
 		6, // iceBolt
 		0, // frozenArmor
 		14, // frostNova
-		0, // iceBlast
+		5, // iceBlast
 		0, // shiverArmor
-		0, // clacialSpike
+		6, // clacialSpike
 		0, // blizzard
 		0, // chillingArmor
 		16, // frozenOrb
@@ -392,7 +400,7 @@ namespace m
 		0, // warmth
 		0, // inferno
 		0, // blaze
-		0, // fireBall
+		5, // fireBall
 		8, // fireWall
 		0, // enchant
 		12, // meteor
@@ -478,7 +486,7 @@ namespace m
 		true, // fireBolt
 		true, // warmth
 		true, // inferno
-		true, // blaze
+		false, // blaze
 		true, // fireBall
 		false, // fireWall
 		true, // enchant
@@ -542,9 +550,9 @@ namespace m
 		m::math::Vector2(92.f, 55.f),// iceBolt,
 		m::math::Vector2(0.f, 0.f),// frozenArmor,
 		m::math::Vector2(118.f, 69.f),// frostNova,
-		m::math::Vector2(0.f, 0.f),// iceBlast,
+		m::math::Vector2(169.f, 94.f),// iceBlast,
 		m::math::Vector2(0.f, 0.f),// shiverArmor,
-		m::math::Vector2(0.f, 0.f),// clacialSpike,
+		m::math::Vector2(180.f, 110.f),// clacialSpike,
 		m::math::Vector2(0.f, 0.f),// blizzard,
 		m::math::Vector2(0.f, 0.f),// chillingArmor,
 		m::math::Vector2(54.f, 53.f),// frozenOrb,
@@ -565,7 +573,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),// warmth,
 		m::math::Vector2(0.f, 0.f),// inferno,
 		m::math::Vector2(0.f, 0.f),// blaze,
-		m::math::Vector2(0.f, 0.f),// fireBall,
+		m::math::Vector2(146.f, 79.f),// fireBall,
 		m::math::Vector2(66.f, 167.f),// fireWall,
 		m::math::Vector2(0.f, 0.f),// enchant,
 		m::math::Vector2(77.f, 125.f),// meteor,
@@ -628,9 +636,9 @@ namespace m
 		eSkillCrashType::IceCrash2,// iceBolt
 		eSkillCrashType::END,// frozenArmor
 		eSkillCrashType::IceCrash2Overlay,// frostNova
-		eSkillCrashType::END,// iceBlast
+		eSkillCrashType::IceCrash3,// iceBlast
 		eSkillCrashType::END,// shiverArmor
-		eSkillCrashType::END,// clacialSpike
+		eSkillCrashType::IceCrash3,// clacialSpike
 		eSkillCrashType::END,// blizzard
 		eSkillCrashType::END,// chillingArmor
 		eSkillCrashType::END,// frozenOrb

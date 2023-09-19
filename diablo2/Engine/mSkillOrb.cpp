@@ -6,7 +6,7 @@
 
 namespace m
 {
-    SkillOrb::SkillOrb(eSkillType type, Vector3 iniPos, float speed)
+    SkillOrb::SkillOrb(eSkillType type, Vector3 iniPos, float speed, eLayerType layerType)
         : SkillStraight(type, iniPos, speed)
         , mAccSkillTime(0.f)
         , mSectionActiveCount(0)
@@ -15,7 +15,7 @@ namespace m
         , iLock(0)
         , bCameraUpdate(false)
         , bFireCircle(false)
-        
+        , mMiType(layerType)   
     {
         for(float i = 0.0f ; i <= 2.f ;)
         {
@@ -52,12 +52,12 @@ namespace m
             for (SkillStraight* ss : sectionSkills)
             {
                 ss->SetCamera(GetCamera());
-                SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
+                SceneManager::GetActiveScene()->AddGameObject(mMiType, ss);
             }
             for (SkillCurve* ss : sectionSkills2)
             {
                 ss->SetCamera(GetCamera());
-                SceneManager::GetActiveScene()->AddGameObject(GetLayerType(), ss);
+                SceneManager::GetActiveScene()->AddGameObject(mMiType, ss);
             }
             bCameraUpdate = true;
         }

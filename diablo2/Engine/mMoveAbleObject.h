@@ -70,6 +70,7 @@ namespace m
 		bool GetStun() { return bStun; }
 
 		void SetAdjustmentDegree();
+		void AdDegree() { bAdjustmentDegree = false; }
 
 		virtual void TimeWaitAttack();
 		virtual void AttackedAddition();

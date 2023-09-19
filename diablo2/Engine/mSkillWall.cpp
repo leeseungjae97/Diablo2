@@ -73,7 +73,7 @@ namespace m
         );
 
         TileAffectOverlay* mTAO = new TileAffectOverlay(targetPos, eAffectOverlayType::Fire2, skillOwnerType);
-        mTAO->SetCamera(GetCamera());
+        mTAO->SetCamera(camera);
         mTAO->ActiveOverlay();
 
         SceneManager::GetActiveScene()->AddGameObject(skillOwnerType, mTAO);

@@ -19,7 +19,7 @@ namespace m
         virtual void Render() override;
 
         void MakeSkillShortCutImage();
-        void SetSkillBtnPos();
+        void SetSkillBtnPos(bool right);
 
         eSkillType GetHoverClickSkill();
         int GetSkillIndex() { return mSkillIndex; }

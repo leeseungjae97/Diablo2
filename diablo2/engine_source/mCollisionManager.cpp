@@ -35,7 +35,7 @@ namespace m
 		for (GameObject* leftObj : lefts)
 		{
 			//Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
-			//if (nullptr == leftCol) continue;
+			if (nullptr == leftObj) continue;
 			if (leftObj->GetState() != GameObject::RenderUpdate) continue;
 			const std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
 			if (!leftCols.empty())
@@ -45,16 +45,19 @@ namespace m
 					for (GameObject* rightObj : rights)
 					{
 						//Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
-						//if (nullptr == rightCol) continue;
+						if (nullptr == rightObj) continue;
 						if (leftObj == rightObj) continue;
 						if (rightObj->GetState() != GameObject::RenderUpdate) continue;
+
 						const std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
 						if (!rightCols.empty())
 						{
 							for (Collider2D* rightCol : rightCols)
+							{
+								if (nullptr == rightCol) continue;
 								ColliderCollision(leftCol, rightCol);
+							}	
 						}
-
 					}
 				}
 			}
@@ -75,6 +78,11 @@ namespace m
 			mCollisionMap.insert(std::make_pair(id.id, false));
 			iter = mCollisionMap.find(id.id);
 		}
+		if (nullptr == left->GetOwner()) return;
+		if (nullptr == right->GetOwner()) return;
+
+		if (left->GetOwner()->GetState() == GameObject::Delete) return;
+		if (right->GetOwner()->GetState() == GameObject::Delete) return;
 
 		if (Intersect(left, right))
 		{
@@ -104,6 +112,12 @@ namespace m
 	}
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 	{
+		if (nullptr == left->GetOwner()) return false;
+		if (nullptr == right->GetOwner()) return false;
+
+		if (left->GetOwner()->GetState() == GameObject::Delete) return false;
+		if (right->GetOwner()->GetState() == GameObject::Delete) return false;
+
 		eColliderType leftType = left->GetType();
 		eColliderType rightType = right->GetType();
 		if (leftType == eColliderType::Dot) leftType = eColliderType::Circle;

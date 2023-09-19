@@ -716,6 +716,8 @@ namespace m
 		}
 		for (InvenItem* ii : invenItems)
 			ii->SetState(eInventoryState);
+		for (InvenItem* ii : equimentItems)
+			ii->SetState(eInventoryState);
 	}
 
 	void StashManager::shopInventoryUpdate()

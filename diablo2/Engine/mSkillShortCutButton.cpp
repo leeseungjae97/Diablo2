@@ -19,7 +19,7 @@ namespace m
 		//SetClickMaterial(RESOURCE_FIND(Material, L"normalAttackClickIcon"));
 		//SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
 
-		for(int i = 0 ; i < 10; ++i)
+		for(int i = 0; i < 10; ++i)
 		{
 			if (skillFunctionTypes[i] == eSkillFunctionType::Passive) continue;
 			std::shared_ptr<Material> mat = RESOURCE_FIND(Material, wsColdSkillNames[i]);
@@ -40,7 +40,10 @@ namespace m
 			skillTexs.push_back(mat->GetTexture());
 			skillTypes.push_back((eSkillType)(i + 20));
 		}
-		SetSkillBtnPos();
+		bool right = false;
+		if (skillIndex == 1) right = true;
+
+		SetSkillBtnPos(right);
 
 		skillImages = new UI();
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, skillImages);
@@ -136,24 +139,32 @@ namespace m
 	}
 	void SkillShortCutButton::MakeSkillShortCutImage()
 	{
+		bool right = false;
+		if (mSkillIndex == 1) right = true;
+
 		if(GET_POS(skillImages) == Vector3(0.f, 0.f, 0.f))
 		{
 			Vector3 mSkillPos = GET_POS(this);
 			Vector3 mScale = GET_SCALE(this);
 			Vector3 skillScale = GET_SCALE(skillImages);
 			mSkillPos.y += (mScale.y / 2.f) + (skillScale.y / 2.f) + 10.f;
-			mSkillPos.x += skillScale.x / 2.f;
+			if(right)
+			{
+				mSkillPos.x -= skillScale.x / 2.f;
+			}
+			else mSkillPos.x += skillScale.x / 2.f;
 			if(mSkillIndex == 0 )
 			{
-				mSkillPos.x -= mScale.x / 2.f;
-			}
+			    mSkillPos.x -= mScale.x / 2.f;
+			}else mSkillPos.x += mScale.x / 2.f;
 			SET_POS_XYZ(skillImages, mSkillPos.x, mSkillPos.y, -1.f);
 		}
 		if (prevSkillPoint == PlayerManager::skillPoint) return;
 
 		prevSkillPoint = PlayerManager::skillPoint;
+		
+		SetSkillBtnPos(right);
 
-		SetSkillBtnPos();
 		MeshRenderer* mr = GET_COMP(skillImages, MeshRenderer);
 		SHARED_MAT mat = mr->GetMaterial();
 
@@ -165,12 +176,20 @@ namespace m
 		//SET_MATERIAL_D(skillImages, mat);
 		SET_SCALE_TEX_SIZE(skillImages, texture, -1.f);
 	}
-	void SkillShortCutButton::SetSkillBtnPos()
+	void SkillShortCutButton::SetSkillBtnPos(bool right)
 	{
 		skillMatPos.clear();
-
 		float yPos = 0.0f;
 		float xPos = 0.0f;
+		float xInitValue = 0.f;
+		float posIncValue = 1;
+
+		if(right)
+		{
+			xPos = 8.f;
+			xInitValue = xPos;
+			posIncValue *= -1.f;
+		}
 		// cold 0, light 1, fire 2
 		for (int i = 0; i < 3; ++i)
 		{
@@ -182,14 +201,14 @@ namespace m
 				if (PlayerManager::learnedSkill[i][j] > 0)
 				{
 					skillMatPos.push_back(Vector2(xPos, yPos));
-					++xPos;
+					xPos += posIncValue;
 				}
 				else
 				{
-					skillMatPos.push_back(Vector2(-1.f, -1.f));
+					skillMatPos.push_back(Vector2(-99.f, -99.f));
 				}
 			}
-			xPos = 0.f;
+			xPos = xInitValue;
 			++yPos;
 		}
 	}

@@ -1,6 +1,7 @@
 #include "mAuraScript.h"
 
 #include "mMaterial.h"
+#include "mMonster.h"
 #include "mMoveAbleObject.h"
 #include "mPlayer.h"
 #include "mTime.h"
@@ -55,10 +56,14 @@ namespace m
 	{
 		Script::Update();
 		fAcc += Time::fDeltaTime();
-		if (mDuration <= fAcc)
+		if(mDuration >= 0)
 		{
-			mAnimator->PlayAnimation(L"noneRectAnim", false);
+			if (mDuration <= fAcc)
+			{
+				mAnimator->PlayAnimation(L"noneRectAnim", false);
+			}
 		}
+		colliderCollided();
 	}
 
 	void AuraScript::LateUpdate()
@@ -72,20 +77,32 @@ namespace m
 		Script::Render();
 	}
 
-	void AuraScript::OnCollisionEnter(Collider2D* other)
-	{
-		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
-		{
-			eAuraFunctionType fType = auraFunction[(int)mAuraType];
-			float fAuraFunctionValue1 = auraFunctionValue[(int)fType][0];
-			float fAuraFunctionValue2 = auraFunctionValue[(int)fType][1];
+    void AuraScript::colliderCollided()
+    {
+		eAuraFunctionType fType = auraFunction[(int)mAuraType];
+		float fAuraFunctionValue1 = auraFunctionValue[(int)fType][0];
+		float fAuraFunctionValue2 = auraFunctionValue[(int)fType][1];
 
+		bool coliidePlayer = false;
+		if (mCol->GetOnEnter()
+			|| mCol->GetOnStay())
+		{
+			Monster* m = dynamic_cast<Monster*>(mAuraOwner);
+			if (m)
+			{
+				if(mCol->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+				{
+					coliidePlayer = true;
+				}
+			}
+			else coliidePlayer = false;
+			
 			switch (fType)
 			{
 			case eAuraFunctionType::Slow:
 			{
-				if (dynamic_cast<Player*>(other->GetOwner()))
-					dynamic_cast<Player*>(other->GetOwner())->SetNumericalAdjustmentSpeed(fAuraFunctionValue1
+				if (coliidePlayer)
+					PlayerManager::player->SetNumericalAdjustmentSpeed(fAuraFunctionValue1
 						, fAuraFunctionValue2);
 			}
 			break;
@@ -95,17 +112,6 @@ namespace m
 			}
 			break;
 			}
-
 		}
-	}
-
-	void AuraScript::OnCollisionStay(Collider2D* other)
-	{
-
-	}
-
-	void AuraScript::OnCollisionExit(Collider2D* other)
-	{
-
-	}
+    }
 }

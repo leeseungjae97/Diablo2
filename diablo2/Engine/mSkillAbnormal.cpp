@@ -25,6 +25,10 @@ namespace m
     void SkillAbnormal::Update()
     {
         Skill::Update();
+        if(mAS)
+        {
+            if (mAS->GetStatusAbnormal()) SetState(Delete);
+        }
     }
 
     void SkillAbnormal::LateUpdate()

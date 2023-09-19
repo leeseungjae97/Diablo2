@@ -16,12 +16,16 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        virtual void OnCollisionEnter(Collider2D* other);
-        virtual void OnCollisionStay(Collider2D* other);
-        virtual void OnCollisionExit(Collider2D* other);
+        void SetAuraCollider(Collider2D* col) { mCol = col; }
+        void SetAuraOwner(GameObject* owner) { mAuraOwner = owner; }
+
+    private:
+        void colliderCollided();
     private:
         Animator* mAnimator;
         eAuraType mAuraType;
+        Collider2D* mCol;
+        GameObject* mAuraOwner;
 
         float fCollideAcc;
         float fAcc;

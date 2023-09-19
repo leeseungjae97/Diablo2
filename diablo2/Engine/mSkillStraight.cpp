@@ -89,42 +89,6 @@ namespace m
 		}
 		if (bMove)
 		{
-
-			//if (!l)
-			//{
-			//	//float fMoveX1 = vDirection.x * fXAdjustSpeed + fNumericalAdjustmentSpeed;
-			//	//float fMoveY1 = vDirection.y * fYAdjustSpeed + fNumericalAdjustmentSpeed;
-
-			//	//float fMoveX2 = vDirection.x * fXAdjustSpeed + fNumericalAdjustmentSpeed;
-			//	//float fMoveY2 = vDirection.y * fXAdjustSpeed + fNumericalAdjustmentSpeed;
-
-			//	float fMoveX1 = vDirection.x * fXAdjustSpeed;
-			//	float fMoveY1 = vDirection.y * fYAdjustSpeed;
-
-			//	float fMoveX2 = vDirection.x * fXAdjustSpeed;
-			//	float fMoveY2 = vDirection.y * fXAdjustSpeed;
-
-			//	Vector2 m1 = Vector2(fMoveX1, fMoveY1);
-			//	Vector2 m2 = Vector2(fMoveX2, fMoveY2);
-
-			//	m1.Normalize();
-			//	m2.Normalize();
-
-			//	//float m1degree = RadianToDegree(atan2(m1.y, m1.x));
-			//	float m1degree = RadianToDegree(atan2(fMoveY1, fMoveX1));
-			//	float theta = atan2(m1.y, m1.x) - atan2(m2.y, m2.x);
-
-			//	if (fabs(m1degree) > 90.f)
-			//	{
-			//		vDirection.y += sinf(theta * 2);
-			//	}
-			//	else
-			//	{
-			//		vDirection.y -= sinf(theta * 2);
-			//	}
-			//	vDirection.Normalize();
-			//	l = true;
-			//}
 			SetAdjustmentDegree();
 			float fMoveX = curPosition.x + (vDirection.x * fXAdjustSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fYAdjustSpeed * Time::fDeltaTime());

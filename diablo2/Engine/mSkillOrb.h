@@ -7,7 +7,7 @@ namespace m
         public SkillStraight
     {
     public:
-        SkillOrb(eSkillType type, Vector3 iniPos, float speed);
+        SkillOrb(eSkillType type, Vector3 iniPos, float speed, eLayerType layerType);
         virtual ~SkillOrb();
 
         virtual void Initialize() override;
@@ -22,6 +22,7 @@ namespace m
     private:
         std::vector<SkillStraight*> sectionSkills;
         std::vector<SkillCurve*> sectionSkills2;
+        eLayerType mMiType;
 
         bool bCameraUpdate;
         int mAddCircleDegree;

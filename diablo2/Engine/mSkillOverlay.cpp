@@ -43,7 +43,10 @@ namespace m
 	void SkillOverlay::Update()
 	{
 		GameObject::Update();
-		fAccLoop += Time::fDeltaTime();
+		if (fLoopSecond != 0.f)
+		{
+			fAccLoop += Time::fDeltaTime();
+		}
 		if(fLoopSecond != 0.f && fAccLoop >= fLoopSecond)
 		{
 			fAccLoop = 0.f;

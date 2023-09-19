@@ -41,6 +41,8 @@ namespace m
 	template <typename T>
 	MonsterScript<T>::~MonsterScript()
 	{
+		if(mAura)
+		    mAura->SetState(GameObject::eState::Delete);
 	}
 	template <typename T>
 	void MonsterScript<T>::Initialize()
@@ -319,25 +321,23 @@ namespace m
 	template <typename T>
 	Collider2D* MonsterScript<T>::getSkillActiveCollider()
 	{
-		Monster* owner = dynamic_cast<Monster*>(GetOwner());
-		if (nullptr == owner) return nullptr;
 		switch (curMonsterData.mSkillActiveColliderType[iCurSkillIndex])
 		{
 		case eColliderFunctionType::Sight:
 		{
-			return owner->GetSightCollider();
+			return mMonster->GetSightCollider();
 		}
 		case eColliderFunctionType::Range:
 		{
-			return owner->GetRangeCollider();
+			return mMonster->GetRangeCollider();
 		}
 		case eColliderFunctionType::HitArea:
 		{
-			return owner->GetHitAreaCollider();
+			return mMonster->GetHitAreaCollider();
 		}
 		default:
 		{
-			return owner->GetSightCollider();
+			return mMonster->GetSightCollider();
 		}
 		}
 	}
@@ -348,7 +348,7 @@ namespace m
 
 		Collider2D* speiclaAttackCollider = getSkillActiveCollider();
 
-		if (mMonster->GetSightCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if (speiclaAttackCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			GetOwner()->SetBattleState(GameObject::Cast);
 			mAnimationType = static_cast<T::eAnimationType>(skillIndex);
@@ -586,10 +586,10 @@ namespace m
 		break;
 		case m::eSkillFunctionType::Orb:
 		{
-			mSkill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType]);
+			mSkill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			mSkill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::None:

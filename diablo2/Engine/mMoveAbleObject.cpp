@@ -88,6 +88,9 @@ namespace m
 			mPathFinder = new PathFinder();
 		MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
 		mr->AddTrappingColorBuffer();
+
+		fXAdjustSpeed = fSpeed;
+		fYAdjustSpeed = fSpeed / 2.f;
 	}
 	MoveAbleObject::~MoveAbleObject()
 	{
@@ -102,7 +105,7 @@ namespace m
 		GameObject::Update();
 
 		addZWeight();
-		adjustmentMovementSpeedAccordingAngle();
+		//adjustmentMovementSpeedAccordingAngle();
 		damagedDelay();
 	}
 	void MoveAbleObject::LateUpdate()
@@ -191,11 +194,11 @@ namespace m
 		if (!bAdjustmentDegree)
 		{
 			Vector3 _vD = vDirection;
-			float fMoveX1 = _vD.x * fXAdjustSpeed + fNumericalAdjustmentSpeed;
-			float fMoveY1 = _vD.y * fYAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fMoveX1 = _vD.x * (fXAdjustSpeed + fNumericalAdjustmentSpeed);
+			float fMoveY1 = _vD.y * (fYAdjustSpeed + (fNumericalAdjustmentSpeed / 2.f));
 
-			float fMoveX2 = _vD.x * fXAdjustSpeed + fNumericalAdjustmentSpeed;
-			float fMoveY2 = _vD.y * fXAdjustSpeed + fNumericalAdjustmentSpeed;
+			float fMoveX2 = _vD.x * (fXAdjustSpeed + fNumericalAdjustmentSpeed);
+			float fMoveY2 = _vD.y * (fXAdjustSpeed + fNumericalAdjustmentSpeed);
 
 			Vector2 m1 = Vector2(fMoveX1, fMoveY1);
 			Vector2 m2 = Vector2(fMoveX2, fMoveY2);
@@ -272,9 +275,6 @@ namespace m
 
 
 		//float minorAxisSpeed = adjustmentedSpeed * weight;
-
-		fXAdjustSpeed = fSpeed;
-		fYAdjustSpeed = fSpeed / 2.f;
 	}
 	void MoveAbleObject::SetInitializePosition(Vector3 initPos)
 	{

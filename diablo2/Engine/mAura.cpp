@@ -20,8 +20,11 @@ namespace m
 
         SetCamera(owner->GetCamera());
 
+        //bottomAuraPosition();
         SET_SCALE_XYZ(this, auraSizes[(int)type].x, auraSizes[(int)type].y, 1.f);
-        AuraScript* mAS = AddComponent<AuraScript>(type, 10000.f);
+        AuraScript* mAS = AddComponent<AuraScript>(type, -1.f);
+        mAS->SetAuraCollider(col);
+        mAS->SetAuraOwner(owner);
     }
 
     Aura::~Aura()
@@ -33,7 +36,7 @@ namespace m
         Vector3 pos = GET_POS(mOwner);
         pos.x += vCenterPosOffset.x;
         pos.y += vCenterPosOffset.y;
-        pos.z = 2.f;
+        pos.z += 0.1f;
         SET_POS_VEC(this, pos);
     }
 
