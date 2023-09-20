@@ -22,6 +22,7 @@ namespace m
 		bSixteenDirection = true;
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
 		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
+
 		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
 	}
 	Player::~Player()
@@ -34,6 +35,56 @@ namespace m
 	}
 	void Player::Update()
 	{
+		playerMove();
+		updateColliderPos();
+		MoveAbleObject::Update();
+	}
+	void Player::LateUpdate()
+	{
+		MoveAbleObject::LateUpdate();
+	}
+	void Player::Render()
+	{
+		MoveAbleObject::Render();
+
+		wchar_t szFloat[100] = {};
+		swprintf_s(szFloat, 100, L"Player Coord(x) : %f\n Player Coord(y) : %f"
+			, TileManager::GetPlayerPositionCoord().x, TileManager::GetPlayerPositionCoord().y);
+
+		FontWrapper::DrawFont(szFloat, 10, 10, 10.f, FONT_RGBA(255, 0, 255, 255));
+
+		swprintf_s(szFloat, 100, L"Player Position(x) : %f\n Player Position(y) : %f"
+			, TileManager::GetPlayerPosition().x, TileManager::GetPlayerPosition().y);
+
+		FontWrapper::DrawFont(szFloat, 10, 40, 10.f, FONT_RGBA(255, 0, 255, 255));
+	}
+
+	//void Player::timeWaitAttack()
+	//{
+		//if (!bCanDamaged)
+		//	fCanDamagedDelay += Time::fDeltaTime();
+
+		//if (fCanDamagedDelay >= 1.f)
+		//{
+		//	bCanDamaged = true;
+		//	fCanDamagedDelay = 0.f;
+		//}
+	//}
+
+    void Player::AttackedAddition()
+    {
+		MoveAbleObject::AttackedAddition();
+		if(bAddiction)
+		{
+			if (fAccDamage >= iAddictionDamage)
+			{
+				mHp->SetOrigin();
+			}
+		}
+    }
+
+    void Player::playerMove()
+    {
 		Vector3 curPosition = GET_POS(this);
 		destPosition.z = curPosition.z;
 		prevPosition.z = curPosition.z;
@@ -61,25 +112,25 @@ namespace m
 				fStunSecond = 0.f;
 			}
 		}
-		if(bAddiction) mHp->SetAddiction();
+		if (bAddiction) mHp->SetAddiction();
 
-		if(bCallSetNumericalAdjustmentSpeed)
+		if (bCallSetNumericalAdjustmentSpeed)
 		{
 			fNASAcc -= Time::fDeltaTime();
-			if(fNASAcc <= 0.f)
+			if (fNASAcc <= 0.f)
 			{
 				fNumericalAdjustmentSpeed = 0.f;
 				bCallSetNumericalAdjustmentSpeed = false;
 			}
 		}
-		
+
 
 		TimeWaitAttack();
 		AttackedAddition();
-		
-		if(mPathFinder->PlayerMove(this))
+
+		if (mPathFinder->PlayerMove(this))
 		{
-			
+
 		}
 
 		mPathFinder->AstarPathFinding(curCoord, targetCoord);
@@ -143,7 +194,7 @@ namespace m
 		//	fSpeed = 0.0f;
 		//}
 
-	
+
 		if (fRemainDistance < fStartDistance && !bStun)
 		{
 			float fXFinalSpeed = fXAdjustSpeed + fNumericalAdjustmentSpeed;
@@ -152,50 +203,15 @@ namespace m
 			float fMoveY = curPosition.y + (vDirection.y * fYFinalSpeed * Time::fDeltaTime());
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
-		MoveAbleObject::Update();
-	}
-	void Player::LateUpdate()
-	{
-		MoveAbleObject::LateUpdate();
-	}
-	void Player::Render()
-	{
-		MoveAbleObject::Render();
+    }
 
-		wchar_t szFloat[100] = {};
-		swprintf_s(szFloat, 100, L"Player Coord(x) : %f\n Player Coord(y) : %f"
-			, TileManager::GetPlayerPositionCoord().x, TileManager::GetPlayerPositionCoord().y);
-
-		FontWrapper::DrawFont(szFloat, 10, 10, 10.f, FONT_RGBA(255, 0, 255, 255));
-
-		swprintf_s(szFloat, 100, L"Player Position(x) : %f\n Player Position(y) : %f"
-			, TileManager::GetPlayerPosition().x, TileManager::GetPlayerPosition().y);
-
-		FontWrapper::DrawFont(szFloat, 10, 40, 10.f, FONT_RGBA(255, 0, 255, 255));
-	}
-
-	//void Player::timeWaitAttack()
-	//{
-		//if (!bCanDamaged)
-		//	fCanDamagedDelay += Time::fDeltaTime();
-
-		//if (fCanDamagedDelay >= 1.f)
-		//{
-		//	bCanDamaged = true;
-		//	fCanDamagedDelay = 0.f;
-		//}
-	//}
-
-    void Player::AttackedAddition()
+    void Player::updateColliderPos()
     {
-		MoveAbleObject::AttackedAddition();
-		if(bAddiction)
-		{
-			if (fAccDamage >= iAddictionDamage)
-			{
-				mHp->SetOrigin();
-			}
-		}
+		Vector3 scale =GET_SCALE(this);
+		Vector2 scaleOffset = Vector2(0.f, scale.y / 3.f);
+		rangeCollider->SetCenter(scaleOffset);
+		tilePositionCollider->SetCenter(scaleOffset);
+		bodyBoxCollider->SetCenter(scaleOffset);
     }
 
     void Player::Hit(int damage, bool attackStun)

@@ -58,37 +58,32 @@ namespace m
 
 		Vector2 curCoord = GetCoord();
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
-		if(targetCoord != prevTargetCoord)
+		
+		
+		if (targetCoord != prevTargetCoord
+			|| destCoord != mPathFinder->GetTargetCoord())
+		if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
-			if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+			//bool move = mPathFinder->MonsterMove(this);
+
+			if (mMonsterClass == eMonsterClass::Boss)
 			{
-				//bool move = mPathFinder->MonsterMove(this);
-			
-				if (mMonsterClass == eMonsterClass::Boss)
-				{
-					mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
-				}
-				else
-				{
-					mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
-				}
-
-				prevCurCoord = curCoord;
-				prevTargetCoord = targetCoord;
-
-				mPathFinder->PathChange(true);
-				//if (!move)
-				//{
-				//}
+				mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
 			}
-		}else
+			else
+			{
+				mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
+			}
 
-		bMove = true;
-		bool mChange = mPathFinder->MonsterMove(this);
-		if(mChange)
-		{
-			bAdjustmentDegree = false;
+			prevCurCoord = curCoord;
+			prevTargetCoord = targetCoord;
+
+			mPathFinder->PathChange(true);
+			destCoord = mPathFinder->GetTargetCoord();
 		}
+		bMove = true;
+		mPathFinder->MonsterMove(this);
+		
 		
 		
 		if (mMonsterClass != eMonsterClass::Boss

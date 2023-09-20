@@ -8,7 +8,7 @@ namespace m
         public SkillStraight
     {
     public:
-        SkillFollower(eSkillType type, int count, Vector3 initPos, Vector3 destPosition);
+        SkillFollower(eSkillType type, int count, Vector3 initPos, Vector3 destPosition, Camera* camera);
         virtual ~SkillFollower();
 
         virtual void Initialize() override;
@@ -17,6 +17,7 @@ namespace m
         virtual void Render() override;
 
         void SetFollowerGenerateTime(float time) { fFollowerGenerateTime = time; }
+        void SetFollowerLoopCount(int loopCount) { iFollowerLoopCount = loopCount; }
 
     private:
         void generateFollower();
@@ -26,6 +27,7 @@ namespace m
         std::vector<TileAffectOverlay*> followers;
         int iFollowerCount;
         int iCurCount;
+        int iFollowerLoopCount;
         float fFollowerGenerateTime;
         float fAcc;
     };

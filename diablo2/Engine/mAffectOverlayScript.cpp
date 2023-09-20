@@ -9,9 +9,10 @@ namespace m
 {
 	AffectOverlayScript::AffectOverlayScript(eAffectOverlayType type)
 		: iCurLoopCount(0)
-		, iMaxLoopCount(0)
+		, iMaxLoopCount(10)
 		, mOverlayType(type)
 	    , bAtiveAffectOverlay(false)
+	    , bAtive(false)
 	{
 
 	}
@@ -71,8 +72,8 @@ namespace m
 		SkillScript::Update();
 		if(bAtiveAffectOverlay)
 		{
-			//ADD_COMP(GetOwner(), Collider2D);
 			bAtiveAffectOverlay = false;
+			bAtive = true;
 			mAnimator->PlayAnimation(affectOverlayNames[(int)mOverlayType] + L"anim", true);
 		}
 		if (iCurLoopCount >= iMaxLoopCount)
@@ -100,11 +101,15 @@ namespace m
 	{
 		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
 		{
-			if (dynamic_cast<Monster*>(other->GetOwner()))
-				dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+			if (bAtive)
+			{
+				if (dynamic_cast<Monster*>(other->GetOwner()))
+					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
 
-			if (dynamic_cast<Player*>(other->GetOwner()))
-				dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+				if (dynamic_cast<Player*>(other->GetOwner()))
+					dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+			}
+			
 		}
 	}
     //void AffectOverlayScript::OnCollisionExit(Collider2D* other)

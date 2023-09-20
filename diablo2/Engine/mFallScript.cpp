@@ -126,8 +126,10 @@ namespace m
 					mPos.x += 20.f;
 					SET_POS_VEC(GetOwner(), mPos);
 				}
+				if(crashProgress[(int)mCrashType] != 0)
+					mAnimator->SetAnimationProgressIndex(crashProgress[(int)mCrashType]);
 			};
-			mAnimator->EndEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
+			mAnimator->ProgressEvent(crashNames[(int)mCrashType] + L"anim") = [=]()
 			{
 				Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 				if (col->GetOnStay())
@@ -142,11 +144,13 @@ namespace m
 						}
 					}
 				}
+			};
+			mAnimator->EndEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
+			{
 				GetOwner()->ReleaseAnimators();
 				GetOwner()->SetState(GameObject::eState::Delete);
 			};
 		}
-		
 		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
 		mAnimator->Create(
 			L"noneRectAnim"

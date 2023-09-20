@@ -71,20 +71,20 @@ namespace m
 		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
 		//if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetOnMonster()) return;
 
-		if(nullptr == mMonsterOwner)
-		{
-			if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
-		}
-		else
-		{
-			if (/*mMonsterOwner->GetPathChange() == false
-				&&*/ mStartCoord == startCoord 
-				&& mTargetCoord == targetCoord)
-			{
-				return;
-			}
-		}
-		
+		//if(nullptr == mMonsterOwner)
+		//{
+		//	if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
+		//}
+		//else
+		//{
+		//	if (mStartCoord == startCoord 
+		//		&& mTargetCoord == targetCoord)
+		//	{
+		//		return;
+		//	}
+		//}
+		if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
+
 		mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
 
@@ -175,6 +175,7 @@ namespace m
 			&& mMonsterOwner->GetNextMoveCoord() == Vector2(x, y)
 			&& TileManager::pathFindingTiles[y][x]->GetMonsterNext() != 0)
 			return;
+
 		if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
 			&& x < mTargetCoord.x + searchTileSize
 			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
@@ -302,7 +303,7 @@ namespace m
 				//else mMonsterOwner->PathChange(false);
 			//}
 			if (finalPathVector.empty()) return false;
-
+			mDestCoord = finalPathVector.back()->GetCoord();
 			return true;
 		}
 		return false;
@@ -345,13 +346,17 @@ namespace m
 			Vector3 vDirection = destPosition - prevPosition;
 			vDirection.Normalize();
 			mOwner->SetDirection(vDirection);
+
+			mOwner->AdDegree();
+			mOwner->SetAdjustmentDegree();
 		}
 		else
 		{
 			subTargetTile->UnSetMonsterNext();
 			std::erase(finalPathVector, finalPathVector.front());
+			return true;
 		}
-		return true;
+		return false;
 	}
 	void PathFinder::ClearPath()
 	{

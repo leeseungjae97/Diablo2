@@ -60,12 +60,12 @@ namespace m
 				|| direction == (int)ePathSixteenDirection::RightUp1
 				|| direction == (int)ePathSixteenDirection::Up)
 			{
-				if (pos.z == 1.f) ++pos.z;
+				if (pos.z == 1.f) pos.z += 0.00001f;
 				//SceneManager::GetActiveScene()->GetLayer(eLayerType::Monster)->ChangeLayerIndexGameObject(this, mOwner);
 			}
 			else
 			{
-				if (pos.z > 1.f) --pos.z;
+				if (pos.z > 1.f) pos.z -= 0.00001f;;
 			}
 		}
 		

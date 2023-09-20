@@ -5,14 +5,17 @@ namespace m
 	enum class eSkillFunctionType
 	{
 		Straight,
-		MultiStraight,
 		FixedMultiStraight,
 		CircleFire,
 		Blizzard,
 		Wall,
 		Fall,
 		FallExplosion,
-		MutiFall,
+		MultiFall,
+		LinearStraight,
+		RandomStraight,
+		MultiStraight,
+		MMultiLinearStraight,
 		Raidal,
 		StunAttack,
 		Orb,
@@ -189,7 +192,7 @@ namespace m
 		eSkillFunctionType::Straight,// L"iceBlastIcon",
 		eSkillFunctionType::Buff,// L"shiverArmorIcon",
 		eSkillFunctionType::Straight,// L"clacialSpikeIcon",
-		eSkillFunctionType::MutiFall,// L"blizzardIcon",
+		eSkillFunctionType::MultiFall,// L"blizzardIcon",
 		eSkillFunctionType::Buff,// L"chillingArmorIcon",
 		eSkillFunctionType::Orb,// L"frozenOrbIcon",
 		eSkillFunctionType::Passive,// L"coldMasteryIcon",
@@ -218,7 +221,7 @@ namespace m
 
 		eSkillFunctionType::None,// L"normalAttackIcon"
 		//Monster
-		eSkillFunctionType::MultiStraight,// L"diabloLightning",
+		eSkillFunctionType::LinearStraight,// L"diabloLightning",
 		eSkillFunctionType::CircleFire,// L"diabloFireNova",
 		eSkillFunctionType::MultiStraight,// L"diabloFireStorm",
 

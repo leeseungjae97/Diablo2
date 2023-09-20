@@ -181,12 +181,14 @@ namespace m
 		std::wstring animationString[5] = {};
 		math::Vector2 animationOffset[5] = {};
 		m::math::Vector2 animationSizes[5] = {};
+		m::math::Vector2 animationCenterPos[5] = {};
 		float animationDuration[5] = {};
 		int animationLength[5] = {};
 		int animStartIndex[5] = {};
 		int animEndIndex[5] = {};
 		int animProgressStartIndex[5] = {};
 		int iBehavior = 0;
+		float animYOffset = 0.f;
 
 		float fSpeed = 100.f;
 		float fAttackDelay = 1.5f;
@@ -204,11 +206,11 @@ namespace m
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
 
 		eColliderFunctionType mSkillActiveColliderType[5] = {
-	    eColliderFunctionType::End
-	    , eColliderFunctionType::End
-	    , eColliderFunctionType::End
-	    , eColliderFunctionType::End
-	    , eColliderFunctionType::End
+		eColliderFunctionType::End
+		, eColliderFunctionType::End
+		, eColliderFunctionType::End
+		, eColliderFunctionType::End
+		, eColliderFunctionType::End
 		};
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -259,11 +261,11 @@ namespace m
 			,eSkillType::END
 		};
 		eColliderFunctionType mSkillActiveColliderType[5] = {
-	    eColliderFunctionType::End
-	    , eColliderFunctionType::End
-	    , eColliderFunctionType::End
-	    , eColliderFunctionType::End
-	    , eColliderFunctionType::End
+		eColliderFunctionType::End
+		, eColliderFunctionType::End
+		, eColliderFunctionType::End
+		, eColliderFunctionType::End
+		, eColliderFunctionType::End
 		};
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
@@ -324,6 +326,21 @@ namespace m
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
+	math::Vector2(0.f, 0.f), // Attack
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),	// Hit
+	math::Vector2(0.f, 0.f),	// Natural
+	math::Vector2(0.f, 0.f),	// Run
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(222.f, 157.f),	// Attack
@@ -429,32 +446,32 @@ namespace m
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::DiabloLightning
 			,eSkillType::DiabloFireNova
-			,eSkillType::END
+			,eSkillType::DiabloFireStorm
 			,eSkillType::END
 			,eSkillType::END
 		};
 		eColliderFunctionType mSkillActiveColliderType[5] = {
-		    eColliderFunctionType::Sight
-	        , eColliderFunctionType::Sight
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
+			eColliderFunctionType::Sight
+			, eColliderFunctionType::Sight
+			, eColliderFunctionType::Sight
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
 		};
 		const std::wstring wsMonsterName = L"디아블로";
 
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
-		bool bSpecialSkillLoop[5] = {true,false, false, false, false};
+		bool bSpecialSkillLoop[5] = { true,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { true, false, false, false, false };
 		int mSpecialSkillAddFunction[5] = {
 			0/*eFireType::Linear*/
 			,0
-			,0
+			,2
 			,0
 			,0
 		};
 
-		int mSpecialSkillCount[5] = { 20, 40, 0, 0, 0 };
+		int mSpecialSkillCount[5] = { 20, 40, 3, 0, 0 };
 		int iBehavior = 12;
 
 		eMonsterType mMonsterType = eMonsterType::Diablo;
@@ -510,6 +527,21 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
+math::Vector2(0.f, 0.f), // Attack
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Hit
+math::Vector2(0.f, 0.f),	// Natural
+math::Vector2(0.f, 0.f),	// Run
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(4960.f / 16.f, 1791.f / 8.f),	// Attack1
@@ -632,7 +664,7 @@ namespace m
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
 		int mSpecialSkillAddFunction[5] = {
-			3/*eFireType::Radial*/
+			4/*eFireType::Radial*/
 			,0
 			,0
 			,0 };
@@ -691,6 +723,21 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
+math::Vector2(0.f, 0.f), // Attack
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Hit
+math::Vector2(0.f, 0.f),	// Natural
+math::Vector2(0.f, 0.f),	// Run
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(247.f, 248.f),	// Attack1
@@ -807,11 +854,11 @@ namespace m
 		Vector2 auraOffSet = Vector2(0.f, -30.f);
 		const std::wstring wsMonsterName = L"두리엘";
 		eColliderFunctionType mSkillActiveColliderType[5] = {
-	        eColliderFunctionType::Range
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
+			eColliderFunctionType::Range
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
 		};
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
@@ -875,6 +922,21 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
+math::Vector2(0.f, 0.f), // Attack
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Hit
+math::Vector2(0.f, 0.f),	// Natural
+math::Vector2(0.f, 0.f),	// Run
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(301.f, 201.f),	// Attack1
@@ -986,17 +1048,17 @@ namespace m
 		const std::wstring wsMonsterName = L"메피스토";
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::lightning
-			,eSkillType::chargedBolt
+			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 		};
 		eColliderFunctionType mSkillActiveColliderType[5] = {
-	        eColliderFunctionType::Sight
-	        , eColliderFunctionType::Sight
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
-	        , eColliderFunctionType::End
+			eColliderFunctionType::Sight
+			, eColliderFunctionType::Sight
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
+			, eColliderFunctionType::End
 		};
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
@@ -1057,6 +1119,21 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
+math::Vector2(0.f, 0.f), // Attack
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Hit
+math::Vector2(0.f, 0.f),	// Natural
+math::Vector2(0.f, 0.f),	// Run
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),
+math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(247.f, 248.f),	// Attack1

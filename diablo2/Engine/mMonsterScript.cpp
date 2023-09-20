@@ -41,8 +41,8 @@ namespace m
 	template <typename T>
 	MonsterScript<T>::~MonsterScript()
 	{
-		if(mAura)
-		    mAura->SetState(GameObject::eState::Delete);
+		if (mAura)
+			mAura->SetState(GameObject::eState::Delete);
 	}
 	template <typename T>
 	void MonsterScript<T>::Initialize()
@@ -85,7 +85,8 @@ namespace m
 			mMinusDirections = minusEightDirections;
 			animStrings = sixteenDirectionString;
 		}
-
+		Vector3 scale = GET_SCALE(GetOwner());
+		Vector2 scaleOffset = Vector2(0.f, scale.y * 4);
 		int m = 0;
 		for (int i = 0; i < (UINT)T::eAnimationType::End; ++i)
 		{
@@ -183,9 +184,10 @@ namespace m
 			/*&& (nullptr == mSkill && nullptr == mSkillBuff)*/)
 		{
 			int selectSpecialSkillBranshNum = rand() % 1000;
-			if (selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
+			if (selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
+				/*selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special1
-				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
+				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2*/
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special3
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
 				)
@@ -504,12 +506,12 @@ namespace m
 			= [=]()
 		{
 			int mIndex = type - (int)T::eAnimationType::SpecialCast;
-			if(!curMonsterData.bSpecialSkillLoop[mIndex])
+			if (!curMonsterData.bSpecialSkillLoop[mIndex])
 			{
 				mMonster->SetBattleState(GameObject::eBattleState::Idle);
 				skillMake = false;
 			}
-			
+
 		};
 	}
 	template<typename T>
@@ -542,7 +544,7 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		break;
-		case m::eSkillFunctionType::MutiFall:
+		case m::eSkillFunctionType::MultiFall:
 		{
 			mSkill = new SkillMultiFire(targetPos, skillType, skillCount, addFunction, fireLayerType, Vector2(200.f, 50.f));
 			mSkill->SetCamera(GetOwner()->GetCamera());
@@ -550,10 +552,19 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
-		case m::eSkillFunctionType::MultiStraight:
+		case m::eSkillFunctionType::LinearStraight:
 		case m::eSkillFunctionType::Raidal:
 		{
 			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount, addFunction, fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			//skill->SkillFire(); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+		}
+		break;
+		case m::eSkillFunctionType::MultiStraight:
+		{
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
+				, addFunction, fireLayerType, Vector2(0.f , 0.5f), GetOwner()->GetCamera());
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
@@ -589,7 +600,7 @@ namespace m
 			mSkill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			mSkill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::None:

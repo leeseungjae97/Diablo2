@@ -75,20 +75,22 @@ namespace m
         TileAffectOverlay* mTAO = new TileAffectOverlay(targetPos, eAffectOverlayType::Fire2, skillOwnerType);
         mTAO->SetCamera(camera);
         mTAO->ActiveOverlay();
+        eLayerType mOverlayType;
+        if (skillOwnerType == eLayerType::PlayerOverlay) mOverlayType = eLayerType::PlayerOverlay;
+        else mOverlayType = eLayerType::MonsterOverlay;
+        SceneManager::GetActiveScene()->AddGameObject(mOverlayType, mTAO);
 
-        SceneManager::GetActiveScene()->AddGameObject(skillOwnerType, mTAO);
-
-        SkillFollower* sf1 = new SkillFollower(type, 10, targetPos, downVector);
-        SkillFollower* sf2 = new SkillFollower(type, 10, targetPos, upVector);
-
-        sf1->SetCamera(camera);
-        sf2->SetCamera(camera);
+        SkillFollower* sf1 = new SkillFollower(type, 10, targetPos, downVector, camera);
+        SkillFollower* sf2 = new SkillFollower(type, 10, targetPos, upVector, camera);
 
         sf1->SetFollowerGenerateTime(0.08f);
         sf2->SetFollowerGenerateTime(0.08f);
 
         sf1->SetSkillOwnerLayer(skillOwnerType);
         sf2->SetSkillOwnerLayer(skillOwnerType);
+
+        sf1->Initialize();
+        sf2->Initialize();
         //sf->SetDestPosition(vMouseVector3);
         SceneManager::GetActiveScene()->AddGameObject(skillOwnerType, sf1);
         SceneManager::GetActiveScene()->AddGameObject(skillOwnerType, sf2);
@@ -98,28 +100,5 @@ namespace m
 
         sf1->SkillFire();
         sf2->SkillFire();
-
-        //    Vector3 downNormalVector = Vector3(-distanceVector.y, distanceVector.x, 1.f);
-        //    Vector3 downVector = Vector3(vMouseVector3.x + downNormalVector.x
-        //        , vMouseVector3.y + downNormalVector.y,
-        //        1.f
-        //    );
-
-        //    Vector3 upNormalVector = Vector3(distanceVector.y, -distanceVector.x, 1.f);
-        //    Vector3 upVector = Vector3(vMouseVector3.x + upNormalVector.x
-        //        , vMouseVector3.y + upNormalVector.y,
-        //        1.f
-        //    );
-        //    SkillStraight* sf = new SkillStraight(eSkillType::iceBolt, vMouseVector3, 300.f);
-        //    sf->SetCamera(camera);
-        //    sf->SetDestPosition(downVector);
-        //    SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, sf);
-        //    sf->SkillFire();
-
-        //    SkillStraight* sf1 = new SkillStraight(eSkillType::iceBolt, vMouseVector3, 300.f);
-        //    sf1->SetCamera(camera);
-        //    sf1->SetDestPosition(upVector);
-        //    SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, sf1);
-        //    sf1->SkillFire();
     }
 }

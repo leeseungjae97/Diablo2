@@ -22,12 +22,18 @@ namespace m
         float GetLimitDistance() { return limitDistance; }
         float GetMoveDistance() { return moveDistance; }
         void StopMove() { bMove = false; }
+        void SetRandomStraight(float randomY, float fRandomTime);
+    private:
+        void randomY();
+
     private:
         StraightScript* ss;
         float limitDistance;
         bool useLimit;
         float moveDistance;
-        bool l;
+        float fRandomRange;
+        float fRandomMoveAcc;
+        float fRandomMoveTime;
     };
 }
 

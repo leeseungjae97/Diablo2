@@ -174,6 +174,7 @@
     <ClInclude Include="mAura.h" />
     <ClInclude Include="mSkillBuff.h" />
     <ClInclude Include="mSkillFollower.h" />
+    <ClInclude Include="mSkillMMultiFire.h" />
     <ClInclude Include="mSkillWall.h" />
     <ClInclude Include="mTeleportScript.h" />
     <ClInclude Include="mTileAffectOverlay.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="mAura.cpp" />
     <ClCompile Include="mSkillBuff.cpp" />
     <ClCompile Include="mSkillFollower.cpp" />
+    <ClCompile Include="mSkillMMultiFire.cpp" />
     <ClCompile Include="mSkillWall.cpp" />
     <ClCompile Include="mTeleportScript.cpp" />
     <ClCompile Include="mTileAffectOverlay.cpp" />

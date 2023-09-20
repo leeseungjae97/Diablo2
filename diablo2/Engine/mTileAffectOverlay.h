@@ -20,6 +20,8 @@ namespace m
         virtual void Render();
 
         void ActiveOverlay();
+        void SetLoopCount(int count);
+
     private:
         void addZWeight();
     private:

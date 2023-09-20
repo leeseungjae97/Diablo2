@@ -32,13 +32,14 @@ namespace m
 
 		void SetMonsterOwner(Monster* mon) { mMonsterOwner = mon; }
 		Vector2 GetTargetCoord() { return mTargetCoord; }
-
+		Vector2 GetDestCoord() { return mDestCoord; }
 
 	private:
 		void openVectorAdd(int y, int x);
 
 		Vector2 mStartCoord;	// 시작하는 위치
 		Vector2 mTargetCoord;	// 타겟 위치
+		Vector2 mDestCoord;
 
 		int xLength;
 		int yLength;

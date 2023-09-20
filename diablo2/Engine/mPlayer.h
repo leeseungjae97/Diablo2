@@ -34,6 +34,8 @@ namespace m
         virtual void AttackedAddition() override;
 
     private:
+        void playerMove();
+        void updateColliderPos();
         //void timeWaitAttack();
         
     private:

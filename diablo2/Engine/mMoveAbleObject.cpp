@@ -162,7 +162,7 @@ namespace m
 		if (!bCanDamaged)
 			fCanDamagedDelay += Time::fDeltaTime();
 
-		if (fCanDamagedDelay >= 1.f)
+		if (fCanDamagedDelay >= 0.5f)
 		{
 			bCanDamaged = true;
 			fCanDamagedDelay = 0.f;
@@ -194,8 +194,9 @@ namespace m
 		if (!bAdjustmentDegree)
 		{
 			Vector3 _vD = vDirection;
+			
 			float fMoveX1 = _vD.x * (fXAdjustSpeed + fNumericalAdjustmentSpeed);
-			float fMoveY1 = _vD.y * (fYAdjustSpeed + (fNumericalAdjustmentSpeed / 2.f));
+			float fMoveY1 = _vD.y * (fYAdjustSpeed + (fNumericalAdjustmentSpeed == 0.f ? 0.f : fNumericalAdjustmentSpeed / 2.f));
 
 			float fMoveX2 = _vD.x * (fXAdjustSpeed + fNumericalAdjustmentSpeed);
 			float fMoveY2 = _vD.y * (fXAdjustSpeed + fNumericalAdjustmentSpeed);

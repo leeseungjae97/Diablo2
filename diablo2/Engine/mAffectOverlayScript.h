@@ -29,6 +29,7 @@ namespace m
         eAffectOverlayType mOverlayType;
 
         bool bAtiveAffectOverlay;
+        bool bAtive;
     };
 }
 

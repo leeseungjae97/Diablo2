@@ -23,7 +23,6 @@ namespace m
         ADD_COMP(this, Collider2D);
         ADD_COMP(this, Animator);
         mAOS = AddComponent<AffectOverlayScript>(type);
-        mAOS->SetLoopCount(10);
     }
 
     TileAffectOverlay::~TileAffectOverlay()
@@ -60,5 +59,10 @@ namespace m
     {
         if(mAOS)
             mAOS->ActiveAffectOverlay();
+    }
+
+    void TileAffectOverlay::SetLoopCount(int count)
+    {
+        mAOS->SetLoopCount(count);
     }
 }

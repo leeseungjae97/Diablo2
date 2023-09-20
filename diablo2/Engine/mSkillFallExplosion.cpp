@@ -21,7 +21,7 @@ namespace m
 
 		SkillFall* body = new SkillFall(type, initYpos, 1000.f, true);
 		SceneManager::GetActiveScene()->AddGameObject(layerType, body);
-		body->Initialize();
+		//body->Initialize();
 		body->SetSpeed(1000.f / 2.f);
 		skills.push_back(body);
 
@@ -41,7 +41,7 @@ namespace m
 			mIndicator = new SkillIndicator(iniPos, eIndicatorType::MeteorTargetIndicator);
 			mIndicator->SetOwnerSkill(body);
 			SceneManager::GetActiveScene()->AddGameObject(layerType, mIndicator);
-			makeAffectOverlay(layerType);
+			
 		}
 	}
 
@@ -55,11 +55,11 @@ namespace m
 	void SkillFallExplosion::Update()
 	{
 		Skill::Update();
-		if(nullptr == overlays[0]->GetCamera())
-		{
-			for (TileAffectOverlay* tao : overlays)
-				tao->SetCamera(GetCamera());
-		}
+		//if(nullptr == overlays[0]->GetCamera())
+		//{
+		//	for (TileAffectOverlay* tao : overlays)
+		//		tao->SetCamera(GetCamera());
+		//}
 		
 		updateSkills();
 
@@ -91,6 +91,8 @@ namespace m
 	}
 	void SkillFallExplosion::activeAffectOverlay()
 	{
+		makeAffectOverlay(GetSkillOwnerLayer());
+
 		for (TileAffectOverlay* tao : overlays)
 		{
 			tao->SetCamera(GetCamera());
@@ -123,9 +125,12 @@ namespace m
 			TileAffectOverlay* tileAffectOverlay = new TileAffectOverlay(poss[i]
 				, (eAffectOverlayType)randMaterial
 				, type);
-
+			tileAffectOverlay->SetCamera(GetCamera());
 			overlays.push_back(tileAffectOverlay);
-			SceneManager::GetActiveScene()->AddGameObject(type, tileAffectOverlay);
+			eLayerType mOverlayType;
+			if (type == eLayerType::PlayerSkill) mOverlayType = eLayerType::PlayerOverlay;
+			else mOverlayType = eLayerType::MonsterOverlay;
+			SceneManager::GetActiveScene()->AddGameObject(mOverlayType, tileAffectOverlay);
 		}
 	}
 	void SkillFallExplosion::updateSkills()

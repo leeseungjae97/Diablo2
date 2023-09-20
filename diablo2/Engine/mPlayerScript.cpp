@@ -77,6 +77,8 @@ namespace m
 
 		SHARED_MAT tex9 = RESOURCE_FIND(Material, L"sorceressDead");
 
+		Vector3 scale = GET_SCALE(GetOwner());
+		Vector2 scaleOffset = Vector2(0.f, scale.y * 4);
 		for (int i = 0; i < (UINT)eSixteenDirection::End; ++i)
 		{
 			mAnimator->Create(
@@ -86,6 +88,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Run]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::Run]
 				, Vector2::Zero
+				,Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Run].y * 4)
 				, 0.1f
 			);
 			mAnimator->Create(
@@ -95,6 +98,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::SpecialCast]
 				, Vector2(0.f, -10.f)
+				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast].y * 4)
 				, 0.03f
 			);
 			mAnimator->Create(
@@ -104,6 +108,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Natural]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::Natural]
 				, Vector2::Zero
+				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Natural].y * 4)
 				, 0.1f
 			);
 			//mAnimator->Create(
@@ -122,6 +127,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::GetHit]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::GetHit]
 				, Vector2::Zero
+				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::GetHit].y * 4)
 				, 0.05f
 			);
 			mAnimator->Create(
@@ -131,6 +137,7 @@ namespace m
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Attack1]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::Attack1]
 				, Vector2::Zero
+				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Attack1].y)
 				, 0.05f
 			);
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
@@ -318,18 +325,18 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill); 
 		}
 			break; 
-		case m::eSkillFunctionType::MutiFall:
+		case m::eSkillFunctionType::MultiFall:
 		{
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera()); 
 			unprojMousePos.y += 300.f; 
 			unprojMousePos.z = GET_POS(GetOwner()).z; 
-			skill = new SkillMultiFire(unprojMousePos, skillType, 20, (int)SkillMultiFire::eFireType::Random, fireLayerType, Vector2(200.f, 50.f)); 
+			skill = new SkillMultiFire(unprojMousePos, skillType, 20, (int)SkillMultiFire::eFireType::RandomFall, fireLayerType, Vector2(200.f, 50.f)); 
 			skill->SetCamera(GetOwner()->GetCamera()); 
 			skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill); 
 		}
 			break; 
-		case m::eSkillFunctionType::MultiStraight:
+		case m::eSkillFunctionType::LinearStraight:
 		{
 			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20, (int)SkillMultiFire::eFireType::Linear, fireLayerType); 
 			skill->SetCamera(GetOwner()->GetCamera()); 
@@ -365,7 +372,7 @@ namespace m
 			skillBuff = new SkillBuff(GetOwner(), activeSkillIndex, skillType); 
 			skillBuff->SetCamera(GetOwner()->GetCamera()); 
 			skillBuff->ActiveOverlay(); 
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::PlayerSkill, skillBuff); 
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skillBuff);
 		}
 			break; 
 		case m::eSkillFunctionType::Orb:
@@ -373,7 +380,7 @@ namespace m
 			skill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
 			skill->SetCamera(GetOwner()->GetCamera()); 
 			skill->SkillFire(); 
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);
 		}
 			break; 
 		case m::eSkillFunctionType::None:

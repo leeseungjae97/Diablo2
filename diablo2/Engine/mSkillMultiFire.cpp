@@ -1,6 +1,8 @@
 #include "mSkillMultiFire.h"
 
 #include "mMouseManager.h"
+#include "mSkillFollower.h"
+
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
@@ -43,9 +45,13 @@ namespace m
 		{
 			Vector3 startPos = iniPos;
 			Skill* sf = nullptr;
-			if (mFireType == eFireType::Random)
+			if (mFireType == eFireType::RandomFall)
 			{
 				sf = makeRandomFall(randFireRange, startPos, type, generator);
+			}
+			if (mFireType == eFireType::RandomLinear)
+			{
+				sf = makeRandomLinear(randFireRange.y, startPos, type, camera, layerType);
 			}
 			if (mFireType == eFireType::Linear)
 			{
@@ -95,13 +101,14 @@ namespace m
 			bFirstUpdate = true;
 		}
 		if (mFireType == eFireType::Radial
-			|| mFireType == eFireType::Circle)
+			|| mFireType == eFireType::Circle
+			|| mFireType == eFireType::RandomLinear)
 		{
 			for (Skill* sf : skills) sf->SkillFire();
 			SetState(GameObject::eState::Delete);
 			bSkillFire = true;
 		}
-		if (mFireType == eFireType::Random)
+		if (mFireType == eFireType::RandomFall)
 		{
 			if (mSkillFireTimes.size() <= curIndex)
 			{
@@ -143,6 +150,17 @@ namespace m
 	{
 		Skill::Render();
 	}
+
+    Skill* SkillMultiFire::makeRandomLinear(float randomY, Vector3 initPos, eSkillType type, Camera* camera, eLayerType layerType)
+    {
+		SkillFollower* skill = new SkillFollower(type, 40, initPos, initPos, camera);
+		skill->SetRandomStraight(randomY, 0.5f);
+		skill->SetFollowerGenerateTime(0.08f);
+		skill->SetSkillOwnerLayer(layerType);
+		skill->SetFollowerLoopCount(1);
+		skill->Initialize();
+		return skill;
+    }
 
     SkillStraight* SkillMultiFire::makeCircleStraights(Vector3 vector3, eSkillType type, float addDegree)
     {

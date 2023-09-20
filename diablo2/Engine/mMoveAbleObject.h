@@ -11,7 +11,7 @@ namespace m
 	{
 	public:
 		MoveAbleObject(Vector3 iniPos
-					   , float speed
+					   , float speed = 300.f
 					   , bool useHitArea = true
 					   , bool useRange = true
 					   , bool useTilePos = true

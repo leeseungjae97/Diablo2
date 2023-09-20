@@ -103,6 +103,20 @@ namespace m
 	0,
 	12,
 	};
+	int crashProgress[(int)eSkillCrashType::END] = {
+	0,  // IceCrash1
+	0,  // IceCrash2
+	0,  // IceCrash3
+	0,  // FireCrash1
+	3,  // FireCrash2
+	0,  // IceCrash1Overlay
+	0,  // IceCrash2Overlay
+	0,  // FireCrash1Overlay
+	0,  // FireCrash2Overlay
+	0,  // RedLightningCrash
+	0,  // Poison
+	0,  // StunAttack
+	};
 	bool crashLoop[(int)eSkillCrashType::END] = {
 		false,
 		false,
@@ -358,7 +372,7 @@ namespace m
 		0.f,// inferno
 		0.f,// blaze
 		300.f,// fireBall
-		0.f,// fireWall
+		300.f,// fireWall
 		0.f,// enchant
 		300.f,// meteor
 		0.f,// fireMastery

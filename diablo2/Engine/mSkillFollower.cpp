@@ -5,16 +5,18 @@
 
 namespace m
 {
-    SkillFollower::SkillFollower(eSkillType type, int count, Vector3 initPos, Vector3 _desPosition)
+    SkillFollower::SkillFollower(eSkillType type, int count, Vector3 initPos, Vector3 _desPosition, Camera* camera)
         : SkillStraight(type, initPos, 300.f, true, false)
         , iFollowerCount(count)
         , iCurCount(0)
         , fFollowerGenerateTime(0.f)
         , fAcc(0.f)
+        , iFollowerLoopCount(10)
     {
         //SetDestPosition(_desPosition);
         //destPosition = _desPosition;
-        makeFollower();
+        //SetLimitDistance(1000.f);
+        SetCamera(camera);
     }
 
     SkillFollower::~SkillFollower()
@@ -24,6 +26,7 @@ namespace m
     void SkillFollower::Initialize()
     {
         SkillStraight::Initialize();
+        makeFollower();
     }
 
     void SkillFollower::Update()
@@ -32,7 +35,7 @@ namespace m
         if (iFollowerCount <= iCurCount)
         {
             SetState(eState::Delete);
-            bSkillFire = false;
+            
         }
 
         fAcc += Time::fDeltaTime();
@@ -60,8 +63,12 @@ namespace m
         {
             //int m = rand() % 3;
             TileAffectOverlay* mTAO = new TileAffectOverlay(pos, eAffectOverlayType::Fire2, skillOwnerType);
-            
-            SceneManager::GetActiveScene()->AddGameObject(skillOwnerType, mTAO);
+            mTAO->SetLoopCount(iFollowerLoopCount);
+            mTAO->SetCamera(GetCamera());
+            eLayerType mOverlayType;
+            if (skillOwnerType == eLayerType::PlayerSkill) mOverlayType = eLayerType::PlayerOverlay;
+            else mOverlayType = eLayerType::MonsterOverlay;
+            SceneManager::GetActiveScene()->AddGameObject(mOverlayType, mTAO);
             followers.push_back(mTAO);
         }
     }

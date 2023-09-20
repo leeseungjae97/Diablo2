@@ -55,6 +55,7 @@ namespace m
 
         Vector2 prevCurCoord;
         Vector2 prevTargetCoord;
+        Vector2 destCoord;
 
         //bool bPathChange;
 

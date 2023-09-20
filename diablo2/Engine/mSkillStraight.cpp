@@ -17,6 +17,9 @@ namespace m
 		:Skill(type, iniPos, false, true)
 		, limitDistance(1000.f)
 	    , useLimit(useLimitDistance)
+	    , fRandomRange(0.f)
+	    , fRandomMoveAcc(0.f)
+	    , fRandomMoveTime(0.f)
 	{
 		bMadePath = true;
 		
@@ -41,7 +44,6 @@ namespace m
 		{
 			SET_MATERIAL(this, L"noneRect");
 		}
-		l = false;
 	}
 	SkillStraight::~SkillStraight()
 	{
@@ -53,29 +55,27 @@ namespace m
 	void SkillStraight::Update()
 	{
 		Skill::Update();
-
-		Vector3 curPosition = GET_POS(this);
-		if(bSkillFire)
+		if (bSkillFire)
 		{
-			if(ss)
-			    ss->SkillFire();
+			if (ss)
+				ss->SkillFire();
 
 			bSkillFire = false;
 			bMove = true;
-			l = false;
-			if(destPosition == initPosition)
+			if (destPosition == initPosition)
 			{
 				Vector3 destVector = Vector3::One;
 				if (GetLayerType() == eLayerType::PlayerSkill)
 				{
 					destVector = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 				}
-				else destVector = TileManager::GetPlayerPosition();
+				else
+					destVector = TileManager::GetPlayerPosition();
 				destPosition = Vector3(destVector.x, destVector.y, destPosition.z);
 			}
 
 			prevPosition = GET_POS(this);
-		
+
 			float maxX = max(destPosition.x, prevPosition.x);
 			float maxY = max(destPosition.y, prevPosition.y);
 
@@ -87,8 +87,15 @@ namespace m
 			vDirection = destPosition - prevPosition;
 			vDirection.Normalize();
 		}
+		
+		Vector3 curPosition = GET_POS(this);
+
 		if (bMove)
 		{
+			if(fRandomRange > 0.f)
+			{
+				randomY();
+			}
 			SetAdjustmentDegree();
 			float fMoveX = curPosition.x + (vDirection.x * fXAdjustSpeed * Time::fDeltaTime());
 			float fMoveY = curPosition.y + (vDirection.y * fYAdjustSpeed * Time::fDeltaTime());
@@ -110,6 +117,36 @@ namespace m
 	void SkillStraight::Render()
 	{
 		Skill::Render();
+	}
+
+    void SkillStraight::SetRandomStraight(float randomY, float fRandomTime)
+    {
+		fRandomRange = randomY;
+		fRandomMoveTime = fRandomTime;
+    }
+
+	void SkillStraight::randomY()
+	{
+		fRandomMoveAcc -= Time::fDeltaTime();
+		if(fRandomMoveAcc <= 0.f)
+		{
+			int m = 0;
+			m = rand() % 2;
+
+			float xRand = fRandomRange;
+			float yRand = fRandomRange;
+
+			if (vDirection.x < 0.f) xRand *= -1.f;
+
+			if (m) yRand *= -1.f;
+
+			vDirection.x += xRand;
+			vDirection.y += yRand;
+			vDirection.Normalize();
+
+			fRandomMoveAcc = fRandomMoveTime;
+		}
+	
 	}
 	void SkillStraight::Hit(int damage, bool attackStun)
 	{
