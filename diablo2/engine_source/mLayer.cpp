@@ -72,13 +72,19 @@ namespace m
 		{
 			if (gameObj->GetState()
 				== GameObject::eState::Delete)
+			{
 				deleteGameObj.insert(gameObj);
+			}
 		}
 
-		// daed 오브젝트 제외시키기 layer에서
 		typedef std::vector<GameObject*>::iterator GameObjectIter;
-		for (GameObjectIter iter = mGameObjects.begin()
-			 ; iter != mGameObjects.end(); )
+		GameObjectIter iter = mGameObjects.begin();
+		for(GameObject* gameObj : deleteGameObj)
+		{
+			std::erase(mGameObjects, gameObj);
+		}
+
+		/*while(iter != mGameObjects.end())
 		{
 			std::set<GameObject*>::iterator deleteIter
 				= deleteGameObj.find(*(iter));
@@ -90,7 +96,7 @@ namespace m
 			}
 
 			++iter;
-		}
+		}*/
 
 		//메모리 해제
 		for (GameObject* gameObj : deleteGameObj)

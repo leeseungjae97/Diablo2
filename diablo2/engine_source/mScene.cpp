@@ -25,9 +25,15 @@ namespace m
 
 	void Scene::Update()
 	{
+		int a = 0; 
 		for (Layer* layer : mLayers)
 		{
+			//if(a == (int)eLayerType::PlayerSkill)
+			//{
+			//	int b = 0;
+			//}
 			layer->Update();
+			++a;
 		}
 	}
 	void Scene::LateUpdate()

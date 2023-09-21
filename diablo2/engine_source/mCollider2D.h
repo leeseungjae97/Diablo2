@@ -36,7 +36,8 @@ namespace m
 		Vector2 GetCenter() { return mCenter; }
 
 		void SetScale(Vector3 scale);
-		eColliderType GetType() { return mType; }
+        
+        eColliderType GetType() { return mType; }
 
 		void AddExceptType(eLayerType type) { exceptTypes.push_back(type); }
 		void ClearExceptType() { exceptTypes.clear(); }
@@ -56,6 +57,7 @@ namespace m
 		void SetColliderFunctionType(eColliderFunctionType type) { mFunctionType = type; }
 		eColliderFunctionType GetColliderFunctionType() { return mFunctionType; }
 
+		Monster* SearchCollideredMonster();
 		bool SearchObjectGameObjectId(UINT gameObjectId);
 
 		void Resize() { bResize = true; }

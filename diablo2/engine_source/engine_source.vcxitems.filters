@@ -372,6 +372,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.h">
       <Filter>GameObject\Component\AnimationTrappingColor</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SummonsLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OverlayLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">

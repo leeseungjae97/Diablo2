@@ -223,18 +223,95 @@ namespace m::graphics
 			xidx++;
 		}
 
-		if(path == L"..\\Resources\\texture\\enemy\\andariel\\special")
+		/*if(path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack")
 		{
 			GUID format = GetWICCodec(WIC_CODEC_PNG);
 			hr = SaveToWICFile(
 				*atlasImage.GetImage(0, 0, 0)
 				, WIC_FLAGS::WIC_FLAGS_NONE
 				, format
-				, L"save4.png"
+				, L"hydra_attack.png"
 				, nullptr
 			);
 		}
-		
+		if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\cast")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"hydra_cast.png"
+				, nullptr
+			);
+		}
+		if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\dead")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"hydra_dead.png"
+				, nullptr
+			);
+		}
+		if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\natural")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"hydra_natural.png"
+				, nullptr
+			);
+		}*/
+
+		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack_fire")
+		//{
+		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
+		//	hr = SaveToWICFile(
+		//		*atlasImage.GetImage(0, 0, 0)
+		//		, WIC_FLAGS::WIC_FLAGS_NONE
+		//		, format
+		//		, L"hydra_attack_fire.png"
+		//		, nullptr
+		//	);
+		//}
+		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\cast_fire")
+		//{
+		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
+		//	hr = SaveToWICFile(
+		//		*atlasImage.GetImage(0, 0, 0)
+		//		, WIC_FLAGS::WIC_FLAGS_NONE
+		//		, format
+		//		, L"hydra_cast_fire.png"
+		//		, nullptr
+		//	);
+		//}
+		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\dead_fire")
+		//{
+		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
+		//	hr = SaveToWICFile(
+		//		*atlasImage.GetImage(0, 0, 0)
+		//		, WIC_FLAGS::WIC_FLAGS_NONE
+		//		, format
+		//		, L"hydra_dead_fire.png"
+		//		, nullptr
+		//	);
+		//}
+		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\natural_fire")
+		//{
+		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
+		//	hr = SaveToWICFile(
+		//		*atlasImage.GetImage(0, 0, 0)
+		//		, WIC_FLAGS::WIC_FLAGS_NONE
+		//		, format
+		//		, L"hydra_natural_fire.png"
+		//		, nullptr
+		//	);
+		//}
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()

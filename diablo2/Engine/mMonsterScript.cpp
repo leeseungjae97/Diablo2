@@ -88,7 +88,7 @@ namespace m
 		Vector3 scale = GET_SCALE(GetOwner());
 		Vector2 scaleOffset = Vector2(0.f, scale.y * 4);
 		int m = 0;
-		for (int i = 0; i < (UINT)T::eAnimationType::End; ++i)
+		for (int i = 0; i < (UINT)MonsterData::eAnimationType::End; ++i)
 		{
 			if (curMonsterData.textureString[i] == L"") continue;
 
@@ -111,7 +111,7 @@ namespace m
 					, curMonsterData.animationOffset[i]
 					, curMonsterData.animationDuration[i]
 				);
-				if (i == (UINT)T::eAnimationType::Natural)
+				if (i == (UINT)MonsterData::eAnimationType::Natural)
 				{
 					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
@@ -119,13 +119,13 @@ namespace m
 						mAnimator->SetAnimationStartIndex(0);
 					};
 				}
-				if (i == (UINT)T::eAnimationType::Attack1)
+				if (i == (UINT)MonsterData::eAnimationType::Attack1)
 				{
 					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
 					{
 						AnimationStart(GameObject::eBattleState::Attack);
-						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)T::eAnimationType::Attack1]);
+						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack1]);
 					};
 					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
@@ -137,7 +137,7 @@ namespace m
 					mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]() { AttackProgress(); };
 				}
-				if (i == (UINT)T::eAnimationType::Hit)
+				if (i == (UINT)MonsterData::eAnimationType::Hit)
 				{
 					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
 						= [this]()
@@ -159,7 +159,7 @@ namespace m
 				}
 			}
 		}
-		mAnimationType = T::eAnimationType::Natural;
+		mAnimationType = MonsterData::eAnimationType::Natural;
 		mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 
@@ -184,7 +184,7 @@ namespace m
 			/*&& (nullptr == mSkill && nullptr == mSkillBuff)*/)
 		{
 			int selectSpecialSkillBranshNum = rand() % 1000;
-			if (selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
+			if (selectSpecialSkillBranshNum == (int)MonsterData::eAnimationType::Special2
 				/*selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special1
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2*/
@@ -198,7 +198,7 @@ namespace m
 		}
 
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Cast
-			&& curMonsterData.textureString[(UINT)T::eAnimationType::SpecialCast] != L"")
+			&& curMonsterData.textureString[(UINT)MonsterData::eAnimationType::SpecialCast] != L"")
 		{
 			SpecialAttackAnimationConitnue();
 		}
@@ -226,12 +226,12 @@ namespace m
 			if (mMonster->StopF())
 			{
 				GetOwner()->SetBattleState(GameObject::Idle);
-				mAnimationType = T::eAnimationType::Natural;
+				mAnimationType = MonsterData::eAnimationType::Natural;
 			}
 			else
 			{
 				GetOwner()->SetBattleState(GameObject::Run);
-				mAnimationType = T::eAnimationType::Run;
+				mAnimationType = MonsterData::eAnimationType::Run;
 			}
 
 			ElseAnimationPlay();
@@ -252,13 +252,13 @@ namespace m
 			WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
 
 			int prevIndex = 0;
-			if (subStr1 == curMonsterData.animationString[(UINT)T::eAnimationType::Run])
+			if (subStr1 == curMonsterData.animationString[(UINT)MonsterData::eAnimationType::Run])
 			{
 				prevIndex = mAnimator->GetAnimationIndex();
 			}
 
 			mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
-			if (mAnimationType == T::eAnimationType::Run)
+			if (mAnimationType == MonsterData::eAnimationType::Run)
 			{
 				mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)mAnimationType]);
 				mAnimator->SetAnimationIndex(prevIndex);
@@ -270,7 +270,7 @@ namespace m
 	{
 		//if (mMonster->GetBattleState() != GameObject::eBattleState::Idle) return;
 
-		mAnimationType = T::eAnimationType::Hit;
+		mAnimationType = MonsterData::eAnimationType::Hit;
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 		if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 		{
@@ -293,7 +293,7 @@ namespace m
 				//int randAttackMotion = rand() % 2 + 1;
 				//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
 				GetOwner()->SetBattleState(GameObject::Attack);
-				mAnimationType = T::eAnimationType::Attack1;
+				mAnimationType = MonsterData::eAnimationType::Attack1;
 				SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 				if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 				{
@@ -306,7 +306,7 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::SpecialAttackAnimationConitnue()
 	{
-		if (mAnimationType != T::eAnimationType::SpecialCast) return;
+		if (mAnimationType != MonsterData::eAnimationType::SpecialCast) return;
 		//curMonsterData.bSpecialSkillStopInProgress[];
 
 		//WSTRING_SUBSTR(mAnimator->GetActiveAnimation()->GetKey(), L'@', subStr1);
@@ -353,7 +353,7 @@ namespace m
 		if (speiclaAttackCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			GetOwner()->SetBattleState(GameObject::Cast);
-			mAnimationType = static_cast<T::eAnimationType>(skillIndex);
+			mAnimationType = static_cast<MonsterData::eAnimationType>(skillIndex);
 			SET_SCALE_XYZ(GetOwner()
 				, curMonsterData.animationSizes[skillIndex].x
 				, curMonsterData.animationSizes[skillIndex].y
@@ -489,7 +489,7 @@ namespace m
 			}
 			else
 			{
-				iCurSkillIndex = type - (int)T::eAnimationType::SpecialCast;
+				iCurSkillIndex = type - (int)MonsterData::eAnimationType::SpecialCast;
 				eSkillType skilltype = curMonsterData.mSpecialSkills[iCurSkillIndex];
 				if (skilltype != eSkillType::END)
 				{
@@ -561,10 +561,19 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
-		case m::eSkillFunctionType::MultiStraight:
+		case m::eSkillFunctionType::MultiFollowerStraight:
 		{
 			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
 				, addFunction, fireLayerType, Vector2(0.f , 0.5f), GetOwner()->GetCamera());
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			//skill->SkillFire(); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+		}
+		break;
+		case m::eSkillFunctionType::MultiStraight:
+		{
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
+				, addFunction, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);

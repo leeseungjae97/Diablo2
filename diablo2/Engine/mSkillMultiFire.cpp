@@ -68,6 +68,10 @@ namespace m
 				sf->SetDestPosition(mousePos3);
 				bFirstUpdate = true;
 			}
+			if(mFireType == eFireType::RadialRandomStraight)
+			{
+				sf = makeRadialRandomStraight(randFireRange.y, startPos, type, camera, layerType, initDegree, (float)i);
+			}
 			if (mFireType == eFireType::Radial)
 			{
 				sf = makeRadialStraight(startPos, type, initDegree, (float)i);
@@ -150,6 +154,28 @@ namespace m
 	{
 		Skill::Render();
 	}
+
+    SkillStraight* SkillMultiFire::makeRadialRandomStraight(float randomY, Vector3 initPos, eSkillType type, Camera* camera,
+        eLayerType layerType, float initDegree, float addDegree)
+    {
+		initDegree += (((float)mCount / 2.f) - addDegree) * 10.f;
+
+		float theta = DegreeToRadian(initDegree);
+
+		SkillStraight* skill = new SkillStraight(type, initPos, 300.f);
+		skill->SetRandomStraight(randomY, 0.5f);
+		skill->SetSkillOwnerLayer(layerType);
+		skill->Initialize();
+
+		skill->SetInitializePosition(initPos);
+
+		initPos.x += cosf(theta);
+		initPos.y += sinf(theta);
+
+		skill->SetDestPosition(initPos);
+
+		return skill;
+    }
 
     Skill* SkillMultiFire::makeRandomLinear(float randomY, Vector3 initPos, eSkillType type, Camera* camera, eLayerType layerType)
     {

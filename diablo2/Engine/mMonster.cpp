@@ -14,6 +14,10 @@ namespace m
 		, hp(100.f)
 		, hpCapacity(100.f)
 	{
+		SET_MESH(this, L"RectMesh");
+		SET_MATERIAL(this, L"AnimationMaterial");
+		ADD_COMP(this, Animator);
+
 		hpPercent = (hpCapacity - hp) / hpCapacity;
 
 		MonsterManager::AddMonster(this);

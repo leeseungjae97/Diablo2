@@ -3,6 +3,7 @@
 #include "mRenderer.h"
 #include "mGraphics.h"
 #include "mMeshRenderer.h"
+#include "mMonsterManager.h"
 
 namespace m
 {
@@ -183,7 +184,18 @@ namespace m
 		mScale = scale;
 		bCustomSize = true;
     }
+	Monster* Collider2D::SearchCollideredMonster()
+	{
+		for (Collider2D* col : collidereds)
+		{
+			if (nullptr == col) continue;
+			if (col->GetColliderFunctionType() != eColliderFunctionType::HitArea) continue;
 
+			Monster* monster =dynamic_cast<Monster*>(col->GetOwner());
+			if (nullptr != monster) return monster;
+		}
+		return nullptr;
+	}
     bool Collider2D::SearchObjectGameObjectId(UINT gameObjectId)
 	{
 		for (Collider2D* col : collidereds)

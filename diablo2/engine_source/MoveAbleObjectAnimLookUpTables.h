@@ -664,7 +664,7 @@ math::Vector2(0.f, 0.f),	// Dead
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
 		int mSpecialSkillAddFunction[5] = {
-			4/*eFireType::Radial*/
+		    5/*eFireType::Radial*/
 			,0
 			,0
 			,0 };

@@ -29,6 +29,7 @@ namespace m::enums
 		Aura,
 		FieldItem,
 		Wall,
+		Summons,
 		Player,
 		Monster,
 		Light,

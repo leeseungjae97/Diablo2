@@ -15,6 +15,9 @@ namespace m
 		LinearStraight,
 		RandomStraight,
 		MultiStraight,
+		MultiFollowerStraight,
+		Summons,
+		MultiSummons,
 		MMultiLinearStraight,
 		Raidal,
 		StunAttack,
@@ -197,7 +200,7 @@ namespace m
 		eSkillFunctionType::Orb,// L"frozenOrbIcon",
 		eSkillFunctionType::Passive,// L"coldMasteryIcon",
 
-		eSkillFunctionType::Straight,// L"chargedBoltIcon",
+		eSkillFunctionType::MultiStraight,// L"chargedBoltIcon",
 		eSkillFunctionType::Straight,// L"staticFieldIcon",
 		eSkillFunctionType::Straight,// L"telekinesisIcon",
 		eSkillFunctionType::CircleFire,// L"novaIcon",
@@ -217,13 +220,13 @@ namespace m
 		eSkillFunctionType::Buff,// L"enchantIcon",
 		eSkillFunctionType::FallExplosion,// L"meteorIcon",
 		eSkillFunctionType::Passive,// L"fireMasteryIcon",
-		eSkillFunctionType::Straight,// L"hydraIcon",
+		eSkillFunctionType::MultiSummons,// L"hydraIcon",
 
 		eSkillFunctionType::None,// L"normalAttackIcon"
 		//Monster
 		eSkillFunctionType::LinearStraight,// L"diabloLightning",
 		eSkillFunctionType::CircleFire,// L"diabloFireNova",
-		eSkillFunctionType::MultiStraight,// L"diabloFireStorm",
+		eSkillFunctionType::MultiFollowerStraight,// L"diabloFireStorm",
 
 		eSkillFunctionType::Raidal,// L"AndarielPoisonAttack",
 		eSkillFunctionType::StunAttack,// L"AndarielPoisonAttack",

@@ -68,6 +68,7 @@ namespace m
 		CollisionManager::SetLayer(eLayerType::PlayerOverlay, eLayerType::Monster, true);
 		//CollisionManager::SetLayer(eLayerType::MonsterOverlay, eLayerType::Player, true);
 
+		CollisionManager::SetLayer(eLayerType::Summons, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::PlayerSkill, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::MonsterSkill, eLayerType::Player, true);
 
@@ -235,9 +236,6 @@ namespace m
 			Monster* monster = new Monster(pos, MDDiablo().fSpeed);
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
-			SET_MESH(monster, L"RectMesh");
-			SET_MATERIAL(monster, L"AnimationMaterial");
-			ADD_COMP(monster, Animator);
 			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
 			monster->SetMonsterClass(ms->GetMonsterClass());
 		}

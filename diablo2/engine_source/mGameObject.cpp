@@ -8,7 +8,7 @@
 #include "mScript.h"
 namespace m
 {
-	UINT GameObject::GameObjectIdDispender = 0;
+	UINT GameObject::GameObjectIdDispender = 1;
 	GameObject::GameObject()
 		: mState(eState::RenderUpdate)
 		, mBattleState(eBattleState::Idle)

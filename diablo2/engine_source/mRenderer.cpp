@@ -613,6 +613,32 @@ namespace renderer
 		//MAKE_MATERIAL(spriteShader, L"fire_2_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire2.png", L"fire2s");
 		//MAKE_MATERIAL(spriteShader, L"fire_3_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3.png", L"fire3s");
 #pragma endregion
+#pragma region Summons
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_attack", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack"
+			, 104, 67, 12, L"hydraAttack");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_summon", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\summon"
+			, 84, 84, 12, L"hydraSummon");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_dead", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\dead"
+			, 88, 80, 10, L"hydraDead");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_natural", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\natural"
+			, 85, 66, 12, L"hydraNatural");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_attack_fire", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack_fire"
+			, 124, 82, 12, L"hydraAttackFire");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_summon_fire", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\summon_fire"
+			, 80, 87, 12, L"hydraSummonFire");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_dead_fire", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\dead_fire"
+			, 81, 88, 10, L"hydraDeadFire");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_natural_fire", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\natural_fire"
+			, 83, 78, 12, L"hydraNaturalFire");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_overlay_fire_start", L"..\\Resources\\texture\\skill_effect\\overlay\\hydra_fire\\start"
+			, 114, 99, 16, L"hydraOverlayFireStart");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_overlay_fire_end", L"..\\Resources\\texture\\skill_effect\\overlay\\hydra_fire\\end"
+			, 60, 81, 16, L"hydraOverlayFireEnd");
+		MAKE_MATERIAL_PATH(spriteShader, L"hydra_overlay_fire_loop", L"..\\Resources\\texture\\skill_effect\\overlay\\hydra_fire\\loop"
+			, 63, 90, 20, L"hydraOverlayFireLoop");
+#pragma endregion
 #pragma region Skill
         MAKE_MATERIAL_PATH(spriteShader, L"ice_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\ice_bolt"
 						   , 92, 55, 6, L"iceBolt");
