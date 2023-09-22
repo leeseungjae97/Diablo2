@@ -5,6 +5,8 @@
 
 #include "mPlayerManager.h"
 #include "mPlayer.h"
+#include "mSceneManager.h"
+#include "mSkillOverlay.h"
 
 namespace m
 {
@@ -39,6 +41,9 @@ namespace m
 		bodyBoxCollider->AddExceptType(eLayerType::MonsterSkill);
 
 		mPathFinder->SetMonsterOwner(this);
+
+		mHSO = new SkillOverlay();
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, mHSO);
 	}
 	Monster::~Monster()
 	{}
@@ -50,11 +55,17 @@ namespace m
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
+		if(nullptr == mHSO->GetCamera())
+		{
+			mHSO->SetActiveOwner(this);
+		}
+
 		if (hp == 0)
 		{
 			//Dead end -> Delete
 			MonsterManager::EraseMonster(this);
 			SetState(eState::Delete);
+			mHSO->SetState(eState::Delete);
 			return;
 		}
 

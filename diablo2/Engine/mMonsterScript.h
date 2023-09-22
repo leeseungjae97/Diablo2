@@ -53,7 +53,8 @@ namespace m
 		Aura* GetAura() { return mAura; }
 
 		T GetcurMonsterData() { return curMonsterData; }
-	private:
+
+    private:
 		void makeSkillCastAnimation(int type, int direction);
 		void makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos
 			, eLayerType fireLayerType, int addFunction, int skillCount);

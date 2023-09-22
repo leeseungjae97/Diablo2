@@ -59,7 +59,9 @@ namespace m
 			mOESS->PlayOverlaySkill();
 			bActiveOverlay = false;
 		}
-		SET_POS_VEC(this, GET_POS(mActiveOwner));
+		Vector3 pos = GET_POS(mActiveOwner);
+		pos.z -= 0.00001f;
+		SET_POS_VEC(this, pos);
 	}
 	void SkillOverlay::LateUpdate()
 	{

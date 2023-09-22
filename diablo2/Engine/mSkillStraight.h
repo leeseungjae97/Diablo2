@@ -30,6 +30,8 @@ namespace m
         StraightScript* ss;
         float limitDistance;
         bool useLimit;
+        int randSign;
+
         float moveDistance;
         float fRandomRange;
         float fRandomMoveAcc;

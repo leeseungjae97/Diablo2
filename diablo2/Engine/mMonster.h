@@ -6,6 +6,8 @@
 #include "mMoveAbleObject.h"
 namespace m
 {
+    class SkillOverlay;
+
     class Monster :
         public MoveAbleObject
     {
@@ -47,6 +49,7 @@ namespace m
 
         float GetMonsterHpPercent() { return hpPercent; }
 
+        SkillOverlay* GetHSO() { return mHSO; }
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
@@ -57,6 +60,7 @@ namespace m
         Vector2 prevTargetCoord;
         Vector2 destCoord;
 
+        SkillOverlay* mHSO;
         //bool bPathChange;
 
         int monsterId;

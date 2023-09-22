@@ -1048,7 +1048,7 @@ math::Vector2(0.f, 0.f),	// Dead
 		const std::wstring wsMonsterName = L"메피스토";
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::lightning
-			,eSkillType::END
+			,eSkillType::chargedBolt
 			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
@@ -1063,55 +1063,56 @@ math::Vector2(0.f, 0.f),	// Dead
 		eAuraType passiveAura = eAuraType::End;
 		Vector2 auraOffSet = Vector2(0.f, 0.f);
 
-		int mSpecialSkillAddFunction[5] = { 0,0,0,0, 0 };
+		int mSpecialSkillAddFunction[5] = { 0,3,0,0, 0 };
 
-		int mSpecialSkillCount[5] = { 1, 1, 1, 1 };
+		int mSpecialSkillCount[5] = { 20, 6, 0, 0, 0 };
 
 		eMonsterType mMonsterType = eMonsterType::Mephisto;
 		eMonsterClass mClass = eMonsterClass::Boss;
 
-		bool bPathImage = true;
+		bool bPathImage = false;
 		bool bHandAnim = false;
 
+
 		std::wstring textureString[(UINT)eAnimationType::End] = {
-			L"andarielAttack",
-			L"",
-			L"",
-			L"andarielHit",
-			L"andarielNatural",
-			L"andarielWalk",
-			L"",
-			L"andarielSpecial",
-			L"",
-			L"",
-			L"",
-			L"",
-			L"andarielDead",
-			L"andarielToDead",
+			L"mephistoAttack1",					
+			L"",					
+			L"",					
+			L"mephistoGetHit",					
+			L"mephistoNatural",					
+			L"mephistoWalk",					
+			L"",					
+			L"mephistoAttack2",					
+			L"mephistoAttack2",					
+			L"",					
+			L"",					
+			L"",					
+			L"mephistoDead",					
+			L"mephistoToDead",					
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
-			L"andarielAttack_anim@",
+			L"mephistoAttack1_anim@",
 			L"",
 			L"",
-			L"andarielHit_anim@",
-			L"andarielNatural_anim@",
-			L"andarielWalk_anim@",
+			L"mephistoGetHit_anim@",
+			L"mephistoNatural_anim@",
+			L"mephistoWalk_anim@",
 			L"",
-			L"andarielSpecial_anim@",
+			L"mephistoAttack2_anim@",
+			L"mephistoAttack3_anim@",
 			L"",
 			L"",
 			L"",
-			L"",
-			L"andarielDead_anim@",
-			L"andarielToDead_anim@",
+			L"mephistoDead_anim@",
+			L"mephistoToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
-			math::Vector2(0.f, -10.f), // Attack1
+			math::Vector2(0.f, 0.f), // Attack1
 			math::Vector2(0.f, 0.f),	// Attack2
 			math::Vector2(0.f, 0.f),	// Block
 			math::Vector2(0.f, 0.f),	// Hit
 			math::Vector2(0.f, 0.f),	// Natural
-			math::Vector2(0.f, 15.f),	// Run
+			math::Vector2(0.f, 0.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
 			math::Vector2(0.f, 0.f),	// SpecialCast
 			math::Vector2(0.f, 0.f),	// Special1
@@ -1136,20 +1137,20 @@ math::Vector2(0.f, 0.f),
 math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
-			math::Vector2(247.f, 248.f),	// Attack1
-			math::Vector2(),	// Attack2
+			math::Vector2(5526.f / 18.f, 2471.f / 8.f),	// Attack1
+			math::Vector2(),	// attack2
 			math::Vector2(),	// Block
-			math::Vector2(173.f, 180.f),	// Hit
-			math::Vector2(178.f, 179.f),	// Natural
-			math::Vector2(148.f, 184.f),	// Run
+			math::Vector2(1842.f / 6.f, 2471.f / 8.f),	// Hit
+			math::Vector2(3991.f / 13.f, 2471.f / 8.f),	// Natural
+			math::Vector2(3991.f / 13.f, 2471.f / 8.f),	// Run
 			math::Vector2(),	// Walk
-			math::Vector2(212.f, 182.f),	// SpecialCast
-			math::Vector2(),	// Special1
+			math::Vector2(5219.f / 17.f, 2471.f / 8.f),	// specialcast
+			math::Vector2(5219.f / 17.f, 2471.f / 8.f),	// specialcast
 			math::Vector2(),	// Special2
 			math::Vector2(),	// Special3
 			math::Vector2(),	// Special4
-			math::Vector2(177.f, 116.f),					// Dead
-			math::Vector2(203.f, 232.f),					// ToDead
+			math::Vector2(308.f, 2471.f / 8.f),					// Dead
+			math::Vector2(7675.f / 25.f, 2471.f / 8.f),					// ToDead
 
 		};
 		float animationDuration[(UINT)eAnimationType::End] = {
@@ -1168,20 +1169,20 @@ math::Vector2(0.f, 0.f),	// Dead
 			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
-			16,// Attack1
+			18,// Attack1
 			0,// Attack2
 			0, // Block
 			6, // Hit
-			16,// Natural
-			12, // Run
+			13,// Natural
+			13, // Run
 			0, // Walk
-			18,// SpecialCast
-			0,// Special1
+			17,// SpecialCast
+			17,// SpecialCast
 			0, // Special2
 			0, // Special3
 			0	, // Special4
 			1, // Dead
-			23, // ToDead
+			25, // ToDead
 		};
 		int animStartIndex[(UINT)eAnimationType::End] = {
 			0,// Attack1

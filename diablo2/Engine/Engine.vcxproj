@@ -176,6 +176,7 @@
     <ClInclude Include="mAura.h" />
     <ClInclude Include="mSkillBuff.h" />
     <ClInclude Include="mSkillFollower.h" />
+    <ClInclude Include="mSkillFollowing.h" />
     <ClInclude Include="mSkillMultiSummons.h" />
     <ClInclude Include="mSkillSummons.h" />
     <ClInclude Include="mSkillMMultiFire.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="mAura.cpp" />
     <ClCompile Include="mSkillBuff.cpp" />
     <ClCompile Include="mSkillFollower.cpp" />
+    <ClCompile Include="mSkillFollowing.cpp" />
     <ClCompile Include="mSkillMultiSummons.cpp" />
     <ClCompile Include="mSkillSummons.cpp" />
     <ClCompile Include="mSkillMMultiFire.cpp" />

@@ -42,14 +42,12 @@ namespace m
         learnedSkill[2][(int)eFireSkillType::fireWall] = 1;
 		learnedSkill[2][(int)eFireSkillType::fireBall] = 1;
 		learnedSkill[2][(int)eFireSkillType::hydra] = 1;
+		learnedSkill[2][(int)eFireSkillType::blaze] = 1;
+		learnedSkill[2][(int)eFireSkillType::inferno] = 1;
 
 		learnedSkill[2][(int)eFireSkillType::fireMastery] = 0;
 		learnedSkill[2][(int)eFireSkillType::warmth] = 0;
 		learnedSkill[2][(int)eFireSkillType::enchant] = 0;
-
-		learnedSkill[2][(int)eFireSkillType::blaze] = 0;
-		learnedSkill[2][(int)eFireSkillType::inferno] = 0;
-		
 
 		learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
 		learnedSkill[1][(int)eLightningSkillType::nova] = 1;
@@ -79,7 +77,7 @@ namespace m
 		learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::lightning);
+		SetSkill(1, eSkillType::inferno);
 	}
 
 	void PlayerManager::CalHpPercent()

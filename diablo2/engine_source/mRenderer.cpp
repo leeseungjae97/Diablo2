@@ -590,6 +590,8 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_crash_2", L"..\\Resources\\texture\\skill_effect\\overlay\\fire_crash_2"
 			, 208, 174, 16, L"fireCrash2");
+		MAKE_MATERIAL_PATH(spriteShader, L"light_crash_1", L"..\\Resources\\texture\\skill_effect\\overlay\\light_crash_1"
+			, 65, 71, 20, L"lightCrash1")
 
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_1", L"..\\Resources\\texture\\skill_effect\\overlay\\fire1"
 			, 66, 89, 37, L"fire1");
@@ -672,6 +674,9 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"fire_wall", L"..\\Resources\\texture\\skill_effect\\missile\\fire_wall"
 			, 66, 167, 37, L"fireWall");
 
+		MAKE_MATERIAL_PATH(spriteShader, L"_blaze", L"..\\Resources\\texture\\skill_effect\\missile\\fire_wall"
+			, 66, 167, 37, L"blaze");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
 			, 148, 106, 8, L"lightning");
 
@@ -680,6 +685,15 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"clacial_spike", L"..\\Resources\\texture\\skill_effect\\missile\\clacial_spike"
 			, 180, 110, 6, L"clacialSpike");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"charged_bolt", L"..\\Resources\\texture\\skill_effect\\missile\\charged_bolt"
+			, 85, 78, 10, L"chargedBolt");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"flame_1", L"..\\Resources\\texture\\skill_effect\\missile\\flame_1"
+			, 76, 77, 15, L"flame1");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"flame_2", L"..\\Resources\\texture\\skill_effect\\missile\\flame_2"
+			, 76, 84, 15, L"flame2");
 		
 #pragma endregion
 #pragma region Monster
@@ -822,6 +836,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + spriteShader->GetKey());
 		MAKE_MATERIAL(UVControlShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + UVControlShader->GetKey());
 		MAKE_MATERIAL(tileDrawShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + tileDrawShader->GetKey());
+
 #pragma endregion
 #pragma region InGame User Interface
 		MAKE_MATERIAL(UVControlShader, L"enemy_hp", L"..\\Resources\\texture\\ui\\play\\enemy_hp.png", L"enemyHp");

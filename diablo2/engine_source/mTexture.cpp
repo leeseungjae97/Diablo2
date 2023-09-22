@@ -301,17 +301,18 @@ namespace m::graphics
 		//		, nullptr
 		//	);
 		//}
-		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\natural_fire")
+		//if (path == L"..\\Resources\\texture\\123")
 		//{
 		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
 		//	hr = SaveToWICFile(
 		//		*atlasImage.GetImage(0, 0, 0)
 		//		, WIC_FLAGS::WIC_FLAGS_NONE
 		//		, format
-		//		, L"hydra_natural_fire.png"
+		//		, L"12311.png"
 		//		, nullptr
 		//	);
 		//}
+		
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()

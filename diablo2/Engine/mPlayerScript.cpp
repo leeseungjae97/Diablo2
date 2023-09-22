@@ -25,6 +25,8 @@
 #include "mSkillMultiFire.h"
 #include "mSkillOrb.h"
 #include "mSkill.h"
+#include "mSkillFollower.h"
+#include "mSkillFollowing.h"
 #include "mSkillMultiSummons.h"
 #include "mSkillSummons.h"
 #include "mSkillWall.h"
@@ -100,7 +102,7 @@ namespace m
 				, Vector2(0.0f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast].y * i)
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::SpecialCast]
-				, Vector2(0.f, -10.f)
+				, Vector2::Zero
 				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast].y * 4)
 				, 0.03f
 			);
@@ -350,10 +352,10 @@ namespace m
 		case m::eSkillFunctionType::MultiStraight:
 		{
 			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 6
-				, (int)SkillMultiFire::eFireType::RandomLinear, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
+				, (int)SkillMultiFire::eFireType::RadialRandomStraight, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
 			skill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
 		}
 		break;
 		case m::eSkillFunctionType::FixedMultiStraight:
@@ -367,6 +369,17 @@ namespace m
 		case m::eSkillFunctionType::Wall:
 		{
 			skill = new SkillWall(skillType, GET_POS(GetOwner()), GetOwner()->GetCamera(), eLayerType::PlayerSkill);
+			skill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+		}
+		break;
+		case m::eSkillFunctionType::Follower:
+		{
+			skill = new SkillFollowing(skillType, GetOwner(), 10.f / 0.08f,GET_POS(GetOwner()), GetOwner()->GetCamera());
+			((SkillFollowing*)skill)->SetFollowerGenerateTime(0.08f);
+			((SkillFollowing*)skill)->SetFollowerLoopCount(5);
+			((SkillFollowing*)skill)->Initialize();
+			skill->SetSkillOwnerLayer(fireLayerType);
 			skill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
 		}

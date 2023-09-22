@@ -14,6 +14,7 @@ namespace m
 		MultiFall,
 		LinearStraight,
 		RandomStraight,
+		Follower,
 		MultiStraight,
 		MultiFollowerStraight,
 		Summons,
@@ -213,8 +214,8 @@ namespace m
 
 		eSkillFunctionType::Straight,// L"fireBoltIcon",
 		eSkillFunctionType::Passive,// L"warmthIcon",
-		eSkillFunctionType::Straight,// L"infernoIcon",
-		eSkillFunctionType::Straight,// L"blazeIcon",
+		eSkillFunctionType::FixedMultiStraight,// L"infernoIcon",
+		eSkillFunctionType::Follower,// L"blazeIcon",
 		eSkillFunctionType::Straight,// L"fireBallIcon",
 		eSkillFunctionType::Wall,// L"fireWallIcon",
 		eSkillFunctionType::Buff,// L"enchantIcon",

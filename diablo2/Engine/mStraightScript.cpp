@@ -14,7 +14,7 @@ namespace m
 	StraightScript::StraightScript(int _directionCount)
 		: mDirectionCount(_directionCount)
 		, mCrashType(eCrashType::END)
-	    , bNoHit(false)
+		, bNoHit(false)
 	{
 	}
 	StraightScript::~StraightScript()
@@ -27,23 +27,62 @@ namespace m
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
 
-		SHARED_MAT tex = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
+		SHARED_MAT tex;
+		Vector2 skillSize;
+		Vector2 skillOffset;
+		Vector2 skillCenterPos = Vector2::Zero;
+		int animLength;
+		float duration;
+
+		if (mType == eSkillType::inferno)
+		{
+			int m = rand() % 2;
+			if (m > 0)
+			{
+				tex = RESOURCE_FIND(Material, L"flame1");
+				skillName = L"flame1anim";
+				skillSize = Vector2(76.f, 77.f);
+				skillCenterPos = Vector2(0, 50.f);
+			}
+			else
+			{
+				tex = RESOURCE_FIND(Material, L"flame2");
+				skillName = L"flame2anim";
+				skillSize = Vector2(76.f, 84.f);
+				skillCenterPos = Vector2(0, 50.f);
+			}
+			animLength = 15;
+			skillOffset = skillOffsets[(int)mType];
+			duration = 0.03f;
+		}
+		else
+		{
+			tex = RESOURCE_FIND(Material, skillAnimNames[(int)mType]);
+			skillName = skillAnimNames[(int)mType] + L"anim";
+			skillSize = skillSizes[(int)mType];
+			skillOffset = skillOffsets[(int)mType];
+			animLength = skillAnimLength[(int)mType];
+			duration = 0.03f;
+		}
+
+		SET_SCALE_XYZ(GetOwner(), skillSize.x, skillSize.y, 1.f);
 
 		mSkillCrashType = skillCrashTypes[(UINT)mType];
 		mCrashType = crashFunction[(int)mSkillCrashType];
-		if(mDirectionCount == 0)
+		if (mDirectionCount == 0)
 		{
 			mAnimator->Create(
-				skillAnimNames[(int)mType] + L"anim"
+				skillName
 				, tex->GetTexture()
 				, Vector2(0.0f, 0.f)
-				, skillSizes[(int)mType]
-				, skillAnimLength[(int)mType]
-				, Vector2::Zero
-				, skillOffsets[(int)mType]
-				, 0.03f
+				, skillSize
+				, animLength
+				, skillOffset
+				, skillCenterPos
+				, duration
 			);
-		}else
+		}
+		else
 		{
 			for (int i = 0; i < mDirectionCount; ++i)
 			{
@@ -76,12 +115,12 @@ namespace m
 				}
 			}
 		}
-		
+
 		if (mCrashType == eCrashType::Overlay) return;
 		if (mSkillCrashType == eSkillCrashType::END) return;
 
 		SHARED_MAT mat1 = RESOURCE_FIND(Material, crashNames[(int)mSkillCrashType]);
-		if(nullptr != mat1)
+		if (nullptr != mat1)
 		{
 			mAnimator->Create(crashNames[(int)mSkillCrashType] + L"anim"
 				, mat1->GetTexture()
@@ -89,7 +128,7 @@ namespace m
 				, crashSizes[(int)mSkillCrashType]
 				, crashLength[(int)mSkillCrashType]
 				, Vector2::Zero
-				,crashCenterPos[(int)mSkillCrashType]
+				, crashCenterPos[(int)mSkillCrashType]
 				, 0.03f
 				, 0.7f);
 			mAnimator->StartEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
@@ -124,14 +163,14 @@ namespace m
 	void StraightScript::Update()
 	{
 		//if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
-		if(bSkillFire
+		if (bSkillFire
 			&& !skillLoops[(int)mType]
 			&& mAnimator->GetActiveAnimation()
-			&& mAnimator->GetActiveAnimation()->GetKey() 
-			== skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
+/*			&& mAnimator->GetActiveAnimation()->GetKey()
+			== skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection]*/)
 		{
-			if(mAnimator->GetActiveAnimation()->IsStop())
-    			GetOwner()->SetState(GameObject::eState::Delete);
+			if (mAnimator->GetActiveAnimation()->IsStop())
+				GetOwner()->SetState(GameObject::eState::Delete);
 		}
 		if (((Skill*)GetOwner())->GetSkillCrash() && !bNoHit)
 		{
@@ -149,7 +188,7 @@ namespace m
 			//	GetOwner()->SetState(GameObject::eState::Delete);
 			//}
 		}
-		if(bSkillFire)
+		if (bSkillFire)
 		{
 			Vector3 direction = ((SkillStraight*)GetOwner())->GetDirection();
 
@@ -177,17 +216,18 @@ namespace m
 			if (mDirectionCount == 0)
 			{
 				if (nullptr == mAnimator->GetActiveAnimation() ||
-					mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + L"anim")
-					mAnimator->PlayAnimation(skillAnimNames[(int)mType] + L"anim", true);
-			}else
+					mAnimator->GetActiveAnimation()->GetKey() != skillName)
+					mAnimator->PlayAnimation(skillName, skillLoops[(int)mType]);
+			}
+			else
 			{
 				if (nullptr == mAnimator->GetActiveAnimation() ||
 					mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
 					mAnimator->PlayAnimation(skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection], skillLoops[(int)mType]);
 			}
-			
+
 		}
-		
+
 	}
 	void StraightScript::LateUpdate()
 	{
@@ -204,8 +244,30 @@ namespace m
 			{
 			case m::enums::eLayerType::PlayerSkill:
 			{
-				if (dynamic_cast<Monster*>(other->GetOwner()))
-					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+				/*if (dynamic_cast<Monster*>(other->GetOwner()))
+					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);*/
+				if (mCrashType == eCrashType::Overlay)
+				{
+					//PlayerScript* ps = PlayerManager::player->GetComponent<PlayerScript>();
+					Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
+					if (monster)
+					{
+						//SET_SCALE_XYZ(monster->GetHSO()
+						//	, crashSizes[(int)mSkillCrashType].x
+						//	, crashSizes[(int)mSkillCrashType].y
+						//	, 1.f
+						//);
+						OverlayEffectSkillScript* mOESS = monster->GetHSO()->GetComponent<OverlayEffectSkillScript>();
+						mOESS->SetSkillType(mType);
+						//if(!mOESS->IsPlayHit())
+						monster->GetHSO()->ActiveOverlay();
+					}
+				}
+				if (mCrashType == eCrashType::Addiction)
+				{
+					dynamic_cast<Monster*>(other->GetOwner())->Addiction(10, 10.f, 10);
+				}
+				dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
 			}
 			break;
 			case m::enums::eLayerType::MonsterSkill:
@@ -215,11 +277,11 @@ namespace m
 					//PlayerScript* ps = PlayerManager::player->GetComponent<PlayerScript>();
 					PlayerScript* ps = other->GetOwner()->GetComponent<PlayerScript>();
 
-					SET_SCALE_XYZ(ps->GetHSO()
-						, crashSizes[(int)mSkillCrashType].x
-						, crashSizes[(int)mSkillCrashType].y
-						, 1.f
-					);
+					//SET_SCALE_XYZ(ps->GetHSO()
+					//	, crashSizes[(int)mSkillCrashType].x
+					//	, crashSizes[(int)mSkillCrashType].y
+					//	, 1.f
+					//);
 					OverlayEffectSkillScript* mOESS = ps->GetHSO()->GetComponent<OverlayEffectSkillScript>();
 					mOESS->SetSkillType(mType);
 					//if(!mOESS->IsPlayHit())
@@ -236,14 +298,6 @@ namespace m
 				break;
 			}
 			if (mCrashType != eCrashType::Overlay) dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
-			//if (other->GetOwner()->GetLayerType() != dynamic_cast<Skill*>(GetOwner())->GetLayerType())
-			//{
-			//	
-			//	//Monster* monster = dynamic_cast<Monster*>();
-			//}
-			
-			//mAnimator->StopAnimation();
-			
 		}
 	}
 	void StraightScript::OnCollisionStay(Collider2D* other)

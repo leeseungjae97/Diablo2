@@ -184,10 +184,9 @@ namespace m
 			/*&& (nullptr == mSkill && nullptr == mSkillBuff)*/)
 		{
 			int selectSpecialSkillBranshNum = rand() % 1000;
-			if (selectSpecialSkillBranshNum == (int)MonsterData::eAnimationType::Special2
-				/*selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
+			if (selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special1
-				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2*/
+				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special3
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
 				)
@@ -555,7 +554,8 @@ namespace m
 		case m::eSkillFunctionType::LinearStraight:
 		case m::eSkillFunctionType::Raidal:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount, addFunction, fireLayerType);
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
+				, addFunction, fireLayerType, Vector2::Zero, GetOwner()->GetCamera());
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
@@ -565,17 +565,23 @@ namespace m
 		{
 			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
 				, addFunction, fireLayerType, Vector2(0.f , 0.5f), GetOwner()->GetCamera());
-			mSkill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::MultiStraight:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
-				, addFunction, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
-			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 6
+				, (int)SkillMultiFire::eFireType::RadialRandomStraight, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
 			//skill->SkillFire(); 
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+		}
+		break;
+		case m::eSkillFunctionType::FixedMultiStraight:
+		{
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20
+				, (int)SkillMultiFire::eFireType::FixedLinear, fireLayerType, Vector2::Zero, GetOwner()->GetCamera(), 0.08f);
+			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
@@ -583,7 +589,6 @@ namespace m
 		{
 			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount, (int)SkillMultiFire::eFireType::Circle, fireLayerType);
 			mSkill->SetCamera(GetOwner()->GetCamera());
-
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}

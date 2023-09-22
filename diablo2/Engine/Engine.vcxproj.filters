@@ -190,7 +190,12 @@
     <ClCompile Include="mOverlay.cpp">
       <Filter>Overlay</Filter>
     </ClCompile>
-    <ClCompile Include="mOverlayScript.cpp" />
+    <ClCompile Include="mOverlayScript.cpp">
+      <Filter>Script\OverlayScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillFollowing.cpp">
+      <Filter>Skill\Missile\SkillFollowing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -379,7 +384,12 @@
     <ClInclude Include="mOverlay.h">
       <Filter>Overlay</Filter>
     </ClInclude>
-    <ClInclude Include="mOverlayScript.h" />
+    <ClInclude Include="mOverlayScript.h">
+      <Filter>Script\OverlayScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillFollowing.h">
+      <Filter>Skill\Missile\SkillFollowing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -600,6 +610,9 @@
     </Filter>
     <Filter Include="Script\OverlayScript">
       <UniqueIdentifier>{43b44813-8a66-4252-9fb3-ca55f6aa8ed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Missile\SkillFollowing">
+      <UniqueIdentifier>{276b0dc7-b118-411e-9fcb-e697ff8dd0ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ namespace m
 		IceCrash3,
 		FireCrash1,
 		FireCrash2,
+		LightCrash1,
 		IceCrash1Overlay,
 		IceCrash2Overlay,
 		FireCrash1Overlay,
@@ -37,6 +38,7 @@ namespace m
 	L"iceCrash3",
 	L"fireCrash1",
 	L"fireCrash2",
+	L"lightCrash1",
 	L"iceCrash1",
 	L"iceCrash2",
 	L"fireCrash1",
@@ -56,6 +58,7 @@ namespace m
 		eCrashType::Overlay,
 		eCrashType::Overlay,
 		eCrashType::Overlay,
+		eCrashType::Overlay,
 		eCrashType::Addiction,
 		eCrashType::Stun,
 	};
@@ -65,6 +68,7 @@ namespace m
 	m::math::Vector2(143.f, 107.f),
 	m::math::Vector2(78.f, 70.f),
 	m::math::Vector2(208.f, 174.f),
+	m::math::Vector2(65.f, 71.f),
 	m::math::Vector2(113.f, 72.f),
 	m::math::Vector2(83.f, 110.f),
 	m::math::Vector2(78.f, 70.f),
@@ -75,6 +79,7 @@ namespace m
 
 	};
 	m::math::Vector2 crashCenterPos[(int)eSkillCrashType::END] = {
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -95,6 +100,7 @@ namespace m
 	15,
 	12,
 	16,
+	20,
 	6,
 	16,
 	12,
@@ -109,6 +115,7 @@ namespace m
 	0,  // IceCrash3
 	0,  // FireCrash1
 	3,  // FireCrash2
+	0,
 	0,  // IceCrash1Overlay
 	0,  // IceCrash2Overlay
 	0,  // FireCrash1Overlay
@@ -118,6 +125,7 @@ namespace m
 	0,  // StunAttack
 	};
 	bool crashLoop[(int)eSkillCrashType::END] = {
+		false,
 		false,
 		false,
 		false,
@@ -356,7 +364,7 @@ namespace m
 		200.f,// frozenOrb
 		0.f,// coldMastery
 		//
-		0.f,// chargedBolt
+		300.f,// chargedBolt
 		0.f,// staticField
 		0.f,// telekinesis
 		1000.f,// nova
@@ -369,7 +377,7 @@ namespace m
 		//
 		300.f,// fireBolt
 		0.f,// warmth
-		0.f,// inferno
+		300.f,// inferno
 		0.f,// blaze
 		300.f,// fireBall
 		300.f,// fireWall
@@ -399,7 +407,7 @@ namespace m
 		16, // frozenOrb
 		0, // coldMastery
 		//
-		5, // chargedBolt
+		10, // chargedBolt
 		0, // staticField
 		0, // telekinesis
 		13, // nova
@@ -413,7 +421,7 @@ namespace m
 		5, // fireBolt
 		0, // warmth
 		0, // inferno
-		0, // blaze
+		8, // blaze
 		5, // fireBall
 		8, // fireWall
 		0, // enchant
@@ -455,7 +463,7 @@ namespace m
 		//
 		true, // fireBolt
 		true, // warmth
-		true, // inferno
+		false, // inferno
 		true, // blaze
 		true, // fireBall
 		true, // fireWall
@@ -486,7 +494,7 @@ namespace m
 		true, // frozenOrb
 		true, // coldMastery
 		//
-		true, // chargedBolt
+		false, // chargedBolt
 		true, // staticField
 		true, // telekinesis
 		false, // nova
@@ -499,7 +507,7 @@ namespace m
 		//
 		true, // fireBolt
 		true, // warmth
-		true, // inferno
+		false, // inferno
 		false, // blaze
 		true, // fireBall
 		false, // fireWall
@@ -542,7 +550,7 @@ namespace m
 		//
 		16, // fireBolt
 		16, // warmth
-		16, // inferno
+	    0, // inferno
 		16, // blaze
 		16, // fireBall
 		0, // fireWall
@@ -572,7 +580,7 @@ namespace m
 		m::math::Vector2(54.f, 53.f),// frozenOrb,
 		m::math::Vector2(0.f, 0.f),// coldMastery,
 
-		m::math::Vector2(0.f, 0.f),// chargedBolt,
+		m::math::Vector2(85.f, 78.f),// chargedBolt,
 		m::math::Vector2(0.f, 0.f),// staticField,
 		m::math::Vector2(0.f, 0.f),// telekinesis,
 		m::math::Vector2(70.f, 48.f),// nova,
@@ -586,7 +594,7 @@ namespace m
 		m::math::Vector2(116.f, 66.f),// fireBolt,
 		m::math::Vector2(0.f, 0.f),// warmth,
 		m::math::Vector2(0.f, 0.f),// inferno,
-		m::math::Vector2(0.f, 0.f),// blaze,
+		m::math::Vector2(66.f, 167.f),// blaze,
 		m::math::Vector2(146.f, 79.f),// fireBall,
 		m::math::Vector2(66.f, 167.f),// fireWall,
 		m::math::Vector2(0.f, 0.f),// enchant,
@@ -658,7 +666,7 @@ namespace m
 		eSkillCrashType::END,// frozenOrb
 		eSkillCrashType::END,// coldMastery
 
-		eSkillCrashType::END,// chargedBolt
+		eSkillCrashType::LightCrash1,// chargedBolt
 		eSkillCrashType::END,// staticField
 		eSkillCrashType::END,// telekinesis
 		eSkillCrashType::END,// nova

@@ -130,7 +130,7 @@ namespace m
 		//SHARED_MAT mat1 = RESOURCE_FIND(Material, L"balrogAttackRH");
 		//SHARED_MAT mat2 = RESOURCE_FIND(Material, L"fire2s");
 		//std::shared_ptr<Texture> tex3 = RESOURCE_FIND(Texture, L"fire_3");
-		
+
 
 		//std::vector<std::shared_ptr<Texture>> texes;
 
@@ -170,11 +170,11 @@ namespace m
 		//MAKE_GET_TEX(qwe, tex);
 		//SET_SCALE_TEX_SIZE(qwe, tex, 1.f);
 
-		
+
 		//fire_1_s
 		//fire_2_s
 		//fire_3_s
-	
+
 		//Resources\sound\ambient\creature;
 
 
@@ -200,16 +200,16 @@ namespace m
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
-		//{
-		//	Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//}
+		{
+			Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+		}
 
 
 		//for(int i = 0 ; i < 10; ++i)
@@ -230,15 +230,15 @@ namespace m
 		//	}
 		//}
 
-		{
-			Tile* tile = TileManager::pathFindingTiles[78][53];
-			Vector3 pos = tile->GetPos();
-			Monster* monster = new Monster(pos, MDDiablo().fSpeed);
-			SET_MAIN_CAMERA(monster);
-			AddGameObject(eLayerType::Monster, monster);
-			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-		}
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[78][53];
+		//	Vector3 pos = tile->GetPos();
+		//	Monster* monster = new Monster(pos, MDDiablo().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//}
 		//{
 		//	Tile* tile = TileManager::pathFindingTiles[40][30];
 		//	Vector3 pos = tile->GetPos();
@@ -249,6 +249,20 @@ namespace m
 		//	SET_MATERIAL(monster, L"AnimationMaterial");
 		//	ADD_COMP(monster, Animator);
 		//	MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		//}
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[40][30];
+		//	Vector3 pos = tile->GetPos();
+		//	Monster* monster = new Monster(pos, MDMephisto().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	SET_MESH(monster, L"RectMesh");
+		//	SET_MATERIAL(monster, L"AnimationMaterial");
+		//	ADD_COMP(monster, Animator);
+		//	MonsterScript<MDMephisto>* ms = ADD_COMP(monster, MonsterScript<MDMephisto>);
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
 		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);

@@ -1,6 +1,7 @@
 #include "mSkillFollower.h"
 
-#include "mSceneManager.h"
+#include "../engine_source/mSceneManager.h"
+
 #include "mTileAffectOverlay.h"
 
 namespace m

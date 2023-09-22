@@ -29,12 +29,22 @@ namespace m
 
 		SET_MESH(this, L"PointMesh");
 		SET_MATERIAL(this, L"noneRect");
-
+		SetCamera(camera);
 		//initDegree -= (count / 2) * 20.f;
 		Vector3 pos = iniPos;
+		Vector3 targetPos = Vector3::Zero;
 
-		Vector3 playerPos = TileManager::GetPlayerPosition();
-		Vector3 initDegreeVector3 = playerPos - pos;
+		if(layerType == eLayerType::MonsterSkill)
+		{
+			targetPos = TileManager::GetPlayerPosition();
+		}else
+		{
+			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(iniPos.z, camera);
+			unprojMousePos.z = iniPos.z;
+			targetPos = unprojMousePos;
+		}
+		
+		Vector3 initDegreeVector3 = targetPos - pos;
 
 		initDegreeVector3.Normalize();
 		float initDegree = RadianToDegree(atan2(initDegreeVector3.y, initDegreeVector3.x));
@@ -57,20 +67,21 @@ namespace m
 			{
 				mSkillFireTimes.push_back(skillGenTime);
 				sf = new SkillStraight(type, startPos, 400.f);
+				sf->SetCamera(camera);
+				bFirstUpdate = true;
 			}
 			if(mFireType == eFireType::FixedLinear)
 			{
 				mSkillFireTimes.push_back(skillGenTime);
-				Vector3 mousePos3 = MouseManager::UnprojectionMousePos(1.f, camera);
-				mousePos3.z = 1.f;
 				sf = new SkillStraight(type, startPos, 400.f);
 				sf->SetCamera(camera);
-				sf->SetDestPosition(mousePos3);
+				sf->SetDestPosition(targetPos);
 				bFirstUpdate = true;
 			}
 			if(mFireType == eFireType::RadialRandomStraight)
 			{
 				sf = makeRadialRandomStraight(randFireRange.y, startPos, type, camera, layerType, initDegree, (float)i);
+				bFirstUpdate = true;
 			}
 			if (mFireType == eFireType::Radial)
 			{
@@ -106,7 +117,8 @@ namespace m
 		}
 		if (mFireType == eFireType::Radial
 			|| mFireType == eFireType::Circle
-			|| mFireType == eFireType::RandomLinear)
+			|| mFireType == eFireType::RandomLinear
+			|| mFireType == eFireType::RadialRandomStraight)
 		{
 			for (Skill* sf : skills) sf->SkillFire();
 			SetState(GameObject::eState::Delete);
@@ -158,15 +170,14 @@ namespace m
     SkillStraight* SkillMultiFire::makeRadialRandomStraight(float randomY, Vector3 initPos, eSkillType type, Camera* camera,
         eLayerType layerType, float initDegree, float addDegree)
     {
-		initDegree += (((float)mCount / 2.f) - addDegree) * 10.f;
+		initDegree += (((float)mCount / 2.f) - addDegree) * 5.f;
 
 		float theta = DegreeToRadian(initDegree);
 
 		SkillStraight* skill = new SkillStraight(type, initPos, 300.f);
-		skill->SetRandomStraight(randomY, 0.5f);
+		skill->SetRandomStraight(randomY, 0.3f);
 		skill->SetSkillOwnerLayer(layerType);
-		skill->Initialize();
-
+		skill->SetCamera(camera);
 		skill->SetInitializePosition(initPos);
 
 		initPos.x += cosf(theta);

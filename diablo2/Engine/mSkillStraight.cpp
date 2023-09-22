@@ -20,9 +20,13 @@ namespace m
 	    , fRandomRange(0.f)
 	    , fRandomMoveAcc(0.f)
 	    , fRandomMoveTime(0.f)
+	    , randSign(1)
 	{
 		bMadePath = true;
-		
+		if(type == eSkillType::inferno)
+		{
+			limitDistance = 500.f;
+		}
 		SetSpeed(speed);
 		SET_MESH(this, L"RectMesh");
 		if(useAnimator)
@@ -133,12 +137,18 @@ namespace m
 			int m = 0;
 			m = rand() % 2;
 
-			float xRand = fRandomRange;
+			float xRand = fRandomRange / 2.f;
 			float yRand = fRandomRange;
 
-			if (vDirection.x < 0.f) xRand *= -1.f;
+			if (vDirection.x <= 0.f) xRand *= -1.f;
 
-			if (m) yRand *= -1.f;
+			if (m > 0)
+			{
+				yRand *= -1.f;
+				xRand *= -1.f;
+			}
+			//randSign *= -1;
+			//yRand *= randSign;
 
 			vDirection.x += xRand;
 			vDirection.y += yRand;

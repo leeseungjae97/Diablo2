@@ -10,7 +10,6 @@ namespace m
     public:
         StraightScript(int _directionCount = 16);
         virtual ~StraightScript();
-
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void LateUpdate() override;
@@ -28,6 +27,7 @@ namespace m
         int mDirectionCount;
         bool bNoHit;
         bool bSkillFire;
+        std::wstring skillName;
         eSixteenDirection* mDirections;
         eSkillCrashType mSkillCrashType;
         eCrashType mCrashType;
