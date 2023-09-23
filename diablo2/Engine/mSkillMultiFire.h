@@ -30,7 +30,8 @@ namespace m
                        , eLayerType layerType = eLayerType::Skill
                        , Vector2 randFireRange = Vector2::Zero
                        , Camera* camera = nullptr
-                       , float skillGenTime = 0.05f);
+                       , float skillGenTime = 0.05f
+                       , bool addSkill = false);
 		virtual ~SkillMultiFire();
 
 		virtual void Initialize() override;

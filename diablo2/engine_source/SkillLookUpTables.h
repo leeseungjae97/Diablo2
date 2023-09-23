@@ -17,10 +17,13 @@ namespace m
 		Follower,
 		MultiStraight,
 		MultiFollowerStraight,
+		Push,
 		Summons,
 		MultiSummons,
 		MMultiLinearStraight,
 		Raidal,
+		RangeDamage,
+		Aura,
 		StunAttack,
 		Orb,
 		Buff,
@@ -202,13 +205,13 @@ namespace m
 		eSkillFunctionType::Passive,// L"coldMasteryIcon",
 
 		eSkillFunctionType::MultiStraight,// L"chargedBoltIcon",
-		eSkillFunctionType::Straight,// L"staticFieldIcon",
-		eSkillFunctionType::Straight,// L"telekinesisIcon",
+		eSkillFunctionType::RangeDamage,// L"staticFieldIcon",
+		eSkillFunctionType::Push,// L"telekinesisIcon",
 		eSkillFunctionType::CircleFire,// L"novaIcon",
 		eSkillFunctionType::FixedMultiStraight,// L"lightningIcon",
 		eSkillFunctionType::Straight,// L"chainLightningIcon",
 		eSkillFunctionType::Buff,// L"teleportIcon",
-		eSkillFunctionType::Straight,// L"thunderStormIcon",
+		eSkillFunctionType::Aura,// L"thunderStormIcon",
 		eSkillFunctionType::Straight,// L"energyShieldIcon",
 		eSkillFunctionType::Passive,// L"lightningMasteryIcon",
 
@@ -231,6 +234,49 @@ namespace m
 
 		eSkillFunctionType::Raidal,// L"AndarielPoisonAttack",
 		eSkillFunctionType::StunAttack,// L"AndarielPoisonAttack",
+	};
+	eSkillType skillAddSkillTypes[(int)eSkillType::END] = {
+	    eSkillType::END,// L"iceBoltIcon",
+	    eSkillType::END,// L"frozenArmorIcon",
+	    eSkillType::END,// L"frostNovaIcon",
+	    eSkillType::END,// L"iceBlastIcon",
+	    eSkillType::END,// L"shiverArmorIcon",
+	    eSkillType::END,// L"clacialSpikeIcon",
+	    eSkillType::END,// L"blizzardIcon",
+	    eSkillType::END,// L"chillingArmorIcon",
+	    eSkillType::END,// L"frozenOrbIcon",
+	    eSkillType::END,// L"coldMasteryIcon",
+
+	    eSkillType::END,// L"chargedBoltIcon",
+	    eSkillType::chargedBolt,// L"staticFieldIcon",
+	    eSkillType::END,// L"telekinesisIcon",
+	    eSkillType::END,// L"novaIcon",
+	    eSkillType::END,// L"lightningIcon",
+	    eSkillType::END,// L"chainLightningIcon",
+	    eSkillType::END,// L"teleportIcon",
+	    eSkillType::END,// L"thunderStormIcon",
+	    eSkillType::END,// L"energyShieldIcon",
+	    eSkillType::END,// L"lightningMasteryIcon",
+
+	    eSkillType::END,// L"fireBoltIcon",
+	    eSkillType::END,// L"warmthIcon",
+	    eSkillType::END,// L"infernoIcon",
+	    eSkillType::END,// L"blazeIcon",
+	    eSkillType::END,// L"fireBallIcon",
+	    eSkillType::END,// L"fireWallIcon",
+	    eSkillType::END,// L"enchantIcon",
+	    eSkillType::END,// L"meteorIcon",
+	    eSkillType::END,// L"fireMasteryIcon",
+	    eSkillType::END,// L"hydraIcon",
+
+	    eSkillType::END,// L"normalAttackIcon"
+	    //Monster
+	    eSkillType::END,// L"diabloLightning",
+	    eSkillType::END,// L"diabloFireNova",
+	    eSkillType::END,// L"diabloFireStorm",
+
+	    eSkillType::END,// L"AndarielPoisonAttack",
+	    eSkillType::END,// L"AndarielPoisonAttack",
 	};
 	int SkillDamageCofTable[(int)eSkillType::END] = {
 		10,// L"iceBolt",

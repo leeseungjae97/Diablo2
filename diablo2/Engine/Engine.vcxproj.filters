@@ -196,6 +196,15 @@
     <ClCompile Include="mSkillFollowing.cpp">
       <Filter>Skill\Missile\SkillFollowing</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillRange.cpp">
+      <Filter>Skill\Range\SkillRange</Filter>
+    </ClCompile>
+    <ClCompile Include="mSkillPush.cpp">
+      <Filter>Skill\Click\SkillPush</Filter>
+    </ClCompile>
+    <ClCompile Include="mRangeScript.cpp">
+      <Filter>Script\RangeScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -389,6 +398,15 @@
     </ClInclude>
     <ClInclude Include="mSkillFollowing.h">
       <Filter>Skill\Missile\SkillFollowing</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillRange.h">
+      <Filter>Skill\Range\SkillRange</Filter>
+    </ClInclude>
+    <ClInclude Include="mSkillPush.h">
+      <Filter>Skill\Click\SkillPush</Filter>
+    </ClInclude>
+    <ClInclude Include="mRangeScript.h">
+      <Filter>Script\RangeScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +631,21 @@
     </Filter>
     <Filter Include="Skill\Missile\SkillFollowing">
       <UniqueIdentifier>{276b0dc7-b118-411e-9fcb-e697ff8dd0ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Click">
+      <UniqueIdentifier>{0e8fd83c-8fac-4471-ab10-bfaa3ccdd58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Click\SkillPush">
+      <UniqueIdentifier>{3ccc8b82-0657-4dbb-9924-c2a8ce553226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Range">
+      <UniqueIdentifier>{e463d968-cc75-49cf-b583-06876f0acc8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Range\SkillRange">
+      <UniqueIdentifier>{a90097fe-4a32-4c7e-84d4-48d0c89248de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\RangeScript">
+      <UniqueIdentifier>{3116ea38-9d8a-4aed-b3d0-930895c352cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

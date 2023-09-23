@@ -21,6 +21,7 @@ namespace m
 
     private:
         void colliderCollided();
+
     private:
         Animator* mAnimator;
         eAuraType mAuraType;

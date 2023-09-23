@@ -19,6 +19,7 @@ namespace m
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
         virtual void SetSkillType(eSkillType type) override;
+        void UpdateBackOverlaySkill();
         void UpdateOverlaySkill();
 
         void PlayOverlaySkill() { bPlaySkill = true; }
@@ -27,13 +28,19 @@ namespace m
 
         bool IsPlayHit() { return bHit; }
 
+        void SetSkillIndex(int index) { skillIndex = index; }
         void SetSkillCastType(eSkillCastType type) { mCastType = type; }
+        void Back() { bBack = true; }
+
     private:
         Animator* mAnimator;
         int skillIndex;
         eSkillCastType mCastType;
         bool bPlaySkill;
         bool bHit;
+
+        std::wstring wsBackName;
+        bool bBack;
     };
 }
 

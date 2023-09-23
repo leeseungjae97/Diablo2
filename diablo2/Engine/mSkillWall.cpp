@@ -76,7 +76,7 @@ namespace m
         mTAO->SetCamera(camera);
         mTAO->ActiveOverlay();
         eLayerType mOverlayType;
-        if (skillOwnerType == eLayerType::PlayerOverlay) mOverlayType = eLayerType::PlayerOverlay;
+        if (skillOwnerType == eLayerType::PlayerSkill) mOverlayType = eLayerType::PlayerOverlay;
         else mOverlayType = eLayerType::MonsterOverlay;
         SceneManager::GetActiveScene()->AddGameObject(mOverlayType, mTAO);
 

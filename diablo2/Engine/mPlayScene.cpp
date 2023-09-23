@@ -66,7 +66,7 @@ namespace m
 		CollisionManager::SetLayer(eLayerType::Aura, eLayerType::Monster, true);
 
 		CollisionManager::SetLayer(eLayerType::PlayerOverlay, eLayerType::Monster, true);
-		//CollisionManager::SetLayer(eLayerType::MonsterOverlay, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::MonsterOverlay, eLayerType::Player, true);
 
 		CollisionManager::SetLayer(eLayerType::Summons, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::PlayerSkill, eLayerType::Monster, true);
@@ -200,16 +200,16 @@ namespace m
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.f));
 
-		{
-			Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
-			SET_MAIN_CAMERA(monster);
-			AddGameObject(eLayerType::Monster, monster);
-			SET_MESH(monster, L"RectMesh");
-			SET_MATERIAL(monster, L"AnimationMaterial");
-			ADD_COMP(monster, Animator);
-			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-		}
+		//{
+		//	Monster* monster = new Monster(centerPos, MDDiablo().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	SET_MESH(monster, L"RectMesh");
+		//	SET_MATERIAL(monster, L"AnimationMaterial");
+		//	ADD_COMP(monster, Animator);
+		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//}
 
 
 		//for(int i = 0 ; i < 10; ++i)
@@ -238,6 +238,8 @@ namespace m
 		//	AddGameObject(eLayerType::Monster, monster);
 		//	MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		//}
 		//{
 		//	Tile* tile = TileManager::pathFindingTiles[40][30];
@@ -280,149 +282,149 @@ namespace m
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//}
 
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[50][50];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[50][51];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[50][52];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[50][53];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[50][54];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][50];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][51];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][52];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][53];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][54];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
 
 
 
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[60][50];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[60][51];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[60][52];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[60][53];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
-		//{
-		//	Tile* tile = TileManager::pathFindingTiles[60][54];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	SET_MESH(monster, L"RectMesh");
-		//	SET_MATERIAL(monster, L"AnimationMaterial");
-		//	ADD_COMP(monster, Animator);
-		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		//}
+		{
+			Tile* tile = TileManager::pathFindingTiles[60][50];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[60][51];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[60][52];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[60][53];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[60][54];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			SET_MESH(monster, L"RectMesh");
+			SET_MATERIAL(monster, L"AnimationMaterial");
+			ADD_COMP(monster, Animator);
+			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		}
 
 
 		FieldItem* testField = new FieldItem(eItem::hpPosion1, Vector3(10.f, 10.f, 1.f));

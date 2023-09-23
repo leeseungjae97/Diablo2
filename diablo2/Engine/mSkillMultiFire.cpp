@@ -17,7 +17,8 @@ namespace m
 		eLayerType layerType,
 		Vector2 randFireRange,
 		Camera* camera,
-		float skillGenTime
+		float skillGenTime,
+		bool addSkill 
 	)
 		: Skill(type, iniPos)
 		, mFireType((eFireType)fireType)
@@ -34,15 +35,29 @@ namespace m
 		Vector3 pos = iniPos;
 		Vector3 targetPos = Vector3::Zero;
 
-		if(layerType == eLayerType::MonsterSkill)
+		if(addSkill)
 		{
-			targetPos = TileManager::GetPlayerPosition();
+			Vector3 playerPos =TileManager::GetPlayerPosition();
+
+			Vector3 vD = iniPos - playerPos;
+			vD.Normalize();
+			iniPos.x += vD.x;
+			iniPos.y += vD.y;
+			targetPos = iniPos;
 		}else
 		{
-			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(iniPos.z, camera);
-			unprojMousePos.z = iniPos.z;
-			targetPos = unprojMousePos;
+			if (layerType == eLayerType::MonsterSkill)
+			{
+				targetPos = TileManager::GetPlayerPosition();
+			}
+			else
+			{
+				Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(iniPos.z, camera);
+				unprojMousePos.z = iniPos.z;
+				targetPos = unprojMousePos;
+			}
 		}
+		
 		
 		Vector3 initDegreeVector3 = targetPos - pos;
 
@@ -62,13 +77,12 @@ namespace m
 			if (mFireType == eFireType::RandomLinear)
 			{
 				sf = makeRandomLinear(randFireRange.y, startPos, type, camera, layerType);
+				bFirstUpdate = true;
 			}
 			if (mFireType == eFireType::Linear)
 			{
 				mSkillFireTimes.push_back(skillGenTime);
 				sf = new SkillStraight(type, startPos, 400.f);
-				sf->SetCamera(camera);
-				bFirstUpdate = true;
 			}
 			if(mFireType == eFireType::FixedLinear)
 			{

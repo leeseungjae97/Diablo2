@@ -186,7 +186,7 @@ namespace m
 			int selectSpecialSkillBranshNum = rand() % 1000;
 			if (selectSpecialSkillBranshNum == (int)T::eAnimationType::SpecialCast
 				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special1
-				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
+				|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special2
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special3
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
 				)

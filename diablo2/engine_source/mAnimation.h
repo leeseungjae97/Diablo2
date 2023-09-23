@@ -72,7 +72,7 @@ namespace m
 
 		const Sprite& GetCurrentSprite() { return mSprites[mCurIndex]; }
 
-		int GetAltasLength() { return mLength; }
+		int GetAltasLength() { return mSprites.size(); }
 		int GetIndex() { return mCurIndex; }
 		int GetProgressIndex() { return mAnimProgressIndex; }
 		int GetEndIndex() { return mEndIndex; }

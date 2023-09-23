@@ -53,11 +53,10 @@ namespace m
 		learnedSkill[1][(int)eLightningSkillType::nova] = 1;
 		learnedSkill[1][(int)eLightningSkillType::lightning] = 1;
 		learnedSkill[1][(int)eLightningSkillType::chargedBolt] = 1;
+		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 1;
+		learnedSkill[1][(int)eLightningSkillType::staticField] = 1;
 
 		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 0;
-		learnedSkill[1][(int)eLightningSkillType::staticField] = 0;
-
-		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 0;
 
 		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 0;
 

@@ -93,4 +93,35 @@ namespace m
 		}
 			
     }
+	void SkillOverlay::SetSkillBackCast(eSkillCastType type)
+	{
+		if (mOESS)
+		{
+			mOESS->SetSkillCastType(type);
+
+			SET_SCALE_XYZ(this
+				, backCastSizes[(UINT)type].x
+				, backCastSizes[(UINT)type].y, 1.f);
+		}
+
+	}
+    void SkillOverlay::Back()
+    {
+		if(mActiveOwner)
+		{
+			if (mOESS)
+			    mOESS->Back();
+			Vector3 pos = GET_POS(mActiveOwner);
+			pos.z += 0.00001f;
+			SET_POS_VEC(this, pos);
+		}
+    }
+
+    void SkillOverlay::SetSkillIndex(int skill_index)
+    {
+		if (mOESS)
+		{
+			mOESS->SetSkillIndex(skill_index);
+		}
+    }
 }

@@ -175,7 +175,8 @@ namespace m
 		if (((Skill*)GetOwner())->GetSkillCrash() && !bNoHit)
 		{
 			eSkillCrashType crashType = skillCrashTypes[(UINT)mType];
-			if (crashFunction[(int)crashType] == eCrashType::Collide)
+			if (crashType != eSkillCrashType::END 
+				&& crashFunction[(int)crashType] == eCrashType::Collide)
 			{
 				if (mAnimator->GetActiveAnimation()->GetKey() != crashNames[(int)crashType] + L"anim")
 				{

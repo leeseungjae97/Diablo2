@@ -203,14 +203,14 @@ namespace m
 		const std::wstring wsMonsterName = L"";
 
 		eAuraType passiveAura = eAuraType::End;
-		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
 
-		eColliderFunctionType mSkillActiveColliderType[5] = {
-		eColliderFunctionType::End
-		, eColliderFunctionType::End
-		, eColliderFunctionType::End
-		, eColliderFunctionType::End
-		, eColliderFunctionType::End
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
+		m::enums::eColliderFunctionType::End
+		, m::enums::eColliderFunctionType::End
+		, m::enums::eColliderFunctionType::End
+		, m::enums::eColliderFunctionType::End
+		, m::enums::eColliderFunctionType::End
 		};
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -260,15 +260,15 @@ namespace m
 			,eSkillType::END
 			,eSkillType::END
 		};
-		eColliderFunctionType mSkillActiveColliderType[5] = {
-		eColliderFunctionType::End
-		, eColliderFunctionType::End
-		, eColliderFunctionType::End
-		, eColliderFunctionType::End
-		, eColliderFunctionType::End
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
+		m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
 		};
 		eAuraType passiveAura = eAuraType::End;
-		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
 
 		const std::wstring wsMonsterName = L"발록";
 
@@ -450,17 +450,17 @@ namespace m
 			,eSkillType::END
 			,eSkillType::END
 		};
-		eColliderFunctionType mSkillActiveColliderType[5] = {
-			eColliderFunctionType::Sight
-			, eColliderFunctionType::Sight
-			, eColliderFunctionType::Sight
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
+			m::enums::eColliderFunctionType::Sight
+			, m::enums::eColliderFunctionType::Sight
+			, m::enums::eColliderFunctionType::Sight
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
 		};
 		const std::wstring wsMonsterName = L"디아블로";
 
 		eAuraType passiveAura = eAuraType::End;
-		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
 		bool bSpecialSkillLoop[5] = { true,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { true, false, false, false, false };
 		int mSpecialSkillAddFunction[5] = {
@@ -521,9 +521,9 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Natural
 			math::Vector2(0.f, 15.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
-			math::Vector2(0.f, -10.f),// SpecialCast
-			math::Vector2(0.f, 0.f),	// Special1
-			math::Vector2(0.f, 0.f),	// Special2
+			math::Vector2(0.f, -15.f),// SpecialCast
+			math::Vector2(0.f, -15.f),	// Special1
+			math::Vector2(0.f, -15.f),	// Special2
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
@@ -651,15 +651,15 @@ math::Vector2(0.f, 0.f),	// Dead
 			,eSkillType::END
 		};
 		eAuraType passiveAura = eAuraType::End;
-		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
 
 		const std::wstring wsMonsterName = L"안다리엘";
 
-		eColliderFunctionType mSkillActiveColliderType[5] = { eColliderFunctionType::Sight
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = { m::enums::eColliderFunctionType::Sight
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
 		};
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
@@ -851,14 +851,14 @@ math::Vector2(0.f, 0.f),	// Dead
 			,eSkillType::END
 		};
 		eAuraType passiveAura = eAuraType::HolyFreeze;
-		Vector2 auraOffSet = Vector2(0.f, -30.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, -30.f);
 		const std::wstring wsMonsterName = L"두리엘";
-		eColliderFunctionType mSkillActiveColliderType[5] = {
-			eColliderFunctionType::Range
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
+			m::enums::eColliderFunctionType::Range
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
 		};
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
@@ -1053,15 +1053,15 @@ math::Vector2(0.f, 0.f),	// Dead
 			,eSkillType::END
 			,eSkillType::END
 		};
-		eColliderFunctionType mSkillActiveColliderType[5] = {
-			eColliderFunctionType::Sight
-			, eColliderFunctionType::Sight
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
-			, eColliderFunctionType::End
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
+			m::enums::eColliderFunctionType::Sight
+			, m::enums::eColliderFunctionType::Sight
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::End
 		};
 		eAuraType passiveAura = eAuraType::End;
-		Vector2 auraOffSet = Vector2(0.f, 0.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
 
 		int mSpecialSkillAddFunction[5] = { 0,3,0,0, 0 };
 

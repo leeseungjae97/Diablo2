@@ -9,6 +9,7 @@
 #include "mSkillOverlay.h"
 namespace m
 {
+    class Aura;
     class GameObject;
     class Animator;
     class PlayerScript :
@@ -22,6 +23,7 @@ namespace m
         void MakeDirection();
         void SpecialCastAnimation(int skillIndex);
         void ElseAnimationPlay();
+        
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
@@ -37,6 +39,7 @@ namespace m
         bool GetStun();
 
         int GetDirection() { return mDirection; }
+        void DrawBackOverlay();
         //virtual void OnCollisionEnter(Collider2D* other) override;
         //virtual void OnCollisionStay(Collider2D* other) override;
         //virtual void OnCollisionExit(Collider2D* other) override;
@@ -59,6 +62,13 @@ namespace m
         SkillOverlay* mRSO;
         SkillOverlay* mLSO;
         SkillOverlay* mHSO;
+        SkillOverlay* mBackSO;
+
+        Aura* mAura;
+
+        Skill* mSkill;
+        SkillBuff* mSkillBuff;
+        bool skillMake;
 
         int activeSkillIndex;
         bool bFire;

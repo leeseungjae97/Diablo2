@@ -46,7 +46,10 @@ namespace m
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, mHSO);
 	}
 	Monster::~Monster()
-	{}
+	{
+		if (mHSO)
+			mHSO->SetState(Delete);
+	}
 	void Monster::Initialize()
 	{
 		MoveAbleObject::Initialize();

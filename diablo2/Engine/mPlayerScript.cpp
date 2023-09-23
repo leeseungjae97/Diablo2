@@ -28,6 +28,8 @@
 #include "mSkillFollower.h"
 #include "mSkillFollowing.h"
 #include "mSkillMultiSummons.h"
+#include "mSkillPush.h"
+#include "mSkillRange.h"
 #include "mSkillSummons.h"
 #include "mSkillWall.h"
 #include "SummonsLookUpTables.h"
@@ -44,6 +46,8 @@ namespace m
 		, mHSO(nullptr)
 		, activeSkillIndex(0)
 		, bFire(false)
+		, mSkill(nullptr)
+		, mSkillBuff(nullptr)
 	{
 	}
 
@@ -56,10 +60,13 @@ namespace m
 		mRSO = new SkillOverlay(1);
 		mLSO = new SkillOverlay(0);
 		mHSO = new SkillOverlay();
+		mBackSO = new SkillOverlay();
 
 		mRSO->SetActiveOwner(GetOwner());
 		mLSO->SetActiveOwner(GetOwner());
 		mHSO->SetActiveOwner(GetOwner());
+		mBackSO->SetActiveOwner(GetOwner());
+		mBackSO->Back();
 		//SET_POS_VEC(mRSO, GET_POS(GetOwner()));
 		//SET_POS_VEC(mLSO, GET_POS(GetOwner()));
 
@@ -69,6 +76,7 @@ namespace m
 		curScene->AddGameObject(eLayerType::PlayerSkill, mRSO);
 		curScene->AddGameObject(eLayerType::PlayerSkill, mLSO);
 		curScene->AddGameObject(eLayerType::Skill, mHSO);
+		curScene->AddGameObject(eLayerType::Skill, mBackSO);
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");
@@ -102,7 +110,7 @@ namespace m
 				, Vector2(0.0f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast].y * i)
 				, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast]
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::SpecialCast]
-				, Vector2::Zero
+				, Vector2(0.f, -5.f)
 				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::SpecialCast].y * 4)
 				, 0.03f
 			);
@@ -148,10 +156,50 @@ namespace m
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
 				= [this]()
 			{
-				mAnimator->SetAnimationStartIndex(0);
+				if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
+				{
+					mAnimator->SetAnimationEndIndex(10);
+				}
+				else
+					mAnimator->SetAnimationStartIndex(0);
+
 				mAnimator->SetAnimationProgressIndex(10);
 				GetOwner()->SetBattleState(GameObject::eBattleState::Cast);
 				bFire = true;
+			};
+			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
+				= [=]()
+			{
+				if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
+				{
+					mAnimator->SetAnimationStartIndex(10);
+
+					if (skillMake)
+					{
+						if (nullptr != mSkill)
+						{
+							if (mSkill->GetSkillFire())
+							{
+								skillMake = false;
+								int endIndex = mAnimator->GetActiveAnimation()->GetAltasLength();
+								mAnimator->SetAnimationEndIndex(endIndex);
+							}
+						}
+						else
+						{
+							skillMake = false;
+							int endIndex = mAnimator->GetActiveAnimation()->GetAltasLength();
+							mAnimator->SetAnimationEndIndex(endIndex);
+						}
+					}
+					else
+					{
+						if (mAnimator->GetActiveAnimation()->GetAltasLength() - 1 == mAnimator->GetAnimationIndex())
+						{
+							GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+						}
+					}
+				}
 			};
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
 				= [this]()
@@ -167,7 +215,11 @@ namespace m
 				}
 			};
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
-				= [this]() { GetOwner()->SetBattleState(GameObject::eBattleState::Idle); };
+				= [this]()
+			{
+				mAnimator->SetAnimationStartIndex(0);
+				GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+			};
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::Attack1] + sixteenDirectionString[i])
 				= [this]()
@@ -199,7 +251,6 @@ namespace m
 	{
 		if (nullptr == PlayerManager::player)
 			return;
-
 		MakeDirection();
 
 
@@ -298,16 +349,14 @@ namespace m
 
 	void PlayerScript::makeSkill(eSkillType skillType, int activeSkillIndex, Vector3 vector3Pos, eLayerType fireLayerType)
 	{
-		Skill* skill = nullptr;
-		SkillBuff* skillBuff = nullptr;
 		switch (skillFunctionTypes[(int)skillType])
 		{
 		case m::eSkillFunctionType::Straight:
 		{
-			skill = new SkillStraight(skillType, vector3Pos, skillSpeed[(int)skillType]);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);
+			mSkill = new SkillStraight(skillType, vector3Pos, skillSpeed[(int)skillType]);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::Fall:
@@ -315,19 +364,19 @@ namespace m
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());
 			unprojMousePos.y += 300.f;
 			unprojMousePos.z = GET_POS(GetOwner()).z;
-			skill = new SkillFall(skillType, unprojMousePos);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);
+			mSkill = new SkillFall(skillType, unprojMousePos);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		case m::eSkillFunctionType::FallExplosion:
 		{
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());
 			unprojMousePos.z = GET_POS(GetOwner()).z;
-			skill = new SkillFallExplosion(skillType, unprojMousePos, fireLayerType);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);
+			mSkill = new SkillFallExplosion(skillType, unprojMousePos, fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::MultiFall:
@@ -335,84 +384,84 @@ namespace m
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());
 			unprojMousePos.y += 300.f;
 			unprojMousePos.z = GET_POS(GetOwner()).z;
-			skill = new SkillMultiFire(unprojMousePos, skillType, 20, (int)SkillMultiFire::eFireType::RandomFall, fireLayerType, Vector2(200.f, 50.f));
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			mSkill = new SkillMultiFire(unprojMousePos, skillType, 20, (int)SkillMultiFire::eFireType::RandomFall, fireLayerType, Vector2(200.f, 50.f));
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::LinearStraight:
 		{
-			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20, (int)SkillMultiFire::eFireType::Linear, fireLayerType);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20, (int)SkillMultiFire::eFireType::Linear, fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::MultiStraight:
 		{
-			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 6
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 6
 				, (int)SkillMultiFire::eFireType::RadialRandomStraight, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
-			skill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::FixedMultiStraight:
 		{
-			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20
 				, (int)SkillMultiFire::eFireType::FixedLinear, fireLayerType, Vector2::Zero, GetOwner()->GetCamera(), 0.08f);
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			//mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::Wall:
 		{
-			skill = new SkillWall(skillType, GET_POS(GetOwner()), GetOwner()->GetCamera(), eLayerType::PlayerSkill);
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			mSkill = new SkillWall(skillType, GET_POS(GetOwner()), GetOwner()->GetCamera(), eLayerType::PlayerSkill);
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::Follower:
 		{
-			skill = new SkillFollowing(skillType, GetOwner(), 10.f / 0.08f,GET_POS(GetOwner()), GetOwner()->GetCamera());
-			((SkillFollowing*)skill)->SetFollowerGenerateTime(0.08f);
-			((SkillFollowing*)skill)->SetFollowerLoopCount(5);
-			((SkillFollowing*)skill)->Initialize();
-			skill->SetSkillOwnerLayer(fireLayerType);
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			mSkill = new SkillFollowing(skillType, GetOwner(), 10.f / 0.08f, GET_POS(GetOwner()), GetOwner()->GetCamera());
+			((SkillFollowing*)mSkill)->SetFollowerGenerateTime(0.08f);
+			((SkillFollowing*)mSkill)->SetFollowerLoopCount(5);
+			((SkillFollowing*)mSkill)->Initialize();
+			mSkill->SetSkillOwnerLayer(fireLayerType);
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::CircleFire:
 		{
-			skill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 64, (int)SkillMultiFire::eFireType::Circle, fireLayerType);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, skill);
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 64, (int)SkillMultiFire::eFireType::Circle, fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::Buff:
 		{
-			skillBuff = new SkillBuff(GetOwner(), activeSkillIndex, skillType);
-			skillBuff->SetCamera(GetOwner()->GetCamera());
-			skillBuff->ActiveOverlay();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skillBuff);
+			mSkillBuff = new SkillBuff(GetOwner(), activeSkillIndex, skillType);
+			mSkillBuff->SetCamera(GetOwner()->GetCamera());
+			mSkillBuff->ActiveOverlay();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkillBuff);
 		}
 		break;
 		case m::eSkillFunctionType::Orb:
 		{
-			skill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);
+			mSkill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		break;
 		case m::eSkillFunctionType::Summons:
 		{
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(GET_POS(GetOwner()).z, GetOwner()->GetCamera());
 			unprojMousePos.z = GET_POS(GetOwner()).z;
-			SkillSummons* ss = new SkillSummons((int)eSummonsType::Hydra, unprojMousePos, unprojMousePos,100.f);
+			SkillSummons* ss = new SkillSummons((int)eSummonsType::Hydra, unprojMousePos, unprojMousePos, 100.f);
 			ss->SetCamera(GetOwner()->GetCamera());
 			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, ss);
 		}
@@ -426,20 +475,35 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, sms);
 		}
 		break;
+		case m::eSkillFunctionType::Push:
+		{
+			SkillPush::Push(GET_POS(GetOwner()), GetOwner()->GetCamera());
+		}
+		break;
+		case m::eSkillFunctionType::RangeDamage:
+		{
+			mSkill = new SkillRange(skillType, GetOwner(), fireLayerType, GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+		}
+		break;
 		case m::eSkillFunctionType::None:
 			break;
 		case m::eSkillFunctionType::END:
 			break;
 		default:
 		{
-			skill = new Skill(skillType, vector3Pos);
-			skill->SetCamera(GetOwner()->GetCamera());
-			skill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, skill);
+			mSkill = new Skill(skillType, vector3Pos);
+			mSkill->SetCamera(GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		break;
 		}
-
+		if (nullptr != mSkill || nullptr != mSkillBuff)
+		{
+			skillMake = true;
+		}
 	}
 
 	void PlayerScript::MakeDirection()
@@ -459,6 +523,12 @@ namespace m
 
 	void PlayerScript::SpecialCastAnimation(int skillIndex)
 	{
+		if (castBack[(int)skillCastTypes[(UINT)PlayerManager::GetSkill(skillIndex)]])
+		{
+			mBackSO->SetSkillIndex(skillIndex);
+			mBackSO->SetSkillCastType(skillCastTypes[(UINT)PlayerManager::GetSkill(skillIndex)]);
+			mBackSO->ActiveOverlay();
+		}
 		if (skillIndex == 1)
 			mRSO->ActiveOverlay();
 		else
@@ -468,7 +538,13 @@ namespace m
 		SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 
 		if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
-			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
+		{
+			bool loop = false;
+			if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno) loop = true;
+
+			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], loop);
+		}
+
 	}
 
 	void PlayerScript::ElseAnimationPlay()

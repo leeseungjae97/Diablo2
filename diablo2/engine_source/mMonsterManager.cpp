@@ -6,6 +6,12 @@ namespace m
 {
 	std::vector<Monster*> MonsterManager::monsters = {};
 
+    void MonsterManager::AddMonster(Monster* monster)
+    {
+		monsters.push_back(monster);
+		monster->SetMonsterId(monsters.size() - 1);
+    }
+
 	void MonsterManager::EraseMonster(Monster* monster)
 	{
 		auto iter = monsters.begin();

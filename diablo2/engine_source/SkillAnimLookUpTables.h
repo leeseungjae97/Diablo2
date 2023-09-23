@@ -147,6 +147,7 @@ namespace m
 		IceCast2,
 		IceCast3,
 		LightCast1,
+		LightCast2,
 		FireCast1,
 		Teleport,
 
@@ -159,6 +160,7 @@ namespace m
 	L"iceCast2",
 	L"iceCast3",
 	L"lightCast1",
+	L"lightCast2Front",
 	L"fireCast1",
 	L"teleport",
 	L"andarielSkillOverlay",
@@ -168,6 +170,7 @@ namespace m
 		m::math::Vector2(115.f, 123.f),
 		m::math::Vector2(127.f, 148.f),
 		m::math::Vector2(164.f, 144.f),
+		m::math::Vector2(147.f, 190.f),
 		m::math::Vector2(145.f, 133.f),
 		m::math::Vector2(136.f, 154.f),
 		m::math::Vector2(162.f, 107.f),
@@ -178,28 +181,102 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(8.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
+	};
+	m::math::Vector2 castCenterPos[(int)eSkillCastType::END] = {
+	m::math::Vector2(0.f, 0.f),
+	m::math::Vector2(0.f, 0.f),
+	m::math::Vector2(0.f, 0.f),
+	m::math::Vector2(0.f, 0.f),
+	m::math::Vector2(0.f, 40.f),
+	m::math::Vector2(0.f, 0.f),
+	m::math::Vector2(8.f, 0.f),
+	m::math::Vector2(0.f, 0.f),
 	};
 	int castLength[(int)eSkillCastType::END] = {
 		15,
 		15,
 		16,
 		10,
+		10,
 		16,
 		18,
 		18,
+	};
+	bool castBack[(int)eSkillCastType::END] = {
+		false,
+		false,
+		false,
+		false,
+		true,
+		false,
+		false,
+		false,
+	};
+	std::wstring backCastNames[(int)eSkillCastType::END] = {
+    L"",
+    L"",
+    L"",
+    L"",
+    L"lightCast2Back",
+    L"",
+    L"",
+    L"",
+	};
+	m::math::Vector2 backCastSizes[(int)eSkillCastType::END] = {
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(101.f, 105.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+	};
+	m::math::Vector2 backCastOffset[(int)eSkillCastType::END] = {
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(8.f, 0.f),
+	};
+	m::math::Vector2 backCastCenterPos[(int)eSkillCastType::END] = {
+m::math::Vector2(0.f, 0.f),
+m::math::Vector2(0.f, 0.f),
+m::math::Vector2(0.f, 0.f),
+m::math::Vector2(0.f, 0.f),
+m::math::Vector2(0.f, 40.f),
+m::math::Vector2(0.f, 0.f),
+m::math::Vector2(8.f, 0.f),
+m::math::Vector2(0.f, 0.f),
+	};
+	int backCastLength[(int)eSkillCastType::END] = {
+		0,
+		0,
+		0,
+		0,
+		10,
+		0,
+		0,
+		0,
 	};
 #pragma endregion
 #pragma region Aura
 	enum class eAuraType
 	{
 		HolyFreeze,
+		ThunderStorm,
 		End,
 	};
 	enum class eAuraFunctionType
 	{
 		Slow,
+		TargetDamage,
 		End,
 	};
 	std::wstring auraNames[(int)eAuraType::End] = {
@@ -520,7 +597,7 @@ namespace m
 
 		false,
 		false,
-		true,
+		false,
 
 		true,
 		false,
@@ -550,8 +627,8 @@ namespace m
 		//
 		16, // fireBolt
 		16, // warmth
-	    0, // inferno
-		16, // blaze
+		0, // inferno
+		0, // blaze
 		16, // fireBall
 		0, // fireWall
 		16, // enchant
@@ -563,7 +640,7 @@ namespace m
 
 		8,
 		0,
-		16,
+		0,
 
 		16,
 		16,
@@ -648,7 +725,7 @@ namespace m
 		m::math::Vector2(0.f),// normalAttack,
 
 		m::math::Vector2(0.f, 0.f),
-		m::math::Vector2(0.f, 70.f),
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 
 		m::math::Vector2(0.f, 0.f),
@@ -667,13 +744,13 @@ namespace m
 		eSkillCrashType::END,// coldMastery
 
 		eSkillCrashType::LightCrash1,// chargedBolt
-		eSkillCrashType::END,// staticField
+		eSkillCrashType::LightCrash1,// staticField
 		eSkillCrashType::END,// telekinesis
 		eSkillCrashType::END,// nova
 		eSkillCrashType::END,// lightning
 		eSkillCrashType::END,// chainLightning
 		eSkillCrashType::END,// teleport
-		eSkillCrashType::END,// thunderStorm
+		eSkillCrashType::LightCrash1,// thunderStorm
 		eSkillCrashType::END,// energyShield
 		eSkillCrashType::END,// lightningMastery
 
@@ -712,7 +789,7 @@ namespace m
 
 		eSkillCastType::LightCast1,// chargedBolt
 		eSkillCastType::LightCast1,// staticField
-		eSkillCastType::LightCast1,// telekinesis
+		eSkillCastType::LightCast2,// telekinesis
 		eSkillCastType::LightCast1,// nova
 		eSkillCastType::LightCast1,// lightning
 		eSkillCastType::LightCast1,// chainLightning

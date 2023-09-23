@@ -3,6 +3,7 @@
 #include "mMaterial.h"
 #include "mMonster.h"
 #include "mMoveAbleObject.h"
+#include "mOverlayEffectSkillScript.h"
 #include "mPlayer.h"
 #include "mTime.h"
 
@@ -56,7 +57,7 @@ namespace m
 	{
 		Script::Update();
 		fAcc += Time::fDeltaTime();
-		if(mDuration >= 0)
+		if (mDuration >= 0)
 		{
 			if (mDuration <= fAcc)
 			{
@@ -77,8 +78,8 @@ namespace m
 		Script::Render();
 	}
 
-    void AuraScript::colliderCollided()
-    {
+	void AuraScript::colliderCollided()
+	{
 		eAuraFunctionType fType = auraFunction[(int)mAuraType];
 		float fAuraFunctionValue1 = auraFunctionValue[(int)fType][0];
 		float fAuraFunctionValue2 = auraFunctionValue[(int)fType][1];
@@ -90,13 +91,13 @@ namespace m
 			Monster* m = dynamic_cast<Monster*>(mAuraOwner);
 			if (m)
 			{
-				if(mCol->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+				if (mCol->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 				{
 					coliidePlayer = true;
 				}
 			}
 			else coliidePlayer = false;
-			
+
 			switch (fType)
 			{
 			case eAuraFunctionType::Slow:
@@ -104,6 +105,21 @@ namespace m
 				if (coliidePlayer)
 					PlayerManager::player->SetNumericalAdjustmentSpeed(fAuraFunctionValue1
 						, fAuraFunctionValue2);
+				else
+				{
+
+				}
+			}
+			case eAuraFunctionType::TargetDamage:
+			{
+				if (coliidePlayer)
+				{
+					PlayerManager::player->Hit(10);
+				}
+				else
+				{
+					m->Hit(10);
+				}
 			}
 			break;
 			default:
@@ -113,5 +129,5 @@ namespace m
 			break;
 			}
 		}
-    }
+	}
 }

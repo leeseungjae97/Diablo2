@@ -10,9 +10,9 @@ namespace m
 	OverlayEffectSkillScript::OverlayEffectSkillScript(int index)
 		: skillIndex(index)
 		, bPlaySkill(false)
-	    , mCastType(eSkillCastType::END)
+		, mCastType(eSkillCastType::END)
 		, bHit(true)
-		
+		, bBack(false)
 	{
 		mType = eSkillType::END;
 	}
@@ -34,37 +34,22 @@ namespace m
 			, 0.03f
 			, 0.8f
 		);
-		mAnimator->PlayAnimation(L"noneRectAnim", false);
+		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
 	void OverlayEffectSkillScript::Update()
 	{
-		if (mAnimator->GetActiveAnimation()->IsComplete()) mAnimator->PlayAnimation(L"noneRectAnim", false);
+		if (mAnimator->GetActiveAnimation()->IsComplete()) mAnimator->PlayAnimation(L"noneRectAnim", true);
+		if (mAnimator->GetActiveAnimation()->IsStop()) mAnimator->PlayAnimation(L"noneRectAnim", true);
+
 		if (bPlaySkill)
 		{
-			UpdateOverlaySkill();
-			if (skillIndex == -1)
+			if (bBack)
 			{
-				eSkillCrashType crashType = skillCrashTypes[(int)mType];
-				if (crashNames[(int)crashType] != L"")
-				{
-					SET_SCALE_XYZ(GetOwner(), crashSizes[(int)crashType].x, crashSizes[(int)crashType].y, 1.f);
-					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", crashLoop[(int)crashType]);
-				}
-				bPlaySkill = false;
+				UpdateBackOverlaySkill();
 			}
 			else
 			{
-				eSkillCastType castType = skillCastTypes[(int)mType];
-				if (castNames[(int)castType] != L"")
-				{
-					
-					if (mAnimator->GetActiveAnimation()->GetKey() != castNames[(int)castType] + L"anim")
-					{
-						SET_SCALE_XYZ(GetOwner(), castSizes[(int)castType].x, castSizes[(int)castType].y, 1.f);
-						mAnimator->PlayAnimation(castNames[(int)castType] + L"anim", false);
-					}
-				}
-				bPlaySkill = false;
+				UpdateOverlaySkill();
 			}
 		}
 		//else mAnimator->PlayAnimation(L"noneRectAnim", true);
@@ -88,7 +73,40 @@ namespace m
 	{
 		SkillScript::SetSkillType(type);
 	}
-	void OverlayEffectSkillScript::UpdateOverlaySkill()
+
+    void OverlayEffectSkillScript::UpdateBackOverlaySkill()
+    {
+		mType = PlayerManager::GetSkill(skillIndex);
+		eSkillCastType castType = skillCastTypes[(int)mType];
+
+		if (backCastNames[(int)castType] == L"") return;
+
+		SHARED_MAT mat = RESOURCE_FIND(Material, backCastNames[(int)castType]);
+
+		mAnimator->Create(
+			backCastNames[(int)castType] + L"anim"
+			, mat->GetTexture()
+			, Vector2::Zero
+			, backCastSizes[(int)castType]
+			, backCastLength[(int)castType]
+			, backCastOffset[(int)castType]
+			, backCastCenterPos[(int)castType]
+			, 0.03f
+			, 0.8f
+		);
+		SET_SCALE_XYZ(GetOwner(), backCastSizes[(int)castType].x, backCastSizes[(int)castType].y, 1.f);
+		
+		if (backCastNames[(int)castType] != L"")
+		{
+			if (mAnimator->GetActiveAnimation()->GetKey() != backCastNames[(int)castType] + L"anim")
+			{
+				mAnimator->PlayAnimation(backCastNames[(int)castType] + L"anim", false);
+			}
+		}
+		bPlaySkill = false;
+    }
+
+    void OverlayEffectSkillScript::UpdateOverlaySkill()
 	{
 		if (skillIndex == -1)
 		{
@@ -108,10 +126,13 @@ namespace m
 					, 0.03f
 					, 0.8f
 				);
-				//mAnimator->EndEvent(crashNames[(int)crashType] + L"anim") = [=]()
-				//{
-				//	mAnimator->PlayAnimation(L"noneRectAnim", true);
-				//};
+				SET_SCALE_XYZ(GetOwner(), crashSizes[(int)crashType].x, crashSizes[(int)crashType].y, 1.f);
+
+				if (crashNames[(int)crashType] != L"")
+				{
+					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", crashLoop[(int)crashType]);
+				}
+				bPlaySkill = false;
 			}
 		}
 		else
@@ -130,21 +151,28 @@ namespace m
 				, castSizes[(int)castType]
 				, castLength[(int)castType]
 				, castOffset[(int)castType]
+				, castCenterPos[(int)castType]
 				, 0.03f
 				, 0.8f
 			);
-			//mAnimator->EndEvent(castNames[(int)castType] + L"anim") = [=]()
-			//{
-			//	mAnimator->PlayAnimation(L"noneRectAnim", false);
-			//};
+			SET_SCALE_XYZ(GetOwner(), castSizes[(int)castType].x, castSizes[(int)castType].y, 1.f);
+
+			if (castNames[(int)castType] != L"")
+			{
+				if (mAnimator->GetActiveAnimation()->GetKey() != castNames[(int)castType] + L"anim")
+				{
+					mAnimator->PlayAnimation(castNames[(int)castType] + L"anim", false);
+				}
+			}
+			bPlaySkill = false;
 		}
-		
+
 	}
 
-    void OverlayEffectSkillScript::StopOverlaySkill()
-    {
+	void OverlayEffectSkillScript::StopOverlaySkill()
+	{
 		if (nullptr == mAnimator) return;
 
 		mAnimator->PlayAnimation(L"noneRectAnim", false);
-    }
+	}
 }

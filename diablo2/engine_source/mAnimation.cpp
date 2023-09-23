@@ -19,6 +19,7 @@ namespace m
 		, mbComplete(false)
 		, mbProgress(false)
 		, mbStop(false)
+	    , mLength(0)
 	{
 
 	}

@@ -20,7 +20,10 @@ namespace m
 		void SetActiveOwner(GameObject* owner);
 		GameObject* GetActiveOwner() { return mActiveOwner; }
 		void SetSkillCastType(eSkillCastType type);
+		void SetSkillBackCast(eSkillCastType type);
 		void SetLoopSecond(float x) { fLoopSecond = x; }
+        void Back();
+        void SetSkillIndex(int skill_index);
 
     private:
 		int mCurIndex;

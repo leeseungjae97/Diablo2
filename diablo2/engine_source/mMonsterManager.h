@@ -9,11 +9,7 @@ namespace m
 	class MonsterManager
 	{
 	public:
-		static void AddMonster(Monster* monster)
-		{
-			monsters.push_back(monster);
-			monster->SetMonsterId(monsters.size() - 1);
-		}
+		static void AddMonster(Monster* monster);
 		static void EraseMonster(Monster* monster);
 		static Monster* GetMonster(int monsterId);
 		static void ClearMonster();
