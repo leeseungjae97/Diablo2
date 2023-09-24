@@ -15,8 +15,12 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Initialize() override;
         virtual void Render() override;
+
+        void AuraActive();
+        void SetAura(eAuraType type, eLayerType layerType = eLayerType::End);
     private:
         AuraScript* mAS;
+        Collider2D* mCol;
         GameObject* mOwner;
         Vector2 vCenterPosOffset;
     };

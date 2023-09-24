@@ -3,11 +3,12 @@
 
 namespace m
 {
+	class MoveAbleObject;
 	class FallScript :
 		public SkillScript
 	{
 	public:
-		FallScript(eAccessorySkillType type = eAccessorySkillType::END);
+		FallScript(eAccessorySkillType type = eAccessorySkillType::END, MoveAbleObject* target = nullptr);
 		virtual ~FallScript();
 
 		virtual void Update() override;
@@ -24,6 +25,7 @@ namespace m
 	private:
 		eAccessorySkillType mACType;
 		eSkillCrashType mCrashType;
+		MoveAbleObject* mTarget;
 
 		bool bSkillFire;
 		bool bArrival;

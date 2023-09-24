@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "MoveAbleObjectAnimLookUpTables.h"
+#include "SkillLookUpTables.h"
 
 namespace m
 {
@@ -281,22 +281,51 @@ m::math::Vector2(0.f, 0.f),
 	};
 	std::wstring auraNames[(int)eAuraType::End] = {
 	L"holyFreeze",
+	L"thunderStormLoop",
 	};
 	m::math::Vector2 auraSizes[(int)eAuraType::End] = {
 		Vector2(114.f, 93.f),
+		Vector2(81.f, 60.f),
 	};
 	m::math::Vector2 auraCenterPos[(int)eAuraType::End] = {
 		Vector2(0.f, 0.f),
+		Vector2(0.f, -10.f),
 	};
 	int auraLength[(int)eAuraType::End] = {
 		15,
+		19,
 	};
 	eAuraFunctionType auraFunction[(int)eAuraType::End] = {
 		eAuraFunctionType::Slow,
+		eAuraFunctionType::TargetDamage,
 	};
 	float auraFunctionValue[(int)eAuraFunctionType::End][2] = {
 		{-200.f, 5.f},
-
+		{1.f, 100.f},
+	};
+	std::wstring auraStartNames[(int)eAuraType::End] = {
+	L"",
+	L"thunderStormCast",
+	};
+	m::math::Vector3 auraColliderSizes[(int)eAuraType::End] = {
+		Vector3(300.f, 150.f, 1.f),
+		Vector3(1200.f, 600.f, 1.f),
+	};
+	m::math::Vector2 auraStartSizes[(int)eAuraType::End] = {
+	Vector2(0, 0),
+	Vector2(79.f, 52.f),
+	};
+	m::math::Vector2 auraStartCenterPos[(int)eAuraType::End] = {
+		Vector2(0.f, 0.f),
+		Vector2(0.f, 0.f),
+	};
+	int auraStartLength[(int)eAuraType::End] = {
+		0,
+		10,
+	};
+	eSkillType auraAddSkill[(int)eAuraType::End] = {
+		eSkillType::END,
+		eSkillType::thunderStorm,
 	};
 #pragma endregion
 #pragma region Indicator
@@ -428,7 +457,49 @@ m::math::Vector2(0.f, 0.f),
 			L"right_down_1",
 			L"right_down_3",
 	};
+	eAuraType skillAuraTypes[(int)eSkillType::END] = {
+		eAuraType::End,// iceBolt
+		eAuraType::End,// frozenArmor
+		eAuraType::End,// frostNova
+		eAuraType::End,// iceBlast
+		eAuraType::End,// shiverArmor
+		eAuraType::End,// clacialSpike
+		eAuraType::End,// blizzard
+		eAuraType::End,// chillingArmor
+		eAuraType::End,// frozenOrb
+		eAuraType::End,// coldMastery
 
+		eAuraType::End,//chargedBolt
+		eAuraType::End,//staticField
+		eAuraType::End,//telekinesis
+		eAuraType::End,//nova
+		eAuraType::End,//lightning
+		eAuraType::End,//chainLightning
+		eAuraType::End,//teleport
+		eAuraType::ThunderStorm,//thunderStorm
+		eAuraType::End,//energyShield
+		eAuraType::End,//lightningMastery
+
+		eAuraType::End,//fireBolt
+		eAuraType::End,//warmth
+		eAuraType::End,//inferno
+		eAuraType::End,//blaze
+		eAuraType::End,//fireBall
+		eAuraType::End,//fireWall
+		eAuraType::End,//enchant
+		eAuraType::End,//meteor
+		eAuraType::End,//fireMastery
+		eAuraType::End,//hydra
+
+		eAuraType::End,//normalAttack
+
+		eAuraType::End,//DiabloLightning
+		eAuraType::End,//DiabloFireNova
+		eAuraType::End,//DiabloFireStorm
+
+		eAuraType::End,// AndarielPoisonAttack
+		eAuraType::End,// DurielStunAttack
+	};
 	float skillSpeed[(int)eSkillType::END] = {
 		300.f,// iceBolt
 		0.f,// frozenArmor
@@ -445,10 +516,10 @@ m::math::Vector2(0.f, 0.f),
 		0.f,// staticField
 		0.f,// telekinesis
 		1000.f,// nova
-		300.f,// lightning
-		0.f,// chainLightning
+		500.f,// lightning
+		800.f,// chainLightning
 		0.f,// teleport
-		0.f,// thunderStorm
+		1000.f,// thunderStorm
 		0.f,// energyShield
 		0.f,// lightningMastery
 		//
@@ -489,9 +560,9 @@ m::math::Vector2(0.f, 0.f),
 		0, // telekinesis
 		13, // nova
 		8, // lightning
-		0, // chainLightning
+		8, // chainLightning
 		18, // teleport
-		0, // thunderStorm
+		8, // thunderStorm
 		0, // energyShield
 		0, // lightningMastery
 		//
@@ -621,7 +692,7 @@ m::math::Vector2(0.f, 0.f),
 		16, // lightning
 		16, // chainLightning
 		16, // teleport
-		16, // thunderStorm
+		0, // thunderStorm
 		16, // energyShield
 		16, // lightningMastery
 		//
@@ -662,9 +733,9 @@ m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),// telekinesis,
 		m::math::Vector2(70.f, 48.f),// nova,
 		m::math::Vector2(148.f, 106.f),// lightning,
-		m::math::Vector2(0.f, 0.f),// chainLightning,
+		m::math::Vector2(148.f, 106.f),// chainLightning,
 		m::math::Vector2(136.f, 154.f),// teleport,
-		m::math::Vector2(0.f, 0.f),// thunderStorm,
+		m::math::Vector2(36.f, 113.f),// thunderStorm,
 		m::math::Vector2(0.f, 0.f),// energyShield,
 		m::math::Vector2(0.f, 0.f),// lightningMastery,
 
@@ -748,7 +819,7 @@ m::math::Vector2(0.f, 0.f),
 		eSkillCrashType::END,// telekinesis
 		eSkillCrashType::END,// nova
 		eSkillCrashType::END,// lightning
-		eSkillCrashType::END,// chainLightning
+		eSkillCrashType::LightCrash1,// chainLightning
 		eSkillCrashType::END,// teleport
 		eSkillCrashType::LightCrash1,// thunderStorm
 		eSkillCrashType::END,// energyShield
@@ -794,7 +865,7 @@ m::math::Vector2(0.f, 0.f),
 		eSkillCastType::LightCast1,// lightning
 		eSkillCastType::LightCast1,// chainLightning
 		eSkillCastType::Teleport,// teleport
-		eSkillCastType::LightCast1,// thunderStorm
+		eSkillCastType::LightCast2,// thunderStorm
 		eSkillCastType::LightCast1,// energyShield
 		eSkillCastType::LightCast1,// lightningMastery
 

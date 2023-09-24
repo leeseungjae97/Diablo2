@@ -7,7 +7,7 @@
 namespace m
 {
 	SkillFall::SkillFall(eSkillType type, Vector3 iniPos, float fallHeight
-		, bool diagonalFall, bool deco, eAccessorySkillType _acType
+		, bool diagonalFall, bool deco, eAccessorySkillType _acType, MoveAbleObject* targetObject
 	)
 		: Skill(type, iniPos)
 	    , fInitYValue(iniPos.y)
@@ -18,8 +18,8 @@ namespace m
 	    , mAcType(_acType)
 	{
 		ADD_COMP(this, Animator);
-		if(!deco)
-		    Collider2D* col = ADD_COMP(this, Collider2D);
+		//if(!deco)
+		    //
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
@@ -37,7 +37,7 @@ namespace m
 		{
 			SET_SCALE_XYZ(this, skillSizes[(UINT)mSkillType].x
 				, skillSizes[(UINT)mSkillType].y, 1.f);
-			mFs = AddComponent<FallScript>();
+			mFs = AddComponent<FallScript>(eAccessorySkillType::END, targetObject);
 		}
 	}
 	SkillFall::~SkillFall()

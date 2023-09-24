@@ -2,13 +2,18 @@
 
 #include "mSkill.h"
 #include "mMonster.h"
+#include "mOverlayEffectSkillScript.h"
+#include "mPlayer.h"
+#include "mPlayerScript.h"
+#include "mSkillOverlay.h"
 
 namespace m
 {
-	FallScript::FallScript(eAccessorySkillType type)
+	FallScript::FallScript(eAccessorySkillType type, MoveAbleObject* target)
 		: mACType(type)
 		, bSkillFire(false)
 		, bArrival(false)
+		, mTarget(target)
 	{
 	}
 	FallScript::~FallScript()
@@ -17,7 +22,7 @@ namespace m
 	void FallScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
-		
+
 		Skill* dSkill = dynamic_cast<Skill*>(GetOwner());
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
@@ -37,11 +42,30 @@ namespace m
 			);
 			mAnimator->EndEvent(skillAnimNames[(int)mType] + L"anim") = [this]()
 			{
-				dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+				if (mTarget)
+				{
+					if (crashFunction[(int)mCrashType] == eCrashType::Overlay)
+					{
+						Monster* monster = dynamic_cast<Monster*>(mTarget);
+
+						if (monster)
+						{
+							OverlayEffectSkillScript* mOESS = monster->GetHSO()->GetComponent<OverlayEffectSkillScript>();
+							mOESS->SetSkillType(mType);
+							monster->GetHSO()->ActiveOverlay();
+						}
+					}
+					mTarget->Hit(10);
+					dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+
+					GetOwner()->ReleaseAnimators();
+					GetOwner()->SetState(GameObject::eState::Delete);
+				}
 			};
 
+
 			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
-			if(mType == eSkillType::meteor)
+			if (mType == eSkillType::meteor)
 			{
 				GetOwner()->CreateAnimators(
 					4
@@ -55,7 +79,7 @@ namespace m
 					, 0.03f
 				);
 			}
-		
+
 			mAnimator->Create(
 				crashNames[(int)mCrashType] + L"anim"
 				, crashMat->GetTexture()
@@ -68,7 +92,7 @@ namespace m
 		}
 		else
 		{
-			
+
 			SHARED_MAT mat = RESOURCE_FIND(Material, accessorySkillNames[(int)mACType]);
 			mAnimator->Create(
 				accessorySkillNames[(int)mACType] + L"anim"
@@ -83,7 +107,7 @@ namespace m
 			{
 				dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
 			};
-			
+
 			mCrashType = accessorySkillCrashTypes[(int)mACType];
 			if (mCrashType != eSkillCrashType::END)
 			{
@@ -115,36 +139,46 @@ namespace m
 				);
 			}
 		}
-		if (mCrashType != eSkillCrashType::END)
+		if (mCrashType != eSkillCrashType::END
+			&& crashFunction[(int)mCrashType] != eCrashType::Overlay)
 		{
 			mAnimator->StartEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
 			{
-				if(mCrashType == eSkillCrashType::IceCrash1)
+				if (mCrashType == eSkillCrashType::IceCrash1)
 				{
 					Vector3 mPos = GET_POS(GetOwner());
 					mPos.y -= 45.f;
 					mPos.x += 20.f;
 					SET_POS_VEC(GetOwner(), mPos);
 				}
-				if(crashProgress[(int)mCrashType] != 0)
+				if (crashProgress[(int)mCrashType] != 0)
 					mAnimator->SetAnimationProgressIndex(crashProgress[(int)mCrashType]);
 			};
-			mAnimator->ProgressEvent(crashNames[(int)mCrashType] + L"anim") = [=]()
-			{
-				Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-				if (col->GetOnStay())
-				{
-					for (Collider2D* otherCol : col->GetCollidereds())
-					{
-						if (otherCol->GetColliderFunctionType() == eColliderFunctionType::HitArea)
-						{
-							Monster* monster = dynamic_cast<Monster*>(otherCol->GetOwner());
-							if (nullptr != monster)
-								monster->Hit(10);
-						}
-					}
-				}
-			};
+			//mAnimator->ProgressEvent(crashNames[(int)mCrashType] + L"anim") = [=]()
+			//{
+				//Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+				//if(mTarget)
+				//{
+				//	if(col->SearchObjectGameObjectId(mTarget->GetGameObjectId()))
+				//	{
+				//		mTarget->Hit(10);
+				//	}
+				//}else
+				//{
+				//	if (col->GetOnStay())
+				//	{
+				//		for (Collider2D* otherCol : col->GetCollidereds())
+				//		{
+				//			if (otherCol->GetColliderFunctionType() == eColliderFunctionType::HitArea)
+				//			{
+				//				Monster* monster = dynamic_cast<Monster*>(otherCol->GetOwner());
+				//				if (nullptr != monster)
+				//					monster->Hit(10);
+				//			}
+				//		}
+				//	}
+				//}
+			//};
 			mAnimator->EndEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
 			{
 				GetOwner()->ReleaseAnimators();
@@ -166,6 +200,61 @@ namespace m
 	}
 	void FallScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (mTarget) return;
+
+		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
+		{
+			switch (dynamic_cast<Skill*>(GetOwner())->GetLayerType())
+			{
+			case m::enums::eLayerType::PlayerSkill:
+			{
+				if (crashFunction[(int)mCrashType] == eCrashType::Overlay)
+				{
+					Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
+
+					if (monster)
+					{
+						OverlayEffectSkillScript* mOESS = monster->GetHSO()->GetComponent<OverlayEffectSkillScript>();
+						mOESS->SetSkillType(mType);
+						monster->GetHSO()->ActiveOverlay();
+					}
+
+					GetOwner()->ReleaseAnimators();
+					GetOwner()->SetState(GameObject::eState::Delete);
+				}
+				if (crashFunction[(int)mCrashType] == eCrashType::Addiction)
+				{
+					dynamic_cast<Monster*>(other->GetOwner())->Addiction(10, 10.f, 10);
+				}
+				dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+			}
+			break;
+			case m::enums::eLayerType::MonsterSkill:
+			{
+				if (crashFunction[(int)mCrashType] == eCrashType::Overlay)
+				{
+					PlayerScript* ps = other->GetOwner()->GetComponent<PlayerScript>();
+
+					OverlayEffectSkillScript* mOESS = ps->GetHSO()->GetComponent<OverlayEffectSkillScript>();
+					mOESS->SetSkillType(mType);
+					//if(!mOESS->IsPlayHit())
+					ps->GetHSO()->ActiveOverlay();
+
+					GetOwner()->ReleaseAnimators();
+					GetOwner()->SetState(GameObject::eState::Delete);
+				}
+				if (crashFunction[(int)mCrashType] == eCrashType::Addiction)
+				{
+					dynamic_cast<Player*>(other->GetOwner())->Addiction(10, 10.f, 10);
+				}
+				dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+			}
+			break;
+			default:
+				break;
+			}
+			if (crashFunction[(int)mCrashType] != eCrashType::Overlay) dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
+		}
 	}
 	void FallScript::OnCollisionStay(Collider2D* other)
 	{
@@ -177,53 +266,42 @@ namespace m
 	{
 		if (bArrival)
 		{
+			eSkillCrashType crashType;
 			if (mACType == eAccessorySkillType::END)
-			{
-				eSkillCrashType crashType = skillCrashTypes[(int)mType];
-				if (crashType == eSkillCrashType::END)
-				{
-					GetOwner()->ReleaseAnimators();
-					GetOwner()->SetState(GameObject::eState::Delete);
-				}
-				if (crashType != eSkillCrashType::END
-					&&
-					mAnimator->GetActiveAnimation()->GetKey() != crashNames[(int)crashType] + L"anim")
-				{
-					SET_SCALE_XYZ(GetOwner()
-								  , crashSizes[(int)crashType].x
-								  , crashSizes[(int)crashType].y
-								  , GET_POS(GetOwner()).z
-					);
-					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-					col->Resize();
-					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-					if (mType == eSkillType::meteor)
-					    GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType] , true, col);
-				}	
-			}
+				crashType = skillCrashTypes[(int)mType];
 			else
+				crashType = accessorySkillCrashTypes[(int)mACType];
+
+			if (crashType == eSkillCrashType::END)
 			{
-				eSkillCrashType crashType = accessorySkillCrashTypes[(int)mACType];
-				if (crashType == eSkillCrashType::END)
+				GetOwner()->ReleaseAnimators();
+				GetOwner()->SetState(GameObject::eState::Delete);
+			}
+			if (crashType != eSkillCrashType::END
+				&&
+				mAnimator->GetActiveAnimation()->GetKey() != crashNames[(int)crashType] + L"anim")
+			{
+				SET_SCALE_XYZ(GetOwner()
+					, crashSizes[(int)crashType].x
+					, crashSizes[(int)crashType].y
+					, GET_POS(GetOwner()).z
+				);
+
+				ADD_COMP(GetOwner(), Collider2D);
+
+				if (crashFunction[(int)crashType] != eCrashType::Overlay)
 				{
-					GetOwner()->ReleaseAnimators();
-					GetOwner()->SetState(GameObject::eState::Delete);
-				}
-				if (crashType != eSkillCrashType::END
-					&&
-					mAnimator->GetActiveAnimation()->GetKey() != crashNames[(int)crashType] + L"anim")
-				{
-					SET_SCALE_XYZ(GetOwner()
-								  , crashSizes[(int)crashType].x
-								  , crashSizes[(int)crashType].y
-								  , GET_POS(GetOwner()).z
-					);
 					Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 					col->Resize();
-					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
-
 					if (mType == eSkillType::meteor)
-					    GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType], true, col);
+					{
+						GetOwner()->PlayAnimators(crashNames[(int)crashType] + L"anim", false, crashSizes[(int)crashType], true, col);
+					}
+					mAnimator->PlayAnimation(crashNames[(int)crashType] + L"anim", false);
+				}
+				else
+				{
+					mAnimator->PlayAnimation(L"noneRectAnim", false);
 				}
 			}
 			bArrival = false;
@@ -234,15 +312,15 @@ namespace m
 			if (mACType == eAccessorySkillType::END)
 			{
 				mAnimator->PlayAnimation(skillAnimNames[(int)mType] + L"anim", true);
-			}	
+			}
 			else
 			{
 				mAnimator->PlayAnimation(accessorySkillNames[(int)mACType] + L"anim", true);
 
 			}
-				
+
 		}
-		
+
 	}
 	void FallScript::LateUpdate()
 	{
@@ -250,4 +328,4 @@ namespace m
 	void FallScript::Render()
 	{
 	}
-}	
+}

@@ -55,10 +55,8 @@ namespace m
 		learnedSkill[1][(int)eLightningSkillType::chargedBolt] = 1;
 		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 1;
 		learnedSkill[1][(int)eLightningSkillType::staticField] = 1;
-
-		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 0;
-
-		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 0;
+		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 1;
+		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 1;
 
 		learnedSkill[1][(int)eLightningSkillType::lightningMastery] = 0;
 		learnedSkill[1][(int)eLightningSkillType::energyShield] = 0;
@@ -76,7 +74,7 @@ namespace m
 		learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::inferno);
+		SetSkill(1, eSkillType::chainLightning);
 	}
 
 	void PlayerManager::CalHpPercent()

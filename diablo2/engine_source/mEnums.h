@@ -24,6 +24,7 @@ namespace m::enums
 		Grid,
 		Background,
 		Tile,
+		Overlay,
 		MonsterOverlay,
 		PlayerOverlay,
 		Aura,

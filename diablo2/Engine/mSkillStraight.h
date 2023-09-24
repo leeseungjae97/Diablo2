@@ -23,6 +23,14 @@ namespace m
         float GetMoveDistance() { return moveDistance; }
         void StopMove() { bMove = false; }
         void SetRandomStraight(float randomY, float fRandomTime);
+
+        void Head() { bHead = true; }
+        void HeadLinear() { bUseHead = true; }
+        void SetHead(SkillStraight* head) { mHead = head; }
+
+        bool GetHead() { return bHead; }
+        bool GetHeadLinear() { return bUseHead; }
+        
     private:
         void randomY();
 
@@ -31,6 +39,10 @@ namespace m
         float limitDistance;
         bool useLimit;
         int randSign;
+
+        SkillStraight* mHead;
+        bool bHead;
+        bool bUseHead;
 
         float moveDistance;
         float fRandomRange;

@@ -696,6 +696,9 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
 			, 148, 106, 8, L"lightning");
 
+		MAKE_MATERIAL_PATH(spriteShader, L"chain_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
+			, 148, 106, 8, L"chainLightning");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"thunder_storm", L"..\\Resources\\texture\\skill_effect\\missile\\thunder_storm"
 			, 36, 113, 8, L"thunderStorm");
 

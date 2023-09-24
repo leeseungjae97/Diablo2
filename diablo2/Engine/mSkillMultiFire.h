@@ -18,6 +18,7 @@ namespace m
 			RandomFall,
 			Radial,
 			Circle,
+			HeadDamage,
 			END,
 		};
 
@@ -39,7 +40,12 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void SetOtherTargetPos(Vector3 ohterPos) { vOtherTargetPos = ohterPos; }
 	private:
+		SkillStraight* makeHeadLinear(eSkillType type, Vector3 startPos
+			, Camera* camera
+			, float genTime
+		    , int index);
 		SkillStraight* makeRadialRandomStraight(float randomY, Vector3 vector3, eSkillType type, Camera* camera
 			, eLayerType layerType, float initDegree, float addDegree);
 		Skill* makeRandomLinear(float randomY, Vector3 vector3, eSkillType type, Camera* camera, eLayerType layerType);
@@ -52,6 +58,7 @@ namespace m
 		std::vector<Skill*> skills;
 		std::vector<float> mSkillFireTimes;
 		eFireType mFireType;
+		Vector3 vOtherTargetPos;
 		int curIndex;
 		int mCount;
 		float mAccTime;

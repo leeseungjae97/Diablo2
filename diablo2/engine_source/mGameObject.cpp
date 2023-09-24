@@ -26,12 +26,12 @@ namespace m
 
 	GameObject::~GameObject()
 	{
-		for (Collider2D* col : GetComponents<Collider2D>())
-		{
-			if (nullptr == col) continue;
-			
-			col->Release();
-		}
+		//for (Collider2D* col : GetComponents<Collider2D>())
+		//{
+		//	if (nullptr == col) continue;
+		//	
+		//	col->Release();
+		//}
 		for (Collider2D* col : GetComponents<Collider2D>())
 		{
 			if (nullptr == col) continue;
@@ -57,7 +57,15 @@ namespace m
 			script = nullptr;
 		}
 	}
+	void GameObject::Release()
+	{
+		for (Collider2D* col : GetComponents<Collider2D>())
+		{
+			if (nullptr == col) continue;
 
+			col->Release();
+		}
+	}
 	void GameObject::Initialize()
 	{
 		for (Component* comp : mComponents)

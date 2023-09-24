@@ -43,7 +43,8 @@ namespace m
 		mPathFinder->SetMonsterOwner(this);
 
 		mHSO = new SkillOverlay();
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Skill, mHSO);
+		mHSO->SetActiveOwner(this);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Overlay, mHSO);
 	}
 	Monster::~Monster()
 	{

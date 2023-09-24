@@ -9,7 +9,14 @@ namespace m
 		public Skill
 	{
 	public:
-		SkillFall(eSkillType type, Vector3 iniPos, float fallHeight = 300.f, bool diagonalFall = false, bool deco = false, eAccessorySkillType _acType = eAccessorySkillType::END);
+		SkillFall(eSkillType type
+			, Vector3 iniPos
+			, float fallHeight = 300.f
+			, bool diagonalFall = false
+			, bool deco = false
+			, eAccessorySkillType _acType = eAccessorySkillType::END
+			, MoveAbleObject* targetObject = nullptr
+		);
 		virtual ~SkillFall();
 
 		virtual void Update() override;

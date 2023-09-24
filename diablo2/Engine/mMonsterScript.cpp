@@ -56,6 +56,7 @@ namespace m
 		if (curMonsterData.passiveAura != eAuraType::End)
 		{
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
+			mAura->AuraActive();
 			curScene->AddGameObject(eLayerType::Aura, mAura);
 		}
 

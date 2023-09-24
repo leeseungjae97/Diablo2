@@ -239,6 +239,8 @@ namespace m
 	}
 	void StraightScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (bNoHit) return;
+
 		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
 		{
 			switch (dynamic_cast<Skill*>(GetOwner())->GetLayerType())
@@ -263,6 +265,8 @@ namespace m
 						//if(!mOESS->IsPlayHit())
 						monster->GetHSO()->ActiveOverlay();
 					}
+					if (skillHitDestory[(int)mType])
+						GetOwner()->SetState(GameObject::eState::Delete);
 				}
 				if (mCrashType == eCrashType::Addiction)
 				{

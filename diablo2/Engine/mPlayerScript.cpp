@@ -1,5 +1,6 @@
 #include "mPlayerScript.h"
 
+#include "mAura.h"
 #include "../engine_source/mConstantBuffer.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mAnimator.h"
@@ -25,6 +26,7 @@
 #include "mSkillMultiFire.h"
 #include "mSkillOrb.h"
 #include "mSkill.h"
+#include "mSkillChain.h"
 #include "mSkillFollower.h"
 #include "mSkillFollowing.h"
 #include "mSkillMultiSummons.h"
@@ -72,11 +74,15 @@ namespace m
 
 		//SET_SCALE_XYZ(mRSO, 100.f, 50.f, 1.f);
 		//SET_SCALE_XYZ(mLSO, 100.f, 50.f, 1.f);
+		mAura = new Aura(GetOwner(), eAuraType::End, Vector2::Zero);
 
 		curScene->AddGameObject(eLayerType::PlayerSkill, mRSO);
 		curScene->AddGameObject(eLayerType::PlayerSkill, mLSO);
 		curScene->AddGameObject(eLayerType::Skill, mHSO);
 		curScene->AddGameObject(eLayerType::Skill, mBackSO);
+		curScene->AddGameObject(eLayerType::Aura, mAura);
+
+
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");
@@ -411,7 +417,6 @@ namespace m
 		{
 			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20
 				, (int)SkillMultiFire::eFireType::FixedLinear, fireLayerType, Vector2::Zero, GetOwner()->GetCamera(), 0.08f);
-			//mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
@@ -485,6 +490,20 @@ namespace m
 			mSkill = new SkillRange(skillType, GetOwner(), fireLayerType, GetOwner()->GetCamera());
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
+		}
+		break;
+		case m::eSkillFunctionType::Chain:
+		{
+			mSkill = new SkillChain(skillType, GET_POS(GetOwner()), 5, fireLayerType, GetOwner()->GetCamera());
+			mSkill->SkillFire();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+		}
+		    break;
+		case m::eSkillFunctionType::Aura:
+		{
+			eAuraType aType = skillAuraTypes[(int)skillType];
+			mAura->SetAura(aType, fireLayerType);
+			mAura->AuraActive();
 		}
 		break;
 		case m::eSkillFunctionType::None:

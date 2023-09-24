@@ -65,11 +65,16 @@ namespace m
 		float initDegree = RadianToDegree(atan2(initDegreeVector3.y, initDegreeVector3.x));
 
 		std::default_random_engine generator(std::time(nullptr));
-
+		SkillStraight* head = nullptr;
 		for (int i = 0; i < mCount; ++i)
 		{
 			Vector3 startPos = iniPos;
 			Skill* sf = nullptr;
+			if (mFireType == eFireType::HeadDamage)
+			{
+				sf = makeHeadLinear(type, startPos, camera, skillGenTime, i);
+				bFirstUpdate = true;
+			}
 			if (mFireType == eFireType::RandomFall)
 			{
 				sf = makeRandomFall(randFireRange, startPos, type, generator);
@@ -155,7 +160,8 @@ namespace m
 			}
 		}
 		if (mFireType == eFireType::Linear
-			|| mFireType == eFireType::FixedLinear)
+			|| mFireType == eFireType::FixedLinear
+			|| mFireType == eFireType::HeadDamage)
 		{
 			if (mSkillFireTimes.size() <= curIndex)
 			{
@@ -166,6 +172,10 @@ namespace m
 			mAccTime += Time::fDeltaTime();
 			if (mAccTime >= mSkillFireTimes[curIndex])
 			{
+				if (mFireType == eFireType::HeadDamage)
+				{
+					skills[curIndex]->SetDestPosition(vOtherTargetPos);
+				}
 				skills[curIndex]->SkillFire();
 				++curIndex;
 				mAccTime = 0.f;
@@ -181,8 +191,28 @@ namespace m
 		Skill::Render();
 	}
 
+    SkillStraight* SkillMultiFire::makeHeadLinear(eSkillType type
+		, Vector3 startPos, Camera* camera
+		,float genTime, int index)
+    {
+		mSkillFireTimes.push_back(genTime);
+		SkillStraight* ss = new SkillStraight(type, startPos, 400.f);
+		if (index == 0)
+		{
+			ss->Head();
+		}
+		else
+		{
+			ss->SetHead(dynamic_cast<SkillStraight*>(skills[0]));
+		}
+		ss->HeadLinear();
+		ss->SetCamera(camera);
+		
+		return ss;
+    }
+
     SkillStraight* SkillMultiFire::makeRadialRandomStraight(float randomY, Vector3 initPos, eSkillType type, Camera* camera,
-        eLayerType layerType, float initDegree, float addDegree)
+                                                            eLayerType layerType, float initDegree, float addDegree)
     {
 		initDegree += (((float)mCount / 2.f) - addDegree) * 5.f;
 

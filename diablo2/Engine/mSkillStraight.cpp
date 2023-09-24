@@ -21,6 +21,9 @@ namespace m
 	    , fRandomMoveAcc(0.f)
 	    , fRandomMoveTime(0.f)
 	    , randSign(1)
+		, mHead(nullptr)
+		, bHead(false)
+		, bUseHead(false)
 	{
 		bMadePath = true;
 		if(type == eSkillType::inferno)
@@ -61,6 +64,10 @@ namespace m
 		Skill::Update();
 		if (bSkillFire)
 		{
+			if(bUseHead)
+			{
+				if (!bHead) ss->SetNoHit(true);
+			}
 			if (ss)
 				ss->SkillFire();
 

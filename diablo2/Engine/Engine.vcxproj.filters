@@ -205,6 +205,8 @@
     <ClCompile Include="mRangeScript.cpp">
       <Filter>Script\RangeScript</Filter>
     </ClCompile>
+    <ClCompile Include="mSkillChain.cpp" />
+    <ClCompile Include="mChainScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -408,6 +410,8 @@
     <ClInclude Include="mRangeScript.h">
       <Filter>Script\RangeScript</Filter>
     </ClInclude>
+    <ClInclude Include="mSkillChain.h" />
+    <ClInclude Include="mChainScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -646,6 +650,12 @@
     </Filter>
     <Filter Include="Script\RangeScript">
       <UniqueIdentifier>{3116ea38-9d8a-4aed-b3d0-930895c352cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Missile\SkillChain">
+      <UniqueIdentifier>{127cfcec-4e33-4e43-9f15-3194ad08c683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\ChainScript">
+      <UniqueIdentifier>{9f58b3a5-7adb-472a-ad45-5a5a5b33e548}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -101,6 +101,7 @@ namespace m
 		//메모리 해제
 		for (GameObject* gameObj : deleteGameObj)
 		{
+			gameObj->Release();
 			delete gameObj;
 			gameObj = nullptr;
 		}

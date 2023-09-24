@@ -12,18 +12,18 @@ namespace m
         SET_MESH(this, L"RectMesh");
         SET_MATERIAL(this, L"AnimationMaterial");
 
-        Collider2D* col= ADD_COMP(this, Collider2D);
-        col->SetType(eColliderType::Circle);
-        col->AddExceptType(owner->GetLayerType());
-        col->SetScale(Vector3(300.f, 150.f, 1.f));
+        mCol = ADD_COMP(this, Collider2D);
+        mCol->SetType(eColliderType::Circle);
+        mCol->AddExceptType(owner->GetLayerType());
+        mCol->SetScale(Vector3(300.f, 150.f, 1.f));
         //col->SetScale(Vector3(100.f, 50, 1.f));
 
         SetCamera(owner->GetCamera());
 
         //bottomAuraPosition();
-        SET_SCALE_XYZ(this, auraSizes[(int)type].x, auraSizes[(int)type].y, 1.f);
-        AuraScript* mAS = AddComponent<AuraScript>(type, -1.f);
-        mAS->SetAuraCollider(col);
+        
+        mAS = AddComponent<AuraScript>(type, -1.f);
+        mAS->SetAuraCollider(mCol);
         mAS->SetAuraOwner(owner);
     }
 
@@ -61,5 +61,20 @@ namespace m
     void Aura::Render()
     {
         GameObject::Render();
+    }
+
+    void Aura::AuraActive()
+    {
+        if (mAS)
+            mAS->AuraActive();
+    }
+
+    void Aura::SetAura(eAuraType type, eLayerType layerType)
+    {
+        if(mAS)
+            mAS->SetAura(type, auraFunctionValue[(int)type][1], layerType);
+
+        if (mCol)
+            mCol->SetScale(auraColliderSizes[(int)type]);
     }
 }
