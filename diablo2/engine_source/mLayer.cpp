@@ -24,10 +24,8 @@ namespace m
 	}
 	void Layer::Update()
 	{
-		int a = 0;
 		for (GameObject* gameObj : mGameObjects)
 		{
-			++a;
 			if (gameObj->GetState() == GameObject::eState::NoRenderNoUpdate
 				|| gameObj->GetState() == GameObject::eState::Delete
 				|| gameObj->GetState() == GameObject::eState::RenderNoUpdate)
@@ -64,9 +62,27 @@ namespace m
 
 		//}
 	}
+	void Layer::DelayDestroy()
+	{
+		if (!mDelayDeleteObjects.empty())
+		{
+			for (GameObject* gameObj : mDelayDeleteObjects)
+			{
+				std::erase(mGameObjects, gameObj);
+			}
+			for (GameObject* gameObj : mDelayDeleteObjects)
+			{
+				gameObj->Release();
+				delete gameObj;
+				gameObj = nullptr;
+			}
+			mDelayDeleteObjects.clear();
+		}
+	}
 	void Layer::Destroy()
 	{
-		// dead 오브젝트 모아두기
+		//DelayDestroy();
+
 		std::set<GameObject*> deleteGameObj = {};
 		for (GameObject* gameObj : mGameObjects)
 		{
@@ -75,28 +91,18 @@ namespace m
 			{
 				deleteGameObj.insert(gameObj);
 			}
+			if(gameObj->GetState()
+				== GameObject::eState::DelayDelete)
+			{
+				mDelayDeleteObjects.push_back(gameObj);
+			}
 		}
 
-		typedef std::vector<GameObject*>::iterator GameObjectIter;
-		GameObjectIter iter = mGameObjects.begin();
 		for(GameObject* gameObj : deleteGameObj)
 		{
 			std::erase(mGameObjects, gameObj);
 		}
 
-		/*while(iter != mGameObjects.end())
-		{
-			std::set<GameObject*>::iterator deleteIter
-				= deleteGameObj.find(*(iter));
-
-			if (deleteIter != deleteGameObj.end())
-			{
-				iter = mGameObjects.erase(iter);
-				continue;
-			}
-
-			++iter;
-		}*/
 
 		//메모리 해제
 		for (GameObject* gameObj : deleteGameObj)

@@ -41,6 +41,8 @@ namespace m
 		virtual void Render() override;
 
 		void SetOtherTargetPos(Vector3 ohterPos) { vOtherTargetPos = ohterPos; }
+
+		Skill* GetHeadSkill() { return skills[0]; }
 	private:
 		SkillStraight* makeHeadLinear(eSkillType type, Vector3 startPos
 			, Camera* camera

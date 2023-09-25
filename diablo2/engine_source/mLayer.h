@@ -13,6 +13,7 @@ namespace m
 		virtual void LateUpdate();
 		virtual void Render();
 		virtual void Destroy();
+		virtual void DelayDestroy();
 
 		void AddGameObject(GameObject* gameObj);
 		void FrontGameObject(GameObject* gameObj);
@@ -21,6 +22,7 @@ namespace m
 
 	private:
 		std::vector<GameObject*> mGameObjects;
+		std::vector<GameObject*> mDelayDeleteObjects;
 	};
 
 }

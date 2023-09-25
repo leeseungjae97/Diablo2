@@ -58,16 +58,16 @@ namespace m
 	void SkillStraight::Initialize()
 	{
 		Skill::Initialize();
+		if (bUseHead)
+		{
+			if (!bHead) ss->SetNoHit(true);
+		}
 	}
 	void SkillStraight::Update()
 	{
 		Skill::Update();
 		if (bSkillFire)
 		{
-			if(bUseHead)
-			{
-				if (!bHead) ss->SetNoHit(true);
-			}
 			if (ss)
 				ss->SkillFire();
 

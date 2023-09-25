@@ -1,7 +1,12 @@
 #pragma once
+#include "mChainScript.h"
 #include "mSkill.h"
+
 namespace m
 {
+    class SkillMultiFire;
+    class SkillStraight;
+
     class SkillChain :
         public Skill
     {
@@ -16,11 +21,15 @@ namespace m
 
     private:
         bool searchChain();
+        void firstLinearCount(Vector3 initPos);
 
     private:
         MoveAbleObject* mTarget;
         MoveAbleObject* mPrevTarget;
-        eLayerType mLayerType;
+        eLayerType mFireLayerType;
+        Skill* mCurChainHead;
+        ChainScript* mCS;
+
         std::vector<Monster*> chainMonsters;
         bool bFire;
 

@@ -28,8 +28,9 @@ namespace m
         void HeadLinear() { bUseHead = true; }
         void SetHead(SkillStraight* head) { mHead = head; }
 
-        bool GetHead() { return bHead; }
+        bool IsHead() { return bHead; }
         bool GetHeadLinear() { return bUseHead; }
+        SkillStraight* GetHead() { return mHead; }
         
     private:
         void randomY();

@@ -171,6 +171,8 @@
     <ClInclude Include="mEnemyHpUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mNPC.h" />
+    <ClInclude Include="mNPCScript.h" />
     <ClInclude Include="mOverlay.h" />
     <ClInclude Include="mOverlayScript.h" />
     <ClInclude Include="mRangeScript.h" />
@@ -187,6 +189,7 @@
     <ClInclude Include="mSkillMMultiFire.h" />
     <ClInclude Include="mSkillWall.h" />
     <ClInclude Include="mSummonsScript.h" />
+    <ClInclude Include="mTalkUI.h" />
     <ClInclude Include="mTeleportScript.h" />
     <ClInclude Include="mTileAffectOverlay.h" />
     <ClInclude Include="mGridScript.h" />
@@ -244,6 +247,8 @@
     <ClCompile Include="mEnemyHpUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mNPC.cpp" />
+    <ClCompile Include="mNPCScript.cpp" />
     <ClCompile Include="mOverlay.cpp" />
     <ClCompile Include="mOverlayScript.cpp" />
     <ClCompile Include="mRangeScript.cpp" />
@@ -260,6 +265,7 @@
     <ClCompile Include="mSkillMMultiFire.cpp" />
     <ClCompile Include="mSkillWall.cpp" />
     <ClCompile Include="mSummonsScript.cpp" />
+    <ClCompile Include="mTalkUI.cpp" />
     <ClCompile Include="mTeleportScript.cpp" />
     <ClCompile Include="mTileAffectOverlay.cpp" />
     <ClCompile Include="mGridScript.cpp" />

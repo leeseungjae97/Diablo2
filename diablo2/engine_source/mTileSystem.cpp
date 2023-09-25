@@ -161,9 +161,11 @@ namespace m
 
 			mMonsterBuffer->Clear();
 			mMonsterBuffer->Create(sizeof(ComputeMonster), MonsterManager::monsters.size(), eViewType::UAV, computeMonsters.data(), true);
+			//mMonsterBuffer->SetData(computeMonsters.data(), 1);
 
 			mGetMonsterComputedCoordBuffer->Clear();
 			mGetMonsterComputedCoordBuffer->Create(sizeof(ComputedMonsterCoord), MonsterManager::monsters.size(), eViewType::UAV, nullptr, true);
+			//mGetMonsterComputedCoordBuffer->SetData(&MonsterManager::monsters, 1);
 
 			mCS->SetMonsterBuffer(mMonsterBuffer);
 			mCS->SetMonsterCoordBuffer(mGetMonsterComputedCoordBuffer);

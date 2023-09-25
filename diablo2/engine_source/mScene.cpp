@@ -57,7 +57,8 @@ namespace m
 			layer->Destroy();
 		}
 	}
-	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
+	
+    void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
 	{
 		gameObj->SetLayerType(type);
 		mLayers[(int)type]->AddGameObject(gameObj);

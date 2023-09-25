@@ -18,6 +18,7 @@ namespace m
 			RenderNoUpdate,
 			NoRenderNoUpdate,
 			Delete,
+			DelayDelete,
 		};
 		enum eBattleState
 		{

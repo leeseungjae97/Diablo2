@@ -25,27 +25,22 @@ namespace m::graphics
 		if (buffer)
 		{
 			buffer->Release();
-			buffer.Detach();
 		}
 		if (mWriteBuffer)
 		{
 			mWriteBuffer->Release();
-			mWriteBuffer.Detach();
 		}
 		if (mReadBuffer)
 		{
 			mReadBuffer->Release();
-			mReadBuffer.Detach();
 		}
 		if (mSRV)
 		{
 			mSRV->Release();
-			mSRV.Detach();
 		}
 		if (mUAV)
 		{
 			mUAV->Release();
-			mUAV.Detach();
 		}
 		mType = type;
 

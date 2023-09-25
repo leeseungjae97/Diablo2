@@ -696,7 +696,7 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
 			, 148, 106, 8, L"lightning");
 
-		MAKE_MATERIAL_PATH(spriteShader, L"chain_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
+		MAKE_MATERIAL_PATH(spriteShader, L"_lightning", L"..\\Resources\\texture\\skill_effect\\missile\\lightning"
 			, 148, 106, 8, L"chainLightning");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"thunder_storm", L"..\\Resources\\texture\\skill_effect\\missile\\thunder_storm"
@@ -862,6 +862,7 @@ namespace renderer
 #pragma endregion
 #pragma region InGame User Interface
 		MAKE_MATERIAL(UVControlShader, L"enemy_hp", L"..\\Resources\\texture\\ui\\play\\enemy_hp.png", L"enemyHp");
+		MAKE_MATERIAL(noLightShader, L"talk_UI", L"..\\Resources\\texture\\ui\\play\\talk_ui.png", L"talkUI");
 #pragma endregion
 #pragma region Items
 		MAKE_MATERIAL(noLightShader, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
@@ -965,6 +966,13 @@ namespace renderer
 #pragma region Skill ETC
 			MAKE_MATERIAL(noLightShader, L"normal_attack_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack.png", L"normalAttackIcon")
 			MAKE_MATERIAL(noLightShader, L"normal_attack_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\normal_attack_c.png", L"normalAttackClickIcon")
+#pragma endregion
+#pragma region NPC
+			MAKE_MATERIAL_PATH(spriteShader, L"npc_1", L"..\\Resources\\texture\\npc\\npc_1"
+				, 29, 76, 16, L"npc1");
+
+		    MAKE_MATERIAL_PATH(spriteShader, L"npc_2", L"..\\Resources\\texture\\npc\\npc_2"
+			    , 29, 76, 17, L"npc2");
 #pragma endregion
 
 #pragma region Inventory

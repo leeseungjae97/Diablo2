@@ -205,8 +205,21 @@
     <ClCompile Include="mRangeScript.cpp">
       <Filter>Script\RangeScript</Filter>
     </ClCompile>
-    <ClCompile Include="mSkillChain.cpp" />
-    <ClCompile Include="mChainScript.cpp" />
+    <ClCompile Include="mSkillChain.cpp">
+      <Filter>Skill\Missile\SkillChain</Filter>
+    </ClCompile>
+    <ClCompile Include="mChainScript.cpp">
+      <Filter>Script\ChainScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mNPC.cpp">
+      <Filter>Objects\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="mTalkUI.cpp">
+      <Filter>UI\TalkUI</Filter>
+    </ClCompile>
+    <ClCompile Include="mNPCScript.cpp">
+      <Filter>Script\NPCScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -410,8 +423,21 @@
     <ClInclude Include="mRangeScript.h">
       <Filter>Script\RangeScript</Filter>
     </ClInclude>
-    <ClInclude Include="mSkillChain.h" />
-    <ClInclude Include="mChainScript.h" />
+    <ClInclude Include="mSkillChain.h">
+      <Filter>Skill\Missile\SkillChain</Filter>
+    </ClInclude>
+    <ClInclude Include="mChainScript.h">
+      <Filter>Script\ChainScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mNPC.h">
+      <Filter>Objects\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="mTalkUI.h">
+      <Filter>UI\TalkUI</Filter>
+    </ClInclude>
+    <ClInclude Include="mNPCScript.h">
+      <Filter>Script\NPCScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -656,6 +682,15 @@
     </Filter>
     <Filter Include="Script\ChainScript">
       <UniqueIdentifier>{9f58b3a5-7adb-472a-ad45-5a5a5b33e548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\NPC">
+      <UniqueIdentifier>{92580d79-bf47-493b-a76a-cc0313e59058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TalkUI">
+      <UniqueIdentifier>{36a4c193-e9af-4683-87af-6c0556a5c000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPCScript">
+      <UniqueIdentifier>{ff8b7e21-9257-4d05-9436-f3e27a9207b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -430,10 +430,10 @@ namespace m
 		case m::eSkillFunctionType::Follower:
 		{
 			mSkill = new SkillFollowing(skillType, GetOwner(), 10.f / 0.08f, GET_POS(GetOwner()), GetOwner()->GetCamera());
+			mSkill->SetSkillOwnerLayer(fireLayerType);
 			((SkillFollowing*)mSkill)->SetFollowerGenerateTime(0.08f);
 			((SkillFollowing*)mSkill)->SetFollowerLoopCount(5);
 			((SkillFollowing*)mSkill)->Initialize();
-			mSkill->SetSkillOwnerLayer(fireLayerType);
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
@@ -494,9 +494,9 @@ namespace m
 		break;
 		case m::eSkillFunctionType::Chain:
 		{
-			mSkill = new SkillChain(skillType, GET_POS(GetOwner()), 5, fireLayerType, GetOwner()->GetCamera());
+			mSkill = new SkillChain(skillType, GET_POS(GetOwner()), 2, fireLayerType, GetOwner()->GetCamera());
 			mSkill->SkillFire();
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
+			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
 		    break;
 		case m::eSkillFunctionType::Aura:

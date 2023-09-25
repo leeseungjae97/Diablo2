@@ -33,6 +33,7 @@ namespace m::enums
 		Summons,
 		Player,
 		Monster,
+		NPC,
 		AdapterSkill,
 		Skill,
 		PlayerSkill,
@@ -40,7 +41,7 @@ namespace m::enums
 		Light,
 		UI,
 		Item,
-		End = 20,
+		End,
 	};
 	enum class eResourceType
 	{

@@ -132,6 +132,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTrappingColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NPCLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)OverlayLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHandLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillAnimLookUpTables.h" />

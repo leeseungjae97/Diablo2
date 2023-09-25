@@ -335,7 +335,7 @@ namespace m
 		L"telekinesis",// L"telekinesisClickIcon",
 		L"nova",// L"novaClickIcon",
 		L"lightning",// L"lightningClickIcon",
-		L"chainLightning",// L"chainLightningClickIcon",
+		L"lightning",// L"chainLightningClickIcon",
 		L"teleport",// L"teleportClickIcon",
 		L"thunderStorm",// L"thunderStormClickIcon",
 		L"energyShield",// L"energyShieldClickIcon",

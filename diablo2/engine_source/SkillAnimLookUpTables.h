@@ -904,9 +904,9 @@ m::math::Vector2(0.f, 0.f),
 
 	};
 	m::math::Vector2 accessorySkillAnimSize[(int)eAccessorySkillType::END] = {
-		Vector2(97.f, 153.f),
-		Vector2(59.f, 198.f),
-		Vector2(22.f, 22.f),
+		m::math::Vector2(97.f, 153.f),
+		m::math::Vector2(59.f, 198.f),
+		m::math::Vector2(22.f, 22.f),
 
 	};
 	int accessorySkillAnimLength[(int)eAccessorySkillType::END] = {

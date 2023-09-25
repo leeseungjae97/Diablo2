@@ -114,7 +114,7 @@ namespace m
 
 			skills.push_back(sf);
 		}
-		std::reverse(skills.begin(), skills.end());
+		//std::reverse(skills.begin(), skills.end());
 	}
 	SkillMultiFire::~SkillMultiFire()
 	{
@@ -206,6 +206,7 @@ namespace m
 			ss->SetHead(dynamic_cast<SkillStraight*>(skills[0]));
 		}
 		ss->HeadLinear();
+		ss->Initialize();
 		ss->SetCamera(camera);
 		
 		return ss;
