@@ -1,8 +1,12 @@
 #include "mNPC.h"
 
+#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mSceneManager.h"
+
+#include "mButton.h"
 #include "mNPCScript.h"
-#include "mSceneManager.h"
-#include "mTalkUI.h"
+#include "mShop.h"
+#include "mInteractUI.h"
 
 namespace m
 {
@@ -14,7 +18,7 @@ namespace m
 			false,
 			false,
 			false)
-	    , mNPCType(type)
+		, mNPCType(type)
 	{
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
@@ -23,13 +27,7 @@ namespace m
 
 		AddComponent<NPCScript>(mNPCType);
 
-		initPos.y += NPCSizes[(int)type].y;
-
-
-
-		mTalkUI = new TalkUI(initPos, type);
-		mTalkUI->SetCamera(SceneManager::GetActiveScene()->GetSceneUICamera());
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mTalkUI);
+		makeUI(initPos, type);
 	}
 
 	NPC::~NPC()
@@ -39,28 +37,31 @@ namespace m
 	void NPC::Update()
 	{
 		MoveAbleObject::Update();
-		//if (nullptr == mTalkUI->GetCamera()) mTalkUI->SetCamera(GetCamera());
+		if (nullptr == mInteractUI->GetCamera()) mInteractUI->SetCamera(GetCamera());
 
-		if (GetHover())
+		if (GetHover()
+			|| mInteractUI->GetHover())
 		{
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			{
-				mTalkUI->SetState(eState::RenderUpdate);
+				if (mInteractUI->GetState() == eState::NoRenderUpdate)
+				{
+					mInteractUI->SetState(eState::RenderUpdate);
+				}
 			}
 		}else
 		{
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
-			{
-				mTalkUI->SetState(eState::NoRenderUpdate);
-			}
+			    mInteractUI->SetState(eState::NoRenderUpdate);
 		}
+
+		//for (Button* button : textes) button->SetState(mInteractUI->GetState());
+	
 	}
 
 	void NPC::LateUpdate()
 	{
 		MoveAbleObject::LateUpdate();
-
-		
 	}
 
 	void NPC::Initialize()
@@ -73,7 +74,40 @@ namespace m
 		MoveAbleObject::Render();
 	}
 
-    void NPC::Hit(int damage, bool attackStun)
+	void NPC::Hit(int damage, bool attackStun)
+	{
+	}
+
+    void NPC::SetShop(Shop* shop)
     {
+		mShop = shop;
+		if (mInteractUI)
+			mInteractUI->SetShop(shop);
     }
+
+    void NPC::makeUI(Vector3 initPos, eNPCType nType)
+	{
+		std::vector<std::wstring> texts;
+		texts.push_back(NPCNames[(int)nType]);
+		texts.push_back(NPCMenus[(int)nType][0]);
+		texts.push_back(NPCMenus[(int)nType][1]);
+		texts.push_back(NPCMenus[(int)nType][2]);
+		texts.push_back(NPCMenus[(int)nType][3]);
+
+		Vector3 uiPos = initPos;
+		uiPos.y += NPCSizes[(int)nType].y * 2.f;
+
+		std::vector<Vector4> vClickColors = {
+	        Vector4::Zero,
+			Vector4(80.f,80.f,172.f,255.f),
+			Vector4(80.f,80.f,172.f,255.f),
+			Vector4::Zero,
+			Vector4::Zero,
+		};
+
+		mInteractUI = new InteractUI(uiPos, texts, {}, vClickColors);
+		mInteractUI->SetState(eState::NoRenderUpdate);
+		//mInteractUI->SetOwnerScale(NPCSizes[(int)nType]);
+		
+	}
 }

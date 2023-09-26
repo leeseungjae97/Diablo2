@@ -4,7 +4,9 @@
 #include "../engine_source/NPCLookUpTables.h"
 namespace m
 {
-    class TalkUI;
+    class Button;
+    class Shop;
+    class InteractUI;
 
     class NPC :
         public MoveAbleObject
@@ -19,9 +21,16 @@ namespace m
         virtual void Render() override;
 
         virtual void Hit(int damage, bool attackStun) override;
+
+        void SetShop(Shop* shop);
     private:
-        TalkUI* mTalkUI;
+        void makeUI(Vector3 initPos, eNPCType nType);
+
+    private:
+        //std::vector<Button*> textes;
+        InteractUI* mInteractUI;
         eNPCType mNPCType;
+        Shop* mShop;
     };
 }
 

@@ -2,6 +2,7 @@
 #include "../engine_source/mScene.h"
 namespace m
 {
+    class Shop;
     class Inventory;
     class Pocket;
     class SkillStatus;
@@ -22,6 +23,7 @@ namespace m
         Inventory* inventory;
         SkillStatus* skillUp;
         BottomUI* uiBottomBar;
+        Shop* shop;
     };
 }
 

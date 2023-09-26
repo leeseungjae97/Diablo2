@@ -1,6 +1,6 @@
 #include "mNPCScript.h"
 
-#include "mMaterial.h"
+#include "../engine_source/mMaterial.h"
 
 namespace m
 {

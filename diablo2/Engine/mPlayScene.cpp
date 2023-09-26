@@ -40,6 +40,7 @@
 #include "mEnemyHpUI.h"
 #include "mFieldItem.h"
 #include "mNPC.h"
+#include "mShop.h"
 
 extern m::Application application;
 namespace m
@@ -85,7 +86,7 @@ namespace m
 		ADD_COMP(camera, AudioListener);
 		Camera* cameraComp = ADD_COMP(camera, Camera);
 		SetSceneMainCamera(cameraComp);
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//renderer::cameras.push_back(GetSceneMainCamera());
 
 		TileManager::MakeTile(100, 100, cameraComp);
@@ -482,14 +483,24 @@ namespace m
 
 		uiBottomBar = new BottomUI(cameraComp2);
 
+		shop = new Shop(cameraComp2);
+
 		EnemyHpUI* eHpUI = new EnemyHpUI(Vector3(0.f, 0.f, -1.f));
 		eHpUI->SetCamera(cameraComp2);
 		eHpUI->SetFontSize(20.f);
 		AddGameObject(eLayerType::UI, eHpUI);
 
-		NPC* npc1 = new NPC(GET_POS(PlayerManager::player), eNPCType::ConsumNPC);
+		Vector3 nPos = GET_POS(PlayerManager::player);
+		NPC* npc1 = new NPC(nPos, eNPCType::ConsumNPC);
+		npc1->SetShop(shop);
 		SET_MAIN_CAMERA(npc1);
 		AddGameObject(eLayerType::NPC, npc1);
+
+		nPos.x += 100.f;
+		NPC* npc2 = new NPC(nPos, eNPCType::EquimentNPC);
+		npc2->SetShop(shop);
+		SET_MAIN_CAMERA(npc2);
+		AddGameObject(eLayerType::NPC, npc2);
 	}
 	void PlayScene::Update()
 	{

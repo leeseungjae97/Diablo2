@@ -8,6 +8,7 @@ namespace m
 	class InvenItem;
 	class FieldItem;
 	class EmptyRect;
+	class Shop;
 	class Camera;
 	class StashManager
 	{
@@ -78,7 +79,12 @@ namespace m
 		static std::vector<InvenItem*> GetShopItems() { return shopItems; }
 
 		static void SetInventoryVisible(GameObject::eState state) { eInventoryState = state; }
+		static void SetShopInventoryVisible(GameObject::eState state) { eShopInventoryState = state; }
 		static void SetExPocketVisible(GameObject::eState state) { eExPocketState = state; }
+
+		static GameObject::eState GetInventoryState() { return eInventoryState; }
+		static GameObject::eState GetShopInventoryState() { return eShopInventoryState; }
+		static GameObject::eState GetExPocketState() { return eExPocketState; }
 
 		static bool CheckItemCenterPosIntersectItem(Vector2 centerPosFromInvenLeftTop, InvenItem* item, eStashType type);
 		static bool CheckInvensFill(int leftTopInvenIndex, InvenItem* item, eStashType type);
@@ -87,7 +93,11 @@ namespace m
 		static bool CheckLimitIntersectItems(int limit, eStashType type);
 
 		static bool AddItemTetris(InvenItem* item, eStashType type);
-	private:
+		
+		static void SetCurRenderShop(Shop* shop) { mCurShop = shop; }
+		static Shop* GetCurRenderShop() { return mCurShop; }
+
+    private:
 		static InvenItem* getPocketPosItem(int index);
 		static InvenItem* getExPocketPosItem(int index);
 		static void reArrangePocket();
@@ -111,6 +121,8 @@ namespace m
 		static std::vector<EmptyRect*> pockets;
 		static std::vector<EmptyRect*> exPockets;
 
+		static std::vector<GameObject*> ts;
+		static bool bt;
 
 		static EmptyRect* invenWeapon1Left;   // x 60 y 117
 		static EmptyRect* invenWeapon1Right;  // x 60 y 117
@@ -132,6 +144,8 @@ namespace m
 		static GameObject::eState eInventoryState;
 		static GameObject::eState eShopInventoryState;
 		static GameObject::eState eExPocketState;
+
+		static Shop* mCurShop;
 
 		static GameObject* m;
 	};

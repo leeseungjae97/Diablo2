@@ -11,6 +11,7 @@ namespace m
 	{
 	public:
 		static int skillPoint;
+		static int money;
 		static float hp;
 		static float hpCapacity;
 		static float hpPercent;

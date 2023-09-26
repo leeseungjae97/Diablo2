@@ -12,6 +12,9 @@
 #include "mItem.h"
 #include "mItemScript.h"
 #include "mButton.h"
+#include "mFontWrapper.h"
+#include "mPlayerManager.h"
+#include "mShop.h"
 
 #define INVEN_X_SIZE 30
 #define INVEN_Y_SIZE 30
@@ -34,6 +37,18 @@ namespace m
 
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameObject(eLayerType::UI, this);
+
+		//x 105 y 457
+
+		mMoneyUI = new UI();
+        mMoneyUI->SetCamera(camera);
+		mMoneyUI->SetState(NoRenderUpdate);
+		mMoneyUI->SetTextSize(15.f);
+		mMoneyUI->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		SET_MESH(mMoneyUI, L"RectMesh");
+		SET_MATERIAL(mMoneyUI, L"noneRect");
+        curScene->AddGameObject(eLayerType::UI, mMoneyUI);
+
 
 		closeBtn = new Button();
 		curScene->AddGameObject(eLayerType::UI, closeBtn);
@@ -145,11 +160,29 @@ namespace m
 	void Inventory::Update()
 	{
 		UI::Update();
-		if (closeBtn->GetOneClick())
-			SetState(NoRenderUpdate);
 
+		makeMoneyUI();
+		if(StashManager::GetShopInventoryState() == RenderUpdate)
+		{
+			SetState(eState::RenderUpdate);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::ESC))
+		{
+			SetState(eState::NoRenderUpdate);
+		}
+
+		if (closeBtn->GetOneClick())
+		{
+			if(nullptr != StashManager::GetCurRenderShop())
+				StashManager::GetCurRenderShop()->SetState(eState::NoRenderUpdate);
+
+			SetState(NoRenderUpdate);
+		}
+		
 		StashManager::SetInventoryVisible(GetState());
 		closeBtn->SetState(GetState());
+		mMoneyUI->SetState(GetState());
 	}
 	void Inventory::LateUpdate()
 	{
@@ -159,4 +192,18 @@ namespace m
 	{
 		UI::Render();
 	}
+
+    void Inventory::makeMoneyUI()
+    {
+		std::wstring moneyStr = std::to_wstring(PlayerManager::money);
+		mMoneyUI->SetText(moneyStr);
+		float textSize = mMoneyUI->GetTextSize();
+		Vector2 fontSize =FontWrapper::GetTextSize(moneyStr.c_str(), textSize);
+		SET_SCALE_XYZ(mMoneyUI, fontSize.x, fontSize.y, 1.f);
+
+		SET_POS_XYZ(mMoneyUI
+			, (fontSize.x / 2.f) + 107.f * Texture::GetWidRatio()
+			, RESOL_H_HEI - (fontSize.y / 2.f) - 458.f * Texture::GetHeiRatio()
+			, 0.f);
+    }
 }

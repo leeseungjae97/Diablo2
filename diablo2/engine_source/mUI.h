@@ -18,7 +18,9 @@ namespace m
 
 		void SetText(const std::wstring text) { wsText = text; }
 		const std::wstring& GetText() { return wsText; }
-		void SetTextColor(Vector4 color) { vTextColor = color; }
+		float GetTextSize() { return fTextSize; }
+		void SetTextNormalColor(Vector4 color) { vTextNormalColor = color; }
+		void SetTextClickColor(Vector4 color) { vTextHoverColor = color; }
 		void SetTextSize(float textSize) { fTextSize = textSize; }
 	private:
 		void drawText();
@@ -27,6 +29,8 @@ namespace m
 		std::wstring wsText;
 		float fTextSize;
 		Vector4 vTextColor;
+		Vector4 vTextNormalColor;
+		Vector4 vTextHoverColor;
 	};
 }
 

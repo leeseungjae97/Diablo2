@@ -1,13 +1,15 @@
 #include "mPlayer.h"
-#include "mInput.h"
-#include "mTransform.h"
-#include "mMeshRenderer.h"
-#include "mTime.h"
-#include "mCamera.h"
-#include "mApplication.h"
-#include "mFontWrapper.h"
-#include "mMonsterManager.h"
-#include "mMouseManager.h"
+
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mInput.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mTime.h"
+#include "../engine_source/mCamera.h"
+#include "../engine_source/mApplication.h"
+#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mMonsterManager.h"
+#include "../engine_source/mMouseManager.h"
+
 #include "mTrappingColor.h"
 
 extern m::Application application;

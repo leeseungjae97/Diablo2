@@ -819,6 +819,14 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.png", L"tabBt");
 		MAKE_MATERIAL(noLightShader, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.png", L"closeBtn");
 		MAKE_MATERIAL(noLightShader, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.png", L"closeBtnClick");
+		//MAKE_MATERIAL(noLightShader, L"gold_coin_btn_click", L"..\\Resources\\texture\\ui\\buttons\\gold_coin_btn_c.png", L"goldCoinBtnClick");
+		//MAKE_MATERIAL(noLightShader, L"gold_coin_btn", L"..\\Resources\\texture\\ui\\buttons\\gold_coin_btn.png", L"goldCoinBtn");
+
+		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_0_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_0_click.png", L"shopInvenTab0Click");
+		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_1_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_1_click.png", L"shopInvenTab1Click");
+		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_2_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_2_click.png", L"shopInvenTab2Click");
+		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_3_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_3_click.png", L"shopInvenTab3Click");
+
 #pragma endregion
 #pragma region Tiles
 		//MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
@@ -851,7 +859,7 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png", L"testDebugRect");
 
 		MAKE_MATERIAL(noLightShader, L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png", L"invenRect");
-		MAKE_MATERIAL(noLightShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect");
+		MAKE_MATERIAL_T(noLightShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect");
 
 		MAKE_MATERIAL(noLightShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + noLightShader->GetKey());
 		MAKE_MATERIAL(tileShader, L"none", L"..\\Resources\\texture\\none.png", L"noneRect" + tileShader->GetKey());
@@ -862,7 +870,8 @@ namespace renderer
 #pragma endregion
 #pragma region InGame User Interface
 		MAKE_MATERIAL(UVControlShader, L"enemy_hp", L"..\\Resources\\texture\\ui\\play\\enemy_hp.png", L"enemyHp");
-		MAKE_MATERIAL(noLightShader, L"talk_UI", L"..\\Resources\\texture\\ui\\play\\talk_ui.png", L"talkUI");
+		MAKE_MATERIAL_T(noLightShader, L"talk_UI", L"..\\Resources\\texture\\ui\\play\\talk_ui.png", L"talkUI");
+		MAKE_MATERIAL_T(noLightShader, L"item_ex_back", L"..\\Resources\\texture\\ui\\play\\item_ex_back.png", L"itemExBack");
 #pragma endregion
 #pragma region Items
 		MAKE_MATERIAL(noLightShader, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
@@ -882,7 +891,6 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"hp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\hp_overlap_hands.png", L"hpOverlapHands");
 		MAKE_MATERIAL(noLightShader, L"mp_overlap_hands", L"..\\Resources\\texture\\ui\\play\\mp_overlap_hands.png", L"mpOverlapHands");
 #pragma endregion
-
 #pragma region Skill User Interface
 		MAKE_MATERIAL(noLightShader, L"skill_panel_cold", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel\\sorceress_skill_pannel_cold.png", L"skillPanelCold");
 		MAKE_MATERIAL(noLightShader, L"skill_panel_light", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_pannel\\sorceress_skill_pannel_light.png", L"skillPanelLight");
@@ -902,7 +910,6 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"shiver_armor_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\shiver_armor.png", L"shiverArmorIcon");
 #pragma endregion
 #pragma region Skill Click Cold
-
 		MAKE_MATERIAL(noLightShader, L"blizzard_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\blizzard_c.png", L"blizzardClickIcon");
 		MAKE_MATERIAL(noLightShader, L"chilling_armor_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\chilling_armor_c.png", L"chillingArmorClickIcon");
 		MAKE_MATERIAL(noLightShader, L"clacial_spike_click_icon", L"..\\Resources\\texture\\ui\\skill\\sorceress_skill_icons\\cold\\clacial_spike_c.png", L"clacialSpikeClickIcon");
@@ -974,7 +981,9 @@ namespace renderer
 		    MAKE_MATERIAL_PATH(spriteShader, L"npc_2", L"..\\Resources\\texture\\npc\\npc_2"
 			    , 29, 76, 17, L"npc2");
 #pragma endregion
-
+#pragma region Shop
+			MAKE_MATERIAL(noLightShader, L"shop_inventory", L"..\\Resources\\texture\\ui\\play\\shop\\shop_invens.png", L"shopInventory");
+#pragma endregion
 #pragma region Inventory
 		{
 			std::shared_ptr<Texture> texture

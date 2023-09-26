@@ -15,6 +15,8 @@ namespace m
 		: wsText(L"")
 		, fTextSize(20.f)
 		, vTextColor(Vector4(1.f, 1.f, 1.f, 1.f))
+		, vTextHoverColor(Vector4(1.f, 1.f, 1.f, 1.f))
+		, vTextNormalColor(Vector4(1.f, 1.f, 1.f, 1.f))
 
 	{
 		AddComponent<MeshRenderer>();
@@ -24,6 +26,8 @@ namespace m
 		: wsText(L"")
 		, fTextSize(20.f)
 		, vTextColor(Vector4(1.f, 1.f, 1.f, 1.f))
+		, vTextHoverColor(Vector4(1.f, 1.f, 1.f, 1.f))
+		, vTextNormalColor(Vector4(1.f, 1.f, 1.f, 1.f))
 	{
 
 	}
@@ -37,6 +41,15 @@ namespace m
 	void UI::Update()
 	{
 		GameObject::Update();
+		if(GetHover())
+		{
+			if(vTextHoverColor != Vector4::One)
+			    vTextColor = vTextHoverColor;
+		}else
+		{
+			if (vTextNormalColor != Vector4::One)
+			    vTextColor = vTextNormalColor;
+		}
 
 	}
 	void UI::LateUpdate()
@@ -57,6 +70,6 @@ namespace m
 		FontWrapper::DrawFont(wsText.c_str(), pp.x, pp.y, fTextSize
 			, FONT_RGBA(vTextColor.x, vTextColor.y, vTextColor.z, vTextColor.w));
 		//FontWrapper::DrawFont(wsText.c_str(), 10, 10, fTextSize
-		//	, FONT_RGBA(vTextColor.x, vTextColor.y, vTextColor.z, vTextColor.w));
+		//	, FONT_RGBA(vTextNormalColor.x, vTextNormalColor.y, vTextNormalColor.z, vTextNormalColor.w));
 	}
 }

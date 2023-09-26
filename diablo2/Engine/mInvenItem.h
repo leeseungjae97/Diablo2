@@ -6,6 +6,7 @@
 
 namespace m
 {
+    class InteractUI;
     class BottomUI;
     class Inventory;
     class InvenItem :
@@ -29,9 +30,20 @@ namespace m
         void ItemFunctionStop() { bDoItemFunction = false; }
 
         bool GetDoItemFunction() { return bDoItemFunction; }
+
+        void SetShopItem(bool shopItem) { bShopItem = shopItem; }
+
+    private:
+        void makeItemExUI();
+
     private:
         Vector3 prevPosition;
         bool bDoItemFunction;
+
+        bool bShopItem;
+        bool bMakeUI;
+        InteractUI* mExItemUI;
+        InteractUI* mBuyDcUI;
     };
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "mScript.h"
-#include "NPCLookUpTables.h"
+#include "../engine_source/NPCLookUpTables.h"
 
 namespace m
 {

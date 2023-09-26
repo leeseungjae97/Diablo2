@@ -1,25 +1,24 @@
 #pragma once
 #include "mUI.h"
-#include "NPCLookUpTables.h"
-
 namespace m
 {
-    class TalkUI :
+    class Button;
+    class Shop :
         public UI
     {
     public:
-        TalkUI(Vector3 initPos, eNPCType type);
-        virtual ~TalkUI();
+        Shop(Camera* camera);
+        virtual ~Shop();
 
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
-
     private:
-        void makePositionToUICamera();
-    private:
-        std::wstring* mMenus;
+        std::vector<Button*> shopTabs;
+        Button* mButtonBuy;
+        Button* mButtonSell;
     };
 }
+
 

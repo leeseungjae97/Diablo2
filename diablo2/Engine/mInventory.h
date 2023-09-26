@@ -19,7 +19,11 @@ namespace m
         virtual void Render() override;
 
     private:
+        void makeMoneyUI();
+
+    private:
         Button* closeBtn;
+        UI* mMoneyUI;
     };
 }
 

@@ -81,15 +81,17 @@ namespace m
 
 		if(GetOneClick())
 		{
-			eState st = skillImages->GetState();
-			skillImages->SetState(st == NoRenderUpdate ? RenderUpdate : NoRenderUpdate);
+			skillImages->SetState(skillImages->GetState() == NoRenderUpdate ? RenderUpdate : NoRenderUpdate);
 		}
+		if (skillImages->GetState() == RenderUpdate)
+		{
+			GetHoverClickSkill();
+		}
+
 		if(!GetHover())
 		{
 			if(Input::GetKeyDown(eKeyCode::LBUTTON)) skillImages->SetState(NoRenderUpdate);
 		}
-
-		GetHoverClickSkill();
 
 		if (PlayerManager::GetSkill(mSkillIndex) != mSkillType)
 		{
