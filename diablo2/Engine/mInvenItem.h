@@ -42,8 +42,7 @@ namespace m
 
         bool bShopItem;
         bool bMakeUI;
-        InteractUI* mExItemUI;
-        InteractUI* mBuyDcUI;
+
     };
 }
 

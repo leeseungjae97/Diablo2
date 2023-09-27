@@ -15,6 +15,7 @@
 #include "../editor_source/guiEditor.h"
 
 #include "mGameObject.h"
+#include "mInteractUIManager.h"
 //#include "mFontWrapper.h"
 
 namespace m
@@ -61,6 +62,7 @@ namespace m
 		StashManager::Update();
 		SceneManager::Update();
 		CollisionManager::Update();
+		InteractUIManager::Update();
 	}
 
 	void Application::LateUpdate()

@@ -104,8 +104,15 @@ namespace m
 			Vector4::Zero,
 			Vector4::Zero,
 		};
+		std::vector<Vector4> vColors = {
+	Vector4(148.f, 128.f, 100.f,255.f),
+	Vector4(255.f,255.f,255.f,255.f),
+	Vector4(255.f,255.f,255.f,255.f),
+	Vector4(255.f,255.f,255.f,255.f),
+	Vector4::Zero,
+		};
 
-		mInteractUI = new InteractUI(uiPos, texts, {}, vClickColors);
+		mInteractUI = new InteractUI(uiPos, texts, vColors, vClickColors);
 		mInteractUI->SetState(eState::NoRenderUpdate);
 		//mInteractUI->SetOwnerScale(NPCSizes[(int)nType]);
 		

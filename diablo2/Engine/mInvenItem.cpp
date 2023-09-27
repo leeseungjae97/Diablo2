@@ -8,9 +8,11 @@
 #include "../engine_source/mStashManager.h"
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mMouseManager.h"
+#include "../engine_source/ItemLookUpTables.h"
 
 #include "mEmptyRect.h"
 #include "mInteractUI.h"
+#include "mInteractUIManager.h"
 #include "mPosionScript.h"
 
 
@@ -20,8 +22,6 @@ namespace m
 		: Item(item)
 		, bDoItemFunction(false)
 		, bMakeUI(false)
-		, mExItemUI(nullptr)
-		, mBuyDcUI(nullptr)
 	{
 		eItemType type = itemTypeTable[(UINT)item];
 
@@ -53,35 +53,40 @@ namespace m
 	void InvenItem::Update()
 	{
 		Item::Update();
-		if (nullptr != mExItemUI && nullptr == mExItemUI->GetCamera()) mExItemUI->SetCamera(GetCamera());
-		if (nullptr != mBuyDcUI && nullptr == mBuyDcUI->GetCamera()) mBuyDcUI->SetCamera(GetCamera());
+		//if (nullptr != mExItemUI && nullptr == mExItemUI->GetCamera()) mExItemUI->SetCamera(GetCamera());
+		//if (nullptr != mBuyDcUI && nullptr == mBuyDcUI->GetCamera()) mBuyDcUI->SetCamera(GetCamera());
 
 		if (GetHover())
 		{
-			if (mExItemUI && mBuyDcUI->GetState() != RenderUpdate)
-				mExItemUI->SetState(RenderUpdate);
+			if (bShopItem)
+			{
+				if(InteractUIManager::mCurUIType != InteractUIManager::eInteractUIType::BuyItem)
+				{
+					InteractUIManager::SetItemUI((int)mItem
+						, InteractUIManager::eInteractUIType::ExItem
+						, GET_POS(this)
+						, true
+						, GetCamera()
+						, 15.f
+					);
+				}
 
+				InteractUIManager::bItemHover = true;
+			}
 			if (Input::GetKeyDownOne(eKeyCode::LBUTTON))
 			{
 				if (!bShopItem)
 					SetMouseFollow(GetMouseFollow() ? false : true);
 				else
 				{
-					if(mBuyDcUI)
-					    mBuyDcUI->SetState(RenderUpdate);
-					if(mExItemUI)
-					    mExItemUI->SetState(NoRenderUpdate);
+					InteractUIManager::SetItemUI((int)mItem
+						, InteractUIManager::eInteractUIType::BuyItem
+						, GET_POS(this)
+						, false
+					    , GetCamera()
+						, 15.f
+					);
 				}
-			}
-		}
-		else
-		{
-			if (mExItemUI)
-				mExItemUI->SetState(NoRenderUpdate);
-			if (Input::GetKeyDownOne(eKeyCode::LBUTTON))
-			{
-				if (mBuyDcUI)
-					mBuyDcUI->SetState(NoRenderUpdate);
 			}
 		}
 		if (!bShopItem)
@@ -97,11 +102,11 @@ namespace m
 			}
 		}
 
-		if (bShopItem)
-		{
-			if (!bMakeUI)
-				makeItemExUI();
-		}
+		//if (bShopItem)
+		//{
+		//	if (!bMakeUI)
+		//		makeItemExUI();
+		//}
 	}
 	void InvenItem::LateUpdate()
 	{
@@ -115,79 +120,78 @@ namespace m
 
 	void InvenItem::makeItemExUI()
 	{
-		bMakeUI = true;
+	//	bMakeUI = true;
 
-		Vector3 pos = GET_POS(this);
-		std::vector<std::wstring> options;
-		std::wstring valueStr = L"";
-		Vector2 fontMaxSize = Vector2::Zero;
+	//	Vector3 pos = GET_POS(this);
+	//	std::vector<std::wstring> options;
+	//	std::wstring valueStr = L"";
+	//	Vector2 fontMaxSize = Vector2::Zero;
 
-		std::wstring str = itemCostFunctionNames[(int)mItem][0];
-		Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
-		if (fontMaxSize.x < fontSize.x)
-			fontMaxSize.x = fontSize.x;
+	//	std::wstring str = itemCostFunctionNames[(int)mItem][0];
+	//	Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
+	//	if (fontMaxSize.x < fontSize.x)
+	//		fontMaxSize.x = fontSize.x;
 
-		fontMaxSize.y += fontSize.y * 2;
-		options.push_back(str);
-		for (int i = 1; i < 5; ++i)
-		{
-			str = itemCostFunctionNames[(int)mItem][i];
-			if (str == L"") continue;
+	//	fontMaxSize.y += fontSize.y * 2;
+	//	options.push_back(str);
+	//	for (int i = 1; i < 5; ++i)
+	//	{
+	//		str = itemCostFunctionNames[(int)mItem][i];
+	//		if (str == L"") continue;
 
-			valueStr = std::to_wstring(itemFunctionValue[(int)mItem][i - 1]);
+	//		valueStr = std::to_wstring(itemFunctionValue[(int)mItem][i - 1]);
 
-			str += valueStr;
+	//		str += valueStr;
 
-			fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
+	//		fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
 
-			if (fontMaxSize.x < fontSize.x)
-				fontMaxSize.x = fontSize.x;
+	//		if (fontMaxSize.x < fontSize.x)
+	//			fontMaxSize.x = fontSize.x;
 
-			fontMaxSize.y += fontSize.y;
+	//		fontMaxSize.y += fontSize.y;
 
-			options.push_back(str);
-		}
-		pos.y += fontMaxSize.y;
+	//		options.push_back(str);
+	//	}
+	//	pos.y += fontMaxSize.y;
 
-		mExItemUI = new InteractUI(pos, options, {}, {},Vector3(fontMaxSize.x, fontMaxSize.y, 1.f), true);
-		mExItemUI->SetOwnerScale(fontMaxSize);
+	//	mExItemUI = new InteractUI(pos, options, {}, {}, Vector3(fontMaxSize.x, fontMaxSize.y, 1.f), true);
 
-		std::vector<std::wstring> wsBuyText = {
-			L"구입",
-			itemCostFunctionNames[(int)mItem][0],
-			L"골드:" + std::to_wstring(itemFunctionValue[(int)mItem][0]),
-			L"네",
-			L"아니오",
-		};
+	//	std::vector<std::wstring> wsBuyText;
+	//	wsBuyText.push_back(L"구입");
+	//	wsBuyText.push_back(itemCostFunctionNames[(int)mItem][0]);
+	//	wsBuyText.push_back(L"골드:" + std::to_wstring(itemFunctionValue[(int)mItem][0]));
+	//	wsBuyText.push_back(L"네");
+	//	wsBuyText.push_back(L"아니오");
 
-		pos = GET_POS(this);
-		fontMaxSize = Vector2::Zero;
+	//	pos = GET_POS(this);
+	//	fontMaxSize = Vector2::Zero;
 
-		for(std::wstring str : wsBuyText)
-		{
-			fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
-			if (fontMaxSize.x < fontSize.x)
-				fontMaxSize.x = fontSize.x;
+	//	for (std::wstring str : wsBuyText)
+	//	{
+	//		fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
+	//		if (fontMaxSize.x < fontSize.x)
+	//			fontMaxSize.x = fontSize.x;
 
-			fontMaxSize.y += fontSize.y;
-		}
-		pos.y += fontMaxSize.y;
-		std::vector<Vector4> vColors = {
-			Vector4(148.f, 128.f, 100.f,255.f),
-			Vector4(148.f,128.f,100.f,255.f),
-			Vector4(148.f,128.f,100.f,255.f),
-			Vector4(255.f,255.f,255.f,255.f),
-			Vector4(255.f,255.f,255.f,255.f),
-		};
-		std::vector<Vector4> vClickColors = {
-			Vector4::Zero,
-			Vector4::Zero,
-			Vector4::Zero,
-			Vector4(80.f,80.f,172.f,255.f),
-			Vector4(80.f,80.f,172.f,255.f),
-		};
-		mBuyDcUI = new InteractUI(pos, wsBuyText, vColors, vClickColors, Vector3(fontMaxSize.x, fontMaxSize.y, 1.f));
-		mBuyDcUI->SetOwnerScale(fontMaxSize);
-		mBuyDcUI->SetState(NoRenderUpdate);
+	//		fontMaxSize.y += fontSize.y;
+	//	}
+	//	pos.y += fontMaxSize.y;
+	//	std::vector<Vector4> vColors = {
+	//		Vector4(148.f, 128.f, 100.f,255.f),
+	//		Vector4(148.f,128.f,100.f,255.f),
+	//		Vector4(148.f,128.f,100.f,255.f),
+	//		Vector4(255.f,255.f,255.f,255.f),
+	//		Vector4(255.f,255.f,255.f,255.f),
+	//	};
+	//	std::vector<Vector4> vClickColors = {
+	//		Vector4::Zero,
+	//		Vector4::Zero,
+	//		Vector4::Zero,
+	//		Vector4(80.f,80.f,172.f,255.f),
+	//		Vector4(80.f,80.f,172.f,255.f),
+	//	};
+
+	//	mBuyDcUI = new InteractUI(pos, wsBuyText, vColors, vClickColors, Vector3(fontMaxSize.x, fontMaxSize.y, 1.f));
+	//	mBuyDcUI->SetState(NoRenderUpdate);
+	//	mBuyDcUI->SetItem(mItem);
 	}
 }

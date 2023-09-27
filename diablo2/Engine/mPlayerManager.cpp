@@ -115,4 +115,14 @@ namespace m
 	{
 		return (eSkillType)((UINT)type + (UINT)eSkillType::lightningMastery);
 	}
+
+    bool PlayerManager::BuyItem(int cost)
+    {
+		if (money < cost) return false;
+		else
+		{
+			money -= cost;
+			return true;
+		}
+    }
 }

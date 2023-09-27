@@ -735,6 +735,7 @@ namespace m
 	void StashManager::MoveOtherStash(InvenItem* item, eStashType stashTypeMove)
 	{
 		eStashType stashType = item->GetStashType();
+		item->SetShopItem(false);
 
 		if (stashType == eStashType::Inventory)
 			std::erase(invenItems, item);
@@ -763,7 +764,10 @@ namespace m
 			exPocketItems.push_back(item);
 
 		if (stashTypeMove == eStashType::Shop)
+		{
+			item->SetShopItem(true);
 			shopItems.push_back(item);
+		}
 
 		if (stashTypeMove == eStashType::Equiment)
 			equimentItems.push_back(item);

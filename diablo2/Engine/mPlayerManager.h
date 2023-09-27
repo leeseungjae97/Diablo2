@@ -32,7 +32,9 @@ namespace m
 		static eSkillType SetColdSkillType(eColdSkillType type);
 		static eSkillType SetFireSkillType(eFireSkillType type);
 		static eSkillType SetLightningSkillType(eLightningSkillType type);
-	private:
+        static bool BuyItem(int cost);
+
+    private:
 
 		static eSkillType skillTypes[2];
 		

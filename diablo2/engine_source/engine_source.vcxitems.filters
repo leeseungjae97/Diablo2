@@ -169,6 +169,9 @@
     <Filter Include="GameObject\Component\AnimationTrappingColor">
       <UniqueIdentifier>{7b63aeb9-6f69-4e4f-b956-2f9ae24c77a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\InteractUIManager">
+      <UniqueIdentifier>{34830b93-29f9-4207-85b2-78052e450197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -381,6 +384,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NPCLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mInteractUIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -545,6 +549,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.cpp">
       <Filter>GameObject\Component\AnimationTrappingColor</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mInteractUIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
