@@ -33,7 +33,7 @@ namespace m
         void SetShop(Shop* shop) { mShop = shop; }
         void ExText();
         void ClickText();
-        void SetTextes(const std::vector<std::wstring>& text) { mMenus = text; }
+        void SetTextes(std::vector<std::wstring> text) { mMenus = text; }
         void SetNormalColors(const std::vector<m::math::Vector4>& vector) { mColors = vector; }
         void SetClickColors(const std::vector<m::math::Vector4>& vector) { mClickColors = vector; }
         void SetScale(Vector3 size);

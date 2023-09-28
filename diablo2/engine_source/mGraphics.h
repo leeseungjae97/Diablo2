@@ -232,3 +232,8 @@ struct ParticleShared
 {
 	UINT sharedActiveCount;
 };
+//struct BoundingSphere
+//{
+//	m::math::Vector3 center;
+//	float radius;
+//};

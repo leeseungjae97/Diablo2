@@ -11,7 +11,7 @@ namespace m
 {
 	int PlayerManager::learnedSkill[3][10]= {};
 	int PlayerManager::skillPoint = 0;
-	int PlayerManager::money = 10000;
+	int PlayerManager::money = 100;
 
 	float PlayerManager::hp = 100.f;
 	float PlayerManager::hpCapacity = 100.f;

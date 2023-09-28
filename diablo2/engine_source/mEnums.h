@@ -13,6 +13,7 @@ namespace m::enums
 		Animator,
 		Script,
 		Light,
+		Shadow,
 		AudioListener,
 		AudioSource,
 		Camera,

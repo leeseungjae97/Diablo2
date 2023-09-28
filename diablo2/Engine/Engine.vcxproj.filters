@@ -223,6 +223,10 @@
     <ClCompile Include="mShop.cpp">
       <Filter>UI\ItemPlaced\Shop</Filter>
     </ClCompile>
+    <ClCompile Include="mLightObject.cpp">
+      <Filter>Objects\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="mShadowObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -444,6 +448,10 @@
     <ClInclude Include="mShop.h">
       <Filter>UI\ItemPlaced\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="mLightObject.h">
+      <Filter>Objects\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="mShadowObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -700,6 +708,12 @@
     </Filter>
     <Filter Include="UI\InteractUI">
       <UniqueIdentifier>{36a4c193-e9af-4683-87af-6c0556a5c000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\LightObject">
+      <UniqueIdentifier>{105fd7f3-fed4-4133-90f2-a63fa0ec476d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\ShadowObject">
+      <UniqueIdentifier>{629ab0d1-591e-4c74-a941-ae7c9d5399a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

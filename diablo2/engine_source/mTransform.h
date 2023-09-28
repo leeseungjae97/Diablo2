@@ -1,4 +1,5 @@
 #pragma once
+#include "mCamera.h"
 #include "mComponent.h"
 namespace m
 {
@@ -41,7 +42,8 @@ namespace m
 		Matrix GetWorld() { return mWorld; }
 
 		Vector3 ProjectionPosition();
-		Vector3 ProjectionCetnerPosition(Vector2 fontSize);
+        Vector3 TransPositionOtherCamera(Camera* camera);
+        Vector3 ProjectionCetnerPosition(Vector2 fontSize);
 	private:
 		Vector3 mPosition;
 		Vector3 mRotation;

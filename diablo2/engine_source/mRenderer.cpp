@@ -84,6 +84,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"ShadowAnimationShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		shader = m::Resources::Find<Shader>(L"NoLightShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -362,6 +367,41 @@ namespace renderer
 		circleDebug->SetVertexes(vertexes);
 		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		vertexes.clear();
+		indexes.clear();
+
+		vertexes.resize(4);
+
+		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
+
+		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector3(1.0f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
+		std::shared_ptr<Mesh> parallelogram = std::make_shared<Mesh>();
+		parallelogram->SetVertexes(vertexes);
+		parallelogram->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		parallelogram->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		Resources::Insert(L"PMesh", parallelogram);
 	}
 
 	void PushDebugMeshAttribute(DebugMesh& mesh)
@@ -427,6 +467,12 @@ namespace renderer
 		animationShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
 		animationShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
 		m::Resources::Insert(L"AnimationShader", animationShader);
+
+		std::shared_ptr<Shader> shadowAnimationShader = std::make_shared<Shader>();
+		shadowAnimationShader->Create(eShaderStage::VS, L"ShadowAnimationVS.hlsl", "main");
+		shadowAnimationShader->Create(eShaderStage::PS, L"ShadowAnimationPS.hlsl", "main");
+		m::Resources::Insert(L"ShadowAnimationShader", shadowAnimationShader);
+
 
 		std::shared_ptr<Shader> noLightShader = std::make_shared<Shader>();
 		noLightShader->Create(eShaderStage::VS, L"NoLightSpriteVS.hlsl", "main");
@@ -1026,6 +1072,16 @@ namespace renderer
 			material->SetShader(spriteShader);
 			material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"AnimationMaterial", material);
+		}
+		{
+			spriteShader
+				= Resources::Find<Shader>(L"ShadowAnimationShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"ShadowAnimationMaterial", material);
 		}
 		{
 			std::shared_ptr<Shader> shader

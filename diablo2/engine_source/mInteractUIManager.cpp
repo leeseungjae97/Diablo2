@@ -69,12 +69,15 @@ namespace m
 		std::wstring valueStr = L"";
 		std::vector<Vector4> vColors = {};
 		std::vector<Vector4> vClickColors = {};
+
+
 		switch (type)
 		{
 		case eInteractUIType::ExItem:
 		{
 			std::wstring str = itemCostFunctionNames[itemType][0];
-			Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
+
+			Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
 			if (fontMaxSize.x < fontSize.x)
 				fontMaxSize.x = fontSize.x;
 
@@ -110,6 +113,12 @@ namespace m
 			text.push_back(L"네");
 			text.push_back(L"아니오");
 
+			Vector2 fontSize = FontWrapper::GetTextSize(text[0].c_str(), fFontSize);
+			if (fontMaxSize.x < fontSize.x)
+				fontMaxSize.x = fontSize.x;
+
+			fontMaxSize.y += fontSize.y;
+
 			for (std::wstring str : text)
 			{
 				Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
@@ -137,6 +146,7 @@ namespace m
 		break;
 		case eInteractUIType::BuyFail:
 		{
+
 			vColors = {
 				Vector4(176.f, 68.f, 52.f,255.f),
 				Vector4(255.f,255.f,255.f,255.f),
@@ -147,6 +157,13 @@ namespace m
 			};
 			text.push_back(L"거래하기에 충분한 골드를 가지고 있지 않습니다.");
 			text.push_back(L"계속");
+
+			Vector2 fontSize = FontWrapper::GetTextSize(text[0].c_str(), fFontSize);
+			if (fontMaxSize.x < fontSize.x)
+				fontMaxSize.x = fontSize.x;
+
+			fontMaxSize.y += fontSize.y;
+
 			for (std::wstring str : text)
 			{
 				Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
@@ -155,7 +172,7 @@ namespace m
 
 				fontMaxSize.y += fontSize.y;
 			}
-			pos.y += fontMaxSize.y;
+			pos = Vector3(0.f, 0.f, pos.z);
 		}
 		break;
 		}

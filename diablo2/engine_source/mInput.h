@@ -103,13 +103,6 @@ namespace m
 				return false;
 			}
 		}
-
-		//bool GetOneClick()
-		//{
-		//	bool syncClick = bOneClick;
-		//	bOneClick = false;
-		//	return syncClick;
-		//}
 		static __forceinline Vector2 GetMousePos() { return mMousePos; }
 
 		static __forceinline Vector3 GetUnprojectionMousePos(float curDepth, Matrix projMat, Matrix view)
@@ -124,8 +117,8 @@ namespace m
 			};
 			Vector3 mousePos3 = Vector3(mMousePos.x, mMousePos.y, curDepth);
 			return viewport.Unproject(mousePos3, projMat, view, Matrix::Identity);
-		}
 
+		}
 	private:
 		static std::vector<Key> mKeys;
 		static Vector2 mMousePos;

@@ -55,9 +55,13 @@ namespace m
 	void InteractUI::Update()
 	{
 		UI::Update();
-		if (!textes.empty() && nullptr == textes[0]->GetCamera())
+		if (!textes.empty())
 		{
-			for (UI* ui : textes) ui->SetCamera(GetCamera());
+			for (UI* ui : textes)
+			{
+				if(nullptr == ui->GetCamera())
+				    ui->SetCamera(GetCamera());
+			}
 		}
 		for (Button* button : textes)
 		{
@@ -67,6 +71,7 @@ namespace m
 				if (text.compare(L"거래") == 0)
 				{
 					mShop->SetState(eState::RenderUpdate);
+					SetState(eState::NoRenderUpdate);
 				}
 				if (text.compare(L"네") == 0)
 				{
@@ -79,8 +84,18 @@ namespace m
 						SceneManager::GetActiveScene()->AddGameObject(eLayerType::Item, item);
 						StashManager::AddItem(item, StashManager::eStashType::Inventory);
 						StashManager::AddItemTetris(item, StashManager::eStashType::Inventory);
+
+						SetState(eState::NoRenderUpdate);
+					}else
+					{
+						InteractUIManager::SetItemUI((int)mBuyItem
+							, InteractUIManager::eInteractUIType::BuyFail
+							, GET_POS(this)
+							, false
+							, GetCamera()
+							, 15.f
+						);
 					}
-					SetState(eState::NoRenderUpdate);
 				}
 				if (text.compare(L"취소") == 0
 					|| text.compare(L"아니오") == 0

@@ -1,9 +1,12 @@
 #include "mTransform.h"
+
+#include "mApplication.h"
 #include "mRenderer.h"
 #include "mConstantBuffer.h"
 #include "mCamera.h"
 #include "mGameObject.h"
 
+extern m::Application application;
 namespace m
 {
 	Transform::Transform()
@@ -107,17 +110,43 @@ namespace m
 			proj = GetOwner()->GetCamera()->GetPrivateProjectionMatrix();
 			view = GetOwner()->GetCamera()->GetPrivateViewMatrix();
 		}
-		Viewport viewport = {
-		0.f,
-		0.f,
-		RESOL_WID,
-		RESOL_HEI,
-		10.f,
-	-1.f,
-		};
+		Viewport viewport = Application::GetViewPort();
 		return viewport.Project(mPosition, proj, view, Matrix::Identity);
     }
+	Vector3 Transform::TransPositionOtherCamera(Camera* camera)
+	{
+		Matrix proj = camera->GetPrivateProjectionMatrix();
+		Matrix view = camera->GetPrivateViewMatrix();
+		//Matrix world = camera->World();
 
+		//proj = GetOwner()->GetCamera()->GetPrivateProjectionMatrix();
+		//view = GetOwner()->GetCamera()->GetPrivateViewMatrix();
+
+		//XMMATRIX ViewProj = view * proj;
+		//XMMATRIX WorldViewProj = mWorld * view * proj;
+		//XMVECTOR clipSpacePosition = XMVector4Transform(XMVectorSet(mPosition.x, mPosition.y, mPosition.z, 1.0f), WorldViewProj);
+
+		//Vector3 worldPos = mPosition;
+
+
+		//XMVECTOR projected = XMVector3Project(XMLoadFloat3(&worldPos)
+		//	, 0, 0, RESOL_WID, RESOL_HEI, -10.f, 1.0f
+		//	, view, proj, Matrix::Identity);
+
+		//float screenX = ((clipSpacePosition.m128_f32[0] / clipSpacePosition.m128_f32[3]) + 1.0f) * 0.5f * RESOL_WID;
+		//float screenY = ((-clipSpacePosition.m128_f32[1] / clipSpacePosition.m128_f32[3]) + 1.0f) * 0.5f * RESOL_HEI;
+
+		Viewport viewport = Application::GetViewPort();
+
+		POINT point;
+		point.x = mPosition.x;
+		point.y = mPosition.y;
+
+		ScreenToClient(application.GetHwnd(), &point);
+		Vector3 p =viewport.Unproject(Vector3(point.x, point.y, mPosition.z), proj, view, Matrix::Identity);
+		p.z = mPosition.z;
+		return p;
+	}
     Vector3 Transform::ProjectionCetnerPosition(Vector2 fontSize)
     {
 		Vector3 centerPos = ProjectionPosition();

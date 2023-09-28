@@ -56,6 +56,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mShadow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStashManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
@@ -108,7 +109,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mMeshRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMonsterManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)mObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h" />
@@ -121,6 +121,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mShadow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStashManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />

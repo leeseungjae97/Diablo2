@@ -41,6 +41,13 @@ cbuffer Noise : register(b6)
 {
     float4 noiseTextureSize;
 }
+cbuffer Light : register(b7)
+{
+    row_major matrix lightViewMatrix;
+    row_major matrix lightProjectionMatrix;
+    
+};
+
 struct DrawObject
 {
     float4 position;

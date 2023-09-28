@@ -8,6 +8,7 @@
 #include "mUVUI.h"
 namespace m
 {
+    class ShadowObject;
     class Tile;
     class Player :
         public MoveAbleObject
@@ -39,6 +40,7 @@ namespace m
         //void timeWaitAttack();
         
     private:
+        ShadowObject* mShadow;
         UVUI* mHp;
         UVUI* mMp;
     };

@@ -24,7 +24,7 @@ namespace m
 
         void SetShop(Shop* shop);
     private:
-        void makeUI(Vector3 initPos, eNPCType nType);
+        void makeUI();
 
     private:
         //std::vector<Button*> textes;

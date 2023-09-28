@@ -26,7 +26,7 @@ namespace m
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
 		HWND GetHwnd() { return mHwnd; }
-		//Viewport GetViewport() { return mViewport; }
+		static Viewport GetViewPort() { return mViewPort; }
 
 	private:
 		bool mbInitialize = false;
@@ -36,6 +36,8 @@ namespace m
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+
+		static Viewport mViewPort;
 		//Viewport mViewport;
 	};
 }

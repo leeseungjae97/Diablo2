@@ -27,7 +27,7 @@ namespace m
 
 		AddComponent<NPCScript>(mNPCType);
 
-		makeUI(initPos, type);
+		makeUI();
 	}
 
 	NPC::~NPC()
@@ -37,7 +37,10 @@ namespace m
 	void NPC::Update()
 	{
 		MoveAbleObject::Update();
-		if (nullptr == mInteractUI->GetCamera()) mInteractUI->SetCamera(GetCamera());
+		if (nullptr == mInteractUI->GetCamera())
+		{
+			mInteractUI->SetCamera(GetCamera());
+		}
 
 		if (GetHover()
 			|| mInteractUI->GetHover())
@@ -85,17 +88,22 @@ namespace m
 			mInteractUI->SetShop(shop);
     }
 
-    void NPC::makeUI(Vector3 initPos, eNPCType nType)
+    void NPC::makeUI()
 	{
 		std::vector<std::wstring> texts;
-		texts.push_back(NPCNames[(int)nType]);
-		texts.push_back(NPCMenus[(int)nType][0]);
-		texts.push_back(NPCMenus[(int)nType][1]);
-		texts.push_back(NPCMenus[(int)nType][2]);
-		texts.push_back(NPCMenus[(int)nType][3]);
+		texts.push_back(NPCNames[(int)mNPCType]);
+		texts.push_back(NPCMenus[(int)mNPCType][0]);
+		texts.push_back(NPCMenus[(int)mNPCType][1]);
+		texts.push_back(NPCMenus[(int)mNPCType][2]);
+		texts.push_back(NPCMenus[(int)mNPCType][3]);
 
-		Vector3 uiPos = initPos;
-		uiPos.y += NPCSizes[(int)nType].y * 2.f;
+		//Camera* camera =SceneManager::GetActiveScene()->GetSceneUICamera();
+		//Camera* camera = SceneManager::GetActiveScene()->GetSceneMainCamera();
+		//Vector3 uiPos = GET_COMP(this, Transform)->TransPositionOtherCamera(camera);;
+		Vector3 uiPos = GET_POS(this);
+		//Vector3 uiPos = Vector3(0, 0, 0);
+
+		uiPos.y += NPCSizes[(int)mNPCType].y * 2.f;
 
 		std::vector<Vector4> vClickColors = {
 	        Vector4::Zero,
@@ -105,16 +113,14 @@ namespace m
 			Vector4::Zero,
 		};
 		std::vector<Vector4> vColors = {
-	Vector4(148.f, 128.f, 100.f,255.f),
-	Vector4(255.f,255.f,255.f,255.f),
-	Vector4(255.f,255.f,255.f,255.f),
-	Vector4(255.f,255.f,255.f,255.f),
-	Vector4::Zero,
+	        Vector4(148.f, 128.f, 100.f,255.f),
+	        Vector4(255.f,255.f,255.f,255.f),
+	        Vector4(255.f,255.f,255.f,255.f),
+	        Vector4(255.f,255.f,255.f,255.f),
+	        Vector4::Zero,
 		};
 
 		mInteractUI = new InteractUI(uiPos, texts, vColors, vClickColors);
 		mInteractUI->SetState(eState::NoRenderUpdate);
-		//mInteractUI->SetOwnerScale(NPCSizes[(int)nType]);
-		
 	}
 }

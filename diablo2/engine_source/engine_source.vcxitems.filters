@@ -172,6 +172,12 @@
     <Filter Include="Manager\InteractUIManager">
       <UniqueIdentifier>{34830b93-29f9-4207-85b2-78052e450197}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Shadow">
+      <UniqueIdentifier>{9e95a9da-05aa-4b6b-95f4-f2707dce7261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShadowMap">
+      <UniqueIdentifier>{ec08a411-c360-48a9-8c33-e251665ed6fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -223,9 +229,6 @@
       <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemDefine.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mObject.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemLookUpTables.h">
@@ -384,7 +387,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NPCLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mInteractUIManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mShadow.h">
+      <Filter>GameObject\Component\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mInteractUIManager.h">
+      <Filter>Manager\InteractUIManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -549,7 +557,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.cpp">
       <Filter>GameObject\Component\AnimationTrappingColor</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mInteractUIManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mShadow.cpp">
+      <Filter>GameObject\Component\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mInteractUIManager.cpp">
+      <Filter>Manager\InteractUIManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

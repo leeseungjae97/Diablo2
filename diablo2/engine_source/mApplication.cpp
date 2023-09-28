@@ -20,6 +20,7 @@
 
 namespace m
 {
+	Viewport Application::mViewPort = {};
 	Application::Application()
 		: graphicDevice(nullptr)
 		, mHwnd(NULL)
@@ -42,6 +43,15 @@ namespace m
 
 	void Application::Initialize()
 	{
+		mViewPort = {
+        0.f,
+        0.f,
+        RESOL_WID,
+        RESOL_HEI,
+        10.f,
+        -1.f,
+		};
+
 		Time::Initiailize();
 		Input::Initialize();
 		Fmod::Initialize();

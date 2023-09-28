@@ -171,11 +171,13 @@
     <ClInclude Include="mEnemyHpUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mLightObject.h" />
     <ClInclude Include="mNPC.h" />
     <ClInclude Include="mNPCScript.h" />
     <ClInclude Include="mOverlay.h" />
     <ClInclude Include="mOverlayScript.h" />
     <ClInclude Include="mRangeScript.h" />
+    <ClInclude Include="mShadowObject.h" />
     <ClInclude Include="mShop.h" />
     <ClInclude Include="mSkillAbnormal.h" />
     <ClInclude Include="mAura.h" />
@@ -248,11 +250,13 @@
     <ClCompile Include="mEnemyHpUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mLightObject.cpp" />
     <ClCompile Include="mNPC.cpp" />
     <ClCompile Include="mNPCScript.cpp" />
     <ClCompile Include="mOverlay.cpp" />
     <ClCompile Include="mOverlayScript.cpp" />
     <ClCompile Include="mRangeScript.cpp" />
+    <ClCompile Include="mShadowObject.cpp" />
     <ClCompile Include="mShop.cpp" />
     <ClCompile Include="mSkillAbnormal.cpp" />
     <ClCompile Include="mAura.cpp" />

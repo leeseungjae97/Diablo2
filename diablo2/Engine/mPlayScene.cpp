@@ -39,6 +39,7 @@
 #include "mCameraScript.h"
 #include "mEnemyHpUI.h"
 #include "mFieldItem.h"
+#include "mLightObject.h"
 #include "mNPC.h"
 #include "mShop.h"
 
@@ -111,23 +112,25 @@ namespace m
 		//as->SetLoop(true);
 		//as->Play();
 
-
 		SET_MAIN_CAMERA(PlayerManager::player);
 		AddGameObject(eLayerType::Player, PlayerManager::player);
 		ADD_COMP(PlayerManager::player, PlayerScript);
 		GetSceneMainCamera()->SetFollowObject(PlayerManager::player);
 
-		Tile* tile5 = TileManager::pathFindingTiles[0][1];
+		Tile* tile5 = TileManager::pathFindingTiles[60][10];
 		Vector3 pos4 = tile5->GetPos();
 
-		//GameObject* qwe = new GameObject();
-		//SET_MAIN_CAMERA(qwe);
-		//AddGameObject(eLayerType::Skill, qwe);
-		//ADD_COMP(qwe, MeshRenderer);
-		////Animator* anim = ADD_COMP(qwe, Animator);
-		//SET_POS_VEC(qwe, pos4);
-
-		//SET_MESH(qwe, L"RectMesh");
+		GameObject* qwe = new GameObject();
+		SET_MAIN_CAMERA(qwe);
+		AddGameObject(eLayerType::Skill, qwe);
+		ADD_COMP(qwe, MeshRenderer);
+		ADD_COMP(qwe, Collider2D);
+		SET_SCALE_XYZ(qwe, 100.f, 100.f, 1.f);
+		SET_MESH(qwe, L"RectMesh");
+		SET_MATERIAL(qwe, L"testSc");
+		//Animator* anim = ADD_COMP(qwe, Animator);
+		SET_POS_VEC(qwe, pos4);
+		
 
 		//SHARED_MAT mat1 = RESOURCE_FIND(Material, L"balrogAttackRH");
 		//SHARED_MAT mat2 = RESOURCE_FIND(Material, L"fire2s");
@@ -443,20 +446,14 @@ namespace m
 		//}
 		//
 
-		//GameObject* light = new GameObject();
-		//light->SetName(L"Smile");
-		//AddGameObject(eLayerType::Light, light);
-		//Light* lightComp = light->AddComponent<Light>();
-		//lightComp->SetType(eLightType::Directional);
-		//lightComp->SetColor(Vector4(0.5f, 0.5f, 0.5f,0.5f));
-		//lightComp->SetAngle(45.f);
+
 		//{
 		//	GameObject* light = new GameObject();
 		//	light->SetName(L"Smile");
 		//	AddGameObject(eLayerType::Light, light);
 		//	Light* lightComp = light->AddComponent<Light>();
-		//	lightComp->SetType(eLightType::Directional);
-		//	lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		//	lightComp->SetType(eLightType::Point);
+		//	lightComp->SetColor(Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 		//	lightComp->SetAngle(45.f);
 		//}
 

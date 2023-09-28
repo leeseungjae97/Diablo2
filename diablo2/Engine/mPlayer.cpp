@@ -1,5 +1,6 @@
 #include "mPlayer.h"
 
+#include "../engine_source/mLight.h"
 #include "../engine_source/mTransform.h"
 #include "../engine_source/mInput.h"
 #include "../engine_source/mMeshRenderer.h"
@@ -9,8 +10,11 @@
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mMonsterManager.h"
 #include "../engine_source/mMouseManager.h"
+#include "../engine_source/mSceneManager.h"
 
 #include "mTrappingColor.h"
+#include "mLightObject.h"
+#include "mShadowObject.h"
 
 extern m::Application application;
 namespace m
@@ -26,6 +30,16 @@ namespace m
 		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
 
 		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
+		//LightObject* light = new LightObject();
+		//light->SetFollowerObject(this);
+		//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Light, light);
+		Light* lightComp = AddComponent<Light>();
+		lightComp->SetType(eLightType::Point);
+		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+		lightComp->SetRadius(500.0f);
+
+		mShadow = new ShadowObject(this);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Light, mShadow);
 	}
 	Player::~Player()
 	{
@@ -37,6 +51,8 @@ namespace m
 	}
 	void Player::Update()
 	{
+		if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+
 		playerMove();
 		updateColliderPos();
 		MoveAbleObject::Update();
