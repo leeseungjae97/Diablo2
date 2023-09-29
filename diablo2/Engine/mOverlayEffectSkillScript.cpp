@@ -113,8 +113,10 @@ namespace m
 			if (eSkillType::END != mType)
 			{
 				eSkillCrashType crashType = skillCrashTypes[(int)mType];
-				SHARED_MAT mat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
+				if (crashType == eSkillCrashType::END) return;
 
+				SHARED_MAT mat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
+				
 				mAnimator->Create(
 					crashNames[(int)crashType] + L"anim"
 					, mat->GetTexture()

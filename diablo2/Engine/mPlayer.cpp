@@ -39,7 +39,7 @@ namespace m
 		lightComp->SetRadius(500.0f);
 
 		mShadow = new ShadowObject(this);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Light, mShadow);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
 	}
 	Player::~Player()
 	{

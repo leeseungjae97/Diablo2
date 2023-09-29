@@ -22,6 +22,7 @@ namespace m
 		virtual ~MonsterScript();
 
 		virtual void Initialize() override;
+
         
 		virtual void Update() override;
 		virtual void LateUpdate() override;
@@ -30,6 +31,7 @@ namespace m
 		void MakeDirection();
 		void SpecialAttackAnimationConitnue();
 		void SpecialAttackAnimation(int skillIndex);
+		void DeadAnimation();
 		void AttackAnimation();
 		void HitAnimation();
 		void ElseAnimationPlay();
@@ -66,6 +68,7 @@ namespace m
 		std::vector<SHARED_TEX> texs;
 		Animator* mAnimator;
 		T::eAnimationType mAnimationType;
+		std::wstring wsDiabloDeadAnimationName;
 
 		Skill* mSkill;
 		SkillBuff* mSkillBuff;

@@ -10,7 +10,9 @@ namespace m::graphics
 		, mImage{}
 		, mTexture(nullptr)
 		, mSRV(nullptr)
-		, mSlot(0)
+		, mMultiTextureSize(0)
+		, mSlot(0), mWidth(0), mHeight(0)
+        , mPerWidth(0), mPerHeight(0)
 		, mDesc{}
 	{
 	}
@@ -23,8 +25,8 @@ namespace m::graphics
 	{
 		ScratchImage atlasImage;
 		HRESULT hr = S_OK;
-	    atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, width, height, 1, 1);
-		
+		atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, width, height, 1, 1);
+
 		//for(int i = 0 ; i < mergeTextures.size(); ++i)
 		GUID format = GetWICCodec(WIC_CODEC_PNG);
 		for (std::shared_ptr<Texture> tex : mergeTextures)
@@ -55,7 +57,7 @@ namespace m::graphics
 
 			//hr = CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height)
 			hr = CopyRectangle(*image.GetImage(0, 0, 0), Rect(0, 0, image.GetMetadata().width, image.GetMetadata().height)
-				,*atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, 0, 0);
+				, *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, 0, 0);
 
 			if (FAILED(hr))
 			{
@@ -145,7 +147,7 @@ namespace m::graphics
 
 		return S_OK;
 	}
-	
+
 	HRESULT Texture::CreateTex(UINT perWidth, UINT perHeight, UINT oneAnimLength, const std::wstring& path)
 	{
 		ScratchImage atlasImage;
@@ -223,96 +225,74 @@ namespace m::graphics
 			xidx++;
 		}
 
-		/*if(path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack")
+		if (path == L"..\\Resources\\texture\\enemy\\diablo\\tr")
 		{
 			GUID format = GetWICCodec(WIC_CODEC_PNG);
 			hr = SaveToWICFile(
 				*atlasImage.GetImage(0, 0, 0)
 				, WIC_FLAGS::WIC_FLAGS_NONE
 				, format
-				, L"hydra_attack.png"
+				, L"diablo_tr.png"
 				, nullptr
 			);
 		}
-		if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\cast")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"hydra_cast.png"
-				, nullptr
-			);
-		}
-		if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\dead")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"hydra_dead.png"
-				, nullptr
-			);
-		}
-		if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\natural")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"hydra_natural.png"
-				, nullptr
-			);
-		}*/
 
-		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack_fire")
-		//{
-		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
-		//	hr = SaveToWICFile(
-		//		*atlasImage.GetImage(0, 0, 0)
-		//		, WIC_FLAGS::WIC_FLAGS_NONE
-		//		, format
-		//		, L"hydra_attack_fire.png"
-		//		, nullptr
-		//	);
-		//}
-		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\cast_fire")
-		//{
-		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
-		//	hr = SaveToWICFile(
-		//		*atlasImage.GetImage(0, 0, 0)
-		//		, WIC_FLAGS::WIC_FLAGS_NONE
-		//		, format
-		//		, L"hydra_cast_fire.png"
-		//		, nullptr
-		//	);
-		//}
-		//if (path == L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\dead_fire")
-		//{
-		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
-		//	hr = SaveToWICFile(
-		//		*atlasImage.GetImage(0, 0, 0)
-		//		, WIC_FLAGS::WIC_FLAGS_NONE
-		//		, format
-		//		, L"hydra_dead_fire.png"
-		//		, nullptr
-		//	);
-		//}
-		//if (path == L"..\\Resources\\texture\\123")
-		//{
-		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
-		//	hr = SaveToWICFile(
-		//		*atlasImage.GetImage(0, 0, 0)
-		//		, WIC_FLAGS::WIC_FLAGS_NONE
-		//		, format
-		//		, L"12311.png"
-		//		, nullptr
-		//	);
-		//}
-		
+		if (path == L"..\\Resources\\texture\\enemy\\diablo\\ra")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"diablo_ra.png"
+				, nullptr
+			);
+		}
+		if (path == L"..\\Resources\\texture\\enemy\\diablo\\la")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"diablo_la.png"
+				, nullptr
+			);
+		}
+		if (path == L"..\\Resources\\texture\\enemy\\diablo\\m")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"diablo_lg.png"
+				, nullptr
+			);
+		}
+		if (path == L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_overlay")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"diablo_o.png"
+				, nullptr
+			);
+		}
+		if (path == L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_overlay_2")
+		{
+			GUID format = GetWICCodec(WIC_CODEC_PNG);
+			hr = SaveToWICFile(
+				*atlasImage.GetImage(0, 0, 0)
+				, WIC_FLAGS::WIC_FLAGS_NONE
+				, format
+				, L"diablo_o2.png"
+				, nullptr
+			);
+		}
+
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device()
@@ -400,65 +380,6 @@ namespace m::graphics
 
 		return true;
 	}
-	ScratchImage Texture::loadImage(const std::wstring& path)
-	{
-		//= CoInitializeEx(nullptr, COINIT_MULTITHREADED)
-		HRESULT hr;
-		wchar_t szExtension[50] = {};
-		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 50);
-
-		ScratchImage image;
-		
-		std::wstring extension = szExtension;
-		if (extension == L".dds" || extension == L".DDS")
-		{
-			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, image)))
-			{
-				image.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
-				return image;
-			}
-				
-		}
-		else if (extension == L".tga" || extension == L".TGA")
-		{
-			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, image)))
-			{
-				image.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
-				return image;
-			}
-		}
-		else
-		{
-			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, image)))
-			{
-				image.Initialize2D(DXGI_FORMAT_B8G8R8A8_UNORM, 0, 0, 1, 1);
-				return image;
-			}
-		}
-		CreateShaderResourceView
-		(
-			GetDevice()->GetID3D11Device()
-			, image.GetImages()
-			, image.GetImageCount()
-			, image.GetMetadata()
-			, mSRV.GetAddressOf()
-		);
-		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
-
-		mImage.Initialize2D(
-			image.GetMetadata().format,
-			image.GetMetadata().width,
-			image.GetMetadata().height,
-			image.GetMetadata().arraySize,
-			image.GetMetadata().mipLevels
-		);
-
-		mWidth = image.GetMetadata().width;
-		mHeight = image.GetMetadata().height;
-
-		//CoUninitialize();
-		return image;
-	}
 	HRESULT Texture::Load(const std::wstring& path)
 	{
 		wchar_t szExtension[50] = {};
@@ -480,6 +401,54 @@ namespace m::graphics
 			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
 				return S_FALSE;
 		}
+
+		//if (mImage.GetMetadata().width >= 16384)
+		//{
+		//	mImages.clear();
+		//	float fImageIndex = mImage.GetMetadata().width / 16384.f;
+		//	int imageIndex = 0;
+		//	if (fImageIndex > (int)fImageIndex)
+		//		imageIndex = static_cast<int>(fImageIndex) + 1;
+		//	else imageIndex = static_cast<int>(fImageIndex);
+		//	mImages.resize(imageIndex);
+		//	mTextures.resize(imageIndex);
+		//	mSRVs.resize(imageIndex);
+		//	mMultiTextureSize = imageIndex;
+		//	for (int i = 1; i < imageIndex + 1; ++i)
+		//	{
+		//		int remainWidth = mImage.GetMetadata().width - (16384 * (i - 1));
+		//		if (remainWidth < 0) remainWidth *= -1;
+		//		mImages[i - 1].Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM
+		//			, remainWidth < 16384 ? remainWidth : 16384
+		//			, mImage.GetMetadata().height
+		//			, 1
+		//			, 1);
+		//		CopyRectangle(*mImage.GetImage(0, 0, 0), Rect(0, 0, 16384 * i, mImage.GetMetadata().height),
+		//			*mImages[i - 1].GetImage(0, 0, 0), TEX_FILTER_DEFAULT, 0, 0);
+		//		CreateShaderResourceView
+		//		(
+		//			GetDevice()->GetID3D11Device()
+		//			, mImages[i - 1].GetImages()
+		//			, mImages[i - 1].GetImageCount()
+		//			, mImages[i - 1].GetMetadata()
+		//			, mSRVs[i - 1].GetAddressOf()
+		//		);
+		//		mSRVs[i - 1]->GetResource((ID3D11Resource**)mTextures[i - 1].GetAddressOf());
+		//	}
+		//}
+		//else
+		//{
+		//	mMultiTextureSize = 0;
+		//	CreateShaderResourceView
+		//	(
+		//		GetDevice()->GetID3D11Device()
+		//		, mImage.GetImages()
+		//		, mImage.GetImageCount()
+		//		, mImage.GetMetadata()
+		//		, mSRV.GetAddressOf()
+		//	);
+		//	mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+		//}
 
 		CreateShaderResourceView
 		(
@@ -518,7 +487,7 @@ namespace m::graphics
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
 		int slot = 0;
-		if(this != nullptr )
+		if (this != nullptr)
 		{
 			slot = mSlot;
 		}
@@ -530,12 +499,12 @@ namespace m::graphics
 		GetDevice()->BindShaderResource(eShaderStage::PS, slot, &srv);
 	}
 
-    void Texture::SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture)
-    {
+	void Texture::SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture)
+	{
 		mTexture = texture;
 		texture->GetDesc(&mDesc);
 
 		mWidth = mDesc.Width;
 		mHeight = mDesc.Height;
-    }
+	}
 }

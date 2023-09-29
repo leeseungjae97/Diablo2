@@ -71,7 +71,8 @@ namespace m
 		void SetEndIndex(int index) { mAnimEndIndex = index; }
 
 		const Sprite& GetCurrentSprite() { return mSprites[mCurIndex]; }
-
+		std::vector<Sprite>& GetSprites() { return mSprites; }
+		std::shared_ptr<graphics::Texture> GetAtlas() { return mAtlas; }
 		int GetAltasLength() { return mSprites.size(); }
 		int GetIndex() { return mCurIndex; }
 		int GetProgressIndex() { return mAnimProgressIndex; }

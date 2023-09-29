@@ -16,7 +16,8 @@ namespace m
 
     private:
         GameObject* mShadowOwner;
-        Animator* mAnimator;
+        Animation::Sprite mOwnerSprite;
+        std::shared_ptr<Texture> mOwnerTexture;
     };
 }
 

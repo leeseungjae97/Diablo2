@@ -22,12 +22,14 @@ namespace m::graphics
 		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
 		std::shared_ptr<Shader> GetShader() { return mShader; }
 		std::shared_ptr<Texture> GetTexture() { return mTexture; }
+		std::vector<std::shared_ptr<Texture>> GetTextures() { return mTextures; }
 
 		void SetRenderingMode(eRenderingMode mode) { mMode = mode; }
 		eRenderingMode GetRenderingMode() { return mMode; }
 	private:
 		std::shared_ptr<Shader> mShader;
 		std::shared_ptr<Texture> mTexture;
+		std::vector<std::shared_ptr<Texture>> mTextures;
 		eRenderingMode mMode;
 	};
 }

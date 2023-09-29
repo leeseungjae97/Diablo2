@@ -6,6 +6,7 @@
 #include "mPlayerManager.h"
 #include "mPlayer.h"
 #include "mSceneManager.h"
+#include "mShadowObject.h"
 #include "mSkillOverlay.h"
 
 namespace m
@@ -45,6 +46,9 @@ namespace m
 		mHSO = new SkillOverlay();
 		mHSO->SetActiveOwner(this);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Overlay, mHSO);
+
+		mShadow = new ShadowObject(this);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
 	}
 	Monster::~Monster()
 	{
@@ -59,19 +63,28 @@ namespace m
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
+		if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+
 		if(nullptr == mHSO->GetCamera())
 		{
 			mHSO->SetActiveOwner(this);
 		}
 
-		if (hp == 0)
+		//if (hp == 0)
+		if (GetBattleState() == eBattleState::Dead)
 		{
 			//Dead end -> Delete
 			MonsterManager::EraseMonster(this);
-			SetState(eState::Delete);
+			SetState(eState::RenderNoUpdate);
 			mHSO->SetState(eState::Delete);
+			mShadow->SetState(eState::Delete);
+
+			if(mPathFinder)
+			    delete mPathFinder;
 			return;
 		}
+		if (GetBattleState() == eBattleState::ToDead)
+			return;
 
 		Vector3 curPosition = GET_POS(this);
 

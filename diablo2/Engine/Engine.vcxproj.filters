@@ -226,7 +226,9 @@
     <ClCompile Include="mLightObject.cpp">
       <Filter>Objects\LightObject</Filter>
     </ClCompile>
-    <ClCompile Include="mShadowObject.cpp" />
+    <ClCompile Include="mShadowObject.cpp">
+      <Filter>Objects\ShadowObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -451,7 +453,9 @@
     <ClInclude Include="mLightObject.h">
       <Filter>Objects\LightObject</Filter>
     </ClInclude>
-    <ClInclude Include="mShadowObject.h" />
+    <ClInclude Include="mShadowObject.h">
+      <Filter>Objects\ShadowObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

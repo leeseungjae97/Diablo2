@@ -30,6 +30,7 @@ namespace m::enums
 		PlayerOverlay,
 		Aura,
 		FieldItem,
+		Shadow,
 		Wall,
 		Summons,
 		Player,

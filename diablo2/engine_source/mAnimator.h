@@ -86,6 +86,7 @@ namespace m
 		int GetAnimationIndex() { return mActiveAnimation->GetIndex(); }
 
 		void SetSyncAnimator(Animator* sync) { mSyncAnimator = sync; }
+		Animator* GetSyncAnimator() { return mSyncAnimator; }
 		void Sync() { bSyncPlay = true; }
 		void DeSync() { bSyncPlay = false; }
 
@@ -99,7 +100,7 @@ namespace m
 
 		int GetLoopCount() { return iLoopCount; }
 
-	private:
+    private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		std::shared_ptr<Texture> mSpriteSheet;

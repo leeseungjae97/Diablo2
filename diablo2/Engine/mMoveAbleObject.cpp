@@ -6,6 +6,7 @@
 #include "mCamera.h"
 #include "mApplication.h"
 #include "mMouseManager.h"
+#include "mShadowObject.h"
 #include "mTrappingColor.h"
 #include "SkillAnimLookUpTables.h"
 
@@ -96,6 +97,8 @@ namespace m
 	{
 		if (mPathFinder)
 			delete mPathFinder;
+		if (mShadow)
+			mShadow->SetState(Delete);
 	}
 	void MoveAbleObject::Initialize()
 	{

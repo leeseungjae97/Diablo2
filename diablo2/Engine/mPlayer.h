@@ -40,7 +40,6 @@ namespace m
         //void timeWaitAttack();
         
     private:
-        ShadowObject* mShadow;
         UVUI* mHp;
         UVUI* mMp;
     };

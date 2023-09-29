@@ -249,7 +249,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 100;
+		float hp = 1;
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -295,7 +295,8 @@ namespace m
 			L"",
 			L"",
 			L"",
-			L"balrogDead",
+			L"",
+			L"balrogToDead",
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
 			L"balrogAttack_anim@",
@@ -310,7 +311,8 @@ namespace m
 			L"",
 			L"",
 			L"",
-			L"balrogDead_anim@",
+			L"",
+			L"balrogToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
 			math::Vector2(0.f, 0.f), // Attack
@@ -319,6 +321,7 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Hit
 			math::Vector2(0.f, 0.f),	// Natural
 			math::Vector2(0.f, 0.f),	// Run
+			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
@@ -340,6 +343,7 @@ namespace m
 	math::Vector2(0.f, 0.f),
 	math::Vector2(0.f, 0.f),
 	math::Vector2(0.f, 0.f),
+	math::Vector2(0.f, 0.f),
 	math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
@@ -349,6 +353,7 @@ namespace m
 			math::Vector2(197.f, 145.f),	// Hit
 			math::Vector2(191.f, 148.f),	// Natural
 			math::Vector2(171.f, 153.f),	// Run
+			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
@@ -370,6 +375,7 @@ namespace m
 			0.f,
 			0.f,
 			0.f,
+			0.f,
 			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
@@ -385,6 +391,7 @@ namespace m
 			0,
 			0,
 			0,
+			1,
 			20, // Dead
 		};
 		int animStartIndex[(UINT)eAnimationType::End] = {
@@ -394,6 +401,7 @@ namespace m
 			0, // Hit
 			0,// Natural
 			0, // Run
+			0,
 			0,
 			0,
 			0,
@@ -415,6 +423,7 @@ namespace m
 			0,
 			0,
 			0,
+			0,
 			0, // Dead
 		};
 		int animProgressStartIndex[(UINT)eAnimationType::End] = {
@@ -424,6 +433,7 @@ namespace m
 			0, // Hit
 			0, // Natural
 			0, // Run
+			0,
 			0,
 			0,
 			0,
@@ -440,7 +450,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 100;
+		float hp = 1;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
@@ -495,7 +505,7 @@ namespace m
 			L"diabloSpecial3",
 			L"diabloSpecial4",
 			L"diabloDead",
-			//L"diabloToDead",
+			L"diabloToDead1",
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
 			L"diabloAttack1_anim@",
@@ -511,7 +521,7 @@ namespace m
 			L"diabloSpecial3_anim@",
 			L"diabloSpecial4_anim@",
 			L"diabloDead_anim@",
-			L"diabloToDead_anim@",
+			L"diabloToDead1_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
 			math::Vector2(0.f, 0.f), // Attack1
@@ -527,21 +537,22 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
-math::Vector2(0.f, 0.f), // Attack
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Hit
-math::Vector2(0.f, 0.f),	// Natural
-math::Vector2(0.f, 0.f),	// Run
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 0.f), // Attack
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Hit
+            math::Vector2(0.f, 0.f),	// Natural
+            math::Vector2(0.f, 0.f),	// Run
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(4960.f / 16.f, 1791.f / 8.f),	// Attack1
@@ -557,6 +568,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			math::Vector2(4979.f / 16.f , 2183.f / 8.f),	// Special3
 			math::Vector2(4605.f / 16.f , 1615.f / 8.f),	// Special4
 			math::Vector2(169.f, 147.f),					// Dead
+			math::Vector2(266.f, 306.f),					// Dead
 		};
 		float animationDuration[(UINT)eAnimationType::End] = {
 			0.05f,   // Attack1
@@ -571,6 +583,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0.05f,	// Special2
 			0.05f,	// Special3
 			0.05f,	// Special4
+			0.05f,	// Dead
 			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
@@ -587,6 +600,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			16, // Special3
 			16	, // Special4
 			1, // Dead
+			60,
 		};
 		int animStartIndex[(UINT)eAnimationType::End] = {
 			0,// Attack1
@@ -601,6 +615,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Special2
 			0, // Special3
 			0, // Special4
+			0, // Dead
 			0, // Dead
 		};
 		int animEndIndex[(UINT)eAnimationType::End] = {
@@ -617,6 +632,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Special3
 			0, // Special4
 			0, // Dead
+			0, // Dead
 		};
 		int animProgressStartIndex[(UINT)eAnimationType::End] = {
 			10,// Attack1
@@ -631,6 +647,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			5, // Special2
 			8, // Special3
 			8, // Special4
+			0, // Dead
 			0, // Dead
 		};
 	};

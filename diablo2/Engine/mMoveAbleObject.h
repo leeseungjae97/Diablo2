@@ -5,7 +5,8 @@
 
 namespace m
 {
-	class UVUI;
+    class ShadowObject;
+    class UVUI;
 	class MoveAbleObject :
 		public GameObject
 	{
@@ -80,6 +81,8 @@ namespace m
 		void adjustmentMovementSpeedAccordingAngle();
 
 	protected:
+		ShadowObject* mShadow;
+
 		Collider2D* rangeCollider;
 		Collider2D* tilePositionCollider;
 		Collider2D* bodyBoxCollider;

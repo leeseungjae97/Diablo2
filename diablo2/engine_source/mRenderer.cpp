@@ -373,19 +373,19 @@ namespace renderer
 
 		vertexes.resize(4);
 
-		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexes[0].pos = Vector3(-1.0f, 0.0f, 0.0f);
 		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[0].uv = Vector2(0.0f, 0.0f);
 
-		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexes[1].pos = Vector3(0.0f, 0.0f, 0.0f);
 		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector3(1.0f, -0.5f, 0.0f);
+		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
 		vertexes[2].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[2].uv = Vector2(1.0f, 1.0f);
 
-		vertexes[3].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
 		vertexes[3].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
@@ -773,8 +773,10 @@ namespace renderer
 			, 171, 153, 8, L"balrogRun");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_attack1_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\attack"
 			, 222, 157, 16, L"balrogAttack");
+		MAKE_MATERIAL_PATH(spriteShader, L"balrog_to_dead_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\to_dead"
+			, 210, 179, 20, L"balrogToDead");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_dead_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\dead"
-			, 210, 179, 20, L"balrogDead");
+			, 207, 109, 1, L"balrogDead");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\natural"
 			, 161, 74, 8, L"balrogNaturalRH");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_hit_rh", L"..\\Resources\\texture\\enemy\\balrog\\rh\\hit"
@@ -813,6 +815,9 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"diablo_special3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special3.png", L"diabloSpecial3");
 		MAKE_MATERIAL(spriteShader, L"diablo_special4", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special4.png", L"diabloSpecial4");
 		MAKE_MATERIAL(spriteShader, L"diablo_dead", L"..\\Resources\\texture\\enemy\\diablo\\diablo_dead.png", L"diabloDead");
+		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_1", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_1.png", L"diabloToDead1");
+		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_2", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_2.png", L"diabloToDead2");
+		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_3.png", L"diabloToDead3");
 
 		MAKE_MATERIAL(spriteShader, L"duriel_natural", L"..\\Resources\\texture\\enemy\\duriel\\duriel_natural.png", L"durielNatural");
 		MAKE_MATERIAL(spriteShader, L"duriel_attack1", L"..\\Resources\\texture\\enemy\\duriel\\duriel_attack1.png", L"durielAttack1");

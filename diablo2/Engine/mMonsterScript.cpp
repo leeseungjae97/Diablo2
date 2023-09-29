@@ -94,69 +94,127 @@ namespace m
 			if (curMonsterData.textureString[i] == L"") continue;
 
 			SHARED_MAT mat = RESOURCE_FIND(Material, curMonsterData.textureString[i]);
-
-			for (int j = 0; j < 8; ++j)
+			if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0
+				&& i == (UINT)MonsterData::eAnimationType::ToDead)
 			{
-				if (!curMonsterData.bPathImage) m = eEightDirection[j];
-				else m = j;
-				if (curMonsterData.textureString[i] == L"diabloSpecial1")
-				{
-					int a = 0;
-				}
+				//diabloToDead2;
+				//diabloToDead3;
+
+				SHARED_MAT mat1 = RESOURCE_FIND(Material, L"diabloToDead1");
+				SHARED_MAT mat2 = RESOURCE_FIND(Material, L"diabloToDead2");
+				SHARED_MAT mat3 = RESOURCE_FIND(Material, L"diabloToDead3");
 				mAnimator->Create(
-					curMonsterData.animationString[i] + animStrings[m]
-					, mat->GetTexture()
-					, Vector2(0.0f, curMonsterData.animationSizes[i].y * j)
-					, curMonsterData.animationSizes[i]
-					, curMonsterData.animationLength[i]
-					, curMonsterData.animationOffset[i]
-					, curMonsterData.animationDuration[i]
+					L"dialoToDead1_anim@"
+					, mat1->GetTexture()
+					, Vector2(0.0f, 0.0f)
+					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationLength[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
-				if (i == (UINT)MonsterData::eAnimationType::Natural)
+
+				mAnimator->Create(
+					L"dialoToDead2_anim@"
+					, mat2->GetTexture()
+					, Vector2(0.0f, 0.0f)
+					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationLength[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
+				);
+				mAnimator->Create(
+					L"dialoToDead3_anim@"
+					, mat3->GetTexture()
+					, Vector2(0.0f, 0.0f)
+					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
+					, mat3->GetTexture()->GetMetaDataWidth() / 266
+					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
+					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
+				);
+				mAnimator->EndEvent(L"dialoToDead1_anim@") = [=]()
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-						= [this]()
-					{
-						mAnimator->SetAnimationStartIndex(0);
-					};
-				}
-				if (i == (UINT)MonsterData::eAnimationType::Attack1)
+					wsDiabloDeadAnimationName = L"dialoToDead2_anim@";
+				};
+				mAnimator->EndEvent(L"dialoToDead2_anim@") = [=]()
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-						= [this]()
-					{
-						AnimationStart(GameObject::eBattleState::Attack);
-						mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack1]);
-					};
-					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
-						= [this]()
-					{
-						//fAttackDelay = 0.f;
-						AnimationComplete(GameObject::eBattleState::Idle);
-						mAnimator->SetAnimationProgressIndex(0);
-					};
-					mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
-						= [this]() { AttackProgress(); };
-				}
-				if (i == (UINT)MonsterData::eAnimationType::Hit)
+					wsDiabloDeadAnimationName = L"dialoToDead3_anim@";
+				};
+				mAnimator->EndEvent(L"dialoToDead3_anim@") = [=]()
 				{
-					mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-						= [this]()
-					{
-						fAttackDelay = 0.f;
-						Hit(true, GameObject::eBattleState::Hit);
-						//mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::Hit]);
-					};
-					mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
-						= [this]() { Hit(false, GameObject::eBattleState::Idle); };
-				}
-				if (i == (UINT)T::eAnimationType::SpecialCast
-					|| i == (UINT)T::eAnimationType::Special1
-					|| i == (UINT)T::eAnimationType::Special2
-					|| i == (UINT)T::eAnimationType::Special3
-					|| i == (UINT)T::eAnimationType::Special4)
+					mAnimationType = MonsterData::eAnimationType::Dead;
+					GetOwner()->SetBattleState(GameObject::Dead);
+				};
+				wsDiabloDeadAnimationName = L"dialoToDead1_anim@";
+			}else
+			{
+				for (int j = 0; j < 8; ++j)
 				{
-					makeSkillCastAnimation(i, m);
+					if (!curMonsterData.bPathImage) m = eEightDirection[j];
+					else m = j;
+					std::wstring curAnimStr = curMonsterData.animationString[i] + animStrings[m];
+					mAnimator->Create(
+						curAnimStr
+						, mat->GetTexture()
+						, Vector2(0.0f, curMonsterData.animationSizes[i].y * j)
+						, curMonsterData.animationSizes[i]
+						, curMonsterData.animationLength[i]
+						, curMonsterData.animationOffset[i]
+						, curMonsterData.animationDuration[i]
+					);
+					if (i == (UINT)MonsterData::eAnimationType::Natural)
+					{
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							mAnimator->SetAnimationStartIndex(0);
+						};
+					}
+					if (i == (UINT)MonsterData::eAnimationType::Attack1)
+					{
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							AnimationStart(GameObject::eBattleState::Attack);
+							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack1]);
+						};
+						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							//fAttackDelay = 0.f;
+							AnimationComplete(GameObject::eBattleState::Idle);
+							mAnimator->SetAnimationProgressIndex(0);
+						};
+						mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]() { AttackProgress(); };
+					}
+					if (i == (UINT)MonsterData::eAnimationType::ToDead)
+					{
+						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							mAnimationType = MonsterData::eAnimationType::Dead;
+						};
+					}
+					if (i == (UINT)MonsterData::eAnimationType::Hit)
+					{
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							fAttackDelay = 0.f;
+							Hit(true, GameObject::eBattleState::Hit);
+							//mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::Hit]);
+						};
+						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]() { Hit(false, GameObject::eBattleState::Idle); };
+					}
+					if (i == (UINT)T::eAnimationType::SpecialCast
+						|| i == (UINT)T::eAnimationType::Special1
+						|| i == (UINT)T::eAnimationType::Special2
+						|| i == (UINT)T::eAnimationType::Special3
+						|| i == (UINT)T::eAnimationType::Special4)
+					{
+						makeSkillCastAnimation(i, m);
+					}
 				}
 			}
 		}
@@ -180,6 +238,10 @@ namespace m
 		//if(mLeftHand)
 			//mLeftHand->SetDirection(mDirection);
 
+		if (mMonster->GetMonsterHp() == 0)
+		{
+			DeadAnimation();
+		}
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Idle
 			|| mMonster->GetBattleState() == GameObject::eBattleState::Run
 			/*&& (nullptr == mSkill && nullptr == mSkillBuff)*/)
@@ -215,8 +277,13 @@ namespace m
 		}
 
 		//mLeftHand->SetAniType((int)mAnimationType);
-		if (mRightHand)
-			mRightHand->SetAniType((int)mAnimationType);
+		if(mMonster->GetBattleState() != GameObject::eBattleState::ToDead
+			|| mMonster->GetBattleState() != GameObject::eBattleState::Dead)
+		{
+			if (mRightHand)
+				mRightHand->SetAniType((int)mAnimationType);
+		}
+		
 
 		if (
 			GetOwner()->GetBattleState() == GameObject::Idle
@@ -236,8 +303,12 @@ namespace m
 
 			ElseAnimationPlay();
 			//mLeftHand->SetAniType((int)mAnimationType);
-			if (mRightHand)
-				mRightHand->SetAniType((int)mAnimationType);
+			if (mMonster->GetBattleState() != GameObject::eBattleState::ToDead
+				|| mMonster->GetBattleState() != GameObject::eBattleState::Dead)
+			{
+				if (mRightHand)
+					mRightHand->SetAniType((int)mAnimationType);
+			}
 		}
 	}
 	template <typename T>
@@ -371,6 +442,32 @@ namespace m
 	}
 
 	template <typename T>
+	void MonsterScript<T>::DeadAnimation()
+	{
+		mMonster->SetBattleState(GameObject::eBattleState::ToDead);
+
+		mAnimationType = MonsterData::eAnimationType::ToDead;
+
+		if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0)
+		{
+			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
+				, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+
+			if (mAnimator->GetActiveAnimation()->GetKey() != wsDiabloDeadAnimationName)
+			    mAnimator->PlayAnimation(wsDiabloDeadAnimationName, false);
+		}else
+		{
+			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
+			{
+			    mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
+			}
+		}
+		
+		
+	}
+
+	template <typename T>
 	void MonsterScript<T>::LateUpdate()
 	{
 	}
@@ -382,6 +479,9 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::MakeDirection()
 	{
+		if (mMonster->GetBattleState() == GameObject::eBattleState::ToDead
+			|| mMonster->GetBattleState() == GameObject::eBattleState::Dead) return;
+
 		Vector3 initPos = mMonster->GetPrevPosition();
 		Vector3 destPos = mMonster->GetDestPosition();
 
@@ -565,7 +665,7 @@ namespace m
 		case m::eSkillFunctionType::MultiFollowerStraight:
 		{
 			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
-				, addFunction, fireLayerType, Vector2(0.f , 0.5f), GetOwner()->GetCamera());
+				, addFunction, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}

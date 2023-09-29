@@ -29,6 +29,7 @@ namespace m
 			Hit,
 			Walk,
 			TownWalk,
+			ToDead,
 			Dead,
 		};
 

@@ -24,6 +24,7 @@ namespace m::graphics
 		HRESULT CreateTex(UINT avgFileWidth, UINT avgFileHeight, UINT oneAnimLength, const std::wstring& path);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;
+
 		void BindShaderResource(eShaderStage stage, UINT startSlot);
 		void BindUnorderedAccessViews(UINT slot);
 		void ClearUnorderedAccessViews(UINT slot);
@@ -50,9 +51,13 @@ namespace m::graphics
 		void SetRTV(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv) { mRTV = rtv; }
 		void SetDSV(Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv) { mDSV = dsv; }
 		void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture);
+
+		UINT GetMultiTextureSize() { return mMultiTextureSize; }
+		std::vector<Microsoft::WRL::ComPtr<ID3D11Texture2D>> GetTextures() { return mTextures; }
+		std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> GetSRVs() { return mSRVs; }
+
 		//void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
 	private:
-		ScratchImage loadImage(const std::wstring& path);
 
 	private:
 		static float fWidRatio;
@@ -63,6 +68,12 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      mRTV;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      mDSV;
 		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>   mUAV;
+
+
+		std::vector<ScratchImage> mImages;
+		std::vector<Microsoft::WRL::ComPtr<ID3D11Texture2D>> mTextures;
+		std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>	mSRVs;
+		UINT mMultiTextureSize;
 
 		UINT mSlot;
 		UINT mWidth;

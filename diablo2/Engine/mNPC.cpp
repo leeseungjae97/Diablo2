@@ -7,6 +7,7 @@
 #include "mNPCScript.h"
 #include "mShop.h"
 #include "mInteractUI.h"
+#include "mShadowObject.h"
 
 namespace m
 {
@@ -28,6 +29,9 @@ namespace m
 		AddComponent<NPCScript>(mNPCType);
 
 		makeUI();
+
+		mShadow = new ShadowObject(this);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
 	}
 
 	NPC::~NPC()
@@ -37,6 +41,8 @@ namespace m
 	void NPC::Update()
 	{
 		MoveAbleObject::Update();
+		if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+
 		if (nullptr == mInteractUI->GetCamera())
 		{
 			mInteractUI->SetCamera(GetCamera());
