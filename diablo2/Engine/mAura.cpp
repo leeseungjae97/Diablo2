@@ -6,6 +6,7 @@ namespace m
     Aura::Aura(GameObject* owner, eAuraType type, Vector2 centerOffset)
         : mOwner(owner)
         , vCenterPosOffset(centerOffset)
+        , bFront(false)
     {
         ADD_COMP(this, MeshRenderer);
         ADD_COMP(this, Animator);
@@ -36,7 +37,11 @@ namespace m
         Vector3 pos = GET_POS(mOwner);
         pos.x += vCenterPosOffset.x;
         pos.y += vCenterPosOffset.y;
-        pos.z += 0.1f;
+        if(bFront)
+            pos.z -= 0.00001f;
+        else
+            pos.z += 0.00001f;
+
         SET_POS_VEC(this, pos);
     }
 

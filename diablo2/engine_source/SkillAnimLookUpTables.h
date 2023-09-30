@@ -27,6 +27,7 @@ namespace m
 		FireCrash1Overlay,
 		FireCrash2Overlay,
 		RedLightningCrash,
+		MephistoMissileCrash,
 		Poison,
 		StunAttack,
 
@@ -44,6 +45,7 @@ namespace m
 	L"fireCrash1",
 	L"fireCrash2",
 	L"redLightningCrash",
+	L"mephistoMissileCrash",
 	L"", // Poison
 	L"stun",
 	};
@@ -59,6 +61,7 @@ namespace m
 		eCrashType::Overlay,
 		eCrashType::Overlay,
 		eCrashType::Overlay,
+		eCrashType::Collide,
 		eCrashType::Addiction,
 		eCrashType::Stun,
 	};
@@ -74,6 +77,7 @@ namespace m
 	m::math::Vector2(78.f, 70.f),
 	m::math::Vector2(208.f, 174.f),
 	m::math::Vector2(71.f, 88.f),
+	m::math::Vector2(86.f, 77.f),
 	m::math::Vector2(0.f, 0.f),
 	m::math::Vector2(69.f, 49.f),
 
@@ -85,7 +89,8 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
-				m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -106,6 +111,7 @@ namespace m
 	12,
 	16,
 	20,
+	12,
 	0,
 	12,
 	};
@@ -120,11 +126,13 @@ namespace m
 	0,  // IceCrash2Overlay
 	0,  // FireCrash1Overlay
 	0,  // FireCrash2Overlay
+	0,  // FireCrash2Overlay
 	0,  // RedLightningCrash
 	0,  // Poison
 	0,  // StunAttack
 	};
 	bool crashLoop[(int)eSkillCrashType::END] = {
+		false,
 		false,
 		false,
 		false,
@@ -271,6 +279,7 @@ m::math::Vector2(0.f, 0.f),
 	{
 		HolyFreeze,
 		ThunderStorm,
+		MephistoOverlay,
 		End,
 	};
 	enum class eAuraFunctionType
@@ -282,22 +291,27 @@ m::math::Vector2(0.f, 0.f),
 	std::wstring auraNames[(int)eAuraType::End] = {
 	L"holyFreeze",
 	L"thunderStormLoop",
+	L"mephistoOverlay",
 	};
 	m::math::Vector2 auraSizes[(int)eAuraType::End] = {
 		Vector2(114.f, 93.f),
 		Vector2(81.f, 60.f),
+		Vector2(224.f, 190.f),
 	};
 	m::math::Vector2 auraCenterPos[(int)eAuraType::End] = {
 		Vector2(0.f, 0.f),
 		Vector2(0.f, -10.f),
+		Vector2(0.f, 0.f),
 	};
 	int auraLength[(int)eAuraType::End] = {
 		15,
 		19,
+		26,
 	};
 	eAuraFunctionType auraFunction[(int)eAuraType::End] = {
 		eAuraFunctionType::Slow,
 		eAuraFunctionType::TargetDamage,
+		eAuraFunctionType::End,
 	};
 	float auraFunctionValue[(int)eAuraFunctionType::End][2] = {
 		{-200.f, 5.f},
@@ -306,26 +320,32 @@ m::math::Vector2(0.f, 0.f),
 	std::wstring auraStartNames[(int)eAuraType::End] = {
 	L"",
 	L"thunderStormCast",
+		L"",
 	};
 	m::math::Vector3 auraColliderSizes[(int)eAuraType::End] = {
 		Vector3(300.f, 150.f, 1.f),
 		Vector3(1200.f, 600.f, 1.f),
+		Vector3(0.f, 0.f, 1.f),
 	};
 	m::math::Vector2 auraStartSizes[(int)eAuraType::End] = {
 	Vector2(0, 0),
 	Vector2(79.f, 52.f),
+		Vector2(0, 0),
 	};
 	m::math::Vector2 auraStartCenterPos[(int)eAuraType::End] = {
+		Vector2(0.f, 0.f),
 		Vector2(0.f, 0.f),
 		Vector2(0.f, 0.f),
 	};
 	int auraStartLength[(int)eAuraType::End] = {
 		0,
 		10,
+		0,
 	};
 	eSkillType auraAddSkill[(int)eAuraType::End] = {
 		eSkillType::END,
 		eSkillType::thunderStorm,
+		eSkillType::END,
 	};
 #pragma endregion
 #pragma region Indicator
@@ -499,6 +519,8 @@ m::math::Vector2(0.f, 0.f),
 
 		eAuraType::End,// AndarielPoisonAttack
 		eAuraType::End,// DurielStunAttack
+
+		eAuraType::End,// mpm
 	};
 	float skillSpeed[(int)eSkillType::END] = {
 		300.f,// iceBolt
@@ -542,6 +564,8 @@ m::math::Vector2(0.f, 0.f),
 
 		300.f, // andariel poison
 		0,
+
+		400.f
 	};
 	int skillAnimLength[(int)eSkillType::END] = {
 		6, // iceBolt
@@ -585,6 +609,8 @@ m::math::Vector2(0.f, 0.f),
 
 		24,
 		0,
+
+		10,
 	};
 	bool skillLoops[(int)eSkillType::END] = {
 		true, // iceBolt
@@ -628,6 +654,8 @@ m::math::Vector2(0.f, 0.f),
 
 		true,
 		false,
+
+		true,
 	};
 
 	bool skillHitDestory[(int)eSkillType::END] = {
@@ -672,6 +700,8 @@ m::math::Vector2(0.f, 0.f),
 
 		true,
 		false,
+
+		true,
 	};
 	int skillAnimDirections[(int)eSkillType::END] = {
 		16, // iceBolt
@@ -714,6 +744,8 @@ m::math::Vector2(0.f, 0.f),
 		0,
 
 		16,
+		16,
+
 		16,
 	};
 	m::math::Vector2 skillSizes[(int)eSkillType::END] = {
@@ -758,6 +790,8 @@ m::math::Vector2(0.f, 0.f),
 
 		m::math::Vector2(65.f, 65.f),
 		m::math::Vector2(0.f, 0.f),
+
+		m::math::Vector2(83.f, 85.f),
 	};
 	m::math::Vector2 skillOffsets[(int)eSkillType::END] = {
 		m::math::Vector2(0.f, 0.f),// iceBolt,
@@ -845,6 +879,8 @@ m::math::Vector2(0.f, 0.f),
 
 		eSkillCrashType::Poison,
 		eSkillCrashType::StunAttack,
+
+		eSkillCrashType::MephistoMissileCrash,
 	};
 	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
 		eSkillCastType::IceCast1,// iceBolt
@@ -888,6 +924,8 @@ m::math::Vector2(0.f, 0.f),
 
 		eSkillCastType::AndarielPoisonCast,// andariel poison
 		eSkillCastType::END,// duriel stun attack
+
+		eSkillCastType::END,// mpm
 	};
 
 	enum class eAccessorySkillType

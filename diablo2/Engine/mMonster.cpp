@@ -63,29 +63,40 @@ namespace m
 	void Monster::Update()
 	{
 		MoveAbleObject::Update();
-		if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
 
-		if(nullptr == mHSO->GetCamera())
+		if(mHSO && nullptr == mHSO->GetCamera())
 		{
 			mHSO->SetActiveOwner(this);
 		}
 
-		//if (hp == 0)
-		if (GetBattleState() == eBattleState::Dead)
+		if (GetBattleState() == eBattleState::ToDead)
 		{
-			//Dead end -> Delete
 			MonsterManager::EraseMonster(this);
-			SetState(eState::RenderNoUpdate);
-			mHSO->SetState(eState::Delete);
-			mShadow->SetState(eState::Delete);
+			//SetState(eState::RenderNoUpdate);
+			if(mHSO)
+			{
+				mHSO->SetState(eState::Delete);
+				mHSO = nullptr;
+			}
+			if(mShadow)
+			{
+				mShadow->SetState(eState::Delete);
+				mShadow = nullptr;
+			}
+			Release();
 
-			if(mPathFinder)
-			    delete mPathFinder;
+			if (mPathFinder)
+			{
+				delete mPathFinder;
+				mPathFinder = nullptr;
+			}
 			return;
 		}
-		if (GetBattleState() == eBattleState::ToDead)
+		if (GetBattleState() == eBattleState::Dead)
+		{	
 			return;
-
+		}
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();
@@ -178,6 +189,8 @@ namespace m
 	}
 	void Monster::Hit(int damage, bool attackStun)
 	{
+		if (hp <= 0) return;
+
 		if(bCanDamaged)
 		{
 			bCanDamaged = false;

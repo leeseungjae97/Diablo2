@@ -225,73 +225,17 @@ namespace m::graphics
 			xidx++;
 		}
 
-		if (path == L"..\\Resources\\texture\\enemy\\diablo\\tr")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"diablo_tr.png"
-				, nullptr
-			);
-		}
-
-		if (path == L"..\\Resources\\texture\\enemy\\diablo\\ra")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"diablo_ra.png"
-				, nullptr
-			);
-		}
-		if (path == L"..\\Resources\\texture\\enemy\\diablo\\la")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"diablo_la.png"
-				, nullptr
-			);
-		}
-		if (path == L"..\\Resources\\texture\\enemy\\diablo\\m")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"diablo_lg.png"
-				, nullptr
-			);
-		}
-		if (path == L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_overlay")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"diablo_o.png"
-				, nullptr
-			);
-		}
-		if (path == L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_overlay_2")
-		{
-			GUID format = GetWICCodec(WIC_CODEC_PNG);
-			hr = SaveToWICFile(
-				*atlasImage.GetImage(0, 0, 0)
-				, WIC_FLAGS::WIC_FLAGS_NONE
-				, format
-				, L"diablo_o2.png"
-				, nullptr
-			);
-		}
+		//if (path == L"..\\Resources\\texture\\33")
+		//{
+		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
+		//	hr = SaveToWICFile(
+		//		*atlasImage.GetImage(0, 0, 0)
+		//		, WIC_FLAGS::WIC_FLAGS_NONE
+		//		, format
+		//		, L"diablo_2.png"
+		//		, nullptr
+		//	);
+		//}
 
 		CreateShaderResourceView
 		(

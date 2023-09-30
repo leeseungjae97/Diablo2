@@ -76,7 +76,7 @@ namespace m
 		learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::fireBolt);
+		SetSkill(1, eSkillType::hydra);
 	}
 
 	void PlayerManager::CalHpPercent()

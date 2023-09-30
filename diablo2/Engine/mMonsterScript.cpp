@@ -55,7 +55,11 @@ namespace m
 
 		if (curMonsterData.passiveAura != eAuraType::End)
 		{
+			
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
+			if (curMonsterData.wsMonsterName.compare(L"메피스토") == 0)
+				mAura->FrontAura();
+
 			mAura->AuraActive();
 			curScene->AddGameObject(eLayerType::Aura, mAura);
 		}
@@ -94,6 +98,7 @@ namespace m
 			if (curMonsterData.textureString[i] == L"") continue;
 
 			SHARED_MAT mat = RESOURCE_FIND(Material, curMonsterData.textureString[i]);
+
 			if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0
 				&& i == (UINT)MonsterData::eAnimationType::ToDead)
 			{
@@ -169,30 +174,43 @@ namespace m
 							mAnimator->SetAnimationStartIndex(0);
 						};
 					}
-					if (i == (UINT)MonsterData::eAnimationType::Attack1)
+					if (i == (UINT)MonsterData::eAnimationType::Attack1
+						|| i == (UINT)MonsterData::eAnimationType::Attack2)
 					{
 						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
+							= [=]()
 						{
 							AnimationStart(GameObject::eBattleState::Attack);
-							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack1]);
+							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[i]);
 						};
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 							= [this]()
 						{
 							//fAttackDelay = 0.f;
 							AnimationComplete(GameObject::eBattleState::Idle);
-							mAnimator->SetAnimationProgressIndex(0);
+							//mAnimator->SetAnimationProgressIndex(0);
 						};
 						mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
 							= [this]() { AttackProgress(); };
 					}
 					if (i == (UINT)MonsterData::eAnimationType::ToDead)
 					{
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m]) = [=]()
+						{
+							if (mRightHand)
+							{
+								GET_COMP(mRightHand, Animator)->SetSyncAnimator(nullptr);
+								mRightHand->SetState(GameObject::eState::Delete);
+								mRightHand = nullptr;
+							}
+							if (mAura)
+								mAura->SetState(GameObject::eState::Delete);
+						};
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 							= [this]()
 						{
 							mAnimationType = MonsterData::eAnimationType::Dead;
+							GetOwner()->SetBattleState(GameObject::Dead);
 						};
 					}
 					if (i == (UINT)MonsterData::eAnimationType::Hit)
@@ -228,8 +246,11 @@ namespace m
 	void MonsterScript<T>::Update()
 	{
 		Script::Update();
+		
 		if (nullptr == mMonster)
 			return;
+
+		//if (mMonster->GetBattleState() == GameObject::eBattleState::Dead) return;
 
 		MakeDirection();
 
@@ -361,10 +382,18 @@ namespace m
 			if (curMonsterData.fAttackDelay <= fAttackDelay)
 			{
 				fAttackDelay = 0.f;
-				//int randAttackMotion = rand() % 2 + 1;
-				//mAnimationType = randAttackMotion == 1 ? T::eAnimationType::Attack1 : T::eAnimationType::Attack2;
+
+				if(curMonsterData.animationString[(UINT)MonsterData::eAnimationType::Attack1] != L""
+					&& curMonsterData.animationString[(UINT)MonsterData::eAnimationType::Attack2] != L"")
+				{
+					int randAttackMotion = rand() % 2;
+					mAnimationType = randAttackMotion == 1 ? MonsterData::eAnimationType::Attack1 : MonsterData::eAnimationType::Attack2;
+				}else
+				{
+					mAnimationType = MonsterData::eAnimationType::Attack1;
+				}
+				
 				GetOwner()->SetBattleState(GameObject::Attack);
-				mAnimationType = MonsterData::eAnimationType::Attack1;
 				SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 				if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 				{
@@ -444,8 +473,10 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::DeadAnimation()
 	{
-		mMonster->SetBattleState(GameObject::eBattleState::ToDead);
+		//if (mMonster->GetBattleState() == GameObject::eBattleState::ToDead
+		//	|| mMonster->GetBattleState() == GameObject::eBattleState::Dead) return;
 
+		mMonster->SetBattleState(GameObject::eBattleState::ToDead);
 		mAnimationType = MonsterData::eAnimationType::ToDead;
 
 		if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0)
@@ -457,7 +488,9 @@ namespace m
 			    mAnimator->PlayAnimation(wsDiabloDeadAnimationName, false);
 		}else
 		{
-			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
+				, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
 			    mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);

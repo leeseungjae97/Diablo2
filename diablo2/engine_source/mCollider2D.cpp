@@ -22,6 +22,7 @@ namespace m
 		, bVisible(true)
 		, bResize(false)
 	    , bCustomSize(false)
+	    , bRelease(false)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
@@ -34,6 +35,8 @@ namespace m
 	}
 	void Collider2D::Update()
 	{
+		if (bRelease) return;
+
 		if (collidereds.empty())
 		{
 			SetColor(eColor::Green);
@@ -47,6 +50,8 @@ namespace m
 	}
 	void Collider2D::LateUpdate()
 	{
+		if (bRelease) return;
+
 		Component::LateUpdate();
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -110,6 +115,7 @@ namespace m
 	{}
 	void Collider2D::Release()
 	{
+		bRelease = true;
 		if (!collidereds.empty())
 		{
 			for (Collider2D* col : collidereds)
@@ -134,6 +140,9 @@ namespace m
 	}
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
+		if (bRelease) return;
+		if (other->IsRelease()) return;
+
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end()) 
 			return;
 	
@@ -150,6 +159,8 @@ namespace m
 	}
 	void Collider2D::OnCollisionStay(Collider2D* other)
 	{
+		if (bRelease) return;
+		if (other->IsRelease()) return;
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end())
 			return;
 
@@ -164,6 +175,9 @@ namespace m
 	}
 	void Collider2D::OnCollisionExit(Collider2D* other)
 	{
+		if (bRelease) return;
+		if (other->IsRelease()) return;
+
 		if (std::find(exceptTypes.begin(), exceptTypes.end(), other->GetOwner()->GetLayerType()) != exceptTypes.end())
 			return;
 

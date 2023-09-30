@@ -18,7 +18,9 @@ namespace m
 
         void AuraActive();
         void SetAura(eAuraType type, eLayerType layerType = eLayerType::End);
+        void FrontAura() { bFront = true; }
     private:
+        bool bFront;
         AuraScript* mAS;
         Collider2D* mCol;
         GameObject* mOwner;

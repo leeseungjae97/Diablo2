@@ -119,6 +119,7 @@ namespace m
 		AndarielPoisonAttack,
 		DurielStunAttack,
 
+		mephistoMissile,
 		END
 	};
 	std::wstring wsSkillIconNames[(int)eSkillType::END] = {
@@ -235,6 +236,8 @@ namespace m
 
 		eSkillFunctionType::Raidal,// L"AndarielPoisonAttack",
 		eSkillFunctionType::StunAttack,// L"AndarielPoisonAttack",
+
+		eSkillFunctionType::Straight,
 	};
 	eSkillType skillAddSkillTypes[(int)eSkillType::END] = {
 	    eSkillType::END,// L"iceBoltIcon",
@@ -362,6 +365,8 @@ namespace m
 
 		L"andarielPoisonAttack",
 		L"",
+
+		L"mephistoMissile",
 	};
 	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",

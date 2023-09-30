@@ -249,7 +249,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1;
+		float hp = 100;
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -658,7 +658,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 100;
+		float hp = 1;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
@@ -740,21 +740,23 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
-math::Vector2(0.f, 0.f), // Attack
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Hit
-math::Vector2(0.f, 0.f),	// Natural
-math::Vector2(0.f, 0.f),	// Run
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 0.f), // Attack
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Hit
+            math::Vector2(0.f, 0.f),	// Natural
+            math::Vector2(0.f, 0.f),	// Run
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(247.f, 248.f),	// Attack1
@@ -787,6 +789,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0.05f,	// Special3
 			0.05f,	// Special4
 			0.05f,	// Dead
+			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
 			16,// Attack1
@@ -817,6 +820,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Special2
 			0, // Special3
 			0, // Special4
+			0, // Special4
 			0, // Dead
 		};
 		int animEndIndex[(UINT)eAnimationType::End] = {
@@ -831,6 +835,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0,// Special1
 			0, // Special2
 			0, // Special3
+			0, // Special4
 			0, // Special4
 			0, // Dead
 		};
@@ -847,6 +852,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Special2
 			0, // Special3
 			0, // Special4
+			0, // Special4
 			0, // Dead
 		};
 	};
@@ -857,7 +863,7 @@ math::Vector2(0.f, 0.f),	// Dead
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 100;
+		float hp = 1;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
@@ -941,19 +947,19 @@ math::Vector2(0.f, 0.f),	// Dead
 			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
-math::Vector2(0.f, 0.f), // Attack
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Hit
-math::Vector2(0.f, 0.f),	// Natural
-math::Vector2(0.f, 0.f),	// Run
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 0.f), // Attack
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Hit
+            math::Vector2(0.f, 0.f),	// Natural
+            math::Vector2(0.f, 0.f),	// Run
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(301.f, 201.f),	// Attack1
@@ -986,6 +992,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0.05f,	// Special3
 			0.05f,	// Special4
 			0.05f,	// Dead
+			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
 			10,// Attack1
@@ -1016,6 +1023,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Special2
 			0, // Special3
 			0, // Special4
+			0, // Special4
 			0, // Dead
 		};
 		int animEndIndex[(UINT)eAnimationType::End] = {
@@ -1026,6 +1034,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0,// Natural
 			0, // Run
 			0, // Walk
+			0,// SpecialCast
 			0,// SpecialCast
 			0,// Special1
 			0, // Special2
@@ -1045,6 +1054,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Special1
 			0, // Special2
 			0, // Special3
+			0, // Special3
 			0, // Special4
 			0, // Dead
 		};
@@ -1056,7 +1066,7 @@ math::Vector2(0.f, 0.f),	// Dead
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 100;
+		float hp = 1;
 		float hpCapacity = hp;
 
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
@@ -1066,18 +1076,19 @@ math::Vector2(0.f, 0.f),	// Dead
 		eSkillType mSpecialSkills[5] = {
 			eSkillType::lightning
 			,eSkillType::chargedBolt
-			,eSkillType::END
+			,eSkillType::mephistoMissile
 			,eSkillType::END
 			,eSkillType::END
 		};
 		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
 			m::enums::eColliderFunctionType::Sight
 			, m::enums::eColliderFunctionType::Sight
-			, m::enums::eColliderFunctionType::End
+			, m::enums::eColliderFunctionType::Sight
 			, m::enums::eColliderFunctionType::End
 			, m::enums::eColliderFunctionType::End
 		};
-		eAuraType passiveAura = eAuraType::End;
+		eAuraType passiveAura = eAuraType::MephistoOverlay;
+
 		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
 
 		int mSpecialSkillAddFunction[5] = { 0,3,0,0, 0 };
@@ -1093,7 +1104,7 @@ math::Vector2(0.f, 0.f),	// Dead
 
 		std::wstring textureString[(UINT)eAnimationType::End] = {
 			L"mephistoAttack1",					
-			L"",					
+			L"mephistoAttack21",					
 			L"",					
 			L"mephistoGetHit",					
 			L"mephistoNatural",					
@@ -1101,7 +1112,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			L"",					
 			L"mephistoAttack2",					
 			L"mephistoAttack2",					
-			L"",					
+			L"mephistoAttack2",
 			L"",					
 			L"",					
 			L"mephistoDead",					
@@ -1109,7 +1120,7 @@ math::Vector2(0.f, 0.f),	// Dead
 		};
 		std::wstring animationString[(UINT)eAnimationType::End] = {
 			L"mephistoAttack1_anim@",
-			L"",
+			L"mephistoAttack21_anim@",
 			L"",
 			L"mephistoGetHit_anim@",
 			L"mephistoNatural_anim@",
@@ -1117,7 +1128,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			L"",
 			L"mephistoAttack2_anim@",
 			L"mephistoAttack3_anim@",
-			L"",
+			L"mephistoAttack4_anim@",
 			L"",
 			L"",
 			L"mephistoDead_anim@",
@@ -1137,25 +1148,27 @@ math::Vector2(0.f, 0.f),	// Dead
 			math::Vector2(0.f, 0.f),	// Special3
 			math::Vector2(0.f, 0.f),	// Special4
 			math::Vector2(0.f, 0.f),	// Dead
+			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
-math::Vector2(0.f, 0.f), // Attack
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Hit
-math::Vector2(0.f, 0.f),	// Natural
-math::Vector2(0.f, 0.f),	// Run
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),
-math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 0.f), // Attack
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Hit
+            math::Vector2(0.f, 0.f),	// Natural
+            math::Vector2(0.f, 0.f),	// Run
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),
+            math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(5526.f / 18.f, 2471.f / 8.f),	// Attack1
-			math::Vector2(),	// attack2
+			math::Vector2(5219.f / 17.f, 2471.f / 8.f),	// attack2
 			math::Vector2(),	// Block
 			math::Vector2(1842.f / 6.f, 2471.f / 8.f),	// Hit
 			math::Vector2(3991.f / 13.f, 2471.f / 8.f),	// Natural
@@ -1163,11 +1176,11 @@ math::Vector2(0.f, 0.f),	// Dead
 			math::Vector2(),	// Walk
 			math::Vector2(5219.f / 17.f, 2471.f / 8.f),	// specialcast
 			math::Vector2(5219.f / 17.f, 2471.f / 8.f),	// specialcast
-			math::Vector2(),	// Special2
+			math::Vector2(5219.f / 17.f, 2471.f / 8.f),	// specialcast
 			math::Vector2(),	// Special3
 			math::Vector2(),	// Special4
 			math::Vector2(308.f, 2471.f / 8.f),					// Dead
-			math::Vector2(7675.f / 25.f, 2471.f / 8.f),					// ToDead
+			math::Vector2(7675.f / 25.f, 2471.f / 8.f),// ToDead
 
 		};
 		float animationDuration[(UINT)eAnimationType::End] = {
@@ -1184,10 +1197,11 @@ math::Vector2(0.f, 0.f),	// Dead
 			0.05f,	// Special3
 			0.05f,	// Special4
 			0.05f,	// Dead
+			0.05f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
 			18,// Attack1
-			0,// Attack2
+			17,// Attack2
 			0, // Block
 			6, // Hit
 			13,// Natural
@@ -1195,7 +1209,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0, // Walk
 			17,// SpecialCast
 			17,// SpecialCast
-			0, // Special2
+			17,// SpecialCast
 			0, // Special3
 			0	, // Special4
 			1, // Dead
@@ -1213,6 +1227,7 @@ math::Vector2(0.f, 0.f),	// Dead
 			0,// Special1
 			0, // Special2
 			0, // Special3
+			0, // Special3
 			0, // Special4
 			0, // Dead
 		};
@@ -1227,22 +1242,24 @@ math::Vector2(0.f, 0.f),	// Dead
 			0,// SpecialCast
 			0,// Special1
 			0, // Special2
+			0, // Special2
 			0, // Special3
 			0, // Special4
 			0, // Dead
 		};
 		int animProgressStartIndex[(UINT)eAnimationType::End] = {
-			0,// Attack1
-			0, // Attack2
+			6,// Attack1
+			7, // Attack2
 			0, // Block
 			0, // Hit
 			0, // Natural
 			0, // Run
 			0, // Walk
-			0, // SpecialCast
-			0, // Special1
-			0, // Special2
+			7, // SpecialCast
+			7, // Special1
+			7, // Special2
 			0, // Special3
+			0, // Special4
 			0, // Special4
 			0, // Dead
 		};

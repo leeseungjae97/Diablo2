@@ -10,8 +10,6 @@ namespace m
         ADD_COMP(this, MeshRenderer);
         SET_MESH(this, L"PMesh");
         SET_MATERIAL(this, L"ShadowAnimationMaterial");
-        float theta = DegreeToRadian(45.f);
-        //GetComponent<Transform>()->SetRotation(0.f, 0.f, theta);
     }
 
     ShadowObject::~ShadowObject()

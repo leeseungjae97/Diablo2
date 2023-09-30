@@ -78,7 +78,6 @@ namespace m
 	private:
 		void damagedDelay();
 		void addZWeight();
-		void adjustmentMovementSpeedAccordingAngle();
 
 	protected:
 		ShadowObject* mShadow;

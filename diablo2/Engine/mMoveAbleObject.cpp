@@ -108,7 +108,6 @@ namespace m
 		GameObject::Update();
 
 		addZWeight();
-		//adjustmentMovementSpeedAccordingAngle();
 		damagedDelay();
 	}
 	void MoveAbleObject::LateUpdate()
@@ -237,48 +236,16 @@ namespace m
 	void MoveAbleObject::addZWeight()
 	{
 		Vector3 pos = GET_POS(this);
-		if (GetLayerType() == eLayerType::Player)
-		{
-			//pos.z = 1.f + ((TileManager::playerStandTile->GetCoord().x * 0.0001f) + (TileManager::playerStandTile->GetCoord().y * 0.0001f));
-			pos.z = 1.f + ((TileManager::GetPlayerPosition().x * 0.0001f) + (TileManager::GetPlayerPosition().y * 0.0001f));
-		}
-		else
-		{
-			//pos.z = 1.f + ((mCoord.x * 0.0001f) + (mCoord.y * 0.0001f));
-			pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
-		}
-		SET_POS_VEC(this, pos);
-	}
-	void MoveAbleObject::adjustmentMovementSpeedAccordingAngle()
-	{
-		//float degree = RadianToDegree(atan2(vDirection.y, vDirection.x));
-
-		//float degreeWeightIndex = 0.f;
-		//float devideNum = 0.f;
-
-		//if (degree == 0.f)
+		//if (GetLayerType() == eLayerType::Player)
 		//{
-		//	fXAdjustSpeed = fSpeed;
-		//	fYAdjustSpeed = fSpeed;
+		//	pos.z = 1.f + ((TileManager::GetPlayerPosition().x * 0.0001f) + (TileManager::GetPlayerPosition().y * 0.0001f));
 		//}
 		//else
 		//{
-		//	if (fabs(degree) <= 90)
-		//	    degree = 90.f + (90.f - fabs(degree));
-
-		//	degreeWeightIndex = 180.f / fabs(degree);
-		//	float adjustmentedSpeed = fSpeed / degreeWeightIndex;
-		//	fXAdjustSpeed = adjustmentedSpeed;
-		//	fYAdjustSpeed = adjustmentedSpeed;
+		//	pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
 		//}
-
-		//if (degreeWeightIndex > devideNum - 1.f) degreeWeightIndex = devideNum - 1.f;
-
-		//float middleDegreeIndex = devideNum / 2.f;
-		//float weight = fabs(middleDegreeIndex - fabs(degreeWeightIndex));
-
-
-		//float minorAxisSpeed = adjustmentedSpeed * weight;
+		pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
+		SET_POS_VEC(this, pos);
 	}
 	void MoveAbleObject::SetInitializePosition(Vector3 initPos)
 	{

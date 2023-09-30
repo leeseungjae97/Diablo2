@@ -589,21 +589,30 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_poison_attack", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\andariel_poison_attack"
 			, 65, 65, 24, L"andarielPoisonAttack");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"mephisto_missile", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\mephisto_missile"
+			, 83, 85, 10, L"mephistoMissile");
 #pragma endregion
 
 #pragma region Monster Overlay
 		MAKE_MATERIAL_PATH(spriteShader, L"red_lightning_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\red_lightning_crash"
 			, 71, 88, 20, L"redLightningCrash");
 
-		MAKE_MATERIAL_PATH(spriteShader, L"andariel_skill_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_skill_overlay"
-			, 162, 107, 18, L"andarielSkillOverlay");
-		MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_dead_overlay"
-			, 101, 161, 23, L"andarielDeadOverlay");
+		MAKE_MATERIAL_PATH(spriteShader, L"mephisto_missile_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_missile_crash"
+			, 86, 77, 12, L"mephistoMissileCrash");
+
+		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_skill_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_skill_overlay"
+		//	, 162, 107, 18, L"andarielSkillOverlay");
+		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_dead_overlay"
+		//	, 203, 161, 23, L"andarielDeadOverlay");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_flame_death", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_flame_death"
 			, 38, 122, 15, L"andarielFlameDeath");
 
-		MAKE_MATERIAL(spriteShader, L"mephisto_attack2_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_attack2_overlay.png", L"mephistoAttack2Overlay");
-		MAKE_MATERIAL(spriteShader, L"mephisto_death_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_death_overlay.png", L"mephistoAttack2Overlay");
+		//MAKE_MATERIAL_PATH(spriteShader, L"mephisto_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_overlay"
+		//	, 224, 190, 26, L"mephistoOverlay");
+
+		MAKE_MATERIAL(spriteShader, L"mephisto_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_overlay.png", L"mephistoOverlay");
+		//MAKE_MATERIAL(spriteShader, L"mephisto_death_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_death_overlay.png", L"mephistoAttack2Overlay");
 
 #pragma endregion
 #pragma region Overlay
@@ -797,8 +806,11 @@ namespace renderer
 			, 148, 184, 12, L"andarielWalk");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_hit", L"..\\Resources\\texture\\enemy\\andariel\\hit"
 			, 173, 180, 6, L"andarielHit");
-		MAKE_MATERIAL_PATH(spriteShader, L"andariel_to_dead", L"..\\Resources\\texture\\enemy\\andariel\\to_dead"
-			, 203, 232, 23, L"andarielToDead");
+		MAKE_MATERIAL(spriteShader, L"andariel_to_dead", L"..\\Resources\\texture\\enemy\\andariel\\andariel_to_dead.png", L"andarielToDead");
+
+		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_to_dead", L"..\\Resources\\texture\\enemy\\andariel\\to_dead"
+		//	, 203, 232, 23, L"andarielToDead");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead", L"..\\Resources\\texture\\enemy\\andariel\\dead"
 			, 177, 116, 1, L"andarielDead");
 
@@ -815,6 +827,12 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"diablo_special3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special3.png", L"diabloSpecial3");
 		MAKE_MATERIAL(spriteShader, L"diablo_special4", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special4.png", L"diabloSpecial4");
 		MAKE_MATERIAL(spriteShader, L"diablo_dead", L"..\\Resources\\texture\\enemy\\diablo\\diablo_dead.png", L"diabloDead");
+
+		//MAKE_MATERIAL_PATH(spriteShader, L"diablo_o", L"..\\Resources\\texture\\33"
+		//	, 266, 246, 142, L"diablo_o");
+
+		//MAKE_MATERIAL(spriteShader, L"diablo_to_dead", L"..\\Resources\\texture\\m", L"diabloToDead");
+
 		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_1", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_1.png", L"diabloToDead1");
 		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_2", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_2.png", L"diabloToDead2");
 		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_3.png", L"diabloToDead3");
@@ -830,11 +848,11 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"mephisto_natural", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_natural.png", L"mephistoNatural");
 		MAKE_MATERIAL(spriteShader, L"mephisto_attack1", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_attack1.png", L"mephistoAttack1");
 		MAKE_MATERIAL(spriteShader, L"mephisto_attack2", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_attack2.png", L"mephistoAttack2");
+		MAKE_MATERIAL(spriteShader, L"mephisto_attack2_1", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_attack2_1.png", L"mephistoAttack21");
 		MAKE_MATERIAL(spriteShader, L"mephisto_dead", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_dead.png", L"mephistoDead");
 		MAKE_MATERIAL(spriteShader, L"mephisto_get_hit", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_get_hit.png", L"mephistoGetHit");
 		MAKE_MATERIAL(spriteShader, L"mephisto_to_dead", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_to_dead.png", L"mephistoToDead");
 		MAKE_MATERIAL(spriteShader, L"mephisto_walk", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_walk.png", L"mephistoWalk");
-
 #pragma endregion
 
 #pragma region Characters
@@ -1029,11 +1047,11 @@ namespace renderer
 			MAKE_MATERIAL_PATH(spriteShader, L"npc_1", L"..\\Resources\\texture\\npc\\npc_1"
 				, 29, 76, 16, L"npc1");
 
-		    MAKE_MATERIAL_PATH(spriteShader, L"npc_2", L"..\\Resources\\texture\\npc\\npc_2"
-			    , 29, 76, 17, L"npc2");
+		MAKE_MATERIAL_PATH(spriteShader, L"npc_2", L"..\\Resources\\texture\\npc\\npc_2"
+			, 29, 76, 17, L"npc2");
 #pragma endregion
 #pragma region Shop
-			MAKE_MATERIAL(noLightShader, L"shop_inventory", L"..\\Resources\\texture\\ui\\play\\shop\\shop_invens.png", L"shopInventory");
+		MAKE_MATERIAL(noLightShader, L"shop_inventory", L"..\\Resources\\texture\\ui\\play\\shop\\shop_invens.png", L"shopInventory");
 #pragma endregion
 #pragma region Inventory
 		{

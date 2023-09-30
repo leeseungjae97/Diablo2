@@ -61,6 +61,7 @@ namespace m
 		bool SearchObjectGameObjectId(UINT gameObjectId);
 
 		void Resize() { bResize = true; }
+		bool IsRelease() { return bRelease; }
 	private:
 		static UINT mColliderNumber;
 		UINT mColliderID;
@@ -87,6 +88,8 @@ namespace m
 
 		bool bResize;
 		bool bCustomSize;
+
+		bool bRelease;
 	};
 }
 

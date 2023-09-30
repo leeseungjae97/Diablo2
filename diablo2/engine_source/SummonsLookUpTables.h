@@ -230,5 +230,5 @@ struct Hydra : public SummonsData
 	};
 
 	m::eSkillType summonSkill = m::eSkillType::fireBolt;
-	m::math::Vector2 attackRange = m::math::Vector2(1000.f, 1000.f);
+	m::math::Vector2 attackRange = m::math::Vector2(500.f, 200.f);
 };

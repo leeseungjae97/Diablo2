@@ -35,6 +35,8 @@ namespace m
 
 		if (nullptr != mat)
 		{
+			SET_SCALE_XYZ(GetOwner(), auraSizes[(int)mAuraType].x
+				, auraSizes[(int)mAuraType].y, 1.f);
 			mAnimator->Create(
 				auraNames[(int)mAuraType] + L"anim"
 				, mat->GetTexture()
@@ -87,7 +89,7 @@ namespace m
 
 			fAcc += Time::fDeltaTime();
 			fCollideAcc += Time::fDeltaTime();
-			if (mDuration >= 0)
+			if (mDuration > 0)
 			{
 				if (mDuration <= fAcc)
 				{
@@ -163,6 +165,8 @@ namespace m
 	void AuraScript::colliderCollided()
 	{
 		eAuraFunctionType fType = auraFunction[(int)mAuraType];
+		if (fType == eAuraFunctionType::End) return;
+
 		float fAuraFunctionValue1 = auraFunctionValue[(int)fType][0];
 		float fAuraFunctionValue2 = auraFunctionValue[(int)fType][1];
 
