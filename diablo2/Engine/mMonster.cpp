@@ -54,6 +54,9 @@ namespace m
 	{
 		if (mHSO)
 			mHSO->SetState(Delete);
+
+		if (mShadow)
+			mShadow->SetState(Delete);
 	}
 	void Monster::Initialize()
 	{
@@ -72,7 +75,7 @@ namespace m
 
 		if (GetBattleState() == eBattleState::ToDead)
 		{
-			MonsterManager::EraseMonster(this);
+			MonsterManager::AddDeadMonster(this);
 			//SetState(eState::RenderNoUpdate);
 			if(mHSO)
 			{
@@ -94,7 +97,18 @@ namespace m
 			return;
 		}
 		if (GetBattleState() == eBattleState::Dead)
-		{	
+		{
+			if (mHSO)
+			{
+				mHSO->SetState(eState::Delete);
+				mHSO = nullptr;
+			}
+			if (mShadow)
+			{
+				mShadow->SetState(eState::Delete);
+				mShadow = nullptr;
+			}
+
 			return;
 		}
 		Vector3 curPosition = GET_POS(this);

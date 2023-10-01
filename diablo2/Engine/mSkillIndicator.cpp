@@ -82,7 +82,7 @@ namespace m
         if(nullptr != mAnimator->GetActiveAnimation()
             && mAnimator->GetActiveAnimation()->GetKey() != L"")
         {
-            mAnimator->PlayAnimation(L"noneRectAnim", false);
+            mAnimator->PlayAnimation(L"noneRectAnim", true);
         }
     }
 }

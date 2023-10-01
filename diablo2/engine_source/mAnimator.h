@@ -111,8 +111,6 @@ namespace m
 		bool mbLoop;
 
 		bool bSyncPlay;
-
-		bool bCopyComponent;
 	};
 }
 

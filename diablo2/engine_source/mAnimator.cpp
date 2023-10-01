@@ -7,7 +7,6 @@ namespace m
 		, mActiveAnimation(nullptr)
 		, mbLoop(false)
 		, bSyncPlay(false)
-	    , bCopyComponent(false)
 	    , iLoopCount(0)
 	{
 
@@ -15,19 +14,22 @@ namespace m
 
     Animator::~Animator()
 	{
-		if(!bCopyComponent)
+		for (auto& iter : mAnimations)
 		{
-			for (auto& iter : mAnimations)
-			{
-				delete iter.second;
-				iter.second = nullptr;
-			}
+			if (nullptr == iter.second)
+				continue;
 
-			for (auto& iter : mEvents)
-			{
-				delete iter.second;
-				iter.second = nullptr;
-			}
+			delete iter.second;
+			iter.second = nullptr;
+		}
+
+		for (auto& iter : mEvents)
+		{
+			if (nullptr == iter.second)
+				continue;
+
+			delete iter.second;
+			iter.second = nullptr;
 		}
 	}
 	void Animator::Initialize()

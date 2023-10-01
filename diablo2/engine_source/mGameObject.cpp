@@ -270,7 +270,7 @@ namespace m
 
 			//if(animator)
 			//    anim->SetSyncAnimator(animator);
-			anim->PlayAnimation(L"noneRectAnim", false);
+			anim->PlayAnimation(L"noneRectAnim", true);
 			subobjects.push_back(obj);
 		}
 	}

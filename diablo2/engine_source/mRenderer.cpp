@@ -69,6 +69,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"FadeShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		shader = m::Resources::Find<Shader>(L"GridShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -84,6 +89,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"NoLightAnimationShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+		
 		shader = m::Resources::Find<Shader>(L"ShadowAnimationShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -449,6 +459,11 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		m::Resources::Insert(L"SpriteShader", spriteShader);
 
+		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
+		fadeShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		fadeShader->Create(eShaderStage::PS, L"FadePS.hlsl", "main");
+		m::Resources::Insert(L"FadeShader", fadeShader);
+
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -462,6 +477,11 @@ namespace renderer
 		debugShader->SetRSState(eRSType::SolidNone);
 		//debugShader->SetDSState(eDSType::NoWrite);
 		m::Resources::Insert(L"DebugShader", debugShader);
+
+		std::shared_ptr<Shader> noLighAnimationShader = std::make_shared<Shader>();
+		noLighAnimationShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
+		noLighAnimationShader->Create(eShaderStage::PS, L"NoLightAnimationPS.hlsl", "main");
+		m::Resources::Insert(L"NoLightAnimationShader", noLighAnimationShader);
 
 		std::shared_ptr<Shader> animationShader = std::make_shared<Shader>();
 		animationShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
@@ -558,6 +578,7 @@ namespace renderer
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader = m::Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Shader> fadeShader = m::Resources::Find<Shader>(L"FadeShader");
 		std::shared_ptr<Shader> noLightShader = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
 		//std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
@@ -579,6 +600,16 @@ namespace renderer
 
 #pragma region Particle
 		//MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
+#pragma endregion
+#pragma region Objects
+		MAKE_MATERIAL_PATH(spriteShader, L"portal_start", L"..\\Resources\\texture\\objects\\portal_start"
+			, 204, 204, 15, L"portalStart");
+		MAKE_MATERIAL_PATH(spriteShader, L"portal_loop", L"..\\Resources\\texture\\objects\\portal_loop"
+			, 115, 154, 15, L"portalLoop");
+
+
+		MAKE_MATERIAL(fadeShader, L"_black", L"..\\Resources\\texture\\ui\\play\\black.png", L"black");
+
 #pragma endregion
 #pragma region Monster SKill
 		MAKE_MATERIAL_PATH(spriteShader, L"diablo_lightning", L"..\\Resources\\texture\\skill_effect\\monster\\missile\\diablo_lightning"
@@ -1095,6 +1126,16 @@ namespace renderer
 			material->SetShader(spriteShader);
 			material->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"AnimationMaterial", material);
+		}
+		{
+			spriteShader
+				= Resources::Find<Shader>(L"NoLightAnimationShader");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"NoLightAnimationMaterial", material);
 		}
 		{
 			spriteShader

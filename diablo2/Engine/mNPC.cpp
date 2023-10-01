@@ -36,12 +36,17 @@ namespace m
 
 	NPC::~NPC()
 	{
+		if (mShadow)
+			mShadow->SetState(eState::Delete);
+		if(mInteractUI)
+			mInteractUI->SetState(eState::Delete);
 	}
 
 	void NPC::Update()
 	{
 		MoveAbleObject::Update();
-		if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+		if (mShadow) mShadow->SetState(GetState());
 
 		if (nullptr == mInteractUI->GetCamera())
 		{
@@ -63,6 +68,9 @@ namespace m
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			    mInteractUI->SetState(eState::NoRenderUpdate);
 		}
+
+		if(mInteractUI)
+		    mInteractUI->SetState(GetState());
 
 		//for (Button* button : textes) button->SetState(mInteractUI->GetState());
 	

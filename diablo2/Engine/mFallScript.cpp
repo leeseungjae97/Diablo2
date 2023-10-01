@@ -196,7 +196,7 @@ namespace m
 			, 0.03f
 		);
 
-		mAnimator->PlayAnimation(L"noneRectAnim", false);
+		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
 	void FallScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -301,7 +301,7 @@ namespace m
 				}
 				else
 				{
-					mAnimator->PlayAnimation(L"noneRectAnim", false);
+					mAnimator->PlayAnimation(L"noneRectAnim", true);
 				}
 			}
 			bArrival = false;

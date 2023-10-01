@@ -56,7 +56,7 @@ namespace m
 		AddGameObject(eLayerType::UI, logo);
 		SET_MAIN_CAMERA(logo);
 		SET_MESH(logo, L"RectMesh");
-		SET_MATERIAL(logo, L"AnimationMaterial");
+		SET_MATERIAL(logo, L"NoLightAnimationMaterial");
 		ADD_COMP(logo, Animator);
 		BackgroundScript* bgs = ADD_COMP(logo, BackgroundScript);
 		bgs->SetAnimString(L"logos");

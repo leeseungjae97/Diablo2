@@ -31,7 +31,7 @@ namespace m
 			, 0.3f
 		);
 
-		mAnimator->PlayAnimation(L"noneRectAnim", false);
+		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
 
 	void BackgroundScript::Update()

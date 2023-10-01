@@ -45,6 +45,15 @@ namespace m
 
 	InteractUI::~InteractUI()
 	{
+		if(!textes.empty())
+		{
+		    for(UI* ui : textes)
+		    {
+				if (nullptr == ui) continue;
+				ui->SetState(eState::Delete);
+		    }
+			textes.clear();
+		}
 	}
 
 	void InteractUI::Initialize()

@@ -9,13 +9,14 @@
 #include "mFmod.h"
 #include "mFontWrapper.h"
 
-#include "..\Engine\mPlayerManager.h"
+#include "../Engine/mPlayerManager.h"
 #include "../Engine/mPlayer.h"
 
 #include "../editor_source/guiEditor.h"
 
 #include "mGameObject.h"
 #include "mInteractUIManager.h"
+#include "mScreenEffectManager.h"
 //#include "mFontWrapper.h"
 
 namespace m
@@ -73,6 +74,7 @@ namespace m
 		SceneManager::Update();
 		CollisionManager::Update();
 		InteractUIManager::Update();
+		ScreenEffectManager::Update();
 	}
 
 	void Application::LateUpdate()

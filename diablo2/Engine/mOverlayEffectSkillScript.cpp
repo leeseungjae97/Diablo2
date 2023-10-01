@@ -175,6 +175,6 @@ namespace m
 	{
 		if (nullptr == mAnimator) return;
 
-		mAnimator->PlayAnimation(L"noneRectAnim", false);
+		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
 }

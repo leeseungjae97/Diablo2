@@ -54,6 +54,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mScreenEffectManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShadow.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mScreenEffectManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShadow.h" />

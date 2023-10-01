@@ -5,13 +5,30 @@
 namespace m
 {
 	std::vector<Monster*> MonsterManager::monsters = {};
+	std::vector<Monster*> MonsterManager::deadMonsters = {};
 
     void MonsterManager::AddMonster(Monster* monster)
     {
 		monsters.push_back(monster);
 		monster->SetMonsterId(monsters.size() - 1);
     }
+	void MonsterManager::AddDeadMonster(Monster* monster)
+    {
+		EraseMonster(monster);
+		deadMonsters.push_back(monster);
+    }
+	void MonsterManager::EraseDeadMonster()
+    {
+		if (!deadMonsters.empty())
+		{
+			for (Monster* monster : deadMonsters)
+			{
+				monster->SetState(GameObject::eState::Delete);
+			}
+		}
 
+		deadMonsters.clear();
+    }
 	void MonsterManager::EraseMonster(Monster* monster)
 	{
 		auto iter = monsters.begin();
@@ -27,6 +44,19 @@ namespace m
 			++eraseMonsterId;
 		}
 	}
+
+    void MonsterManager::EraseAll()
+    {
+		if (!monsters.empty())
+		{
+			for (Monster* monster : monsters)
+			{
+				monster->SetState(GameObject::eState::Delete);
+			}
+		}
+		EraseDeadMonster();
+		ClearMonster();
+    }
 
     Monster* MonsterManager::GetMonster(int monsterId)
     {

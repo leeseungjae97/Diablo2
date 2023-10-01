@@ -176,6 +176,8 @@
     <ClInclude Include="mNPCScript.h" />
     <ClInclude Include="mOverlay.h" />
     <ClInclude Include="mOverlayScript.h" />
+    <ClInclude Include="mPortal.h" />
+    <ClInclude Include="mPortalScript.h" />
     <ClInclude Include="mRangeScript.h" />
     <ClInclude Include="mShadowObject.h" />
     <ClInclude Include="mShop.h" />
@@ -255,6 +257,8 @@
     <ClCompile Include="mNPCScript.cpp" />
     <ClCompile Include="mOverlay.cpp" />
     <ClCompile Include="mOverlayScript.cpp" />
+    <ClCompile Include="mPortal.cpp" />
+    <ClCompile Include="mPortalScript.cpp" />
     <ClCompile Include="mRangeScript.cpp" />
     <ClCompile Include="mShadowObject.cpp" />
     <ClCompile Include="mShop.cpp" />

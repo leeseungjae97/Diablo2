@@ -229,6 +229,12 @@
     <ClCompile Include="mShadowObject.cpp">
       <Filter>Objects\ShadowObject</Filter>
     </ClCompile>
+    <ClCompile Include="mPortal.cpp">
+      <Filter>Objects\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="mPortalScript.cpp">
+      <Filter>Script\PortalScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -455,6 +461,12 @@
     </ClInclude>
     <ClInclude Include="mShadowObject.h">
       <Filter>Objects\ShadowObject</Filter>
+    </ClInclude>
+    <ClInclude Include="mPortal.h">
+      <Filter>Objects\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="mPortalScript.h">
+      <Filter>Script\PortalScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -718,6 +730,12 @@
     </Filter>
     <Filter Include="Objects\ShadowObject">
       <UniqueIdentifier>{629ab0d1-591e-4c74-a941-ae7c9d5399a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Portal">
+      <UniqueIdentifier>{0dcf5fca-4ea5-415f-b96f-e29b41269ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\PortalScript">
+      <UniqueIdentifier>{4bdf6521-877e-4ba9-8d9a-ed568fa72678}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

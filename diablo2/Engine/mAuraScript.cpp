@@ -93,7 +93,7 @@ namespace m
 			{
 				if (mDuration <= fAcc)
 				{
-					mAnimator->PlayAnimation(L"noneRectAnim", false);
+					mAnimator->PlayAnimation(L"noneRectAnim", true);
 					bAuraActive = false;
 				}
 			}

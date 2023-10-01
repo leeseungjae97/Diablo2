@@ -25,6 +25,7 @@ namespace m::enums
 		Grid,
 		Background,
 		Tile,
+		Object,
 		Overlay,
 		MonsterOverlay,
 		PlayerOverlay,
@@ -42,6 +43,7 @@ namespace m::enums
 		MonsterSkill,
 		Light,
 		UI,
+		CanMoveUI,
 		Item,
 		End,
 	};

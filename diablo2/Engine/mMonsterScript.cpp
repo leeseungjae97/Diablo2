@@ -473,8 +473,7 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::DeadAnimation()
 	{
-		//if (mMonster->GetBattleState() == GameObject::eBattleState::ToDead
-		//	|| mMonster->GetBattleState() == GameObject::eBattleState::Dead) return;
+		if (mMonster->GetBattleState() == GameObject::eBattleState::Dead) return;
 
 		mMonster->SetBattleState(GameObject::eBattleState::ToDead);
 		mAnimationType = MonsterData::eAnimationType::ToDead;
@@ -583,6 +582,11 @@ namespace m
 	template<typename T>
 	void MonsterScript<T>::makeSkillCastAnimation(int type, int direction)
 	{
+		std::wstring skillName = curMonsterData.animationString[type] + animStrings[direction];
+		if(skillName.compare(L"diabloSpecial1_anim@left_up_1") == 0)
+		{
+			int a = 0;
+		}
 		mAnimator->StartEvent(curMonsterData.animationString[type] + animStrings[direction])
 			= [=]()
 		{

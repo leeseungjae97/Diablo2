@@ -31,7 +31,7 @@ namespace m
             , 0.03f
         );
 
-        mAnimator->PlayAnimation(L"noneRectAnim", false);
+        mAnimator->PlayAnimation(L"noneRectAnim", true);
     }
 
     void OverlayScript::Update()

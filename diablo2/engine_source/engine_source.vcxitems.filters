@@ -175,8 +175,8 @@
     <Filter Include="GameObject\Component\Shadow">
       <UniqueIdentifier>{9e95a9da-05aa-4b6b-95f4-f2707dce7261}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ShadowMap">
-      <UniqueIdentifier>{ec08a411-c360-48a9-8c33-e251665ed6fe}</UniqueIdentifier>
+    <Filter Include="Manager\ScreenEffectManager">
+      <UniqueIdentifier>{88909038-0080-4b7d-bbed-a3047a917cfb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +393,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mInteractUIManager.h">
       <Filter>Manager\InteractUIManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mScreenEffectManager.h">
+      <Filter>Manager\ScreenEffectManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -562,6 +565,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mInteractUIManager.cpp">
       <Filter>Manager\InteractUIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mScreenEffectManager.cpp">
+      <Filter>Manager\ScreenEffectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

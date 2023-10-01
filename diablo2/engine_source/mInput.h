@@ -8,7 +8,7 @@ namespace m
 	using namespace m::math;
 	enum class eKeyCode
 	{
-		_1, _2, _3, _4,
+		_1, _2, _3, _4, _5, _6, _7, _8, _9,
 
 		Q, W, E, R, T, Y, U, I, O, P,
 		A, S, D, F, G, H, J, K, L,

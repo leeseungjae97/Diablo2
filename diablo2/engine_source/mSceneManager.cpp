@@ -8,13 +8,13 @@ namespace m
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	void SceneManager::Initialize()
 	{
-		//mActiveScene = LoadScene(L"MainMenuScene");
-		mActiveScene = LoadScene(L"PlayScene");
+		//LoadScene(L"MainMenuScene");
+		//mActiveScene = LoadScene(L"PlayScene");
 		srand((unsigned int)time(NULL));
 	}
 	void SceneManager::Update()
 	{
-		if(mActiveScene)
+		if (mActiveScene)
 			mActiveScene->Update();
 
 	}
@@ -33,7 +33,7 @@ namespace m
 	}
 
 	void SceneManager::Render()
-	{	
+	{
 		if (mActiveScene)
 			mActiveScene->Render();
 	}
@@ -52,7 +52,11 @@ namespace m
 		if (nullptr != mActiveScene)
 		{
 			mActiveScene->OnExit();
-			//MonsterManager::ClearMonster();
+			mActiveScene = iter->second;
+			mActiveScene->OnEnter();
+		}
+		else
+		{
 			mActiveScene = iter->second;
 			mActiveScene->OnEnter();
 		}
