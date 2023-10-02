@@ -96,8 +96,6 @@ namespace m
 		void SetActiveAnimation(Animation* animation) { mActiveAnimation = animation; }
 		void SetLoop(bool loop) { mbLoop = loop; }
 
-		void Copy();
-
 		int GetLoopCount() { return iLoopCount; }
 
     private:

@@ -236,15 +236,15 @@ namespace m
 	void MoveAbleObject::addZWeight()
 	{
 		Vector3 pos = GET_POS(this);
-		//if (GetLayerType() == eLayerType::Player)
-		//{
-		//	pos.z = 1.f + ((TileManager::GetPlayerPosition().x * 0.0001f) + (TileManager::GetPlayerPosition().y * 0.0001f));
-		//}
-		//else
-		//{
-		//	pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
-		//}
-		pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
+		if (GetLayerType() == eLayerType::Player)
+		{
+			pos.z = 1.f + ((TileManager::GetPlayerPosition().x * 0.0001f) + (TileManager::GetPlayerPosition().y * 0.0001f));
+		}
+		else
+		{
+			pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
+		}
+		//pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
 		SET_POS_VEC(this, pos);
 	}
 	void MoveAbleObject::SetInitializePosition(Vector3 initPos)

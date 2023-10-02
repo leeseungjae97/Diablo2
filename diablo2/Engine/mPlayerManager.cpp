@@ -26,7 +26,7 @@ namespace m
 	void PlayerManager::Initialize()
 	{
 		skillPoint = 100;
-		Tile* tile2 = TileManager::pathFindingTiles[1][1];
+		Tile* tile2 = TileManager::pathFindingTiles[2][1];
 		Vector3 pos2 = tile2->GetPos();
 		//Vector3 pos2 = Vector3(20.f, 10.f, 1.f);
 
@@ -58,7 +58,7 @@ namespace m
 		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 1;
 		learnedSkill[1][(int)eLightningSkillType::staticField] = 1;
 		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 1;
-		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 1;
+		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 0;
 
 		learnedSkill[1][(int)eLightningSkillType::lightningMastery] = 0;
 		learnedSkill[1][(int)eLightningSkillType::energyShield] = 0;

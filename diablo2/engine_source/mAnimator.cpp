@@ -250,9 +250,4 @@ namespace m
 
 		return events->progressEvent.mEvent;
 	}
-
-    void Animator::Copy()
-    {
-		bCopyComponent = true;
-    }
 }

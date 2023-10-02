@@ -119,6 +119,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"WallShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		shader = m::Resources::Find<Shader>(L"TileDrawShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -412,6 +417,44 @@ namespace renderer
 		parallelogram->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		Resources::Insert(L"PMesh", parallelogram);
+
+
+		vertexes.clear();
+		indexes.clear();
+
+		vertexes.resize(4);
+
+
+		vertexes[0].pos = Vector3(-0.5f, 1.0f, 0.0f);
+		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
+
+		vertexes[1].pos = Vector3(0.5f, 1.0f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector3(0.5f, 0.0f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(-0.5f, 0.0f, 0.0f);
+		vertexes[3].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
+
+		std::shared_ptr<Mesh> bottomPosMash = std::make_shared<Mesh>();
+		bottomPosMash->SetVertexes(vertexes);
+		bottomPosMash->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		bottomPosMash->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		Resources::Insert(L"BMesh", bottomPosMash);
 	}
 
 	void PushDebugMeshAttribute(DebugMesh& mesh)
@@ -506,6 +549,11 @@ namespace renderer
 		UVControlShader->Create(eShaderStage::PS, L"UVControlPS.hlsl", "main");
 		m::Resources::Insert(L"UVControlShader", UVControlShader);
 
+		std::shared_ptr<Shader> wallShader = std::make_shared<Shader>();
+		wallShader->Create(eShaderStage::VS, L"WallVS.hlsl", "main");
+		wallShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		m::Resources::Insert(L"WallShader", wallShader);
+
 		//std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		//paintShader->Create(L"PaintCS.hlsl", "main");
 		//m::Resources::Insert(L"PaintShader", paintShader);
@@ -584,6 +632,7 @@ namespace renderer
 		//std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
 		std::shared_ptr<Shader> tileShader = m::Resources::Find<Shader>(L"TileShader");
 		std::shared_ptr<Shader> tileDrawShader = m::Resources::Find<Shader>(L"TileDrawShader");
+		std::shared_ptr<Shader> wallShader = m::Resources::Find<Shader>(L"WallShader");
 
 #pragma region FieldItem
 		MAKE_MATERIAL_PATH(spriteShader, L"hp_posion_anim", L"..\\Resources\\texture\\field_items\\hp_posion_anim"
@@ -596,6 +645,8 @@ namespace renderer
 #pragma endregion
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
+		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
+		MAKE_MATERIAL_T(spriteShader, L"wall_1", L"..\\Resources\\texture\\map\\wall_1.png", L"wall1");
 #pragma endregion
 
 #pragma region Particle

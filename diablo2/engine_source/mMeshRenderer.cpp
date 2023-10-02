@@ -49,6 +49,11 @@ namespace m
 				mTrappingColorBuffer->BindSRV(eShaderStage::PS, 20);
 				mTrappingColorBuffer->BindSRV(eShaderStage::VS, 20);
 			}
+			if(mSpriteOffSetCenter)
+			{
+				mTrappingColorBuffer->BindSRV(eShaderStage::PS, 20);
+				mTrappingColorBuffer->BindSRV(eShaderStage::VS, 20);
+			}
 
 		}
 		mMesh->Render();
@@ -61,5 +66,11 @@ namespace m
     {
 		mTrappingColorBuffer = new graphics::StructuredBuffer();
 		mTrappingColorBuffer->Create(sizeof(TrapColor), 1, eViewType::SRV, nullptr, true);
+    }
+
+    void MeshRenderer::AddSpriteOffSetCenterBuffer()
+    {
+		mSpriteOffSetCenter = new graphics::StructuredBuffer();
+		mSpriteOffSetCenter->Create(sizeof(SpriteOffsetCenter), 1, eViewType::SRV, nullptr, true);
     }
 }

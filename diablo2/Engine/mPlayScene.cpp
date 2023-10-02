@@ -44,6 +44,7 @@
 #include "mPortal.h"
 #include "mScreenEffectManager.h"
 #include "mShop.h"
+#include "mWall.h"
 
 extern m::Application application;
 namespace m
@@ -55,10 +56,10 @@ namespace m
 		, shop(nullptr)
 		, curMap(nullptr)
 		, mBossMonster(nullptr)
-	    , bStageInit(true)
-	    , bStageStart(false)
-	    , mEnterNameUI(nullptr)
-	    , fAcc(0.f)
+		, bStageInit(true)
+		, bStageStart(false)
+		, mEnterNameUI(nullptr)
+		, fAcc(0.f)
 	{
 
 	}
@@ -72,8 +73,8 @@ namespace m
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Player, true);
 
-		CollisionManager::SetLayer(eLayerType::Aura, eLayerType::Player, true);
-		CollisionManager::SetLayer(eLayerType::Aura, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::MonsterAura, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::PlayerAura, eLayerType::Monster, true);
 
 		CollisionManager::SetLayer(eLayerType::PlayerOverlay, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::MonsterOverlay, eLayerType::Player, true);
@@ -94,6 +95,22 @@ namespace m
 		//renderer::cameras.push_back(GetSceneMainCamera());
 
 		TileManager::MakeTile(100, 100, cameraComp);
+
+		{
+			Tile* tile = TileManager::pathFindingTiles[5][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[10][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+
 		PlayerManager::Initialize();
 
 		SET_MAIN_CAMERA(PlayerManager::player);
@@ -131,11 +148,14 @@ namespace m
 		mPortal->ActivePortal();
 		mPortal->SetClickPortal([=]()
 		{
-			Stage3();
+			TileManager::curTileSystem->WallChange();
+		    Stage1();
 		});
 
 		Monster* initMonster = new Monster(Vector3(0.f, 0.f, 0.f), 0.f);
 		SET_MAIN_CAMERA(initMonster);
+		SET_SCALE_XYZ(initMonster, 0.1f, 0.1f, 1.f);
+		SET_POS_XYZ(initMonster, 0.f, 0.f, 1.f);
 		AddGameObject(eLayerType::Monster, initMonster);
 
 
@@ -154,20 +174,42 @@ namespace m
 		AddGameObject(eLayerType::NPC, mNpc2);
 
 		SystemUI();
+
+
+		{
+			curMap = new GameObject();
+			SET_MAIN_CAMERA(curMap);
+			ADD_COMP(curMap, MeshRenderer);
+			AddGameObject(eLayerType::Background, curMap);
+			SET_MESH(curMap, L"RectMesh");
+			SET_MATERIAL(curMap, L"stage4");
+			MAKE_GET_TEX(curMap, tex);
+			SET_SCALE_TEX_SIZE(curMap, tex, 1.f);
+			Vector3 scale = GET_SCALE(curMap);
+			Tile* tile = TileManager::pathFindingTiles[0][0];
+			Vector3 tilePos = tile->GetPos();
+			Vector3 tileScale = tile->GetScale();
+			tilePos.y += scale.y / 2.f;
+			tilePos.y -= tileScale.y / 2.f;
+			//Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
+			//Vector3 centerPos = centerTile->GetPos();
+			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 1.f);
+		}
+
 	}
 	void PlayScene::Update()
 	{
-		if(mEnterNameUI->GetState() == GameObject::RenderUpdate)
+		if (mEnterNameUI->GetState() == GameObject::RenderUpdate)
 		{
 			fAcc += Time::fDeltaTime();
-			if(fAcc >= 5.f)
+			if (fAcc >= 5.f)
 			{
 				mEnterNameUI->SetState(GameObject::NoRenderNoUpdate);
 			}
 		}
 		if (mBossMonster && mBossMonster->GetBattleState() == GameObject::Dead)
 		{
-			if(bStageStart)
+			if (bStageStart)
 			{
 				Vector3 pos = GET_POS(PlayerManager::player);
 				pos.y += 30.f;
@@ -178,7 +220,8 @@ namespace m
 				mPortal->SetState(GameObject::RenderUpdate);
 				bStageStart = false;
 			}
-		}else
+		}
+		else
 		{
 			if (!bStageInit)
 			{
@@ -234,7 +277,7 @@ namespace m
 		mEnterNameUI->SetText(L"고난의 시작");
 		mEnterNameUI->SetCamera(cameraComp2);
 		Vector2 size = FontWrapper::GetTextSize(mEnterNameUI->GetText().c_str(), 40.f);
-		SET_POS_XYZ(mEnterNameUI, 0.f, 100.f + size.y , -1.f);
+		SET_POS_XYZ(mEnterNameUI, 0.f, 100.f + size.y, -1.f);
 		SET_MESH(mEnterNameUI, L"RectMesh");
 		SET_MATERIAL(mEnterNameUI, L"noneRect");
 		mEnterNameUI->SetState(GameObject::RenderUpdate);
@@ -273,20 +316,10 @@ namespace m
 				Stage2();
 			}
 		);
-		//curMap = new GameObject();
-		//SET_MAIN_CAMERA(curMap);
-		//ADD_COMP(curMap, MeshRenderer);
-		//AddGameObject(eLayerType::Background, curMap);
-		//SET_MESH(curMap, L"RectMesh");
-		//SET_MATERIAL(curMap, L"chaosSanctuary1");
-		//MAKE_GET_TEX(curMap, tex);
-		//SET_SCALE_TEX_SIZE(curMap, tex, 1.f);
-		//Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
-		//Vector3 centerPos = centerTile->GetPos();
-		//SET_POS_XYZ(curMap, centerPos.x, centerPos.y, 1.f);
+
 
 		{
-			Tile* tile = TileManager::pathFindingTiles[10][10];
+			Tile* tile = TileManager::pathFindingTiles[1][3];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}

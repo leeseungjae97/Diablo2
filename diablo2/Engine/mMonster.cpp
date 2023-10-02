@@ -65,27 +65,19 @@ namespace m
 
 	void Monster::Update()
 	{
+		
 		MoveAbleObject::Update();
-		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
-
-		if(mHSO && nullptr == mHSO->GetCamera())
-		{
-			mHSO->SetActiveOwner(this);
-		}
-
 		if (GetBattleState() == eBattleState::ToDead)
 		{
 			MonsterManager::AddDeadMonster(this);
 			//SetState(eState::RenderNoUpdate);
-			if(mHSO)
+			if (mHSO)
 			{
 				mHSO->SetState(eState::Delete);
-				mHSO = nullptr;
 			}
-			if(mShadow)
+			if (mShadow)
 			{
 				mShadow->SetState(eState::Delete);
-				mShadow = nullptr;
 			}
 			Release();
 
@@ -98,19 +90,59 @@ namespace m
 		}
 		if (GetBattleState() == eBattleState::Dead)
 		{
-			if (mHSO)
-			{
-				mHSO->SetState(eState::Delete);
-				mHSO = nullptr;
-			}
-			if (mShadow)
-			{
-				mShadow->SetState(eState::Delete);
-				mShadow = nullptr;
-			}
+			//if (mHSO)
+			//{
+			//	mHSO->SetState(eState::Delete);
+			//}
+			//if (mShadow)
+			//{
+			//	mShadow->SetState(eState::Delete);
+			//}
 
 			return;
 		}
+
+		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+
+		if(mHSO && nullptr == mHSO->GetCamera())
+		{
+			mHSO->SetActiveOwner(this);
+		}
+
+		//if (GetBattleState() == eBattleState::ToDead)
+		//{
+		//	MonsterManager::AddDeadMonster(this);
+		//	//SetState(eState::RenderNoUpdate);
+		//	if(mHSO)
+		//	{
+		//		mHSO->SetState(eState::Delete);
+		//	}
+		//	if(mShadow)
+		//	{
+		//		mShadow->SetState(eState::Delete);
+		//	}
+		//	Release();
+
+		//	if (mPathFinder)
+		//	{
+		//		delete mPathFinder;
+		//		mPathFinder = nullptr;
+		//	}
+		//	return;
+		//}
+		//if (GetBattleState() == eBattleState::Dead)
+		//{
+		//	//if (mHSO)
+		//	//{
+		//	//	mHSO->SetState(eState::Delete);
+		//	//}
+		//	//if (mShadow)
+		//	//{
+		//	//	mShadow->SetState(eState::Delete);
+		//	//}
+
+		//	return;
+		//}
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();
@@ -187,10 +219,6 @@ namespace m
 			SET_POS_XYZ(this, fMoveX, fMoveY, curPosition.z);
 		}
 
-		if(bMove)
-		{
-			
-		}
 		//MoveAbleObject::Update();
 	}
 	void Monster::LateUpdate()

@@ -24,13 +24,16 @@ namespace m
 		std::shared_ptr<Mesh> GetMesh() { return mMesh; }
 
 		void AddTrappingColorBuffer();
+		void AddSpriteOffSetCenterBuffer();
 		void SetTrappingColor(Vector4 color) { mTrappingColor.color = color; }
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;
 
 		TrapColor mTrappingColor;
+		SpriteOffsetCenter mSpriteOffsetCenter;
 		graphics::StructuredBuffer* mTrappingColorBuffer;
+		graphics::StructuredBuffer* mSpriteOffSetCenter;
     };
 }
 

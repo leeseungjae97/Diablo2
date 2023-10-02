@@ -51,8 +51,11 @@ namespace m
 						if (monster)
 						{
 							OverlayEffectSkillScript* mOESS = monster->GetHSO()->GetComponent<OverlayEffectSkillScript>();
-							mOESS->SetSkillType(mType);
-							monster->GetHSO()->ActiveOverlay();
+							if(mOESS)
+							{
+								mOESS->SetSkillType(mType);
+								monster->GetHSO()->ActiveOverlay();
+							}
 						}
 					}
 					mTarget->Hit(10);

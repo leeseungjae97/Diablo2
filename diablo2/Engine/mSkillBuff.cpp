@@ -32,6 +32,7 @@ namespace m
     void SkillBuff::Update()
     {
         SkillOverlay::Update();
+        SetState(eState::Delete);
     }
 
     void SkillBuff::LateUpdate()

@@ -80,7 +80,7 @@ namespace m
 		curScene->AddGameObject(eLayerType::PlayerSkill, mLSO);
 		curScene->AddGameObject(eLayerType::Skill, mHSO);
 		curScene->AddGameObject(eLayerType::Skill, mBackSO);
-		curScene->AddGameObject(eLayerType::Aura, mAura);
+		curScene->AddGameObject(eLayerType::PlayerAura, mAura);
 
 
 

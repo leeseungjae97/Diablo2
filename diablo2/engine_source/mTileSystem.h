@@ -21,6 +21,7 @@ namespace m
 		void ClearMaterials();
 		void AddMaterial(std::shared_ptr<Material> mat);
 		void SetComputedData();
+		void WallChange();
 
 		ComputedMonsterCoord* GetComputedMonsterCoord() { return mComputedCoords; }
 	private:
@@ -31,6 +32,7 @@ namespace m
 		graphics::StructuredBuffer* mMonsterBuffer;
 		graphics::StructuredBuffer* mGetMonsterComputedCoordBuffer;
 
+		std::vector<ComputeTile> mTiles;
 		std::shared_ptr<TileComputeShader> mCS;
 		std::vector<std::shared_ptr<Material>> materials;
 

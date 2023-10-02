@@ -27,6 +27,20 @@ namespace m
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
 
+		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
+		mAnimator->Create(
+			L"noneRectAnim"
+			, noneMat->GetTexture()
+			, Vector2::Zero
+			, Vector2(20.f, 20.f)
+			, 1
+			, Vector2::Zero
+			, 0.03f
+			, 0.3f
+		);
+
+		mAnimator->PlayAnimation(L"noneRectAnim", true);
+
 		SHARED_MAT tex;
 		Vector2 skillSize;
 		Vector2 skillOffset;
@@ -145,20 +159,6 @@ namespace m
 					GetOwner()->SetState(GameObject::eState::Delete);
 			};
 		}
-
-		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
-		mAnimator->Create(
-			L"noneRectAnim"
-			, noneMat->GetTexture()
-			, Vector2::Zero
-			, Vector2(20.f, 20.f)
-			, 1
-			, Vector2::Zero
-			, 0.03f
-			, 0.3f
-		);
-
-		mAnimator->PlayAnimation(L"noneRectAnim", true);
 	}
 	void StraightScript::Update()
 	{
@@ -271,9 +271,12 @@ namespace m
 							//	, 1.f
 							//);
 							OverlayEffectSkillScript* mOESS = monster->GetHSO()->GetComponent<OverlayEffectSkillScript>();
-							mOESS->SetSkillType(mType);
-							//if(!mOESS->IsPlayHit())
-							monster->GetHSO()->ActiveOverlay();
+							if(mOESS)
+							{
+								mOESS->SetSkillType(mType);
+								//if(!mOESS->IsPlayHit())
+								monster->GetHSO()->ActiveOverlay();
+							}
 						}
 						if (skillHitDestory[(int)mType])
 						{

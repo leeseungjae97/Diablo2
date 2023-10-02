@@ -41,12 +41,6 @@ cbuffer Noise : register(b6)
 {
     float4 noiseTextureSize;
 }
-cbuffer Light : register(b7)
-{
-    row_major matrix lightViewMatrix;
-    row_major matrix lightProjectionMatrix;
-    
-};
 
 struct DrawObject
 {
@@ -136,6 +130,10 @@ struct LightAttribute
 struct TrappingColor
 {
     float4 color;
+};
+struct SpriteOffsetCenter
+{
+    float2 offset;
 };
 struct Particle
 {

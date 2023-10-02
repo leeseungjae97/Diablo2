@@ -523,33 +523,33 @@ m::math::Vector2(0.f, 0.f),
 		eAuraType::End,// mpm
 	};
 	float skillSpeed[(int)eSkillType::END] = {
-		300.f,// iceBolt
+		400.f,// iceBolt
 		0.f,// frozenArmor
 		1000.f,// frostNova
-		300.f,// iceBlast
+		400.f,// iceBlast
 		0.f,// shiverArmor
 		300.f,// clacialSpike
 		200.f,// blizzard
 		0.f,// chillingArmor
-		200.f,// frozenOrb
+		300.f,// frozenOrb
 		0.f,// coldMastery
 		//
 		300.f,// chargedBolt
 		0.f,// staticField
 		0.f,// telekinesis
 		1000.f,// nova
-		500.f,// lightning
+		600.f,// lightning
 		800.f,// chainLightning
 		0.f,// teleport
 		1000.f,// thunderStorm
 		0.f,// energyShield
 		0.f,// lightningMastery
 		//
-		300.f,// fireBolt
+		400.f,// fireBolt
 		0.f,// warmth
 		300.f,// inferno
 		0.f,// blaze
-		300.f,// fireBall
+		400.f,// fireBall
 		300.f,// fireWall
 		0.f,// enchant
 		300.f,// meteor

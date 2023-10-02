@@ -182,6 +182,10 @@ struct TrapColor
 {
 	m::math::Vector4 color;
 };
+struct SpriteOffsetCenter
+{
+	m::math::Vector2 offset;
+};
 struct ComputeTileSharedData
 {
 	m::math::Vector4 mousePos;

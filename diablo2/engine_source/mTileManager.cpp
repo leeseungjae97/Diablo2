@@ -36,7 +36,8 @@ namespace m
 				Tile* tile = new Tile();
 				tile->SetCoord(Vector2(x, y));
 
-				if (   (y == 55 && x == 70)
+				if ((y == 0 && x == 0)
+					||(y == 55 && x == 70)
 					|| (y == 54 && x == 70)
 					|| (y == 53 && x == 70)
 					|| (y == 52 && x == 70)

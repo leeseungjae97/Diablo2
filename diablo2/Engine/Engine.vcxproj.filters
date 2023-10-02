@@ -235,6 +235,10 @@
     <ClCompile Include="mPortalScript.cpp">
       <Filter>Script\PortalScript</Filter>
     </ClCompile>
+    <ClCompile Include="mWall.cpp">
+      <Filter>Objects\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="mWallScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -468,6 +472,10 @@
     <ClInclude Include="mPortalScript.h">
       <Filter>Script\PortalScript</Filter>
     </ClInclude>
+    <ClInclude Include="mWall.h">
+      <Filter>Objects\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="mWallScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -736,6 +744,12 @@
     </Filter>
     <Filter Include="Script\PortalScript">
       <UniqueIdentifier>{4bdf6521-877e-4ba9-8d9a-ed568fa72678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Wall">
+      <UniqueIdentifier>{af07ca35-daa6-4437-9219-eddd3768d782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\WallScript">
+      <UniqueIdentifier>{c7c75c6b-48c0-4203-98b9-dde24e77cbd3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

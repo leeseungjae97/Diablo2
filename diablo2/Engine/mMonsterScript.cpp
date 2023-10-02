@@ -61,7 +61,7 @@ namespace m
 				mAura->FrontAura();
 
 			mAura->AuraActive();
-			curScene->AddGameObject(eLayerType::Aura, mAura);
+			curScene->AddGameObject(eLayerType::MonsterAura, mAura);
 		}
 
 		//mLeftHand = new MonsterHand(monster, curMonsterData.mMonsterType, false);
@@ -146,7 +146,15 @@ namespace m
 				};
 				mAnimator->EndEvent(L"dialoToDead3_anim@") = [=]()
 				{
-					mAnimationType = MonsterData::eAnimationType::Dead;
+					if (mRightHand)
+					{
+						GET_COMP(mRightHand, Animator)->SetSyncAnimator(nullptr);
+						mRightHand->SetState(GameObject::eState::Delete);
+						mRightHand = nullptr;
+					}
+					if (mAura)
+						mAura->SetState(GameObject::eState::Delete);
+
 					GetOwner()->SetBattleState(GameObject::Dead);
 				};
 				wsDiabloDeadAnimationName = L"dialoToDead1_anim@";
@@ -197,6 +205,8 @@ namespace m
 					{
 						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m]) = [=]()
 						{
+							mAnimator->SetAnimationEndIndex(curMonsterData.animationLength[i]);
+
 							if (mRightHand)
 							{
 								GET_COMP(mRightHand, Animator)->SetSyncAnimator(nullptr);
@@ -209,7 +219,6 @@ namespace m
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 							= [this]()
 						{
-							mAnimationType = MonsterData::eAnimationType::Dead;
 							GetOwner()->SetBattleState(GameObject::Dead);
 						};
 					}
@@ -258,7 +267,17 @@ namespace m
 
 		//if(mLeftHand)
 			//mLeftHand->SetDirection(mDirection);
-
+		if (mMonster->GetBattleState() == GameObject::eBattleState::Dead)
+		{
+		    mAnimationType = MonsterData::eAnimationType::Dead;
+			return;
+			//if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
+			//{
+			//	SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[GameObject::eBattleState::ToDead].x
+			//		, curMonsterData.animationSizes[GameObject::eBattleState::ToDead].y, 0.f);
+			//	mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
+			//}
+		}
 		if (mMonster->GetMonsterHp() == 0)
 		{
 			DeadAnimation();

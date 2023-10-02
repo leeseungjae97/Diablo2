@@ -30,30 +30,21 @@ namespace m
 		AddMaterial(greenTile);
 		AddMaterial(redTile);
 		
-		ComputeTile computeTiles[10000] = {};
 		for(int i = 0 ; i < 10000; ++i)
 		{
+			ComputeTile ct;
 			Vector3 posV3 = TileManager::pathFindingTiles[i / 100][i % 100]->GetPos();
 			Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
-			computeTiles[i].tilePosition = pos;
-			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(TileManager::pathFindingTiles[i / 100][i % 100]->GetScale());
-			computeTiles[i].tileCoord = Vector2(i % 100, i / 100);
+			ct.tilePosition = pos;
+			ct.tileSize = GET_VEC2_F_VEC3_D(TileManager::pathFindingTiles[i / 100][i % 100]->GetScale());
+			ct.tileCoord = Vector2(i % 100, i / 100);
 
-			//computeTiles[i].parentCoord = Vector2(-1.f, -1.f);
+			ct.isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
 
-			//computeTiles[i].onMonster = false;
-			computeTiles[i].isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
-
-			//computeTiles[i].willOnMonsterCount = 0;
-
-			//computeTiles[i].inClose = false;
-			//computeTiles[i].inOpen = false;
-
-			//computeTiles[i].G = 0;
-			//computeTiles[i].H = 0;
+			mTiles.push_back(ct);
 		}
 		mTileBuffer = new graphics::StructuredBuffer();
-		mTileBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, computeTiles, true);
+		mTileBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, mTiles.data(), true);
 
 		mTileSharedBuffer = new graphics::StructuredBuffer();
 		mTileSharedBuffer->Create(sizeof(ComputeTileSharedData), 1, eViewType::UAV, nullptr, true);
@@ -284,4 +275,13 @@ namespace m
 			//}
 		}
 	}
+
+    void TileSystem::WallChange()
+    {
+		for (int i = 0; i < 10000; ++i)
+		{
+			mTiles[i].isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
+		}
+		mTileBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, mTiles.data(), true);
+    }
 }

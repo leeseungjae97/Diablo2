@@ -65,14 +65,15 @@ namespace m
 	{
 		MoveAbleObject::Render();
 
+		Vector3 pos =GET_POS(this);
 		wchar_t szFloat[100] = {};
 		swprintf_s(szFloat, 100, L"Player Coord(x) : %f\n Player Coord(y) : %f"
 			, TileManager::GetPlayerPositionCoord().x, TileManager::GetPlayerPositionCoord().y);
 
 		FontWrapper::DrawFont(szFloat, 10, 10, 10.f, FONT_RGBA(255, 0, 255, 255));
 
-		swprintf_s(szFloat, 100, L"Player Position(x) : %f\n Player Position(y) : %f"
-			, TileManager::GetPlayerPosition().x, TileManager::GetPlayerPosition().y);
+		swprintf_s(szFloat, 100, L"Player Position(x) : %f\n Player Position(y) : %f\n Player Position(z) : %f"
+			, pos.x, pos.y, pos.z);
 
 		FontWrapper::DrawFont(szFloat, 10, 40, 10.f, FONT_RGBA(255, 0, 255, 255));
 	}
