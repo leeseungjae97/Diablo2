@@ -23,14 +23,29 @@ namespace m
 			iter.second = nullptr;
 		}
 
-		for (auto& iter : mEvents)
-		{
-			if (nullptr == iter.second)
-				continue;
+		//for (auto& iter : mEvents)
+		//{
+		//	
+		//	if (nullptr == iter.second)
+		//		continue;
 
-			delete iter.second;
-			iter.second = nullptr;
-		}
+		//	delete iter.second;
+		//	iter.second = nullptr;
+		//}
+
+		//std::map<std::wstring, Events*>::iterator iter = mEvents.begin();
+		////iter->second.
+		//while(iter != mEvents.end())
+		//{
+		//	
+		//	if (iter->second)
+		//	{
+		//		delete iter->second;
+		//		iter->second = nullptr;
+		//		++iter;
+		//	}
+		//	else ++iter;
+		//}
 	}
 	void Animator::Initialize()
 	{
@@ -114,7 +129,8 @@ namespace m
 		if (nullptr != events)
 			return;
 
-		events = new Events();
+		//events = new Events();
+		events = {};
 		mEvents.insert(std::make_pair(name, events));
 	}
 	void Animator::Create(const std::wstring& name
@@ -149,7 +165,8 @@ namespace m
 		if (nullptr != events)
 			return;
 
-		events = new Events();
+		//events = new Events();
+		events = {};
 		mEvents.insert(std::make_pair(name, events));
 	}
 	void Animator::SyncPlay()
@@ -172,9 +189,9 @@ namespace m
 
 		return iter->second;
 	}
-	Animator::Events* Animator::FindEvents(const std::wstring& name)
+	Animator::Events Animator::FindEvents(const std::wstring& name)
 	{
-		std::map<std::wstring, Events*>::iterator iter
+		std::map<std::wstring, Events>::iterator iter
 			= mEvents.find(name);
 
 		if (iter == mEvents.end())
@@ -200,8 +217,8 @@ namespace m
 		if (animation)
 		{
 			mActiveAnimation = animation;
-		}
 
+		}
 		events = FindEvents(mActiveAnimation->GetKey());
 		if (events)
 			events->startEvent();
@@ -217,15 +234,6 @@ namespace m
 
 		mActiveAnimation->Binds();
 	}
-	//void Animator::StopAnimation()
-	//{
-	//	if (mActiveAnimation == nullptr)
-	//		return;
-
-	//	mActiveAnimation->Reset();
-	//	
-	//	mActiveAnimation = nullptr;
-	//}
 	std::function<void()>& Animator::StartEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);

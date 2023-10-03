@@ -40,11 +40,18 @@ namespace m
 
 
         void SkillFire() { bSkillFire = true; }
+        void HitWall();
+
+        UINT GetSkillId() { return mSkillId; }
     protected:
         eSkillType mSkillType;
         bool bSkillFire;
         bool bSkillCrash;
         eLayerType skillOwnerType;
+
+        UINT mSkillId;
+    private:
+        static UINT uSkillIdDispender;
     };
 }
 

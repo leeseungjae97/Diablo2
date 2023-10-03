@@ -14,6 +14,7 @@ namespace m::graphics
 		, mTileCoordBuffer(nullptr)
 		, mMonsterBuffer(nullptr)
 		, mMonsterCoordBuffer(nullptr)
+		, mSkillBuffer(nullptr)
 		//, mCamera(nullptr)
 	{
 	}
@@ -52,6 +53,11 @@ namespace m::graphics
 			mMonsterCoordBuffer->buffer)
 			mMonsterCoordBuffer->BindUAV(4);
 
+		if(nullptr != mSkillBuffer
+			&&
+			mSkillBuffer->buffer)
+			mSkillBuffer->BindUAV(5);
+
 		mGroupX = 1000;
 		mGroupY = 1;
 		mGroupZ = 1;
@@ -83,6 +89,10 @@ namespace m::graphics
 			&&
 			mMonsterCoordBuffer->buffer)
 			mMonsterCoordBuffer->Clear();
+		if (nullptr != mSkillBuffer
+			&&
+			mSkillBuffer->buffer)
+			mSkillBuffer->Clear();
 	}
 
 	void TileComputeShader::OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord** data2, int size2)
@@ -92,6 +102,7 @@ namespace m::graphics
 		Clear();
 
 		mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
+
 		if(nullptr != mMonsterCoordBuffer && nullptr != mMonsterBuffer
 			&& mMonsterCoordBuffer->buffer
 			&& mMonsterBuffer->buffer)

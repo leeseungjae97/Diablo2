@@ -157,13 +157,20 @@ struct DrawObject
 	m::math::Vector4 position;
 	m::math::Vector2 size;
 };
+struct SkillWallCollision
+{
+	m::math::Vector3 skillPosition;
+	UINT skillId;
+	UINT size;
+	BOOL crash = false;
+};
 struct ComputeTile
 {
 	m::math::Vector4 tilePosition;
 	m::math::Vector2 tileSize;
 	m::math::Vector2 tileCoord;
 
-	BOOL isWall;
+	BOOL isWall = false;
 
 	//m::math::Vector2 parentCoord;
 
@@ -185,6 +192,10 @@ struct TrapColor
 struct SpriteOffsetCenter
 {
 	m::math::Vector2 offset;
+};
+struct SpriteAlpha
+{
+	float alpha;
 };
 struct ComputeTileSharedData
 {

@@ -31,8 +31,10 @@ namespace m
 		graphics::StructuredBuffer* mComputedTileCoordBuffer;
 		graphics::StructuredBuffer* mMonsterBuffer;
 		graphics::StructuredBuffer* mGetMonsterComputedCoordBuffer;
+		graphics::StructuredBuffer* mSkillBuffer;
 
 		std::vector<ComputeTile> mTiles;
+
 		std::shared_ptr<TileComputeShader> mCS;
 		std::vector<std::shared_ptr<Material>> materials;
 

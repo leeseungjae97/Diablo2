@@ -238,7 +238,9 @@
     <ClCompile Include="mWall.cpp">
       <Filter>Objects\Wall</Filter>
     </ClCompile>
-    <ClCompile Include="mWallScript.cpp" />
+    <ClCompile Include="mWallScript.cpp">
+      <Filter>Script\WallScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -475,7 +477,9 @@
     <ClInclude Include="mWall.h">
       <Filter>Objects\Wall</Filter>
     </ClInclude>
-    <ClInclude Include="mWallScript.h" />
+    <ClInclude Include="mWallScript.h">
+      <Filter>Script\WallScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

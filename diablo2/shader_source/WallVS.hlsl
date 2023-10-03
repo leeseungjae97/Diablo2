@@ -1,4 +1,5 @@
 #include "global.hlsli"
+StructuredBuffer<SpriteOffsetCenter> spriteCenterBuffer : register(t21);
 
 //structedBuffer
 struct VSIn
@@ -21,8 +22,8 @@ VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
     
-    //In.Pos.x += SpriteOffsetOfCenterPos.x;
-    //In.Pos.y += SpriteOffsetOfCenterPos.y;
+    In.Pos.x += spriteCenterBuffer[0].offset.x;
+    In.Pos.y += spriteCenterBuffer[0].offset.y;
     
     float4 world = mul(float4(In.Pos, 1.0f), mWorld);
     float4 view = mul(world, mView);

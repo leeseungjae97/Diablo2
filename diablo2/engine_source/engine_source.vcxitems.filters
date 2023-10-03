@@ -396,6 +396,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mScreenEffectManager.h">
       <Filter>Manager\ScreenEffectManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WallLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">

@@ -19,6 +19,7 @@ namespace m::graphics
         void SetTileCoordBuffer(StructuredBuffer* buffer) { mTileCoordBuffer = buffer; }
         void SetMonsterBuffer(StructuredBuffer* buffer) { mMonsterBuffer = buffer; }
         void SetMonsterCoordBuffer(StructuredBuffer* buffer) { mMonsterCoordBuffer = buffer; }
+        void SetSkillBuffer(StructuredBuffer* buffer) { mSkillBuffer = buffer; }
 
         virtual void OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord** data2, int size2);
 
@@ -31,6 +32,7 @@ namespace m::graphics
         StructuredBuffer* mTileCoordBuffer;
         StructuredBuffer* mMonsterBuffer;
         StructuredBuffer* mMonsterCoordBuffer;
+        StructuredBuffer* mSkillBuffer;
         //Camera* mCamera;
     };
 }

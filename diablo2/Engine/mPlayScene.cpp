@@ -83,6 +83,9 @@ namespace m
 		CollisionManager::SetLayer(eLayerType::PlayerSkill, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::MonsterSkill, eLayerType::Player, true);
 
+		CollisionManager::SetLayer(eLayerType::PlayerSkill, eLayerType::Wall, true);
+		CollisionManager::SetLayer(eLayerType::MonsterSkill, eLayerType::Wall, true);
+
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::Item, true);
 
 		GameObject* camera = new GameObject();
@@ -95,21 +98,6 @@ namespace m
 		//renderer::cameras.push_back(GetSceneMainCamera());
 
 		TileManager::MakeTile(100, 100, cameraComp);
-
-		{
-			Tile* tile = TileManager::pathFindingTiles[5][10];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[10][10];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
 
 		PlayerManager::Initialize();
 
@@ -148,8 +136,7 @@ namespace m
 		mPortal->ActivePortal();
 		mPortal->SetClickPortal([=]()
 		{
-			TileManager::curTileSystem->WallChange();
-		    Stage1();
+		    Stage3();
 		});
 
 		Monster* initMonster = new Monster(Vector3(0.f, 0.f, 0.f), 0.f);
@@ -299,12 +286,96 @@ namespace m
 		AddGameObject(eLayerType::UI, eHpUI);
 	}
 
-	void PlayScene::Stage1()
+    void PlayScene::MakeWall()
+    {
+		Camera* cameraComp = GetSceneMainCamera();
+		if (nullptr == cameraComp) return;
+
+		{
+			Tile* tile = TileManager::pathFindingTiles[5][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[10][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[20][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[30][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[40][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][10];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][5];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[40][5];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[30][5];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[20][5];
+			Vector3 pos = tile->GetPos();
+
+			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			SET_POS_VEC(wall, pos);
+		}
+
+    }
+
+    void PlayScene::Stage1()
 	{
 		MonsterManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 
 		mEnterNameUI->SetText(L"고뇌의 여제");
+
+		TileManager::TileIsWallReset();
+
+		MakeWall();
+
+		TileManager::TileIsWallChange();
 
 		fAcc = 0.f;
 		bStageInit = false;

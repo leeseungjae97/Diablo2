@@ -42,7 +42,6 @@ namespace m
 		bodyBoxCollider->AddExceptType(eLayerType::MonsterSkill);
 
 		mPathFinder->SetMonsterOwner(this);
-		ADD_COMP(this, Animator);
 		mHSO = new SkillOverlay();
 		mHSO->SetActiveOwner(this);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Overlay, mHSO);

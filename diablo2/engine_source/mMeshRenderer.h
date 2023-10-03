@@ -25,15 +25,20 @@ namespace m
 
 		void AddTrappingColorBuffer();
 		void AddSpriteOffSetCenterBuffer();
+		void AddSpriteAlphaBuffer();
 		void SetTrappingColor(Vector4 color) { mTrappingColor.color = color; }
+		void SetSpriteOffsetCenter(Vector2 offset) { mSpriteOffsetCenter.offset = offset; }
+		void SetSpriteAlpha(float alpha) { mSpriteAlpha.alpha = alpha; }
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;
 
 		TrapColor mTrappingColor;
 		SpriteOffsetCenter mSpriteOffsetCenter;
+		SpriteAlpha mSpriteAlpha;
 		graphics::StructuredBuffer* mTrappingColorBuffer;
-		graphics::StructuredBuffer* mSpriteOffSetCenter;
+		graphics::StructuredBuffer* mSpriteOffSetCenterBuffer;
+		graphics::StructuredBuffer* mSpriteAlphaBuffer;
     };
 }
 

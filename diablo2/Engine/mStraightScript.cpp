@@ -8,6 +8,7 @@
 #include "mPlayer.h"
 #include "mMonster.h"
 #include "mSkillCurve.h"
+#include "mWall.h"
 
 namespace m
 {
@@ -245,6 +246,8 @@ namespace m
 	}
 	void StraightScript::OnCollisionEnter(Collider2D* other)
 	{
+		//if (dynamic_cast<Wall*>(other->GetOwner())) return;
+
 		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
 		{
 			if (bNoHit)
@@ -259,10 +262,10 @@ namespace m
 				{
 					/*if (dynamic_cast<Monster*>(other->GetOwner()))
 						dynamic_cast<Monster*>(other->GetOwner())->Hit(10);*/
+					Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
 					if (mCrashType == eCrashType::Overlay)
 					{
 						//PlayerScript* ps = PlayerManager::player->GetComponent<PlayerScript>();
-						Monster* monster = dynamic_cast<Monster*>(other->GetOwner());
 						if (monster)
 						{
 							//SET_SCALE_XYZ(monster->GetHSO()
@@ -285,9 +288,11 @@ namespace m
 					}
 					if (mCrashType == eCrashType::Addiction)
 					{
-						dynamic_cast<Monster*>(other->GetOwner())->Addiction(10, 10.f, 10);
+						if(monster)
+							monster->Addiction(10, 10.f, 10);
 					}
-					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+					if (monster)
+						monster->Hit(10);
 				}
 				break;
 				case m::enums::eLayerType::MonsterSkill:
@@ -295,6 +300,7 @@ namespace m
 					if (mCrashType == eCrashType::Overlay)
 					{
 						//PlayerScript* ps = PlayerManager::player->GetComponent<PlayerScript>();
+						
 						PlayerScript* ps = other->GetOwner()->GetComponent<PlayerScript>();
 
 						//SET_SCALE_XYZ(ps->GetHSO()

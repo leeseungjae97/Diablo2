@@ -6,8 +6,11 @@
 #include "../engine_source/SkillLookUpTables.h"
 
 #include "mMonster.h"
+#include "mSkillManager.h"
+
 namespace m
 {
+	UINT Skill::uSkillIdDispender = 0;
 	Skill::Skill(eSkillType type
 		, Vector3 iniPos
 		, bool useHitArea
@@ -25,10 +28,13 @@ namespace m
 		, mSkillType(type)
 		, bSkillFire(false)
 		, bSkillCrash(false)
+	    , mSkillId(++uSkillIdDispender)
 	{
+		SkillManager::AddSkill(this);
 	}
 	Skill::~Skill()
 	{
+		SkillManager::EraseSkill(mSkillId);
 	}
 	void Skill::Initialize()
 	{
@@ -58,4 +64,9 @@ namespace m
 			col->AddExceptType(ownerType);
 		}
 	}
+
+    void Skill::HitWall()
+    {
+		SetState(Delete);
+    }
 }

@@ -551,7 +551,7 @@ namespace renderer
 
 		std::shared_ptr<Shader> wallShader = std::make_shared<Shader>();
 		wallShader->Create(eShaderStage::VS, L"WallVS.hlsl", "main");
-		wallShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		wallShader->Create(eShaderStage::PS, L"WallPS.hlsl", "main");
 		m::Resources::Insert(L"WallShader", wallShader);
 
 		//std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
@@ -646,7 +646,7 @@ namespace renderer
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
-		MAKE_MATERIAL_T(spriteShader, L"wall_1", L"..\\Resources\\texture\\map\\wall_1.png", L"wall1");
+		MAKE_MATERIAL_T(wallShader, L"wall_1", L"..\\Resources\\texture\\map\\wall_1.png", L"wall1");
 #pragma endregion
 
 #pragma region Particle

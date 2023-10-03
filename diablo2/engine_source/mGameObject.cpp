@@ -32,6 +32,13 @@ namespace m
 		//	
 		//	col->Release();
 		//}
+		for (Animator* anim : GetComponents<Animator>())
+		{
+			if (nullptr == anim) continue;
+			std::erase(mComponents, anim);
+			delete anim;
+			anim = nullptr;
+		}
 		for (Collider2D* col : GetComponents<Collider2D>())
 		{
 			if (nullptr == col) continue;

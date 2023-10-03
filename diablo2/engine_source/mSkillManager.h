@@ -8,10 +8,13 @@ namespace m
 	class SkillManager
 	{
 	public:
-		static void AddSkill();
-		static MoveAbleObject* GetSkill();
+		static void Update();
+		static void AddSkill(Skill* skill);
+        static void EraseSkill(UINT skillId);
+		static void SkillCrash(UINT skillId);
+        static Skill* GetSkill(UINT skillId);
 
-		static std::vector<MoveAbleObject*> skills;
+		static std::vector<Skill*> skills;
 	private:
 	};
 }

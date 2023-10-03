@@ -11,6 +11,8 @@ namespace m
 		static void MakeTile(int x, int y, Camera* camera);
 		static void TilesUpdate();
 		static void Release();
+        static void TileIsWallChange();
+        static void TileIsWallReset();
 		static Vector2 GetHoverTileCoord();
 		static Vector2 GetPlayerPositionCoord();
 		static Vector3 GetPlayerPosition();

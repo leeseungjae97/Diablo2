@@ -14,6 +14,13 @@ namespace m
 	public:
 		struct Event
 		{
+			Event(){};
+			~Event()
+			{
+				//if (mEvent)
+				//	mEvent.~function<void()>();
+			};
+
 			void operator=(std::function<void()> func)
 			{
 				mEvent = std::move(func);
@@ -24,7 +31,7 @@ namespace m
 					mEvent();
 			}
 
-			std::function<void()> mEvent;
+			std::function<void()> mEvent = [](){};
 		};
 
 		struct Events

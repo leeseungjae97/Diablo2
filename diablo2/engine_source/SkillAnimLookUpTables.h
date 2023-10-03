@@ -294,14 +294,14 @@ m::math::Vector2(0.f, 0.f),
 	L"mephistoOverlay",
 	};
 	m::math::Vector2 auraSizes[(int)eAuraType::End] = {
-		Vector2(114.f, 93.f),
-		Vector2(81.f, 60.f),
-		Vector2(224.f, 190.f),
+		m::math::Vector2(114.f, 93.f),
+		m::math::Vector2(81.f, 60.f),
+		m::math::Vector2(224.f, 190.f),
 	};
 	m::math::Vector2 auraCenterPos[(int)eAuraType::End] = {
-		Vector2(0.f, 0.f),
-		Vector2(0.f, -10.f),
-		Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, -10.f),
+		m::math::Vector2(0.f, 0.f),
 	};
 	int auraLength[(int)eAuraType::End] = {
 		15,
@@ -323,19 +323,19 @@ m::math::Vector2(0.f, 0.f),
 		L"",
 	};
 	m::math::Vector3 auraColliderSizes[(int)eAuraType::End] = {
-		Vector3(300.f, 150.f, 1.f),
-		Vector3(1200.f, 600.f, 1.f),
-		Vector3(0.f, 0.f, 1.f),
+		m::math::Vector3(300.f, 150.f, 1.f),
+		m::math::Vector3(1200.f, 600.f, 1.f),
+		m::math::Vector3(0.f, 0.f, 1.f),
 	};
 	m::math::Vector2 auraStartSizes[(int)eAuraType::End] = {
-	Vector2(0, 0),
-	Vector2(79.f, 52.f),
-		Vector2(0, 0),
+	m::math::Vector2(0, 0),
+	m::math::Vector2(79.f, 52.f),
+		m::math::Vector2(0, 0),
 	};
 	m::math::Vector2 auraStartCenterPos[(int)eAuraType::End] = {
-		Vector2(0.f, 0.f),
-		Vector2(0.f, 0.f),
-		Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 	};
 	int auraStartLength[(int)eAuraType::End] = {
 		0,
@@ -358,7 +358,7 @@ m::math::Vector2(0.f, 0.f),
 	L"meteorTargetIndicator",
 	};
 	m::math::Vector2 indicatorSizes[(int)eIndicatorType::End] = {
-		Vector2(112.f, 74.f),
+		m::math::Vector2(112.f, 74.f),
 	};
 	int indicatorLength[(int)eIndicatorType::End] = {
 		17,

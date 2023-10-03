@@ -24,6 +24,7 @@ namespace m
         virtual void Render() override;
 
         void SystemUI();
+        void MakeWall();
         void Stage1();
         void Stage2();
         void Stage3();

@@ -135,6 +135,10 @@ struct SpriteOffsetCenter
 {
     float2 offset;
 };
+struct SpriteAlpha
+{
+    float alpha;
+};
 struct Particle
 {
     float4 position;
@@ -148,7 +152,13 @@ struct Particle
     float speed;
     uint active;
 };
-
+struct SkillWallCollision
+{
+    float3 position;
+    uint skillId;
+    uint size;
+    bool crash;
+};
 StructuredBuffer<Tile> tiles : register(t11);
 StructuredBuffer<Monster> monsters : register(t12);
 

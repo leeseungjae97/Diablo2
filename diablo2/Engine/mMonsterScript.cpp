@@ -55,7 +55,7 @@ namespace m
 
 		if (curMonsterData.passiveAura != eAuraType::End)
 		{
-			
+
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
 			if (curMonsterData.wsMonsterName.compare(L"메피스토") == 0)
 				mAura->FrontAura();
@@ -158,7 +158,8 @@ namespace m
 					GetOwner()->SetBattleState(GameObject::Dead);
 				};
 				wsDiabloDeadAnimationName = L"dialoToDead1_anim@";
-			}else
+			}
+			else
 			{
 				for (int j = 0; j < 8; ++j)
 				{
@@ -182,15 +183,33 @@ namespace m
 							mAnimator->SetAnimationStartIndex(0);
 						};
 					}
+					//mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
+					//	= [=]()
+					//{
+					//	AnimationStart(GameObject::eBattleState::Attack);
+					//	mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[i]);
+					//};
+					if (i == (UINT)MonsterData::eAnimationType::Attack2)
+					{
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							AnimationStart(GameObject::eBattleState::Attack);
+							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack2]);
+						};
+					}
+					if (i == (UINT)MonsterData::eAnimationType::Attack1)
+					{
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							AnimationStart(GameObject::eBattleState::Attack);
+							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack1]);
+						};
+					}
 					if (i == (UINT)MonsterData::eAnimationType::Attack1
 						|| i == (UINT)MonsterData::eAnimationType::Attack2)
 					{
-						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [=]()
-						{
-							AnimationStart(GameObject::eBattleState::Attack);
-							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[i]);
-						};
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 							= [this]()
 						{
@@ -203,9 +222,9 @@ namespace m
 					}
 					if (i == (UINT)MonsterData::eAnimationType::ToDead)
 					{
-						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m]) = [=]()
+						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m]) = [this]()
 						{
-							mAnimator->SetAnimationEndIndex(curMonsterData.animationLength[i]);
+							mAnimator->SetAnimationEndIndex(curMonsterData.animationLength[(UINT)MonsterData::eAnimationType::ToDead]);
 
 							if (mRightHand)
 							{
@@ -217,6 +236,11 @@ namespace m
 								mAura->SetState(GameObject::eState::Delete);
 						};
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
+							= [this]()
+						{
+							GetOwner()->SetBattleState(GameObject::Dead);
+						};
+						mAnimator->CompleteEvent(curMonsterData.animationString[i] + animStrings[m])
 							= [this]()
 						{
 							GetOwner()->SetBattleState(GameObject::Dead);
@@ -255,7 +279,7 @@ namespace m
 	void MonsterScript<T>::Update()
 	{
 		Script::Update();
-		
+
 		if (nullptr == mMonster)
 			return;
 
@@ -269,7 +293,7 @@ namespace m
 			//mLeftHand->SetDirection(mDirection);
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Dead)
 		{
-		    mAnimationType = MonsterData::eAnimationType::Dead;
+			mAnimationType = MonsterData::eAnimationType::Dead;
 			return;
 			//if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			//{
@@ -294,13 +318,13 @@ namespace m
 				//|| selectSpecialSkillBranshNum == (int)T::eAnimationType::Special4
 				)
 			{
-				if (curMonsterData.textureString[selectSpecialSkillBranshNum] != L"")
+				if (curMonsterData.animationString[selectSpecialSkillBranshNum] != L"")
 					SpecialAttackAnimation(selectSpecialSkillBranshNum);
 			}
 		}
 
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Cast
-			&& curMonsterData.textureString[(UINT)MonsterData::eAnimationType::SpecialCast] != L"")
+			&& curMonsterData.animationString[(UINT)MonsterData::eAnimationType::SpecialCast] != L"")
 		{
 			SpecialAttackAnimationConitnue();
 		}
@@ -317,13 +341,13 @@ namespace m
 		}
 
 		//mLeftHand->SetAniType((int)mAnimationType);
-		if(mMonster->GetBattleState() != GameObject::eBattleState::ToDead
+		if (mMonster->GetBattleState() != GameObject::eBattleState::ToDead
 			|| mMonster->GetBattleState() != GameObject::eBattleState::Dead)
 		{
 			if (mRightHand)
 				mRightHand->SetAniType((int)mAnimationType);
 		}
-		
+
 
 		if (
 			GetOwner()->GetBattleState() == GameObject::Idle
@@ -402,16 +426,17 @@ namespace m
 			{
 				fAttackDelay = 0.f;
 
-				if(curMonsterData.animationString[(UINT)MonsterData::eAnimationType::Attack1] != L""
+				if (curMonsterData.animationString[(UINT)MonsterData::eAnimationType::Attack1] != L""
 					&& curMonsterData.animationString[(UINT)MonsterData::eAnimationType::Attack2] != L"")
 				{
 					int randAttackMotion = rand() % 2;
 					mAnimationType = randAttackMotion == 1 ? MonsterData::eAnimationType::Attack1 : MonsterData::eAnimationType::Attack2;
-				}else
+				}
+				else
 				{
 					mAnimationType = MonsterData::eAnimationType::Attack1;
 				}
-				
+
 				GetOwner()->SetBattleState(GameObject::Attack);
 				SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 				if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
@@ -503,19 +528,20 @@ namespace m
 				, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 
 			if (mAnimator->GetActiveAnimation()->GetKey() != wsDiabloDeadAnimationName)
-			    mAnimator->PlayAnimation(wsDiabloDeadAnimationName, false);
-		}else
+				mAnimator->PlayAnimation(wsDiabloDeadAnimationName, false);
+		}
+		else
 		{
 			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
 				, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
-			    mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
+				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
 			}
 		}
-		
-		
+
+
 	}
 
 	template <typename T>
@@ -602,10 +628,7 @@ namespace m
 	void MonsterScript<T>::makeSkillCastAnimation(int type, int direction)
 	{
 		std::wstring skillName = curMonsterData.animationString[type] + animStrings[direction];
-		if(skillName.compare(L"diabloSpecial1_anim@left_up_1") == 0)
-		{
-			int a = 0;
-		}
+
 		mAnimator->StartEvent(curMonsterData.animationString[type] + animStrings[direction])
 			= [=]()
 		{
