@@ -37,7 +37,7 @@ namespace m
 			, affectOverlayDuration[(int)mOverlayType]
 		);
 		mAnimator->GetActiveAnimation();
-		mAnimator->StartEvent(affectOverlayNames[(int)mOverlayType] + L"anim") = [this]()
+		mAnimator->StartEvent(affectOverlayNames[(int)mOverlayType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 		{
 			int startIdx = affectOverlayLoopAnimationIndex[(int)mOverlayType][0];
 			int endIdx = affectOverlayLoopAnimationIndex[(int)mOverlayType][1];
@@ -46,12 +46,12 @@ namespace m
 			mAnimator->SetAnimationStartIndex(startIdx);
 			mAnimator->SetAnimationEndIndex(endIdx);
 			mAnimator->SetAnimationProgressIndex(progIdx);
-		};
+		});
 
-		mAnimator->ProgressEvent(affectOverlayNames[(int)mOverlayType] + L"anim") = [this]()
+		mAnimator->ProgressEvent(affectOverlayNames[(int)mOverlayType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 		{
 			iCurLoopCount = mAnimator->GetLoopCount();
-		};
+		});
 		
 		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
 		mAnimator->Create(

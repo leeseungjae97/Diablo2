@@ -70,12 +70,12 @@ namespace m
 		swprintf_s(szFloat, 100, L"Player Coord(x) : %f\n Player Coord(y) : %f"
 			, TileManager::GetPlayerPositionCoord().x, TileManager::GetPlayerPositionCoord().y);
 
-		FontWrapper::DrawFont(szFloat, 10, 10, 10.f, FONT_RGBA(255, 0, 255, 255));
+		FontWrapper::DrawFont(szFloat, 10, 10, 15.f, FONT_RGBA(255, 0, 255, 255));
 
 		swprintf_s(szFloat, 100, L"Player Position(x) : %f\n Player Position(y) : %f\n Player Position(z) : %f"
 			, pos.x, pos.y, pos.z);
 
-		FontWrapper::DrawFont(szFloat, 10, 40, 10.f, FONT_RGBA(255, 0, 255, 255));
+		FontWrapper::DrawFont(szFloat, 10, 40, 15.f, FONT_RGBA(255, 0, 255, 255));
 	}
 
 	//void Player::timeWaitAttack()
@@ -176,7 +176,7 @@ namespace m
 		{
 			if (!mPathFinder->PathChange(false))
 			{
-				if (!TileManager::hoverTile->GetIsWall())
+				/*if (!TileManager::hoverTile->GetIsWall())
 				{
 					Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 					prevPosition = GET_POS(this);
@@ -194,7 +194,7 @@ namespace m
 					vDirection.Normalize();
 					AdDegree();
 					SetAdjustmentDegree();
-				}
+				}*/
 			}
 		}
 		float maxX = max(curPosition.x, prevPosition.x);

@@ -4,6 +4,7 @@
 #include "mTileSystem.h"
 namespace m
 {
+    class Floor;
 #define TILES std::vector<std::vector<Tile*>>
 	class TileManager
 	{
@@ -12,6 +13,8 @@ namespace m
 		static void TilesUpdate();
 		static void Release();
         static void TileIsWallChange();
+        void MakeStageFloor(int stage);
+        static void MakeStageWall(int stage);
         static void TileIsWallReset();
 		static Vector2 GetHoverTileCoord();
 		static Vector2 GetPlayerPositionCoord();

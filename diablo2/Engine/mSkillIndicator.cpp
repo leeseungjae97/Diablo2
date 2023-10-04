@@ -32,10 +32,10 @@ namespace m
                 , 0.03f
             );
         }
-        mAnimator->EndEvent(indicatorNames[(int)type] + L"anim") = [this]()
+        mAnimator->EndEvent(indicatorNames[(int)type] + L"anim") = std::make_shared<std::function<void()>>([this]()
         {
             SetState(eState::Delete);
-        };
+        });
         SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
         mAnimator->Create(
             L"noneRectAnim"

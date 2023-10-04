@@ -146,19 +146,19 @@ namespace m
 				, crashCenterPos[(int)mSkillCrashType]
 				, 0.03f
 				, 0.7f);
-			mAnimator->StartEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
+			mAnimator->StartEvent(crashNames[(int)mSkillCrashType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
 				if (dynamic_cast<SkillStraight*>(GetOwner()))
 					dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
 
 				if (dynamic_cast<SkillCurve*>(GetOwner()))
 					dynamic_cast<SkillCurve*>(GetOwner())->StopMove();
-			};
-			mAnimator->EndEvent(crashNames[(int)mSkillCrashType] + L"anim") = [this]()
+			});
+			mAnimator->EndEvent(crashNames[(int)mSkillCrashType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
 				if (this)
 					GetOwner()->SetState(GameObject::eState::Delete);
-			};
+			});
 		}
 	}
 	void StraightScript::Update()

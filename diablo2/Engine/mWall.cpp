@@ -18,7 +18,7 @@ namespace m
         MeshRenderer* mr =ADD_COMP(this, MeshRenderer);
 
         SET_MESH(this, L"BMesh");
-        SET_MATERIAL(this, L"wall1");
+        SET_MATERIAL(this, wallMaterialNames[(int)type]);
 
         MarkingWallToPathFinder();
 
@@ -88,13 +88,20 @@ namespace m
         {
             if(sizeX == 3)
             {
-                if(mCoord.y - 1 > 0)
+                if(mCoord.y - 1 >= 0)
                     TileManager::pathFindingTiles[mCoord.y - 1][mCoord.x]->SetIsWall(true);
                 if (mCoord.y + 1 < 100)
                     TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetIsWall(true);
-            }else
+            }
+        }
+        if (direction == eWallDirection::LeftDownRightUp)
+        {
+            if (sizeY == 3)
             {
-                
+                if (mCoord.x - 1 >= 0)
+                    TileManager::pathFindingTiles[mCoord.y][mCoord.x - 1]->SetIsWall(true);
+                if (mCoord.x + 1 < 100)
+                    TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetIsWall(true);
             }
         }
         TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);

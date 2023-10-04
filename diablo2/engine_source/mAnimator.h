@@ -15,27 +15,30 @@ namespace m
 		struct Event
 		{
 			Event(){};
-			~Event()
-			{
-				//if (mEvent)
-				//	mEvent.~function<void()>();
-			};
+			~Event(){};
 
-			void operator=(std::function<void()> func)
+			void operator=(std::shared_ptr<std::function<void()>> func)
 			{
 				mEvent = std::move(func);
 			}
 			void operator()()
 			{
 				if (mEvent)
-					mEvent();
+					(*mEvent)();
 			}
 
-			std::function<void()> mEvent = [](){};
+			std::shared_ptr<std::function<void()>> mEvent;
 		};
 
 		struct Events
 		{
+			Events()
+				: startEvent{}
+				, completeEvent{}
+				, progressEvent{}
+				, endEvent{}
+		    {};
+			~Events(){};
 			Event startEvent;
 			Event completeEvent;
 			Event progressEvent;
@@ -75,10 +78,10 @@ namespace m
 		void Binds();
 		//void StopAnimation();
 
-		std::function<void()>& StartEvent(const std::wstring key);
-		std::function<void()>& CompleteEvent(const std::wstring key);
-		std::function<void()>& EndEvent(const std::wstring key);
-		std::function<void()>& ProgressEvent(const std::wstring key);
+		std::shared_ptr<std::function<void()>>& StartEvent(const std::wstring key);
+		std::shared_ptr<std::function<void()>>& CompleteEvent(const std::wstring key);
+		std::shared_ptr<std::function<void()>>& EndEvent(const std::wstring key);
+		std::shared_ptr<std::function<void()>>& ProgressEvent(const std::wstring key);
 
 		Animation* GetActiveAnimation() { return mActiveAnimation; }
 		std::map<std::wstring, Animation*> GetAnimations() { return mAnimations; }

@@ -23,29 +23,14 @@ namespace m
 			iter.second = nullptr;
 		}
 
-		//for (auto& iter : mEvents)
-		//{
-		//	
-		//	if (nullptr == iter.second)
-		//		continue;
+		for (auto& iter : mEvents)
+		{
+			if (nullptr == iter.second)
+				continue;
 
-		//	delete iter.second;
-		//	iter.second = nullptr;
-		//}
-
-		//std::map<std::wstring, Events*>::iterator iter = mEvents.begin();
-		////iter->second.
-		//while(iter != mEvents.end())
-		//{
-		//	
-		//	if (iter->second)
-		//	{
-		//		delete iter->second;
-		//		iter->second = nullptr;
-		//		++iter;
-		//	}
-		//	else ++iter;
-		//}
+			delete iter.second;
+			iter.second = nullptr;
+		}
 	}
 	void Animator::Initialize()
 	{
@@ -56,27 +41,27 @@ namespace m
 			|| mActiveAnimation->IsStop())
 			return;
 
+		Events* events = FindEvents(mActiveAnimation->GetKey());
+
 		if (mActiveAnimation->IsComplete() && mbLoop)
 		{
-			Events* events = FindEvents(mActiveAnimation->GetKey());
-
 			++iLoopCount;
 
 			if (events)
 				events->completeEvent();
+
 			mActiveAnimation->Reset();
 		}
 		if (mActiveAnimation->IsProgress())
 		{
-			Events* events = FindEvents(mActiveAnimation->GetKey());
 			if (events)
 				events->progressEvent();
 		}
 		if (mActiveAnimation->IsComplete() && !mbLoop)
 		{
-			Events* events = FindEvents(mActiveAnimation->GetKey());
 			if (events)
 				events->endEvent();
+
 			mActiveAnimation->SetStop();
 		}
 	}
@@ -129,8 +114,7 @@ namespace m
 		if (nullptr != events)
 			return;
 
-		//events = new Events();
-		events = {};
+		events = new Events();
 		mEvents.insert(std::make_pair(name, events));
 	}
 	void Animator::Create(const std::wstring& name
@@ -165,8 +149,7 @@ namespace m
 		if (nullptr != events)
 			return;
 
-		//events = new Events();
-		events = {};
+		events = new Events();
 		mEvents.insert(std::make_pair(name, events));
 	}
 	void Animator::SyncPlay()
@@ -189,9 +172,9 @@ namespace m
 
 		return iter->second;
 	}
-	Animator::Events Animator::FindEvents(const std::wstring& name)
+	Animator::Events* Animator::FindEvents(const std::wstring& name)
 	{
-		std::map<std::wstring, Events>::iterator iter
+		std::map<std::wstring, Events*>::iterator iter
 			= mEvents.find(name);
 
 		if (iter == mEvents.end())
@@ -234,25 +217,25 @@ namespace m
 
 		mActiveAnimation->Binds();
 	}
-	std::function<void()>& Animator::StartEvent(const std::wstring key)
+	std::shared_ptr<std::function<void()>>& Animator::StartEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);
 
 		return events->startEvent.mEvent;
 	}
-	std::function<void()>& Animator::CompleteEvent(const std::wstring key)
+	std::shared_ptr<std::function<void()>>& Animator::CompleteEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);
 
 		return events->completeEvent.mEvent;
 	}
-	std::function<void()>& Animator::EndEvent(const std::wstring key)
+	std::shared_ptr<std::function<void()>>& Animator::EndEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);
 
 		return events->endEvent.mEvent;
 	}
-	std::function<void()>& Animator::ProgressEvent(const std::wstring key)
+	std::shared_ptr<std::function<void()>>& Animator::ProgressEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);
 

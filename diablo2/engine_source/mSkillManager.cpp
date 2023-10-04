@@ -44,7 +44,7 @@ namespace m
                 eSkillCrashType skillCrashType =skillCrashTypes[(int)type];
                 eCrashType crashType = crashFunction[(int)skillCrashType];
                 if (crashType != eCrashType::Collide)
-                    skill->SetState(GameObject::eState::Delete);
+                    skill->SetState(GameObject::eState::NoRenderNoUpdate);
                 else 
                     skill->SetSkillCrash(true);
             }

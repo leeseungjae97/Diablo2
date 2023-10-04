@@ -204,6 +204,7 @@ namespace m
 			|| gameObj->GetLayerType() == eLayerType::PlayerSkill
 			|| gameObj->GetLayerType() == eLayerType::UI
 			|| gameObj->GetLayerType() == eLayerType::MonsterAura
+			|| gameObj->GetLayerType() == eLayerType::Floor
 			|| gameObj->GetLayerType() == eLayerType::PlayerAura
 			|| gameObj->GetLayerType() == eLayerType::Shadow
 			|| gameObj->GetLayerType() == eLayerType::AdapterSkill

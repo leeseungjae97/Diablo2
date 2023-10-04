@@ -171,6 +171,7 @@
     <ClInclude Include="mEnemyHpUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
+    <ClInclude Include="mFloor.h" />
     <ClInclude Include="mLightObject.h" />
     <ClInclude Include="mNPC.h" />
     <ClInclude Include="mNPCScript.h" />
@@ -254,6 +255,7 @@
     <ClCompile Include="mEnemyHpUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />
+    <ClCompile Include="mFloor.cpp" />
     <ClCompile Include="mLightObject.cpp" />
     <ClCompile Include="mNPC.cpp" />
     <ClCompile Include="mNPCScript.cpp" />

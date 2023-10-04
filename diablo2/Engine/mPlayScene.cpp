@@ -39,6 +39,7 @@
 #include "mCameraScript.h"
 #include "mEnemyHpUI.h"
 #include "mFieldItem.h"
+#include "mFloor.h"
 #include "mLightObject.h"
 #include "mNPC.h"
 #include "mPortal.h"
@@ -136,7 +137,7 @@ namespace m
 		mPortal->ActivePortal();
 		mPortal->SetClickPortal([=]()
 		{
-		    Stage3();
+		    Stage1();
 		});
 
 		Monster* initMonster = new Monster(Vector3(0.f, 0.f, 0.f), 0.f);
@@ -162,6 +163,7 @@ namespace m
 
 		SystemUI();
 
+		MakeStage4Wall();
 
 		{
 			curMap = new GameObject();
@@ -178,9 +180,19 @@ namespace m
 			Vector3 tileScale = tile->GetScale();
 			tilePos.y += scale.y / 2.f;
 			tilePos.y -= tileScale.y / 2.f;
-			//Tile* centerTile = TileManager::pathFindingTiles[TileManager::tileXLen / 2][TileManager::tileYLen / 2];
-			//Vector3 centerPos = centerTile->GetPos();
-			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 1.f);
+			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
+		}
+		{
+			Floor* floor = new Floor(Vector3(0.f, 0.f, 0.f));
+			Vector3 scale = GET_SCALE(floor);
+			Tile* tile = TileManager::pathFindingTiles[0][0];
+			Vector3 tilePos = tile->GetPos();
+			Vector3 tileScale = tile->GetScale();
+			tilePos.y += scale.y / 2.f;
+			tilePos.y -= tileScale.y / 2.f;
+			SET_POS_XYZ(floor, tilePos.x, tilePos.y, 2.1f);
+			SET_MAIN_CAMERA(floor);
+			AddGameObject(eLayerType::Floor, floor);
 		}
 
 	}
@@ -286,82 +298,142 @@ namespace m
 		AddGameObject(eLayerType::UI, eHpUI);
 	}
 
-    void PlayScene::MakeWall()
+    void PlayScene::MakeStage4Wall()
     {
 		Camera* cameraComp = GetSceneMainCamera();
+		TileManager::TileIsWallReset();
+
 		if (nullptr == cameraComp) return;
+		{
+			{
+				Tile* tile = TileManager::pathFindingTiles[54][40];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[54][37];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[47][37];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[47][40];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[49][35];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[52][35];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[49][42];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[52][42];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+		}
+	
 
 		{
-			Tile* tile = TileManager::pathFindingTiles[5][10];
-			Vector3 pos = tile->GetPos();
+			{
+				Tile* tile = TileManager::pathFindingTiles[42][49];
+				Vector3 pos = tile->GetPos();
 
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[42][52];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[35][49];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[35][52];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[37][54];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[40][54];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[37][47];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[40][47];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
 		}
+
+
 		{
-			Tile* tile = TileManager::pathFindingTiles[10][10];
+			Tile* tile = TileManager::pathFindingTiles[42][49];
 			Vector3 pos = tile->GetPos();
 
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
+			Wall* wall = new Wall(eWallType::Stage4Wall2, cameraComp, tile->GetCoord());
 			SET_POS_VEC(wall, pos);
 		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[20][10];
-			Vector3 pos = tile->GetPos();
+		TileManager::MakeStageWall(3);
 
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[30][10];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[40][10];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[50][10];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[50][5];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[40][5];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[30][5];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[20][5];
-			Vector3 pos = tile->GetPos();
-
-			Wall* wall = new Wall(eWallType::Stage4Wall1, cameraComp, tile->GetCoord());
-			SET_POS_VEC(wall, pos);
-		}
-
+		TileManager::TileIsWallChange();
     }
 
     void PlayScene::Stage1()
@@ -371,11 +443,7 @@ namespace m
 
 		mEnterNameUI->SetText(L"°í³úÀÇ ¿©Á¦");
 
-		TileManager::TileIsWallReset();
-
-		MakeWall();
-
-		TileManager::TileIsWallChange();
+		MakeStage4Wall();
 
 		fAcc = 0.f;
 		bStageInit = false;
@@ -497,7 +565,7 @@ namespace m
 		mPortal->SetClickPortal(
 			[=]()
 			{
-				Stage4();
+				Stage3();
 			}
 		);
 
@@ -536,7 +604,7 @@ namespace m
 		bStageStart = true;
 
 		{
-			Tile* tile = TileManager::pathFindingTiles[4][4];
+			Tile* tile = TileManager::pathFindingTiles[24][24];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}

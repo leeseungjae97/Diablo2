@@ -23,6 +23,7 @@ namespace m::enums
 	{	
 		Camera,
 		Grid,
+		Floor,
 		Background,
 		Tile,
 		Object,

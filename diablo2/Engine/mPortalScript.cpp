@@ -84,10 +84,10 @@ namespace m
 
         mAnimator->PlayAnimation(L"noneRectAnim", true);
 
-        mAnimator->EndEvent(L"portalStartAnim") = [=]()
+        mAnimator->EndEvent(L"portalStartAnim") = std::make_shared<std::function<void()>>([=]()
         {
             bStartAnim = false;
-        };
+        });
     }
 
     void PortalScript::Render()

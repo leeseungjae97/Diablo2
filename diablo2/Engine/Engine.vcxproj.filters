@@ -241,6 +241,7 @@
     <ClCompile Include="mWallScript.cpp">
       <Filter>Script\WallScript</Filter>
     </ClCompile>
+    <ClCompile Include="mFloor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -480,6 +481,7 @@
     <ClInclude Include="mWallScript.h">
       <Filter>Script\WallScript</Filter>
     </ClInclude>
+    <ClInclude Include="mFloor.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -754,6 +756,9 @@
     </Filter>
     <Filter Include="Script\WallScript">
       <UniqueIdentifier>{c7c75c6b-48c0-4203-98b9-dde24e77cbd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Floor">
+      <UniqueIdentifier>{961cfd2f-611c-495c-ab29-a308aca10694}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

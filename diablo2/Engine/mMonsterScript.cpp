@@ -136,15 +136,15 @@ namespace m
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
-				mAnimator->EndEvent(L"dialoToDead1_anim@") = [=]()
+				mAnimator->EndEvent(L"dialoToDead1_anim@") = std::make_shared<std::function<void()>>([=]()
 				{
 					wsDiabloDeadAnimationName = L"dialoToDead2_anim@";
-				};
-				mAnimator->EndEvent(L"dialoToDead2_anim@") = [=]()
+				});
+				mAnimator->EndEvent(L"dialoToDead2_anim@") = std::make_shared<std::function<void()>>([=]()
 				{
 					wsDiabloDeadAnimationName = L"dialoToDead3_anim@";
-				};
-				mAnimator->EndEvent(L"dialoToDead3_anim@") = [=]()
+				});
+				mAnimator->EndEvent(L"dialoToDead3_anim@") = std::make_shared<std::function<void()>>([=]()
 				{
 					if (mRightHand)
 					{
@@ -156,7 +156,7 @@ namespace m
 						mAura->SetState(GameObject::eState::Delete);
 
 					GetOwner()->SetBattleState(GameObject::Dead);
-				};
+				});
 				wsDiabloDeadAnimationName = L"dialoToDead1_anim@";
 			}
 			else
@@ -178,13 +178,13 @@ namespace m
 					if (i == (UINT)MonsterData::eAnimationType::Natural)
 					{
 						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
+							= std::make_shared<std::function<void()>>([this]()
 						{
 							mAnimator->SetAnimationStartIndex(0);
-						};
+						});
 					}
 					//mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-					//	= [=]()
+					//	= std::make_shared<std::function<void()>>([=]()
 					//{
 					//	AnimationStart(GameObject::eBattleState::Attack);
 					//	mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[i]);
@@ -192,71 +192,65 @@ namespace m
 					if (i == (UINT)MonsterData::eAnimationType::Attack2)
 					{
 						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
+							= std::make_shared<std::function<void()>>([this]()
 						{
 							AnimationStart(GameObject::eBattleState::Attack);
 							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack2]);
-						};
+						});
 					}
 					if (i == (UINT)MonsterData::eAnimationType::Attack1)
 					{
 						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
+							= std::make_shared<std::function<void()>>([this]()
 						{
 							AnimationStart(GameObject::eBattleState::Attack);
 							mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)MonsterData::eAnimationType::Attack1]);
-						};
+						});
 					}
 					if (i == (UINT)MonsterData::eAnimationType::Attack1
 						|| i == (UINT)MonsterData::eAnimationType::Attack2)
 					{
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
+							= std::make_shared<std::function<void()>>([this]()
 						{
 							//fAttackDelay = 0.f;
 							AnimationComplete(GameObject::eBattleState::Idle);
 							//mAnimator->SetAnimationProgressIndex(0);
-						};
+						});
 						mAnimator->ProgressEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]() { AttackProgress(); };
+							= std::make_shared<std::function<void()>>([this]() { AttackProgress(); });
 					}
 					if (i == (UINT)MonsterData::eAnimationType::ToDead)
 					{
-						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m]) = [this]()
+						//mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m]) = std::make_shared<std::function<void()>>([this]()
+						//{
+						//	//mAnimator->SetAnimationEndIndex(curMonsterData.animationLength[(UINT)MonsterData::eAnimationType::ToDead]);
+						//});
+						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
+							= std::make_shared<std::function<void()>>([this]()
 						{
-							mAnimator->SetAnimationEndIndex(curMonsterData.animationLength[(UINT)MonsterData::eAnimationType::ToDead]);
-
 							if (mRightHand)
 							{
 								GET_COMP(mRightHand, Animator)->SetSyncAnimator(nullptr);
 								mRightHand->SetState(GameObject::eState::Delete);
 								mRightHand = nullptr;
 							}
-							if (mAura)
-								mAura->SetState(GameObject::eState::Delete);
-						};
-						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
-						{
+						    if (mAura)
+							    mAura->SetState(GameObject::eState::Delete);
 							GetOwner()->SetBattleState(GameObject::Dead);
-						};
-						mAnimator->CompleteEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
-						{
-							GetOwner()->SetBattleState(GameObject::Dead);
-						};
+						});
 					}
 					if (i == (UINT)MonsterData::eAnimationType::Hit)
 					{
 						mAnimator->StartEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]()
+							= std::make_shared<std::function<void()>>([this]()
 						{
 							fAttackDelay = 0.f;
 							Hit(true, GameObject::eBattleState::Hit);
 							//mAnimator->SetAnimationStartIndex(curMonsterData.animStartIndex[(UINT)T::eAnimationType::Hit]);
-						};
+						});
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
-							= [this]() { Hit(false, GameObject::eBattleState::Idle); };
+							= std::make_shared<std::function<void()>>([this]() { Hit(false, GameObject::eBattleState::Idle); });
 					}
 					if (i == (UINT)T::eAnimationType::SpecialCast
 						|| i == (UINT)T::eAnimationType::Special1
@@ -291,21 +285,19 @@ namespace m
 
 		//if(mLeftHand)
 			//mLeftHand->SetDirection(mDirection);
+
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Dead)
 		{
 			mAnimationType = MonsterData::eAnimationType::Dead;
 			return;
-			//if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
-			//{
-			//	SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[GameObject::eBattleState::ToDead].x
-			//		, curMonsterData.animationSizes[GameObject::eBattleState::ToDead].y, 0.f);
-			//	mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
-			//}
 		}
+
 		if (mMonster->GetMonsterHp() == 0)
 		{
 			DeadAnimation();
+			return;
 		}
+
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Idle
 			|| mMonster->GetBattleState() == GameObject::eBattleState::Run
 			/*&& (nullptr == mSkill && nullptr == mSkillBuff)*/)
@@ -522,19 +514,16 @@ namespace m
 		mMonster->SetBattleState(GameObject::eBattleState::ToDead);
 		mAnimationType = MonsterData::eAnimationType::ToDead;
 
+		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
+			, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
+
 		if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0)
 		{
-			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
-				, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-
 			if (mAnimator->GetActiveAnimation()->GetKey() != wsDiabloDeadAnimationName)
 				mAnimator->PlayAnimation(wsDiabloDeadAnimationName, false);
 		}
 		else
 		{
-			SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
-				, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
-
 			if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
 			{
 				mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], false);
@@ -630,7 +619,7 @@ namespace m
 		std::wstring skillName = curMonsterData.animationString[type] + animStrings[direction];
 
 		mAnimator->StartEvent(curMonsterData.animationString[type] + animStrings[direction])
-			= [=]()
+			= std::make_shared<std::function<void()>>([=]()
 		{
 			fAttackDelay = 0.f;
 			if (curMonsterData.animStartIndex[(UINT)type] != 0)
@@ -639,9 +628,9 @@ namespace m
 				mAnimator->SetAnimationProgressIndex(curMonsterData.animProgressStartIndex[(UINT)type]);
 			if (curMonsterData.animEndIndex[(UINT)type] != 0)
 				mAnimator->SetAnimationEndIndex(curMonsterData.animEndIndex[(UINT)type]);
-		};
+		});
 		mAnimator->ProgressEvent(curMonsterData.animationString[type] + animStrings[direction])
-			= [=]()
+			= std::make_shared<std::function<void()>>([=]()
 		{
 			if (skillMake)
 			{
@@ -680,9 +669,9 @@ namespace m
 					);
 				}
 			}
-		};
+		});
 		mAnimator->EndEvent(curMonsterData.animationString[type] + animStrings[direction])
-			= [=]()
+			= std::make_shared<std::function<void()>>([=]()
 		{
 			int mIndex = type - (int)T::eAnimationType::SpecialCast;
 			if (!curMonsterData.bSpecialSkillLoop[mIndex])
@@ -691,7 +680,7 @@ namespace m
 				skillMake = false;
 			}
 
-		};
+		});
 	}
 	template<typename T>
 	void MonsterScript<T>::makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos

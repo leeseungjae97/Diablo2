@@ -156,10 +156,10 @@ namespace m
 			, auraStartCenterPos[(int)mAuraType]
 			, 0.03f
 		);
-		mAnimator->EndEvent(auraStartNames[(int)mAuraType] + L"anim") = [=]()
+		mAnimator->EndEvent(auraStartNames[(int)mAuraType] + L"anim") = std::make_shared<std::function<void()>>([=]()
 		{
 			bStartCastAnim = false;
-		};
+		});
     }
 
 	void AuraScript::colliderCollided()

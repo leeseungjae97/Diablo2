@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AffectOverlayLookUpTable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FloorLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MapLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioSource.h" />

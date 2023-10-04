@@ -89,14 +89,14 @@ namespace m
 		}
 		if (GetBattleState() == eBattleState::Dead)
 		{
-			//if (mHSO)
-			//{
-			//	mHSO->SetState(eState::Delete);
-			//}
-			//if (mShadow)
-			//{
-			//	mShadow->SetState(eState::Delete);
-			//}
+			if (mHSO)
+			{
+				mHSO->SetState(eState::Delete);
+			}
+			if (mShadow)
+			{
+				mShadow->SetState(eState::Delete);
+			}
 
 			return;
 		}
@@ -108,40 +108,6 @@ namespace m
 			mHSO->SetActiveOwner(this);
 		}
 
-		//if (GetBattleState() == eBattleState::ToDead)
-		//{
-		//	MonsterManager::AddDeadMonster(this);
-		//	//SetState(eState::RenderNoUpdate);
-		//	if(mHSO)
-		//	{
-		//		mHSO->SetState(eState::Delete);
-		//	}
-		//	if(mShadow)
-		//	{
-		//		mShadow->SetState(eState::Delete);
-		//	}
-		//	Release();
-
-		//	if (mPathFinder)
-		//	{
-		//		delete mPathFinder;
-		//		mPathFinder = nullptr;
-		//	}
-		//	return;
-		//}
-		//if (GetBattleState() == eBattleState::Dead)
-		//{
-		//	//if (mHSO)
-		//	//{
-		//	//	mHSO->SetState(eState::Delete);
-		//	//}
-		//	//if (mShadow)
-		//	//{
-		//	//	mShadow->SetState(eState::Delete);
-		//	//}
-
-		//	return;
-		//}
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();

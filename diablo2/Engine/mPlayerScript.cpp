@@ -160,21 +160,21 @@ namespace m
 				, 0.05f
 			);
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
-				= [this]()
-			{
-				if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
+			= std::make_shared<std::function<void()>>([this]()
 				{
-					mAnimator->SetAnimationEndIndex(10);
-				}
-				else
-					mAnimator->SetAnimationStartIndex(0);
+					if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
+					{
+						mAnimator->SetAnimationEndIndex(10);
+					}
+					else
+						mAnimator->SetAnimationStartIndex(0);
 
-				mAnimator->SetAnimationProgressIndex(10);
-				GetOwner()->SetBattleState(GameObject::eBattleState::Cast);
-				bFire = true;
-			};
+			        mAnimator->SetAnimationProgressIndex(10);
+			        GetOwner()->SetBattleState(GameObject::eBattleState::Cast);
+			        bFire = true;
+				});
 			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
-				= [=]()
+				= std::make_shared<std::function<void()>>([=]()
 			{
 				if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
 				{
@@ -206,9 +206,9 @@ namespace m
 						}
 					}
 				}
-			};
+			});
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
-				= [this]()
+				= std::make_shared<std::function<void()>>([this]()
 			{
 				if (bFire)
 				{
@@ -219,34 +219,34 @@ namespace m
 						, eLayerType::PlayerSkill);
 					bFire = false;
 				}
-			};
+			});
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
-				= [this]()
+				= std::make_shared<std::function<void()>>([this]()
 			{
 				mAnimator->SetAnimationStartIndex(0);
 				GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
-			};
+			});
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::Attack1] + sixteenDirectionString[i])
-				= [this]()
+				= std::make_shared<std::function<void()>>([this]()
 			{
 				//mAnimator->SetAnimationProgressIndex(0);
 				mAnimator->SetAnimationProgressIndex(14);
 				mAnimator->SetAnimationStartIndex(0);
 				AnimationStart(GameObject::eBattleState::Attack);
-			};
+			});
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::Attack1] + sixteenDirectionString[i])
-				= [this]() { AnimationComplete(GameObject::eBattleState::Idle); };
+				= std::make_shared<std::function<void()>>([this]() { AnimationComplete(GameObject::eBattleState::Idle); });
 			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::Attack1] + sixteenDirectionString[i])
-				= [this]()
+				= std::make_shared<std::function<void()>>([this]()
 			{
 				AttackProgress();
-			};
+			});
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::GetHit] + sixteenDirectionString[i])
-				= [this]() { Hit(true, GameObject::eBattleState::Hit); };
+				= std::make_shared<std::function<void()>>([this]() { Hit(true, GameObject::eBattleState::Hit); });
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::GetHit] + sixteenDirectionString[i])
-				= [this]() { Hit(false, GameObject::eBattleState::Idle); };
+				= std::make_shared<std::function<void()>>([this]() { Hit(false, GameObject::eBattleState::Idle); });
 		}
 
 		mDirection = (int)eSixteenDirection::Down;
@@ -498,7 +498,7 @@ namespace m
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);
 		}
-		    break;
+		break;
 		case m::eSkillFunctionType::Aura:
 		{
 			eAuraType aType = skillAuraTypes[(int)skillType];

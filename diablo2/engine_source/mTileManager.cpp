@@ -7,8 +7,9 @@
 #include "..\Engine\mPlayerManager.h"
 #include "../Engine/mPlayer.h"
 #include "../Engine/mMonster.h"
+#include "../Engine/mFloor.h"
 
-
+#include "MapLookUpTables.h"
 namespace m
 {
 	TILES TileManager::pathFindingTiles;
@@ -22,6 +23,7 @@ namespace m
 	
 	void TileManager::MakeTile(int _x, int _y, Camera* camera)
 	{
+		Scene* curScene = SceneManager::GetActiveScene();
 		pathFindingTiles.resize(_y, std::vector<Tile*>(_x));
 		tileXLen = _x;
 		tileYLen = _y;
@@ -36,144 +38,14 @@ namespace m
 				Tile* tile = new Tile();
 				tile->SetCoord(Vector2(x, y));
 
-				//if ((y == 0 && x == 0)
-				//	||(y == 55 && x == 70)
-				//	|| (y == 54 && x == 70)
-				//	|| (y == 53 && x == 70)
-				//	|| (y == 52 && x == 70)
-				//	|| (y == 56 && x == 70)
-				//	|| (y == 51 && x == 71) 
-				//	|| (y == 52 && x == 71)
-				//	|| (y == 53 && x == 71)
-				//	|| (y == 54 && x == 71)
-				//	|| (y == 55 && x == 71)
-				//	|| (y == 56 && x == 71)
-				//	|| (y == 57 && x == 71)
-				//	|| (y == 58 && x == 71)
-				//	|| (y == 52 && x == 72)
-				//	|| (y == 53 && x == 72)
-				//	|| (y == 54 && x == 72)
-				//	|| (y == 55 && x == 72)
-				//	|| (y == 56 && x == 72)
-				//	|| (y == 57 && x == 72)
-				//	|| (y == 53 && x == 73)
-				//	|| (y == 54 && x == 73)
-				//	|| (y == 55 && x == 73)
-				//	|| (y == 56 && x == 73)
-				//	|| (y == 55 && x == 74)
-				//	|| (y == 54 && x == 74)
-				//	|| (y == 50 && x == 75)
-				//	|| (y == 50 && x == 76)
-				//	|| (y == 50 && x == 77)
-				//	|| (y == 49 && x == 74)
-				//	|| (y == 49 && x == 75)
-				//	|| (y == 49 && x == 76)
-				//	|| (y == 49 && x == 77)
-				//	|| (y == 49 && x == 78)
-				//	|| (y == 48 && x == 73)
-				//	|| (y == 48 && x == 74)
-				//	|| (y == 48 && x == 75)
-				//	|| (y == 48 && x == 76)
-				//	|| (y == 48 && x == 77)
-				//	|| (y == 48 && x == 78)
-				//	|| (y == 48 && x == 79)
-				//	|| (y == 47 && x == 73)
-				//	|| (y == 47 && x == 74)
-				//	|| (y == 47 && x == 75)
-				//	|| (y == 47 && x == 76)
-				//	|| (y == 47 && x == 77)
-				//	|| (y == 47 && x == 78)
-				//	|| (y == 47 && x == 79)
-				//	|| (y == 46 && x == 75)
-				//	|| (y == 46 && x == 76)
-				//	|| (y == 46 && x == 77)
-				//	|| (y == 46 && x == 78)
-				//	|| (y == 46 && x == 79)
-				//	|| (y == 47 && x == 82)
-				//	|| (y == 48 && x == 82)
-				//	|| (y == 49 && x == 82)
-				//	|| (y == 50 && x == 82)
-				//	|| (y == 51 && x == 82)
-				//	|| (y == 52 && x == 82)
-				//	|| (y == 57 && x == 82)
-				//	|| (y == 58 && x == 82)
-				//	|| (y == 59 && x == 82)
-				//	|| (y == 60 && x == 82)
-				//	|| (y == 61 && x == 82)
-				//	|| (y == 47 && x == 83)
-				//	|| (y == 48 && x == 83)
-				//	|| (y == 49 && x == 83)
-				//	|| (y == 50 && x == 83)
-				//	|| (y == 51 && x == 83)
-				//	|| (y == 52 && x == 83)
-				//	|| (y == 56 && x == 83)
-				//	|| (y == 57 && x == 83)
-				//	|| (y == 58 && x == 83)
-				//	|| (y == 59 && x == 83)
-				//	|| (y == 60 && x == 83)
-				//	|| (y == 61 && x == 83)
-				//	|| (y == 48 && x == 84)
-				//	|| (y == 49 && x == 84)
-				//	|| (y == 50 && x == 84)
-				//	|| (y == 51 && x == 84)
-				//	|| (y == 52 && x == 84)
-				//	|| (y == 56 && x == 84)
-				//	|| (y == 57 && x == 84)
-				//	|| (y == 58 && x == 84)
-				//	|| (y == 59 && x == 84)
-				//	|| (y == 60 && x == 84)
-				//	|| (y == 49 && x == 85)
-				//	|| (y == 50 && x == 85)
-				//	|| (y == 51 && x == 85)
-				//	|| (y == 52 && x == 85)
-				//	|| (y == 55 && x == 85)
-				//	|| (y == 56 && x == 85)
-				//	|| (y == 57 && x == 85)
-				//	|| (y == 58 && x == 85)
-				//	|| (y == 59 && x == 85)
-				//	|| (y == 51 && x == 86)
-				//	|| (y == 52 && x == 86)
-				//	|| (y == 53 && x == 86)
-				//	|| (y == 55 && x == 86)
-				//	|| (y == 56 && x == 86)
-				//	|| (y == 57 && x == 86)
-				//	|| (y == 58 && x == 86)
-				//	|| (y == 62 && x == 79)
-				//	|| (y == 62 && x == 78)
-				//	|| (y == 62 && x == 77)
-				//	|| (y == 62 && x == 76)
-				//	|| (y == 62 && x == 75)
-				//	|| (y == 61 && x == 79)
-				//	|| (y == 61 && x == 78)
-				//	|| (y == 61 && x == 77)
-				//	|| (y == 61 && x == 76)
-				//	|| (y == 61 && x == 75)
-				//	|| (y == 61 && x == 74)
-				//	|| (y == 60 && x == 78)
-				//	|| (y == 60 && x == 77)
-				//	|| (y == 60 && x == 76)
-				//	|| (y == 60 && x == 75)
-				//	|| (y == 60 && x == 74)
-				//	|| (y == 60 && x == 73)
-				//	|| (y == 59 && x == 77)
-				//	|| (y == 59 && x == 76)
-				//	|| (y == 59 && x == 75)
-				//	|| (y == 59 && x == 74)
-				//	)
-				//{
-				//	tile->SetIsWall(true);
-				//}
-				//else
-				//{
-				//	tile->SetIsWall(false);
-				//}
                 tile->SetIsWall(false);
 				tile->SetScale(Vector3(tileXSize, tileYSize, 1.f));
 				tile->SetPos(Vector3(fX, fY, 1.f));
 				pathFindingTiles[y][x] = tile;
+
 			}
 		}
-		Scene* curScene = SceneManager::GetActiveScene();
+		
 		GameObject* tileDrawObject = new GameObject();
 		tileDrawObject->SetCamera(camera);
 		curScene->AddGameObject(eLayerType::Tile, tileDrawObject);
@@ -195,6 +67,7 @@ namespace m
 					delete pathFindingTiles[y][x];
 			}
 		}
+
 		hoverTile = nullptr;
 		playerStandTile = nullptr;
 	}
@@ -202,6 +75,33 @@ namespace m
 	{
 		if (curTileSystem)
 			curTileSystem->WallChange();
+	}
+	void TileManager::MakeStageFloor(int stage)
+	{
+	    
+	}
+	void TileManager::MakeStageWall(int stage)
+	{
+		Vector2* wall = nullptr;
+		if(stage == 3)
+			wall = stage4Walls;
+
+		if (stage == 2)
+			wall = stage3Walls;
+
+		if (stage == 1)
+			wall = stage2Walls;
+
+		if (stage == 0)
+			wall = stage1Walls;
+
+		for(int i = 0 ; i < 1000; ++i)
+		{
+			Vector2 wallCoord = wall[i];
+			int y = static_cast<int>(wallCoord.y);
+			int x = static_cast<int>(wallCoord.x);
+			pathFindingTiles[y][x]->SetIsWall(true);
+		}
 	}
     void TileManager::TileIsWallReset()
     {

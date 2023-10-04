@@ -35,7 +35,7 @@ namespace m
 		SET_POS_VEC(this, initPos);
 
 		animator->PlayAnimation(fieldItemAnimTable[(int)item] + L"drop", false);
-		animator->EndEvent(fieldItemAnimTable[(int)item] + L"drop") = [this]()
+		animator->EndEvent(fieldItemAnimTable[(int)item] + L"drop") = std::make_shared<std::function<void()>>([this]()
 		{
 			SET_MATERIAL(this, fieldItemTable[(int)mItem]);
 
@@ -43,7 +43,7 @@ namespace m
             SET_SCALE_TEX_SIZE(this, tex, 1.f);
 
 			ADD_COMP(this, Collider2D);
-		};
+		});
 	}
 	FieldItem::~FieldItem()
 	{

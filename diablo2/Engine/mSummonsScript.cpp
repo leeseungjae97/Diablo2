@@ -55,20 +55,20 @@ namespace m
 				);
 				if (i == (UINT)SummonsData::eSummonsAnimationType::Summon)
 				{
-					mAnimator->EndEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = [=]()
+					mAnimator->EndEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = std::make_shared<std::function<void()>>([=]()
 					{
 						GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
-					};
+					});
 				}
 				if (i == (UINT)SummonsData::eSummonsAnimationType::Attack)
 				{
-					mAnimator->StartEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = [=]()
+					mAnimator->StartEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = std::make_shared<std::function<void()>>([=]()
 					{
 						if (curSummonsData.summonsProgIndex[i] != 0)
 							mAnimator->SetAnimationProgressIndex(curSummonsData.summonsProgIndex[i]);
 
-					};
-					mAnimator->ProgressEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = [=]()
+					});
+					mAnimator->ProgressEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = std::make_shared<std::function<void()>>([=]()
 					{
 						if (skillMake)
 						{
@@ -86,21 +86,21 @@ namespace m
 						{
 							makeSkill(curSummonsData.summonSkill, GET_POS(GetOwner()), eLayerType::PlayerSkill);
 						}
-					};
-					mAnimator->EndEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = [=]()
+					});
+					mAnimator->EndEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = std::make_shared<std::function<void()>>([=]()
 					{
 						GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
 						skillMake = false;
-					};
+					});
 				}
 				if (i == (UINT)SummonsData::eSummonsAnimationType::Dead)
 				{
-					mAnimator->EndEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = [=]()
+					mAnimator->EndEvent(curSummonsData.summonMaterialString[i] + pathSixteenDirectionString[j]) = std::make_shared<std::function<void()>>([=]()
 					{
 						GetOwner()->SetState(GameObject::Delete);
 						mOL1->SetState(GameObject::Delete);
 						mOL2->SetState(GameObject::Delete);
-					};
+					});
 				}
 			}
 		}

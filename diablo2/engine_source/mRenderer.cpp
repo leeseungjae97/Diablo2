@@ -647,6 +647,18 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
 		MAKE_MATERIAL_T(wallShader, L"wall_1", L"..\\Resources\\texture\\map\\wall_1.png", L"wall1");
+		MAKE_MATERIAL_T(wallShader, L"wall_2", L"..\\Resources\\texture\\map\\wall_2.png", L"wall2");
+
+		MAKE_MATERIAL(spriteShader, L"lava_1", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_1.png", L"lava1");
+		MAKE_MATERIAL(spriteShader, L"lava_2", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_2.png", L"lava2");
+		MAKE_MATERIAL(spriteShader, L"lava_3", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_3.png", L"lava3");
+		MAKE_MATERIAL(spriteShader, L"lava_4", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_4.png", L"lava4");
+		MAKE_MATERIAL(spriteShader, L"lava_5", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_5.png", L"lava5");
+		MAKE_MATERIAL(spriteShader, L"lava_6", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_6.png", L"lava6");
+		MAKE_MATERIAL(spriteShader, L"lava_7", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_7.png", L"lava7");
+		MAKE_MATERIAL(spriteShader, L"lava_8", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_8.png", L"lava8");
+		MAKE_MATERIAL(spriteShader, L"lava_9", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_9.png", L"lava9");
+		MAKE_MATERIAL(spriteShader, L"lava_10", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_10.png", L"lava10");
 #pragma endregion
 
 #pragma region Particle

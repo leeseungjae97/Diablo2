@@ -40,7 +40,7 @@ namespace m
 				, Vector2::Zero
 				, 0.03f
 			);
-			mAnimator->EndEvent(skillAnimNames[(int)mType] + L"anim") = [this]()
+			mAnimator->EndEvent(skillAnimNames[(int)mType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
 				if (mTarget)
 				{
@@ -64,7 +64,7 @@ namespace m
 					GetOwner()->ReleaseAnimators();
 					GetOwner()->SetState(GameObject::eState::Delete);
 				}
-			};
+			});
 
 
 			SHARED_MAT crashMat = RESOURCE_FIND(Material, crashNames[(int)mCrashType]);
@@ -106,10 +106,10 @@ namespace m
 				, Vector2::Zero
 				, 0.03f
 			);
-			mAnimator->EndEvent(accessorySkillNames[(int)mACType] + L"anim") = [this]()
+			mAnimator->EndEvent(accessorySkillNames[(int)mACType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
 				dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
-			};
+			});
 
 			mCrashType = accessorySkillCrashTypes[(int)mACType];
 			if (mCrashType != eSkillCrashType::END)
@@ -145,7 +145,7 @@ namespace m
 		if (mCrashType != eSkillCrashType::END
 			&& crashFunction[(int)mCrashType] != eCrashType::Overlay)
 		{
-			mAnimator->StartEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
+			mAnimator->StartEvent(crashNames[(int)mCrashType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
 				if (mCrashType == eSkillCrashType::IceCrash1)
 				{
@@ -156,7 +156,7 @@ namespace m
 				}
 				if (crashProgress[(int)mCrashType] != 0)
 					mAnimator->SetAnimationProgressIndex(crashProgress[(int)mCrashType]);
-			};
+			});
 			//mAnimator->ProgressEvent(crashNames[(int)mCrashType] + L"anim") = [=]()
 			//{
 				//Collider2D* col = GetOwner()->GetComponent<Collider2D>();
@@ -182,11 +182,11 @@ namespace m
 				//	}
 				//}
 			//};
-			mAnimator->EndEvent(crashNames[(int)mCrashType] + L"anim") = [this]()
+			mAnimator->EndEvent(crashNames[(int)mCrashType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
 				GetOwner()->ReleaseAnimators();
 				GetOwner()->SetState(GameObject::eState::Delete);
-			};
+			});
 		}
 		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
 		mAnimator->Create(
