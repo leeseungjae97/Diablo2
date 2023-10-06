@@ -6,7 +6,7 @@ namespace m
         public GameObject
     {
     public:
-        ShadowObject(GameObject* shadowOwner);
+        ShadowObject(GameObject* shadowOwner, bool bBMesh = false);
         virtual ~ShadowObject();
 
         virtual void Update() override;

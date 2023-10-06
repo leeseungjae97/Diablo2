@@ -1,6 +1,7 @@
 #include "mPortal.h"
 
-#include "mFontWrapper.h"
+#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mLight.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
 
@@ -30,6 +31,12 @@ namespace m
         SET_SCALE_XYZ(mHoverUI, fontSize.x, fontSize.y, 1.f);
         mHoverUI->SetState(eState::NoRenderUpdate);
         SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mHoverUI);
+
+        Light* lightComp = AddComponent<Light>();
+        lightComp->SetType(eLightType::Point);
+        lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.2f));
+        lightComp->SetRadiusX(100.0f);
+        lightComp->SetRadiusY(50.0f);
     }
 
     Portal::~Portal()

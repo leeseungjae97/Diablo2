@@ -3,6 +3,7 @@
 #include "../engine_source/mTileManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
+#include "../engine_source/mWallObjectManager.h"
 
 #include "mPlayer.h"
 #include "mPlayerManager.h"
@@ -28,6 +29,19 @@ namespace m
 
         mr->AddSpriteOffSetCenterBuffer();
         mr->SetSpriteOffsetCenter(Vector2(0, -TileManager::tileYSize / scale.y));
+        if(type == eWallType::Stage2Wall1)
+        {
+            mr->SetSpriteOffsetCenter(Vector2(0, (- scale.y / 3.f) / scale.y));
+        }
+        if(type == eWallType::Stage1Door)
+        {
+            mr->SetSpriteOffsetCenter(Vector2(0, (-TileManager::tileYSize - 18.f) / scale.y));
+        }
+        if (type == eWallType::Stage1Chair)
+        {
+            mr->SetSpriteOffsetCenter(Vector2(0, 0));
+        }
+
 
         mr->AddSpriteAlphaBuffer();
 
@@ -37,7 +51,8 @@ namespace m
         //col->SetScale(Vector3(1.f, scale.y / 2.f, 1.f));
 
         SceneManager::GetActiveScene()->AddGameObject(eLayerType::Wall, this);
-        //ADD_COMP(this, WallScript);
+
+        WallObjectManager::Add(this);
     }
 
     Wall::~Wall()
@@ -59,7 +74,7 @@ namespace m
         if(playerPos.z > pos.z)
         {
             MeshRenderer* mr =GET_COMP(this, MeshRenderer);
-            mr->SetSpriteAlpha(0.8f);
+            mr->SetSpriteAlpha(0.5f);
         }else
         {
             MeshRenderer* mr = GET_COMP(this, MeshRenderer);
@@ -93,6 +108,7 @@ namespace m
                 if (mCoord.y + 1 < 100)
                     TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetIsWall(true);
             }
+            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
         }
         if (direction == eWallDirection::LeftDownRightUp)
         {
@@ -103,7 +119,30 @@ namespace m
                 if (mCoord.x + 1 < 100)
                     TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetIsWall(true);
             }
+            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
         }
-        TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
+        if(direction == eWallDirection::Point)
+        {
+            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
+        }
+        if (direction == eWallDirection::Tile)
+        {
+            if (sizeY == 2)
+            {
+                if (mCoord.y + 1 < 100)
+                    TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetIsWall(true);
+            }
+            if(sizeX == 2)
+            {
+                if (mCoord.x + 1 < 100)
+                    TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetIsWall(true);
+            }
+            if (sizeY == 2 && sizeX == 2)
+            {
+                if (mCoord.x + 1 < 100 && mCoord.y + 1 < 100)
+                    TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x + 1]->SetIsWall(true);
+            }
+            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
+        }
     }
 }

@@ -25,6 +25,9 @@ namespace m
 
         void SystemUI();
         void MakeStage4Wall();
+        void MakeStage3Wall();
+        void MakeStage2Wall();
+        void MakeStage1Wall();
         void Stage1();
         void Stage2();
         void Stage3();

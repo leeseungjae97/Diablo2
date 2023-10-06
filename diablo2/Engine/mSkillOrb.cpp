@@ -76,13 +76,9 @@ namespace m
         {
             if (!bFireCircle)
                 fireCircle();
-            SetState(NoRenderUpdate);
-        }
 
-        //if (GetMoveDistance() >= 600.f)
-        //{
-        //    
-        //}
+            SetState(Delete);
+        }
     }
 
     void SkillOrb::LateUpdate()
@@ -96,6 +92,9 @@ namespace m
     }
     void SkillOrb::fireThreeWayDegreeSkill(SkillStraight* skill)
     {
+        //if (nullptr == skill) return;
+        //if (skill->GetSkillCrash()) return;
+
         if (iLock >= 3)
         {
             iLock = 0;
@@ -141,6 +140,9 @@ namespace m
         bFireCircle = true;
         for(float i = 0; i < sectionSkills2.size(); ++i )
         {
+            if (nullptr == sectionSkills2[i]) continue;
+            if (sectionSkills2[i]->GetSkillCrash()) continue;
+
             Vector3 pos = GET_POS(this);
             SET_POS_VEC(sectionSkills2[i], pos);
             sectionSkills2[i]->SetInitializePosition(pos);

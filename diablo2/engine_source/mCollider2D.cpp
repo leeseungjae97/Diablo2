@@ -32,6 +32,10 @@ namespace m
 	}
 	void Collider2D::Initialize()
 	{
+		if (GetOwner())
+		{
+			mPosition = GET_POS(GetOwner());
+		}
 	}
 	void Collider2D::Update()
 	{

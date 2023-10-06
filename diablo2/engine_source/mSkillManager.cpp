@@ -9,6 +9,16 @@ namespace m
     }
     void SkillManager::AddSkill(Skill* skill)
     {
+        eLayerType layerType = skill->GetLayerType();
+
+        //if (layerType == eLayerType::AdapterSkill
+        //    || layerType == eLayerType::PlayerAura
+        //    || layerType == eLayerType::MonsterAura
+        //    || layerType == eLayerType::MonsterOverlay
+        //    || layerType == eLayerType::PlayerOverlay
+        //    )
+        //    return;
+
         eSkillFunctionType type = skillFunctionTypes[(int)skill->GetSkillType()];
         if (type == eSkillFunctionType::MultiFall
             || type == eSkillFunctionType::Fall

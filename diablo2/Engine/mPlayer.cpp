@@ -13,7 +13,6 @@
 #include "../engine_source/mSceneManager.h"
 
 #include "mTrappingColor.h"
-#include "mLightObject.h"
 #include "mShadowObject.h"
 
 extern m::Application application;
@@ -30,13 +29,12 @@ namespace m
 		bodyBoxCollider->AddExceptType(eLayerType::PlayerSkill);
 
 		//rangeCollider->SetSize(Vector3(1.f, 1.f, 1.f));
-		//LightObject* light = new LightObject();
-		//light->SetFollowerObject(this);
-		//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Light, light);
+
 		Light* lightComp = AddComponent<Light>();
 		lightComp->SetType(eLightType::Point);
-		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
-		lightComp->SetRadius(500.0f);
+		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.5f));
+		lightComp->SetRadiusX(300.0f);
+		lightComp->SetRadiusY(150.0f);
 
 		mShadow = new ShadowObject(this);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);

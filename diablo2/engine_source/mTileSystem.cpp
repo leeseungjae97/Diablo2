@@ -42,6 +42,7 @@ namespace m
 			ct.tileCoord = Vector2(i % 100, i / 100);
 
 			ct.isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
+			ct.isThrough = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsThrough();
 
 			mTiles.push_back(ct);
 		}
@@ -335,6 +336,7 @@ namespace m
 		for (int i = 0; i < 10000; ++i)
 		{
 			mTiles[i].isWall = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsWall();
+			mTiles[i].isThrough = TileManager::pathFindingTiles[i / 100][i % 100]->GetIsThrough();
 			//mTiles[i].isWall = true;
 		}
 		mTileBuffer->Create(sizeof(ComputeTile), 10000, eViewType::UAV, mTiles.data(), true);

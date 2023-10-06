@@ -238,6 +238,8 @@
     <ClInclude Include="mStraightScript.h" />
     <ClInclude Include="mTile.h" />
     <ClInclude Include="mTileScript.h" />
+    <ClInclude Include="mTorch.h" />
+    <ClInclude Include="mTorchScript.h" />
     <ClInclude Include="mUVUI.h" />
     <ClInclude Include="mOverlayEffectSkillScript.h" />
     <ClInclude Include="mWall.h" />
@@ -323,6 +325,8 @@
     <ClCompile Include="mStraightScript.cpp" />
     <ClCompile Include="mTile.cpp" />
     <ClCompile Include="mTileScript.cpp" />
+    <ClCompile Include="mTorch.cpp" />
+    <ClCompile Include="mTorchScript.cpp" />
     <ClCompile Include="mUVUI.cpp" />
     <ClCompile Include="mOverlayEffectSkillScript.cpp" />
     <ClCompile Include="mWall.cpp" />

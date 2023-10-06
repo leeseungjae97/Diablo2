@@ -1,5 +1,6 @@
 #include "mSkillFallExplosion.h"
 
+#include "../engine_source/mLight.h"
 #include "../engine_source/mSceneManager.h"
 
 #include "mSkillOverlay.h"
@@ -43,6 +44,11 @@ namespace m
 			SceneManager::GetActiveScene()->AddGameObject(layerType, mIndicator);
 			
 		}
+		Light* lightComp = AddComponent<Light>();
+		lightComp->SetType(eLightType::Point);
+		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.2f));
+		lightComp->SetRadiusX(100.0f);
+		lightComp->SetRadiusY(50.0f);
 	}
 
 	SkillFallExplosion::~SkillFallExplosion()

@@ -111,9 +111,11 @@ struct LightAttribute
 	m::math::Vector4 direction;
 
 	m::enums::eLightType type;
-	float radius;
+	float radiusX;
+	float radiusY;
 	float angle;
 	int pad;
+	int size;
 };
 struct DebugMesh
 {
@@ -171,6 +173,7 @@ struct ComputeTile
 	m::math::Vector2 tileCoord;
 
 	BOOL isWall = false;
+	BOOL isThrough = false;
 
 	//m::math::Vector2 parentCoord;
 

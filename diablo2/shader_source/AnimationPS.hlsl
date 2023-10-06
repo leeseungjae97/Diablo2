@@ -34,13 +34,13 @@ float4 main(VSOut In) : SV_TARGET
         color = atlasTexture.Sample(pointSampler, UV);
     }
     
-    float4 lightColor = float4(0.4f, 0.4f, 0.4f, 1.0f);
+    float4 lightColor = float4(0.05f, 0.05f, 0.05f, 1.0f);
     //float4 lightColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
     if (colorBuffer[0].color.w > 0.0f)
     {
         lightColor += colorBuffer[0].color;
     }
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < lightsAttribute[0].size; i++)
     {
         CalculateLight2D(lightColor, In.WorldPos, i);
     }
@@ -49,6 +49,19 @@ float4 main(VSOut In) : SV_TARGET
     
     if(mAlpha > 0.0f)
         color.a *= mAlpha;
+    
+    if (color.r > 1.f)
+        color.r = 1.f;
+    
+    if (color.g > 1.f)
+        color.g = 1.f;
+    
+    if (color.b > 1.f)
+        color.b = 1.f;
+    
+    if (color.a > 1.f)
+        color.a = 1.f;
+    
     
     if(color.a <= 0.0f)
         discard;

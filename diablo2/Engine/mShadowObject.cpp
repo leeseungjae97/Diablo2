@@ -4,11 +4,14 @@
 #include "../engine_source/mMeshRenderer.h"
 namespace m
 {
-    ShadowObject::ShadowObject(GameObject* shadowOwner)
+    ShadowObject::ShadowObject(GameObject* shadowOwner, bool bBMesh)
         : mShadowOwner(shadowOwner)
     {
         ADD_COMP(this, MeshRenderer);
-        SET_MESH(this, L"PMesh");
+        if(bBMesh)
+            SET_MESH(this, L"BPMesh");
+        else
+            SET_MESH(this, L"PMesh");
         SET_MATERIAL(this, L"ShadowAnimationMaterial");
     }
 

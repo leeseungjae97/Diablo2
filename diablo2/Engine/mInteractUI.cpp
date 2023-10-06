@@ -34,7 +34,7 @@ namespace m
 		else
 			SET_MATERIAL(this, L"itemExBack");
 
-		initPos.z -= 0.1f;
+		initPos.z += 2.f;
 		SET_SCALE_VEC(this, size);
 		SET_POS_VEC(this, initPos);
 

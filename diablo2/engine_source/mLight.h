@@ -18,12 +18,14 @@ namespace m
 
 		LightAttribute GetAttribute() { return mAttribute; }
 		void SetType(eLightType rype) { mAttribute.type = rype; }
-		void SetRadius(float radius) { mAttribute.radius = radius; }
+		void SetRadiusX(float radius) { mAttribute.radiusX = radius; }
+		void SetRadiusY(float radius) { mAttribute.radiusY = radius; }
 		void SetAngle(float angle) { mAttribute.angle = angle; }
 		void SetColor(Vector4 color) { mAttribute.color = color; }
 		Vector4 GetColor() { return mAttribute.color; }
 		eLightType GetType() { return mAttribute.type; }
-		float GetRadius() { return mAttribute.radius; }
+		float GetRadiusX() { return mAttribute.radiusX; }
+		float GetRadiusY() { return mAttribute.radiusY; }
 		float GetAngle() { return mAttribute.angle; }
 
     private:

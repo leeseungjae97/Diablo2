@@ -54,6 +54,7 @@ struct Tile
     float2 tileCoord;
     
     bool isWall;
+    bool isThrough;
     
     //float2 parentCoord;
     
@@ -123,9 +124,11 @@ struct LightAttribute
     float4 direction;
     
     uint type;
-    float radius;
+    float radiusX;
+    float radiusY;
     float angle;
     int pad;
+    int size;
 };
 struct TrappingColor
 {
@@ -233,17 +236,36 @@ void CalculateLight2D(in out float4 lightColor, float3 position, int idx)
     }
     else if (1 == lightsAttribute[idx].type)
     {
-        float length = distance(position.xy, lightsAttribute[idx].position.xy);
-        
-        if (length < lightsAttribute[idx].radius)
+        float lengthX = (position.x - lightsAttribute[idx].position.x) / lightsAttribute[idx].radiusX;
+        float lengthY = (position.y - lightsAttribute[idx].position.y) / lightsAttribute[idx].radiusY;
+
+        float distanceSquared = lengthX * lengthX + lengthY * lengthY;
+
+        if (distanceSquared < 1.0f)
         {
-            float ratio = 1.0f - (length / lightsAttribute[idx].radius);
-            lightColor += lightsAttribute[idx].color * ratio;
+            float ratio = 1.0f - distanceSquared;
+            if (lightColor.a + lightsAttribute[idx].color.a * ratio < 1.f)
+                lightColor.a += lightsAttribute[idx].color.a * ratio;
+            else 
+                lightColor.a = 1.f;
+            
+            if (lightColor.g + lightsAttribute[idx].color.g * ratio < 1.f)
+                lightColor.g += lightsAttribute[idx].color.g * ratio;
+            else 
+                lightColor.g = 1.f;
+            
+            if (lightColor.b + lightsAttribute[idx].color.b * ratio < 1.f)
+                lightColor.b += lightsAttribute[idx].color.b * ratio;
+            else 
+                lightColor.b = 1.f;
+            
+            if (lightColor.r + lightsAttribute[idx].color.r * ratio < 1.f)
+                lightColor.r += lightsAttribute[idx].color.r * ratio;
+            else
+                lightColor.r = 1.f;
+            
+            //lightColor += lightsAttribute[idx].color * ratio;
         }
-    }
-    else
-    {
-        
     }
 }
 

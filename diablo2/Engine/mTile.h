@@ -13,7 +13,9 @@ namespace m
 
 
         bool GetIsWall() { return isWall; }
+        bool GetIsThrough() { return isThrough; }
         void SetIsWall(bool iw) { isWall = iw; }
+        void SetThroughWall(bool through) { isThrough = through; }
 
         bool GetOnMonster() { return onMonster; }
         void SetOnMonster(bool on) { onMonster = on; }
@@ -57,6 +59,7 @@ namespace m
         Vector3 mScale;
         std::shared_ptr<Material> saveMaterial;
         bool isWall;
+        bool isThrough;
         bool onMonster;
         int willOnMonsterCount;
         bool inClosed;

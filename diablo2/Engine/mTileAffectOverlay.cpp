@@ -1,6 +1,7 @@
 #include "mTileAffectOverlay.h"
 
 #include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mLight.h"
 
 #include "mAffectOverlayScript.h"
 #include "mTileManager.h"
@@ -23,6 +24,12 @@ namespace m
         ADD_COMP(this, Collider2D);
         ADD_COMP(this, Animator);
         mAOS = AddComponent<AffectOverlayScript>(type);
+
+        Light* lightComp = AddComponent<Light>();
+        lightComp->SetType(eLightType::Point);
+        lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.3f));
+        lightComp->SetRadiusX(200.0f);
+        lightComp->SetRadiusY(100.0f);
     }
 
     TileAffectOverlay::~TileAffectOverlay()

@@ -455,6 +455,42 @@ namespace renderer
 		bottomPosMash->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		Resources::Insert(L"BMesh", bottomPosMash);
+
+		vertexes.clear();
+		indexes.clear();
+
+		vertexes.resize(4);
+
+		vertexes[0].pos = Vector3(-2.0f, 1.0f, 0.0f);
+		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
+
+		vertexes[1].pos = Vector3(-1.0f, 1.0f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector3(0.5f, 0.0f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(-0.5f, 0.0f, 0.0f);
+		vertexes[3].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
+
+		std::shared_ptr<Mesh> bottomParaPosMash = std::make_shared<Mesh>();
+		bottomParaPosMash->SetVertexes(vertexes);
+		bottomParaPosMash->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		bottomParaPosMash->CreateIndexBuffer(indexes.data(), indexes.size());
+
+		Resources::Insert(L"BPMesh", bottomParaPosMash);
 	}
 
 	void PushDebugMeshAttribute(DebugMesh& mesh)
@@ -646,8 +682,26 @@ namespace renderer
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
-		MAKE_MATERIAL_T(wallShader, L"wall_1", L"..\\Resources\\texture\\map\\wall_1.png", L"wall1");
-		MAKE_MATERIAL_T(wallShader, L"wall_2", L"..\\Resources\\texture\\map\\wall_2.png", L"wall2");
+		MAKE_MATERIAL(spriteShader, L"stage_3", L"..\\Resources\\texture\\map\\stage3\\stage3.png", L"stage3");
+		MAKE_MATERIAL(spriteShader, L"stage_2", L"..\\Resources\\texture\\map\\stage2\\stage2.png", L"stage2");
+		MAKE_MATERIAL(spriteShader, L"stage_1", L"..\\Resources\\texture\\map\\stage1\\stage1.png", L"stage1");
+
+		MAKE_MATERIAL_T(wallShader, L"s1_wall_1", L"..\\Resources\\texture\\map\\stage1\\wall_1.png", L"s1Wall1");
+		MAKE_MATERIAL_T(wallShader, L"s1_wall_2", L"..\\Resources\\texture\\map\\stage1\\wall_2.png", L"s1Wall2");
+		MAKE_MATERIAL_T(wallShader, L"s1_wall_3", L"..\\Resources\\texture\\map\\stage1\\wall_3.png", L"s1Wall3");
+
+		MAKE_MATERIAL_T(wallShader, L"s1_chair_1", L"..\\Resources\\texture\\map\\stage1\\chair_1.png", L"s1Chair1");
+
+		MAKE_MATERIAL_T(wallShader, L"s1_door", L"..\\Resources\\texture\\map\\stage1\\door.png", L"s1Door");
+		MAKE_MATERIAL_T(wallShader, L"s1_flag", L"..\\Resources\\texture\\map\\stage1\\flag.png", L"s1Flag");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"st1_torch", L"..\\Resources\\texture\\map\\stage1\\torch"
+			, 32, 113, 20, L"st1Torch");
+
+		MAKE_MATERIAL_T(wallShader, L"s2_wall_1", L"..\\Resources\\texture\\map\\stage2\\wall_1.png", L"s2Wall1");
+
+		MAKE_MATERIAL_T(wallShader, L"s4_wall_1", L"..\\Resources\\texture\\map\\stage4\\wall_1.png", L"s4Wall1");
+		MAKE_MATERIAL_T(wallShader, L"s4_wall_2", L"..\\Resources\\texture\\map\\stage4\\wall_2.png", L"s4Wall2");
 
 		MAKE_MATERIAL(spriteShader, L"lava_1", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_1.png", L"lava1");
 		MAKE_MATERIAL(spriteShader, L"lava_2", L"..\\Resources\\texture\\map\\stage4\\lava\\lava_2.png", L"lava2");
@@ -1244,6 +1298,7 @@ namespace renderer
 		for (Light* light : lights)
 		{
 			LightAttribute attribute = light->GetAttribute();
+			attribute.size = lights.size();
 			lightsAttributes.push_back(attribute);
 		}
 		if (!lightsAttributes.empty())

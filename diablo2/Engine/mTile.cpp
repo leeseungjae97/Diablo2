@@ -16,6 +16,7 @@ namespace m
 		, willOnMonsterCount(0)
 		, isWall(false)
 		, inClosed(false)
+	    , isThrough(false)
 		, inOpen(false)
 		, onMonster(false)
 		, G(0)

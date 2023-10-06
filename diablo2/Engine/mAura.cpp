@@ -21,7 +21,7 @@ namespace m
 
         SetCamera(owner->GetCamera());
 
-        //bottomAuraPosition();
+        bottomAuraPosition();
         
         mAS = AddComponent<AuraScript>(type, -1.f);
         mAS->SetAuraCollider(mCol);

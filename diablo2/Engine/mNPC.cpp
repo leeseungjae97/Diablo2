@@ -2,6 +2,7 @@
 
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mSceneManager.h"
+#include "../engine_source/mLight.h"
 
 #include "mButton.h"
 #include "mNPCScript.h"
@@ -32,6 +33,12 @@ namespace m
 
 		mShadow = new ShadowObject(this);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
+
+		Light* lightComp = AddComponent<Light>();
+		lightComp->SetType(eLightType::Point);
+		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.2f));
+		lightComp->SetRadiusX(100.0f);
+		lightComp->SetRadiusY(50.0f);
 	}
 
 	NPC::~NPC()
@@ -58,20 +65,30 @@ namespace m
 		{
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			{
-				if (mInteractUI->GetState() == eState::NoRenderUpdate)
+				if (mInteractUI->GetState() == eState::NoRenderNoUpdate
+					|| mInteractUI->GetState() == eState::NoRenderUpdate)
 				{
+					remakeUI();
 					mInteractUI->SetState(eState::RenderUpdate);
 				}
 			}
-		}else
+		}
+	    if (!GetHover() && !mInteractUI->GetHover())
 		{
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			    mInteractUI->SetState(eState::NoRenderUpdate);
 		}
 
-		if(mInteractUI)
+		if(mInteractUI && mInteractUI->GetState() == RenderUpdate)
 		    mInteractUI->SetState(GetState());
 
+		if (mInteractUI)
+		{
+			Vector3 pos = GET_POS(this);
+			pos.y += NPCSizes[(int)mNPCType].y * 2.f;
+			SET_POS_VEC(mInteractUI, pos);
+		}
+			
 		//for (Button* button : textes) button->SetState(mInteractUI->GetState());
 	
 	}
@@ -137,4 +154,10 @@ namespace m
 		mInteractUI = new InteractUI(uiPos, texts, vColors, vClickColors);
 		mInteractUI->SetState(eState::NoRenderUpdate);
 	}
+
+    void NPC::remakeUI()
+    {
+		if (mInteractUI)
+			mInteractUI->ReMakeInteractContents();
+    }
 }

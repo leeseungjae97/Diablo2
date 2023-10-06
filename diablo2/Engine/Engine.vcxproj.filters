@@ -241,7 +241,15 @@
     <ClCompile Include="mWallScript.cpp">
       <Filter>Script\WallScript</Filter>
     </ClCompile>
-    <ClCompile Include="mFloor.cpp" />
+    <ClCompile Include="mFloor.cpp">
+      <Filter>Objects\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="mTorchScript.cpp">
+      <Filter>Script\TorchScript</Filter>
+    </ClCompile>
+    <ClCompile Include="mTorch.cpp">
+      <Filter>Objects\Torch</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -481,7 +489,15 @@
     <ClInclude Include="mWallScript.h">
       <Filter>Script\WallScript</Filter>
     </ClInclude>
-    <ClInclude Include="mFloor.h" />
+    <ClInclude Include="mFloor.h">
+      <Filter>Objects\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="mTorchScript.h">
+      <Filter>Script\TorchScript</Filter>
+    </ClInclude>
+    <ClInclude Include="mTorch.h">
+      <Filter>Objects\Torch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -759,6 +775,12 @@
     </Filter>
     <Filter Include="Objects\Floor">
       <UniqueIdentifier>{961cfd2f-611c-495c-ab29-a308aca10694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Torch">
+      <UniqueIdentifier>{90f31ced-cf3d-4828-a554-41e1e0b14298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\TorchScript">
+      <UniqueIdentifier>{5a70c2e5-82a7-419f-9edf-96e3f449daa2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

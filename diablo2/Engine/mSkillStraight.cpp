@@ -1,6 +1,7 @@
 #include "mSkillStraight.h"
 
-#include "mMouseManager.h"
+#include "../engine_source/mLight.h"
+#include "../engine_source/mMouseManager.h"
 #include "../engine_source/SkillLookUpTables.h"
 #include "../engine_source/mAnimator.h"
 #include "../engine_source/mMeshRenderer.h"
@@ -51,6 +52,11 @@ namespace m
 		{
 			SET_MATERIAL(this, L"noneRect");
 		}
+		Light* lightComp = AddComponent<Light>();
+		lightComp->SetType(eLightType::Point);
+		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.2f));
+		lightComp->SetRadiusX(100.0f);
+		lightComp->SetRadiusY(50.0f);
 	}
 	SkillStraight::~SkillStraight()
 	{

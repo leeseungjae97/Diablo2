@@ -114,8 +114,9 @@ namespace m
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
 		
 		
-		if (targetCoord != prevTargetCoord
-			|| destCoord != mPathFinder->GetTargetCoord())
+		//if (targetCoord != prevTargetCoord
+		//	|| destCoord != mPathFinder->GetTargetCoord())
+
 		if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
 			//bool move = mPathFinder->MonsterMove(this);
