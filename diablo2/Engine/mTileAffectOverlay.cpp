@@ -45,6 +45,7 @@ namespace m
     {
         GameObject::Update();
         addZWeight();
+        
     }
     void TileAffectOverlay::addZWeight()
     {

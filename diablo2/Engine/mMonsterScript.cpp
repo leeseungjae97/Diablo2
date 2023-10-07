@@ -16,6 +16,7 @@
 #include "mSkillMultiFire.h"
 #include "mSkillOrb.h"
 #include "mAura.h"
+#include "mShadowObject.h"
 
 namespace m
 {
@@ -33,7 +34,7 @@ namespace m
 		, bFire(false)
 		, fAttackDelay(0.f)
 		, degree(0)
-
+	    , fSkillCenterPosY(0.f)
 	{
 		mClass = curMonsterData.mClass;
 	}
@@ -55,7 +56,6 @@ namespace m
 
 		if (curMonsterData.passiveAura != eAuraType::End)
 		{
-
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
 			if (curMonsterData.wsMonsterName.compare(L"메피스토") == 0)
 				mAura->FrontAura();
@@ -64,19 +64,6 @@ namespace m
 			curScene->AddGameObject(eLayerType::MonsterAura, mAura);
 		}
 
-		//mLeftHand = new MonsterHand(monster, curMonsterData.mMonsterType, false);
-		if (curMonsterData.bHandAnim)
-		{
-			mRightHand = new MonsterHand(monster, curMonsterData.mMonsterType, true);
-
-			//mLeftHand->SetCamera(GetOwner()->GetCamera());
-			mRightHand->SetCamera(GetOwner()->GetCamera());
-			Animator* rightAnimator = GET_COMP(mRightHand, Animator);
-			rightAnimator->SetSyncAnimator(mAnimator);
-			rightAnimator->Sync();
-			curScene->AddGameObject(eLayerType::Monster, mRightHand);
-		}
-		//curScene->AddGameObject(eLayerType::Monster, mLeftHand);
 
 		if (curMonsterData.bPathImage)
 		{
@@ -91,13 +78,42 @@ namespace m
 			animStrings = sixteenDirectionString;
 		}
 		Vector3 scale = GET_SCALE(GetOwner());
-		Vector2 scaleOffset = Vector2(0.f, scale.y * 4);
 		int m = 0;
 		for (int i = 0; i < (UINT)MonsterData::eAnimationType::End; ++i)
 		{
 			if (curMonsterData.textureString[i] == L"") continue;
 
 			SHARED_MAT mat = RESOURCE_FIND(Material, curMonsterData.textureString[i]);
+
+			float centerPosY = 0.f;
+			if (curMonsterData.wsMonsterName.compare(L"메피스토") == 0)
+			{
+				//if (i == (UINT)T::eAnimationType::SpecialCast)
+				//{
+				//	fSkillCenterPosY = curMonsterData.animationCenterPos[i].y + (curMonsterData.animationSizes[i].y);
+				//}
+
+				centerPosY = curMonsterData.animationCenterPos[i].y + (curMonsterData.animationSizes[i].y);
+				dynamic_cast<MoveAbleObject*>(GetOwner())->GetShadowObject()->SetShadowOffset(Vector2(50.f, 50.f));
+
+			}
+			else if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0)
+			{
+				if (i == (UINT)T::eAnimationType::SpecialCast)
+				{
+					fSkillCenterPosY = 20.f;
+				}
+				centerPosY = curMonsterData.animationCenterPos[i].y + (curMonsterData.animationSizes[i].y * 2.f);
+				dynamic_cast<MoveAbleObject*>(GetOwner())->GetShadowObject()->SetShadowOffset(Vector2(50.f, 50.f));
+			}
+			else
+			{
+				//if (i == (UINT)T::eAnimationType::SpecialCast)
+				//{
+				//	fSkillCenterPosY = curMonsterData.animationCenterPos[i].y + (curMonsterData.animationSizes[i].y * 3.f);
+				//}
+				centerPosY = curMonsterData.animationCenterPos[i].y + (curMonsterData.animationSizes[i].y * 3.f);
+			}
 
 			if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0
 				&& i == (UINT)MonsterData::eAnimationType::ToDead)
@@ -115,6 +131,7 @@ namespace m
 					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationLength[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
+					, Vector2(0.f, centerPosY)
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
 
@@ -125,6 +142,7 @@ namespace m
 					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationLength[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
+					, Vector2(0.f, centerPosY)
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
 				mAnimator->Create(
@@ -134,6 +152,7 @@ namespace m
 					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
 					, mat3->GetTexture()->GetMetaDataWidth() / 266
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
+					, Vector2(0.f, centerPosY)
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
 				mAnimator->EndEvent(L"dialoToDead1_anim@") = std::make_shared<std::function<void()>>([=]()
@@ -166,6 +185,7 @@ namespace m
 					if (!curMonsterData.bPathImage) m = eEightDirection[j];
 					else m = j;
 					std::wstring curAnimStr = curMonsterData.animationString[i] + animStrings[m];
+				
 					mAnimator->Create(
 						curAnimStr
 						, mat->GetTexture()
@@ -173,6 +193,8 @@ namespace m
 						, curMonsterData.animationSizes[i]
 						, curMonsterData.animationLength[i]
 						, curMonsterData.animationOffset[i]
+						, Vector2(curMonsterData.animationCenterPos[i].x
+							, centerPosY)
 						, curMonsterData.animationDuration[i]
 					);
 					if (i == (UINT)MonsterData::eAnimationType::Natural)
@@ -229,12 +251,12 @@ namespace m
 						mAnimator->EndEvent(curMonsterData.animationString[i] + animStrings[m])
 							= std::make_shared<std::function<void()>>([this]()
 						{
-							if (mRightHand)
-							{
-								GET_COMP(mRightHand, Animator)->SetSyncAnimator(nullptr);
-								mRightHand->SetState(GameObject::eState::Delete);
-								mRightHand = nullptr;
-							}
+							//if (mRightHand)
+							//{
+							//	GET_COMP(mRightHand, Animator)->SetSyncAnimator(nullptr);
+							//	mRightHand->SetState(GameObject::eState::Delete);
+							//	mRightHand = nullptr;
+							//}
 						    if (mAura)
 							    mAura->SetState(GameObject::eState::Delete);
 							GetOwner()->SetBattleState(GameObject::Dead);
@@ -263,6 +285,19 @@ namespace m
 				}
 			}
 		}
+		//mLeftHand = new MonsterHand(monster, curMonsterData.mMonsterType, false);
+		if (curMonsterData.bHandAnim)
+		{
+			mRightHand = new MonsterHand(monster, curMonsterData.mMonsterType, true);
+
+			//mLeftHand->SetCamera(GetOwner()->GetCamera());
+			mRightHand->SetCamera(GetOwner()->GetCamera());
+			Animator* rightAnimator = GET_COMP(mRightHand, Animator);
+			rightAnimator->SetSyncAnimator(mAnimator);
+			rightAnimator->Sync();
+			curScene->AddGameObject(eLayerType::Monster, mRightHand);
+		}
+
 		mAnimationType = MonsterData::eAnimationType::Natural;
 		mAnimator->PlayAnimation(curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection], true);
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
@@ -276,7 +311,7 @@ namespace m
 
 		if (nullptr == mMonster)
 			return;
-
+		SetCenterPosY();
 		//if (mMonster->GetBattleState() == GameObject::eBattleState::Dead) return;
 
 		MakeDirection();
@@ -428,7 +463,6 @@ namespace m
 				{
 					mAnimationType = MonsterData::eAnimationType::Attack1;
 				}
-
 				GetOwner()->SetBattleState(GameObject::Attack);
 				SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 				if (mAnimator->GetActiveAnimation()->GetKey() != curMonsterData.animationString[(UINT)mAnimationType] + animStrings[mDirection])
@@ -613,6 +647,15 @@ namespace m
 		mMonster->SetHit(hit);
 		GetOwner()->SetBattleState(state);
 	}
+
+    template <typename T>
+    void MonsterScript<T>::SetCenterPosY()
+    {
+		mMonster->SetCenterPosY(50.f);
+  //      float offset = curMonsterData.animationCenterPos[(int)mAnimationType].y + (curMonsterData.animationSizes[(int)mAnimationType].y * 3.f);
+		//mMonster->SetCenterPosY(offset);
+    }
+
 	template<typename T>
 	void MonsterScript<T>::makeSkillCastAnimation(int type, int direction)
 	{
@@ -662,7 +705,9 @@ namespace m
 				if (skilltype != eSkillType::END)
 				{
 					makeMonsterSkill(skilltype
-						, GET_POS(GetOwner())
+						, Vector3(GET_POS(GetOwner()).x,
+							GET_POS(GetOwner()).y + fSkillCenterPosY,
+							GET_POS(GetOwner()).z)
 						, eLayerType::MonsterSkill
 						, curMonsterData.mSpecialSkillAddFunction[iCurSkillIndex]
 						, curMonsterData.mSpecialSkillCount[iCurSkillIndex]
@@ -723,7 +768,7 @@ namespace m
 		case m::eSkillFunctionType::LinearStraight:
 		case m::eSkillFunctionType::Raidal:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
+			mSkill = new SkillMultiFire(vector3Pos, skillType, skillCount
 				, addFunction, fireLayerType, Vector2::Zero, GetOwner()->GetCamera());
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			//skill->SkillFire(); 
@@ -732,7 +777,7 @@ namespace m
 		break;
 		case m::eSkillFunctionType::MultiFollowerStraight:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount
+			mSkill = new SkillMultiFire(vector3Pos, skillType, skillCount
 				, addFunction, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
@@ -740,7 +785,7 @@ namespace m
 		break;
 		case m::eSkillFunctionType::MultiStraight:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 6
+			mSkill = new SkillMultiFire(vector3Pos, skillType, 6
 				, (int)SkillMultiFire::eFireType::RadialRandomStraight, fireLayerType, Vector2(0.f, 0.5f), GetOwner()->GetCamera());
 			//skill->SkillFire(); 
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
@@ -748,7 +793,7 @@ namespace m
 		break;
 		case m::eSkillFunctionType::FixedMultiStraight:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20
+			mSkill = new SkillMultiFire(vector3Pos, skillType, 20
 				, (int)SkillMultiFire::eFireType::FixedLinear, fireLayerType, Vector2::Zero, GetOwner()->GetCamera(), 0.08f);
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
@@ -756,7 +801,7 @@ namespace m
 		break;
 		case m::eSkillFunctionType::CircleFire:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, skillCount, (int)SkillMultiFire::eFireType::Circle, fireLayerType);
+			mSkill = new SkillMultiFire(vector3Pos, skillType, skillCount, (int)SkillMultiFire::eFireType::Circle, fireLayerType);
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
@@ -771,7 +816,7 @@ namespace m
 		break;
 		case m::eSkillFunctionType::StunAttack:
 		{
-			mSkill = new SkillAbnormal(skillType, GET_POS(GetOwner()));
+			mSkill = new SkillAbnormal(skillType, vector3Pos);
 			mSkill->SetSkillOwnerLayer(fireLayerType);
 			//Collider2D* rangeCol = dynamic_cast<MoveAbleObject*>(GetOwner())->GetRangeCollider();
 			dynamic_cast<SkillAbnormal*>(mSkill)->SetAbnormalCollider(getSkillActiveCollider());
@@ -780,7 +825,7 @@ namespace m
 		break;
 		case m::eSkillFunctionType::Orb:
 		{
-			mSkill = new SkillOrb(skillType, GET_POS(GetOwner()), skillSpeed[(int)skillType], fireLayerType);
+			mSkill = new SkillOrb(skillType, vector3Pos, skillSpeed[(int)skillType], fireLayerType);
 			mSkill->SetCamera(GetOwner()->GetCamera());
 			mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(fireLayerType, mSkill);

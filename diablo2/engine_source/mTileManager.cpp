@@ -102,8 +102,14 @@ namespace m
 			Vector2 wallCoord = wall[i];
 			int y = static_cast<int>(wallCoord.y);
 			int x = static_cast<int>(wallCoord.x);
-			if(stage != 1)
-			    pathFindingTiles[y][x]->SetThroughWall(true);
+			//if(stage == 0 || stage == 1)
+			//	pathFindingTiles[y][x]->SetThroughWall(false);
+			//else
+			//	pathFindingTiles[y][x]->SetThroughWall(true);
+
+
+			pathFindingTiles[y][x]->SetThroughWall(false);
+			    
 
 			pathFindingTiles[y][x]->SetIsWall(true);
 		}
@@ -116,8 +122,10 @@ namespace m
 			for (int x = 0; x < tileXLen; ++x)
 			{
 				if (pathFindingTiles[y][x])
+				{
 					pathFindingTiles[y][x]->SetIsWall(false);
-					pathFindingTiles[y][x]->SetThroughWall(false);
+					pathFindingTiles[y][x]->SetThroughWall(true);
+				}
 			}
 		}
     }

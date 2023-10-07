@@ -1,4 +1,7 @@
 #include "mSkillManager.h"
+
+#include "../Engine/mSkillFollower.h"
+
 namespace m
 {
     std::vector<Skill*> SkillManager::skills;
@@ -49,14 +52,24 @@ namespace m
         {
             if (skill->GetSkillId() == skillId)
             {
-                //skill->SetState(GameObject::eState::Delete);
                 eSkillType type = skill->GetSkillType();
                 eSkillCrashType skillCrashType =skillCrashTypes[(int)type];
                 eCrashType crashType = crashFunction[(int)skillCrashType];
                 if (crashType != eCrashType::Collide)
-                    skill->SetState(GameObject::eState::NoRenderNoUpdate);
-                else 
+                {
+                    if(dynamic_cast<SkillFollower*>(skill))
+                    {
+                        skill->SetSkillCrash(true);
+                    }else
+                    {
+                        skill->SetState(GameObject::eState::Delete);
+                    }
+                }
+                else
+                {
                     skill->SetSkillCrash(true);
+                }
+                    
             }
         }
     }

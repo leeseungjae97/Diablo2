@@ -45,6 +45,7 @@ namespace m
 		static bool DeployException(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType);
 		static void ChangeFieldItemToInvenItem(FieldItem* item);
 		static bool ChangeInvenItemToFieldItem(InvenItem* item);
+		static void DropFieldItem(int item, Vector3 initPos);
 		static void MoveOtherStash(InvenItem* item, eStashType stashTypeMove);
 
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }

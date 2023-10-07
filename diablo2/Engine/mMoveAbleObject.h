@@ -75,6 +75,8 @@ namespace m
 
 		virtual void TimeWaitAttack();
 		virtual void AttackedAddition();
+
+		ShadowObject* GetShadowObject() { return mShadow; }
 	private:
 		void damagedDelay();
 		void addZWeight();

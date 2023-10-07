@@ -35,12 +35,14 @@ namespace m
     void Aura::bottomAuraPosition()
     {
         Vector3 pos = GET_POS(mOwner);
+        Vector3 scale = GET_SCALE(mOwner);
         pos.x += vCenterPosOffset.x;
         pos.y += vCenterPosOffset.y;
+        //pos.y += scale.y / 2.f;
         if(bFront)
-            pos.z -= 0.00001f;
+            pos.z -= 0.01f;
         else
-            pos.z += 0.00001f;
+            pos.z += 0.01f;
 
         SET_POS_VEC(this, pos);
     }

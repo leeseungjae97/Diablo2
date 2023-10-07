@@ -34,9 +34,6 @@ namespace m
         void SetShopItem(bool shopItem) { bShopItem = shopItem; }
 
     private:
-        void makeItemExUI();
-
-    private:
         Vector3 prevPosition;
         bool bDoItemFunction;
 

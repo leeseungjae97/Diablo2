@@ -33,19 +33,37 @@ namespace m
     void SkillFollower::Update()
     {
         SkillStraight::Update();
-        if (iFollowerCount <= iCurCount)
+        if(GetSkillCrash())
         {
-            SetState(eState::Delete);
-            
-        }
+            for (int i = iCurCount; i < iFollowerCount; ++i)
+            {
+                TileAffectOverlay* mTAO = followers[i];
 
-        fAcc += Time::fDeltaTime();
-        if (fAcc >= fFollowerGenerateTime)
-        {
-            generateFollower();
-            fAcc = 0.f;
+                if (mTAO)
+                    mTAO->SetState(eState::Delete);
+            }
+
+            /*for(TileAffectOverlay* mTAO : followers)
+            {
+                if(mTAO)
+                    mTAO->SetState(eState::Delete);
+            }*/
+            SetState(eState::Delete);
         }
-        
+        else
+        {
+            if (iFollowerCount <= iCurCount)
+            {
+                SetState(eState::Delete);
+            }
+
+            fAcc += Time::fDeltaTime();
+            if (fAcc >= fFollowerGenerateTime)
+            {
+                generateFollower();
+                fAcc = 0.f;
+            }
+        }
     }
 
     void SkillFollower::LateUpdate()

@@ -26,7 +26,7 @@ namespace m
 	void PlayerManager::Initialize()
 	{
 		skillPoint = 100;
-		Tile* tile2 = TileManager::pathFindingTiles[53][67];
+		Tile* tile2 = TileManager::pathFindingTiles[48][57];
 		Vector3 pos2 = tile2->GetPos();
 		//Vector3 pos2 = Vector3(20.f, 10.f, 1.f);
 

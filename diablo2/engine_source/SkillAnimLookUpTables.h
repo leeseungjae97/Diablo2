@@ -96,7 +96,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
-		m::math::Vector2(0.f, 30.f),
+		m::math::Vector2(0.f, 50.f),
 
 	};
 	int crashLength[(int)eSkillCrashType::END] = {

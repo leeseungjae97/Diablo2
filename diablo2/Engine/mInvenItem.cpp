@@ -60,7 +60,8 @@ namespace m
 		{
 			if (bShopItem)
 			{
-				if(InteractUIManager::mCurUIType != InteractUIManager::eInteractUIType::BuyItem)
+				if(InteractUIManager::mCurUIType != InteractUIManager::eInteractUIType::BuyItem
+					&& InteractUIManager::mCurUIType != InteractUIManager::eInteractUIType::BuyFail)
 				{
 					InteractUIManager::SetItemUI((int)mItem
 						, InteractUIManager::eInteractUIType::ExItem
@@ -117,81 +118,4 @@ namespace m
 		Item::Render();
 	}
 
-
-	void InvenItem::makeItemExUI()
-	{
-	//	bMakeUI = true;
-
-	//	Vector3 pos = GET_POS(this);
-	//	std::vector<std::wstring> options;
-	//	std::wstring valueStr = L"";
-	//	Vector2 fontMaxSize = Vector2::Zero;
-
-	//	std::wstring str = itemCostFunctionNames[(int)mItem][0];
-	//	Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
-	//	if (fontMaxSize.x < fontSize.x)
-	//		fontMaxSize.x = fontSize.x;
-
-	//	fontMaxSize.y += fontSize.y * 2;
-	//	options.push_back(str);
-	//	for (int i = 1; i < 5; ++i)
-	//	{
-	//		str = itemCostFunctionNames[(int)mItem][i];
-	//		if (str == L"") continue;
-
-	//		valueStr = std::to_wstring(itemFunctionValue[(int)mItem][i - 1]);
-
-	//		str += valueStr;
-
-	//		fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
-
-	//		if (fontMaxSize.x < fontSize.x)
-	//			fontMaxSize.x = fontSize.x;
-
-	//		fontMaxSize.y += fontSize.y;
-
-	//		options.push_back(str);
-	//	}
-	//	pos.y += fontMaxSize.y;
-
-	//	mExItemUI = new InteractUI(pos, options, {}, {}, Vector3(fontMaxSize.x, fontMaxSize.y, 1.f), true);
-
-	//	std::vector<std::wstring> wsBuyText;
-	//	wsBuyText.push_back(L"구입");
-	//	wsBuyText.push_back(itemCostFunctionNames[(int)mItem][0]);
-	//	wsBuyText.push_back(L"골드:" + std::to_wstring(itemFunctionValue[(int)mItem][0]));
-	//	wsBuyText.push_back(L"네");
-	//	wsBuyText.push_back(L"아니오");
-
-	//	pos = GET_POS(this);
-	//	fontMaxSize = Vector2::Zero;
-
-	//	for (std::wstring str : wsBuyText)
-	//	{
-	//		fontSize = FontWrapper::GetTextSize(str.c_str(), 15.f);
-	//		if (fontMaxSize.x < fontSize.x)
-	//			fontMaxSize.x = fontSize.x;
-
-	//		fontMaxSize.y += fontSize.y;
-	//	}
-	//	pos.y += fontMaxSize.y;
-	//	std::vector<Vector4> vColors = {
-	//		Vector4(148.f, 128.f, 100.f,255.f),
-	//		Vector4(148.f,128.f,100.f,255.f),
-	//		Vector4(148.f,128.f,100.f,255.f),
-	//		Vector4(255.f,255.f,255.f,255.f),
-	//		Vector4(255.f,255.f,255.f,255.f),
-	//	};
-	//	std::vector<Vector4> vClickColors = {
-	//		Vector4::Zero,
-	//		Vector4::Zero,
-	//		Vector4::Zero,
-	//		Vector4(80.f,80.f,172.f,255.f),
-	//		Vector4(80.f,80.f,172.f,255.f),
-	//	};
-
-	//	mBuyDcUI = new InteractUI(pos, wsBuyText, vColors, vClickColors, Vector3(fontMaxSize.x, fontMaxSize.y, 1.f));
-	//	mBuyDcUI->SetState(NoRenderUpdate);
-	//	mBuyDcUI->SetItem(mItem);
-	}
 }

@@ -52,11 +52,14 @@ namespace m
 		{
 			SET_MATERIAL(this, L"noneRect");
 		}
-		Light* lightComp = AddComponent<Light>();
-		lightComp->SetType(eLightType::Point);
-		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.2f));
-		lightComp->SetRadiusX(100.0f);
-		lightComp->SetRadiusY(50.0f);
+		if(type != eSkillType::fireWall)
+		{
+			Light* lightComp = AddComponent<Light>();
+			lightComp->SetType(eLightType::Point);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.2f));
+			lightComp->SetRadiusX(100.0f);
+			lightComp->SetRadiusY(50.0f);
+		}
 	}
 	SkillStraight::~SkillStraight()
 	{

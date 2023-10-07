@@ -58,7 +58,10 @@ namespace m
         GameObject::Update();
         if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
 
-        
+        Vector3 pos = GET_POS(this);
+        pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
+
+        SET_POS_VEC(this, pos);
     }
 
     void Torch::LateUpdate()

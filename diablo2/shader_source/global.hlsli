@@ -244,19 +244,20 @@ void CalculateLight2D(in out float4 lightColor, float3 position, int idx)
         if (distanceSquared < 1.0f)
         {
             float ratio = 1.0f - distanceSquared;
+            
             if (lightColor.a + lightsAttribute[idx].color.a * ratio < 1.f)
                 lightColor.a += lightsAttribute[idx].color.a * ratio;
-            else 
+            else
                 lightColor.a = 1.f;
             
             if (lightColor.g + lightsAttribute[idx].color.g * ratio < 1.f)
                 lightColor.g += lightsAttribute[idx].color.g * ratio;
-            else 
+            else
                 lightColor.g = 1.f;
             
             if (lightColor.b + lightsAttribute[idx].color.b * ratio < 1.f)
                 lightColor.b += lightsAttribute[idx].color.b * ratio;
-            else 
+            else
                 lightColor.b = 1.f;
             
             if (lightColor.r + lightsAttribute[idx].color.r * ratio < 1.f)

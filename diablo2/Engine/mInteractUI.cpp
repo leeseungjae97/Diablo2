@@ -91,7 +91,7 @@ namespace m
 						item->SetState(GameObject::RenderUpdate);
 						ADD_COMP(item, ItemScript);
 						SceneManager::GetActiveScene()->AddGameObject(eLayerType::Item, item);
-						StashManager::AddItem(item, StashManager::eStashType::Inventory);
+						//StashManager::AddItem(item, StashManager::eStashType::Inventory);
 						StashManager::AddItemTetris(item, StashManager::eStashType::Inventory);
 
 						SetState(eState::NoRenderUpdate);
@@ -111,7 +111,7 @@ namespace m
 					|| text.compare(L"°è¼Ó") == 0)
 				{
 					SetState(eState::NoRenderUpdate);
-					//InteractUIManager::
+					InteractUIManager::mCurUIType = InteractUIManager::eInteractUIType::End;
 				}
 			}
 		}

@@ -50,6 +50,10 @@ namespace m
         float GetMonsterHpPercent() { return hpPercent; }
 
         SkillOverlay* GetHSO() { return mHSO; }
+
+        void SetCenterPosY(float centerPosY) { fCenterPosY = centerPosY; }
+        float GetCenterPosY() { return fCenterPosY; }
+
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
@@ -69,6 +73,8 @@ namespace m
         float hpPercent;
 
         std::wstring wsMonsterName;
+
+        float fCenterPosY;
     };
 }
 

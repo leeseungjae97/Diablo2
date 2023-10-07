@@ -19,14 +19,14 @@ namespace m
     {
         for(float i = 0.0f ; i <= 2.f ;)
         {
-            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, Vector3::Zero, 400.f, true);
+            SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, iniPos, 400.f, true);
             ss->SetState(GameObject::eState::NoRenderUpdate);
             sectionSkills.push_back(ss);
             i += 0.1f;
         }
         for(int i = 0 ; i < 16; ++i)
         {
-            SkillCurve* sc = new SkillCurve(eSkillType::iceBolt, Vector3::Zero, 600.f);
+            SkillCurve* sc = new SkillCurve(eSkillType::iceBolt, iniPos, 600.f);
             sc->SetState(GameObject::eState::NoRenderNoUpdate);
             sectionSkills2.push_back(sc);
         }
@@ -66,9 +66,12 @@ namespace m
             &&
             math::areAlmostEqual(mAccSkillTime, 0.1f, 0.05))
         {
-            sectionSkills[mSectionActiveCount]->SetState(eState::RenderUpdate);
+            
             fireThreeWayDegreeSkill(sectionSkills[mSectionActiveCount]);
             sectionSkills[mSectionActiveCount]->SkillFire();
+            sectionSkills[mSectionActiveCount]->SetState(eState::RenderUpdate);
+            
+
             mAccSkillTime = 0.f;
             ++mSectionActiveCount;
         }
@@ -146,8 +149,7 @@ namespace m
             Vector3 pos = GET_POS(this);
             SET_POS_VEC(sectionSkills2[i], pos);
             sectionSkills2[i]->SetInitializePosition(pos);
-            sectionSkills2[i]->SetState(RenderUpdate);
-
+            
             float degree = 360 / sectionSkills2.size() * (i + 1);
             float theta = DegreeToRadian(degree + 90.f);
 
@@ -157,6 +159,9 @@ namespace m
             sectionSkills2[i]->SetAddCurve(20.f);
             sectionSkills2[i]->SetDestPosition(pos);
             sectionSkills2[i]->SkillFire();
+            sectionSkills2[i]->SetState(RenderUpdate);
+
+            //SceneManager::GetActiveScene()->AddGameObject(mMiType, sectionSkills2[i]);
         }
     }
 }

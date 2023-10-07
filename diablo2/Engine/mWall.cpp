@@ -98,51 +98,74 @@ namespace m
         int sizeX = wallSizes[(int)mWallType][0];
         int sizeY = wallSizes[(int)mWallType][1];
         eWallDirection direction = wallDirections[(int)mWallType];
-        
+        if (direction == eWallDirection::Door) return;
+
         if(direction == eWallDirection::LeftUpRightDown)
         {
             if(sizeX == 3)
             {
                 if(mCoord.y - 1 >= 0)
+                {
                     TileManager::pathFindingTiles[mCoord.y - 1][mCoord.x]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y - 1][mCoord.x]->SetThroughWall(false);
+                }
                 if (mCoord.y + 1 < 100)
+                {
                     TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetThroughWall(false);
+                }
             }
-            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
+
         }
         if (direction == eWallDirection::LeftDownRightUp)
         {
             if (sizeY == 3)
             {
                 if (mCoord.x - 1 >= 0)
+                {
                     TileManager::pathFindingTiles[mCoord.y][mCoord.x - 1]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y][mCoord.x - 1]->SetThroughWall(false);
+                    
+                }
                 if (mCoord.x + 1 < 100)
+                {
                     TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetThroughWall(false);
+                }
+
             }
-            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
-        }
-        if(direction == eWallDirection::Point)
-        {
-            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
         }
         if (direction == eWallDirection::Tile)
         {
             if (sizeY == 2)
             {
                 if (mCoord.y + 1 < 100)
+                {
                     TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x]->SetThroughWall(false);
+                }
+                    
             }
             if(sizeX == 2)
             {
                 if (mCoord.x + 1 < 100)
+                {
                     TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y][mCoord.x + 1]->SetThroughWall(false);
+                }
+                    
             }
             if (sizeY == 2 && sizeX == 2)
             {
                 if (mCoord.x + 1 < 100 && mCoord.y + 1 < 100)
+                {
                     TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x + 1]->SetIsWall(true);
+                    TileManager::pathFindingTiles[mCoord.y + 1][mCoord.x + 1]->SetThroughWall(false);
+                }
+                    
             }
-            TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
         }
+        TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetIsWall(true);
+        TileManager::pathFindingTiles[mCoord.y][mCoord.x]->SetThroughWall(false);
     }
 }

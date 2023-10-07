@@ -461,11 +461,11 @@ namespace renderer
 
 		vertexes.resize(4);
 
-		vertexes[0].pos = Vector3(-2.0f, 1.0f, 0.0f);
+		vertexes[0].pos = Vector3(-2.0f, 0.5f, 0.0f);
 		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[0].uv = Vector2(0.0f, 0.0f);
 
-		vertexes[1].pos = Vector3(-1.0f, 1.0f, 0.0f);
+		vertexes[1].pos = Vector3(-1.0f, 0.5f, 0.0f);
 		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
@@ -677,6 +677,7 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"mp_posion_anim", L"..\\Resources\\texture\\field_items\\mp_posion_anim"
 			, 20, 159, 17, L"mpPosionAnim");
+
 		MAKE_MATERIAL(spriteShader, L"mp_posion_field", L"..\\Resources\\texture\\field_items\\mp_posion_field.png", L"mpPosionField");
 #pragma endregion
 #pragma region Map
@@ -1301,6 +1302,8 @@ namespace renderer
 			attribute.size = lights.size();
 			lightsAttributes.push_back(attribute);
 		}
+		lights.clear();
+
 		if (!lightsAttributes.empty())
 		{
 			lightsBuffer->SetData(lightsAttributes.data(), lightsAttributes.size());

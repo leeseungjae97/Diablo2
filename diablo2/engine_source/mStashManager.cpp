@@ -312,7 +312,8 @@ namespace m
 
 					curItem->SetPrevPosition(Vector3(invenPos.x, invenPos.y, curPos.z));
 					SET_POS_XYZ(curItem, invenPos.x, invenPos.y, curPos.z);
-					ChangeFillIntersectArea(invenPos, true, curItem, type);
+					//ChangeFillIntersectArea(invenPos, true, curItem, type);
+					curInven->SetFill(true);
 					break;
 				}
 			}
@@ -425,42 +426,13 @@ namespace m
 			//m->SetCamera(mCurCamera);
 			//SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, m);
 		}
-		//if(bt)
-		//{
-		//	for (int y = 0; y < 10; y++)
-		//	{
-		//		for (int x = 0; x < 10; x++)
-		//		{
-		//			//x 110, y 142
-		//			GameObject* t = new GameObject();
-		//			float widthIndent = 96.f * Texture::GetWidRatio();
-		//			float heightIndent = 128.f * Texture::GetHeiRatio();
-		//			Vector2 scale = Vector2((288.f / 10.f) * Texture::GetWidRatio(), (288.f / 10.f) * Texture::GetHeiRatio());
-		//			SET_POS_XYZ(t
-		//				, -RESOL_H_WID + widthIndent + (scale.x / 2.f) +(scale.x * x)
-		//				, RESOL_H_HEI + (-heightIndent) + (-scale.y / 2.f) + (-scale.y * y)
-		//				, -2.f
-		//			);
-		//			SET_SCALE_XYZ(t, scale.x
-		//				, scale.y, 1.f);
-		//			ADD_COMP(t, Collider2D);
-		//			t->SetCamera(SceneManager::GetActiveScene()->GetSceneUICamera());
-		//			SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, t);
-		//			ts.push_back(t);
-		//		}
-		//	}
-		//	bt = false;
-		//}
-		//if(nullptr == ts[0]->GetCamera())
-		//{
-		//	for (GameObject* t : ts) 
-		//}
 
 		inventoryUpdate();
 		pocketInventoryUpdate();
 		shopInventoryUpdate();
 
 		ItemDeploy();
+
 		MouseManager::FreeMouseFollow();
 	}
 
@@ -478,10 +450,13 @@ namespace m
 			type = eStashType::Inventory;
 
 		}
-		if (Vector2::PointIntersectRect(shopInvensCollider->GetPos(),
-			shopInvensCollider->GetSize(), GET_VEC2_F_VEC3_D(GET_POS(item))))
+		if (eShopInventoryState == GameObject::RenderUpdate)
 		{
-			type = eStashType::Shop;
+			if (Vector2::PointIntersectRect(shopInvensCollider->GetPos(),
+				shopInvensCollider->GetSize(), GET_VEC2_F_VEC3_D(GET_POS(item))))
+			{
+				type = eStashType::Shop;
+			}
 		}
 
 		if (type != eStashType::End)
@@ -704,7 +679,7 @@ namespace m
 		}
 		else
 		{
-			AddItem(inven, eStashType::Inventory);
+			//AddItem(inven, eStashType::Inventory);
 			AddItemTetris(inven, eStashType::Inventory);
 		}
 
@@ -724,13 +699,23 @@ namespace m
 		Camera* battleCam = curScene->GetSceneMainCamera();
 		Vector3 playerPos = GET_POS(PlayerManager::player);
 
-		FieldItem* field = new FieldItem(ei, Vector3(playerPos.x, playerPos.y, hoverPos.z));
+		FieldItem* field = new FieldItem(ei, Vector3(playerPos.x, playerPos.y, playerPos.z));
 
 		field->SetCamera(battleCam);
 		curScene->AddGameObject(eLayerType::FieldItem, field);
 
 		EraseItem(item);
 		return true;
+	}
+	void StashManager::DropFieldItem(int item, Vector3 initPos)
+	{
+		Scene* curScene = SceneManager::GetActiveScene();
+		Camera* battleCam = curScene->GetSceneMainCamera();
+
+		FieldItem* field = new FieldItem((eItem)item, initPos);
+
+		field->SetCamera(battleCam);
+		curScene->AddGameObject(eLayerType::FieldItem, field);
 	}
 	void StashManager::MoveOtherStash(InvenItem* item, eStashType stashTypeMove)
 	{
@@ -1125,6 +1110,9 @@ namespace m
 				item->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z));
 				SET_POS_XYZ(item, centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z);
 				ChangeFillIntersectArea(centerPosFromInvenLeftTop, true, item, type);
+
+				AddItem(item, type);
+
 				break;
 			}
 			if (itemInvenDisplayScale[(UINT)mItem][0] == 1.f
@@ -1138,6 +1126,9 @@ namespace m
 				item->SetPrevPosition(Vector3(invenPos.x, invenPos.y, curPos.z));
 				SET_POS_XYZ(item, invenPos.x, invenPos.y, curPos.z);
 				ChangeFillIntersectArea(invenPos, true, item, type);
+
+				AddItem(item, type);
+
 				break;
 			}
 		}

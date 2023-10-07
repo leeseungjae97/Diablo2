@@ -4,7 +4,7 @@ namespace m
 	TileDrawSystem::TileDrawSystem()
 		: mPathTileBuffer(nullptr)
 		, mSharedBuffer(nullptr)
-		, mTileSize(0)
+		, mTileSize(10000)
 	{
 		std::shared_ptr<Mesh> mesh = RESOURCE_FIND(Mesh, L"PointMesh");
 

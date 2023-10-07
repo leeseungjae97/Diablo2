@@ -56,6 +56,7 @@ namespace m
 
 		T GetcurMonsterData() { return curMonsterData; }
 
+		void SetCenterPosY();
     private:
 		void makeSkillCastAnimation(int type, int direction);
 		void makeMonsterSkill(eSkillType skillType, Vector3 vector3Pos
@@ -92,6 +93,8 @@ namespace m
 		bool bFire;
 		float fAttackDelay;
 		float degree;
+
+		float fSkillCenterPosY;
 	};
 }
 

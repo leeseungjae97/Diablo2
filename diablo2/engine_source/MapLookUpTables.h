@@ -25,7 +25,7 @@ m::math::Vector2 stage4Walls[1000] = {
 	//
 
 	{57, 56},
-	{57, 57},
+	//{57, 57},
 	{58, 56},
 	{58, 57},
 	{59, 55},
@@ -1078,4 +1078,18 @@ m::math::Vector2 stage1Walls[1000] = {
 	m::math::Vector2(52, 51),
 	m::math::Vector2(52, 50),
 	m::math::Vector2(52, 49),
+};
+
+
+m::math::Vector2 stage4ThroughWalls[1000] = {
+	m::math::Vector2(),
+};
+m::math::Vector2 stage3ThroughWalls[1000] = {
+	m::math::Vector2(),
+};
+m::math::Vector2 stage2ThroughWalls[1000] = {
+	m::math::Vector2(),
+};
+m::math::Vector2 stage1ThroughWalls[1000] = {
+	m::math::Vector2(),
 };

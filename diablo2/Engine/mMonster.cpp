@@ -2,10 +2,11 @@
 
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
+#include "../engine_source/mSceneManager.h"
+#include "../engine_source/mStashManager.h"
 
 #include "mPlayerManager.h"
 #include "mPlayer.h"
-#include "mSceneManager.h"
 #include "mShadowObject.h"
 #include "mSkillOverlay.h"
 
@@ -16,6 +17,7 @@ namespace m
 		, mMonsterClass(eMonsterClass::Normal)
 		, hp(100.f)
 		, hpCapacity(100.f)
+	    , fCenterPosY(0.f)
 	{
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
@@ -82,6 +84,8 @@ namespace m
 
 			if (mPathFinder)
 			{
+				StashManager::DropFieldItem(1, GET_POS(this));
+
 				delete mPathFinder;
 				mPathFinder = nullptr;
 			}
@@ -114,32 +118,31 @@ namespace m
 		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
 		
 		
-		//if (targetCoord != prevTargetCoord
-		//	|| destCoord != mPathFinder->GetTargetCoord())
-
-		if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if (targetCoord != prevTargetCoord
+			|| destCoord != mPathFinder->GetTargetCoord())
 		{
-			//bool move = mPathFinder->MonsterMove(this);
-
-			if (mMonsterClass == eMonsterClass::Boss)
+			if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 			{
-				mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
-			}
-			else
-			{
-				mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
-			}
+				//bool move = mPathFinder->MonsterMove(this);
 
-			prevCurCoord = curCoord;
-			prevTargetCoord = targetCoord;
+				if (mMonsterClass == eMonsterClass::Boss)
+				{
+					mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
+				}
+				else
+				{
+					mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
+				}
 
-			mPathFinder->PathChange(true);
-			destCoord = mPathFinder->GetTargetCoord();
+				prevCurCoord = curCoord;
+				prevTargetCoord = targetCoord;
+
+				mPathFinder->PathChange(true);
+				destCoord = mPathFinder->GetTargetCoord();
+			}
 		}
 		bMove = true;
 		mPathFinder->MonsterMove(this);
-		
-		
 		
 		if (mMonsterClass != eMonsterClass::Boss
 			&& GetBattleState() == eBattleState::Hit)

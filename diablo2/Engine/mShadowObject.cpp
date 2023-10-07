@@ -6,6 +6,7 @@ namespace m
 {
     ShadowObject::ShadowObject(GameObject* shadowOwner, bool bBMesh)
         : mShadowOwner(shadowOwner)
+        , vShadowOffset(Vector2::One)
     {
         ADD_COMP(this, MeshRenderer);
         if(bBMesh)
@@ -26,6 +27,11 @@ namespace m
         Vector3 pos = GET_POS(mShadowOwner);
         Vector3 scale = GET_SCALE(mShadowOwner);
         //pos.x -= scale.x /2.f;
+        if(vShadowOffset != Vector2::One)
+        {
+            pos.x += vShadowOffset.x;
+            pos.y += vShadowOffset.y;
+        }
         SET_SCALE_VEC(this, scale);
         SET_POS_VEC(this, pos);
         Animator* animator = mShadowOwner->GetComponent<Animator>();

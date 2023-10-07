@@ -44,12 +44,15 @@ namespace m
 	void MonsterHand::Update()
 	{
 		Hand::Update();
-		if (mOwner->GetState() == Delete) {
+		if (mOwner->GetBattleState() == eBattleState::ToDead)
+		{
 			SetState(Delete);
 			return;
 		}
 
 		Vector3 pos = GET_POS(mOwner);
+		
+		pos.y += mOwner->GetCenterPosY();
 		
 		int direction = mHandScript->GetHandDirection();
 
@@ -61,15 +64,12 @@ namespace m
 				|| direction == (int)ePathSixteenDirection::Up)
 			{
 				if (pos.z == 1.f) pos.z += 0.00001f;
-				//SceneManager::GetActiveScene()->GetLayer(eLayerType::Monster)->ChangeLayerIndexGameObject(this, mOwner);
 			}
 			else
 			{
 				if (pos.z > 1.f) pos.z -= 0.00001f;;
 			}
 		}
-		
-
 
 		SET_POS_VEC(this, pos);
 	}

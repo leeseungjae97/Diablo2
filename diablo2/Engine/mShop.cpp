@@ -58,37 +58,6 @@ namespace m
 
         StashManager::InitItems(StashManager::eStashType::Shop);
         SetState(NoRenderUpdate);
-        //std::wstring buttonNames[4] = {
-        //    L"shopInvenTab0Click",
-        //    L"shopInvenTab1Click",
-        //    L"shopInvenTab2Click",
-        //    L"shopInvenTab3Click"
-        //};
-        
-        //for(int i = 0; i < 4; ++i)
-        //{
-        //    SHARED_MAT mat = RESOURCE_FIND(Material, buttonNames[i]);
-        //    if (nullptr == mat) continue;
-
-        //    Button* tab = new Button();
-
-        //    tab->SetCamera(camera);
-
-        //    SET_MESH(tab, L"RectMesh");
-        //    SET_MATERIAL_D(tab, mat);
-
-        //    MAKE_GET_TEX(tab, tex);
-        //    SET_SCALE_TEX_SIZE_WITH_RAT(tab, tex, 1.f);
-        //    Vector3 scale = GET_SCALE(tab);
-        //    SET_POS_XYZ(tab, 
-        //        -RESOL_H_WID + 80.f * Texture::GetWidRatio() + (scale.x / 2.f) + ((scale.x + 1.f) * i),
-        //        RESOL_H_HEI - 64.f * Texture::GetHeiRatio() + (-scale.y / 2.f)
-        //        , -1.f);
-
-        //    SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, tab);
-
-        //    shopTabs.push_back(tab);
-        //}
     }
 
     Shop::~Shop()
@@ -103,7 +72,7 @@ namespace m
     void Shop::Update()
     {
         UI::Update();
-        //if (nullptr == tests[0]->GetCamera()) for (GameObject* t : tests) t->SetCamera(GetCamera());
+        
         if(GetState() == RenderUpdate)
         {
             StashManager::SetCurRenderShop(this);
@@ -112,11 +81,6 @@ namespace m
         {
             SetState(eState::NoRenderUpdate);
         }
-
-        //if(StashManager::GetInventoryState() == eState::NoRenderUpdate)
-        //{
-        //    StashManager::SetShopInventoryVisible(NoRenderUpdate);
-        //}
 
         StashManager::SetShopInventoryVisible(GetState());
     }

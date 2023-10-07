@@ -94,8 +94,6 @@ namespace m
 
 		pathVector.clear();
 
-		
-
 		startTile = TileManager::pathFindingTiles[mStartCoord.y][mStartCoord.x];
 		targetTile = TileManager::pathFindingTiles[mTargetCoord.y][mTargetCoord.x];
 

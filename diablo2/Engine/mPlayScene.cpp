@@ -141,7 +141,7 @@ namespace m
 			});
 
 
-		Monster* initMonster = new Monster(Vector3(0.f, 0.f, 0.f), 0.f);
+		Monster* initMonster = new Monster(Vector3(-9999.f, -9999.f, 0.f), 0.f);
 		SET_MAIN_CAMERA(initMonster);
 		SET_SCALE_XYZ(initMonster, 0.1f, 0.1f, 1.f);
 		SET_POS_XYZ(initMonster, 0.f, 0.f, 1.f);
@@ -919,6 +919,28 @@ namespace m
 				Wall* wall = new Wall(eWallType::Stage1Wall2, cameraComp, tile->GetCoord());
 				SET_POS_VEC(wall, pos);
 			}
+
+			{
+				Tile* tile = TileManager::pathFindingTiles[45][58];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage1Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[43][58];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage1Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
+			{
+				Tile* tile = TileManager::pathFindingTiles[41][58];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage1Wall2, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
 		}
 
 		{
@@ -1137,7 +1159,7 @@ namespace m
 	{
 		MonsterManager::EraseAll();
 		ScreenEffectManager::FadeIn();
-		TileManager::TileIsWallReset();
+		MakeStage1Wall();
 
 		if (curMap)
 		{
@@ -1146,7 +1168,7 @@ namespace m
 
 		mEnterNameUI->SetText(L"°í³úÀÇ ¿©Á¦");
 
-		MakeStage1Wall();
+		
 
 		fAcc = 0.f;
 		bStageInit = false;
@@ -1175,7 +1197,8 @@ namespace m
 		}
 
 		{
-			Tile* tile = TileManager::pathFindingTiles[53][67];
+			//Tile* tile = TileManager::pathFindingTiles[53][67];
+			Tile* tile = TileManager::pathFindingTiles[52][47];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
@@ -1203,7 +1226,7 @@ namespace m
 		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		//}
 		{
-			Tile* tile = TileManager::pathFindingTiles[40][20];
+			Tile* tile = TileManager::pathFindingTiles[53][77];
 			Vector3 pos = tile->GetPos();
 			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
 			SET_MAIN_CAMERA(monster);
@@ -1214,20 +1237,20 @@ namespace m
 			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
 			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		}
-		{
-			Tile* tile = TileManager::pathFindingTiles[53][77];
-			Vector3 pos = tile->GetPos();
-			Monster* monster = new Monster(pos, MDAndariel().fSpeed);
-			monster->SetCoord(tile->GetCoord());
-			SET_MAIN_CAMERA(monster);
-			AddGameObject(eLayerType::Monster, monster);
-			MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[53][77];
+		//	Vector3 pos = tile->GetPos();
+		//	Monster* monster = new Monster(pos, MDAndariel().fSpeed);
+		//	monster->SetCoord(tile->GetCoord());
+		//	SET_MAIN_CAMERA(monster);
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+		//	monster->SetMonsterClass(ms->GetMonsterClass());
+		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 
-			mBossMonster = monster;
-		}
+		//	mBossMonster = monster;
+		//}
 	}
 
 	void PlayScene::Stage2()
@@ -1249,7 +1272,7 @@ namespace m
 		mPortal->SetClickPortal(
 			[=]()
 			{
-				Stage4();
+				Stage3();
 			}
 		);
 		{
@@ -1269,6 +1292,7 @@ namespace m
 		}
 		{
 			Tile* tile = TileManager::pathFindingTiles[77][52];
+			//Tile* tile = TileManager::pathFindingTiles[48][57];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
@@ -1326,6 +1350,7 @@ namespace m
 		}
 		{
 			Tile* tile = TileManager::pathFindingTiles[26][54];
+			//Tile* tile = TileManager::pathFindingTiles[60][56];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
@@ -1380,7 +1405,8 @@ namespace m
 			//lightComp->SetRadiusY(150.0f);
 		}
 		{
-			Tile* tile = TileManager::pathFindingTiles[24][24];
+			//Tile* tile = TileManager::pathFindingTiles[24][24];
+			Tile* tile = TileManager::pathFindingTiles[60][60];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}

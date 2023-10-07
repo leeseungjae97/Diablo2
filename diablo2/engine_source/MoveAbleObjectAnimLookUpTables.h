@@ -249,7 +249,8 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 100;
+		float hp = 1
+	    ;
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -541,7 +542,7 @@ namespace m
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
             math::Vector2(0.f, 0.f), // Attack
-            math::Vector2(0.f, 0.f),
+            math::Vector2(5.f, 180.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),	// Hit
             math::Vector2(0.f, 0.f),	// Natural
@@ -727,7 +728,7 @@ namespace m
 			L"andarielToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
-			math::Vector2(0.f, 12.f), // Attack1
+			math::Vector2(0.f, 0.f), // Attack1
 			math::Vector2(0.f, 0.f),	// Attack2
 			math::Vector2(0.f, 0.f),	// Block
 			math::Vector2(0.f, 0.f),	// Hit
@@ -743,7 +744,7 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
-            math::Vector2(0.f, 0.f), // Attack
+            math::Vector2(0.f, -300.f), // Attack
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),	// Hit
@@ -755,8 +756,8 @@ namespace m
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
-            math::Vector2(0.f, 0.f),	// Dead
-            math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, -300.f),	// Dead
+			math::Vector2(0.f, -300.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(247.f, 248.f),	// Attack1
@@ -867,14 +868,14 @@ namespace m
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
-			eSkillType::END
+			eSkillType::DurielStunAttack
 			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 			,eSkillType::END
 		};
 		eAuraType passiveAura = eAuraType::HolyFreeze;
-		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, -30.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 30.f);
 		const std::wstring wsMonsterName = L"µÎ¸®¿¤";
 		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
 			m::enums::eColliderFunctionType::Range
@@ -884,7 +885,7 @@ namespace m
 			, m::enums::eColliderFunctionType::End
 		};
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
-		bool bSpecialSkillStopInProgress[5] = { false, false, false, false };
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false,false };
 		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
 
 		int mSpecialSkillCount[5] = { 0, 0, 0, 0 };
@@ -932,14 +933,14 @@ namespace m
 			L"durielToDead_anim@",
 		};
 		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
-			math::Vector2(10.f, 0.f), // Attack1
+			math::Vector2(0.f, 0.f), // Attack1
 			math::Vector2(0.f, 0.f),	// Attack2
 			math::Vector2(0.f, 0.f),	// Block
 			math::Vector2(0.f, 0.f),	// Hit
 			math::Vector2(0.f, 0.f),	// Natural
 			math::Vector2(0.f, 0.f),	// Run
 			math::Vector2(0.f, 0.f),	// Walk
-			math::Vector2(-10.f, 0.f),	// SpecialCast
+			math::Vector2(0.f, 0.f),	// SpecialCast
 			math::Vector2(0.f, 0.f),	// Special1
 			math::Vector2(0.f, 0.f),	// Special2
 			math::Vector2(0.f, 0.f),	// Special3
@@ -947,14 +948,14 @@ namespace m
 			math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
-            math::Vector2(0.f, 0.f), // Attack
+            math::Vector2(50.f, 0.f), // Attack
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),	// Hit
             math::Vector2(0.f, 0.f),	// Natural
             math::Vector2(0.f, 0.f),	// Run
             math::Vector2(0.f, 0.f),
-            math::Vector2(0.f, 0.f),
+            math::Vector2(50.f, 0.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
@@ -962,20 +963,20 @@ namespace m
             math::Vector2(0.f, 0.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
-			math::Vector2(301.f, 201.f),	// Attack1
+			math::Vector2(3011.f / 10.f, 1616 / 8.f),	// Attack1
 			math::Vector2(),	// Attack2
 			math::Vector2(),	// Block
 			math::Vector2(207.f, 188.f),	// Hit
-			math::Vector2(172.f, 186.f),	// Natural
-			math::Vector2(253.f, 225.f),	// Run
+			math::Vector2(2064.f / 12.f, 1496.f / 8.f),	// Natural
+			math::Vector2(4049.f / 16.f, 1808.f / 8.f),	// Run
 			math::Vector2(),	// Walk
-			math::Vector2(287.f, 188.f),	// SpecialCast
+			math::Vector2(4305.f / 15.f, 1512.f / 8.f),	// SpecialCast
 			math::Vector2(),	// Special1
 			math::Vector2(),	// Special2
 			math::Vector2(),	// Special3
 			math::Vector2(),	// Special4
-			math::Vector2(263.f, 160.f),					// Dead
-			math::Vector2(266.f, 232.f),					// ToDead
+			math::Vector2(263.f, 1280.f / 8.f),					// Dead
+			math::Vector2(6650.f / 25.f, 1863.f / 8.f),					// ToDead
 
 		};
 		float animationDuration[(UINT)eAnimationType::End] = {
@@ -1089,7 +1090,7 @@ namespace m
 		};
 		eAuraType passiveAura = eAuraType::MephistoOverlay;
 
-		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 50.f);
 
 		int mSpecialSkillAddFunction[5] = { 0,3,0,0, 0 };
 
