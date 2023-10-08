@@ -15,7 +15,7 @@ namespace m
 		Z, X, C, V, B, N, M,
 		
 		UP, DOWN, LEFT, RIGHT, SPACE,
-		LBUTTON, RBUTTON, ESC,
+		LBUTTON, RBUTTON, ESC, L_ALT,
 		END,
 	};
 
@@ -46,10 +46,6 @@ namespace m
 			return mKeys[(UINT)keyCode].state;
 		};
 
-		//GetKey()		키를 누르는 시간만큼 true를 반환
-		//GetKeyDown()	키를 눌렀을 때, 딱 한번 true를 반환
-		//GetKeyUp()	키를 누르다 땠을 때, 딱 한번 true를 반환
-
 		static __forceinline bool GetKey(eKeyCode keyCode)
 		{
 			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Pressed;
@@ -77,6 +73,7 @@ namespace m
 				return false;
 			}
 		}
+		
 		static __forceinline bool GetKeyUpOne(eKeyCode keyCode)
 		{
 			if (bCallUpOne)

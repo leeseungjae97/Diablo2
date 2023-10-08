@@ -17,8 +17,8 @@ namespace m
 		//Transform* fr = GET_COMP(this, Transform);
 		//fr->SetParent(GET_COMP(parent, Transform));
 
-		ADD_COMP(this, Animator);
-		ADD_COMP(this, MeshRenderer);
+		//ADD_COMP(this, Animator);
+		//ADD_COMP(this, MeshRenderer);
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");

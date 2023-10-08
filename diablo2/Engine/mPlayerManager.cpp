@@ -37,6 +37,7 @@ namespace m
 		SET_MATERIAL(player, L"AnimationMaterial");
 		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
 		ADD_COMP(player, Animator);
+		player->SetState(GameObject::eState::NoRenderUpdate);
 		//player->AddComponent<OverlayEffectSkillScript>(1);
 
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;

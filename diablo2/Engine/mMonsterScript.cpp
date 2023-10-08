@@ -121,6 +121,7 @@ namespace m
 				//diabloToDead2;
 				//diabloToDead3;
 
+				float fOffsetY = curMonsterData.animationCenterPos[i].y;
 				SHARED_MAT mat1 = RESOURCE_FIND(Material, L"diabloToDead1");
 				SHARED_MAT mat2 = RESOURCE_FIND(Material, L"diabloToDead2");
 				SHARED_MAT mat3 = RESOURCE_FIND(Material, L"diabloToDead3");
@@ -131,7 +132,7 @@ namespace m
 					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationLength[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
-					, Vector2(0.f, centerPosY)
+					, Vector2(0.f, fOffsetY)
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
 
@@ -142,7 +143,7 @@ namespace m
 					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationLength[(int)MonsterData::eAnimationType::ToDead]
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
-					, Vector2(0.f, centerPosY)
+					, Vector2(0.f, fOffsetY)
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
 				mAnimator->Create(
@@ -152,7 +153,7 @@ namespace m
 					, curMonsterData.animationSizes[(int)MonsterData::eAnimationType::ToDead]
 					, mat3->GetTexture()->GetMetaDataWidth() / 266
 					, curMonsterData.animationOffset[(int)MonsterData::eAnimationType::ToDead]
-					, Vector2(0.f, centerPosY)
+					, Vector2(0.f, fOffsetY)
 					, curMonsterData.animationDuration[(int)MonsterData::eAnimationType::ToDead]
 				);
 				mAnimator->EndEvent(L"dialoToDead1_anim@") = std::make_shared<std::function<void()>>([=]()

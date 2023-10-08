@@ -1,6 +1,5 @@
 #include "mPlayerScript.h"
 
-#include "mAura.h"
 #include "../engine_source/mConstantBuffer.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mAnimator.h"
@@ -13,6 +12,7 @@
 #include "../engine_source/mApplication.h"
 #include "../engine_source/mSkillManager.h"
 #include "../engine_source/mInput.h"
+#include "../engine_source/SummonsLookUpTables.h"
 
 #include "mPlayer.h"
 #include "mMonster.h"
@@ -34,7 +34,10 @@
 #include "mSkillRange.h"
 #include "mSkillSummons.h"
 #include "mSkillWall.h"
-#include "SummonsLookUpTables.h"
+
+#include "mPlayerHand.h"
+#include "mAura.h"
+#include "mBodyParts.h"
 
 extern m::Application application;
 namespace m
@@ -50,10 +53,28 @@ namespace m
 		, bFire(false)
 		, mSkill(nullptr)
 		, mSkillBuff(nullptr)
+		, mHead(nullptr)
+		, mLeftArm(nullptr)
+		, mRightArm(nullptr)
+		, mBody(nullptr)
+		, mLeg(nullptr)
+		, mRightHand(nullptr)
 	{
 	}
 
-	PlayerScript::~PlayerScript() {}
+	PlayerScript::~PlayerScript()
+	{
+		if (mHead)
+			mHead->SetState(GameObject::Delete);
+		if (mLeftArm)
+			mLeftArm->SetState(GameObject::Delete);
+		if(mRightArm)
+			mRightArm->SetState(GameObject::Delete);
+		if(mBody)
+			mBody->SetState(GameObject::Delete);
+		if(mLeg)
+			mLeg->SetState(GameObject::Delete);
+	}
 
 	void PlayerScript::Initialize()
 	{
@@ -69,6 +90,17 @@ namespace m
 		mHSO->SetActiveOwner(GetOwner());
 		mBackSO->SetActiveOwner(GetOwner());
 		mBackSO->Back();
+
+		mHead = new BodyParts(eBodyPartsType::Head, GetOwner());
+		mLeftArm = new BodyParts(eBodyPartsType::LeftArm, GetOwner());
+		mRightArm = new BodyParts(eBodyPartsType::RightArm, GetOwner());
+		mBody = new BodyParts(eBodyPartsType::Body, GetOwner());
+		mLeg = new BodyParts(eBodyPartsType::Leg, GetOwner());
+			//mBody
+			//mLeg
+		
+		//mRightHand = new PlayerHand(GetOwner(), true);
+		
 		//SET_POS_VEC(mRSO, GET_POS(GetOwner()));
 		//SET_POS_VEC(mLSO, GET_POS(GetOwner()));
 
@@ -81,8 +113,6 @@ namespace m
 		curScene->AddGameObject(eLayerType::Skill, mHSO);
 		curScene->AddGameObject(eLayerType::Skill, mBackSO);
 		curScene->AddGameObject(eLayerType::PlayerAura, mAura);
-
-
 
 		SHARED_MAT tex1 = RESOURCE_FIND(Material, L"sorceressAttack1");
 		SHARED_MAT tex2 = RESOURCE_FIND(Material, L"sorceressAttack2");
@@ -259,7 +289,11 @@ namespace m
 			return;
 		MakeDirection();
 
-
+		mHead->SetAnimationType((int)mAnimationType);
+		mLeftArm->SetAnimationType((int)mAnimationType);
+		mRightArm->SetAnimationType((int)mAnimationType);
+		mBody->SetAnimationType((int)mAnimationType);
+		mLeg->SetAnimationType((int)mAnimationType);
 		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerManager::player->StopF()
 		//	&& ((Player*)GetOwner())->GetAttack())
 		//{
@@ -532,12 +566,40 @@ namespace m
 		float degree = RadianToDegree(atan2(direction.x, direction.y));
 
 		int n = degree / (180.f / 9.f);
+		
 		if (n > 8) n = 8;
 
+		int iBPDirection = 0;
 		if (n > 0)
+		{
 			mDirection = plusSixteenDirections[n];
+		}
 		else
+		{
 			mDirection = minusSixteenDirections[abs(n)];
+		}
+
+		int m = degree / (180.f / 18.f);
+		if (m > 0)
+		{
+			iBPDirection = pathPlusSixteenDirections[m];
+		}
+		else
+		{
+			iBPDirection = pathMinusSixteenDirections[abs(m)];
+		}
+		
+		
+		if (mHead)
+			mHead->SetDirection(iBPDirection);
+		if(mLeftArm)
+			mLeftArm->SetDirection(iBPDirection);
+		if(mRightArm)
+			mRightArm->SetDirection(iBPDirection);
+		if(mBody)
+			mBody->SetDirection(iBPDirection);
+		if(mLeg)
+			mLeg->SetDirection(iBPDirection);
 	}
 
 	void PlayerScript::SpecialCastAnimation(int skillIndex)

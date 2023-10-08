@@ -554,6 +554,7 @@ namespace m
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),
             math::Vector2(0.f, 0.f),	// Dead
+            math::Vector2(0.f, 50.f),	// Dead
 		};
 		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
 			math::Vector2(4960.f / 16.f, 1791.f / 8.f),	// Attack1

@@ -669,16 +669,88 @@ namespace renderer
 		std::shared_ptr<Shader> tileShader = m::Resources::Find<Shader>(L"TileShader");
 		std::shared_ptr<Shader> tileDrawShader = m::Resources::Find<Shader>(L"TileDrawShader");
 		std::shared_ptr<Shader> wallShader = m::Resources::Find<Shader>(L"WallShader");
+#pragma region PlayerBodyParts
+		MAKE_MATERIAL_PATH(spriteShader, L"hd_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\hd_gh"
+			, 44, 34, 8, L"hdGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"lg_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\lg_gh"
+			, 38, 50, 8, L"lgGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"la_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\la_gh"
+			, 34, 35, 8, L"nLaGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"ra_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\ra_gh"
+			, 34, 35, 8, L"nRaGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"tr_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\tr_gh"
+			, 24, 26, 8, L"trGH");
 
+		MAKE_MATERIAL_PATH(spriteShader, L"hd_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\hd_nu"
+			, 35, 30, 8, L"hdNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"lg_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\lg_nu"
+			, 30, 50, 8, L"lgNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"la_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\la_nu"
+			, 30, 32, 8, L"nLaNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"ra_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\ra_nu"
+			, 30, 34, 8, L"nRaNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"tr_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\tr_nu"
+			, 16, 24, 8, L"trNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_ra_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\ob_ra_nu"
+			, 48, 35, 8, L"obRaNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\ob_nu"
+			, 60, 38, 8, L"obNU");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"hd_r", L"..\\Resources\\texture\\character\\sorceress\\run\\hd_r"
+			, 32, 30, 8, L"hdR");
+		MAKE_MATERIAL_PATH(spriteShader, L"lg_r", L"..\\Resources\\texture\\character\\sorceress\\run\\lg_r"
+			, 61, 52, 8, L"lgR");
+		MAKE_MATERIAL_PATH(spriteShader, L"la_r", L"..\\Resources\\texture\\character\\sorceress\\run\\la_r"
+			, 54, 35, 8, L"nLaR");
+		MAKE_MATERIAL_PATH(spriteShader, L"ra_r", L"..\\Resources\\texture\\character\\sorceress\\run\\ra_r"
+			, 50, 33, 8, L"nRaR");
+		MAKE_MATERIAL_PATH(spriteShader, L"tr_r", L"..\\Resources\\texture\\character\\sorceress\\run\\tr_r"
+			, 20, 28, 8, L"trR");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_ra_r", L"..\\Resources\\texture\\character\\sorceress\\run\\ob_ra_r"
+			, 42, 33, 8, L"obRaR");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_r", L"..\\Resources\\texture\\character\\sorceress\\run\\ob_r"
+			, 46, 40, 8, L"obR");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"hd_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\hd_sc"
+			, 43, 35, 14, L"hdSC");
+		MAKE_MATERIAL_PATH(spriteShader, L"lg_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\lg_sc"
+			, 30, 51, 14, L"lgSC");
+		MAKE_MATERIAL_PATH(spriteShader, L"la_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\la_sc"
+			, 85, 62, 14, L"nLaSC");
+		MAKE_MATERIAL_PATH(spriteShader, L"ra_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\ra_sc"
+			, 84, 64, 14, L"nRaSC");
+		MAKE_MATERIAL_PATH(spriteShader, L"tr_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\tr_sc"
+			, 30, 29, 14, L"trSC");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\ob_sc"
+			, 92, 66, 14, L"obSC");
+
+#pragma endregion
 #pragma region FieldItem
 		MAKE_MATERIAL_PATH(spriteShader, L"hp_posion_anim", L"..\\Resources\\texture\\field_items\\hp_posion_anim"
 			, 20, 159, 17, L"hpPosionAnim");
-		MAKE_MATERIAL(spriteShader, L"hp_posion_field", L"..\\Resources\\texture\\field_items\\hp_posion_field.png", L"hpPosionField");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"mp_posion_anim", L"..\\Resources\\texture\\field_items\\mp_posion_anim"
 			, 20, 159, 17, L"mpPosionAnim");
 
+		MAKE_MATERIAL_PATH(spriteShader, L"bots_anim", L"..\\Resources\\texture\\field_items\\bots_anim"
+			, 28, 181, 17, L"botsAnim");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"cap_anim", L"..\\Resources\\texture\\field_items\\cap_anim"
+			, 21, 149, 17, L"capAnim");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"leader_armor_anim", L"..\\Resources\\texture\\field_items\\leader_armor_anim"
+			, 38, 173, 17, L"leaderArmorAnim");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"jareds_stone_anim", L"..\\Resources\\texture\\field_items\\jareds_stone_anim"
+			, 37, 153, 18, L"jaredsStoneAnim");
+
+		MAKE_MATERIAL(spriteShader, L"hp_posion_field", L"..\\Resources\\texture\\field_items\\hp_posion_field.png", L"hpPosionField");
 		MAKE_MATERIAL(spriteShader, L"mp_posion_field", L"..\\Resources\\texture\\field_items\\mp_posion_field.png", L"mpPosionField");
+
+		MAKE_MATERIAL(spriteShader, L"leader_armor_field", L"..\\Resources\\texture\\field_items\\leader_armor_field.png", L"leaderArmorField");
+		MAKE_MATERIAL(spriteShader, L"bots_field", L"..\\Resources\\texture\\field_items\\bots_field.png", L"botsField");
+		MAKE_MATERIAL(spriteShader, L"cap_field", L"..\\Resources\\texture\\field_items\\cap_field.png", L"capField");
+		MAKE_MATERIAL(spriteShader, L"jareds_stone_field", L"..\\Resources\\texture\\field_items\\jareds_stone_field.png", L"jaredsStoneField");
 #pragma endregion
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");

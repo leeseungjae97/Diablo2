@@ -1,20 +1,22 @@
 #pragma once
-#include "mGameObject.h"
+#include "../engine_source/mGameObject.h"
+
+#include "../engine_source/mTransform.h"
+#include "../engine_source/mAnimator.h"
+#include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/PlayerHandLookUpTables.h"
+#include "../engine_source/MonsterHandLookUpTables.h"
 
 #include "mHandScript.h"
-#include "mTransform.h"
-#include "mAnimator.h"
-#include "mMeshRenderer.h"
-#include "PlayerHandLookUpTables.h"
-#include "MonsterHandLookUpTables.h"
+#include "mParts.h"
 
 namespace m
 {
     class Hand :
-        public GameObject
+        public Parts
     {
     public:
-        Hand(GameObject* parent, bool fh);
+        Hand(GameObject* parent, bool _bRightHand);
         virtual ~Hand();
 
         virtual void Update() override;

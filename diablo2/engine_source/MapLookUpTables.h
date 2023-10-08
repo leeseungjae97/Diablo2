@@ -482,18 +482,7 @@ m::math::Vector2 stage3Walls[1000] = {
 	m::math::Vector2(73, 70),
 	m::math::Vector2(73, 71),
 
-	m::math::Vector2(73, 71),
-	m::math::Vector2(72, 71),
-	m::math::Vector2(71, 71),
-	m::math::Vector2(70, 71),
-	m::math::Vector2(69, 71),
-	m::math::Vector2(68, 71),
 
-	m::math::Vector2(65, 61),
-	m::math::Vector2(65, 60),
-	m::math::Vector2(66, 60),
-	m::math::Vector2(66, 61),
-	m::math::Vector2(67, 61),
 
 	m::math::Vector2(67, 61),
 	m::math::Vector2(67, 62),
@@ -508,6 +497,19 @@ m::math::Vector2 stage3Walls[1000] = {
 	m::math::Vector2(67, 71),
 	m::math::Vector2(67, 72),
 	m::math::Vector2(67, 73),
+
+	m::math::Vector2(73, 71),
+	m::math::Vector2(72, 71),
+	m::math::Vector2(71, 71),
+	m::math::Vector2(70, 71),
+	m::math::Vector2(69, 71),
+	m::math::Vector2(68, 71),
+
+	m::math::Vector2(65, 61),
+	m::math::Vector2(65, 60),
+	m::math::Vector2(66, 60),
+	m::math::Vector2(66, 61),
+	m::math::Vector2(67, 61),
 
 	m::math::Vector2(67, 73),
 	m::math::Vector2(66, 73),

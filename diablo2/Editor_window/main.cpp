@@ -174,6 +174,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message)
     {
+    case WM_SYSKEYDOWN:
+    case WM_SYSKEYUP:
+        {
+        // Alt 키 입력 무시
+        return 0;
+        }
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);

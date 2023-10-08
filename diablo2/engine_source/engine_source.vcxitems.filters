@@ -181,6 +181,9 @@
     <Filter Include="Manager\WallObjectManager">
       <UniqueIdentifier>{3111aac2-d9ea-42dd-8cd1-ffacf517c973}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\TileDrawManager">
+      <UniqueIdentifier>{424237e6-d694-4418-9017-c567a53b7847}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -414,6 +417,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mWallObjectManager.h">
       <Filter>Manager\WallObjectManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawManager.h">
+      <Filter>Manager\TileDrawManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BodyPartsLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -589,6 +598,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mWallObjectManager.cpp">
       <Filter>Manager\WallObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawManager.cpp">
+      <Filter>Manager\TileDrawManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -48,17 +48,25 @@ namespace m
 	std::wstring fieldItemTable[(int)eItem::END] = {
 		L"hpPosionField",
 		L"mpPosionField",
-		L"stoneField",
+		L"jaredsStoneField",
 		L"leaderArmorField",
 		L"capField"
 	};
 	std::wstring fieldItemAnimTable[(int)eItem::END] = {
 		L"hpPosionAnim",
 		L"mpPosionAnim",
-		L"stoneAnim",
+		L"jaredsStoneAnim",
 		L"leaderArmorAnim",
 		L"capAnim",
 	};
+	int fieldItemAnimLenght[(int)eItem::END] = {
+		17,
+		17,
+		18,
+		17,
+		17,
+	};
+
 
 	eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
@@ -74,9 +82,9 @@ namespace m
 	m::math::Vector2 itemFieldAnimSpaceTable[(int)eItem::END] = {
 		{20.f, 159.f}
 		,{20.f, 159.f}
-		,{20.f, 159.f}
-		,{20.f, 159.f}
-		,{20.f, 159.f}
+		,{37.f, 153.f}
+		,{38.f, 173.f}
+		,{21.f, 149.f}
 	};
 	//float itemFieldSpaceTable[(int)eItem::END][2] = {
 

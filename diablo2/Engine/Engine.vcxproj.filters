@@ -115,10 +115,10 @@
       <Filter>Script\HandScript</Filter>
     </ClCompile>
     <ClCompile Include="mHand.cpp">
-      <Filter>Hand</Filter>
+      <Filter>BodyParts\Hand</Filter>
     </ClCompile>
     <ClCompile Include="mMonsterHand.cpp">
-      <Filter>Hand\MonsterHand</Filter>
+      <Filter>BodyParts\Hand\MonsterHand</Filter>
     </ClCompile>
     <ClCompile Include="mBackgroundScript.cpp">
       <Filter>Script\BackgroundScript</Filter>
@@ -250,6 +250,15 @@
     <ClCompile Include="mTorch.cpp">
       <Filter>Objects\Torch</Filter>
     </ClCompile>
+    <ClCompile Include="mParts.cpp">
+      <Filter>BodyParts</Filter>
+    </ClCompile>
+    <ClCompile Include="mPlayerHand.cpp">
+      <Filter>BodyParts\Hand\PlayerHand</Filter>
+    </ClCompile>
+    <ClCompile Include="mBodyParts.cpp">
+      <Filter>BodyParts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -363,10 +372,10 @@
       <Filter>Script\HandScript</Filter>
     </ClInclude>
     <ClInclude Include="mHand.h">
-      <Filter>Hand</Filter>
+      <Filter>BodyParts\Hand</Filter>
     </ClInclude>
     <ClInclude Include="mMonsterHand.h">
-      <Filter>Hand\MonsterHand</Filter>
+      <Filter>BodyParts\Hand\MonsterHand</Filter>
     </ClInclude>
     <ClInclude Include="mBackgroundScript.h">
       <Filter>Script\BackgroundScript</Filter>
@@ -498,6 +507,15 @@
     <ClInclude Include="mTorch.h">
       <Filter>Objects\Torch</Filter>
     </ClInclude>
+    <ClInclude Include="mParts.h">
+      <Filter>BodyParts</Filter>
+    </ClInclude>
+    <ClInclude Include="mPlayerHand.h">
+      <Filter>BodyParts\Hand\PlayerHand</Filter>
+    </ClInclude>
+    <ClInclude Include="mBodyParts.h">
+      <Filter>BodyParts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -616,15 +634,6 @@
     </Filter>
     <Filter Include="Script\HandScript\PlayerHandScript">
       <UniqueIdentifier>{70db4787-2905-4c05-a689-2faeba6066e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Hand">
-      <UniqueIdentifier>{c5b4d92f-0ff7-48be-b084-b8059aa32fff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Hand\PlayerHand">
-      <UniqueIdentifier>{0877c8c6-dae7-4c31-b6d4-1ea72bcf39dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Hand\MonsterHand">
-      <UniqueIdentifier>{66e1b167-9da1-4fd8-96fd-a7eef6cc9e5d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Script\StraightScript">
       <UniqueIdentifier>{bf5cf359-b42a-425b-91ba-1be1fd6dfe3c}</UniqueIdentifier>
@@ -781,6 +790,18 @@
     </Filter>
     <Filter Include="Script\TorchScript">
       <UniqueIdentifier>{5a70c2e5-82a7-419f-9edf-96e3f449daa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BodyParts">
+      <UniqueIdentifier>{9669c0c5-8a69-453b-9c14-5797ad9c7e7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BodyParts\Hand">
+      <UniqueIdentifier>{c5b4d92f-0ff7-48be-b084-b8059aa32fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BodyParts\Hand\PlayerHand">
+      <UniqueIdentifier>{0877c8c6-dae7-4c31-b6d4-1ea72bcf39dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BodyParts\Hand\MonsterHand">
+      <UniqueIdentifier>{66e1b167-9da1-4fd8-96fd-a7eef6cc9e5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

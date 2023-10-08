@@ -63,6 +63,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileComputeShader.cpp" />
@@ -75,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AffectOverlayLookUpTable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BodyPartsLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FloorLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAnimationTrappingColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MapLookUpTables.h" />
@@ -132,6 +134,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawComputeShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileComputeShader.h" />

@@ -1,13 +1,19 @@
 #include "mFieldItem.h"
 
 #include "../engine_source/mMeshRenderer.h"
+#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mSceneManager.h"
+#include "../engine_source/mTrappingColor.h"
+#include "mUI.h"
 
 namespace m
 {
 	FieldItem::FieldItem(eItem item, Vector3 initPos)
 		: Item(item)
+	    , bDownAlt(false)
 	{
-		ADD_COMP(this, MeshRenderer);
+		MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
+		mr->AddTrappingColorBuffer();
 
 		Animator* animator = ADD_COMP(this, Animator);
 
@@ -17,10 +23,10 @@ namespace m
 
 		animator->Create(
 			fieldItemAnimTable[(int)item] + L"drop"
-		    , mat->GetTexture()
+			, mat->GetTexture()
 			, Vector2::Zero
 			, itemFieldAnimSpaceTable[(int)item]
-			, 17
+			, fieldItemAnimLenght[(int)item]
 			, Vector2::Zero
 			, Vector2(0.f, itemFieldAnimSpaceTable[(int)item].y / 2.f)
 			, 0.03f
@@ -29,7 +35,7 @@ namespace m
 		SET_SCALE_XYZ(this
 			, itemFieldAnimSpaceTable[(int)item].x
 			, itemFieldAnimSpaceTable[(int)item].y
-		    , 1.f
+			, 1.f
 		);
 
 		SET_POS_VEC(this, initPos);
@@ -39,15 +45,34 @@ namespace m
 		{
 			SET_MATERIAL(this, fieldItemTable[(int)mItem]);
 
-            MAKE_GET_TEX(this, tex);
-            SET_SCALE_TEX_SIZE(this, tex, 1.f);
+		    MAKE_GET_TEX(this, tex);
+		    SET_SCALE_TEX_SIZE(this, tex, 1.f);
 
-			ADD_COMP(this, Collider2D);
+		    //ADD_COMP(this, Collider2D);
 		});
+
+		mNameUI = new UI();
+
+		SET_MESH(mNameUI, L"RectMesh");
+		SET_MATERIAL(mNameUI, L"itemExBack");
+
+		mNameUI->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mNameUI->SetTextSize(15.f);
+		mNameUI->SetText(itemCostFunctionNames[(int)item][0]);
+		Vector2 size = FontWrapper::GetTextSize(itemCostFunctionNames[(int)item][0].c_str(), 15.f);
+
+		SET_SCALE_XYZ(mNameUI, size.x, size.y, 1.f);
+		initPos.z -= 0.1;
+		initPos.y += size.y;
+		SET_POS_XYZ(mNameUI, initPos.x, initPos.y, initPos.z);
+		mNameUI->SetState(eState::NoRenderNoUpdate);
+
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::CanMoveUI, mNameUI);	
 	}
 	FieldItem::~FieldItem()
 	{
-	    
+		if (mNameUI)
+			mNameUI->SetState(eState::Delete);
 	}
 	void FieldItem::Initialize()
 	{
@@ -56,12 +81,39 @@ namespace m
 	void FieldItem::Update()
 	{
 		Item::Update();
-		if(GetHover())
+		if (mNameUI && nullptr == mNameUI->GetCamera()) mNameUI->SetCamera(GetCamera());
+
+		if (GetHover() && !bDownAlt)
+			mNameUI->SetState(RenderUpdate);
+		if (!GetHover() || !bDownAlt)
+			mNameUI->SetState(NoRenderNoUpdate);
+		
+		if (GetHover()
+			|| mNameUI->GetHover())
 		{
-		    if(Input::GetKeyDown(eKeyCode::LBUTTON))
-		    {
+			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			{
 				StashManager::ChangeFieldItemToInvenItem(this);
-		    }
+			}
+
+			MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+			mr->SetTrappingColor(Vector4(0.8f, 0.8f, 0.8f, 0.8f));
+		}else
+		{
+			MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+			mr->SetTrappingColor(Vector4(0.f, 0.f, 0.f, 0.f));
+		}
+		if (Input::GetKeyUp(eKeyCode::L_ALT))
+		{
+			mNameUI->SetState(NoRenderNoUpdate);
+			bDownAlt = false;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::L_ALT)
+			|| Input::GetKey(eKeyCode::L_ALT))
+		{
+			mNameUI->SetState(RenderUpdate);
+			bDownAlt = true;
 		}
 	}
 	void FieldItem::LateUpdate()

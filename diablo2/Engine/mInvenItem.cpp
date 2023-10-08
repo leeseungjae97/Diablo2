@@ -38,8 +38,8 @@ namespace m
 		SET_MATERIAL(this, itemNameTable[(UINT)item]);
 
 		SET_POS_XYZ(this, -10.f, -10.f, -1.f);
-		SET_SCALE_XYZ(this, 27.f * itemInvenDisplayScale[(UINT)item][0] * Texture::GetWidRatio()
-			, 27.f * itemInvenDisplayScale[(UINT)item][1] * Texture::GetHeiRatio(), 0.f);
+		SET_SCALE_XYZ(this, 25.f * itemInvenDisplayScale[(UINT)item][0] * Texture::GetWidRatio()
+			, 25.f * itemInvenDisplayScale[(UINT)item][1] * Texture::GetHeiRatio(), 0.f);
 
 		prevPosition = GET_POS(this);
 	}

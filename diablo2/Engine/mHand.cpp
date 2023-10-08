@@ -1,9 +1,9 @@
 #include "mHand.h"
 namespace m
 {
-	Hand::Hand(GameObject* parent, bool fh)
+	Hand::Hand(GameObject* parent, bool _bRightHand)
 		: mHandScript(nullptr)
-		, bRightHand(fh)
+		, bRightHand(_bRightHand)
 	{
 	}
 

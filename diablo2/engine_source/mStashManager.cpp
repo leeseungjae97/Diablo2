@@ -297,8 +297,8 @@ namespace m
 
 					if (CheckItemCenterPosIntersectItem(centerPosFromInvenLeftTop, curItem, type)) continue;
 
-					curItem->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z));
-					SET_POS_XYZ(curItem, centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z);
+					curItem->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x + 5.f, centerPosFromInvenLeftTop.y - 5.f, curPos.z));
+					SET_POS_XYZ(curItem, centerPosFromInvenLeftTop.x + 5.f, centerPosFromInvenLeftTop.y - 5.f, curPos.z);
 					ChangeFillIntersectArea(centerPosFromInvenLeftTop, true, curItem, type);
 					break;
 				}
@@ -611,8 +611,8 @@ namespace m
 
 					ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition), false, item, type);
 
-					SET_POS_VEC(item, Vector3(centerPosInvenleftTopPlus.x, centerPosInvenleftTopPlus.y, prevPosition.z));
-					item->SetPrevPosition(Vector3(centerPosInvenleftTopPlus.x, centerPosInvenleftTopPlus.y, prevPosition.z));
+					SET_POS_VEC(item, Vector3(centerPosInvenleftTopPlus.x + 5.f, centerPosInvenleftTopPlus.y - 5.f, prevPosition.z));
+					item->SetPrevPosition(Vector3(centerPosInvenleftTopPlus.x + 5.f, centerPosInvenleftTopPlus.y - 5.f, prevPosition.z));
 
 					ChangeFillIntersectArea(centerPosInvenleftTopPlus, true, item, type);
 
@@ -1107,8 +1107,8 @@ namespace m
 
 				if (CheckItemCenterPosIntersectItem(centerPosFromInvenLeftTop, item, type)) continue;
 
-				item->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z));
-				SET_POS_XYZ(item, centerPosFromInvenLeftTop.x, centerPosFromInvenLeftTop.y, curPos.z);
+				item->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x + 5.f, centerPosFromInvenLeftTop.y - 5.f, curPos.z));
+				SET_POS_XYZ(item, centerPosFromInvenLeftTop.x + 5.f, centerPosFromInvenLeftTop.y - 5.f, curPos.z);
 				ChangeFillIntersectArea(centerPosFromInvenLeftTop, true, item, type);
 
 				AddItem(item, type);

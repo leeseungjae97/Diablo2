@@ -1,4 +1,7 @@
 #include "mTileDrawSystem.h"
+
+#include "mTileDrawManager.h"
+
 namespace m
 {
 	TileDrawSystem::TileDrawSystem()
@@ -37,18 +40,15 @@ namespace m
 	void TileDrawSystem::Update()
 	{
 		MeshRenderer::Update();
-		if (Input::GetKeyDown(eKeyCode::A))
+		if (TileDrawManager::bDrawTile)
 		{
 			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenTileDTileDrawShader");
 			SetMaterial(material);
-		}
-		if(Input::GetKeyDown(eKeyCode::D))
+		}else
 		{
 			std::shared_ptr<Material> nonMaterial = RESOURCE_FIND(Material, L"noneRectTileDrawShader");
 			SetMaterial(nonMaterial);
 		}
-
-		//mCS->SetCamera(GetOwner()->GetCamera());
 	}
 
 	void TileDrawSystem::LateUpdate()

@@ -85,6 +85,8 @@ namespace m
 	void TileManager::MakeStageWall(int stage)
 	{
 		Vector2* wall = nullptr;
+		Vector2* throughWall = nullptr;
+
 		if(stage == 3)
 			wall = stage4Walls;
 
@@ -102,15 +104,12 @@ namespace m
 			Vector2 wallCoord = wall[i];
 			int y = static_cast<int>(wallCoord.y);
 			int x = static_cast<int>(wallCoord.x);
-			//if(stage == 0 || stage == 1)
-			//	pathFindingTiles[y][x]->SetThroughWall(false);
-			//else
-			//	pathFindingTiles[y][x]->SetThroughWall(true);
 
-
-			pathFindingTiles[y][x]->SetThroughWall(false);
-			    
-
+			if(stage == 1 || stage == 3)
+				pathFindingTiles[y][x]->SetThroughWall(false);
+			else
+				pathFindingTiles[y][x]->SetThroughWall(true);
+			
 			pathFindingTiles[y][x]->SetIsWall(true);
 		}
 	}

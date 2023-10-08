@@ -2,6 +2,8 @@
 #include "mItem.h"
 namespace m
 {
+    class UI;
+
     class FieldItem :
         public Item
     {
@@ -14,6 +16,8 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
     private:
+        UI* mNameUI;
+        bool bDownAlt;
     };
 }
 

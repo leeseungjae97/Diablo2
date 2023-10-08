@@ -180,7 +180,7 @@ namespace m
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
 
-		Stage1();
+		Stage3();
 	}
 	void PlayScene::Update()
 	{
@@ -1199,6 +1199,7 @@ namespace m
 		{
 			//Tile* tile = TileManager::pathFindingTiles[53][67];
 			Tile* tile = TileManager::pathFindingTiles[52][47];
+			TileManager::playerStandTile = tile;
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
@@ -1225,32 +1226,32 @@ namespace m
 		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
 		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		//}
-		{
-			Tile* tile = TileManager::pathFindingTiles[53][77];
-			Vector3 pos = tile->GetPos();
-			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
-			SET_MAIN_CAMERA(monster);
-			monster->SetCoord(tile->GetCoord());
-			AddGameObject(eLayerType::Monster, monster);
-			MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-		}
 		//{
 		//	Tile* tile = TileManager::pathFindingTiles[53][77];
 		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDAndariel().fSpeed);
-		//	monster->SetCoord(tile->GetCoord());
+		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
 		//	SET_MAIN_CAMERA(monster);
+		//	monster->SetCoord(tile->GetCoord());
 		//	AddGameObject(eLayerType::Monster, monster);
-		//	MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
 		//	monster->SetMonsterClass(ms->GetMonsterClass());
 		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
 		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
-
-		//	mBossMonster = monster;
 		//}
+		{
+			Tile* tile = TileManager::pathFindingTiles[53][77];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDAndariel().fSpeed);
+			monster->SetCoord(tile->GetCoord());
+			SET_MAIN_CAMERA(monster);
+			AddGameObject(eLayerType::Monster, monster);
+			MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
+			monster->SetMonsterClass(ms->GetMonsterClass());
+			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
+			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+
+			mBossMonster = monster;
+		}
 	}
 
 	void PlayScene::Stage2()
@@ -1294,6 +1295,7 @@ namespace m
 			Tile* tile = TileManager::pathFindingTiles[77][52];
 			//Tile* tile = TileManager::pathFindingTiles[48][57];
 			Vector3 pos = tile->GetPos();
+			TileManager::playerStandTile = tile;
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
 
@@ -1350,6 +1352,7 @@ namespace m
 		}
 		{
 			Tile* tile = TileManager::pathFindingTiles[26][54];
+			TileManager::playerStandTile = tile;
 			//Tile* tile = TileManager::pathFindingTiles[60][56];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
@@ -1384,6 +1387,7 @@ namespace m
 		ScreenEffectManager::Shake(3.f);
 		{
 			Tile* tile = TileManager::pathFindingTiles[62][62];
+			TileManager::playerStandTile = tile;
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(mPortal, pos);
 		}
