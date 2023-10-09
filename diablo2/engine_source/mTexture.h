@@ -19,8 +19,10 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
-		HRESULT MergeTex2(std::vector<std::shared_ptr<Texture>> mergeTextures, UINT perWidth, UINT perHeight, int count);
-		HRESULT MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, UINT addtionCount = 0, const std::wstring& mergedTextureName = L"");
+		HRESULT GetTexturePathXY(std::wstring path, int x, int y);
+		HRESULT GetTextureInTexture(std::shared_ptr<Texture> texture, Vector2 splitPosition, UINT splitWidth, UINT splitHeight);
+        HRESULT MergeTex2(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT width, UINT height);
+        HRESULT MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, UINT addtionCount = 0, const std::wstring& mergedTextureName = L"");
 		HRESULT CreateTex(UINT avgFileWidth, UINT avgFileHeight, UINT oneAnimLength, const std::wstring& path);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		virtual HRESULT Load(const std::wstring& path) override;

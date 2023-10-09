@@ -23,6 +23,11 @@ namespace m
 		, mHp(nullptr)
 		, mMp(nullptr)
 	{
+		SET_MESH(this, L"RectMesh");
+		SET_MATERIAL(this, L"noneRect");
+		SET_SCALE_XYZ(this, 48.f, 74.f, 1.f);
+		ADD_COMP(this, Animator);
+
 		bMadePath = false;
 		bSixteenDirection = true;
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
@@ -36,7 +41,7 @@ namespace m
 		lightComp->SetRadiusX(300.0f);
 		lightComp->SetRadiusY(150.0f);
 
-		mShadow = new ShadowObject(this);
+		mShadow = new ShadowObject(this, false);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
 	}
 	Player::~Player()

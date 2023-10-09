@@ -38,6 +38,7 @@
 #include "mPlayerHand.h"
 #include "mAura.h"
 #include "mBodyParts.h"
+#include "mShadowObject.h"
 
 extern m::Application application;
 namespace m
@@ -91,11 +92,11 @@ namespace m
 		mBackSO->SetActiveOwner(GetOwner());
 		mBackSO->Back();
 
-		mHead = new BodyParts(eBodyPartsType::Head, GetOwner());
+		mBody = new BodyParts(eBodyPartsType::Body, GetOwner());
 		mLeftArm = new BodyParts(eBodyPartsType::LeftArm, GetOwner());
 		mRightArm = new BodyParts(eBodyPartsType::RightArm, GetOwner());
-		mBody = new BodyParts(eBodyPartsType::Body, GetOwner());
 		mLeg = new BodyParts(eBodyPartsType::Leg, GetOwner());
+		mHead = new BodyParts(eBodyPartsType::Head, GetOwner());
 			//mBody
 			//mLeg
 		
@@ -294,6 +295,19 @@ namespace m
 		mRightArm->SetAnimationType((int)mAnimationType);
 		mBody->SetAnimationType((int)mAnimationType);
 		mLeg->SetAnimationType((int)mAnimationType);
+
+		//ShadowObject* so = dynamic_cast<MoveAbleObject*>(GetOwner())->GetShadowObject();
+		//if(so)
+		//{
+		//	so->AddMergeTexture(mHead->GetCurrentImage(), mHead->GetSpriteCenterPos());
+		//	so->AddMergeTexture(mLeftArm->GetCurrentImage(), mLeftArm->GetSpriteCenterPos());
+		//	so->AddMergeTexture(mRightArm->GetCurrentImage(), mRightArm->GetSpriteCenterPos());
+		//	so->AddMergeTexture(mBody->GetCurrentImage(), mBody->GetSpriteCenterPos());
+		//	so->AddMergeTexture(mLeg->GetCurrentImage(), mLeg->GetSpriteCenterPos());
+
+		//	so->MakeMergerShadow();
+		//}
+
 		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerManager::player->StopF()
 		//	&& ((Player*)GetOwner())->GetAttack())
 		//{

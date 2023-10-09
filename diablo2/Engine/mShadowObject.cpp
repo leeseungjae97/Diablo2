@@ -4,16 +4,29 @@
 #include "../engine_source/mMeshRenderer.h"
 namespace m
 {
-    ShadowObject::ShadowObject(GameObject* shadowOwner, bool bBMesh)
+    ShadowObject::ShadowObject(GameObject* shadowOwner, bool bBMesh, bool _bMergeShadow)
         : mShadowOwner(shadowOwner)
         , vShadowOffset(Vector2::One)
+        , bMergerShadow(_bMergeShadow)
     {
         ADD_COMP(this, MeshRenderer);
         if(bBMesh)
             SET_MESH(this, L"BPMesh");
         else
             SET_MESH(this, L"PMesh");
-        SET_MATERIAL(this, L"ShadowAnimationMaterial");
+        if(!_bMergeShadow)
+            SET_MATERIAL(this, L"ShadowAnimationMaterial");
+        else
+        {
+            mergerMaterial = std::make_shared<Material>();
+
+            std::shared_ptr<Shader> shader = RESOURCE_FIND(Shader, L"ShadowSpriteShader");
+            mergerMaterial->SetShader(shader);
+            mergerMaterial->SetRenderingMode(eRenderingMode::Transparent);
+
+            SET_MATERIAL_D(this, mergerMaterial);
+            //SET_MATERIAL(this, L"testSc");
+        }
     }
 
     ShadowObject::~ShadowObject()
@@ -34,11 +47,18 @@ namespace m
         }
         SET_SCALE_VEC(this, scale);
         SET_POS_VEC(this, pos);
-        Animator* animator = mShadowOwner->GetComponent<Animator>();
-        if (animator && nullptr != animator->GetActiveAnimation())
+
+        if(bMergerShadow)
         {
-            mOwnerTexture = animator->GetActiveAnimation()->GetAtlas();
-            mOwnerSprite = animator->GetActiveAnimation()->GetCurrentSprite();
+            
+        }else
+        {
+            Animator* animator = mShadowOwner->GetComponent<Animator>();
+            if (animator && nullptr != animator->GetActiveAnimation())
+            {
+                mOwnerTexture = animator->GetActiveAnimation()->GetAtlas();
+                mOwnerSprite = animator->GetActiveAnimation()->GetCurrentSprite();
+            }
         }
     }
 
@@ -69,6 +89,10 @@ namespace m
 
             cb->Bind(eShaderStage::VS);
             cb->Bind(eShaderStage::PS);
+        }else
+        {
+            if(mergerMaterial)
+                SET_MATERIAL_D(this, mergerMaterial);
         }
         GameObject::Render();
     }
@@ -76,5 +100,26 @@ namespace m
     void ShadowObject::Initialize()
     {
         GameObject::Initialize();
+    }
+
+    void ShadowObject::AddMergeTexture(std::shared_ptr<Texture> tex, Vector2 pos)
+    {
+        shadowMerger.push_back(tex);
+        mergerPos.push_back(pos);
+    }
+
+    void ShadowObject::MakeMergerShadow()
+    {
+        std::shared_ptr<Texture> mergeTexture = std::make_shared<Texture>();
+        mergeTexture->MergeTex2(shadowMerger, mergerPos, 200, 500);
+
+        //std::shared_ptr<Texture> tt = RESOURCE_FIND(Texture, L"test_sc");
+        if(mergerMaterial->GetTexture())
+            mergerMaterial->GetTexture()->Clear();
+
+        mergerMaterial->SetTexture(mergeTexture);
+
+        mergerPos.clear();
+        shadowMerger.clear();
     }
 }

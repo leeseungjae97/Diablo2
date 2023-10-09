@@ -28,17 +28,9 @@ namespace m
 		skillPoint = 100;
 		Tile* tile2 = TileManager::pathFindingTiles[48][57];
 		Vector3 pos2 = tile2->GetPos();
-		//Vector3 pos2 = Vector3(20.f, 10.f, 1.f);
 
 		player = new Player(pos2);
-		//SET_MAIN_CAMERA(player);
-		//AddGameObject(eLayerType::Player, player);
-		SET_MESH(player, L"RectMesh");
-		SET_MATERIAL(player, L"AnimationMaterial");
-		SET_SCALE_XYZ(player, 48.f, 74.f, 1.f);
-		ADD_COMP(player, Animator);
-		player->SetState(GameObject::eState::NoRenderUpdate);
-		//player->AddComponent<OverlayEffectSkillScript>(1);
+		//player->SetState(GameObject::eState::NoRenderUpdate);
 
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
 		learnedSkill[2][(int)eFireSkillType::meteor] = 1;

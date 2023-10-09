@@ -22,7 +22,7 @@ float4 main(VSOut In) : SV_TARGET
 
     color = albedoTexture.Sample(pointSampler, In.UV);
         
-    float4 lightColor = float4(0.1f, 0.1f, 0.1f, 1.0f);
+    float4 lightColor = float4(1.f, 1.f, 1.f, 1.0f);
     
     color *= lightColor;
     

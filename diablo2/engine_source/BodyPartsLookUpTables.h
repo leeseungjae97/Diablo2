@@ -156,12 +156,12 @@ std::wstring partsMaterialNames[(int)eBodyPartsType::End][13] = {
 	L"",// Attack1 
 	L"",// Attack2 
 	L"",// Block 
-	L"nLaGH",// GetHit 
+	L"laGH",// GetHit 
 	L"",// Kick 
-	L"nLaNU",// Natural 
-	L"nLaR",// Run 
+	L"laNU",// Natural 
+	L"laR",// Run 
 	L"",// Special1 
-	L"nLaSC",// SpecialCast 
+	L"laSC",// SpecialCast 
 	L"",// TownNatural 
 	L"",// TownWalk 
 	L"",// Walk 
@@ -172,12 +172,12 @@ std::wstring partsMaterialNames[(int)eBodyPartsType::End][13] = {
 	L"",// Attack1 
 	L"",// Attack2 
 	L"",// Block 
-	L"nRaGH",// GetHit 
+	L"raGH",// GetHit 
 	L"",// Kick 
-	L"nRaNU",// Natural 
-	L"nRaR",// Run 
+	L"raNU",// Natural 
+	L"raR",// Run 
 	L"",// Special1 
-	L"nRaSC",// SpecialCast 
+	L"raSC",// SpecialCast 
 	L"",// TownNatural 
 	L"",// TownWalk 
 	L"",// Walk 
@@ -337,7 +337,7 @@ float partsDuration[13] = {
 	0.03f, // Block 
 	0.05f, // GetHit 
 	0.03f, // Kick 
-	0.03f, // Natural 
+	0.1f, // Natural 
 	0.1f, // Run 
 	0.03f, // Special1 
 	0.03f, // SpecialCast 
@@ -345,4 +345,85 @@ float partsDuration[13] = {
 	0.03f, // TownWalk 
 	0.03f, // Walk 
 	0.03f, // Dead
+};
+
+std::wstring partsShadowNames[(int)eBodyPartsType::End][13] = {
+	{
+		L"",// Attack1 
+		L"",// Attack2 
+		L"",// Block 
+		L"hdGHS",// GetHit 
+		L"",// Kick 
+		L"hdNUS",// Natural 
+		L"hdRS",// Run 
+		L"",// Special1 
+		L"hdSCS",// SpecialCast 
+		L"",// TownNatural 
+		L"",// TownWalk 
+		L"",// Walk 
+		L"",// Dead 
+	},
+	{
+	L"",// Attack1 
+	L"",// Attack2 
+	L"",// Block 
+	L"laGHS",// GetHit 
+	L"",// Kick 
+	L"laNUS",// Natural 
+	L"laRS",// Run 
+	L"",// Special1 
+	L"laSCS",// SpecialCast 
+	L"",// TownNatural 
+	L"",// TownWalk 
+	L"",// Walk 
+	L"",// Dead 
+},
+// right arm
+{
+	L"",// Attack1 
+	L"",// Attack2 
+	L"",// Block 
+	L"raGHS",// GetHit 
+	L"",// Kick 
+	L"raNUS",// Natural 
+	L"raRS",// Run 
+	L"",// Special1 
+	L"raSCS",// SpecialCast 
+	L"",// TownNatural 
+	L"",// TownWalk 
+	L"",// Walk 
+	L"",// Dead 
+},
+// upper body
+{
+	L"", // Attack1 
+	L"", // Attack2 
+	L"", // Block 
+	L"trGHS", // GetHit 
+	L"", // Kick 
+	L"trNUS", // Natural 
+	L"trRS", // Run 
+	L"", // Special1 
+	L"trSCS", // SpecialCast 
+	L"", // TownNatural 
+	L"", // TownWalk 
+	L"", // Walk 
+	L"", // Dead 
+},
+// leg
+{
+	L"",// Attack1 
+	L"",// Attack2 
+	L"",// Block 
+	L"lgGHS",// GetHit 
+	L"",// Kick 
+	L"lgNUS",// Natural 
+	L"lgRS",// Run 
+	L"",// Special1 
+	L"lgSCS",// SpecialCast 
+	L"",// TownNatural 
+	L"",// TownWalk 
+	L"",// Walk 
+	L"",// Dead 
+},
 };

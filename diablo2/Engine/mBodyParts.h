@@ -16,13 +16,21 @@ namespace m
         void ChangeHead();
 
         void SetAnimationType(int animationType) { mAnimationType = animationType; }
-        void SetDirection(int direction) { mDriection = direction; }
+        void SetDirection(int direction) { mDirection = direction; }
+        Vector2 GetSpriteCenterPos();
+        std::shared_ptr<Texture> GetCurrentImage();
+        void GetPlayPart();
+
+    private:
+        void partLeftDirectionAddZWeight(float* z);
+        void partRightDirectionAddZWeight(float* z);
+        void partAddZWeight();
 
     private:
         eBodyPartsType mBodyPartsType;
         GameObject* mPartsOwner;
         Animator* mAnimator;
-        int mDriection;
+        int mDirection;
         int mAnimationType;
     };
 }

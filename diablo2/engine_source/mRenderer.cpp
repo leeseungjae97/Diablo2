@@ -129,6 +129,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = m::Resources::Find<Shader>(L"ShadowSpriteShader");
+		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -538,6 +543,11 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		m::Resources::Insert(L"SpriteShader", spriteShader);
 
+		std::shared_ptr<Shader> shadowSpriteShader = std::make_shared<Shader>();
+		shadowSpriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		shadowSpriteShader->Create(eShaderStage::PS, L"ShadowPS.hlsl", "main");
+		m::Resources::Insert(L"ShadowSpriteShader", shadowSpriteShader);
+
 		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
 		fadeShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		fadeShader->Create(eShaderStage::PS, L"FadePS.hlsl", "main");
@@ -675,9 +685,9 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\lg_gh"
 			, 38, 50, 8, L"lgGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\la_gh"
-			, 34, 35, 8, L"nLaGH");
+			, 34, 35, 8, L"laGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"ra_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\ra_gh"
-			, 34, 35, 8, L"nRaGH");
+			, 34, 35, 8, L"raGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"tr_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\tr_gh"
 			, 24, 26, 8, L"trGH");
 
@@ -686,9 +696,9 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\lg_nu"
 			, 30, 50, 8, L"lgNU");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\la_nu"
-			, 30, 32, 8, L"nLaNU");
+			, 30, 32, 8, L"laNU");
 		MAKE_MATERIAL_PATH(spriteShader, L"ra_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\ra_nu"
-			, 30, 34, 8, L"nRaNU");
+			, 30, 34, 8, L"raNU");
 		MAKE_MATERIAL_PATH(spriteShader, L"tr_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\tr_nu"
 			, 16, 24, 8, L"trNU");
 		MAKE_MATERIAL_PATH(spriteShader, L"ob_ra_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\ob_ra_nu"
@@ -701,9 +711,9 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_r", L"..\\Resources\\texture\\character\\sorceress\\run\\lg_r"
 			, 61, 52, 8, L"lgR");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_r", L"..\\Resources\\texture\\character\\sorceress\\run\\la_r"
-			, 54, 35, 8, L"nLaR");
+			, 54, 35, 8, L"laR");
 		MAKE_MATERIAL_PATH(spriteShader, L"ra_r", L"..\\Resources\\texture\\character\\sorceress\\run\\ra_r"
-			, 50, 33, 8, L"nRaR");
+			, 50, 33, 8, L"raR");
 		MAKE_MATERIAL_PATH(spriteShader, L"tr_r", L"..\\Resources\\texture\\character\\sorceress\\run\\tr_r"
 			, 20, 28, 8, L"trR");
 		MAKE_MATERIAL_PATH(spriteShader, L"ob_ra_r", L"..\\Resources\\texture\\character\\sorceress\\run\\ob_ra_r"
@@ -716,14 +726,42 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\lg_sc"
 			, 30, 51, 14, L"lgSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\la_sc"
-			, 85, 62, 14, L"nLaSC");
+			, 85, 62, 14, L"laSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"ra_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\ra_sc"
-			, 84, 64, 14, L"nRaSC");
+			, 84, 64, 14, L"raSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"tr_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\tr_sc"
 			, 30, 29, 14, L"trSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"ob_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\ob_sc"
 			, 92, 66, 14, L"obSC");
 
+		//MAKE_MATERIAL_T(spriteShader, L"hd_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\hd_gh.png", L"hdGHS");
+		//MAKE_MATERIAL_T(spriteShader, L"la_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\la_gh.png", L"laGHS");
+		//MAKE_MATERIAL_T(spriteShader, L"lg_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\lg_gh.png", L"lgGHS");
+		//MAKE_MATERIAL_T(spriteShader, L"ra_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\ra_gh.png", L"raGHS");
+		//MAKE_MATERIAL_T(spriteShader, L"tr_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\tr_gh.png", L"trGHS");
+
+		//MAKE_MATERIAL_T(spriteShader, L"hd_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\hd_nu.png", L"hdNUS");
+		//MAKE_MATERIAL_T(spriteShader, L"la_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\la_nu.png", L"laNUS");
+		//MAKE_MATERIAL_T(spriteShader, L"lg_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\lg_nu.png", L"lgNUS");
+		//MAKE_MATERIAL_T(spriteShader, L"ra_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\ra_nu.png", L"raNUS");
+		//MAKE_MATERIAL_T(spriteShader, L"tr_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\tr_nu.png", L"trNUS");
+		//MAKE_MATERIAL_T(spriteShader, L"ob_ra_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\ob_ra_nu.png", L"obraNUS");
+		//MAKE_MATERIAL_T(spriteShader, L"ob_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\ob_nu.png", L"obNUS");
+
+		//MAKE_MATERIAL_T(spriteShader, L"hd_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\hd_r.png", L"hdRS");
+		//MAKE_MATERIAL_T(spriteShader, L"la_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\la_r.png", L"laRS");
+		//MAKE_MATERIAL_T(spriteShader, L"lg_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\lg_r.png", L"lgRS");
+		//MAKE_MATERIAL_T(spriteShader, L"ra_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\ra_r.png", L"raRS");
+		//MAKE_MATERIAL_T(spriteShader, L"tr_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\tr_r.png", L"trRS");
+		//MAKE_MATERIAL_T(spriteShader, L"ob_ra_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\ob_ra_r.png", L"obraRS");
+		//MAKE_MATERIAL_T(spriteShader, L"ob_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\ob_r.png", L"obRS");
+
+		//MAKE_MATERIAL_T(spriteShader, L"hd_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\hd_sc.png", L"hdSCS");
+		//MAKE_MATERIAL_T(spriteShader, L"la_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\la_sc.png", L"laSCS");
+		//MAKE_MATERIAL_T(spriteShader, L"lg_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\lg_sc.png", L"lgSCS");
+		//MAKE_MATERIAL_T(spriteShader, L"ra_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\ra_sc.png", L"raSCS");
+		//MAKE_MATERIAL_T(spriteShader, L"tr_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\tr_sc.png", L"trSCS");
+		//MAKE_MATERIAL_T(spriteShader, L"ob_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\ob_sc.png", L"obSCS");
 #pragma endregion
 #pragma region FieldItem
 		MAKE_MATERIAL_PATH(spriteShader, L"hp_posion_anim", L"..\\Resources\\texture\\field_items\\hp_posion_anim"

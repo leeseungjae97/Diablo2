@@ -19,6 +19,8 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
+        Vector2 GetSpriteSize();
+
     protected:
         GameObject* mPartsOwner;
         Animator* mPartsMasterAnimator;
