@@ -22,12 +22,14 @@ namespace m
 		void SetTextNormalColor(Vector4 color) { vTextNormalColor = color; }
 		void SetTextClickColor(Vector4 color) { vTextHoverColor = color; }
 		void SetTextSize(float textSize) { fTextSize = textSize; }
+		void SetTextOffset(Vector2 textOffset) { vTextOffset = textOffset; }
 	private:
 		void drawText();
 
 	protected:
 		std::wstring wsText;
 		float fTextSize;
+		Vector2 vTextOffset;
 		Vector4 vTextColor;
 		Vector4 vTextNormalColor;
 		Vector4 vTextHoverColor;

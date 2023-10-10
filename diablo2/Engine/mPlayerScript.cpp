@@ -75,6 +75,8 @@ namespace m
 			mBody->SetState(GameObject::Delete);
 		if(mLeg)
 			mLeg->SetState(GameObject::Delete);
+		if(mRightHand)
+			mRightHand->SetState(GameObject::Delete);
 	}
 
 	void PlayerScript::Initialize()
@@ -97,6 +99,7 @@ namespace m
 		mRightArm = new BodyParts(eBodyPartsType::RightArm, GetOwner());
 		mLeg = new BodyParts(eBodyPartsType::Leg, GetOwner());
 		mHead = new BodyParts(eBodyPartsType::Head, GetOwner());
+		mRightHand = new BodyParts(eBodyPartsType::RightHand, GetOwner());
 			//mBody
 			//mLeg
 		
@@ -295,18 +298,7 @@ namespace m
 		mRightArm->SetAnimationType((int)mAnimationType);
 		mBody->SetAnimationType((int)mAnimationType);
 		mLeg->SetAnimationType((int)mAnimationType);
-
-		//ShadowObject* so = dynamic_cast<MoveAbleObject*>(GetOwner())->GetShadowObject();
-		//if(so)
-		//{
-		//	so->AddMergeTexture(mHead->GetCurrentImage(), mHead->GetSpriteCenterPos());
-		//	so->AddMergeTexture(mLeftArm->GetCurrentImage(), mLeftArm->GetSpriteCenterPos());
-		//	so->AddMergeTexture(mRightArm->GetCurrentImage(), mRightArm->GetSpriteCenterPos());
-		//	so->AddMergeTexture(mBody->GetCurrentImage(), mBody->GetSpriteCenterPos());
-		//	so->AddMergeTexture(mLeg->GetCurrentImage(), mLeg->GetSpriteCenterPos());
-
-		//	so->MakeMergerShadow();
-		//}
+		mRightHand->SetAnimationType((int)mAnimationType);
 
 		//if (((Player*)GetOwner())->GetFMID() != -1 && PlayerManager::player->StopF()
 		//	&& ((Player*)GetOwner())->GetAttack())
@@ -614,6 +606,8 @@ namespace m
 			mBody->SetDirection(iBPDirection);
 		if(mLeg)
 			mLeg->SetDirection(iBPDirection);
+		if(mRightHand)
+			mRightHand->SetDirection(iBPDirection);
 	}
 
 	void PlayerScript::SpecialCastAnimation(int skillIndex)

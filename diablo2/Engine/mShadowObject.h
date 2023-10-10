@@ -21,8 +21,6 @@ namespace m
 
         void SetShadowOffset(Vector2 offset) { vShadowOffset = offset; }
 
-        void AddMergeTexture(std::shared_ptr<Texture> tex, Vector2 pos);
-        void MakeMergerShadow();
     private:
         GameObject* mShadowOwner;
         Animation::Sprite mOwnerSprite;

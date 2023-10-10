@@ -1,5 +1,6 @@
 #include "mEmptyRect.h"
-#include "mMouseManager.h"
+
+#include "../engine_source/mMouseManager.h"
 
 namespace m
 {
@@ -9,6 +10,8 @@ namespace m
 		, mFillItem(nullptr)
 		, mState()
 		, bFill(false)
+	    , mEquimentItemType(0)
+	    , mEqumentItem(0)
 	{
 	}
 

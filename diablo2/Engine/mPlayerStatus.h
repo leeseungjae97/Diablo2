@@ -1,4 +1,6 @@
 #pragma once
+#include "_Engine.h"
+
 namespace m
 {
 	class PlayerStatus
@@ -17,7 +19,8 @@ namespace m
 		static void UpVitality();
 		static void UpEnergy();
 		
-	private:
+		static std::wstring playerName;
+		static std::wstring className;
 		static int level;
 		static int experiance;
 		static int nextLevelUpexperiance;

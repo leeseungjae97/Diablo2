@@ -1,5 +1,6 @@
 #pragma once
 #include "mParts.h"
+
 namespace m
 {
     class BodyParts :
@@ -13,25 +14,31 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        void ChangeHead();
-
         void SetAnimationType(int animationType) { mAnimationType = animationType; }
         void SetDirection(int direction) { mDirection = direction; }
-        Vector2 GetSpriteCenterPos();
-        std::shared_ptr<Texture> GetCurrentImage();
-        void GetPlayPart();
 
     private:
+        void imageChangeEquiment();
+        void changeAnimation();
+
+        void shadowOffset();
         void partLeftDirectionAddZWeight(float* z);
         void partRightDirectionAddZWeight(float* z);
         void partAddZWeight();
-
+        
     private:
         eBodyPartsType mBodyPartsType;
         GameObject* mPartsOwner;
         Animator* mAnimator;
         int mDirection;
         int mAnimationType;
+
+        int iCurItem;
+        int iPrevItem;
+
+        Vector2* vCurSizes;
+        Vector2* vPartsOffset;
+        std::wstring* wsCurNames;
     };
 }
 

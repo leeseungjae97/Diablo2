@@ -82,7 +82,7 @@ namespace m
 		BodyParts* mRightArm;
 		BodyParts* mBody;
 		BodyParts* mLeg;
-		PlayerHand* mRightHand;
+		BodyParts* mRightHand;
 
 		Aura* mAura;
 

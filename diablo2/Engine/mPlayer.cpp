@@ -41,8 +41,8 @@ namespace m
 		lightComp->SetRadiusX(300.0f);
 		lightComp->SetRadiusY(150.0f);
 
-		mShadow = new ShadowObject(this, false);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
+		//mShadow = new ShadowObject(this, false);
+		//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
 	}
 	Player::~Player()
 	{
@@ -54,7 +54,7 @@ namespace m
 	}
 	void Player::Update()
 	{
-		if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+		//if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
 
 		playerMove();
 		updateColliderPos();

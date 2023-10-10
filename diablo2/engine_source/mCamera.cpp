@@ -280,8 +280,6 @@ namespace m
 
 	void Camera::DisableDepthStencilState()
 	{
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
-			= renderer::depthStencilStates[(UINT)eDSType::None];
 		GetDevice()->BindDepthStencilState(nullptr);
 	}
 }

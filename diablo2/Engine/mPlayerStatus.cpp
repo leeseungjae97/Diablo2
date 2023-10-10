@@ -16,12 +16,15 @@ namespace m
     int PlayerStatus::vitality = 10;
     int PlayerStatus::energy = 35;
 
-    int PlayerStatus::statusPoint = 0;
+    int PlayerStatus::statusPoint = 1;
 
     int PlayerStatus::defense = 6;
     int PlayerStatus::stanmina = 74;
     int PlayerStatus::life = 40;
     int PlayerStatus::mana = 35;
+
+    std::wstring PlayerStatus::playerName = L"플레이어";
+    std::wstring PlayerStatus::className = L"소서리스";
 
     void PlayerStatus::Initialize()
     {
@@ -44,6 +47,7 @@ namespace m
     {
         ++level;
         nextLevelUpexperiance *= 10;
+        statusPoint += 10;
     }
 
     void PlayerStatus::UpStrength()
@@ -77,7 +81,5 @@ namespace m
         stanmina = vitality + 64;
         life = vitality * 2;
         mana = energy * 2;
-        minDamage;
-        maxDamage;
     }
 }

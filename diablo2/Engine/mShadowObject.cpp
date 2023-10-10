@@ -14,19 +14,8 @@ namespace m
             SET_MESH(this, L"BPMesh");
         else
             SET_MESH(this, L"PMesh");
-        if(!_bMergeShadow)
-            SET_MATERIAL(this, L"ShadowAnimationMaterial");
-        else
-        {
-            mergerMaterial = std::make_shared<Material>();
 
-            std::shared_ptr<Shader> shader = RESOURCE_FIND(Shader, L"ShadowSpriteShader");
-            mergerMaterial->SetShader(shader);
-            mergerMaterial->SetRenderingMode(eRenderingMode::Transparent);
-
-            SET_MATERIAL_D(this, mergerMaterial);
-            //SET_MATERIAL(this, L"testSc");
-        }
+        SET_MATERIAL(this, L"ShadowAnimationMaterial");
     }
 
     ShadowObject::~ShadowObject()
@@ -48,17 +37,11 @@ namespace m
         SET_SCALE_VEC(this, scale);
         SET_POS_VEC(this, pos);
 
-        if(bMergerShadow)
+        Animator* animator = mShadowOwner->GetComponent<Animator>();
+        if (animator && nullptr != animator->GetActiveAnimation())
         {
-            
-        }else
-        {
-            Animator* animator = mShadowOwner->GetComponent<Animator>();
-            if (animator && nullptr != animator->GetActiveAnimation())
-            {
-                mOwnerTexture = animator->GetActiveAnimation()->GetAtlas();
-                mOwnerSprite = animator->GetActiveAnimation()->GetCurrentSprite();
-            }
+            mOwnerTexture = animator->GetActiveAnimation()->GetAtlas();
+            mOwnerSprite = animator->GetActiveAnimation()->GetCurrentSprite();
         }
     }
 
@@ -89,37 +72,13 @@ namespace m
 
             cb->Bind(eShaderStage::VS);
             cb->Bind(eShaderStage::PS);
-        }else
-        {
-            if(mergerMaterial)
-                SET_MATERIAL_D(this, mergerMaterial);
         }
         GameObject::Render();
+        
     }
 
     void ShadowObject::Initialize()
     {
         GameObject::Initialize();
-    }
-
-    void ShadowObject::AddMergeTexture(std::shared_ptr<Texture> tex, Vector2 pos)
-    {
-        shadowMerger.push_back(tex);
-        mergerPos.push_back(pos);
-    }
-
-    void ShadowObject::MakeMergerShadow()
-    {
-        std::shared_ptr<Texture> mergeTexture = std::make_shared<Texture>();
-        mergeTexture->MergeTex2(shadowMerger, mergerPos, 200, 500);
-
-        //std::shared_ptr<Texture> tt = RESOURCE_FIND(Texture, L"test_sc");
-        if(mergerMaterial->GetTexture())
-            mergerMaterial->GetTexture()->Clear();
-
-        mergerMaterial->SetTexture(mergeTexture);
-
-        mergerPos.clear();
-        shadowMerger.clear();
     }
 }

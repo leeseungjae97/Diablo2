@@ -168,6 +168,7 @@
     <ClInclude Include="mBottomUI.h" />
     <ClInclude Include="mBuffScript.h" />
     <ClInclude Include="mChainScript.h" />
+    <ClInclude Include="mCharacterStatus.h" />
     <ClInclude Include="mEnemyHpUI.h" />
     <ClInclude Include="mFallScript.h" />
     <ClInclude Include="mFieldItem.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="mBottomUI.cpp" />
     <ClCompile Include="mBuffScript.cpp" />
     <ClCompile Include="mChainScript.cpp" />
+    <ClCompile Include="mCharacterStatus.cpp" />
     <ClCompile Include="mEnemyHpUI.cpp" />
     <ClCompile Include="mFallScript.cpp" />
     <ClCompile Include="mFieldItem.cpp" />

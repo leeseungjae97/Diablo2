@@ -17,6 +17,7 @@ namespace m
 		, vTextColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextHoverColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextNormalColor(Vector4(1.f, 1.f, 1.f, 1.f))
+	    , vTextOffset(Vector2::Zero)
 
 	{
 		AddComponent<MeshRenderer>();
@@ -28,6 +29,7 @@ namespace m
 		, vTextColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextHoverColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextNormalColor(Vector4(1.f, 1.f, 1.f, 1.f))
+		, vTextOffset(Vector2::Zero)
 	{
 
 	}
@@ -66,7 +68,10 @@ namespace m
 		if (wsText == L"") return;
 		Vector2 fontSize = FontWrapper::GetTextSize(wsText.c_str(), fTextSize);
 		Vector3 pp = GetComponent<Transform>()->ProjectionCetnerPosition(fontSize);
-		
+
+		pp.x += vTextOffset.x;
+		pp.y += vTextOffset.y;
+
 		FontWrapper::DrawFont(wsText.c_str(), pp.x, pp.y, fTextSize
 			, FONT_RGBA(vTextColor.x, vTextColor.y, vTextColor.z, vTextColor.w));
 		//FontWrapper::DrawFont(wsText.c_str(), 10, 10, fTextSize

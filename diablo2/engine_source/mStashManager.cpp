@@ -4,7 +4,7 @@
 #include "mMouseManager.h"
 #include "mTileManager.h"
 
-#include "../Engine/mItem.h"
+//#include "../Engine/mItem.h"
 #include "../Engine/mEmptyRect.h"
 #include "../Engine/mItemScript.h"
 #include "../Engine/mInvenItem.h"
@@ -79,41 +79,51 @@ namespace m
 		}
 
 		invenWeapon1Left = new EmptyRect();
+		invenWeapon1Left->SetItemType((int)eItemType::LeftWeapon);
 		invenWeapon1Left->SetSize(60.f * Texture::GetWidRatio()
 			, 115.f * Texture::GetHeiRatio());
 		invenWeapon1Right = new EmptyRect();
+		invenWeapon1Right->SetItemType((int)eItemType::RightWeapon);
 		invenWeapon1Right->SetSize(60.f * Texture::GetWidRatio()
 			, 116.f * Texture::GetHeiRatio());
 		invenRingLeft = new EmptyRect();
+		invenRingLeft->SetItemType((int)eItemType::LeftRing);
 		invenRingLeft->SetSize(30.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
 		invenRingRight = new EmptyRect();
+		invenRingRight->SetItemType((int)eItemType::RightRing);
 		invenRingRight->SetSize(30.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
 		invenAmulet = new EmptyRect();
+		invenAmulet->SetItemType((int)eItemType::Amulet);
 		invenAmulet->SetSize(30.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
 		invenBelt = new EmptyRect();
+		invenBelt->SetItemType((int)eItemType::Belt);
 		invenBelt->SetSize(60.f * Texture::GetWidRatio()
 			, 31.f * Texture::GetHeiRatio());
 		invenHelmet = new EmptyRect();
+		invenHelmet->SetItemType((int)eItemType::Helmet);
 		invenHelmet->SetSize(60.f * Texture::GetWidRatio()
 			, 60.f * Texture::GetHeiRatio());
 		invenShoes = new EmptyRect();
+		invenShoes->SetItemType((int)eItemType::Shoes);
 		invenShoes->SetSize(60.f * Texture::GetWidRatio()
 			, 61.f * Texture::GetHeiRatio());
 		invenGlove = new EmptyRect();
+		invenGlove->SetItemType((int)eItemType::Glove);
 		invenGlove->SetSize(60.f * Texture::GetWidRatio()
 			, 61.f * Texture::GetHeiRatio());
 		invenArmor = new EmptyRect();
+		invenArmor->SetItemType((int)eItemType::Armor);
 		invenArmor->SetSize(62.f * Texture::GetWidRatio()
 			, 89.f * Texture::GetHeiRatio());
 
-		invenWeapon1Left->SetPos((17.f * Texture::GetWidRatio())
-			+ invenWeapon1Left->GetSize().x / 2.f, (RESOL_H_HEI - 110.f * Texture::GetHeiRatio()) - invenWeapon1Left->GetSize().y / 2.f);
+		invenWeapon1Left->SetPos((248.f * Texture::GetWidRatio())
+			+ invenWeapon1Right->GetSize().x / 2.f, (RESOL_H_HEI - 110.f * Texture::GetHeiRatio()) - invenWeapon1Right->GetSize().y / 2.f); 
 
-		invenWeapon1Right->SetPos((248.f * Texture::GetWidRatio())
-			+ invenWeapon1Right->GetSize().x / 2.f, (RESOL_H_HEI - 110.f * Texture::GetHeiRatio()) - invenWeapon1Right->GetSize().y / 2.f);
+		invenWeapon1Right->SetPos((17.f * Texture::GetWidRatio())
+			+ invenWeapon1Left->GetSize().x / 2.f, (RESOL_H_HEI - 110.f * Texture::GetHeiRatio()) - invenWeapon1Left->GetSize().y / 2.f);
 
 		invenRingLeft->SetPos((91.f * Texture::GetWidRatio())
 			+ invenRingLeft->GetSize().x / 2.f, (RESOL_H_HEI - 240.f * Texture::GetHeiRatio()) - invenRingLeft->GetSize().y / 2.f);
@@ -166,7 +176,7 @@ namespace m
 				shopInvens.push_back(invenRect);
 			}
 		}
-		
+
 #pragma endregion
 #pragma region Pocket
 		Vector2 bottomUIPosV2 = Vector2(0.f, -RESOL_H_HEI + 104.f * Texture::GetHeiRatio() / 2.f);
@@ -485,14 +495,14 @@ namespace m
 
 		if (type != eStashType::End)
 		{
-			if (DeployException(type, {}, { (int)eItemType::Posion }))
+			if (DeployPocket(type, {}, { (int)eItemType::Posion , (int)eItemType::Scroll }))
 				return true;
 		}
 
-		if (DeployException(eStashType::Equiment, { (int)eItemType::Posion, (int)eItemType::Scroll }, {}))
+		if (DeployEquiment(eStashType::Equiment, { (int)eItemType::Posion, (int)eItemType::Scroll }, {}))
 			return true;
 
-		if(eShopInventoryState == GameObject::NoRenderUpdate)
+		if (eShopInventoryState == GameObject::NoRenderUpdate)
 		{
 			if (Vector2::PointIntersectRect(inventoryCollider->GetPos(),
 				inventoryCollider->GetSize(), GET_VEC2_F_VEC3_D(GET_POS(item))))
@@ -506,7 +516,58 @@ namespace m
 
 		return false;
 	}
-	bool StashManager::DeployException(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType)
+	bool StashManager::DeployEquiment(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType)
+	{
+		if (nullptr == MouseManager::GetMouseFollow()) return false;
+
+		InvenItem* item = MouseManager::GetMouseFollow();
+
+		if (!exceptType.empty())
+		{
+			for (int except : exceptType)
+				if ((eItemType)except == item->GetItemType()) return false;
+		}
+
+		if (!acceptType.empty())
+		{
+			bool matchType = false;
+			for (int except : acceptType)
+				if ((eItemType)except == item->GetItemType()) matchType = true;
+
+			if (!matchType) return false;
+		}
+
+		Vector3 prevPosition = item->GetPrevPosition();
+
+		if (type != eStashType::Equiment) return false;
+
+		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(item));
+
+		for (int i = 0; i < equiments.size(); ++i)
+		{
+			Vector2 itemPos = equiments[i]->GetPos();
+			Vector2 itemScale = equiments[i]->GetSize();
+			if (Vector2::PointIntersectRect(itemPos, itemScale, thisPosV2))
+			{
+				if (equiments[i]->GetItemType() != (int)item->GetItemType()) return false;
+
+				equiments[i]->SetItem((int)item->GetEItem());
+
+				ChangeFillIntersectArea(GET_VEC2_F_VEC3_D(prevPosition)
+					, false, item, item->GetStashType());
+
+				SET_POS_VEC(item, Vector3(itemPos.x, itemPos.y, prevPosition.z));
+				MoveOtherStash(item, type);
+
+				ChangeFillIntersectArea(Vector2(itemPos.x, itemPos.y)
+					, true, item, type);
+
+				return true;
+			}
+		}
+		return false;
+	}
+	bool StashManager::DeployPocket(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType)
 	{
 		if (nullptr == MouseManager::GetMouseFollow()) return false;
 
@@ -532,9 +593,9 @@ namespace m
 
 		std::vector<EmptyRect*>* _invens = nullptr;
 
-		if (type == eStashType::PocketInven) _invens = &pockets;
-		else if (type == eStashType::ExPocketInven) _invens = &exPockets;
-		else if (type == eStashType::Equiment) _invens = &equiments;
+
+		if (type == eStashType::ExPocketInven) _invens = &exPockets;
+		else if (type == eStashType::PocketInven) _invens = &pockets;
 		else return false;
 
 		MAKE_VEC2_F_VEC3(thisPosV2, GET_POS(item));
@@ -717,6 +778,70 @@ namespace m
 		field->SetCamera(battleCam);
 		curScene->AddGameObject(eLayerType::FieldItem, field);
 	}
+
+	void StashManager::EquimentEmptyRectItemClear(InvenItem* item)
+	{
+		eItemType type = item->GetItemType();
+		switch (type)
+		{
+		case eItemType::Helmet:
+		{
+			invenHelmet->SetItem((int)0);
+		}
+		break;
+		case eItemType::Armor:
+		{
+			invenArmor->SetItem((int)0);
+		}
+		break;
+		case eItemType::RightWeapon:
+		{
+			invenWeapon1Right->SetItem((int)0);
+		}
+		break;
+		case eItemType::LeftWeapon:
+		{
+			invenWeapon1Left->SetItem((int)0);
+		}
+		break;
+		case eItemType::Amulet:
+		{
+			invenAmulet->SetItem((int)0);
+		}
+		break;
+		case eItemType::RightRing:
+		{
+			invenRingRight->SetItem((int)0);
+		}
+		break;
+		case eItemType::LeftRing:
+		{
+			invenRingLeft->SetItem((int)0);
+		}
+		break;
+		case eItemType::Belt:
+		{
+			invenBelt->SetItem((int)0);
+		}
+		break;
+		case eItemType::Shoes:
+		{
+			invenShoes->SetItem((int)0);
+		}
+		break;
+		case eItemType::Glove:
+		{
+			invenGlove->SetItem((int)0);
+		}
+		break;
+		default:
+		{
+
+		}
+		break;
+		}
+	}
+
 	void StashManager::MoveOtherStash(InvenItem* item, eStashType stashTypeMove)
 	{
 		eStashType stashType = item->GetStashType();
@@ -735,7 +860,12 @@ namespace m
 			std::erase(shopItems, item);
 
 		if (stashType == eStashType::Equiment)
+		{
 			std::erase(equimentItems, item);
+
+			if(stashTypeMove != eStashType::Equiment)
+			    EquimentEmptyRectItemClear(item);
+		}
 
 		item->SetStashType(stashTypeMove);
 
@@ -946,6 +1076,7 @@ namespace m
 		if (stashType == eStashType::Equiment)
 		{
 			std::erase(equimentItems, item);
+			EquimentEmptyRectItemClear(item);
 		}
 		if (bgracePeriod)
 		{
@@ -1134,4 +1265,54 @@ namespace m
 		}
 		return true;
 	}
+
+    int StashManager::GetLeftWeaponItem()
+    {
+		return static_cast<int>(invenWeapon1Left->GetItem());
+	}
+
+	int StashManager::GetRightWeaponItem()
+	{
+		return static_cast<int>(invenWeapon1Right->GetItem());
+	}
+
+	int StashManager::GetLeftRightItem()
+	{
+		return static_cast<int>(invenRingLeft->GetItem());
+	}
+
+	int StashManager::GetRightRingItem()
+	{
+		return static_cast<int>(invenRingRight->GetItem());
+	}
+
+	int StashManager::GetAmulettem()
+	{
+		return static_cast<int>(invenAmulet->GetItem());
+	}
+
+	int StashManager::GetBeltItem()
+	{
+		return static_cast<int>(invenBelt->GetItem());
+	}
+
+	int StashManager::GetHelmetItem()
+	{
+		return static_cast<int>(invenHelmet->GetItem());
+	}
+
+	int StashManager::GetShoesItem()
+	{
+		return static_cast<int>(invenShoes->GetItem());
+	}
+
+	int StashManager::GetGloveItem()
+	{
+		return static_cast<int>(invenGlove->GetItem());
+	}
+
+	int StashManager::GetArmorItem()
+	{
+		return static_cast<int>(invenArmor->GetItem());
+    }
 }

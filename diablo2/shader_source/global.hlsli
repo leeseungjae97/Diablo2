@@ -175,6 +175,7 @@ Texture2D atlasTexture : register(t16);
 
 SamplerState pointSampler : register(s0);
 //SamplerState anisotropicSampler : register(s1);
+//SamplerState pointSampler : register(s2);
 
 static float GaussianFilter[5][5] =
 {

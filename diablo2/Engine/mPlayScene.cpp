@@ -37,6 +37,7 @@
 #include "mFallScript.h"
 #include "mTileSystem.h"
 #include "mCameraScript.h"
+#include "mCharacterStatus.h"
 #include "mEnemyHpUI.h"
 #include "mFieldItem.h"
 #include "mFloor.h"
@@ -230,10 +231,25 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inventory)
 		{
 			inventory->SetState(inventory->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
+			skillUp->SetState(GameObject::NoRenderUpdate);
 		}
 		if (Input::GetKeyDown(eKeyCode::T) && nullptr != skillUp)
 		{
 			skillUp->SetState(skillUp->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
+			inventory->SetState(GameObject::NoRenderUpdate);
+		}
+		if (Input::GetKeyDown(eKeyCode::A) && nullptr != skillUp)
+		{
+			status->SetState(status->GetState() != GameObject::eState::RenderUpdate ? GameObject::eState::RenderUpdate : GameObject::eState::NoRenderUpdate);
+		}
+
+		if (skillUp->GetState() == GameObject::eState::RenderUpdate)
+		{
+			inventory->SetState(GameObject::NoRenderUpdate);
+		}
+		if (inventory->GetState() == GameObject::eState::RenderUpdate)
+		{
+			skillUp->SetState(GameObject::NoRenderUpdate);
 		}
 	}
 	void PlayScene::LateUpdate()
@@ -274,6 +290,9 @@ namespace m
 
 		skillUp = new SkillStatus(cameraComp2);
 		skillUp->SetState(GameObject::NoRenderUpdate);
+
+		status = new CharacterStatus(cameraComp2);
+		status->SetState(GameObject::NoRenderUpdate);
 
 		uiBottomBar = new BottomUI(cameraComp2);
 

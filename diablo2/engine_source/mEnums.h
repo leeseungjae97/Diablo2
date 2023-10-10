@@ -26,14 +26,17 @@ namespace m::enums
 		Floor,
 		Background,
 		Tile,
-		Object,
+
 		Overlay,
 		MonsterOverlay,
 		PlayerOverlay,
 		PlayerAura,
 		MonsterAura,
-		FieldItem,
+
 		Shadow,
+		Object,
+
+		FieldItem,
 		Wall,
 		Summons,
 		Player,

@@ -7,6 +7,8 @@
 #include "../engine_source/mMeshRenderer.h"
 namespace m
 {
+    class ShadowObject;
+
     class Parts :
         public GameObject
     {
@@ -19,10 +21,10 @@ namespace m
         virtual void LateUpdate() override;
         virtual void Render() override;
 
-        Vector2 GetSpriteSize();
-
     protected:
         GameObject* mPartsOwner;
         Animator* mPartsMasterAnimator;
+
+        ShadowObject* mShadow;
     };
 }

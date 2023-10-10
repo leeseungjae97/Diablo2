@@ -41,11 +41,13 @@ namespace m
 		static void Update();
 
 		static bool ItemDeploy();
-		static bool DeployTetris(eStashType type);
-		static bool DeployException(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType);
+        static bool DeployTetris(eStashType type);
+        static bool DeployEquiment(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType);
+		static bool DeployPocket(eStashType type, std::vector<int> exceptType, std::vector<int> acceptType);
 		static void ChangeFieldItemToInvenItem(FieldItem* item);
 		static bool ChangeInvenItemToFieldItem(InvenItem* item);
 		static void DropFieldItem(int item, Vector3 initPos);
+        static void EquimentEmptyRectItemClear(InvenItem* item);
 		static void MoveOtherStash(InvenItem* item, eStashType stashTypeMove);
 
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
@@ -98,6 +100,16 @@ namespace m
 		static void SetCurRenderShop(Shop* shop) { mCurShop = shop; }
 		static Shop* GetCurRenderShop() { return mCurShop; }
 
+		static int GetLeftWeaponItem();
+		static int GetRightWeaponItem();
+		static int GetLeftRightItem();
+		static int GetRightRingItem();
+		static int GetAmulettem();
+		static int GetBeltItem();
+		static int GetHelmetItem();
+		static int GetShoesItem();
+		static int GetGloveItem();
+		static int GetArmorItem();
     private:
 		static InvenItem* getPocketPosItem(int index);
 		static InvenItem* getExPocketPosItem(int index);

@@ -216,8 +216,8 @@ namespace renderer
 
 		//No Write
 		depthStencilDesc.DepthEnable = true;
-		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
-		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		depthStencilDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
@@ -257,11 +257,11 @@ namespace renderer
 		blendDesc.AlphaToCoverageEnable = false;
 		blendDesc.IndependentBlendEnable = false;
 
-		blendDesc.RenderTarget[1].BlendEnable = true;
-		blendDesc.RenderTarget[1].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
-		blendDesc.RenderTarget[1].SrcBlend = D3D11_BLEND_ONE;
-		blendDesc.RenderTarget[1].DestBlend = D3D11_BLEND_ONE;
-		blendDesc.RenderTarget[1].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		blendDesc.RenderTarget[0].BlendEnable = true;
+		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		GetDevice()->CreateBlendState(&blendDesc
 			, blendStates[(UINT)eBSType::OneOne].GetAddressOf());
 
@@ -688,6 +688,10 @@ namespace renderer
 			, 34, 35, 8, L"laGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"ra_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\ra_gh"
 			, 34, 35, 8, L"raGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_ra_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\ob_ra_gh"
+			, 48, 36, 8, L"obRaGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"ob_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\ob_gh"
+			, 60, 39, 8, L"obGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"tr_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\tr_gh"
 			, 24, 26, 8, L"trGH");
 
@@ -1147,6 +1151,9 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"tab_bt", L"..\\Resources\\texture\\ui\\buttons\\tabbt.png", L"tabBt");
 		MAKE_MATERIAL(noLightShader, L"close_btn", L"..\\Resources\\texture\\ui\\buttons\\close_btn.png", L"closeBtn");
 		MAKE_MATERIAL(noLightShader, L"close_btn_click", L"..\\Resources\\texture\\ui\\buttons\\close_btn_c.png", L"closeBtnClick");
+		MAKE_MATERIAL(noLightShader, L"level_btn", L"..\\Resources\\texture\\ui\\buttons\\level_btn.png", L"levelBtn");
+		MAKE_MATERIAL(noLightShader, L"level_btn_c", L"..\\Resources\\texture\\ui\\buttons\\level_btn_c.png", L"levelBtnClick");
+		MAKE_MATERIAL(noLightShader, L"level_btn_d", L"..\\Resources\\texture\\ui\\buttons\\level_btn_d.png", L"levelBtnDisable");
 		//MAKE_MATERIAL(noLightShader, L"gold_coin_btn_click", L"..\\Resources\\texture\\ui\\buttons\\gold_coin_btn_c.png", L"goldCoinBtnClick");
 		//MAKE_MATERIAL(noLightShader, L"gold_coin_btn", L"..\\Resources\\texture\\ui\\buttons\\gold_coin_btn.png", L"goldCoinBtn");
 
@@ -1312,6 +1319,11 @@ namespace renderer
 #pragma region Shop
 		MAKE_MATERIAL(noLightShader, L"shop_inventory", L"..\\Resources\\texture\\ui\\play\\shop\\shop_invens.png", L"shopInventory");
 #pragma endregion
+#pragma region Status
+		MAKE_MATERIAL(noLightShader, L"character_status", L"..\\Resources\\texture\\ui\\play\\characterpanel_panel.png", L"characterStatus");
+		MAKE_MATERIAL(noLightShader, L"stat_point", L"..\\Resources\\texture\\ui\\play\\stat_point.png", L"statPoint");
+
+#pragma endregion
 #pragma region Inventory
 		{
 			std::shared_ptr<Texture> texture
@@ -1368,6 +1380,8 @@ namespace renderer
 		{
 			spriteShader
 				= Resources::Find<Shader>(L"ShadowAnimationShader");
+			//spriteShader->SetBSState(eBSType::NoBlendOhter);
+
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 
 			material = std::make_shared<Material>();

@@ -5,8 +5,10 @@ namespace m
 	enum class eItemType
 	{
 		None,
-		Weapon,
-		Ring,
+		RightWeapon,
+		LeftWeapon,
+		RightRing,
+		LeftRing,
 		Amulet,
 		Belt,
 		Helmet,
@@ -66,13 +68,326 @@ namespace m
 		17,
 		17,
 	};
+	std::wstring itemBodyPartMaterialNames[(int)eItem::END][6][13] = {
+		{},
+		{},
 
+		{
+			//head
+			{
+				L"",// Attack1 
+				L"",// Attack2 
+				L"",// Block 
+				L"",// GetHit 
+				L"",// Kick 
+				L"",// Natural 
+				L"",// Run 
+				L"",// Special1 
+				L"",// SpecialCast 
+				L"",// TownNatural 
+				L"",// TownWalk 
+				L"",// Walk 
+				L"",// Dead
+			},
+			//left arm
+			{
+				L"",// Attack1 
+				L"",// Attack2 
+				L"",// Block 
+				L"",// GetHit 
+				L"",// Kick 
+				L"",// Natural 
+				L"",// Run 
+				L"",// Special1 
+				L"",// SpecialCast 
+				L"",// TownNatural 
+				L"",// TownWalk 
+				L"",// Walk 
+				L"",// Dead
+			},
+			//right arm
+			{
+			L"",// Attack1 
+				L"",// Attack2 
+				L"",// Block 
+				L"obRaGH",// GetHit 
+				L"",// Kick 
+				L"obRaNU",// Natural 
+				L"obRaR",// Run 
+				L"",// Special1 
+				L"raSC",// SpecialCast 
+				L"",// TownNatural 
+				L"",// TownWalk 
+				L"",// Walk 
+				L"",// Dead 
+			},
+			//body
+			{
+				L"",// Attack1 
+				L"",// Attack2 
+				L"",// Block 
+				L"",// GetHit 
+				L"",// Kick 
+				L"",// Natural 
+				L"",// Run 
+				L"",// Special1 
+				L"",// SpecialCast 
+				L"",// TownNatural 
+				L"",// TownWalk 
+				L"",// Walk 
+				L"",// Dead
+			},
+			//leg
+			{
+				L"",// Attack1 
+				L"",// Attack2 
+				L"",// Block 
+				L"",// GetHit 
+				L"",// Kick 
+				L"",// Natural 
+				L"",// Run 
+				L"",// Special1 
+				L"",// SpecialCast 
+				L"",// TownNatural 
+				L"",// TownWalk 
+				L"",// Walk 
+				L"",// Dead
+			},
+			//right hand
+	        {
+			L"",// Attack1 
+			L"",// Attack2 
+			L"",// Block 
+			L"obGH",// GetHit 
+			L"",// Kick 
+			L"obNU",// Natural 
+			L"obR",// Run
+			L"",// Special1 
+			L"obSC",// SpecialCast 
+			L"",// TownNatural 
+			L"",// TownWalk 
+			L"",// Walk 
+			L"",// Dead 
+			}
+		},
+     {},
+     {},
+	};
+	m::math::Vector2 itemBodyPartSizes[(int)eItem::END][6][13] = {
+		{},
+		{},
+		{
+			//head
+			{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// left arm
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// right arm
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(48.f, 36.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(48.f, 35.f),// Natural 
+				m::math::Vector2(42.f, 33.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(84.f, 64.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// body
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(60.f, 39.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(60.f, 38.f),// Natural 
+				m::math::Vector2(46.f, 40.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(92.f, 66.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// leg
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// right hand
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(60.f, 39.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(60.f, 38.f),// Natural 
+				m::math::Vector2(46.f, 40.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(92.f, 66.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+		},
+		{},
+		{},
+
+	};
+	m::math::Vector2 itemAnimCenterPos[(int)eItem::END][6][13] = {
+			{},
+		{},
+		{
+			//head
+			{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// left arm
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// right arm
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+			    m::math::Vector2(0.f, 27.f), // gethit
+			    m::math::Vector2(0.f, 0.f), //
+			    m::math::Vector2(0.f, 27.f), // natural
+			    m::math::Vector2(0.f, 27.f), // run
+			    m::math::Vector2(0.f, 0.f), //
+			    m::math::Vector2(0.f, 40.f), // special cast
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// body
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// leg
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+				m::math::Vector2(0.f, 0.f),// GetHit 
+				m::math::Vector2(0.f, 0.f),// Kick 
+				m::math::Vector2(0.f, 0.f),// Natural 
+				m::math::Vector2(0.f, 0.f),// Run 
+				m::math::Vector2(0.f, 0.f),// Special1 
+				m::math::Vector2(0.f, 0.f),// SpecialCast 
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+			// right hand
+						{
+				m::math::Vector2(0.f, 0.f),// Attack1 
+				m::math::Vector2(0.f, 0.f),// Attack2 
+				m::math::Vector2(0.f, 0.f),// Block 
+			    m::math::Vector2(0.f, 25.f), // gethit
+			    m::math::Vector2(0.f, 0.f), //
+			    m::math::Vector2(0.f, 25.f), // natural
+			    m::math::Vector2(0.f, 25.f), // run
+			    m::math::Vector2(0.f, 0.f), //
+			    m::math::Vector2(0.f, 25.f), // special cast
+				m::math::Vector2(0.f, 0.f),// TownNatural 
+				m::math::Vector2(0.f, 0.f),// TownWalk 
+				m::math::Vector2(0.f, 0.f),// Walk 
+				m::math::Vector2(0.f, 0.f),// Dead
+			},
+		},
+		{},
+		{},
+	};
 
 	eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
 		eItemType::Posion,
 
-		eItemType::Weapon,
+		eItemType::RightWeapon,
 
 		eItemType::Armor,
 
@@ -123,4 +438,6 @@ namespace m
 
 		{L"캡", L"비용: ",L"방어: ",L"착용 가능한 레벨: ",L""},
 	};
+
+
 }

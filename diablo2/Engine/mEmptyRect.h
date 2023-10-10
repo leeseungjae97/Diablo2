@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mInvenItem.h"
-#include "mGameObject.h"
 
 namespace m
 {
@@ -30,13 +29,21 @@ namespace m
 
 		void SetState(GameObject::eState state) { mState = state; }
 		GameObject::eState GetState() { return mState; }
+		void SetItemType(int item) { mEquimentItemType = item; }
+		int GetItemType() { return mEquimentItemType; }
 
-	private:
+		void SetItem(int item) { mEqumentItem = item; }
+		int GetItem() { return mEqumentItem; }
+
+    private:
 		Vector2 mPos;
 		Vector2 mSize;
 
 		InvenItem* mFillItem;
 		GameObject::eState mState;
+
+		int mEquimentItemType;
+		int mEqumentItem;
 		
 		bool bFill;
 	};

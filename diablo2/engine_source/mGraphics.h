@@ -74,6 +74,7 @@ enum class eBSType
 	Default,
 	AlphaBlend,
 	OneOne,
+	NoBlendOhter,
 	End,
 };
 enum class eRenderingMode

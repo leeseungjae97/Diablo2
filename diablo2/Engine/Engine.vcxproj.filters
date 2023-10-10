@@ -259,6 +259,9 @@
     <ClCompile Include="mBodyParts.cpp">
       <Filter>BodyParts</Filter>
     </ClCompile>
+    <ClCompile Include="mCharacterStatus.cpp">
+      <Filter>UI\CharacterStatus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -515,6 +518,9 @@
     </ClInclude>
     <ClInclude Include="mBodyParts.h">
       <Filter>BodyParts</Filter>
+    </ClInclude>
+    <ClInclude Include="mCharacterStatus.h">
+      <Filter>UI\CharacterStatus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -802,6 +808,9 @@
     </Filter>
     <Filter Include="BodyParts\Hand\MonsterHand">
       <UniqueIdentifier>{66e1b167-9da1-4fd8-96fd-a7eef6cc9e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CharacterStatus">
+      <UniqueIdentifier>{2026225e-35fa-4e43-869f-6905fbbf2f59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

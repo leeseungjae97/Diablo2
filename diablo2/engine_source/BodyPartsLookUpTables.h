@@ -10,7 +10,7 @@ enum class eBodyPartsType
 	End
 };
 m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
-
+	// head
 	{
 	m::math::Vector2(0.f, 0.f), //
 	m::math::Vector2(0.f, 0.f), //
@@ -26,6 +26,7 @@ m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 	m::math::Vector2(0.f, 0.f), //
 	m::math::Vector2(0.f, 0.f), //
 	},
+	// left arm
 		{
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
@@ -35,12 +36,13 @@ m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 			m::math::Vector2(0.f, 27.f), // natural
 			m::math::Vector2(0.f, 27.f), // run
 			m::math::Vector2(0.f, 0.f), //
-			m::math::Vector2(0.f, 27.f), // special cast
+			m::math::Vector2(0.f, 40.f), // special cast
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 	},
+	// right arm
 		{
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
@@ -50,12 +52,12 @@ m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 			m::math::Vector2(0.f, 27.f), // natural
 			m::math::Vector2(0.f, 27.f), // run
 			m::math::Vector2(0.f, 0.f), //
-			m::math::Vector2(0.f, 27.f), // special cast
+			m::math::Vector2(0.f, 40.f), // special cast
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
-	},
+	}, // upper body
 		{
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
@@ -70,7 +72,7 @@ m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
-	},
+	}, //leg
 		{
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
@@ -85,7 +87,102 @@ m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //
+	},// orb right arm
+		{
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), // gethit
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), // natural
+			m::math::Vector2(0.f, 0.f), // run
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), // special cast
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
 	},
+};
+m::math::Vector2 bodyPartsShadowOffset[(int)eBodyPartsType::End][13] = {
+	// head
+	{
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(-10.f, -15.5f), // gethit
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(-10.f, -15.5f), // natural
+	m::math::Vector2(-25.f, -18.f), // run
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(-10.f, -15.5f), // special cast
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	},
+	// left arm
+		{
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(-7.f, -10.f), // gethit
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(-7.f, -10.f), // natural
+			m::math::Vector2(-13.f, -10.f), // run
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(-5.f, -8.f), // special cast
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+	},
+	// right arm
+		{
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(-5.f, -10.f), // gethit
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(-5.f, -10.f), // natural
+			m::math::Vector2(-12.f, -10.f), // run
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(-5.f, -8.f), // special cast
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+	}, // upper body
+			{
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(-14.f, -15.5f), // gethit
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(-14.f, -15.5f), // natural
+	m::math::Vector2(-27.f, -16.5f), // run
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(-15.f, -15.5f), // special cast
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	m::math::Vector2(0.f, 0.f), //
+	},//leg
+		{
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 5.f), // gethit
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 5.f), // natural
+			m::math::Vector2(0.f, 5.f), // run
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 5.f), // special cast
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+			m::math::Vector2(0.f, 0.f), //
+	},// orb right arm
 		{
 			m::math::Vector2(0.f, 0.f), //
 			m::math::Vector2(0.f, 0.f), //

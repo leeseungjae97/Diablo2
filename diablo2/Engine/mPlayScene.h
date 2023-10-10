@@ -2,6 +2,7 @@
 #include "../engine_source/mScene.h"
 namespace m
 {
+    class CharacterStatus;
     class UI;
     class NPC;
     class Portal;
@@ -37,6 +38,8 @@ namespace m
     private:
         Inventory* inventory;
         SkillStatus* skillUp;
+        CharacterStatus* status;
+
         BottomUI* uiBottomBar;
         Shop* shop;
 
