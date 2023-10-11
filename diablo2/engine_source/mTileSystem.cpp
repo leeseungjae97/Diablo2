@@ -248,6 +248,8 @@ namespace m
 			
 			mSkillBuffer->GetData(&mData, SkillManager::skills.size());
 
+			if (nullptr == mData) return;
+
 		    for(int i = 0 ; i < SkillManager::skills.size(); ++i)
 		    {
 				SkillWallCollision swc = mData[i];

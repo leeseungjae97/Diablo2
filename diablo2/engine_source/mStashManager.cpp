@@ -5,6 +5,7 @@
 #include "mTileManager.h"
 
 //#include "../Engine/mItem.h"
+#include "mFieldItemManager.h"
 #include "../Engine/mEmptyRect.h"
 #include "../Engine/mItemScript.h"
 #include "../Engine/mInvenItem.h"
@@ -775,6 +776,8 @@ namespace m
 
 		FieldItem* field = new FieldItem((eItem)item, initPos);
 
+		FieldItemManager::Add(field);
+
 		field->SetCamera(battleCam);
 		curScene->AddGameObject(eLayerType::FieldItem, field);
 	}
@@ -862,7 +865,6 @@ namespace m
 		if (stashType == eStashType::Equiment)
 		{
 			std::erase(equimentItems, item);
-
 			if(stashTypeMove != eStashType::Equiment)
 			    EquimentEmptyRectItemClear(item);
 		}
@@ -880,6 +882,10 @@ namespace m
 
 		if (stashTypeMove == eStashType::Shop)
 		{
+			if (stashType == eStashType::Inventory)
+			{
+				PlayerManager::money += itemFunctionValue[(int)item->GetEItem()][0];
+			}
 			item->SetShopItem(true);
 			shopItems.push_back(item);
 		}

@@ -37,8 +37,7 @@ namespace m
 		static int life;
 		static int mana;
 
-		static int maxDamage;
-		static int minDamage;
+		static int damage;
 	};
 }
 

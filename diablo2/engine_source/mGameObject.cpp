@@ -18,6 +18,7 @@ namespace m
 		, bTileCulled(false)
 		, bRhombus(false)
 		, iGameObjectId(0)
+	    , bSoundPlay(false)
 	{
 		iGameObjectId = GameObjectIdDispender;
 		GameObjectIdDispender++;

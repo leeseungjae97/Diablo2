@@ -18,6 +18,7 @@ namespace m
         void SetDirection(int direction) { mDirection = direction; }
 
     private:
+        void applyItemStatToPlayer();
         void imageChangeEquiment();
         void changeAnimation();
 
@@ -34,6 +35,8 @@ namespace m
         int mAnimationType;
 
         int iCurItem;
+        int iCurItemStat;
+        int iCurItemType;
         int iPrevItem;
 
         Vector2* vCurSizes;

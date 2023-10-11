@@ -17,6 +17,7 @@
 #include "mGameObject.h"
 #include "mInteractUIManager.h"
 #include "mScreenEffectManager.h"
+#include "mSoundManager.h"
 #include "mTileDrawManager.h"
 
 namespace m
@@ -61,6 +62,7 @@ namespace m
 		renderer::Initialize();
 		StashManager::Initialize();
 		SceneManager::Initialize();
+		SoundManager::Initialize();
 		//gui::Editor::Initialize();
 	}
 

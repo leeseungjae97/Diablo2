@@ -1,12 +1,22 @@
 #pragma once
 #include "mComponent.h"
 #include "mAudioClip.h"
+#include "SoundLookUpTables.h"
 
 namespace m
 {
 	class AudioSource : public Component
 	{
 	public:
+		enum class eAudioClipType
+		{
+		    FootStep,
+			Voice,
+			Cast,
+			Fire,
+			Crash,
+			End,
+		};
 		AudioSource();
 		~AudioSource();
 
@@ -15,14 +25,35 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		void Play();
-		void Stop();
-		void SetLoop(bool loop);
 
-		void SetClip(std::shared_ptr<AudioClip> clip) { mAudioClip = clip; }
-		std::shared_ptr<AudioClip> GetClip() { return mAudioClip; }
+		void Play(ePlayerVoiceSoundType type, bool loop = false);
+		void Play(eButtonSoundType type, bool loop = false);
+		void PlaySounds(ePlayerRunSoundType type, bool loop = false);
+		void Play(ePlayerRunSoundType type, bool loop = false);
+		void Stop();
+		void Stop(eAudioClipType type);
+
+		std::shared_ptr<AudioClip> FindClip(ePlayerVoiceSoundType type);
+		std::shared_ptr<AudioClip> FindClip(eButtonSoundType type);
+		std::shared_ptr<AudioClip> FindClip(ePlayerRunSoundType type);
+
+		std::shared_ptr<AudioClip> GetClip(eAudioClipType audioType) { return mAudioClips[(int)audioType]; }
 
 	private:
-		std::shared_ptr<AudioClip> mAudioClip;
+		std::vector<std::shared_ptr<AudioClip>> mAudioClips;
+		bool bActiveAudioClip[(int)eAudioClipType::End] = {false,false, false, false, false};
+
+		eButtonSoundType mButtonSoundType;
+		ePlayerRunSoundType mRunSoundType;
+
+		int iRunIndex;
+
+		bool bRun;
+		float fRunAcc;
+
+		bool bLoopGroupSound;
+		bool bNextPlay;
+
+		int iRandPlayIndex;
 	};
 }

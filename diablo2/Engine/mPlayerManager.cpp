@@ -13,11 +13,11 @@ namespace m
 	int PlayerManager::skillPoint = 0;
 	int PlayerManager::money = 100;
 
-	float PlayerManager::hp = 100.f;
-	float PlayerManager::hpCapacity = 100.f;
+	float PlayerManager::hp = 40.f;
+	float PlayerManager::hpCapacity = 40.f;
 	float PlayerManager::hpPercent = 1.f;
-	float PlayerManager::mp = 100.f;
-	float PlayerManager::mpCapacity = 100.f;
+	float PlayerManager::mp = 35.f;
+	float PlayerManager::mpCapacity = 35.f;
 	float PlayerManager::mpPercent = 1.f;
 
 	Player* PlayerManager::player = nullptr;

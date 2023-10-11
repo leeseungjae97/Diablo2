@@ -40,12 +40,14 @@
 #include "mCharacterStatus.h"
 #include "mEnemyHpUI.h"
 #include "mFieldItem.h"
+#include "mFieldItemManager.h"
 #include "mFloor.h"
 #include "mLightObject.h"
 #include "mNPC.h"
 #include "mPortal.h"
 #include "mScreenEffectManager.h"
 #include "mShop.h"
+#include "mStageManager.h"
 #include "mTorch.h"
 #include "mWall.h"
 
@@ -113,21 +115,6 @@ namespace m
 		//as->SetLoop(true);
 		//as->Play();
 
-		//GameObject* qwe = new GameObject();
-		//SET_MAIN_CAMERA(qwe);
-		//AddGameObject(eLayerType::Skill, qwe);
-		//ADD_COMP(qwe, MeshRenderer);
-		//ADD_COMP(qwe, Collider2D);
-		//SET_SCALE_XYZ(qwe, 100.f, 100.f, 1.f);
-		//SET_MESH(qwe, L"RectMesh");
-		//SET_MATERIAL(qwe, L"testSc");
-		//Animator* anim = ADD_COMP(qwe, Animator);
-		//SET_POS_VEC(qwe, pos4);
-
-		//FieldItem* testField = new FieldItem(eItem::hpPosion1, Vector3(10.f, 10.f, 1.f));
-		//SET_MAIN_CAMERA(testField);
-		//AddGameObject(eLayerType::FieldItem, testField);
-
 		Tile* tile = TileManager::pathFindingTiles[10][10];
 		Vector3 pos = tile->GetPos();
 		mPortal = new Portal();
@@ -181,7 +168,7 @@ namespace m
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
 
-		Stage3();
+		Stage1();
 	}
 	void PlayScene::Update()
 	{
@@ -1177,9 +1164,10 @@ namespace m
 	void PlayScene::Stage1()
 	{
 		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage1Wall();
-
+		StageManager::stageNum = 0;
 		if (curMap)
 		{
 			SET_MATERIAL(curMap, L"stage1");
@@ -1275,7 +1263,9 @@ namespace m
 
 	void PlayScene::Stage2()
 	{
+		StageManager::stageNum = 1;
 		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage2Wall();
 		if (curMap)
@@ -1336,7 +1326,9 @@ namespace m
 
 	void PlayScene::Stage3()
 	{
+		StageManager::stageNum = 2;
 		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage3Wall();
 
@@ -1395,7 +1387,9 @@ namespace m
 
 	void PlayScene::Stage4()
 	{
+		StageManager::stageNum = 3;
 		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage4Wall();
 		if (curMap)
@@ -1405,7 +1399,7 @@ namespace m
 
 		ScreenEffectManager::Shake(3.f);
 		{
-			Tile* tile = TileManager::pathFindingTiles[62][62];
+			Tile* tile = TileManager::pathFindingTiles[23][23];
 			TileManager::playerStandTile = tile;
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(mPortal, pos);

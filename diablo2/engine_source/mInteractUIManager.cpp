@@ -1,17 +1,26 @@
 #include "mInteractUIManager.h"
 
 #include "mFontWrapper.h"
+#include "mMouseManager.h"
 #include "../Engine/mInteractUI.h"
 namespace m
 {
 	InteractUI* InteractUIManager::mShopInteractUI = nullptr;
 	InteractUIManager::eInteractUIType InteractUIManager::mCurUIType = InteractUIManager::eInteractUIType::End;
 	bool InteractUIManager::bItemHover = false;
+	bool InteractUIManager::bItemDrag = false;
 	m::math::Vector3 InteractUIManager::mInitPos = Vector3(0.f,0.f,0.f);
 
     void InteractUIManager::Update()
     {
-		if(mCurUIType != eInteractUIType::ExItem)
+		if(MouseManager::GetMouseFollow())
+		{
+			SetInteractUIState(GameObject::NoRenderUpdate);
+			return;
+		}
+		if(mCurUIType != eInteractUIType::ExItem
+			&& mCurUIType != eInteractUIType::InvenEx
+			&& mCurUIType != eInteractUIType::InvenSellEx)
 		{
 			if (GetInteractUIState() != GameObject::eState::RenderUpdate) mCurUIType = eInteractUIType::End;
 		}
@@ -20,6 +29,24 @@ namespace m
 			SetInteractUIState(GameObject::NoRenderUpdate);
 		}
 		if (bItemHover && mCurUIType == eInteractUIType::ExItem)
+		{
+			SetInteractUIState(GameObject::RenderUpdate);
+			bItemHover = false;
+		}
+		if (!bItemHover && mCurUIType == eInteractUIType::InvenSellEx)
+		{
+			SetInteractUIState(GameObject::NoRenderUpdate);
+		}
+		if (bItemHover && mCurUIType == eInteractUIType::InvenSellEx)
+		{
+			SetInteractUIState(GameObject::RenderUpdate);
+			bItemHover = false;
+		}
+		if (!bItemHover && mCurUIType == eInteractUIType::InvenEx)
+		{
+			SetInteractUIState(GameObject::NoRenderUpdate);
+		}
+		if (bItemHover && mCurUIType == eInteractUIType::InvenEx)
 		{
 			SetInteractUIState(GameObject::RenderUpdate);
 			bItemHover = false;
@@ -175,6 +202,74 @@ namespace m
 			pos = Vector3(0.f, 0.f, pos.z);
 		}
 		break;
+		case eInteractUIType::InvenEx:
+		{
+			std::wstring str = itemCostFunctionNames[itemType][0];
+
+			Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
+			if (fontMaxSize.x < fontSize.x)
+				fontMaxSize.x = fontSize.x;
+
+			fontMaxSize.y += fontSize.y * 2;
+
+			text.push_back(str);
+			for (int i = 2; i < 5; ++i)
+			{
+				str = itemCostFunctionNames[itemType][i];
+				if (str == L"") continue;
+
+				valueStr = std::to_wstring(itemFunctionValue[itemType][i - 1]);
+
+				str += valueStr;
+
+				fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
+
+				if (fontMaxSize.x < fontSize.x)
+					fontMaxSize.x = fontSize.x;
+
+				fontMaxSize.y += fontSize.y;
+
+				text.push_back(str);
+			}
+			pos.y += fontMaxSize.y;
+		}break;
+		case eInteractUIType::InvenSellEx:
+		{
+			std::wstring str = itemCostFunctionNames[itemType][0];
+
+			Vector2 fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
+			if (fontMaxSize.x < fontSize.x)
+				fontMaxSize.x = fontSize.x;
+
+			fontMaxSize.y += fontSize.y * 2;
+
+			text.push_back(str);
+			for (int i = 1; i < 5; ++i)
+			{
+				if(i == 1)
+				{
+					str = L"판매 가격:";
+				}else{
+					str = itemCostFunctionNames[itemType][i];
+				}
+				
+				if (str == L"") continue;
+
+				valueStr = std::to_wstring(itemFunctionValue[itemType][i - 1]);
+
+				str += valueStr;
+
+				fontSize = FontWrapper::GetTextSize(str.c_str(), fFontSize);
+
+				if (fontMaxSize.x < fontSize.x)
+					fontMaxSize.x = fontSize.x;
+
+				fontMaxSize.y += fontSize.y;
+
+				text.push_back(str);
+			}
+			pos.y += fontMaxSize.y;
+		}break;
 		}
 		if (nullptr == mShopInteractUI) return;
 

@@ -7,6 +7,7 @@
 #include "mSkill.h"
 #include "mPlayer.h"
 #include "mMonster.h"
+#include "mPlayerStatus.h"
 #include "mSkillCurve.h"
 #include "mWall.h"
 
@@ -292,7 +293,7 @@ namespace m
 							monster->Addiction(10, 10.f, 10);
 					}
 					if (monster)
-						monster->Hit(10);
+						monster->Hit(PlayerStatus::damage);
 				}
 				break;
 				case m::enums::eLayerType::MonsterSkill:
@@ -317,7 +318,7 @@ namespace m
 					{
 						dynamic_cast<Player*>(other->GetOwner())->Addiction(10, 10.f, 10);
 					}
-					dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+					dynamic_cast<Player*>(other->GetOwner())->Hit(5);
 				}
 				break;
 				default:

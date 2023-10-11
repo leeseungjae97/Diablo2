@@ -183,6 +183,9 @@ namespace m
 		//void PlayAnimators(std::vector<std::wstring>, bool loop, std::vector<Vector3> pos, int loopStartIndex = 0, int loopEndIndex = 0, int loopCount = 0);
 		void PlayAnimators(const std::wstring playName, bool loop, Vector2 size, bool useDirect, Collider2D* col);
 		void ReleaseAnimators();
+
+		bool SoundPlay() { return bSoundPlay; }
+		void SetSoundPlay(bool play) { bSoundPlay = play; }
 	private:
 		eState mState;
 		eLayerType mLayerType;
@@ -196,6 +199,8 @@ namespace m
 
 		bool bCulled;
 		bool bTileCulled;
+
+		bool bSoundPlay;
 
 		UINT iGameObjectId;
 		static UINT GameObjectIdDispender;

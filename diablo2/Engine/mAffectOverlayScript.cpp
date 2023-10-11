@@ -2,6 +2,7 @@
 
 #include "mMonster.h"
 #include "mPlayer.h"
+#include "mPlayerStatus.h"
 #include "mTime.h"
 #include "../engine_source/mMaterial.h"
 
@@ -104,10 +105,10 @@ namespace m
 			if (bAtive)
 			{
 				if (dynamic_cast<Monster*>(other->GetOwner()))
-					dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+					dynamic_cast<Monster*>(other->GetOwner())->Hit(PlayerStatus::damage);
 
 				if (dynamic_cast<Player*>(other->GetOwner()))
-					dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+					dynamic_cast<Player*>(other->GetOwner())->Hit(5);
 			}
 			
 		}

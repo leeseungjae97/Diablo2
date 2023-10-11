@@ -138,6 +138,30 @@ namespace m
 			, -1.f);
 		mExPocketUI->SetState(NoRenderUpdate);
 		curScene->AddGameObject(eLayerType::UI, mExPocketUI);
+
+		mLifeDisplay = new UI();
+		mManaDisplay = new UI();
+
+		mLifeDisplay->SetCamera(camera);
+		mManaDisplay->SetCamera(camera);
+		mLifeDisplay->SetTextSize(12.f);
+		mManaDisplay->SetTextSize(12.f);
+
+		SET_MESH(mLifeDisplay, L"RectMesh");
+		SET_MATERIAL(mLifeDisplay, L"noneRect");
+		SET_MESH(mManaDisplay, L"RectMesh");
+		SET_MATERIAL(mManaDisplay, L"noneRect");
+
+		curScene->AddGameObject(eLayerType::UI, mLifeDisplay);
+		curScene->AddGameObject(eLayerType::UI, mManaDisplay);
+
+		mLifeDisplay->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mManaDisplay->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+
+		SET_POS_XYZ(mLifeDisplay, -RESOL_H_WID + 138.f * Texture::GetWidRatio() / 2.f
+			, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mManaDisplay, RESOL_H_WID - 140.f * Texture::GetWidRatio() / 2.f
+			, -RESOL_H_HEI + 105.f * Texture::GetHeiRatio(), -1.f);
 	}
 	BottomUI::~BottomUI()
 	{
@@ -149,6 +173,11 @@ namespace m
 	void BottomUI::Update()
 	{
 		UI::Update();
+		std::wstring lifeStr = L"라이프:" + std::to_wstring(static_cast<int>(PlayerManager::hpCapacity)) +L"/"+ std::to_wstring(static_cast<int>(PlayerManager::hp));
+		std::wstring manaStr = L"마나:" + std::to_wstring(static_cast<int>(PlayerManager::mpCapacity)) +L"/"+ std::to_wstring(static_cast<int>(PlayerManager::mp));
+		mLifeDisplay->SetText(lifeStr);
+		mManaDisplay->SetText(manaStr);
+
 		Vector3 mousePosV3 = MouseManager::UnprojectionMousePos(-1.f, GetCamera());
 		Vector2 mousePos = Vector2(mousePosV3.x, mousePosV3.y);
 		bool hoverRect = false;

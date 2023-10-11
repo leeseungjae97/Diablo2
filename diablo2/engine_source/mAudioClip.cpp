@@ -26,10 +26,18 @@ namespace m
 			return S_FALSE;
 
 		mSound->set3DMinMaxDistance(mMinDistance, mMaxDistance);
-
 		return S_OK;
 	}
+	bool AudioClip::IsPlaying()
+    {
+		if (nullptr == mSound) return false;
+		if (nullptr == mChannel) return false;
 
+		bool isPlaying = false;
+		mChannel->isPlaying(&isPlaying);
+
+		return isPlaying;
+    }
 	void AudioClip::Play()
 	{
 		if (mbLoop)

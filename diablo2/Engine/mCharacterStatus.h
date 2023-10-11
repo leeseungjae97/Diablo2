@@ -36,8 +36,19 @@ namespace m
 
         UI* mRemainPoint;
 
-        UI* mLife;
-        UI* mMana;
+        UI* mTextDef;
+        UI* mDef;
+
+        UI* mTextLife;
+        UI* mLifeMax;
+        UI* mLifeCur;
+
+        UI* mTextMana;
+        UI* mManaMax;
+        UI* mManaCur;
+
+        UI* mTextDamage;
+        UI* mDamage;
 
         Button* mClose;
 

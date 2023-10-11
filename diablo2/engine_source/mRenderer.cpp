@@ -682,6 +682,8 @@ namespace renderer
 #pragma region PlayerBodyParts
 		MAKE_MATERIAL_PATH(spriteShader, L"hd_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\hd_gh"
 			, 44, 34, 8, L"hdGH");
+		MAKE_MATERIAL_PATH(spriteShader, L"cp_hd_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\cp_hd_gh"
+			, 43, 35, 8, L"cpHdGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\lg_gh"
 			, 38, 50, 8, L"lgGH");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_gh", L"..\\Resources\\texture\\character\\sorceress\\get_hit\\la_gh"
@@ -697,6 +699,8 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"hd_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\hd_nu"
 			, 35, 30, 8, L"hdNU");
+		MAKE_MATERIAL_PATH(spriteShader, L"cp_hd_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\cp_hd_nu"
+			, 35, 30, 8, L"cpHdNU");
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\lg_nu"
 			, 30, 50, 8, L"lgNU");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_nu", L"..\\Resources\\texture\\character\\sorceress\\natural\\la_nu"
@@ -712,6 +716,8 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"hd_r", L"..\\Resources\\texture\\character\\sorceress\\run\\hd_r"
 			, 32, 30, 8, L"hdR");
+		MAKE_MATERIAL_PATH(spriteShader, L"cp_hd_r", L"..\\Resources\\texture\\character\\sorceress\\run\\cp_hd_r"
+			, 30, 31, 8, L"cpHdR");
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_r", L"..\\Resources\\texture\\character\\sorceress\\run\\lg_r"
 			, 61, 52, 8, L"lgR");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_r", L"..\\Resources\\texture\\character\\sorceress\\run\\la_r"
@@ -727,6 +733,8 @@ namespace renderer
 
 		MAKE_MATERIAL_PATH(spriteShader, L"hd_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\hd_sc"
 			, 43, 35, 14, L"hdSC");
+		MAKE_MATERIAL_PATH(spriteShader, L"cp_hd_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\cp_hd_sc"
+			, 42, 36, 14, L"cpHdSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"lg_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\lg_sc"
 			, 30, 51, 14, L"lgSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"la_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\la_sc"

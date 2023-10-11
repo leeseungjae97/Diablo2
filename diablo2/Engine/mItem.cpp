@@ -8,6 +8,7 @@ namespace m
 		, mInvenMaterial()
 		, mFieldMaterial()
 	    , mStashType(StashManager::eStashType::End)
+	    , mPrevStashType(StashManager::eStashType::End)
 	{}
 	Item::~Item()
 	{}
@@ -27,4 +28,10 @@ namespace m
 	{
 		GameObject::Render();
 	}
+
+    void Item::SetStashType(StashManager::eStashType type)
+    {
+		mPrevStashType = mStashType;
+		mStashType = type;
+    }
 }

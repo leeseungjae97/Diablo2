@@ -8,15 +8,14 @@ namespace m
     int PlayerStatus::level = 1;
     int PlayerStatus::experiance = 0;
     int PlayerStatus::nextLevelUpexperiance = 500;
-    int PlayerStatus::maxDamage = 2;
-    int PlayerStatus::minDamage = 1;
+    int PlayerStatus::damage = 10;
 
     int PlayerStatus::strength = 10;
     int PlayerStatus::dexterity = 25;
     int PlayerStatus::vitality = 10;
     int PlayerStatus::energy = 35;
 
-    int PlayerStatus::statusPoint = 1;
+    int PlayerStatus::statusPoint = 100;
 
     int PlayerStatus::defense = 6;
     int PlayerStatus::stanmina = 74;
@@ -52,22 +51,30 @@ namespace m
 
     void PlayerStatus::UpStrength()
     {
+        --statusPoint;
         ++strength;
+        StatusInteraction();
     }
 
     void PlayerStatus::UpDexterity()
     {
+        --statusPoint;
         ++dexterity;
+        StatusInteraction();
     }
 
     void PlayerStatus::UpVitality()
     {
+        --statusPoint;
         ++vitality;
+        StatusInteraction();
     }
 
     void PlayerStatus::UpEnergy()
     {
+        --statusPoint;
         ++energy;
+        StatusInteraction();
     }
 
     void PlayerStatus::GetDamage()
@@ -79,7 +86,10 @@ namespace m
     {
         defense = (dexterity / 5) + 1;
         stanmina = vitality + 64;
-        life = vitality * 2;
-        mana = energy * 2;
+        life = 20 + vitality * 2;
+        mana = energy * 2 - 35;
+
+        PlayerManager::hpCapacity = static_cast<float>(life);
+        PlayerManager::mpCapacity = static_cast<float>(mana);
     }
 }

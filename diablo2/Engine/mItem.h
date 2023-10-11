@@ -22,8 +22,11 @@ namespace m
         void SetItemType(eItemType type) { mType = type; }
         eItemType GetItemType() { return mType; }
 
-        void SetStashType(StashManager::eStashType type) { mStashType = type; }
+        void SetStashType(StashManager::eStashType type);
         StashManager::eStashType GetStashType() { return mStashType; }
+
+        void SetPrevStashType(StashManager::eStashType type) { mPrevStashType = type; }
+        StashManager::eStashType GetPrevStashType() { return mPrevStashType; }
 
         bool GetMouseFollow() { return bSetMouseFollow; }
         void SetMouseFollow(bool _b) { bSetMouseFollow = _b; }
@@ -33,6 +36,7 @@ namespace m
 
     protected:
         StashManager::eStashType mStashType;
+        StashManager::eStashType mPrevStashType;
         
         bool bSetMouseFollow;
 

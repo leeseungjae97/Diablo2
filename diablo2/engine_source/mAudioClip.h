@@ -1,5 +1,6 @@
 #pragma once
 #include "mResource.h"
+#include "SoundLookUpTables.h"
 
 namespace FMOD
 {
@@ -22,10 +23,15 @@ namespace m
         void Stop();
         void Set3DAttributes(const Vector3 pos, const Vector3 vel);
         void SetLoop(bool loop) { mbLoop = loop; }
+        bool IsPlaying();
+
+        FMOD::Sound* GetSound();
 
     private:
-        FMOD::Sound* mSound;
         FMOD::Channel* mChannel;
+        FMOD::Sound* mSound;
+        //std::wstring mPath;
+        //std::map<std::wstring, FMOD::Sound*> mSounds;
         float mMinDistance;
         float mMaxDistance;
         bool mbLoop;

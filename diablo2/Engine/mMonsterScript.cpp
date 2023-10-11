@@ -638,7 +638,7 @@ namespace m
 	{
 		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 		{
-			PlayerManager::player->Hit(10);
+			PlayerManager::player->Hit(5);
 		}
 	}
 

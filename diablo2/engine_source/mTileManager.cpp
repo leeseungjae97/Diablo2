@@ -105,9 +105,9 @@ namespace m
 			int y = static_cast<int>(wallCoord.y);
 			int x = static_cast<int>(wallCoord.x);
 
-			if(stage == 1 || stage == 3)
+			if(stage == 1)
 				pathFindingTiles[y][x]->SetThroughWall(false);
-			else
+			if (stage == 0 || stage == 2 || stage == 3)
 				pathFindingTiles[y][x]->SetThroughWall(true);
 			
 			pathFindingTiles[y][x]->SetIsWall(true);

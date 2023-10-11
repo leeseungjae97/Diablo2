@@ -1,6 +1,7 @@
 #include "mBodyParts.h"
 
 #include "ItemLookUpTables.h"
+#include "mPlayerStatus.h"
 #include "mShadowObject.h"
 
 #include "../engine_source/mStashManager.h"
@@ -14,8 +15,9 @@ namespace m
 		, mAnimator(nullptr)
 		, mDirection(0)
 		, mAnimationType(0)
-	    , iCurItem(0)
-	    , iPrevItem(0)
+		, iCurItem(0)
+		, iPrevItem(0)
+		, iCurItemType(0)
 	{
 		SetCamera(_mPartsOwner->GetCamera());
 
@@ -83,7 +85,7 @@ namespace m
 			mAnimator->PlayAnimation(partsMaterialNames[(int)mBodyPartsType][mAnimationType] + L"@" + pathSixteenDirectionString[mDirection], true);
 			mAnimator->Sync();
 		}
-		
+
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Object, this);
 
 		mShadow = new ShadowObject(this);
@@ -110,7 +112,7 @@ namespace m
 		shadowOffset();
 		partAddZWeight();
 
-		if(wsCurNames[mAnimationType] != L"")
+		if (wsCurNames[mAnimationType] != L"")
 		{
 			std::wstring animtionName = wsCurNames[mAnimationType] + L"@" + pathSixteenDirectionString[mDirection];
 
@@ -133,8 +135,124 @@ namespace m
 	{
 		GameObject::Render();
 	}
-    void BodyParts::imageChangeEquiment()
-    {
+
+	void BodyParts::applyItemStatToPlayer()
+	{
+		if (eBodyPartsType::RightHand == mBodyPartsType) return;
+
+		if(iPrevItem != 0)
+		{
+			int prevItemStat = itemFunctionValue[iPrevItem][1];
+			int prevItemType = static_cast<int>(itemIncTable[iPrevItem]);
+
+			switch (prevItemType)
+			{
+			case static_cast<int>(eItemIncreaseType::Life):
+			{
+				PlayerStatus::life -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Mana):
+			{
+				PlayerStatus::mana -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Energy):
+			{
+				PlayerStatus::energy -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Strenght):
+			{
+				PlayerStatus::strength -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Stanmina):
+			{
+				PlayerStatus::stanmina -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Vitality):
+			{
+				PlayerStatus::vitality -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Defense):
+			{
+				PlayerStatus::defense -= prevItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Damage):
+			{
+				PlayerStatus::damage -= prevItemStat;
+			}
+			break;
+			default:
+			{
+
+			}
+			break;
+			}
+		}
+
+		if (iCurItem != 0)
+		{
+			iCurItemStat = itemFunctionValue[iCurItem][1];
+			iCurItemType = static_cast<int>(itemIncTable[iCurItem]);
+
+			switch (iCurItemType)
+			{
+			case static_cast<int>(eItemIncreaseType::Life):
+			{
+				PlayerStatus::life += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Mana):
+			{
+				PlayerStatus::mana += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Energy):
+			{
+				PlayerStatus::energy += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Strenght):
+			{
+				PlayerStatus::strength += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Stanmina):
+			{
+				PlayerStatus::stanmina += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Vitality):
+			{
+				PlayerStatus::vitality += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Defense):
+			{
+				PlayerStatus::defense += iCurItemStat;
+			}
+			break;
+			case static_cast<int>(eItemIncreaseType::Damage):
+			{
+				PlayerStatus::damage += iCurItemStat;
+			}
+			break;
+			default:
+			{
+
+			}
+			break;
+			}
+		}
+	}
+
+	void BodyParts::imageChangeEquiment()
+	{
 		iPrevItem = iCurItem;
 		switch (mBodyPartsType)
 		{
@@ -175,18 +293,21 @@ namespace m
 		break;
 		}
 
-		if(iPrevItem != iCurItem)
-		    changeAnimation();
-    }
+		if (iPrevItem != iCurItem)
+		{
+			applyItemStatToPlayer();
+			changeAnimation();
+		}
+	}
 
-    void BodyParts::changeAnimation()
-    {
-		if(iCurItem == 0 )
+	void BodyParts::changeAnimation()
+	{
+		if (iCurItem == 0)
 		{
 			wsCurNames = partsMaterialNames[(int)mBodyPartsType];
 			vCurSizes = partsSizes[(int)mBodyPartsType];
 			vPartsOffset = bodyPartsOffset[(int)mBodyPartsType];
-			if(mBodyPartsType == eBodyPartsType::RightHand)
+			if (mBodyPartsType == eBodyPartsType::RightHand)
 			{
 				mAnimator->PlayAnimation(L"noneRectAnim", true);
 				mAnimator->DeSync();
@@ -194,6 +315,8 @@ namespace m
 		}
 		else
 		{
+			if (!bodyChange[iCurItem]) return;
+
 			wsCurNames = itemBodyPartMaterialNames[iCurItem][(int)mBodyPartsType];
 			vCurSizes = itemBodyPartSizes[iCurItem][(int)mBodyPartsType];
 			vPartsOffset = itemAnimCenterPos[iCurItem][(int)mBodyPartsType];
@@ -226,9 +349,9 @@ namespace m
 			}
 			mAnimator->Sync();
 		}
-    }
+	}
 
-    void BodyParts::shadowOffset()
+	void BodyParts::shadowOffset()
 	{
 		if (nullptr == mShadow) return;
 

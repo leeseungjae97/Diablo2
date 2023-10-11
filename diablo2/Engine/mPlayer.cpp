@@ -1,5 +1,7 @@
 #include "mPlayer.h"
 
+#include "mPlayerStatus.h"
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mLight.h"
 #include "../engine_source/mTransform.h"
 #include "../engine_source/mInput.h"
@@ -27,7 +29,7 @@ namespace m
 		SET_MATERIAL(this, L"noneRect");
 		SET_SCALE_XYZ(this, 48.f, 74.f, 1.f);
 		ADD_COMP(this, Animator);
-
+		ADD_COMP(this, AudioSource);
 		bMadePath = false;
 		bSixteenDirection = true;
 		tilePositionCollider->AddExceptType(eLayerType::PlayerSkill);
@@ -242,6 +244,8 @@ namespace m
 		{
 			bCanDamaged = false;
 
+			if (PlayerStatus::defense - damage <= 0) damage = 1;
+			else damage -= PlayerStatus::defense;
 			if (PlayerManager::hp - damage < 0) PlayerManager::hp = 0;
 			else PlayerManager::hp -= damage;
 

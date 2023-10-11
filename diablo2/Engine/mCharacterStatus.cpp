@@ -1,6 +1,7 @@
 #include "mCharacterStatus.h"
 
 #include "mButton.h"
+#include "mPlayerManager.h"
 #include "mPlayerStatus.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mMeshRenderer.h"
@@ -17,8 +18,8 @@ namespace m
 		, mVit(nullptr)
 		, mEng(nullptr)
 		, mRemainPoint(nullptr)
-		, mLife(nullptr)
-		, mMana(nullptr)
+		, mTextLife(nullptr)
+		, mTextMana(nullptr)
 
 		, mClose(nullptr)
 		, mStrBtn(nullptr)
@@ -167,13 +168,13 @@ namespace m
 		SET_POS_XYZ(mTextVit, -RESOL_H_WID + 125.f * Texture::GetWidRatio(), RESOL_H_HEI - 306.f * Texture::GetHeiRatio(), -1.f);
 		SET_POS_XYZ(mTextEng, -RESOL_H_WID + 125.f * Texture::GetWidRatio(), RESOL_H_HEI - 365.f * Texture::GetHeiRatio(), -1.f);
 
-		
+
 		scene->AddGameObject(eLayerType::UI, mTextRemainPoint);
 		scene->AddGameObject(eLayerType::UI, mTextStr);
 		scene->AddGameObject(eLayerType::UI, mTextDex);
 		scene->AddGameObject(eLayerType::UI, mTextVit);
 		scene->AddGameObject(eLayerType::UI, mTextEng);
-		
+
 
 
 		SET_MESH(mTextStr, L"RectMesh");
@@ -221,14 +222,14 @@ namespace m
 		SET_POS_XYZ(mVit, -RESOL_H_WID + 175.f * Texture::GetWidRatio(), RESOL_H_HEI - 306.f * Texture::GetHeiRatio(), -1.f);
 		SET_POS_XYZ(mEng, -RESOL_H_WID + 175.f * Texture::GetWidRatio(), RESOL_H_HEI - 365.f * Texture::GetHeiRatio(), -1.f);
 
-		
+
 		scene->AddGameObject(eLayerType::UI, mRemainPoint);
 		scene->AddGameObject(eLayerType::UI, mStr);
 		scene->AddGameObject(eLayerType::UI, mDex);
 		scene->AddGameObject(eLayerType::UI, mVit);
 		scene->AddGameObject(eLayerType::UI, mEng);
 
-		
+
 		SET_MESH(mRemainPoint, L"RectMesh");
 		SET_MATERIAL(mRemainPoint, L"noneRect");
 		SET_MESH(mStr, L"RectMesh");
@@ -273,7 +274,7 @@ namespace m
 		mTextName->SetText(PlayerStatus::playerName);
 		mTextClass->SetText(PlayerStatus::className);
 
-		std::wstring levelLegd = L"레벨\n"+ std::to_wstring(PlayerStatus::level);
+		std::wstring levelLegd = L"레벨\n" + std::to_wstring(PlayerStatus::level);
 		mLevel->SetText(levelLegd);
 
 		std::wstring expLegd = L"경험치\n" + std::to_wstring(PlayerStatus::experiance);
@@ -299,6 +300,115 @@ namespace m
 		scene->AddGameObject(eLayerType::UI, mLevel);
 		scene->AddGameObject(eLayerType::UI, mExp);
 		scene->AddGameObject(eLayerType::UI, mNextLevelExp);
+
+		mTextDef = new UI();
+		mDef = new UI();
+		mTextLife = new UI();
+		mLifeMax = new UI();
+		mLifeCur = new UI();
+		mTextMana = new UI();
+		mManaMax = new UI();
+		mManaCur = new UI();
+		mTextDamage = new UI();
+		mDamage = new UI();
+
+
+		mTextDef->SetCamera(camera);
+		mDef->SetCamera(camera);
+		mTextLife->SetCamera(camera);
+		mLifeMax->SetCamera(camera);
+		mLifeCur->SetCamera(camera);
+		mTextMana->SetCamera(camera);
+		mManaMax->SetCamera(camera);
+		mManaCur->SetCamera(camera);
+		mTextDamage->SetCamera(camera);
+		mDamage->SetCamera(camera);
+
+		mTextDef->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mDef->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mTextLife->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mLifeMax->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mLifeCur->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mTextMana->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mManaMax->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mManaCur->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mTextDamage->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mDamage->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+
+		mTextDef->SetText(L"방어");
+		mDef->SetText(std::to_wstring(PlayerStatus::defense));
+
+		mTextLife->SetText(L"라이프");
+		mLifeMax->SetText(std::to_wstring(PlayerStatus::life));
+		mLifeCur->SetText(std::to_wstring(static_cast<int>(PlayerManager::hp)));
+
+		mTextMana->SetText(L"마나");
+		mManaMax->SetText(std::to_wstring(PlayerStatus::mana));
+		mManaCur->SetText(std::to_wstring(static_cast<int>(PlayerManager::mp)));
+
+		mTextDamage->SetText(L"데미지");
+		mDamage->SetText(std::to_wstring(PlayerStatus::damage));
+
+		mTextDef->SetTextSize(15.f);
+		mDef->SetTextSize(15.f);
+		mTextLife->SetTextSize(15.f);
+		mLifeMax->SetTextSize(15.f);
+		mLifeCur->SetTextSize(15.f);
+		mTextMana->SetTextSize(15.f);
+		mManaMax->SetTextSize(15.f);
+		mManaCur->SetTextSize(15.f);
+		mTextDamage->SetTextSize(15.f);
+		mDamage->SetTextSize(15.f);
+		// 284 157
+
+		SET_POS_XYZ(mTextDef, -RESOL_H_WID + 300.f * Texture::GetWidRatio(), RESOL_H_HEI - 267.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mDef, -RESOL_H_WID + 373.f * Texture::GetWidRatio(), RESOL_H_HEI - 267.f * Texture::GetHeiRatio(), -1.f);
+
+		SET_POS_XYZ(mTextLife, -RESOL_H_WID + 285.f * Texture::GetWidRatio(), RESOL_H_HEI - 330.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mLifeMax, -RESOL_H_WID + 331.f * Texture::GetWidRatio(), RESOL_H_HEI - 330.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mLifeCur, -RESOL_H_WID + 375.f * Texture::GetWidRatio(), RESOL_H_HEI - 330.f * Texture::GetHeiRatio(), -1.f);
+
+		SET_POS_XYZ(mTextMana, -RESOL_H_WID + 285.f * Texture::GetWidRatio(), RESOL_H_HEI - 367.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mManaMax, -RESOL_H_WID + 331.f * Texture::GetWidRatio(), RESOL_H_HEI - 367.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mManaCur, -RESOL_H_WID + 375.f * Texture::GetWidRatio(), RESOL_H_HEI - 367.f * Texture::GetHeiRatio(), -1.f);
+
+		SET_POS_XYZ(mTextDamage, -RESOL_H_WID + 285.f * Texture::GetWidRatio(), RESOL_H_HEI - 157.f * Texture::GetHeiRatio(), -1.f);
+		SET_POS_XYZ(mDamage, -RESOL_H_WID + 365.f * Texture::GetWidRatio(), RESOL_H_HEI - 157.f * Texture::GetHeiRatio(), -1.f);
+
+		SET_MESH(mTextDef, L"RectMesh");
+		SET_MATERIAL(mTextDef, L"noneRect");
+		SET_MESH(mDef, L"RectMesh");
+		SET_MATERIAL(mDef, L"noneRect");
+
+		SET_MESH(mTextLife, L"RectMesh");
+		SET_MATERIAL(mTextLife, L"noneRect");
+		SET_MESH(mLifeMax, L"RectMesh");
+		SET_MATERIAL(mLifeMax, L"noneRect");
+		SET_MESH(mLifeCur, L"RectMesh");
+		SET_MATERIAL(mLifeCur, L"noneRect");
+
+		SET_MESH(mTextMana, L"RectMesh");
+		SET_MATERIAL(mTextMana, L"noneRect");
+		SET_MESH(mManaMax, L"RectMesh");
+		SET_MATERIAL(mManaMax, L"noneRect");
+		SET_MESH(mManaCur, L"RectMesh");
+		SET_MATERIAL(mManaCur, L"noneRect");
+
+		SET_MESH(mTextDamage, L"RectMesh");
+		SET_MATERIAL(mTextDamage, L"noneRect");
+		SET_MESH(mDamage, L"RectMesh");
+		SET_MATERIAL(mDamage, L"noneRect");
+
+		scene->AddGameObject(eLayerType::UI, mTextDef);
+		scene->AddGameObject(eLayerType::UI, mDef);
+		scene->AddGameObject(eLayerType::UI, mTextLife);
+		scene->AddGameObject(eLayerType::UI, mLifeMax);
+		scene->AddGameObject(eLayerType::UI, mLifeCur);
+		scene->AddGameObject(eLayerType::UI, mTextMana);
+		scene->AddGameObject(eLayerType::UI, mManaMax);
+		scene->AddGameObject(eLayerType::UI, mManaCur);
+		scene->AddGameObject(eLayerType::UI, mTextDamage);
+		scene->AddGameObject(eLayerType::UI, mDamage);
 	}
 
 	CharacterStatus::~CharacterStatus()
@@ -330,7 +440,17 @@ namespace m
 		mDex->SetText(std::to_wstring(PlayerStatus::dexterity));
 		mVit->SetText(std::to_wstring(PlayerStatus::vitality));
 		mEng->SetText(std::to_wstring(PlayerStatus::energy));
+		mRemainPoint->SetText(std::to_wstring(PlayerStatus::statusPoint));
 
+		mDef->SetText(std::to_wstring(PlayerStatus::defense));
+
+		mLifeMax->SetText(std::to_wstring(PlayerStatus::life));
+		mLifeCur->SetText(std::to_wstring(static_cast<int>(PlayerManager::hp)));
+
+		mManaMax->SetText(std::to_wstring(PlayerStatus::mana));
+		mManaCur->SetText(std::to_wstring(static_cast<int>(PlayerManager::mp)));
+
+		mDamage->SetText(std::to_wstring(PlayerStatus::damage));
 
 		if (mClose->GetOneClick())
 		{
@@ -351,6 +471,8 @@ namespace m
 			mDexBtn->SetState(NoRenderUpdate);
 			mVitBtn->SetState(NoRenderUpdate);
 			mEngBtn->SetState(NoRenderUpdate);
+			mRemainPoint->SetState(NoRenderUpdate);
+			mTextRemainPoint->SetState(NoRenderUpdate);
 		}
 		mClose->SetState(GetState());
 		mStr->SetState(GetState());
@@ -368,6 +490,18 @@ namespace m
 		mLevel->SetState(GetState());
 		mExp->SetState(GetState());
 		mNextLevelExp->SetState(GetState());
+
+		mTextDef->SetState(GetState());
+		mDef->SetState(GetState());
+		mTextLife->SetState(GetState());
+		mLifeMax->SetState(GetState());
+		mLifeCur->SetState(GetState());
+		mTextMana->SetState(GetState());
+		mManaMax->SetState(GetState());
+		mManaCur->SetState(GetState());
+
+		mTextDamage->SetState(GetState());
+		mDamage->SetState(GetState());
 	}
 
 	void CharacterStatus::LateUpdate()

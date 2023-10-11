@@ -1,5 +1,7 @@
 #include "mButton.h"
 
+#include "../engine_source/mAudioSource.h"
+#include "../engine_source/mSoundManager.h"
 #include "../engine_source/mTransform.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mCamera.h"
@@ -15,6 +17,7 @@ namespace m
 		: bClick(false)
 		, bCanClick(true)
 	{
+		ADD_COMP(this, AudioSource);
 	}
 
 	Button::Button(bool useDefaultMeshRenderer)
@@ -36,6 +39,7 @@ namespace m
 		if (!bCanClick) return;
 
 		MeshRenderer* mr = GetComponent<MeshRenderer>();
+
 		if (GetHover())
 		{
 			if (Input::GetKeyUp(eKeyCode::LBUTTON))
@@ -45,8 +49,16 @@ namespace m
 		}
 		if (GetHover())
 		{
+			
 			if (Input::GetKey(eKeyCode::LBUTTON))
 			{
+				AudioSource* as = GET_COMP(this, AudioSource);
+				if(!SoundPlay())
+				{
+					as->Play(eButtonSoundType::ButtonClick);
+					SetSoundPlay(true);
+				}
+
 				bClick = true;
 
 				if (mClickedMaterial)
@@ -58,6 +70,11 @@ namespace m
 					fClickFunctionPtr();
 			}
 		}
+		else
+		{
+			SetSoundPlay(false);
+		}
+
 		if (!Input::GetKey(eKeyCode::LBUTTON))
 		{
 			bClick = false;

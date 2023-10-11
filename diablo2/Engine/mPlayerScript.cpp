@@ -1,5 +1,6 @@
 #include "mPlayerScript.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mConstantBuffer.h"
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mAnimator.h"
@@ -39,6 +40,7 @@
 #include "mAura.h"
 #include "mBodyParts.h"
 #include "mShadowObject.h"
+#include "mStageManager.h"
 
 extern m::Application application;
 namespace m
@@ -82,6 +84,8 @@ namespace m
 	void PlayerScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		mAudioSource = GET_COMP(GetOwner(), AudioSource);
+
 		Scene* curScene = SceneManager::GetActiveScene();
 		mRSO = new SkillOverlay(1);
 		mLSO = new SkillOverlay(0);
@@ -132,6 +136,7 @@ namespace m
 
 		Vector3 scale = GET_SCALE(GetOwner());
 		Vector2 scaleOffset = Vector2(0.f, scale.y * 4);
+
 		for (int i = 0; i < (UINT)eSixteenDirection::End; ++i)
 		{
 			mAnimator->Create(
@@ -142,7 +147,7 @@ namespace m
 				, sorceressAnimationLength[(UINT)ePlayerAnimationType::Run]
 				, Vector2::Zero
 				, Vector2(0.f, sorceressAnimationSizes[(UINT)ePlayerAnimationType::Run].y * 4)
-				, 0.1f
+				, 0.07f
 			);
 			mAnimator->Create(
 				sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i]
@@ -323,6 +328,8 @@ namespace m
 			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
 			if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
 				mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
+
+			mAudioSource->Play(ePlayerVoiceSoundType::Hit);
 		}
 		if (GetStun())
 		{
@@ -345,6 +352,16 @@ namespace m
 		{
 			GetOwner()->SetBattleState(GameObject::Run);
 			mAnimationType = ePlayerAnimationType::Run;
+			ePlayerRunSoundType prst = ePlayerRunSoundType::End;
+			if (StageManager::stageNum == 0)
+				prst = ePlayerRunSoundType::PlayerStoneRun;
+			if (StageManager::stageNum == 1)
+				prst = ePlayerRunSoundType::PlayerSandRun;
+			if (StageManager::stageNum == 2)
+				prst = ePlayerRunSoundType::PlayerStoneRun;
+			if (StageManager::stageNum == 3)
+				prst = ePlayerRunSoundType::PlayerOStoneRun;
+			mAudioSource->PlaySounds(prst);
 		}
 		ElseAnimationPlay();
 	}
@@ -379,7 +396,7 @@ namespace m
 			for (Collider2D* col : PlayerManager::player->GetRangeCollider()->GetCollidereds())
 			{
 				Monster* mon = dynamic_cast<Monster*>(col->GetOwner());
-				mon->Hit(10);
+				mon->Hit(PlayerStatus::damage);
 			}
 		}
 	}

@@ -20,6 +20,8 @@ namespace m
         //std::vector<EmptyRect*> exPockets;
         //EmptyRect* mPocketUI;
         UI* mExPocketUI;
+        UI* mLifeDisplay;
+        UI* mManaDisplay;
         bool bBelt;
     };
 }

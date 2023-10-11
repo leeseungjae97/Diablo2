@@ -22,6 +22,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mDrawMaterials.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFieldItemManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mInteractUIManager.cpp" />
@@ -59,6 +60,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mShadow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSoundManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mStageManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStashManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStructedBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTexture.cpp" />
@@ -84,6 +87,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mDrawMaterials.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFieldItemManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mInteractUIManager.h" />
@@ -130,6 +134,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mShadow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSoundManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mStageManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStashManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStructedBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTexture.h" />
@@ -149,6 +155,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHandLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillAnimLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillLookUpTables.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SoundLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SummonsLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemDefine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TorchLookUpTables.h" />

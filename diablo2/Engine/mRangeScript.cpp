@@ -67,7 +67,7 @@ namespace m
 				OverlayEffectSkillScript* mOESS = monster->GetHSO()->GetComponent<OverlayEffectSkillScript>();
 				mOESS->SetSkillType(mSkillType);
 				monster->GetHSO()->ActiveOverlay();
-				monster->Hit(10);
+				monster->Hit(PlayerStatus::damage);
 
 				SkillMultiFire* skill = new SkillMultiFire(GET_POS(monster), skillAddSkillTypes[(int)mSkillType], 1
 					, (int)SkillMultiFire::eFireType::RadialRandomStraight, mLayerType

@@ -53,8 +53,6 @@ namespace m
 	void InvenItem::Update()
 	{
 		Item::Update();
-		//if (nullptr != mExItemUI && nullptr == mExItemUI->GetCamera()) mExItemUI->SetCamera(GetCamera());
-		//if (nullptr != mBuyDcUI && nullptr == mBuyDcUI->GetCamera()) mBuyDcUI->SetCamera(GetCamera());
 
 		if (GetHover())
 		{
@@ -73,20 +71,55 @@ namespace m
 				}
 
 				InteractUIManager::bItemHover = true;
+			}else
+			{
+				if(StashManager::GetShopInventoryState() == RenderUpdate)
+				{
+					if (!GetMouseFollow() && nullptr == MouseManager::GetMouseFollow())
+					{
+						InteractUIManager::SetItemUI((int)mItem
+							, InteractUIManager::eInteractUIType::InvenSellEx
+							, GET_POS(this)
+							, true
+							, GetCamera()
+							, 15.f
+						);
+					}
+					
+				}else
+				{
+					if (!GetMouseFollow() && nullptr == MouseManager::GetMouseFollow())
+					{
+						InteractUIManager::SetItemUI((int)mItem
+							, InteractUIManager::eInteractUIType::InvenEx
+							, GET_POS(this)
+							, true
+							, GetCamera()
+							, 15.f
+						);
+					}
+				}
+				
+				InteractUIManager::bItemHover = true;
 			}
+
 			if (Input::GetKeyDownOne(eKeyCode::LBUTTON))
 			{
 				if (!bShopItem)
 					SetMouseFollow(GetMouseFollow() ? false : true);
 				else
 				{
-					InteractUIManager::SetItemUI((int)mItem
-						, InteractUIManager::eInteractUIType::BuyItem
-						, GET_POS(this)
-						, false
-					    , GetCamera()
-						, 15.f
-					);
+					if(mPrevStashType != StashManager::eStashType::Inventory)
+					{
+						InteractUIManager::SetItemUI((int)mItem
+							, InteractUIManager::eInteractUIType::BuyItem
+							, GET_POS(this)
+							, false
+							, GetCamera()
+							, 15.f
+						);
+					}
+					else { mPrevStashType = mStashType; }
 				}
 			}
 		}
@@ -102,12 +135,6 @@ namespace m
 					MouseManager::FreeMouseFollow();
 			}
 		}
-
-		//if (bShopItem)
-		//{
-		//	if (!bMakeUI)
-		//		makeItemExUI();
-		//}
 	}
 	void InvenItem::LateUpdate()
 	{

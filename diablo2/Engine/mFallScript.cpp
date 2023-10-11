@@ -5,6 +5,7 @@
 #include "mOverlayEffectSkillScript.h"
 #include "mPlayer.h"
 #include "mPlayerScript.h"
+#include "mPlayerStatus.h"
 #include "mSkillOverlay.h"
 
 namespace m
@@ -58,7 +59,7 @@ namespace m
 							}
 						}
 					}
-					mTarget->Hit(10);
+					mTarget->Hit(PlayerStatus::damage);
 					dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
 
 					GetOwner()->ReleaseAnimators();
@@ -229,7 +230,7 @@ namespace m
 				{
 					dynamic_cast<Monster*>(other->GetOwner())->Addiction(10, 10.f, 10);
 				}
-				dynamic_cast<Monster*>(other->GetOwner())->Hit(10);
+				dynamic_cast<Monster*>(other->GetOwner())->Hit(PlayerStatus::damage);
 			}
 			break;
 			case m::enums::eLayerType::MonsterSkill:
@@ -250,7 +251,7 @@ namespace m
 				{
 					dynamic_cast<Player*>(other->GetOwner())->Addiction(10, 10.f, 10);
 				}
-				dynamic_cast<Player*>(other->GetOwner())->Hit(10);
+				dynamic_cast<Player*>(other->GetOwner())->Hit(5);
 			}
 			break;
 			default:

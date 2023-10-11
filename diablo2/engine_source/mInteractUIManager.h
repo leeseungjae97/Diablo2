@@ -14,6 +14,8 @@ namespace m
 			ExItem,
 			BuyItem,
 			BuyFail,
+			InvenEx,
+			InvenSellEx,
 			End,
 		};
 		static void Update();
@@ -29,6 +31,7 @@ namespace m
 		);
 
 		static bool bItemHover;
+		static bool bItemDrag;
 		static InteractUI* mShopInteractUI;
 		static eInteractUIType mCurUIType;
 		static m::math::Vector3 mInitPos;

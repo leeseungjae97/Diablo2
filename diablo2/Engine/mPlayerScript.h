@@ -9,7 +9,8 @@
 #include "mSkillOverlay.h"
 namespace m
 {
-	class PlayerHand;
+    class AudioSource;
+    class PlayerHand;
 	class Leg;
 	class Body;
 	class Arm;
@@ -69,6 +70,7 @@ namespace m
 
 	private:
 		Animator* mAnimator;
+		AudioSource* mAudioSource;
 		int mDirection;
 		ePlayerAnimationType mAnimationType;
 

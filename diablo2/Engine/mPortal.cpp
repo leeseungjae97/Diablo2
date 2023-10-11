@@ -1,5 +1,6 @@
 #include "mPortal.h"
 
+#include "../engine_source/mMouseManager.h"
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mLight.h"
 #include "../engine_source/mMeshRenderer.h"
@@ -63,7 +64,8 @@ namespace m
             if(GetHover())
             {
                 mHoverUI->SetState(GetState());
-                if(Input::GetKeyDown(eKeyCode::LBUTTON))
+                if(Input::GetKeyDown(eKeyCode::LBUTTON)
+                    && !MouseManager::GetMouseOnUI())
                 {
                     if (mHoverUI)
                         mHoverUI->SetState(NoRenderNoUpdate);

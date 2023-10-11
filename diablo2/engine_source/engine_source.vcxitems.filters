@@ -184,6 +184,15 @@
     <Filter Include="Manager\TileDrawManager">
       <UniqueIdentifier>{424237e6-d694-4418-9017-c567a53b7847}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\FieldItemManager">
+      <UniqueIdentifier>{7a55cefe-1ba3-4ff8-a85a-4b16febc2ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{8ecbb633-b321-4186-a708-4b34ee2b7b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\StageManager">
+      <UniqueIdentifier>{f620f529-0632-475e-b571-b459d7fa66d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
@@ -423,6 +432,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)BodyPartsLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mFieldItemManager.h">
+      <Filter>Manager\FieldItemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SoundLookUpTables.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSoundManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mStageManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -602,6 +619,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawManager.cpp">
       <Filter>Manager\TileDrawManager</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mFieldItemManager.cpp">
+      <Filter>Manager\FieldItemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSoundManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mStageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">
