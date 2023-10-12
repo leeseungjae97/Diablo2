@@ -33,7 +33,7 @@ namespace m
 
 		END
 	};
-	std::wstring crashNames[(int)eSkillCrashType::END] = {
+	static std::wstring crashNames[(int)eSkillCrashType::END] = {
 	L"iceCrash1",
 	L"iceCrash2",
 	L"iceCrash3",
@@ -49,7 +49,7 @@ namespace m
 	L"", // Poison
 	L"stun",
 	};
-	eCrashType crashFunction[(int)eSkillCrashType::END] = {
+	static eCrashType crashFunction[(int)eSkillCrashType::END] = {
 		eCrashType::Collide,
 		eCrashType::Collide,
 		eCrashType::Collide,
@@ -65,7 +65,7 @@ namespace m
 		eCrashType::Addiction,
 		eCrashType::Stun,
 	};
-	m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
+	static m::math::Vector2 crashSizes[(int)eSkillCrashType::END] = {
 	m::math::Vector2(113.f, 72.f),
 	m::math::Vector2(83.f, 110.f),
 	m::math::Vector2(143.f, 107.f),
@@ -82,7 +82,7 @@ namespace m
 	m::math::Vector2(69.f, 49.f),
 
 	};
-	m::math::Vector2 crashCenterPos[(int)eSkillCrashType::END] = {
+	static m::math::Vector2 crashCenterPos[(int)eSkillCrashType::END] = {
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -99,7 +99,7 @@ namespace m
 		m::math::Vector2(0.f, 50.f),
 
 	};
-	int crashLength[(int)eSkillCrashType::END] = {
+	static int crashLength[(int)eSkillCrashType::END] = {
 	6,
 	16,
 	15,
@@ -115,7 +115,7 @@ namespace m
 	0,
 	12,
 	};
-	int crashProgress[(int)eSkillCrashType::END] = {
+	static int crashProgress[(int)eSkillCrashType::END] = {
 	0,  // IceCrash1
 	0,  // IceCrash2
 	0,  // IceCrash3
@@ -131,7 +131,7 @@ namespace m
 	0,  // Poison
 	0,  // StunAttack
 	};
-	bool crashLoop[(int)eSkillCrashType::END] = {
+	static bool crashLoop[(int)eSkillCrashType::END] = {
 		false,
 		false,
 		false,
@@ -163,7 +163,7 @@ namespace m
 
 		END
 	};
-	std::wstring castNames[(int)eSkillCastType::END] = {
+	static std::wstring castNames[(int)eSkillCastType::END] = {
 	L"iceCast1",
 	L"iceCast2",
 	L"iceCast3",
@@ -173,7 +173,7 @@ namespace m
 	L"teleport",
 	L"andarielSkillOverlay",
 	};
-	m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
+	static m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
 		m::math::Vector2(97.f, 55.f),
 		m::math::Vector2(115.f, 123.f),
 		m::math::Vector2(127.f, 148.f),
@@ -183,7 +183,7 @@ namespace m
 		m::math::Vector2(136.f, 154.f),
 		m::math::Vector2(162.f, 107.f),
 	};
-	m::math::Vector2 castOffset[(int)eSkillCastType::END] = {
+	static m::math::Vector2 castOffset[(int)eSkillCastType::END] = {
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -193,7 +193,7 @@ namespace m
 		m::math::Vector2(8.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 	};
-	m::math::Vector2 castCenterPos[(int)eSkillCastType::END] = {
+	static m::math::Vector2 castCenterPos[(int)eSkillCastType::END] = {
 	m::math::Vector2(0.f, 0.f),
 	m::math::Vector2(0.f, 0.f),
 	m::math::Vector2(0.f, 0.f),
@@ -203,7 +203,7 @@ namespace m
 	m::math::Vector2(8.f, 0.f),
 	m::math::Vector2(0.f, 0.f),
 	};
-	int castLength[(int)eSkillCastType::END] = {
+	static int castLength[(int)eSkillCastType::END] = {
 		15,
 		15,
 		16,
@@ -213,7 +213,7 @@ namespace m
 		18,
 		18,
 	};
-	bool castBack[(int)eSkillCastType::END] = {
+	static bool castBack[(int)eSkillCastType::END] = {
 		false,
 		false,
 		false,
@@ -223,7 +223,7 @@ namespace m
 		false,
 		false,
 	};
-	std::wstring backCastNames[(int)eSkillCastType::END] = {
+	static std::wstring backCastNames[(int)eSkillCastType::END] = {
     L"",
     L"",
     L"",
@@ -233,7 +233,7 @@ namespace m
     L"",
     L"",
 	};
-	m::math::Vector2 backCastSizes[(int)eSkillCastType::END] = {
+	static m::math::Vector2 backCastSizes[(int)eSkillCastType::END] = {
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -243,7 +243,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 	};
-	m::math::Vector2 backCastOffset[(int)eSkillCastType::END] = {
+	static m::math::Vector2 backCastOffset[(int)eSkillCastType::END] = {
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
@@ -253,7 +253,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(8.f, 0.f),
 	};
-	m::math::Vector2 backCastCenterPos[(int)eSkillCastType::END] = {
+	static m::math::Vector2 backCastCenterPos[(int)eSkillCastType::END] = {
 m::math::Vector2(0.f, 0.f),
 m::math::Vector2(0.f, 0.f),
 m::math::Vector2(0.f, 0.f),
@@ -263,7 +263,7 @@ m::math::Vector2(0.f, 0.f),
 m::math::Vector2(8.f, 0.f),
 m::math::Vector2(0.f, 0.f),
 	};
-	int backCastLength[(int)eSkillCastType::END] = {
+	static int backCastLength[(int)eSkillCastType::END] = {
 		0,
 		0,
 		0,
@@ -288,61 +288,61 @@ m::math::Vector2(0.f, 0.f),
 		TargetDamage,
 		End,
 	};
-	std::wstring auraNames[(int)eAuraType::End] = {
+	static std::wstring auraNames[(int)eAuraType::End] = {
 	L"holyFreeze",
 	L"thunderStormLoop",
 	L"mephistoOverlay",
 	};
-	m::math::Vector2 auraSizes[(int)eAuraType::End] = {
+	static m::math::Vector2 auraSizes[(int)eAuraType::End] = {
 		m::math::Vector2(114.f, 93.f),
 		m::math::Vector2(81.f, 60.f),
 		m::math::Vector2(224.f, 190.f),
 	};
-	m::math::Vector2 auraCenterPos[(int)eAuraType::End] = {
+	static m::math::Vector2 auraCenterPos[(int)eAuraType::End] = {
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, -10.f),
 		m::math::Vector2(0.f, 0.f),
 	};
-	int auraLength[(int)eAuraType::End] = {
+	static int auraLength[(int)eAuraType::End] = {
 		15,
 		19,
 		26,
 	};
-	eAuraFunctionType auraFunction[(int)eAuraType::End] = {
+	static eAuraFunctionType auraFunction[(int)eAuraType::End] = {
 		eAuraFunctionType::Slow,
 		eAuraFunctionType::TargetDamage,
 		eAuraFunctionType::End,
 	};
-	float auraFunctionValue[(int)eAuraFunctionType::End][2] = {
+	static float auraFunctionValue[(int)eAuraFunctionType::End][2] = {
 		{-200.f, 5.f},
 		{1.f, 100.f},
 	};
-	std::wstring auraStartNames[(int)eAuraType::End] = {
+	static std::wstring auraStartNames[(int)eAuraType::End] = {
 	L"",
 	L"thunderStormCast",
 		L"",
 	};
-	m::math::Vector3 auraColliderSizes[(int)eAuraType::End] = {
+	static m::math::Vector3 auraColliderSizes[(int)eAuraType::End] = {
 		m::math::Vector3(300.f, 150.f, 1.f),
 		m::math::Vector3(1200.f, 600.f, 1.f),
 		m::math::Vector3(0.f, 0.f, 1.f),
 	};
-	m::math::Vector2 auraStartSizes[(int)eAuraType::End] = {
+	static m::math::Vector2 auraStartSizes[(int)eAuraType::End] = {
 	m::math::Vector2(0, 0),
 	m::math::Vector2(79.f, 52.f),
 		m::math::Vector2(0, 0),
 	};
-	m::math::Vector2 auraStartCenterPos[(int)eAuraType::End] = {
+	static m::math::Vector2 auraStartCenterPos[(int)eAuraType::End] = {
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 	};
-	int auraStartLength[(int)eAuraType::End] = {
+	static int auraStartLength[(int)eAuraType::End] = {
 		0,
 		10,
 		0,
 	};
-	eSkillType auraAddSkill[(int)eAuraType::End] = {
+	static eSkillType auraAddSkill[(int)eAuraType::End] = {
 		eSkillType::END,
 		eSkillType::thunderStorm,
 		eSkillType::END,
@@ -354,13 +354,13 @@ m::math::Vector2(0.f, 0.f),
 		MeteorTargetIndicator,
 		End,
 	};
-	std::wstring indicatorNames[(int)eIndicatorType::End] = {
+	static std::wstring indicatorNames[(int)eIndicatorType::End] = {
 	L"meteorTargetIndicator",
 	};
-	m::math::Vector2 indicatorSizes[(int)eIndicatorType::End] = {
+	static m::math::Vector2 indicatorSizes[(int)eIndicatorType::End] = {
 		m::math::Vector2(112.f, 74.f),
 	};
-	int indicatorLength[(int)eIndicatorType::End] = {
+	static int indicatorLength[(int)eIndicatorType::End] = {
 		17,
 	};
 #pragma endregion
@@ -387,7 +387,7 @@ m::math::Vector2(0.f, 0.f),
 		RightDown3,
 		End
 	};
-	int pathEightDirections[8] = {
+	static int pathEightDirections[8] = {
 		(int)ePathSixteenDirection::LeftDown2,
 		(int)ePathSixteenDirection::LeftUp2,
 		(int)ePathSixteenDirection::RightUp2,
@@ -398,7 +398,7 @@ m::math::Vector2(0.f, 0.f),
 		(int)ePathSixteenDirection::Right,
 	};
 
-	int pathPlusSixteenDirections[19] = {
+	static int pathPlusSixteenDirections[19] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::RightUp1,
 		(int)ePathSixteenDirection::RightUp1,
@@ -420,7 +420,7 @@ m::math::Vector2(0.f, 0.f),
 		(int)ePathSixteenDirection::Down,
 	};
 
-	int pathMinusSixteenDirections[19] = {
+	static int pathMinusSixteenDirections[19] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::LeftUp3,
 		(int)ePathSixteenDirection::LeftUp3,
@@ -442,7 +442,7 @@ m::math::Vector2(0.f, 0.f),
 		(int)ePathSixteenDirection::Down,
 	};
 
-	int pathPlusEightDirections[5] = {
+	static int pathPlusEightDirections[5] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::RightUp2,
 		(int)ePathSixteenDirection::Right,
@@ -451,7 +451,7 @@ m::math::Vector2(0.f, 0.f),
 
 	};
 
-	int pathMinusEightDirections[5] = {
+	static int pathMinusEightDirections[5] = {
 		(int)ePathSixteenDirection::Up,
 		(int)ePathSixteenDirection::LeftUp2,
 		(int)ePathSixteenDirection::Left,
@@ -459,7 +459,7 @@ m::math::Vector2(0.f, 0.f),
 		(int)ePathSixteenDirection::Down,
 	};
 
-	std::wstring pathSixteenDirectionString[16] = {
+	static std::wstring pathSixteenDirectionString[16] = {
 			L"left_down_2",
 			L"left_up_2",
 			L"right_up_2",
@@ -477,7 +477,7 @@ m::math::Vector2(0.f, 0.f),
 			L"right_down_1",
 			L"right_down_3",
 	};
-	eAuraType skillAuraTypes[(int)eSkillType::END] = {
+	static eAuraType skillAuraTypes[(int)eSkillType::END] = {
 		eAuraType::End,// iceBolt
 		eAuraType::End,// frozenArmor
 		eAuraType::End,// frostNova
@@ -522,7 +522,7 @@ m::math::Vector2(0.f, 0.f),
 
 		eAuraType::End,// mpm
 	};
-	float skillSpeed[(int)eSkillType::END] = {
+	static float skillSpeed[(int)eSkillType::END] = {
 		400.f,// iceBolt
 		0.f,// frozenArmor
 		1000.f,// frostNova
@@ -567,7 +567,7 @@ m::math::Vector2(0.f, 0.f),
 
 		400.f
 	};
-	int skillAnimLength[(int)eSkillType::END] = {
+	static int skillAnimLength[(int)eSkillType::END] = {
 		6, // iceBolt
 		0, // frozenArmor
 		14, // frostNova
@@ -612,7 +612,7 @@ m::math::Vector2(0.f, 0.f),
 
 		10,
 	};
-	bool skillLoops[(int)eSkillType::END] = {
+	static bool skillLoops[(int)eSkillType::END] = {
 		true, // iceBolt
 		true, // frozenArmor
 		false, // frostNova
@@ -658,7 +658,7 @@ m::math::Vector2(0.f, 0.f),
 		true,
 	};
 
-	bool skillHitDestory[(int)eSkillType::END] = {
+	static bool skillHitDestory[(int)eSkillType::END] = {
 		true, // iceBolt
 		true, // frozenArmor
 		false, // frostNova
@@ -703,7 +703,7 @@ m::math::Vector2(0.f, 0.f),
 
 		true,
 	};
-	int skillAnimDirections[(int)eSkillType::END] = {
+	static int skillAnimDirections[(int)eSkillType::END] = {
 		16, // iceBolt
 		16, // frozenArmor
 		16, // frostNova
@@ -748,7 +748,7 @@ m::math::Vector2(0.f, 0.f),
 
 		16,
 	};
-	m::math::Vector2 skillSizes[(int)eSkillType::END] = {
+	static m::math::Vector2 skillSizes[(int)eSkillType::END] = {
 		m::math::Vector2(92.f, 55.f),// iceBolt,
 		m::math::Vector2(0.f, 0.f),// frozenArmor,
 		m::math::Vector2(118.f, 69.f),// frostNova,
@@ -793,7 +793,7 @@ m::math::Vector2(0.f, 0.f),
 
 		m::math::Vector2(83.f, 85.f),
 	};
-	m::math::Vector2 skillOffsets[(int)eSkillType::END] = {
+	static m::math::Vector2 skillOffsets[(int)eSkillType::END] = {
 		m::math::Vector2(0.f, 0.f),// iceBolt,
 		m::math::Vector2(0.f, 0.f),// frozenArmor,
 		m::math::Vector2(0.f, 0.f),// frostNova,
@@ -836,7 +836,7 @@ m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 	};
-	eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
+	static eSkillCrashType skillCrashTypes[(int)eSkillType::END] = {
 		eSkillCrashType::IceCrash2,// iceBolt
 		eSkillCrashType::END,// frozenArmor
 		eSkillCrashType::IceCrash2Overlay,// frostNova
@@ -882,7 +882,7 @@ m::math::Vector2(0.f, 0.f),
 
 		eSkillCrashType::MephistoMissileCrash,
 	};
-	eSkillCastType skillCastTypes[(int)eSkillType::END] = {
+	static eSkillCastType skillCastTypes[(int)eSkillType::END] = {
 		eSkillCastType::IceCast1,// iceBolt
 		eSkillCastType::IceCast3,// frozenArmor
 		eSkillCastType::IceCast3,// frostNova
@@ -935,24 +935,24 @@ m::math::Vector2(0.f, 0.f),
 		MeteorHead,
 		END
 	};
-	std::wstring accessorySkillNames[(int)eAccessorySkillType::END] = {
+	static std::wstring accessorySkillNames[(int)eAccessorySkillType::END] = {
 		L"blizzard1",
 		L"blizzard3",
 		L"meteorHead",
 
 	};
-	m::math::Vector2 accessorySkillAnimSize[(int)eAccessorySkillType::END] = {
+	static m::math::Vector2 accessorySkillAnimSize[(int)eAccessorySkillType::END] = {
 		m::math::Vector2(97.f, 153.f),
 		m::math::Vector2(59.f, 198.f),
 		m::math::Vector2(22.f, 22.f),
 
 	};
-	int accessorySkillAnimLength[(int)eAccessorySkillType::END] = {
+	static int accessorySkillAnimLength[(int)eAccessorySkillType::END] = {
 		8,
 		6,
 		12,
 	};
-	eSkillCrashType accessorySkillCrashTypes[(int)eAccessorySkillType::END] = {
+	static eSkillCrashType accessorySkillCrashTypes[(int)eAccessorySkillType::END] = {
 		eSkillCrashType::IceCrash1,
 		eSkillCrashType::IceCrash1,
 		eSkillCrashType::END,

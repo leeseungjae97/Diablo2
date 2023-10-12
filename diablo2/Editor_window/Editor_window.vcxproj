@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -111,6 +111,9 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinUnityFiles>1</MinUnityFiles>
+      <MinFilesInUnityFile>30</MinFilesInUnityFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

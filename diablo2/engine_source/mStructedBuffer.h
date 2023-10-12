@@ -14,8 +14,8 @@ namespace m::graphics
 		bool CreateRWBuffer();
 		void SetData(void* data, UINT bufferCount);
 		void GetData(void* data, UINT size);
-		template <typename T> void GetData(T** data, UINT size);
-		template <typename T> void GetDatas(T** data, UINT size);
+		//template <typename T> void GetData(T** data, UINT size);
+		//template <typename T> void GetDatas(T** data, UINT size);
 		void BindSRV(eShaderStage stage, UINT slot);
 		void BindUAV(UINT slot);
 

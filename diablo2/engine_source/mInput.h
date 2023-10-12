@@ -118,7 +118,7 @@ namespace m
 		}
 	private:
 		static std::vector<Key> mKeys;
-		static Vector2 mMousePos;
+		static m::math::Vector2 mMousePos;
 
 		static bool bCallDownOne;
 		static bool bCallUpOne;

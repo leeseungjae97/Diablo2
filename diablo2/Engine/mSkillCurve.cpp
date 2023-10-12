@@ -17,6 +17,7 @@ namespace m
 
 
 		SetSpeed(speed);
+		ADD_COMP(this, AudioSource);
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
 		SET_SCALE_XYZ(this, skillSizes[(int)type].x, skillSizes[(int)type].y, 1.f);
@@ -68,9 +69,11 @@ namespace m
 	
 		if (bSkillFire)
 		{
-			if(ss)
-
-			    ss->SkillFire();
+			if (ss)
+			{
+				ss->Mute(bMute);
+				ss->SkillFire();
+			}
 
 			bSkillFire = false;
 			bMove = true;

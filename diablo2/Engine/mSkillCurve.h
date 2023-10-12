@@ -18,6 +18,9 @@ namespace m
 
         void SetAddCurve(float degree) { mAddCurve = degree; }
         void StopMove() { bMove = false; }
+
+        void Mute(bool mute) { bMute = mute; }
+        bool IsMute() { return bMute; }
     private:
         void moveCurve();
 
@@ -27,6 +30,7 @@ namespace m
         float macc;
         
         StraightScript* ss;
+        bool bMute;
 
         bool bLock;
         int iLockCount;

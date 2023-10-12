@@ -23,7 +23,7 @@ namespace m
 		Dead,
 		End,
 	};
-	std::wstring sorceressAnimationString[(UINT)ePlayerAnimationType::End] = {
+	static std::wstring sorceressAnimationString[(UINT)ePlayerAnimationType::End] = {
 		L"sorceressAttack1_anim@",
 		L"sorceressAttack2_anim@",
 		L"sorceressBlock_anim@",
@@ -58,7 +58,7 @@ namespace m
 		RightDown3,
 		End
 	};
-	int eEightDirection[8] = {
+	static int eEightDirection[8] = {
 		(int)eSixteenDirection::Down,
 		(int)eSixteenDirection::LeftDown1,
 		(int)eSixteenDirection::Left,
@@ -68,7 +68,7 @@ namespace m
 		(int)eSixteenDirection::Right,
 		(int)eSixteenDirection::RightDown1,
 	};
-	std::wstring sixteenDirectionString[(UINT)eSixteenDirection::End] = {
+	static std::wstring sixteenDirectionString[(UINT)eSixteenDirection::End] = {
 		L"down",
 		L"left_down_1",
 		L"left_down_2",
@@ -86,7 +86,7 @@ namespace m
 		L"right_down_2",
 		L"right_down_3",
 	};
-	math::Vector2 sorceressAnimationSizes[(UINT)ePlayerAnimationType::End] = {
+	static math::Vector2 sorceressAnimationSizes[(UINT)ePlayerAnimationType::End] = {
 		math::Vector2(2500.f / 20.f, 1263.f / 16.f),		// Attack1
 		math::Vector2(2400.f / 20.f, 1471.f / 16.f),		// Attack2
 		math::Vector2(329.f / 5.f, 1167.f / 16.f),		// Block
@@ -101,7 +101,7 @@ namespace m
 		math::Vector2(480.f / 8.f, 1215.f / 16.f),		// Walk
 		math::Vector2(192.f, 1664.f / 16.f),				// Dead
 	};
-	int sorceressAnimationLength[(UINT)ePlayerAnimationType::End] = {
+	static int sorceressAnimationLength[(UINT)ePlayerAnimationType::End] = {
 		20,
 		20,
 		5,
@@ -116,7 +116,7 @@ namespace m
 		8,
 		1,
 	};
-	int plusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+	static int plusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
 		(int)eSixteenDirection::Up,
 		(int)eSixteenDirection::RightUp1,
 		(int)eSixteenDirection::RightUp2,
@@ -127,7 +127,7 @@ namespace m
 		(int)eSixteenDirection::RightDown3,
 		(int)eSixteenDirection::Down
 	};
-	int minusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
+	static int minusSixteenDirections[((int)eSixteenDirection::End / 2) + 1] = {
 		(int)eSixteenDirection::Up,
 		(int)eSixteenDirection::LeftUp3,
 		(int)eSixteenDirection::LeftUp2,
@@ -138,14 +138,14 @@ namespace m
 		(int)eSixteenDirection::LeftDown1,
 		(int)eSixteenDirection::Down,
 	};
-	int plusEightDirections[5] = {
+	static int plusEightDirections[5] = {
 		(int)eSixteenDirection::Up,
 		(int)eSixteenDirection::RightUp1,
 		(int)eSixteenDirection::Right,
 		(int)eSixteenDirection::RightDown1,
 		(int)eSixteenDirection::Down,
 	};
-	int minusEightDirections[5] = {
+	static int minusEightDirections[5] = {
 		(int)eSixteenDirection::Up,
 		(int)eSixteenDirection::LeftUp1,
 		(int)eSixteenDirection::Left,
@@ -168,15 +168,19 @@ namespace m
 		Normal,
 		End,
 	};
-	eMonsterClass monsterClasses[(int)eMonsterType::End] = {
+	static eMonsterClass monsterClasses[(int)eMonsterType::End] = {
+		eMonsterClass::Boss,
+		eMonsterClass::Boss,
+		eMonsterClass::Boss,
 		eMonsterClass::Boss,
 		eMonsterClass::Normal,
-
 	};
+
 	struct MonsterData
 	{
 		MonsterData() {}
 		~MonsterData() {}
+
 		std::wstring textureString[5] = {};
 		std::wstring animationString[5] = {};
 		math::Vector2 animationOffset[5] = {};

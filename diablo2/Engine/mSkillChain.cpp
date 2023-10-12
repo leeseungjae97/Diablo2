@@ -6,6 +6,7 @@
 #include "mChainScript.h"
 #include "mMouseManager.h"
 #include "mSkillMultiFire.h"
+#include "mSkillStraight.h"
 
 namespace m
 {

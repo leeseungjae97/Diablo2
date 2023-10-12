@@ -1,6 +1,6 @@
 #pragma once
 
-m::math::Vector2 stage4Walls[1000] = {
+static m::math::Vector2 stage4Walls[1000] = {
 	{55, 66},
 	{56, 66},
 	{55, 65},
@@ -331,7 +331,7 @@ m::math::Vector2 stage4Walls[1000] = {
 
 };
 
-m::math::Vector2 stage3Walls[1000] = {
+static m::math::Vector2 stage3Walls[1000] = {
 	m::math::Vector2(37, 71),
 	m::math::Vector2(38, 71),
 	m::math::Vector2(39, 71),
@@ -610,7 +610,7 @@ m::math::Vector2 stage3Walls[1000] = {
 	m::math::Vector2(45, 72),
 };
 
-m::math::Vector2 stage2Walls[1000] = {
+static m::math::Vector2 stage2Walls[1000] = {
 	m::math::Vector2(42, 42),
 	m::math::Vector2(42, 43),
 	m::math::Vector2(42, 44),
@@ -917,7 +917,7 @@ m::math::Vector2 stage2Walls[1000] = {
 
 };
 
-m::math::Vector2 stage1Walls[1000] = {
+static m::math::Vector2 stage1Walls[1000] = {
 	//m::math::Vector2(43, 60),
 	//m::math::Vector2(44, 60),
 	//m::math::Vector2(45, 60),
@@ -1083,15 +1083,15 @@ m::math::Vector2 stage1Walls[1000] = {
 };
 
 
-m::math::Vector2 stage4ThroughWalls[1000] = {
+static m::math::Vector2 stage4ThroughWalls[1000] = {
 	m::math::Vector2(),
 };
-m::math::Vector2 stage3ThroughWalls[1000] = {
+static m::math::Vector2 stage3ThroughWalls[1000] = {
 	m::math::Vector2(),
 };
-m::math::Vector2 stage2ThroughWalls[1000] = {
+static m::math::Vector2 stage2ThroughWalls[1000] = {
 	m::math::Vector2(),
 };
-m::math::Vector2 stage1ThroughWalls[1000] = {
+static m::math::Vector2 stage1ThroughWalls[1000] = {
 	m::math::Vector2(),
 };

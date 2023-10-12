@@ -1,10 +1,10 @@
 #pragma once
 #include "mSkill.h"
 
-#include "mSkillFall.h"
-#include "mSkillStraight.h"
 namespace m
 {
+	class SkillStraight;
+	class SkillFall;
 	class SkillMultiFire :
 		public Skill
 	{

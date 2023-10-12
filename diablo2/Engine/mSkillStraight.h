@@ -31,7 +31,9 @@ namespace m
         bool IsHead() { return bHead; }
         bool GetHeadLinear() { return bUseHead; }
         SkillStraight* GetHead() { return mHead; }
-        
+
+        void Mute(bool mute) { bMute = mute; }
+        bool IsMute() { return bMute; }
     private:
         void randomY();
 
@@ -44,6 +46,8 @@ namespace m
         SkillStraight* mHead;
         bool bHead;
         bool bUseHead;
+
+        bool bMute;
 
         float moveDistance;
         float fRandomRange;

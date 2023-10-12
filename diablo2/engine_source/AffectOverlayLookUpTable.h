@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef AFFECT_OVERLAY_LOOK_UP_TABLE_H
+#define AFFECT_OVERLAY_LOOK_UP_TABLE_H
+
 enum class eAffectOverlayType
 {
     Fire1,
@@ -15,38 +18,40 @@ enum class eOverlayFunction
     End
 };
 
-std::wstring affectOverlayNames[(int)eAffectOverlayType::End] = {
+static std::wstring affectOverlayNames[(int)eAffectOverlayType::End] = {
     L"fire1",
     L"fire2",
     L"fire3",
 };
 
-m::math::Vector2 affectOverlaySizes[(int)eAffectOverlayType::End] = {
+static m::math::Vector2 affectOverlaySizes[(int)eAffectOverlayType::End] = {
     m::math::Vector2(66.f, 89.f),
     m::math::Vector2(66.f, 167.f),
     m::math::Vector2(66.f, 136.f),  
 };
 
-int affectOverlayLength[(int)eAffectOverlayType::End] = {
+static int affectOverlayLength[(int)eAffectOverlayType::End] = {
     37,
     37,
     37,
 };
 
-int affectOverlayLoopAnimationIndex[(int)eAffectOverlayType::End][3] = {
+static int affectOverlayLoopAnimationIndex[(int)eAffectOverlayType::End][3] = {
     {15,36,29},
     {15,36,29},
     {15,36,29},
 };
 
-float affectOverlayDuration[(int)eAffectOverlayType::End] = {
+static float affectOverlayDuration[(int)eAffectOverlayType::End] = {
     0.03f,
     0.03f,
     0.03f,
 };
 
-eOverlayFunction affectOverlayFunction[(int)eAffectOverlayType::End] = {
+static eOverlayFunction affectOverlayFunction[(int)eAffectOverlayType::End] = {
     eOverlayFunction::Damage,
     eOverlayFunction::Damage,
     eOverlayFunction::Damage,
 };
+
+#endif

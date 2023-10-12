@@ -9,7 +9,7 @@ enum class eFloorType
     End,
 };
 
-std::wstring stage1Floors[10] = {
+static std::wstring stage1Floors[10] = {
     L"lava1",
     L"lava2",
     L"lava3",
@@ -22,7 +22,7 @@ std::wstring stage1Floors[10] = {
     L"lava10",
 };
 
-m::math::Vector2 floorSizes[(int)eFloorType::End] = {
+static m::math::Vector2 floorSizes[(int)eFloorType::End] = {
     m::math::Vector2(8000, 3999),
     m::math::Vector2(8000, 3999),
     m::math::Vector2(8000, 3999),

@@ -122,7 +122,7 @@ namespace m
 		mephistoMissile,
 		END
 	};
-	std::wstring wsSkillIconNames[(int)eSkillType::END] = {
+	static std::wstring wsSkillIconNames[(int)eSkillType::END] = {
 		L"iceBoltIcon",
 		L"frozenArmorIcon",
 		L"frostNovaIcon",
@@ -158,7 +158,7 @@ namespace m
 
 		L"normalAttackIcon"
 	};
-	std::wstring wsSkillClickIconNames[(int)eSkillType::END] = {
+	static std::wstring wsSkillClickIconNames[(int)eSkillType::END] = {
 		L"iceBoltClickIcon",
 		L"frozenArmorClickIcon",
 		L"frostNovaClickIcon",
@@ -194,7 +194,7 @@ namespace m
 
 		L"normalAttackClickIcon"
 	};
-	eSkillFunctionType skillFunctionTypes[(int)eSkillType::END] = {
+	static eSkillFunctionType skillFunctionTypes[(int)eSkillType::END] = {
 		eSkillFunctionType::Straight,// L"iceBoltIcon",
 		eSkillFunctionType::Straight,// L"frozenArmorIcon",
 		eSkillFunctionType::CircleFire,// L"frostNovaIcon",
@@ -239,7 +239,7 @@ namespace m
 
 		eSkillFunctionType::Straight,
 	};
-	eSkillType skillAddSkillTypes[(int)eSkillType::END] = {
+	static eSkillType skillAddSkillTypes[(int)eSkillType::END] = {
 	    eSkillType::END,// L"iceBoltIcon",
 	    eSkillType::END,// L"frozenArmorIcon",
 	    eSkillType::END,// L"frostNovaIcon",
@@ -282,7 +282,7 @@ namespace m
 	    eSkillType::END,// L"AndarielPoisonAttack",
 	    eSkillType::END,// L"AndarielPoisonAttack",
 	};
-	int SkillDamageCofTable[(int)eSkillType::END] = {
+	static int SkillDamageCofTable[(int)eSkillType::END] = {
 		10,// L"iceBolt",
 		0,// L"frozenArmor",
 		10,// L"frostNova",
@@ -321,7 +321,7 @@ namespace m
 
 		0,// L"normalAttack"
 	};
-	std::wstring skillAnimNames[(int)eSkillType::END] = {
+	static std::wstring skillAnimNames[(int)eSkillType::END] = {
 		L"iceBolt", // L"iceBoltClickIcon",
 		L"frozenArmor", // L"frozenArmorClickIcon",
 		L"frostNova", // L"frostNovaClickIcon",
@@ -368,7 +368,7 @@ namespace m
 
 		L"mephistoMissile",
 	};
-	int iColdSkillIndex[(int)eColdSkillType::END][2] = {
+	static int iColdSkillIndex[(int)eColdSkillType::END][2] = {
 		{1,0},// L"iceBoltIcon",
 		{2,0},// L"frozenArmorIcon",
 		{0,1},// L"frostNovaIcon",
@@ -380,7 +380,7 @@ namespace m
 		{0,5},// L"frozenOrbIcon",
 		{1,5},// L"coldMasteryIcon",
 	};
-	int iLightSkillIndex[(int)eLightningSkillType::END][2] = {
+	static int iLightSkillIndex[(int)eLightningSkillType::END][2] = {
 		{1,0},// L"chargedBoltIcon",
 		{0,1},// L"staticFieldIcon",
 		{2,1},// L"telekinesisIcon",
@@ -392,7 +392,7 @@ namespace m
 		{2,4},// L"energyShieldIcon",
 		{1,5},// L"lightningMasteryIcon",
 	};
-	int iFireSkillIndex[(int)eFireSkillType::END][2] = {
+	static int iFireSkillIndex[(int)eFireSkillType::END][2] = {
 		{1,0},// L"fireBoltIcon",
 		{2,0},// L"warmthIcon",
 		{0,1},// L"infernoIcon",
@@ -405,7 +405,7 @@ namespace m
 		{2,5},// L"hydraIcon",
 	};
 	
-	std::wstring wsColdSkillNames[(int)eColdSkillType::END] = {
+	static std::wstring wsColdSkillNames[(int)eColdSkillType::END] = {
 		L"iceBoltIcon",
 		L"frozenArmorIcon",
 		L"frostNovaIcon",
@@ -417,7 +417,7 @@ namespace m
 		L"frozenOrbIcon",
 		L"coldMasteryIcon",
 	};
-	std::wstring wsLightningSkillNames[(int)eLightningSkillType::END] = {
+	static std::wstring wsLightningSkillNames[(int)eLightningSkillType::END] = {
 		L"chargedBoltIcon",
 		L"staticFieldIcon",
 		L"telekinesisIcon",
@@ -430,7 +430,7 @@ namespace m
 		L"lightningMasteryIcon",
 	};
 
-	std::wstring wsFireSkillNames[(int)eFireSkillType::END] = {
+	static std::wstring wsFireSkillNames[(int)eFireSkillType::END] = {
 		L"fireBoltIcon",
 		L"warmthIcon",
 		L"infernoIcon",
@@ -445,7 +445,7 @@ namespace m
 
 
 
-	std::wstring wsColdSkillClickNames[(int)eColdSkillType::END] = {
+	static std::wstring wsColdSkillClickNames[(int)eColdSkillType::END] = {
 		L"iceBoltClickIcon",
 		L"frozenArmorClickIcon",
 		L"frostNovaClickIcon",
@@ -458,7 +458,7 @@ namespace m
 		L"coldMasteryClickIcon",
 	};
 
-	std::wstring wsLightningSkillClickNames[(int)eLightningSkillType::END] = {
+	static std::wstring wsLightningSkillClickNames[(int)eLightningSkillType::END] = {
 		L"chargedBoltClickIcon",
 		L"staticFieldClickIcon",
 		L"telekinesisClickIcon",
@@ -471,7 +471,7 @@ namespace m
 		L"lightningMasteryClickIcon",
 	};
 
-	std::wstring wsFireSkillClickNames[(int)eFireSkillType::END] = {
+	static std::wstring wsFireSkillClickNames[(int)eFireSkillType::END] = {
 		L"fireBoltClickIcon",
 		L"warmthClickIcon",
 		L"infernoClickIcon",
@@ -484,7 +484,7 @@ namespace m
 		L"hydraClickIcon",
 	};
 	
-	int iColdAdjacencyMatrix[(int)eColdSkillType::END][(int)eColdSkillType::END] = {
+	static int iColdAdjacencyMatrix[(int)eColdSkillType::END][(int)eColdSkillType::END] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// 	L"iceBoltIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// 	L"frozenArmorIcon",",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// 	L"frostNovaIcon",,
@@ -496,7 +496,7 @@ namespace m
 		{0, 0, 0, 0, 0, 0, 1, 0, 0, 0},//	L"frozenOrbIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},//	L"coldMasteryIcon",
 	};
-	int iLightAdjacencyMatrix[(int)eLightningSkillType::END][(int)eLightningSkillType::END] = {
+	static int iLightAdjacencyMatrix[(int)eLightningSkillType::END][(int)eLightningSkillType::END] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"chargedBoltIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"staticFieldIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"telekinesisIcon",
@@ -508,7 +508,7 @@ namespace m
 		{0, 0, 0, 0, 0, 0, 1, 0, 0, 0},// L"energyShieldIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},// L"lightningMasteryIcon",
 	};
-	int iFireAdjacencyMatrix[(int)eFireSkillType::END][(int)eFireSkillType::END] = {
+	static int iFireAdjacencyMatrix[(int)eFireSkillType::END][(int)eFireSkillType::END] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},//L"fireBoltIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},//L"warmthIcon",
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},//L"infernoIcon",

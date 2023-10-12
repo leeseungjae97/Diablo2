@@ -1,5 +1,6 @@
 #include "mMonsterScript.h"
 
+#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mMaterial.h"
 #include "../engine_source/mAnimator.h"
@@ -428,7 +429,26 @@ namespace m
 			}
 		}
 	}
-	template <typename T>
+
+    template <typename T>
+    void MonsterScript<T>::OnCollisionEnter(Collider2D* other)
+    {
+        Script::OnCollisionEnter(other);
+    }
+
+    template <typename T>
+    void MonsterScript<T>::OnCollisionStay(Collider2D* other)
+    {
+        Script::OnCollisionStay(other);
+    }
+
+    template <typename T>
+    void MonsterScript<T>::OnCollisionExit(Collider2D* other)
+    {
+        Script::OnCollisionExit(other);
+    }
+
+    template <typename T>
 	void MonsterScript<T>::HitAnimation()
 	{
 		//if (mMonster->GetBattleState() != GameObject::eBattleState::Idle) return;

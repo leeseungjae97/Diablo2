@@ -93,7 +93,7 @@ Index of this file:
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
-
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 #ifndef IMGUI_DISABLE
 

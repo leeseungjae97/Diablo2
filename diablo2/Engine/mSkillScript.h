@@ -1,4 +1,5 @@
 #pragma once
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mScript.h"
 #include "../engine_source/mAnimation.h"
 #include "../engine_source/SkillLookUpTables.h"
@@ -25,6 +26,7 @@ namespace m
         //virtual void OnCollisionExit(Collider2D* other) override;
     protected:
         Animator* mAnimator;
+        AudioSource* mAudioSource;
         int mDirection;
         eSkillType mType;
     };

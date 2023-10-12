@@ -116,6 +116,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinFilesInUnityFile>30</MinFilesInUnityFile>
     </ClCompile>
     <Link>
       <SubSystem>

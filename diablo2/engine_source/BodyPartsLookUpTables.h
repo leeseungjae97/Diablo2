@@ -1,4 +1,6 @@
 #pragma once
+
+
 enum class eBodyPartsType
 {
     Head,
@@ -9,7 +11,7 @@ enum class eBodyPartsType
 	RightHand,
 	End
 };
-m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
+static m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 	// head
 	{
 	m::math::Vector2(0.f, 0.f), //
@@ -104,7 +106,7 @@ m::math::Vector2 bodyPartsOffset[(int)eBodyPartsType::End][13] = {
 			m::math::Vector2(0.f, 0.f), //
 	},
 };
-m::math::Vector2 bodyPartsShadowOffset[(int)eBodyPartsType::End][13] = {
+static m::math::Vector2 bodyPartsShadowOffset[(int)eBodyPartsType::End][13] = {
 	// head
 	{
 	m::math::Vector2(0.f, 0.f), //
@@ -231,7 +233,7 @@ m::math::Vector2 bodyPartsShadowOffset[(int)eBodyPartsType::End][13] = {
 //	L"",// Walk 
 //	L"",// Dead 
 //	}
-std::wstring partsMaterialNames[(int)eBodyPartsType::End][13] = {
+static std::wstring partsMaterialNames[(int)eBodyPartsType::End][13] = {
 	// head
 	{
 		L"",// Attack1 
@@ -314,7 +316,7 @@ std::wstring partsMaterialNames[(int)eBodyPartsType::End][13] = {
 },
 };
 
-m::math::Vector2 partsSizes[(int)eBodyPartsType::End][13] = {
+static m::math::Vector2 partsSizes[(int)eBodyPartsType::End][13] = {
 	{
 		m::math::Vector2(0.f,0.f), // Attack1 
 		m::math::Vector2(0.f,0.f), // Attack2 
@@ -408,10 +410,10 @@ m::math::Vector2 partsSizes[(int)eBodyPartsType::End][13] = {
 
 };
 
-m::math::Vector2 partsCenterPos[(int)eBodyPartsType::End][13] = {
+static m::math::Vector2 partsCenterPos[(int)eBodyPartsType::End][13] = {
 };
 
-int partsLength[13] = {
+static int partsLength[13] = {
 	0,// Attack1 
     0,// Attack2 
     0,// Block 
@@ -428,7 +430,7 @@ int partsLength[13] = {
 };
 
 
-float partsDuration[13] = {
+static float partsDuration[13] = {
 	0.05f, // Attack1 
 	0.03f, // Attack2 
 	0.03f, // Block 
@@ -444,7 +446,7 @@ float partsDuration[13] = {
 	0.03f, // Dead
 };
 
-std::wstring partsShadowNames[(int)eBodyPartsType::End][13] = {
+static std::wstring partsShadowNames[(int)eBodyPartsType::End][13] = {
 	{
 		L"",// Attack1 
 		L"",// Attack2 

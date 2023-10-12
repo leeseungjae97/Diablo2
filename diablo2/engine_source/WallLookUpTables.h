@@ -25,7 +25,7 @@ enum class eWallDirection
     Door,
     End
 };
-std::wstring wallMaterialNames[(int)eWallType::End] = {
+static std::wstring wallMaterialNames[(int)eWallType::End] = {
     L"s4Wall1",
     L"s4Wall2",
 
@@ -40,7 +40,7 @@ std::wstring wallMaterialNames[(int)eWallType::End] = {
 
     L"s2Wall1",
 };
-eWallDirection wallDirections[(int)eWallType::End] = {
+static eWallDirection wallDirections[(int)eWallType::End] = {
     eWallDirection::LeftUpRightDown,
     eWallDirection::LeftDownRightUp,
 
@@ -55,7 +55,7 @@ eWallDirection wallDirections[(int)eWallType::End] = {
 
     eWallDirection::Door,
 };
-int wallSizes[(int)eWallType::End][2] = {
+static int wallSizes[(int)eWallType::End][2] = {
     {3, 1},
     {1, 3},
 

@@ -1,5 +1,6 @@
 #include "mSkillStraight.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mLight.h"
 #include "../engine_source/mMouseManager.h"
 #include "../engine_source/SkillLookUpTables.h"
@@ -25,6 +26,7 @@ namespace m
 		, mHead(nullptr)
 		, bHead(false)
 		, bUseHead(false)
+	    , bMute(false)
 	{
 		bMadePath = true;
 		if(type == eSkillType::inferno)
@@ -32,6 +34,9 @@ namespace m
 			limitDistance = 500.f;
 		}
 		SetSpeed(speed);
+
+		ADD_COMP(this, AudioSource);
+
 		SET_MESH(this, L"RectMesh");
 		if(useAnimator)
 		{
@@ -78,7 +83,10 @@ namespace m
 		if (bSkillFire)
 		{
 			if (ss)
+			{
+				ss->Mute(bMute);
 				ss->SkillFire();
+			}
 
 			bSkillFire = false;
 			bMove = true;

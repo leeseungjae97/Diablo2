@@ -1,7 +1,8 @@
 #include "mPlayScene.h"
 
-#include "mAudioListener.h"
-#include "mAudioSource.h"
+#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
+#include "../engine_source/mAudioListener.h"
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTransform.h"
@@ -12,7 +13,6 @@
 #include "../engine_source/mApplication.h"
 #include "../engine_source/mCollisionManager.h"
 #include "../engine_source/mAnimator.h"
-#include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mComputeShader.h"
 #include "../engine_source/mTileManager.h"
@@ -1315,7 +1315,9 @@ namespace m
 			monster->SetCoord(tile->GetCoord());
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
-			MonsterScript<MDDuriel>* ms = ADD_COMP(monster, MonsterScript<MDDuriel>);
+			MonsterScript<MDDuriel>* ms  = monster->AddComponent<MonsterScript<MDDuriel>>();
+			//MonsterScript<MDDuriel>* ms = new MonsterScript<MDDuriel>(;
+			//MonsterScript<MDDuriel>* ms = ADD_COMP(monster, MonsterScript<MDDuriel> );
 			monster->SetMonsterClass(ms->GetMonsterClass());
 			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
 			monster->SetHpCapacity(ms->GetcurMonsterData().hp);

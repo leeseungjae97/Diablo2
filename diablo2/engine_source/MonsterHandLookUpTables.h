@@ -3,7 +3,7 @@
 
 namespace m
 {
-	math::Vector2 monsterOffsets[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+	static math::Vector2 monsterOffsets[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
 			math::Vector2(0.f, 0.f),
 			math::Vector2(0.f, 0.f),
@@ -80,7 +80,7 @@ namespace m
 			math::Vector2(0.f, 0.f),
 		}
 	};
-	std::wstring monsterRHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+	static std::wstring monsterRHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
 			L"",
 			L"",
@@ -157,7 +157,7 @@ namespace m
 			L"",
 		},
 	};
-	std::wstring monsterLHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+	static std::wstring monsterLHandNames[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
 			L"",
 			L"",
@@ -234,7 +234,7 @@ namespace m
 		L"",
 	},
 	};
-	math::Vector2 monsterHandSizes[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+	static math::Vector2 monsterHandSizes[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		//Diablo
 		{
 			math::Vector2(0.f, 0.f),
@@ -316,7 +316,7 @@ namespace m
 		   math::Vector2(0.f, 0.f),
 	   },
 	};
-	int monsterHandLength[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
+	static int monsterHandLength[(int)eMonsterType::End][(int)MDDiablo::eAnimationType::End] = {
 		{
 			0,
 			0,

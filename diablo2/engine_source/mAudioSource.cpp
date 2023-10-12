@@ -12,7 +12,7 @@ namespace m
 	    , iRunIndex(0)
 	    , fRunAcc(0.f)
 	    , bRun(false)
-	    , bLoopGroupSound(false)
+	    , bGroupSound(false)
 	    , bNextPlay(true)
 	    , iRandPlayIndex(0)
 	{
@@ -47,8 +47,30 @@ namespace m
 					mAudioClips[i]->Set3DAttributes(pos, foward);
 				}
 			}
+			
 		}
-		
+		if (bGroupSound && !mAudioClipGroup.empty())
+		{
+			for (AudioClip* ac : mAudioClipGroup)
+			{
+				if(!ac->IsPlaying())
+				{
+					delete ac;
+					ac = nullptr;
+					std::erase(mAudioClipGroup, ac);
+				}
+			}
+
+			for (AudioClip* ac : mAudioClipGroup)
+			{
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				Vector3 pos = tr->GetPosition();
+				Vector3 foward = tr->Foward();
+
+				ac->Set3DAttributes(pos, foward);
+			}
+			
+		}
 
 		if (bRun)
 		{
@@ -67,6 +89,17 @@ namespace m
 		{
 			fRunAcc = 0.f;
 		}
+	}
+	void AudioSource::ReleaseClips()
+	{
+		if (mAudioClipGroup.empty()) return;
+
+		for(AudioClip* ac : mAudioClipGroup)
+		{
+			delete ac;
+			ac = nullptr;
+		}
+		mAudioClipGroup.clear();
 	}
 	std::shared_ptr<AudioClip> AudioSource::FindClip(ePlayerVoiceSoundType type)
 	{
@@ -110,7 +143,18 @@ namespace m
 
 		return audioClip;
 	}
+	std::shared_ptr<AudioClip> AudioSource::FindClip(const std::wstring& name)
+	{
+		std::shared_ptr<AudioClip> audioClip = RESOURCE_FIND(AudioClip, name);
+		if (nullptr == audioClip)
+		{
+			RESOURCE_LOAD(AudioClip, name, name);
 
+			audioClip = RESOURCE_FIND(AudioClip, name);
+		}
+
+		return audioClip;
+	}
 	void AudioSource::Render()
 	{
 	}
@@ -128,7 +172,6 @@ namespace m
 	}
 	void AudioSource::PlaySounds(ePlayerRunSoundType type, bool loop)
 	{
-		bLoopGroupSound = true;
 		bRun = true;
 		if(bNextPlay)
 		{
@@ -142,7 +185,7 @@ namespace m
 	{
 		bRun = true;
 		if(nullptr == mAudioClips[(int)eAudioClipType::FootStep] 
-			|| mAudioClips[(int)eAudioClipType::FootStep]->IsPlaying())
+			|| !mAudioClips[(int)eAudioClipType::FootStep]->IsPlaying())
 		{
 			bActiveAudioClip[(int)eAudioClipType::FootStep] = true;
 			mAudioClips[(int)eAudioClipType::FootStep] = FindClip(type);
@@ -150,10 +193,41 @@ namespace m
 			mAudioClips[(int)eAudioClipType::FootStep]->Play();
 		}
 	}
-	void AudioSource::Play(eButtonSoundType type, bool loop)
+
+    void AudioSource::Play(const std::wstring& name, bool loop)
+    {
+		if (nullptr == mAudioClips[(int)eAudioClipType::Fire]
+			|| !mAudioClips[(int)eAudioClipType::Fire]->IsPlaying())
+		{
+			bActiveAudioClip[(int)eAudioClipType::Fire] = true;
+			mAudioClips[(int)eAudioClipType::Fire] = FindClip(name);
+			mAudioClips[(int)eAudioClipType::Fire]->SetLoop(loop);
+			mAudioClips[(int)eAudioClipType::Fire]->Play();
+		}
+    }
+	void AudioSource::PlayGroup(const std::wstring& name, bool loop)
+	{
+		bGroupSound = true;
+		AudioClip* audioClip = new AudioClip();
+		audioClip->Load(name);
+		audioClip->SetLoop(loop);
+		audioClip->Play();
+		mAudioClipGroup.push_back(audioClip);
+	}
+    void AudioSource::PlayNoDelay(const std::wstring& name, bool loop)
+    {
+		//mAudioClips[(int)eAudioClipType::Fire]->Stop();
+
+		bActiveAudioClip[(int)eAudioClipType::Fire] = true;
+		mAudioClips[(int)eAudioClipType::Fire] = FindClip(name);
+		mAudioClips[(int)eAudioClipType::Fire]->SetLoop(loop);
+		mAudioClips[(int)eAudioClipType::Fire]->Play();
+    }
+
+    void AudioSource::Play(eButtonSoundType type, bool loop)
 	{
 		bRun = false;
-		if (nullptr == mAudioClips[0] || mAudioClips[0]->IsPlaying())
+		if (nullptr == mAudioClips[0] || !mAudioClips[0]->IsPlaying())
 		{
 			bActiveAudioClip[0] = true;
 			mAudioClips[0] = FindClip(type);

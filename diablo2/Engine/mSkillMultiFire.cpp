@@ -1,11 +1,14 @@
 #include "mSkillMultiFire.h"
 
-#include "mMouseManager.h"
-#include "mSkillFollower.h"
-
+#include "../engine_source/mAudioSource.h"
+#include "../engine_source/mMouseManager.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
+
+#include "mSkillFall.h"
+#include "mSkillStraight.h"
+#include "mSkillFollower.h"
 
 namespace m
 {
@@ -30,6 +33,7 @@ namespace m
 
 		SET_MESH(this, L"PointMesh");
 		SET_MATERIAL(this, L"noneRect");
+
 		SetCamera(camera);
 		//initDegree -= (count / 2) * 20.f;
 		Vector3 pos = iniPos;
@@ -57,7 +61,35 @@ namespace m
 				targetPos = unprojMousePos;
 			}
 		}
-		
+
+		if (mFireType == eFireType::HeadDamage)
+		{
+		}
+		if (mFireType == eFireType::RandomFall)
+		{
+			ADD_COMP(this, AudioSource);
+		}
+		if (mFireType == eFireType::RandomLinear)
+		{
+			ADD_COMP(this, AudioSource);
+		}
+		if (mFireType == eFireType::Linear)
+		{
+			ADD_COMP(this, AudioSource);
+		}
+		if (mFireType == eFireType::FixedLinear)
+		{
+			ADD_COMP(this, AudioSource);
+		}
+		if (mFireType == eFireType::RadialRandomStraight)
+		{
+		}
+		if (mFireType == eFireType::Radial)
+		{
+		}
+		if (mFireType == eFireType::Circle)
+		{
+		}
 		
 		Vector3 initDegreeVector3 = targetPos - pos;
 

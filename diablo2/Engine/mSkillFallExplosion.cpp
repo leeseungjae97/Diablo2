@@ -17,10 +17,10 @@ namespace m
 		SET_MESH(this, L"PointMesh");
 		SET_MATERIAL(this, L"noneRect");
 		Vector3 initYpos = iniPos;
-		initYpos.y += 1000.f;
+		initYpos.y += 1400.f;
 		SetSkillOwnerLayer(layerType);
 
-		SkillFall* body = new SkillFall(type, initYpos, 1000.f, true);
+		SkillFall* body = new SkillFall(type, initYpos, 1400.f, true);
 		SceneManager::GetActiveScene()->AddGameObject(layerType, body);
 		//body->Initialize();
 		body->SetSpeed(1000.f / 2.f);
@@ -32,7 +32,7 @@ namespace m
 				initYpos.x + 10.f
 				, initYpos.y - 29.f
 				, iniPos.z);
-			SkillFall* acc = new SkillFall(type, meteorHeadPos, 1000.f
+			SkillFall* acc = new SkillFall(type, meteorHeadPos, 1400.f
 				, true, true
 				, eAccessorySkillType::MeteorHead);
 			acc->SetSpeed(1000.f / 2.f);

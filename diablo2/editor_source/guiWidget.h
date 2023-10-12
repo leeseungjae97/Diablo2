@@ -1,5 +1,6 @@
 #pragma once
 #include "../engine_source/mEntity.h"
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 
 namespace gui

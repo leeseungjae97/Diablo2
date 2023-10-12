@@ -15,6 +15,7 @@
 // Read online: https://github.com/ocornut/imgui/tree/master/docs
 
 #pragma once
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"      // IMGUI_IMPL_API
 #ifndef IMGUI_DISABLE
 

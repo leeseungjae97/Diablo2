@@ -1,5 +1,6 @@
 #include "mStraightScript.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "mPlayerManager.h"
 
 #include "mSkillStraight.h"
@@ -17,6 +18,7 @@ namespace m
 		: mDirectionCount(_directionCount)
 		, mCrashType(eCrashType::END)
 		, bNoHit(false)
+	    , bMute(false)
 	{
 	}
 	StraightScript::~StraightScript()
@@ -25,6 +27,8 @@ namespace m
 	void StraightScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		mAudioSource = GET_COMP(GetOwner(), AudioSource);
+
 		Skill* dSkill = dynamic_cast<Skill*>(GetOwner());
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
 		else mType = dSkill->GetSkillType();
@@ -199,6 +203,17 @@ namespace m
 		}
 		if (bSkillFire)
 		{
+			if(!bMute)
+			{
+				int iRandIndex = rand() % 3;
+				std::wstring rand = L"";
+				rand = skillSoundPath[(int)mType][iRandIndex];
+				if (rand != L"")
+					mAudioSource->Play(rand);
+			}
+			
+
+
 			Vector3 direction = ((SkillStraight*)GetOwner())->GetDirection();
 
 			float degree = RadianToDegree(atan2(direction.x, direction.y));
@@ -234,7 +249,6 @@ namespace m
 					mAnimator->GetActiveAnimation()->GetKey() != skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection])
 					mAnimator->PlayAnimation(skillAnimNames[(int)mType] + pathSixteenDirectionString[mDirection], skillLoops[(int)mType]);
 			}
-
 		}
 
 	}

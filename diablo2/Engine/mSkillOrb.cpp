@@ -17,9 +17,11 @@ namespace m
         , bFireCircle(false)
         , mMiType(layerType)   
     {
+        ADD_COMP(this, AudioSource);
         for(float i = 0.0f ; i <= 2.f ;)
         {
             SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, iniPos, 400.f, true);
+            ss->Mute(true);
             ss->SetState(GameObject::eState::NoRenderUpdate);
             sectionSkills.push_back(ss);
             i += 0.1f;
@@ -27,6 +29,7 @@ namespace m
         for(int i = 0 ; i < 16; ++i)
         {
             SkillCurve* sc = new SkillCurve(eSkillType::iceBolt, iniPos, 600.f);
+            sc->Mute(true);
             sc->SetState(GameObject::eState::NoRenderNoUpdate);
             sectionSkills2.push_back(sc);
         }
@@ -46,6 +49,7 @@ namespace m
     void SkillOrb::Update()
     {
         SkillStraight::Update();
+       
 
         if(!bCameraUpdate)
         {
@@ -66,7 +70,6 @@ namespace m
             &&
             math::areAlmostEqual(mAccSkillTime, 0.1f, 0.05))
         {
-            
             fireThreeWayDegreeSkill(sectionSkills[mSectionActiveCount]);
             sectionSkills[mSectionActiveCount]->SkillFire();
             sectionSkills[mSectionActiveCount]->SetState(eState::RenderUpdate);
@@ -78,7 +81,12 @@ namespace m
         if(mSectionActiveCount >= sectionSkills.size())
         {
             if (!bFireCircle)
+            {
+                AudioSource* mAudioSource = GET_COMP(this, AudioSource);
+                std::wstring name = skillSoundPath[(int)eSkillType::frozenOrb][0];
+                mAudioSource->PlayNoDelay(name);
                 fireCircle();
+            }
 
             SetState(Delete);
         }
@@ -110,6 +118,11 @@ namespace m
         }
         if(iLock == 0)
         {
+            AudioSource* mAudioSource = GET_COMP(this, AudioSource);
+            int iRandIndex = rand() % 3;
+            std::wstring name = skillSoundPath[(int)eSkillType::frozenOrb][iRandIndex];
+            mAudioSource->PlayGroup(name);
+
             ++iNumUse;
             int n = 0;
             while (iNDuplicates[n] != 0) n = rand() % 3;
@@ -124,7 +137,7 @@ namespace m
             mAccDegree = iInitDegrees[n];
         }
         ++iLock;
-
+        
         SET_POS_VEC(skill, GET_POS(this));
         
         float theta = DegreeToRadian((float)mAccDegree);

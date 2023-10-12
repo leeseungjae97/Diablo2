@@ -3,7 +3,6 @@
 #include "mComponent.h"
 #include "mScript.h"
 #include "mCamera.h"
-#include "mScript.h"
 
 namespace m
 {

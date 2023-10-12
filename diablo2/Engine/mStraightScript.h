@@ -22,11 +22,14 @@ namespace m
         void SetNoHit(bool hit) { bNoHit = hit; }
 
         void SkillFire() { bSkillFire = true; }
+        void Mute(bool mute) { bMute = mute; }
 
     private:
         int mDirectionCount;
         bool bNoHit;
         bool bSkillFire;
+        bool bMute;
+
         std::wstring skillName;
         eSixteenDirection* mDirections;
         eSkillCrashType mSkillCrashType;

@@ -143,28 +143,28 @@ namespace m::graphics
 		else
 			GetDevice()->ReadBuffer(mReadBuffer.Get(), data, size);
 	}
-	template <typename T>
-	void StructuredBuffer::GetData(T** data, UINT size)
-	{
-		//if (nullptr == mReadBuffer) return;
+	//template <typename T>
+	//void StructuredBuffer::GetData(T** data, UINT size)
+	//{
+	//	//if (nullptr == mReadBuffer) return;
 
-		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
+	//	GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
-		if (size == 0)
-			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, mSize * mStride);
-		else
-			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
-	}
-	template <typename T>
-	void StructuredBuffer::GetDatas(T** data, UINT size)
-	{
-		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
+	//	if (size == 0)
+	//		GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, mSize * mStride);
+	//	else
+	//		GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
+	//}
+	//template <typename T>
+	//void StructuredBuffer::GetDatas(T** data, UINT size)
+	//{
+	//	GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
-		if (size == 0)
-			GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, mSize * mStride);
-		else
-			GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, size);
-	}
+	//	if (size == 0)
+	//		GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, mSize * mStride);
+	//	else
+	//		GetDevice()->ReadBuffers<T>(mReadBuffer.Get(), data, size);
+	//}
 	void StructuredBuffer::BindSRV(eShaderStage stage, UINT slot)
 	{
 		mSRVSlot = slot;

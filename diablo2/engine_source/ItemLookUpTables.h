@@ -44,8 +44,7 @@ namespace m
 		cap,
 		END
 	};
-	//std::wstring 
-	std::wstring itemNameTable[(int)eItem::END] = {
+	static std::wstring itemNameTable[(int)eItem::END] = {
 		// posions
 		L"hpPosion1",
 		L"mpPosion1",
@@ -59,14 +58,14 @@ namespace m
 		//helmet
 		L"cap",
 	};
-	bool bodyChange[(int)eItem::END] = {
+	static bool bodyChange[(int)eItem::END] = {
 		false,
 		false,
 		true,
 		false,
 		true,
 	};
-	eItemIncreaseType itemIncTable[(int)eItem::END] = {
+	static eItemIncreaseType itemIncTable[(int)eItem::END] = {
 		eItemIncreaseType::Posion,
 		eItemIncreaseType::Posion,
 
@@ -75,28 +74,28 @@ namespace m
 		eItemIncreaseType::Defense,
 		eItemIncreaseType::Defense,
 	};
-	std::wstring fieldItemTable[(int)eItem::END] = {
+	static std::wstring fieldItemTable[(int)eItem::END] = {
 		L"hpPosionField",
 		L"mpPosionField",
 		L"jaredsStoneField",
 		L"leaderArmorField",
 		L"capField"
 	};
-	std::wstring fieldItemAnimTable[(int)eItem::END] = {
+	static std::wstring fieldItemAnimTable[(int)eItem::END] = {
 		L"hpPosionAnim",
 		L"mpPosionAnim",
 		L"jaredsStoneAnim",
 		L"leaderArmorAnim",
 		L"capAnim",
 	};
-	int fieldItemAnimLenght[(int)eItem::END] = {
+	static int fieldItemAnimLenght[(int)eItem::END] = {
 		17,
 		17,
 		18,
 		17,
 		17,
 	};
-	std::wstring itemBodyPartMaterialNames[(int)eItem::END][6][13] = {
+	static std::wstring itemBodyPartMaterialNames[(int)eItem::END][6][13] = {
 		{},
 		{},
 
@@ -298,7 +297,7 @@ namespace m
 			}
      },
 	};
-	m::math::Vector2 itemBodyPartSizes[(int)eItem::END][6][13] = {
+	static m::math::Vector2 itemBodyPartSizes[(int)eItem::END][6][13] = {
 		{},
 		{},
 		{
@@ -500,7 +499,7 @@ namespace m
 		},
 
 	};
-	m::math::Vector2 itemAnimCenterPos[(int)eItem::END][6][13] = {
+	static m::math::Vector2 itemAnimCenterPos[(int)eItem::END][6][13] = {
 			{},
 		{},
 		{
@@ -696,7 +695,7 @@ namespace m
 		},
 	};
 
-	eItemType itemTypeTable[(int)eItem::END] = {
+	static eItemType itemTypeTable[(int)eItem::END] = {
 		eItemType::Posion,
 		eItemType::Posion,
 
@@ -707,7 +706,7 @@ namespace m
 		eItemType::Helmet,
 
 	};
-	m::math::Vector2 itemFieldAnimSpaceTable[(int)eItem::END] = {
+	static m::math::Vector2 itemFieldAnimSpaceTable[(int)eItem::END] = {
 		{20.f, 159.f}
 		,{20.f, 159.f}
 		,{37.f, 153.f}
@@ -718,7 +717,7 @@ namespace m
 
 	//};
 	// 28.f, 28.f = one inven = 1.f, 1.f
-	float itemInvenDisplayScale[(int)eItem::END][2] = {
+	static float itemInvenDisplayScale[(int)eItem::END][2] = {
 		{1.f, 1.f},
 		{1.f, 1.f},
 
@@ -730,7 +729,7 @@ namespace m
 	// posion = 0 비용 1 회복량
 	// weapon = 0 비용 1 데미지 2 착용가능한 레벨
 	// armor = 0 비용 1 방어 2 착용가능한 레벨
-	int itemFunctionValue[(int)eItem::END][4] = {
+	static int itemFunctionValue[(int)eItem::END][4] = {
 		{25,30,0,0},
 		{50, 40,0,0},
 
@@ -741,7 +740,7 @@ namespace m
 		{100,5,1,0},
 	};
 
-	std::wstring itemCostFunctionNames[(int)eItem::END][5] = {
+	static std::wstring itemCostFunctionNames[(int)eItem::END][5] = {
 		{L"미량의 힐링포션", L"비용: ",L"회복량: ",L"",L""},
 		{L"미량의 마나포션", L"비용: ",L"회복량: ",L"",L""},
 
