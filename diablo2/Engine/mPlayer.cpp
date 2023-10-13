@@ -159,7 +159,9 @@ namespace m
 
 		mPathFinder->AstarPathFinding(curCoord, targetCoord);
 		if (!MouseManager::GetMouseOnUI()
-			&& Input::GetKeyDown(eKeyCode::RBUTTON))
+			&& 
+			(Input::GetKeyDown(eKeyCode::RBUTTON)
+				|| Input::GetKey(eKeyCode::RBUTTON)))
 		{
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 			Vector3 tempPrev = GET_POS(this);
@@ -244,10 +246,11 @@ namespace m
 		{
 			bCanDamaged = false;
 
-			if (PlayerStatus::defense - damage <= 0) damage = 1;
+			if (damage - PlayerStatus::defense <= 0) damage = 1;
 			else damage -= PlayerStatus::defense;
-			if (PlayerManager::hp - damage < 0) PlayerManager::hp = 0;
-			else PlayerManager::hp -= damage;
+
+			if (PlayerManager::hp - static_cast<float>(damage) < 0) PlayerManager::hp = 0;
+			else PlayerManager::hp -= static_cast<float>(damage);
 
 			PlayerManager::CalHpPercent();
 			mHp->SetUVCoord(PlayerManager::hpPercent);

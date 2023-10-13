@@ -62,7 +62,8 @@ namespace m
                         skill->SetSkillCrash(true);
                     }else
                     {
-                        skill->SetState(GameObject::eState::Delete);
+                        skill->SetSkillCrash(true);
+                        //skill->SetState(GameObject::eState::Delete);
                     }
                 }
                 else

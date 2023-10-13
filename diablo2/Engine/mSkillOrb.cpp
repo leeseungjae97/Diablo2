@@ -121,7 +121,7 @@ namespace m
             AudioSource* mAudioSource = GET_COMP(this, AudioSource);
             int iRandIndex = rand() % 3;
             std::wstring name = skillSoundPath[(int)eSkillType::frozenOrb][iRandIndex];
-            mAudioSource->PlayGroup(name);
+            mAudioSource->Play(name);
 
             ++iNumUse;
             int n = 0;

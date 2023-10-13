@@ -10,17 +10,22 @@ namespace FMOD
 
 namespace m
 {
-    class AudioClip :
-        public Resource
+    class AudioClip
     {
     public:
         AudioClip();
         virtual ~AudioClip();
 
-        virtual HRESULT Load(const std::wstring& path) override;
+        //virtual HRESULT Load(const std::wstring& path);
+        void SetSound(FMOD::Sound* sound);
 
         void Play();
+        void PlayCrash();
+        void PlayFire();
+        void PlayRun();
+
         void Stop();
+        void SetVolume(float vol);
         void Set3DAttributes(const Vector3 pos, const Vector3 vel);
         void SetLoop(bool loop) { mbLoop = loop; }
         bool IsPlaying();

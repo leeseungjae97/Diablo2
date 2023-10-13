@@ -5,6 +5,8 @@ namespace m
 {
 	SkillScript::SkillScript()
 		: mDirection(0)
+		, mAnimator(nullptr)
+		, mAudioSource(nullptr)
 	{
 	}
 	SkillScript::~SkillScript()

@@ -1,6 +1,7 @@
 #pragma once
 #include "MoveAbleObjectAnimLookUpTables.h"
 #include "mSkillScript.h"
+#include "mSkillStraight.h"
 
 namespace m
 {
@@ -23,13 +24,14 @@ namespace m
 
         void SkillFire() { bSkillFire = true; }
         void Mute(bool mute) { bMute = mute; }
+        void SoundLoop(bool b_sound_loop) { bSoundLoop = b_sound_loop; }
 
     private:
         int mDirectionCount;
         bool bNoHit;
         bool bSkillFire;
         bool bMute;
-
+        bool bSoundLoop;
         std::wstring skillName;
         eSixteenDirection* mDirections;
         eSkillCrashType mSkillCrashType;

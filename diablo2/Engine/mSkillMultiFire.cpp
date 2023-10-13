@@ -86,9 +86,11 @@ namespace m
 		}
 		if (mFireType == eFireType::Radial)
 		{
+			ADD_COMP(this, AudioSource);
 		}
 		if (mFireType == eFireType::Circle)
 		{
+			ADD_COMP(this, AudioSource);
 		}
 		
 		Vector3 initDegreeVector3 = targetPos - pos;
@@ -96,7 +98,7 @@ namespace m
 		initDegreeVector3.Normalize();
 		float initDegree = RadianToDegree(atan2(initDegreeVector3.y, initDegreeVector3.x));
 
-		std::default_random_engine generator(std::time(nullptr));
+		
 		SkillStraight* head = nullptr;
 		for (int i = 0; i < mCount; ++i)
 		{
@@ -105,26 +107,33 @@ namespace m
 			if (mFireType == eFireType::HeadDamage)
 			{
 				sf = makeHeadLinear(type, startPos, camera, skillGenTime, i);
+				sf->Mute(true);
 				bFirstUpdate = true;
 			}
 			if (mFireType == eFireType::RandomFall)
 			{
-				sf = makeRandomFall(randFireRange, startPos, type, generator);
+				sf = makeRandomFall(randFireRange, startPos, type);
+				sf->Mute(true);
 			}
 			if (mFireType == eFireType::RandomLinear)
 			{
 				sf = makeRandomLinear(randFireRange.y, startPos, type, camera, layerType);
+				sf->Mute(true);
 				bFirstUpdate = true;
 			}
 			if (mFireType == eFireType::Linear)
 			{
 				mSkillFireTimes.push_back(skillGenTime);
 				sf = new SkillStraight(type, startPos, 400.f);
+				sf->Mute(true);
 			}
 			if(mFireType == eFireType::FixedLinear)
 			{
 				mSkillFireTimes.push_back(skillGenTime);
 				sf = new SkillStraight(type, startPos, 400.f);
+				sf->SetSkillOwnerLayer(layerType);
+				sf->Mute(true);
+
 				sf->SetCamera(camera);
 				sf->SetDestPosition(targetPos);
 				bFirstUpdate = true;
@@ -132,15 +141,19 @@ namespace m
 			if(mFireType == eFireType::RadialRandomStraight)
 			{
 				sf = makeRadialRandomStraight(randFireRange.y, startPos, type, camera, layerType, initDegree, (float)i);
+				//sf->Mute(true);
+				sf->SoundLoop();
 				bFirstUpdate = true;
 			}
 			if (mFireType == eFireType::Radial)
 			{
 				sf = makeRadialStraight(startPos, type, initDegree, (float)i);
+				sf->Mute(true);
 			}
 			if (mFireType == eFireType::Circle)
 			{
 				sf = makeCircleStraights(startPos, type, (float)i);
+				sf->Mute(true);
 			}
 			SceneManager::GetActiveScene()->AddGameObject(layerType, sf);
 
@@ -158,6 +171,8 @@ namespace m
 	void SkillMultiFire::Update()
 	{
 		Skill::Update();
+		AudioSource* as = GET_COMP(this, AudioSource);
+
 		if (!bFirstUpdate)
 		{
 			for (Skill* sf : skills)
@@ -166,6 +181,28 @@ namespace m
 			}
 			bFirstUpdate = true;
 		}
+		if (mFireType == eFireType::Linear
+			|| mFireType == eFireType::FixedLinear
+			|| mFireType == eFireType::HeadDamage
+			|| mFireType == eFireType::Radial
+			|| mFireType == eFireType::Circle
+			|| mFireType == eFireType::RandomLinear
+			)
+		{
+			if(!IsSoundPlayed())
+			{
+				std::wstring name = skillSoundPath[(int)mSkillType][0];
+				if (as)
+					as->Play(name, skillSoundLoop[(int)mSkillType], false);
+				SoundPlay(true);
+			}	
+		}else
+		{
+			std::wstring name = skillSoundPath[(int)mSkillType][0];
+			if (as)
+				as->Play(name, skillSoundLoop[(int)mSkillType], false);
+		}
+
 		if (mFireType == eFireType::Radial
 			|| mFireType == eFireType::Circle
 			|| mFireType == eFireType::RandomLinear
@@ -179,6 +216,9 @@ namespace m
 		{
 			if (mSkillFireTimes.size() <= curIndex)
 			{
+				if (skillSoundLoop[(int)mSkillType] && as)
+				    as->Stop(AudioSource::eAudioClipType::Fire);
+
 				SetState(GameObject::eState::Delete);
 				bSkillFire = true;
 				return;
@@ -291,7 +331,7 @@ namespace m
     }
 
     SkillFall* SkillMultiFire::makeRandomFall(Vector2 randFireRange, Vector3 startPos
-                                              , eSkillType type, std::default_random_engine generator)
+                                              , eSkillType type)
 	{
 		int randX = rand() % (int)randFireRange.x;
 		int randY = rand() % (int)randFireRange.y;
@@ -303,8 +343,12 @@ namespace m
 		startPos.x += (float)randX;
 		startPos.y += (float)randY;
 
-		std::uniform_real_distribution<float> distribution(0.0f, 0.5f);
-		mSkillFireTimes.push_back(distribution(generator));
+
+		int iRand =rand() % 5;
+		float fRandN = static_cast<float>(iRand);
+		fRandN /= 10;
+		mSkillFireTimes.push_back(fRandN);
+
 		if (type == eSkillType::blizzard)
 		{
 			return new SkillFall(type, startPos, skillSpeed[(int)type], false, false, eAccessorySkillType::Blizzard1);

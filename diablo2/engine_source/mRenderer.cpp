@@ -661,12 +661,12 @@ namespace renderer
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
 		m::Resources::Insert(L"PaintTexture", uavTexture);
 
-		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
-		Resources::Load<Texture>(L"cartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+		//std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+		//Resources::Load<Texture>(L"cartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
 
-		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
-		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
-		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.jpg");
+		//Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		//Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.jpg");
 	}
 
 	void LoadMaterial()
@@ -803,7 +803,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"jareds_stone_field", L"..\\Resources\\texture\\field_items\\jareds_stone_field.png", L"jaredsStoneField");
 #pragma endregion
 #pragma region Map
-		MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
+		//MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
 		MAKE_MATERIAL(spriteShader, L"stage_3", L"..\\Resources\\texture\\map\\stage3\\stage3.png", L"stage3");
 		MAKE_MATERIAL(spriteShader, L"stage_2", L"..\\Resources\\texture\\map\\stage2\\stage2.png", L"stage2");
@@ -1445,30 +1445,30 @@ namespace renderer
 	}
 	void BindNoiseTexture()
 	{
-		std::shared_ptr<Texture> texture
-			= Resources::Find<Texture>(L"Noise03");
+		//std::shared_ptr<Texture> texture
+		//	= Resources::Find<Texture>(L"Noise03");
 
-		texture->BindShaderResource(eShaderStage::VS, 15);
-		texture->BindShaderResource(eShaderStage::HS, 15);
-		texture->BindShaderResource(eShaderStage::DS, 15);
-		texture->BindShaderResource(eShaderStage::GS, 15);
-		texture->BindShaderResource(eShaderStage::PS, 15);
-		texture->BindShaderResource(eShaderStage::CS, 15);
+		//texture->BindShaderResource(eShaderStage::VS, 15);
+		//texture->BindShaderResource(eShaderStage::HS, 15);
+		//texture->BindShaderResource(eShaderStage::DS, 15);
+		//texture->BindShaderResource(eShaderStage::GS, 15);
+		//texture->BindShaderResource(eShaderStage::PS, 15);
+		//texture->BindShaderResource(eShaderStage::CS, 15);
 
-		ConstantBuffer* cb = constantBuffers[(UINT)eCBType::Noise];
-		NoiseCB data = {};
-		data.size.x = texture->GetWidth();
-		data.size.y = texture->GetHeight();
+		//ConstantBuffer* cb = constantBuffers[(UINT)eCBType::Noise];
+		//NoiseCB data = {};
+		//data.size.x = texture->GetWidth();
+		//data.size.y = texture->GetHeight();
 
-		cb->SetData(&data);
-		cb->Bind(eShaderStage::VS);
-		cb->Bind(eShaderStage::GS);
-		cb->Bind(eShaderStage::PS);
-		cb->Bind(eShaderStage::CS);
+		//cb->SetData(&data);
+		//cb->Bind(eShaderStage::VS);
+		//cb->Bind(eShaderStage::GS);
+		//cb->Bind(eShaderStage::PS);
+		//cb->Bind(eShaderStage::CS);
 	}
 	void Render()
 	{
-		BindNoiseTexture();
+		//BindNoiseTexture();
 		BindLights();
 
 		for (Camera* cam : cameras)

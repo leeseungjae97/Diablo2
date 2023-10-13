@@ -219,7 +219,7 @@ namespace m
 
 		eSkillFunctionType::Straight,// L"fireBoltIcon",
 		eSkillFunctionType::Passive,// L"warmthIcon",
-		eSkillFunctionType::FixedMultiStraight,// L"infernoIcon",
+		eSkillFunctionType::LinearStraight,// L"infernoIcon",
 		eSkillFunctionType::Follower,// L"blazeIcon",
 		eSkillFunctionType::Straight,// L"fireBallIcon",
 		eSkillFunctionType::Wall,// L"fireWallIcon",

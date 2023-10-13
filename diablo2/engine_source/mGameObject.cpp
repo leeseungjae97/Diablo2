@@ -19,6 +19,8 @@ namespace m
 		, bRhombus(false)
 		, iGameObjectId(0)
 	    , bSoundPlay(false)
+		, bMute(false)
+		, bSoundLoop(false)
 	{
 		iGameObjectId = GameObjectIdDispender;
 		GameObjectIdDispender++;

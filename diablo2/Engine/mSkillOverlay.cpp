@@ -16,6 +16,8 @@ namespace m
 	{
 		ADD_COMP(this, MeshRenderer);
 		ADD_COMP(this, Animator);
+		ADD_COMP(this, AudioSource);
+
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
 		if (mCurIndex == -1)

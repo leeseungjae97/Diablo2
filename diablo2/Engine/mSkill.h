@@ -43,6 +43,7 @@ namespace m
         void HitWall();
 
         UINT GetSkillId() { return mSkillId; }
+
     protected:
         eSkillType mSkillType;
         bool bSkillFire;

@@ -53,10 +53,10 @@ namespace m
 			if (Input::GetKey(eKeyCode::LBUTTON))
 			{
 				AudioSource* as = GET_COMP(this, AudioSource);
-				if(!SoundPlay())
+				if(!IsSoundPlayed())
 				{
-					as->Play(eButtonSoundType::ButtonClick);
-					SetSoundPlay(true);
+					as->Play(eButtonSoundType::ButtonClick, false, false);
+					SoundPlay(true);
 				}
 
 				bClick = true;
@@ -72,7 +72,7 @@ namespace m
 		}
 		else
 		{
-			SetSoundPlay(false);
+			SoundPlay(false);
 		}
 
 		if (!Input::GetKey(eKeyCode::LBUTTON))

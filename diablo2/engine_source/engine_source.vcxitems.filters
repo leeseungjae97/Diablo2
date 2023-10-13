@@ -438,8 +438,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SoundLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)mSoundManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mStageManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mSoundManager.h">
+      <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)mApplication.cpp">
@@ -622,8 +624,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mFieldItemManager.cpp">
       <Filter>Manager\FieldItemManager</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)mSoundManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mStageManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mSoundManager.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)mMath.inl">

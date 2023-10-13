@@ -88,7 +88,16 @@ namespace m
 			pos.y += NPCSizes[(int)mNPCType].y * 2.f;
 			SET_POS_VEC(mInteractUI, pos);
 		}
-			
+		if(GetState() == NoRenderUpdate
+			|| GetState() == NoRenderNoUpdate)
+		{
+			Light* light = GET_COMP(this, Light);
+			light->LightOff();
+		}else
+		{
+			Light* light = GET_COMP(this, Light);
+			light->LightOn();
+		}
 		//for (Button* button : textes) button->SetState(mInteractUI->GetState());
 	
 	}

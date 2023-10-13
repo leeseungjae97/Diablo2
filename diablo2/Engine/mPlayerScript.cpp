@@ -203,31 +203,29 @@ namespace m
 				{
 					if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
 					{
-						mAnimator->SetAnimationEndIndex(10);
+						mAnimator->SetAnimationStartIndex(9);
+						mAnimator->SetAnimationEndIndex(12);
 					}
 					else
 						mAnimator->SetAnimationStartIndex(0);
 
 			        mAnimator->SetAnimationProgressIndex(10);
 			        GetOwner()->SetBattleState(GameObject::eBattleState::Cast);
-			        bFire = true;
 				});
-			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
+			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
 				= std::make_shared<std::function<void()>>([=]()
-			{
+	    	{
 				if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
 				{
-					mAnimator->SetAnimationStartIndex(10);
-
 					if (skillMake)
 					{
 						if (nullptr != mSkill)
 						{
 							if (mSkill->GetSkillFire())
 							{
-								skillMake = false;
 								int endIndex = mAnimator->GetActiveAnimation()->GetAltasLength();
 								mAnimator->SetAnimationEndIndex(endIndex);
+								skillMake = false;
 							}
 						}
 						else
@@ -239,31 +237,69 @@ namespace m
 					}
 					else
 					{
-						if (mAnimator->GetActiveAnimation()->GetAltasLength() - 1 == mAnimator->GetAnimationIndex())
+						if (bFire)
 						{
-							GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+							PlayerManager::player->UseMana(10);
+							makeSkill(PlayerManager::GetSkill(activeSkillIndex)
+								, activeSkillIndex
+								, GET_POS(PlayerManager::player)
+								, eLayerType::PlayerSkill);
+							bFire = false;
 						}
 					}
 				}
-			});
-			mAnimator->ProgressEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
-				= std::make_shared<std::function<void()>>([this]()
-			{
-				if (bFire)
+				else
 				{
-					PlayerManager::player->UseMana(10);
-					makeSkill(PlayerManager::GetSkill(activeSkillIndex)
-						, activeSkillIndex
-						, GET_POS(PlayerManager::player)
-						, eLayerType::PlayerSkill);
-					bFire = false;
+					if (bFire)
+					{
+						PlayerManager::player->UseMana(10);
+						makeSkill(PlayerManager::GetSkill(activeSkillIndex)
+							, activeSkillIndex
+							, GET_POS(PlayerManager::player)
+							, eLayerType::PlayerSkill);
+						bFire = false;
+					}
 				}
+			   
 			});
+			//mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
+			//	= std::make_shared<std::function<void()>>([this]()
+			//{
+
+			//});
+			//mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
+			mAnimator->CompleteEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
+				= std::make_shared<std::function<void()>>([this]()
+					{
+						if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
+						{
+							if (!skillMake)
+							{
+								GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+							}
+						}
+						else
+						{
+							mAnimator->SetAnimationStartIndex(0);
+							GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+						}
+
+					});
 			mAnimator->EndEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::SpecialCast] + sixteenDirectionString[i])
 				= std::make_shared<std::function<void()>>([this]()
 			{
-				mAnimator->SetAnimationStartIndex(0);
-				GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+				if (PlayerManager::GetSkill(activeSkillIndex) == eSkillType::inferno)
+				{
+				     if(!skillMake)
+				     {
+					     GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+				     }
+				}else
+				{
+					mAnimator->SetAnimationStartIndex(0);
+					GetOwner()->SetBattleState(GameObject::eBattleState::Idle);
+				}
+				
 			});
 
 			mAnimator->StartEvent(sorceressAnimationString[(UINT)ePlayerAnimationType::Attack1] + sixteenDirectionString[i])
@@ -320,8 +356,12 @@ namespace m
 		if (Input::GetKeyDown(eKeyCode::RBUTTON))
 		{
 			mAnimationType = ePlayerAnimationType::SpecialCast;
-			SpecialCastAnimation(1);
+		    SpecialCastAnimation(1);
+			bFire = true;
 		}
+
+		SpecialAttackAnimationConitnue();
+
 		if (PlayerManager::player->GetHit())
 		{
 			mAnimationType = ePlayerAnimationType::GetHit;
@@ -388,7 +428,24 @@ namespace m
 		GetOwner()->SetBattleState(state);
 		//mRSO->ActiveOverlay();
 	}
-	void PlayerScript::AttackProgress()
+
+    void PlayerScript::SpecialAttackAnimationConitnue()
+    {
+		if (mAnimationType != ePlayerAnimationType::SpecialCast) return;
+
+		int prevIndex = mAnimator->GetAnimationIndex();
+
+		if (mAnimator->GetActiveAnimation()->GetKey() != sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection])
+		{
+			SET_SCALE_XYZ(GetOwner(), sorceressAnimationSizes[(UINT)mAnimationType].x
+				, sorceressAnimationSizes[(UINT)mAnimationType].y, 0.f);
+
+			mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], true);
+			mAnimator->SetAnimationIndex(prevIndex);
+		}
+    }
+
+    void PlayerScript::AttackProgress()
 	{
 		if (PlayerManager::player->GetRangeCollider()->GetOnEnter()
 			|| PlayerManager::player->GetRangeCollider()->GetOnStay())
@@ -412,6 +469,15 @@ namespace m
 
 	void PlayerScript::makeSkill(eSkillType skillType, int activeSkillIndex, Vector3 vector3Pos, eLayerType fireLayerType)
 	{
+		if(skillType == eSkillType::telekinesis)
+		{
+			AudioSource* as = GET_COMP(GetOwner(), AudioSource);
+			std::wstring name = skillSoundPath[(int)skillType][0];
+			if (as)
+				as->Play(name, skillSoundLoop[(int)skillType], false);
+		}
+		
+
 		switch (skillFunctionTypes[(int)skillType])
 		{
 		case m::eSkillFunctionType::Straight:
@@ -455,9 +521,14 @@ namespace m
 		break;
 		case m::eSkillFunctionType::LinearStraight:
 		{
-			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, 20, (int)SkillMultiFire::eFireType::Linear, fireLayerType);
+			int count = 0;
+			if (skillType == eSkillType::inferno)
+				count = 40;
+			else
+				count = 20;
+			mSkill = new SkillMultiFire(GET_POS(GetOwner()), skillType, count, (int)SkillMultiFire::eFireType::Linear, fireLayerType);
 			mSkill->SetCamera(GetOwner()->GetCamera());
-			mSkill->SkillFire();
+			//mSkill->SkillFire();
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::AdapterSkill, mSkill);
 		}
 		break;
@@ -629,6 +700,8 @@ namespace m
 
 	void PlayerScript::SpecialCastAnimation(int skillIndex)
 	{
+		if (GetOwner()->GetBattleState() == GameObject::Cast) return;
+
 		if (castBack[(int)skillCastTypes[(UINT)PlayerManager::GetSkill(skillIndex)]])
 		{
 			mBackSO->SetSkillIndex(skillIndex);

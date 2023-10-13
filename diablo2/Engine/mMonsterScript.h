@@ -7,7 +7,8 @@
 
 namespace m
 {
-	class Aura;
+    class AudioSource;
+    class Aura;
     class SkillOverlay;
     class SkillBuff;
     class Monster;
@@ -69,6 +70,7 @@ namespace m
 
 		std::vector<SHARED_TEX> texs;
 		Animator* mAnimator;
+		AudioSource* mAudioSource;
 		T::eAnimationType mAnimationType;
 		std::wstring wsDiabloDeadAnimationName;
 

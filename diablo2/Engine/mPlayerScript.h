@@ -39,13 +39,13 @@ namespace m
 		void AnimationComplete(GameObject::eBattleState state);
 
 		void Hit(bool hit, GameObject::eBattleState state);
+        void SpecialAttackAnimationConitnue();
 		void AttackProgress();
 
 		void SetStun(float second);
 		bool GetStun();
 
 		int GetDirection() { return mDirection; }
-		void DrawBackOverlay();
 		//virtual void OnCollisionEnter(Collider2D* other) override;
 		//virtual void OnCollisionStay(Collider2D* other) override;
 		//virtual void OnCollisionExit(Collider2D* other) override;

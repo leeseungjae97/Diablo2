@@ -9,10 +9,12 @@
 #include "../engine_source/mStashManager.h"
 #include "../engine_source/mTileManager.h"
 #include "../engine_source/mFmod.h"
-//#include "..\engine_source\mFontWrapper.h"
+#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mSoundManager.h"
+
 #include "guiEditor.h"
 #include "LoadScenes.h"
-#include "engine_source/mFontWrapper.h"
+
 
 #ifdef _DEBUG
 #pragma comment(lib, "..//x64//Debug//Engine.lib")
@@ -85,6 +87,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     m::TileManager::Release();
     m::Fmod::Release();
     m::FontWrapper::Release();
+    m::SoundManager::Release();
     gui::Editor::Release();
     return (int) msg.wParam;
 }

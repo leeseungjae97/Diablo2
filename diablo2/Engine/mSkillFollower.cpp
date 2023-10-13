@@ -81,7 +81,12 @@ namespace m
         for(int i =0  ; i < iFollowerCount; ++i)
         {
             //int m = rand() % 3;
+            
             TileAffectOverlay* mTAO = new TileAffectOverlay(pos, eAffectOverlayType::Fire2, skillOwnerType);
+            if (i + 1 == iFollowerCount)
+            {
+                ADD_COMP(mTAO, AudioSource);
+            }
             mTAO->SetLoopCount(iFollowerLoopCount);
             mTAO->SetCamera(GetCamera());
             eLayerType mOverlayType;

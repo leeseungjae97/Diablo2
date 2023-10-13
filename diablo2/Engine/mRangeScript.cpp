@@ -5,6 +5,7 @@
 #include "mMonster.h"
 #include "mOverlayEffectSkillScript.h"
 #include "mPlayer.h"
+#include "mPlayerStatus.h"
 #include "mSkillMultiFire.h"
 #include "mSkillOverlay.h"
 

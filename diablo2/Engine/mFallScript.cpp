@@ -15,6 +15,8 @@ namespace m
 		, bSkillFire(false)
 		, bArrival(false)
 		, mTarget(target)
+		, bMute(false)
+		, bSoundLoop(false)
 	{
 	}
 	FallScript::~FallScript()
@@ -23,6 +25,7 @@ namespace m
 	void FallScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		mAudioSource = GET_COMP(GetOwner(), AudioSource);
 
 		Skill* dSkill = dynamic_cast<Skill*>(GetOwner());
 		if (nullptr == dSkill) mType = eSkillType::normalAttack;
@@ -148,6 +151,12 @@ namespace m
 		{
 			mAnimator->StartEvent(crashNames[(int)mCrashType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
+				int iRandIndex = rand() % 3;
+			    std::wstring rand = L"";
+			    rand = skillCrashSoundPath[(int)mType][iRandIndex];
+			    if (rand != L"")
+				    mAudioSource->PlayNoDelay(rand, false, false);
+
 				if (mCrashType == eSkillCrashType::IceCrash1)
 				{
 					Vector3 mPos = GET_POS(GetOwner());
@@ -225,6 +234,12 @@ namespace m
 
 					GetOwner()->ReleaseAnimators();
 					GetOwner()->SetState(GameObject::eState::Delete);
+
+					int iRandIndex = rand() % 3;
+					std::wstring rand = L"";
+					rand = skillCrashSoundPath[(int)mType][iRandIndex];
+					if (rand != L"")
+						mAudioSource->PlayNoDelay(rand, false, false);
 				}
 				if (crashFunction[(int)mCrashType] == eCrashType::Addiction)
 				{
@@ -246,6 +261,12 @@ namespace m
 
 					GetOwner()->ReleaseAnimators();
 					GetOwner()->SetState(GameObject::eState::Delete);
+
+					int iRandIndex = rand() % 3;
+					std::wstring rand = L"";
+					rand = skillCrashSoundPath[(int)mType][iRandIndex];
+					if (rand != L"")
+						mAudioSource->PlayNoDelay(rand, false, false);
 				}
 				if (crashFunction[(int)mCrashType] == eCrashType::Addiction)
 				{
@@ -312,6 +333,15 @@ namespace m
 		}
 		if (bSkillFire)
 		{
+			if(!bMute)
+			{
+				AudioSource* as = GET_COMP(GetOwner(), AudioSource);
+				std::wstring name = skillSoundPath[(int)mType][0];
+				if (as)
+					as->Play(name, skillSoundLoop[(int)mType], false);
+			}
+			
+
 			bSkillFire = false;
 			if (mACType == eAccessorySkillType::END)
 			{

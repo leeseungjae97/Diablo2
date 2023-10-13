@@ -664,7 +664,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1;
+		float hp = 1.f;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {

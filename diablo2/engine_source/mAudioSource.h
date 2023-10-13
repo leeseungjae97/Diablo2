@@ -27,28 +27,29 @@ namespace m
 
 		void ReleaseClips();
 
-		void Play(ePlayerVoiceSoundType type, bool loop = false);
-		void Play(eButtonSoundType type, bool loop = false);
-		void Play(ePlayerRunSoundType type, bool loop = false);
-		void Play(const std::wstring& name, bool loop = false);
-		void PlayGroup(const std::wstring& name, bool loop = false);
-		void PlayNoDelay(const std::wstring& name, bool loop = false);
-		void PlaySounds(ePlayerRunSoundType type, bool loop = false);
+		void Play(ePlayerVoiceSoundType type, bool loop = false, bool b3DAt = true);
+		void Play(eButtonSoundType type, bool loop = false, bool b3DAt = true);
+		void Play(const std::wstring& name, bool loop = false, bool b3DAt = true);
+		void PlayGroup(const std::wstring& name, bool loop = false, bool b3DAt = true);
+		void PlayNoDelay(const std::wstring& name, bool loop = false, bool b3DAt = true, float vol = 30.f);
+		void PlaySounds(ePlayerRunSoundType type, bool loop = false, bool b3DAt = true);
 		void Stop();
 		void Stop(eAudioClipType type);
 		
-		std::shared_ptr<AudioClip> FindClip(ePlayerVoiceSoundType type);
-		std::shared_ptr<AudioClip> FindClip(eButtonSoundType type);
-		std::shared_ptr<AudioClip> FindClip(ePlayerRunSoundType type);
-		std::shared_ptr<AudioClip> FindClip(const std::wstring& name);
+		FMOD::Sound* FindSound(ePlayerVoiceSoundType type);
+		FMOD::Sound* FindSound(eButtonSoundType type);
+		FMOD::Sound* FindSound(ePlayerRunSoundType type);
+		FMOD::Sound* FindSound(const std::wstring& name);
 
-		std::shared_ptr<AudioClip> GetClip(eAudioClipType audioType) { return mAudioClips[(int)audioType]; }
+		AudioClip* GetClip(eAudioClipType audioType) { return mAudioClips[(int)audioType]; }
+        void StopAll();
 
-	private:
-		std::vector<std::shared_ptr<AudioClip>> mAudioClips;
+    private:
+		std::vector<AudioClip*> mAudioClips;
 		std::vector<AudioClip*> mAudioClipGroup;
 		std::vector<AudioClip*> mUsedAudioClip;
 		bool bActiveAudioClip[(int)eAudioClipType::End] = {false,false, false, false, false};
+		bool bAudioClip3DAtr[(int)eAudioClipType::End] = {true,true, true, true, true};
 
 		eButtonSoundType mButtonSoundType;
 		ePlayerRunSoundType mRunSoundType;

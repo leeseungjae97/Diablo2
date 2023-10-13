@@ -16,6 +16,14 @@ namespace m
 	{
 		SET_MESH(this, L"PointMesh");
 		SET_MATERIAL(this, L"noneRect");
+
+		AudioSource* as = ADD_COMP(this, AudioSource);
+
+		std::wstring name = skillSoundPath[(int)mSkillType][0];
+		if (as)
+			as->Play(name, skillSoundLoop[(int)mSkillType], false);
+
+
 		Vector3 initYpos = iniPos;
 		initYpos.y += 1400.f;
 		SetSkillOwnerLayer(layerType);
@@ -36,6 +44,7 @@ namespace m
 				, true, true
 				, eAccessorySkillType::MeteorHead);
 			acc->SetSpeed(1000.f / 2.f);
+			acc->Mute(true);
 			skills.push_back(acc);
 			SceneManager::GetActiveScene()->AddGameObject(layerType, acc);
 
@@ -92,6 +101,8 @@ namespace m
 				bAfterFall = true;
 				
 				activeAffectOverlay();
+
+				SetState(Delete);
 			}
 		}
 	}
@@ -144,6 +155,11 @@ namespace m
 		if (!bSkillFire) return;
 
 		bSkillFire = false;
+		AudioSource* as = GET_COMP(this, AudioSource);
+
+		std::wstring name = skillSoundPath[(int)mSkillType][0];
+		if (as)
+			as->Play(name, skillSoundLoop[(int)mSkillType], false);
 
 		if (mIndicator)
 			mIndicator->SetCamera(GetCamera());

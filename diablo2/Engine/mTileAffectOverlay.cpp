@@ -2,6 +2,7 @@
 
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mLight.h"
+#include "../engine_source/mSoundManager.h"
 
 #include "mAffectOverlayScript.h"
 #include "mTileManager.h"
@@ -23,6 +24,9 @@ namespace m
         SET_MATERIAL(this, L"AnimationMaterial");
         ADD_COMP(this, Collider2D);
         ADD_COMP(this, Animator);
+
+        SoundManager::FireAdd();
+
         mAOS = AddComponent<AffectOverlayScript>(type);
 
         Light* lightComp = AddComponent<Light>();
@@ -34,6 +38,7 @@ namespace m
 
     TileAffectOverlay::~TileAffectOverlay()
     {
+        SoundManager::FireErase();
     }
 
     void TileAffectOverlay::Initialize()

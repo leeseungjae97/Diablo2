@@ -158,6 +158,7 @@ namespace m
 		LightCast2,
 		FireCast1,
 		Teleport,
+		ThunderStorm,
 
 		AndarielPoisonCast,
 
@@ -171,6 +172,7 @@ namespace m
 	L"lightCast2Front",
 	L"fireCast1",
 	L"teleport",
+	L"lightCast2Front",
 	L"andarielSkillOverlay",
 	};
 	static m::math::Vector2 castSizes[(int)eSkillCastType::END] = {
@@ -181,6 +183,7 @@ namespace m
 		m::math::Vector2(147.f, 190.f),
 		m::math::Vector2(145.f, 133.f),
 		m::math::Vector2(136.f, 154.f),
+		m::math::Vector2(147.f, 190.f),
 		m::math::Vector2(162.f, 107.f),
 	};
 	static m::math::Vector2 castOffset[(int)eSkillCastType::END] = {
@@ -192,6 +195,7 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(8.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 	};
 	static m::math::Vector2 castCenterPos[(int)eSkillCastType::END] = {
 	m::math::Vector2(0.f, 0.f),
@@ -201,6 +205,7 @@ namespace m
 	m::math::Vector2(0.f, 40.f),
 	m::math::Vector2(0.f, 0.f),
 	m::math::Vector2(8.f, 0.f),
+	m::math::Vector2(0.f, 40.f),
 	m::math::Vector2(0.f, 0.f),
 	};
 	static int castLength[(int)eSkillCastType::END] = {
@@ -211,6 +216,7 @@ namespace m
 		10,
 		16,
 		18,
+		10,
 		18,
 	};
 	static bool castBack[(int)eSkillCastType::END] = {
@@ -221,6 +227,7 @@ namespace m
 		true,
 		false,
 		false,
+		true,
 		false,
 	};
 	static std::wstring backCastNames[(int)eSkillCastType::END] = {
@@ -231,6 +238,7 @@ namespace m
     L"lightCast2Back",
     L"",
     L"",
+	L"lightCast2Back",
     L"",
 	};
 	static m::math::Vector2 backCastSizes[(int)eSkillCastType::END] = {
@@ -241,6 +249,7 @@ namespace m
 		m::math::Vector2(101.f, 105.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(101.f, 105.f),
 		m::math::Vector2(0.f, 0.f),
 	};
 	static m::math::Vector2 backCastOffset[(int)eSkillCastType::END] = {
@@ -251,17 +260,19 @@ namespace m
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
 		m::math::Vector2(8.f, 0.f),
 	};
 	static m::math::Vector2 backCastCenterPos[(int)eSkillCastType::END] = {
-m::math::Vector2(0.f, 0.f),
-m::math::Vector2(0.f, 0.f),
-m::math::Vector2(0.f, 0.f),
-m::math::Vector2(0.f, 0.f),
-m::math::Vector2(0.f, 40.f),
-m::math::Vector2(0.f, 0.f),
-m::math::Vector2(8.f, 0.f),
-m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(0.f, 40.f),
+		m::math::Vector2(0.f, 0.f),
+		m::math::Vector2(8.f, 0.f),
+		m::math::Vector2(0.f, 40.f),
+		m::math::Vector2(0.f, 0.f),
 	};
 	static int backCastLength[(int)eSkillCastType::END] = {
 		0,
@@ -271,6 +282,7 @@ m::math::Vector2(0.f, 0.f),
 		10,
 		0,
 		0,
+		10,
 		0,
 	};
 #pragma endregion
@@ -851,8 +863,8 @@ m::math::Vector2(0.f, 0.f),
 		eSkillCrashType::LightCrash1,// chargedBolt
 		eSkillCrashType::LightCrash1,// staticField
 		eSkillCrashType::END,// telekinesis
-		eSkillCrashType::END,// nova
-		eSkillCrashType::END,// lightning
+		eSkillCrashType::LightCrash1,// nova
+		eSkillCrashType::LightCrash1,// lightning
 		eSkillCrashType::LightCrash1,// chainLightning
 		eSkillCrashType::END,// teleport
 		eSkillCrashType::LightCrash1,// thunderStorm
@@ -863,7 +875,7 @@ m::math::Vector2(0.f, 0.f),
 		eSkillCrashType::END,// warmth
 		eSkillCrashType::END,// inferno
 		eSkillCrashType::END,// blaze
-		eSkillCrashType::END,// fireBall
+		eSkillCrashType::FireCrash2,// fireBall
 		eSkillCrashType::END,// fireWall
 		eSkillCrashType::END,// enchant
 		eSkillCrashType::FireCrash2,// meteor
@@ -901,7 +913,7 @@ m::math::Vector2(0.f, 0.f),
 		eSkillCastType::LightCast1,// lightning
 		eSkillCastType::LightCast1,// chainLightning
 		eSkillCastType::Teleport,// teleport
-		eSkillCastType::LightCast2,// thunderStorm
+		eSkillCastType::ThunderStorm,// thunderStorm
 		eSkillCastType::LightCast1,// energyShield
 		eSkillCastType::LightCast1,// lightningMastery
 

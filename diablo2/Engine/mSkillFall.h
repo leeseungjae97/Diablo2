@@ -38,6 +38,7 @@ namespace m
 		bool degreeUpdate;
 		eSkillType mSkillType;
 		eAccessorySkillType mAcType;
+		GameObject* gTarget;
 	};
 }
 

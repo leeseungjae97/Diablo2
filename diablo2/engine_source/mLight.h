@@ -27,9 +27,12 @@ namespace m
 		float GetRadiusX() { return mAttribute.radiusX; }
 		float GetRadiusY() { return mAttribute.radiusY; }
 		float GetAngle() { return mAttribute.angle; }
+		void LightOff() { bLightOff = true; }
+		void LightOn() { bLightOff = false; }
 
     private:
 		LightAttribute mAttribute;
+		bool bLightOff;
     };
 }
 

@@ -22,6 +22,7 @@ namespace m
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
 		ADD_COMP(this, Animator);
+		ADD_COMP(this, AudioSource);
 
 		hpPercent = (hpCapacity - hp) / hpCapacity;
 

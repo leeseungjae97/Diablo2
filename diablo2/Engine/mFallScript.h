@@ -22,6 +22,10 @@ namespace m
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
+
+		void Mute() { bMute = true; }
+		void SoundLoop() { bSoundLoop = true; }
+
 	private:
 		eAccessorySkillType mACType;
 		eSkillCrashType mCrashType;
@@ -29,5 +33,8 @@ namespace m
 
 		bool bSkillFire;
 		bool bArrival;
+
+		bool bMute;
+		bool bSoundLoop;
 	};
 }

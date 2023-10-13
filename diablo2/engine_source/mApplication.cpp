@@ -68,6 +68,8 @@ namespace m
 
 	void Application::Update()
 	{
+		
+
 		Time::Update();
 		Input::Update();
 		
@@ -79,6 +81,9 @@ namespace m
 		ScreenEffectManager::Update();
 
 		TileDrawManager::Update();
+		Fmod::Update();
+
+		SoundManager::ExternSound();
 	}
 
 	void Application::LateUpdate()

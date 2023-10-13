@@ -14,6 +14,7 @@ namespace m
     {
         SET_MESH(this, L"PointMesh");
         SET_MATERIAL(this, L"noneRect");
+        //ADD_COMP(this, AudioSource);
         SetCamera(camera);
         skillOwnerType = ownerLayer;
         makeNormalVector(camera, initPos, type);
@@ -31,6 +32,12 @@ namespace m
     void SkillWall::Update()
     {
         Skill::Update();
+        //if(!bSoundPlay)
+        //{
+        //    AudioSource* mAudioSource = GET_COMP(this, AudioSource);
+        //    mAudioSource->PlayNoDelay(L"..\\Resources\\sound\\object\\fire2.wav", true, true, 20.f);
+        //    bSoundPlay = true;
+        //}
     }
 
     void SkillWall::LateUpdate()

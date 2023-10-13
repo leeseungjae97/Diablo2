@@ -183,8 +183,21 @@ namespace m
 		void PlayAnimators(const std::wstring playName, bool loop, Vector2 size, bool useDirect, Collider2D* col);
 		void ReleaseAnimators();
 
-		bool SoundPlay() { return bSoundPlay; }
-		void SetSoundPlay(bool play) { bSoundPlay = play; }
+		bool IsSoundPlayed() { return bSoundPlay; }
+		void SoundPlay(bool play) { bSoundPlay = play; }
+
+		void Mute(bool mute) { bMute = mute; }
+		bool IsMute() { return bMute; }
+
+		void SoundLoop() { bSoundLoop = true; }
+		bool IsSoundLoop() { return bSoundLoop; }
+
+	protected:
+		bool bMute;
+		bool bSoundLoop;
+
+		bool bSoundPlay;
+
 	private:
 		eState mState;
 		eLayerType mLayerType;
@@ -198,8 +211,6 @@ namespace m
 
 		bool bCulled;
 		bool bTileCulled;
-
-		bool bSoundPlay;
 
 		UINT iGameObjectId;
 		static UINT GameObjectIdDispender;

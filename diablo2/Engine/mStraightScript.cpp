@@ -19,10 +19,12 @@ namespace m
 		, mCrashType(eCrashType::END)
 		, bNoHit(false)
 	    , bMute(false)
+	    , bSoundLoop(false)
 	{
 	}
 	StraightScript::~StraightScript()
 	{
+		
 	}
 	void StraightScript::Initialize()
 	{
@@ -153,6 +155,13 @@ namespace m
 				, 0.7f);
 			mAnimator->StartEvent(crashNames[(int)mSkillCrashType] + L"anim") = std::make_shared<std::function<void()>>([this]()
 			{
+				int iRandIndex = rand() % 3;
+			    std::wstring rand = L"";
+			    rand = skillCrashSoundPath[(int)mType][iRandIndex];
+			    if (rand != L"")
+				    mAudioSource->PlayNoDelay(rand, false, false);
+				
+
 				if (dynamic_cast<SkillStraight*>(GetOwner()))
 					dynamic_cast<SkillStraight*>(GetOwner())->StopMove();
 
@@ -181,6 +190,7 @@ namespace m
 	    if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash()
 			&& mCrashType == eCrashType::Overlay)
 		{
+			mAudioSource->StopAll();
 			GetOwner()->SetState(GameObject::eState::Delete);
 		}
 
@@ -209,7 +219,8 @@ namespace m
 				std::wstring rand = L"";
 				rand = skillSoundPath[(int)mType][iRandIndex];
 				if (rand != L"")
-					mAudioSource->Play(rand);
+					mAudioSource->Play(rand, bSoundLoop);
+				bMute = true;
 			}
 			
 
@@ -267,6 +278,7 @@ namespace m
 		{
 			if (bNoHit)
 			{
+				mAudioSource->StopAll();
 				GetOwner()->SetState(GameObject::eState::Delete);
 			}
 			else
@@ -300,6 +312,12 @@ namespace m
 						{
 							dynamic_cast<Skill*>(GetOwner())->SetSkillCrash(true);
 						}
+
+						int iRandIndex = rand() % 3;
+						std::wstring rand = L"";
+						rand = skillCrashSoundPath[(int)mType][iRandIndex];
+						if (rand != L"")
+							mAudioSource->PlayNoDelay(rand, false, false);
 					}
 					if (mCrashType == eCrashType::Addiction)
 					{
@@ -327,6 +345,13 @@ namespace m
 						mOESS->SetSkillType(mType);
 						//if(!mOESS->IsPlayHit())
 						ps->GetHSO()->ActiveOverlay();
+
+						int iRandIndex = rand() % 3;
+						std::wstring rand = L"";
+						rand = skillCrashSoundPath[(int)mType][iRandIndex];
+						if (rand != L"")
+							mAudioSource->PlayNoDelay(rand, false, false);
+
 					}
 					if (mCrashType == eCrashType::Addiction)
 					{

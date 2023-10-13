@@ -52,7 +52,7 @@ namespace m
 			, eLayerType layerType, float initDegree, float addDegree);
 		Skill* makeRandomLinear(float randomY, Vector3 vector3, eSkillType type, Camera* camera, eLayerType layerType);
 		SkillStraight* makeCircleStraights(Vector3 vector3, eSkillType type, float addDegree);
-		SkillFall* makeRandomFall(Vector2 vector2, Vector3 startPos, eSkillType type, std::default_random_engine generator);
+		SkillFall* makeRandomFall(Vector2 vector2, Vector3 startPos, eSkillType type);
 		SkillStraight* makeRadialStraight(Vector3 startPos, eSkillType type
 			, float initDegree, float addDegree);
 

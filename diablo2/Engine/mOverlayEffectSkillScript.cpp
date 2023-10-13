@@ -22,6 +22,7 @@ namespace m
 	void OverlayEffectSkillScript::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		mAudioSource = GET_COMP(GetOwner(), AudioSource);
 
 		SHARED_MAT noneMat = RESOURCE_FIND(Material, L"noneRect");
 		mAnimator->Create(
@@ -74,8 +75,8 @@ namespace m
 		SkillScript::SetSkillType(type);
 	}
 
-    void OverlayEffectSkillScript::UpdateBackOverlaySkill()
-    {
+	void OverlayEffectSkillScript::UpdateBackOverlaySkill()
+	{
 		mType = PlayerManager::GetSkill(skillIndex);
 		eSkillCastType castType = skillCastTypes[(int)mType];
 
@@ -95,7 +96,7 @@ namespace m
 			, 0.8f
 		);
 		SET_SCALE_XYZ(GetOwner(), backCastSizes[(int)castType].x, backCastSizes[(int)castType].y, 1.f);
-		
+
 		if (backCastNames[(int)castType] != L"")
 		{
 			if (mAnimator->GetActiveAnimation()->GetKey() != backCastNames[(int)castType] + L"anim")
@@ -104,9 +105,9 @@ namespace m
 			}
 		}
 		bPlaySkill = false;
-    }
+	}
 
-    void OverlayEffectSkillScript::UpdateOverlaySkill()
+	void OverlayEffectSkillScript::UpdateOverlaySkill()
 	{
 		if (skillIndex == -1)
 		{
@@ -116,7 +117,7 @@ namespace m
 				if (crashType == eSkillCrashType::END) return;
 
 				SHARED_MAT mat = RESOURCE_FIND(Material, crashNames[(int)crashType]);
-				
+
 				mAnimator->Create(
 					crashNames[(int)crashType] + L"anim"
 					, mat->GetTexture()
@@ -161,6 +162,16 @@ namespace m
 
 			if (castNames[(int)castType] != L"")
 			{
+				mAnimator->StartEvent(castNames[(int)castType] + L"anim")
+					= std::make_shared<std::function<void()>>([=]()
+					{
+						int iRandIndex = rand() % 3;
+				        std::wstring rand = L"";
+				        rand = skillCastSoundPath[(int)castType];
+				        if (rand != L"")
+					        mAudioSource->PlayNoDelay(rand, false, false);
+					}
+				);
 				if (mAnimator->GetActiveAnimation()->GetKey() != castNames[(int)castType] + L"anim")
 				{
 					mAnimator->PlayAnimation(castNames[(int)castType] + L"anim", false);

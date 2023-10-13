@@ -158,7 +158,7 @@ namespace m
 
 		int index = mSyncAnimator->GetActiveAnimation()->GetIndex();
 
-		if(!mActiveAnimation->GetEndIndex() < index)
+		if(mActiveAnimation->GetEndIndex() >= index)
 			mActiveAnimation->SetIndex(index);
 	}
 

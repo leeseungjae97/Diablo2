@@ -168,7 +168,7 @@ namespace m
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
 
-		Stage1();
+		Stage4();
 	}
 	void PlayScene::Update()
 	{

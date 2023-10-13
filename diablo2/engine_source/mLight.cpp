@@ -7,6 +7,7 @@ namespace m
 {
 	Light::Light()
 		: Component(eComponentType::Light)
+	    , bLightOff(false)
 	{
 	}
 	Light::~Light()
@@ -20,6 +21,8 @@ namespace m
 	}
 	void Light::LateUpdate()
 	{
+		if (bLightOff) return;
+
 		renderer::lights.push_back(this);
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();

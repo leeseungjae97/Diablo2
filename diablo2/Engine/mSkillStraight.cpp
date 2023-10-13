@@ -26,7 +26,6 @@ namespace m
 		, mHead(nullptr)
 		, bHead(false)
 		, bUseHead(false)
-	    , bMute(false)
 	{
 		bMadePath = true;
 		if(type == eSkillType::inferno)
@@ -85,6 +84,7 @@ namespace m
 			if (ss)
 			{
 				ss->Mute(bMute);
+				ss->SoundLoop(bSoundLoop);
 				ss->SkillFire();
 			}
 

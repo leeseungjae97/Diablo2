@@ -17,10 +17,10 @@ namespace m
 	    , degreeUpdate(false)
 	    , mSkillType(type)
 	    , mAcType(_acType)
+	    , gTarget(targetObject)
 	{
 		ADD_COMP(this, Animator);
-		//if(!deco)
-		    //
+		ADD_COMP(this, AudioSource);
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
@@ -33,12 +33,14 @@ namespace m
 			SET_SCALE_XYZ(this, accessorySkillAnimSize[(UINT)mAcType].x
 				, accessorySkillAnimSize[(UINT)mAcType].y, 1.f);
 			mFs = AddComponent<FallScript>(mAcType);
+			mFs->Mute();
 		}
 		else
 		{
 			SET_SCALE_XYZ(this, skillSizes[(UINT)mSkillType].x
 				, skillSizes[(UINT)mSkillType].y, 1.f);
 			mFs = AddComponent<FallScript>(eAccessorySkillType::END, targetObject);
+			//mFs->Mute();
 		}
 		Light* lightComp = AddComponent<Light>();
 		lightComp->SetType(eLightType::Point);
@@ -95,12 +97,13 @@ namespace m
 	void SkillFall::fall()
 	{
 		Vector3 mPos = GET_POS(this);
-		if (bDiagonalFall)
-		{
-			//mPos.x += cosf(DegreeToRadian(mFallDegree));
 
-			//mPos.y -= mPos.y - fSpeed * Time::fDeltaTime();
+		if(gTarget)
+		{
+			Vector3 targetPos= GET_POS(gTarget);
+			mPos.x = targetPos.x;
 		}
+
 		mPos.y += vDirection.y * fSpeed * Time::fDeltaTime();
 		mPos.x += vDirection.x * fSpeed * Time::fDeltaTime();
 		SET_POS_VEC(this, mPos);

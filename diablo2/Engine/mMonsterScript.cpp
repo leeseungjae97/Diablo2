@@ -50,6 +50,7 @@ namespace m
 	void MonsterScript<T>::Initialize()
 	{
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		mAudioSource = GET_COMP(GetOwner(), AudioSource);
 		dynamic_cast<MoveAbleObject*>(GetOwner())->SetMadePath(curMonsterData.bPathImage);
 		dynamic_cast<MoveAbleObject*>(GetOwner())->SetSixteenDirection(false);
 		Scene* curScene = SceneManager::GetActiveScene();

@@ -111,7 +111,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinUnityFiles>1</MinUnityFiles>
       <MinFilesInUnityFile>30</MinFilesInUnityFile>
     </ClCompile>

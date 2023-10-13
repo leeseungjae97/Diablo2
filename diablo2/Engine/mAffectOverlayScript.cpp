@@ -26,8 +26,12 @@ namespace m
 	{
 		SkillScript::Initialize();
 		mAnimator = GET_COMP(GetOwner(), Animator);
+		mAudioSource = GET_COMP(GetOwner(), AudioSource);
 
 		SHARED_MAT mat = RESOURCE_FIND(Material, affectOverlayNames[(int)mOverlayType]);
+		//if(nullptr != mAudioSource)
+		//    mAudioSource->PlayNoDelay(L"..\\Resources\\sound\\object\\fire2.wav", true, false, 20.f);
+
 		mAnimator->Create(
 			affectOverlayNames[(int)mOverlayType] + L"anim"
 			, mat->GetTexture()
@@ -83,6 +87,8 @@ namespace m
 			mAnimator->GetActiveAnimation()->SetReverse(false);
 			if(mAnimator->GetActiveAnimation()->IsStop())
 			{
+				//if (nullptr != mAudioSource)
+				//    mAudioSource->StopAll();
 				GetOwner()->SetState(GameObject::Delete);
 			}
 		}
