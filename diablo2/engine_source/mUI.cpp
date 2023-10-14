@@ -1,6 +1,7 @@
 #include "mUI.h"
 
-#include "mFontWrapper.h"
+#include "../engine_source/mAudioSource.h"
+#include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mTransform.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mCamera.h"
@@ -18,9 +19,11 @@ namespace m
 		, vTextHoverColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextNormalColor(Vector4(1.f, 1.f, 1.f, 1.f))
 	    , vTextOffset(Vector2::Zero)
-
+	    , bHoverSound(false)
+		, bHoverSoundPlayed(false)
 	{
 		AddComponent<MeshRenderer>();
+		ADD_COMP(this, AudioSource);
 	}
 
 	UI::UI(bool useDefaultMeshRenderer)
@@ -30,8 +33,10 @@ namespace m
 		, vTextHoverColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextNormalColor(Vector4(1.f, 1.f, 1.f, 1.f))
 		, vTextOffset(Vector2::Zero)
+		, bHoverSound(false)
+	    , bHoverSoundPlayed(false)
 	{
-
+		ADD_COMP(this, AudioSource);
 	}
 
 	UI::~UI()
@@ -45,10 +50,22 @@ namespace m
 		GameObject::Update();
 		if(GetHover())
 		{
+			if(bHoverSound)
+			{
+
+				AudioSource* as = GET_COMP(this, AudioSource);
+				if(!bHoverSoundPlayed)
+				{
+					if (as)
+						as->Play(eUISoundType::ButtonHover);
+					bHoverSoundPlayed = true;
+				}
+			}
 			if(vTextHoverColor != Vector4::One)
 			    vTextColor = vTextHoverColor;
 		}else
 		{
+			bHoverSoundPlayed = false;
 			if (vTextNormalColor != Vector4::One)
 			    vTextColor = vTextNormalColor;
 		}

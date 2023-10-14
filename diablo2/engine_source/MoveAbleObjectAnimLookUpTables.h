@@ -590,7 +590,7 @@ namespace m
 			0.05f,	// Special3
 			0.05f,	// Special4
 			0.05f,	// Dead
-			0.05f,	// Dead
+			0.055f,	// Dead
 		};
 		int animationLength[(UINT)eAnimationType::End] = {
 			16,// Attack1

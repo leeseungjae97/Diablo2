@@ -15,6 +15,8 @@ namespace m
 		PathFinder();
 		~PathFinder();
 
+		void Release();
+
 		void AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize = -1);
 
 		void InSightPathFinding(Vector2 startCoord, Vector2 targetCoord);
@@ -73,5 +75,6 @@ namespace m
 
 		//PathFinderSystem* mPFSS;
 		TileDrawSystem* mTDS;
+		GameObject* mDrawPathTileObject;
 	};
 }

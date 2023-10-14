@@ -81,9 +81,8 @@ namespace m
 		ScreenEffectManager::Update();
 
 		TileDrawManager::Update();
+		SoundManager::Update();
 		Fmod::Update();
-
-		SoundManager::ExternSound();
 	}
 
 	void Application::LateUpdate()

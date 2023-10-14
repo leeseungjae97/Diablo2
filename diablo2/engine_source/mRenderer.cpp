@@ -109,11 +109,6 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
-		//shader = m::Resources::Find<Shader>(L"ParticleShader");
-		//m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-		//											, shader->GetVSCode()
-		//											, shader->GetInputLayoutAddressOf());
-
 		shader = m::Resources::Find<Shader>(L"TileShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -600,10 +595,6 @@ namespace renderer
 		wallShader->Create(eShaderStage::PS, L"WallPS.hlsl", "main");
 		m::Resources::Insert(L"WallShader", wallShader);
 
-		//std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
-		//paintShader->Create(L"PaintCS.hlsl", "main");
-		//m::Resources::Insert(L"PaintShader", paintShader);
-
 		std::shared_ptr<ParticleComputeShader> psSystemShader = std::make_shared<ParticleComputeShader>();
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
 		m::Resources::Insert(L"ParticleComputeShader", psSystemShader);
@@ -616,21 +607,6 @@ namespace renderer
 		std::shared_ptr<TileDrawComputeShader> tileDrawSystemShader = std::make_shared<TileDrawComputeShader>();
 		tileDrawSystemShader->Create(L"TileDrawCS.hlsl", "main");
 		m::Resources::Insert(L"TileDrawComputeShader", tileDrawSystemShader);
-
-		//std::shared_ptr<PathFinderComputeShader> pathSystemComputeShader = std::make_shared<PathFinderComputeShader>();
-		//pathSystemComputeShader->Create(L"PathFinderCS.hlsl", "main");
-		//m::Resources::Insert(L"PathFinderComputeShader", pathSystemComputeShader);
-
-		//std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
-		//paritcleShader->UseGS();
-		//paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
-		//paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
-		//paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
-		//paritcleShader->SetRSState(eRSType::SolidNone);
-		//paritcleShader->SetDSState(eDSType::None);
-		//paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
-
-		//m::Resources::Insert(L"ParticleShader", paritcleShader);
 
 		std::shared_ptr<Shader> tileShader = std::make_shared<Shader>();
 		tileShader->UseGS();
@@ -657,16 +633,6 @@ namespace renderer
 
 	void LoadTexture()
 	{
-		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
-		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
-		m::Resources::Insert(L"PaintTexture", uavTexture);
-
-		//std::shared_ptr<Texture> particle = std::make_shared<Texture>();
-		//Resources::Load<Texture>(L"cartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
-
-		//Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
-		//Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
-		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.jpg");
 	}
 
 	void LoadMaterial()
@@ -675,7 +641,6 @@ namespace renderer
 		std::shared_ptr<Shader> fadeShader = m::Resources::Find<Shader>(L"FadeShader");
 		std::shared_ptr<Shader> noLightShader = m::Resources::Find<Shader>(L"NoLightShader");
 		std::shared_ptr<Shader> UVControlShader = m::Resources::Find<Shader>(L"UVControlShader");
-		//std::shared_ptr<Shader> particleShader = m::Resources::Find<Shader>(L"ParticleShader");
 		std::shared_ptr<Shader> tileShader = m::Resources::Find<Shader>(L"TileShader");
 		std::shared_ptr<Shader> tileDrawShader = m::Resources::Find<Shader>(L"TileDrawShader");
 		std::shared_ptr<Shader> wallShader = m::Resources::Find<Shader>(L"WallShader");
@@ -745,42 +710,13 @@ namespace renderer
 			, 30, 29, 14, L"trSC");
 		MAKE_MATERIAL_PATH(spriteShader, L"ob_sc", L"..\\Resources\\texture\\character\\sorceress\\special_cast\\ob_sc"
 			, 92, 66, 14, L"obSC");
-
-		//MAKE_MATERIAL_T(spriteShader, L"hd_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\hd_gh.png", L"hdGHS");
-		//MAKE_MATERIAL_T(spriteShader, L"la_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\la_gh.png", L"laGHS");
-		//MAKE_MATERIAL_T(spriteShader, L"lg_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\lg_gh.png", L"lgGHS");
-		//MAKE_MATERIAL_T(spriteShader, L"ra_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\ra_gh.png", L"raGHS");
-		//MAKE_MATERIAL_T(spriteShader, L"tr_gh_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\gh\\tr_gh.png", L"trGHS");
-
-		//MAKE_MATERIAL_T(spriteShader, L"hd_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\hd_nu.png", L"hdNUS");
-		//MAKE_MATERIAL_T(spriteShader, L"la_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\la_nu.png", L"laNUS");
-		//MAKE_MATERIAL_T(spriteShader, L"lg_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\lg_nu.png", L"lgNUS");
-		//MAKE_MATERIAL_T(spriteShader, L"ra_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\ra_nu.png", L"raNUS");
-		//MAKE_MATERIAL_T(spriteShader, L"tr_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\tr_nu.png", L"trNUS");
-		//MAKE_MATERIAL_T(spriteShader, L"ob_ra_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\ob_ra_nu.png", L"obraNUS");
-		//MAKE_MATERIAL_T(spriteShader, L"ob_nu_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\nu\\ob_nu.png", L"obNUS");
-
-		//MAKE_MATERIAL_T(spriteShader, L"hd_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\hd_r.png", L"hdRS");
-		//MAKE_MATERIAL_T(spriteShader, L"la_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\la_r.png", L"laRS");
-		//MAKE_MATERIAL_T(spriteShader, L"lg_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\lg_r.png", L"lgRS");
-		//MAKE_MATERIAL_T(spriteShader, L"ra_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\ra_r.png", L"raRS");
-		//MAKE_MATERIAL_T(spriteShader, L"tr_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\tr_r.png", L"trRS");
-		//MAKE_MATERIAL_T(spriteShader, L"ob_ra_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\ob_ra_r.png", L"obraRS");
-		//MAKE_MATERIAL_T(spriteShader, L"ob_r_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\r\\ob_r.png", L"obRS");
-
-		//MAKE_MATERIAL_T(spriteShader, L"hd_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\hd_sc.png", L"hdSCS");
-		//MAKE_MATERIAL_T(spriteShader, L"la_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\la_sc.png", L"laSCS");
-		//MAKE_MATERIAL_T(spriteShader, L"lg_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\lg_sc.png", L"lgSCS");
-		//MAKE_MATERIAL_T(spriteShader, L"ra_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\ra_sc.png", L"raSCS");
-		//MAKE_MATERIAL_T(spriteShader, L"tr_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\tr_sc.png", L"trSCS");
-		//MAKE_MATERIAL_T(spriteShader, L"ob_sc_s", L"..\\Resources\\texture\\character\\sorceress\\shadow\\sc\\ob_sc.png", L"obSCS");
 #pragma endregion
 #pragma region FieldItem
-		MAKE_MATERIAL_PATH(spriteShader, L"hp_posion_anim", L"..\\Resources\\texture\\field_items\\hp_posion_anim"
-			, 20, 159, 17, L"hpPosionAnim");
+		MAKE_MATERIAL_PATH(spriteShader, L"hp_potion_anim", L"..\\Resources\\texture\\field_items\\hp_potion_anim"
+			, 20, 159, 17, L"hpPotionAnim");
 
-		MAKE_MATERIAL_PATH(spriteShader, L"mp_posion_anim", L"..\\Resources\\texture\\field_items\\mp_posion_anim"
-			, 20, 159, 17, L"mpPosionAnim");
+		MAKE_MATERIAL_PATH(spriteShader, L"mp_potion_anim", L"..\\Resources\\texture\\field_items\\mp_potion_anim"
+			, 20, 159, 17, L"mpPotionAnim");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"bots_anim", L"..\\Resources\\texture\\field_items\\bots_anim"
 			, 28, 181, 17, L"botsAnim");
@@ -794,8 +730,8 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"jareds_stone_anim", L"..\\Resources\\texture\\field_items\\jareds_stone_anim"
 			, 37, 153, 18, L"jaredsStoneAnim");
 
-		MAKE_MATERIAL(spriteShader, L"hp_posion_field", L"..\\Resources\\texture\\field_items\\hp_posion_field.png", L"hpPosionField");
-		MAKE_MATERIAL(spriteShader, L"mp_posion_field", L"..\\Resources\\texture\\field_items\\mp_posion_field.png", L"mpPosionField");
+		MAKE_MATERIAL(spriteShader, L"hp_potion_field", L"..\\Resources\\texture\\field_items\\hp_potion_field.png", L"hpPotionField");
+		MAKE_MATERIAL(spriteShader, L"mp_potion_field", L"..\\Resources\\texture\\field_items\\mp_potion_field.png", L"mpPotionField");
 
 		MAKE_MATERIAL(spriteShader, L"leader_armor_field", L"..\\Resources\\texture\\field_items\\leader_armor_field.png", L"leaderArmorField");
 		MAKE_MATERIAL(spriteShader, L"bots_field", L"..\\Resources\\texture\\field_items\\bots_field.png", L"botsField");
@@ -803,7 +739,6 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"jareds_stone_field", L"..\\Resources\\texture\\field_items\\jareds_stone_field.png", L"jaredsStoneField");
 #pragma endregion
 #pragma region Map
-		//MAKE_MATERIAL(spriteShader, L"chaos_sanctuary_1", L"..\\Resources\\map\\chaos_sanctuary_1.png", L"chaosSanctuary1");
 		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
 		MAKE_MATERIAL(spriteShader, L"stage_3", L"..\\Resources\\texture\\map\\stage3\\stage3.png", L"stage3");
 		MAKE_MATERIAL(spriteShader, L"stage_2", L"..\\Resources\\texture\\map\\stage2\\stage2.png", L"stage2");
@@ -839,7 +774,7 @@ namespace renderer
 #pragma endregion
 
 #pragma region Particle
-		//MAKE_MATERIAL_F(particleShader, L"cartoonSmoke", L"particleTex");
+		
 #pragma endregion
 #pragma region Objects
 		MAKE_MATERIAL_PATH(spriteShader, L"portal_start", L"..\\Resources\\texture\\objects\\portal_start"
@@ -872,18 +807,10 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"mephisto_missile_crash", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_missile_crash"
 			, 86, 77, 12, L"mephistoMissileCrash");
 
-		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_skill_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_skill_overlay"
-		//	, 162, 107, 18, L"andarielSkillOverlay");
-		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_dead_overlay"
-		//	, 203, 161, 23, L"andarielDeadOverlay");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_flame_death", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\andariel_flame_death"
 			, 38, 122, 15, L"andarielFlameDeath");
 
-		//MAKE_MATERIAL_PATH(spriteShader, L"mephisto_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_overlay"
-		//	, 224, 190, 26, L"mephistoOverlay");
-
 		MAKE_MATERIAL(spriteShader, L"mephisto_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_overlay.png", L"mephistoOverlay");
-		//MAKE_MATERIAL(spriteShader, L"mephisto_death_overlay", L"..\\Resources\\texture\\skill_effect\\monster\\overlay\\mephisto_death_overlay.png", L"mephistoAttack2Overlay");
 
 #pragma endregion
 #pragma region Overlay
@@ -953,9 +880,6 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"thunder_storm_loop", L"..\\Resources\\texture\\skill_effect\\overlay\\thunder_storm_loop"
 			, 81, 60, 19, L"thunderStormLoop");
 
-		//MAKE_MATERIAL(spriteShader, L"fire_1_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire1.png", L"fire1s");
-		//MAKE_MATERIAL(spriteShader, L"fire_2_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire2.png", L"fire2s");
-		//MAKE_MATERIAL(spriteShader, L"fire_3_s", L"..\\Resources\\texture\\skill_effect\\overlay\\fire3.png", L"fire3s");
 #pragma endregion
 #pragma region Summons
 		MAKE_MATERIAL_PATH(spriteShader, L"hydra_attack", L"..\\Resources\\texture\\skill_effect\\summons\\hydra\\attack"
@@ -1070,17 +994,12 @@ namespace renderer
 			, 178, 179, 16, L"andarielNatural");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_attack", L"..\\Resources\\texture\\enemy\\andariel\\attack"
 			, 247, 248, 16, L"andarielAttack");
-		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_special", L"..\\Resources\\texture\\enemy\\andariel\\special"
-		//	, 212, 182, 18, L"andarielSpecial");
 		MAKE_MATERIAL(spriteShader, L"andariel_special", L"..\\Resources\\texture\\enemy\\andariel\\andariel_special_cast.png", L"andarielSpecial");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_walk", L"..\\Resources\\texture\\enemy\\andariel\\walk"
 			, 148, 184, 12, L"andarielWalk");
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_hit", L"..\\Resources\\texture\\enemy\\andariel\\hit"
 			, 173, 180, 6, L"andarielHit");
 		MAKE_MATERIAL(spriteShader, L"andariel_to_dead", L"..\\Resources\\texture\\enemy\\andariel\\andariel_to_dead.png", L"andarielToDead");
-
-		//MAKE_MATERIAL_PATH(spriteShader, L"andariel_to_dead", L"..\\Resources\\texture\\enemy\\andariel\\to_dead"
-		//	, 203, 232, 23, L"andarielToDead");
 
 		MAKE_MATERIAL_PATH(spriteShader, L"andariel_dead", L"..\\Resources\\texture\\enemy\\andariel\\dead"
 			, 177, 116, 1, L"andarielDead");
@@ -1098,11 +1017,6 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"diablo_special3", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special3.png", L"diabloSpecial3");
 		MAKE_MATERIAL(spriteShader, L"diablo_special4", L"..\\Resources\\texture\\enemy\\diablo\\diablo_special4.png", L"diabloSpecial4");
 		MAKE_MATERIAL(spriteShader, L"diablo_dead", L"..\\Resources\\texture\\enemy\\diablo\\diablo_dead.png", L"diabloDead");
-
-		//MAKE_MATERIAL_PATH(spriteShader, L"diablo_o", L"..\\Resources\\texture\\33"
-		//	, 266, 246, 142, L"diablo_o");
-
-		//MAKE_MATERIAL(spriteShader, L"diablo_to_dead", L"..\\Resources\\texture\\m", L"diabloToDead");
 
 		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_1", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_1.png", L"diabloToDead1");
 		MAKE_MATERIAL(spriteShader, L"diablo_to_dead_2", L"..\\Resources\\texture\\enemy\\diablo\\diablo_to_dead_2.png", L"diabloToDead2");
@@ -1127,11 +1041,9 @@ namespace renderer
 #pragma endregion
 
 #pragma region Characters
-		// town
 		MAKE_MATERIAL(spriteShader, L"sorceress_town_natural", L"..\\Resources\\texture\\character\\sorceress\\natural.png", L"sorceressTownNatural");
 		MAKE_MATERIAL(spriteShader, L"sorceress_town_walk", L"..\\Resources\\texture\\character\\sorceress\\town_walk.png", L"sorceressTownWalk");
 
-		// battle field
 		MAKE_MATERIAL_T(spriteShader, L"sorceress_attack_1", L"..\\Resources\\texture\\character\\sorceress\\attack_1.png", L"sorceressAttack1");
 		MAKE_MATERIAL_T(spriteShader, L"sorceress_attack_2", L"..\\Resources\\texture\\character\\sorceress\\attack_2.png", L"sorceressAttack2");
 		MAKE_MATERIAL_T(spriteShader, L"sorceress_block", L"..\\Resources\\texture\\character\\sorceress\\block.png", L"sorceressBlock");
@@ -1162,43 +1074,30 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"level_btn", L"..\\Resources\\texture\\ui\\buttons\\level_btn.png", L"levelBtn");
 		MAKE_MATERIAL(noLightShader, L"level_btn_c", L"..\\Resources\\texture\\ui\\buttons\\level_btn_c.png", L"levelBtnClick");
 		MAKE_MATERIAL(noLightShader, L"level_btn_d", L"..\\Resources\\texture\\ui\\buttons\\level_btn_d.png", L"levelBtnDisable");
-		//MAKE_MATERIAL(noLightShader, L"gold_coin_btn_click", L"..\\Resources\\texture\\ui\\buttons\\gold_coin_btn_c.png", L"goldCoinBtnClick");
-		//MAKE_MATERIAL(noLightShader, L"gold_coin_btn", L"..\\Resources\\texture\\ui\\buttons\\gold_coin_btn.png", L"goldCoinBtn");
-
-		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_0_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_0_click.png", L"shopInvenTab0Click");
-		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_1_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_1_click.png", L"shopInvenTab1Click");
-		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_2_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_2_click.png", L"shopInvenTab2Click");
-		//MAKE_MATERIAL(noLightShader, L"shop_inven_tab_3_click", L"..\\Resources\\texture\\ui\\buttons\\shop_inven_tab_3_click.png", L"shopInvenTab3Click");
+		MAKE_MATERIAL(noLightShader, L"btn_0", L"..\\Resources\\texture\\ui\\buttons\\btn_0.png", L"btn0");
+		MAKE_MATERIAL(noLightShader, L"btn_0_c", L"..\\Resources\\texture\\ui\\buttons\\btn_0_c.png", L"btn0Click");
+		MAKE_MATERIAL(noLightShader, L"btn_1", L"..\\Resources\\texture\\ui\\buttons\\btn_1.png", L"btn1");
+		MAKE_MATERIAL(noLightShader, L"btn_1_c", L"..\\Resources\\texture\\ui\\buttons\\btn_1_c.png", L"btn1Click");
+		MAKE_MATERIAL(noLightShader, L"btn_2", L"..\\Resources\\texture\\ui\\buttons\\btn_2.png", L"btn2");
+		MAKE_MATERIAL(noLightShader, L"btn_2_c", L"..\\Resources\\texture\\ui\\buttons\\btn_2_c.png", L"btn2Click");
 
 #pragma endregion
 #pragma region Tiles
-		//MAKE_MATERIAL(spriteShader, L"town_floors", L"..\\Resources\\texture\\act1_town\\town_floor.png", L"townFloors");
 		MAKE_MATERIAL(tileShader, L"tile_", L"..\\Resources\\texture\\tile.png", L"tile");
 		MAKE_MATERIAL(tileShader, L"green_tile", L"..\\Resources\\texture\\green_tile.png", L"greenTile");
 		MAKE_MATERIAL(tileShader, L"green_outline_tile", L"..\\Resources\\texture\\green_outline_tile.png", L"greenOutlineTile");
 		MAKE_MATERIAL(tileShader, L"red_tile", L"..\\Resources\\texture\\red_tile.png", L"redTile");
 
 		MAKE_MATERIAL(tileShader, L"tile_d", L"..\\Resources\\texture\\tile_d.png", L"tileD");
-		//MAKE_MATERIAL(noLightShader, L"tile_d", L"..\\Resources\\texture\\tile_d.png", L"tileD");
 		MAKE_MATERIAL(tileShader, L"green_tile_d", L"..\\Resources\\texture\\green_tile_d.png", L"greenTileD");
 		MAKE_MATERIAL(tileDrawShader, L"green_tile_d", L"..\\Resources\\texture\\green_tile_d.png", L"greenTileD" + tileDrawShader->GetKey());
 		MAKE_MATERIAL(tileShader, L"green_outline_tile_d", L"..\\Resources\\texture\\green_outline_tile_d.png", L"greenOutlineTileD");
-		//MAKE_MATERIAL(noLightShader, L"green_outline_tile_d", L"..\\Resources\\texture\\green_outline_tile_d.png", L"greenOutlineTileD");
-		//MAKE_MATERIAL(tileShader, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
 		MAKE_MATERIAL(noLightShader, L"red_tile_d", L"..\\Resources\\texture\\red_tile_d.png", L"redTileD");
 
-		//MAKE_MATERIAL(tileShader, L"test_tile", L"..\\Resources\\texture\\tile1.png", L"testTile");
-		//MAKE_MATERIAL(tileShader, L"test_tile2", L"..\\Resources\\texture\\tile2.png", L"testTile2");
-		//MAKE_MATERIAL(tileShader, L"test_tile3", L"..\\Resources\\texture\\tile3.png", L"testTile3");
 #pragma endregion
 #pragma region ETC
-		//MAKE_MATERIAL(noLightSahder, L"test_amazon", L"..\\Resources\\texture\\amazon_test.png", L"testAmazon");
-		MAKE_MATERIAL_COMPUT_TEST(spriteShader, L"PaintTexture", L"testAmazon");
-		MAKE_MATERIAL(noLightShader, L"test_sc", L"..\\Resources\\texture\\sc_town_walk.png", L"testSc");
 		MAKE_MATERIAL(noLightShader, L"800_600_panel_border_left", L"..\\Resources\\texture\\ui\\800_600_panel_border_left.png", L"panelBorderLeft");
 		MAKE_MATERIAL(noLightShader, L"800_600_panel_border_right", L"..\\Resources\\texture\\ui\\800_600_panel_border_right.png", L"panelBorderRight");
-		MAKE_MATERIAL(noLightShader, L"t1", L"..\\Resources\\texture\\move_scene_key_info.png", L"tt1");
-		MAKE_MATERIAL(noLightShader, L"t2", L"..\\Resources\\texture\\inven_key_info.png", L"tt2");
 		MAKE_MATERIAL(noLightShader, L"test_debug_rect", L"..\\Resources\\texture\\testDebugRect.png", L"testDebugRect");
 
 		MAKE_MATERIAL(noLightShader, L"inven_rect", L"..\\Resources\\texture\\ui\\play\\inventory_inven.png", L"invenRect");
@@ -1217,8 +1116,8 @@ namespace renderer
 		MAKE_MATERIAL_T(noLightShader, L"item_ex_back", L"..\\Resources\\texture\\ui\\play\\item_ex_back.png", L"itemExBack");
 #pragma endregion
 #pragma region Items
-		MAKE_MATERIAL(noLightShader, L"hp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\hp_posion_1.png", itemNameTable[(int)eItem::hpPosion1]);
-		MAKE_MATERIAL(noLightShader, L"mp_posion_1", L"..\\Resources\\texture\\inventory_items\\posion\\mp_posion_1.png", itemNameTable[(int)eItem::mpPosion1]);
+		MAKE_MATERIAL(noLightShader, L"hp_potion_1", L"..\\Resources\\texture\\inventory_items\\potion\\hp_potion_1.png", itemNameTable[(int)eItem::hpPotion1]);
+		MAKE_MATERIAL(noLightShader, L"mp_potion_1", L"..\\Resources\\texture\\inventory_items\\potion\\mp_potion_1.png", itemNameTable[(int)eItem::mpPotion1]);
 		MAKE_MATERIAL(noLightShader, L"jareds_stone", L"..\\Resources\\texture\\inventory_items\\orb\\invo5.png", itemNameTable[(int)eItem::jaredsStone]);
 		MAKE_MATERIAL(noLightShader, L"leader_armor", L"..\\Resources\\texture\\inventory_items\\armor\\leader_armor.png", itemNameTable[(int)eItem::leaderArmor]);
 		MAKE_MATERIAL(noLightShader, L"cap_", L"..\\Resources\\texture\\inventory_items\\armor\\cap.png", itemNameTable[(int)eItem::cap]);
@@ -1445,26 +1344,6 @@ namespace renderer
 	}
 	void BindNoiseTexture()
 	{
-		//std::shared_ptr<Texture> texture
-		//	= Resources::Find<Texture>(L"Noise03");
-
-		//texture->BindShaderResource(eShaderStage::VS, 15);
-		//texture->BindShaderResource(eShaderStage::HS, 15);
-		//texture->BindShaderResource(eShaderStage::DS, 15);
-		//texture->BindShaderResource(eShaderStage::GS, 15);
-		//texture->BindShaderResource(eShaderStage::PS, 15);
-		//texture->BindShaderResource(eShaderStage::CS, 15);
-
-		//ConstantBuffer* cb = constantBuffers[(UINT)eCBType::Noise];
-		//NoiseCB data = {};
-		//data.size.x = texture->GetWidth();
-		//data.size.y = texture->GetHeight();
-
-		//cb->SetData(&data);
-		//cb->Bind(eShaderStage::VS);
-		//cb->Bind(eShaderStage::GS);
-		//cb->Bind(eShaderStage::PS);
-		//cb->Bind(eShaderStage::CS);
 	}
 	void Render()
 	{

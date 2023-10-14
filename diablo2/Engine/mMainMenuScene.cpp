@@ -5,7 +5,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mCamera.h"
 #include "../engine_source/mSceneManager.h"
-//#include "../engine_source/mFontWrapper.h"
+#include "../engine_source/mApplication.h"
 #include "../engine_source/mRenderer.h"
 
 
@@ -15,6 +15,7 @@
 #include "mBackgroundScript.h"
 #include "mFontWrapper.h"
 
+extern m::Application application;
 namespace m
 {
 	MainMenuScene::MainMenuScene()
@@ -25,23 +26,12 @@ namespace m
 	{
 		Scene::Initialize();
 		GameObject* camera = new GameObject();
-		//camera->SetName(L"Camera");
 		AddGameObject(eLayerType::UI, camera);
 
 		SET_POS_XYZ(camera, 0.f, 0.f, -10.f);
 		ADD_COMP(camera, CameraScript);
 		SetSceneMainCamera(ADD_COMP(camera, Camera));
 		GetSceneMainCamera()->TurnLayerMask(eLayerType::UI, true);
-
-		//GameObject* grid = new GameObject();
-		//grid->SetName(L"Grid");
-		//AddGameObject(eLayerType::Grid, grid);
-		//MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		//grid->GetComponent<Transform>()->SetPosition(Vector3(-800.f, -450.f, 0.999f));
-		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		//GridScript* gridSc = grid->AddComponent<GridScript>();
-		//gridSc->SetCamera(cameraComp);
 
 		SHARED_TEX tex;
 		Background* back = new Background();
@@ -69,22 +59,39 @@ namespace m
 		Button* btn1 = new Button();
 		AddGameObject(eLayerType::UI, btn1);
 
-		btn1->SetText(L"게임시작");
-		btn1->SetTextSize(30.f);
-		btn1->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		btn1->ClickMakeSound();
+		btn1->HoverSoundMute();
 		SET_MAIN_CAMERA(btn1);
 		SET_MESH(btn1, L"RectMesh");
-		SET_MATERIAL(btn1, L"mWideButtonBlank");
+		SET_MATERIAL(btn1, L"btn0");
 		GET_TEX(btn1, tex);
 		SET_POS_XYZ(btn1, 0.f, RESOL_H_HEI - (288.f * Texture::GetHeiRatio()), 1.f);
 		SET_SCALE_TEX_SIZE_WITH_RAT(btn1, tex, 0.0f);
-		btn1->SetClickMaterial(RESOURCE_FIND(Material, L"mWideButtonBlankClick"));
-		btn1->SetNormalMaterial(RESOURCE_FIND(Material, L"mWideButtonBlank"));
+		btn1->SetClickMaterial(RESOURCE_FIND(Material, L"btn0Click"));
+		btn1->SetNormalMaterial(RESOURCE_FIND(Material, L"btn0"));
 		btn1->SetClickFunction(
 			[]() { SceneManager::LoadScene(L"SelectCharacterScene"); }
 		);
 
-		//FontWrapper::DrawFont(L"TEST", 10, 10, 100, FONT_RGBA(255, 0, 255, 255));
+		Button* btn2 = new Button();
+		AddGameObject(eLayerType::UI, btn2);
+
+		btn2->ClickMakeSound();
+		btn2->HoverSoundMute();		
+		SET_MAIN_CAMERA(btn2);
+		SET_MESH(btn2, L"RectMesh");
+		SET_MATERIAL(btn2, L"btn1");
+		GET_TEX(btn2, tex);
+		SET_POS_XYZ(btn2, 0.f, RESOL_H_HEI - ((288.f + tex->GetMetaDataHeight() )* Texture::GetHeiRatio() ), 1.f);
+		SET_SCALE_TEX_SIZE_WITH_RAT(btn2, tex, 0.0f);
+		btn2->SetClickMaterial(RESOURCE_FIND(Material, L"btn1Click"));
+		btn2->SetNormalMaterial(RESOURCE_FIND(Material, L"btn1"));
+		btn2->SetClickFunction(
+			[]()
+			{
+				PostQuitMessage(0);
+			}
+		);
 	}
 	void MainMenuScene::Update()
 	{

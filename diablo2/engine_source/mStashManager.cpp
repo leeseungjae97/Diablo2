@@ -496,11 +496,11 @@ namespace m
 
 		if (type != eStashType::End)
 		{
-			if (DeployPocket(type, {}, { (int)eItemType::Posion , (int)eItemType::Scroll }))
+			if (DeployPocket(type, {}, { (int)eItemType::Potion , (int)eItemType::Scroll }))
 				return true;
 		}
 
-		if (DeployEquiment(eStashType::Equiment, { (int)eItemType::Posion, (int)eItemType::Scroll }, {}))
+		if (DeployEquiment(eStashType::Equiment, { (int)eItemType::Potion, (int)eItemType::Scroll }, {}))
 			return true;
 
 		if (eShopInventoryState == GameObject::NoRenderUpdate)
@@ -727,6 +727,7 @@ namespace m
 
 		InvenItem* inven = new InvenItem(ei);
 		inven->SetCamera(mCurCamera);
+		inven->SetState(eInventoryState);
 
 		ADD_COMP(inven, ItemScript);
 
@@ -738,6 +739,7 @@ namespace m
 		if (eInventoryState != GameObject::eState::NoRenderUpdate)
 		{
 			MouseManager::SetMouseFollow(inven);
+			inven->SetMouseFollow(true);
 		}
 		else
 		{
@@ -928,7 +930,7 @@ namespace m
 			pocketItem->SetState(eExPocketState);
 		}
 
-		usePocketPosion();
+		usePocketPotion();
 	}
 
 	InvenItem* StashManager::getPocketPosItem(int index)
@@ -959,7 +961,7 @@ namespace m
 		}
 		return nullptr;
 	}
-	void StashManager::usePocketPosion()
+	void StashManager::usePocketPotion()
 	{
 		int keyIndex = -1;
 		if (Input::GetKeyDownOne(eKeyCode::_1))

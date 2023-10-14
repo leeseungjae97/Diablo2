@@ -29,31 +29,31 @@ namespace m
         curScene->AddGameObject(eLayerType::UI, this);
 
         {
-            InvenItem* hpPosion = new InvenItem(eItem::mpPosion1);
+            InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
 
-            hpPosion->SetCamera(GetCamera());
-            hpPosion->SetState(GameObject::RenderUpdate);
-            ADD_COMP(hpPosion, ItemScript);
-            curScene->AddGameObject(eLayerType::Item, hpPosion);
-            StashManager::AddItem(hpPosion, StashManager::eStashType::Shop);
+            hpPotion->SetCamera(GetCamera());
+            hpPotion->SetState(GameObject::RenderUpdate);
+            ADD_COMP(hpPotion, ItemScript);
+            curScene->AddGameObject(eLayerType::Item, hpPotion);
+            StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
         }
         {
-            InvenItem* hpPosion = new InvenItem(eItem::hpPosion1);
+            InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
 
-            hpPosion->SetCamera(GetCamera());
-            hpPosion->SetState(GameObject::RenderUpdate);
-            ADD_COMP(hpPosion, ItemScript);
-            curScene->AddGameObject(eLayerType::Item, hpPosion);
-            StashManager::AddItem(hpPosion, StashManager::eStashType::Shop);
+            hpPotion->SetCamera(GetCamera());
+            hpPotion->SetState(GameObject::RenderUpdate);
+            ADD_COMP(hpPotion, ItemScript);
+            curScene->AddGameObject(eLayerType::Item, hpPotion);
+            StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
         }
         {
-            InvenItem* hpPosion = new InvenItem(eItem::jaredsStone);
+            InvenItem* hpPotion = new InvenItem(eItem::jaredsStone);
 
-            hpPosion->SetCamera(GetCamera());
-            hpPosion->SetState(GameObject::RenderUpdate);
-            ADD_COMP(hpPosion, ItemScript);
-            curScene->AddGameObject(eLayerType::Item, hpPosion);
-            StashManager::AddItem(hpPosion, StashManager::eStashType::Shop);
+            hpPotion->SetCamera(GetCamera());
+            hpPotion->SetState(GameObject::RenderUpdate);
+            ADD_COMP(hpPotion, ItemScript);
+            curScene->AddGameObject(eLayerType::Item, hpPotion);
+            StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
         }
 
         StashManager::InitItems(StashManager::eStashType::Shop);

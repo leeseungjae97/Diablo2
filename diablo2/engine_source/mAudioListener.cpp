@@ -33,7 +33,7 @@ namespace m
         Vector3 foward = tr->Foward();
         Vector3 up = tr->Up();
 
-        Vector3 vel = { 2.0f, 2.0f, 2.0f };
+        Vector3 vel = { 1.0f, 1.0f, 1.0f };
         Fmod::Set3DListenerAttributes(&pos, &vel, &foward, &up);
     }
 

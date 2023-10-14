@@ -111,6 +111,9 @@ namespace m
 		imageChangeEquiment();
 		shadowOffset();
 		partAddZWeight();
+		MeshRenderer* mOwnerMr = GET_COMP(mPartsOwner, MeshRenderer);
+		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+		mr->SetTrappingColor(mOwnerMr->GetTrappingColor());
 
 		if (wsCurNames[mAnimationType] != L"")
 		{

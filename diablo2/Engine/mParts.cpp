@@ -9,7 +9,9 @@ namespace m
         , mPartsMasterAnimator(nullptr)
         , mShadow(nullptr)
     {
-        ADD_COMP(this, MeshRenderer);
+        MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
+        mr->AddTrappingColorBuffer();
+
         ADD_COMP(this, Animator);
     }
 

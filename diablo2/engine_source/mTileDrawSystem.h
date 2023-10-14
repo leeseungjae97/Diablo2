@@ -18,6 +18,7 @@ namespace m
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
+        void Release();
 
         void MakePathTileBuffer(std::vector<Tile*> pathtiles);
     private:

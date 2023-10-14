@@ -1,5 +1,6 @@
 #include "mFieldItem.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mSceneManager.h"
@@ -11,9 +12,12 @@ namespace m
 	FieldItem::FieldItem(eItem item, Vector3 initPos)
 		: Item(item)
 	    , bDownAlt(false)
+	    , bDropFirst(true)
 	{
 		MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
 		mr->AddTrappingColorBuffer();
+
+		ADD_COMP(this, AudioSource);
 
 		Animator* animator = ADD_COMP(this, Animator);
 
@@ -81,6 +85,14 @@ namespace m
 	void FieldItem::Update()
 	{
 		Item::Update();
+		AudioSource* as = GET_COMP(this, AudioSource);
+		if(bDropFirst)
+		{
+			as->Play(5, itemDropSoundPaths[(int)eItem::END], false, false);
+			bDropFirst = false;
+		}
+		as->PlayOnce(5, itemDropSoundPaths[(int)mItem], false, false, false);
+
 		if (mNameUI && nullptr == mNameUI->GetCamera()) mNameUI->SetCamera(GetCamera());
 
 		if (GetHover() && !bDownAlt)

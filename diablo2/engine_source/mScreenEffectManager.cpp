@@ -5,6 +5,7 @@
 #include "mGameObject.h"
 #include "mCamera.h"
 #include "mSceneManager.h"
+#include "mSoundManager.h"
 #include "mTime.h"
 
 namespace m
@@ -109,6 +110,7 @@ namespace m
 		fShakeTime -= Time::fDeltaTime();
 		if (fShakeTime > 0.0f)
 		{
+			SoundManager::ExternSFXSound(0);
 			Vector3 pos = GET_POS(mPlayCamera->GetOwner());
 
 			int randX = rand() % 40;
@@ -127,6 +129,8 @@ namespace m
 		}
 		else
 		{
+			SoundManager::StopExtern(SoundManager::eExternAudioType::SFX);
+			SoundManager::ResetPlayed(SoundManager::eExternAudioType::SFX);
 			bShakeCamera = false;
 		}
 	}

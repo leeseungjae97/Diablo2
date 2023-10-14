@@ -36,7 +36,11 @@ namespace m
 	{
 		MeshRenderer::Initialize();
 	}
-
+	void TileDrawSystem::Release()
+	{
+		std::shared_ptr<Material> nonMaterial = RESOURCE_FIND(Material, L"noneRectTileDrawShader");
+		SetMaterial(nonMaterial);
+	}
 	void TileDrawSystem::Update()
 	{
 		MeshRenderer::Update();

@@ -23,6 +23,7 @@ namespace m
         void PlayCrash();
         void PlayFire();
         void PlayRun();
+        void PlayExtern();
 
         void Stop();
         void SetVolume(float vol);

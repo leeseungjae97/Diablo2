@@ -12,42 +12,32 @@
 #include "../engine_source/mRenderer.h"
 #include "../engine_source/mApplication.h"
 #include "../engine_source/mCollisionManager.h"
-#include "../engine_source/mAnimator.h"
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mComputeShader.h"
 #include "../engine_source/mTileManager.h"
+
+#include "../engine_source/mSkillManager.h"
+#include "../engine_source/mSoundManager.h"
+#include "../engine_source/mStageManager.h"
+#include "../engine_source/mScreenEffectManager.h"
+#include "../engine_source/mFieldItemManager.h"
 
 #include "mPlayer.h"
 #include "mMonster.h"
 #include "mTile.h"
 #include "mButton.h"
 #include "mInventory.h"
-#include "mInvenItem.h"
-#include "mGridScript.h"
 #include "mSkillStatus.h"
-#include "mCollider2D.h"
 #include "mPlayerScript.h"
 #include "mMonsterScript.h"
 #include "mBottomUI.h"
-#include "mUVUI.h"
 #include "mPlayerManager.h"
-#include "mSkillShortCutButton.h"
-#include "mParticleSystem.h"
-#include "mOverlayEffectSkillScript.h"
-#include "mFallScript.h"
-#include "mTileSystem.h"
-#include "mCameraScript.h"
 #include "mCharacterStatus.h"
 #include "mEnemyHpUI.h"
-#include "mFieldItem.h"
-#include "mFieldItemManager.h"
 #include "mFloor.h"
-#include "mLightObject.h"
 #include "mNPC.h"
 #include "mPortal.h"
-#include "mScreenEffectManager.h"
 #include "mShop.h"
-#include "mStageManager.h"
 #include "mTorch.h"
 #include "mWall.h"
 
@@ -125,7 +115,7 @@ namespace m
 		mPortal->ActivePortal();
 		mPortal->SetClickPortal([=]()
 			{
-				Stage2();
+				Stage1();
 			});
 
 
@@ -149,7 +139,7 @@ namespace m
 		SET_MAIN_CAMERA(mNpc2);
 		AddGameObject(eLayerType::NPC, mNpc2);
 
-		
+
 		{
 			curMap = new GameObject();
 			SET_MAIN_CAMERA(curMap);
@@ -168,7 +158,7 @@ namespace m
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
 
-		Stage4();
+		//Stage1();
 	}
 	void PlayScene::Update()
 	{
@@ -1155,7 +1145,7 @@ namespace m
 			Vector3 pos = tile->GetPos();
 			Torch* torch = new Torch(pos, tile->GetCoord(), cameraComp, eTorchType::Stage1Torch1);
 		}
-		
+
 		TileManager::MakeStageWall(0);
 
 		TileManager::TileIsWallChange();
@@ -1163,11 +1153,14 @@ namespace m
 
 	void PlayScene::Stage1()
 	{
+		SoundManager::ResetAllPlayed();
+		SkillManager::AllSkillCrash();
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage1Wall();
 		StageManager::stageNum = 0;
+		
 		if (curMap)
 		{
 			SET_MATERIAL(curMap, L"stage1");
@@ -1175,7 +1168,7 @@ namespace m
 
 		mEnterNameUI->SetText(L"°í³úÀÇ ¿©Á¦");
 
-		
+
 
 		fAcc = 0.f;
 		bStageInit = false;
@@ -1218,9 +1211,6 @@ namespace m
 		//	SET_MAIN_CAMERA(monster);
 		//	AddGameObject(eLayerType::Monster, monster);
 		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		//}
 		//{
 		//	Tile* tile = TileManager::pathFindingTiles[50][51];
@@ -1229,9 +1219,6 @@ namespace m
 		//	SET_MAIN_CAMERA(monster);
 		//	AddGameObject(eLayerType::Monster, monster);
 		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		//}
 		//{
 		//	Tile* tile = TileManager::pathFindingTiles[53][77];
@@ -1241,9 +1228,6 @@ namespace m
 		//	monster->SetCoord(tile->GetCoord());
 		//	AddGameObject(eLayerType::Monster, monster);
 		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
-		//	monster->SetMonsterClass(ms->GetMonsterClass());
-		//	monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-		//	monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 		//}
 		{
 			Tile* tile = TileManager::pathFindingTiles[53][77];
@@ -1253,16 +1237,16 @@ namespace m
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			MonsterScript<MDAndariel>* ms = ADD_COMP(monster, MonsterScript<MDAndariel>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 
 			mBossMonster = monster;
 		}
+		SoundManager::ExternVoiceSound((int)mBossMonster->GetMonsterType(), false);
 	}
 
 	void PlayScene::Stage2()
 	{
+		SoundManager::ResetAllPlayed();
+		SkillManager::AllSkillCrash();
 		StageManager::stageNum = 1;
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
@@ -1307,7 +1291,6 @@ namespace m
 			TileManager::playerStandTile = tile;
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
-
 		{
 			Tile* tile = TileManager::pathFindingTiles[49][57];
 			Vector3 pos = tile->GetPos();
@@ -1315,12 +1298,8 @@ namespace m
 			monster->SetCoord(tile->GetCoord());
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
-			MonsterScript<MDDuriel>* ms  = monster->AddComponent<MonsterScript<MDDuriel>>();
-			//MonsterScript<MDDuriel>* ms = new MonsterScript<MDDuriel>(;
-			//MonsterScript<MDDuriel>* ms = ADD_COMP(monster, MonsterScript<MDDuriel> );
-			monster->SetMonsterClass(ms->GetMonsterClass());
-			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
+			MonsterScript<MDDuriel>* ms = monster->AddComponent<MonsterScript<MDDuriel>>();
+
 
 			mBossMonster = monster;
 		}
@@ -1328,8 +1307,10 @@ namespace m
 
 	void PlayScene::Stage3()
 	{
+		SoundManager::ResetAllPlayed();
 		StageManager::stageNum = 2;
 		MonsterManager::EraseAll();
+		SkillManager::AllSkillCrash();
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage3Wall();
@@ -1370,7 +1351,15 @@ namespace m
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
-
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[69][56];
+		//	Vector3 pos = tile->GetPos();
+		//	Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	monster->SetCoord(tile->GetCoord());
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	MonsterScript<MDBalrog>* ms = ADD_COMP(monster, MonsterScript<MDBalrog>);
+		//}
 		{
 			Tile* tile = TileManager::pathFindingTiles[69][56];
 			Vector3 pos = tile->GetPos();
@@ -1379,16 +1368,16 @@ namespace m
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			MonsterScript<MDMephisto>* ms = ADD_COMP(monster, MonsterScript<MDMephisto>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 
 			mBossMonster = monster;
 		}
+		SoundManager::ExternVoiceSound((int)mBossMonster->GetMonsterType(), false);
 	}
 
 	void PlayScene::Stage4()
 	{
+		SoundManager::ResetAllPlayed();
+		SkillManager::AllSkillCrash();
 		StageManager::stageNum = 3;
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
@@ -1449,12 +1438,11 @@ namespace m
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
 			MonsterScript<MDDiablo>* ms = ADD_COMP(monster, MonsterScript<MDDiablo>);
-			monster->SetMonsterClass(ms->GetMonsterClass());
-			monster->SetMonsterName(ms->GetcurMonsterData().wsMonsterName);
-			monster->SetHpCapacity(ms->GetcurMonsterData().hp);
 
 			mBossMonster = monster;
 		}
+		SoundManager::ExternVoiceSound((int)mBossMonster->GetMonsterType(), false);
+		SoundManager::ExternAmbientSound(eAmbientType::Lava, true, 10.f);
 	}
 
 	void PlayScene::NPCRender()

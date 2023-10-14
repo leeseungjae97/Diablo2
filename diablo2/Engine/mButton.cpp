@@ -16,8 +16,8 @@ namespace m
 	Button::Button()
 		: bClick(false)
 		, bCanClick(true)
+	    , bClickSound(false)
 	{
-		ADD_COMP(this, AudioSource);
 	}
 
 	Button::Button(bool useDefaultMeshRenderer)
@@ -53,12 +53,15 @@ namespace m
 			if (Input::GetKey(eKeyCode::LBUTTON))
 			{
 				AudioSource* as = GET_COMP(this, AudioSource);
-				if(!IsSoundPlayed())
+				if(bClickSound)
 				{
-					as->Play(eButtonSoundType::ButtonClick, false, false);
-					SoundPlay(true);
+					if (!IsSoundPlayed())
+					{
+						as->Play(eUISoundType::ButtonClick, false, false);
+						SoundPlay(true);
+					}
 				}
-
+				
 				bClick = true;
 
 				if (mClickedMaterial)

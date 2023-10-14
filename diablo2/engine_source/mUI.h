@@ -23,12 +23,17 @@ namespace m
 		void SetTextClickColor(Vector4 color) { vTextHoverColor = color; }
 		void SetTextSize(float textSize) { fTextSize = textSize; }
 		void SetTextOffset(Vector2 textOffset) { vTextOffset = textOffset; }
+
+		void HoverSoundMute() { bHoverSound = false; }
+		void HoverMakeSound() { bHoverSound = true; }
 	private:
 		void drawText();
 
 	protected:
 		std::wstring wsText;
 		float fTextSize;
+		bool bHoverSound;
+		bool bHoverSoundPlayed;
 		Vector2 vTextOffset;
 		Vector4 vTextColor;
 		Vector4 vTextNormalColor;

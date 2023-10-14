@@ -21,7 +21,7 @@ namespace m
 
 		std::wstring name = skillSoundPath[(int)mSkillType][0];
 		if (as)
-			as->Play(name, skillSoundLoop[(int)mSkillType], false);
+			as->Play(name, skillSoundLoop[(int)mSkillType], true);
 
 
 		Vector3 initYpos = iniPos;
@@ -159,7 +159,7 @@ namespace m
 
 		std::wstring name = skillSoundPath[(int)mSkillType][0];
 		if (as)
-			as->Play(name, skillSoundLoop[(int)mSkillType], false);
+			as->Play(name, skillSoundLoop[(int)mSkillType], true);
 
 		if (mIndicator)
 			mIndicator->SetCamera(GetCamera());

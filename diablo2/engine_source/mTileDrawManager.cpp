@@ -5,7 +5,7 @@ namespace m
     bool TileDrawManager::bDrawTile = true;
     void TileDrawManager::Update()
     {
-        if (Input::GetKeyDown(eKeyCode::A))
+        if (Input::GetKeyDown(eKeyCode::F))
         {
             bDrawTile = true; 
         }

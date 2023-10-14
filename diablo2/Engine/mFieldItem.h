@@ -18,6 +18,7 @@ namespace m
     private:
         UI* mNameUI;
         bool bDownAlt;
+        bool bDropFirst;
     };
 }
 

@@ -118,7 +118,7 @@ namespace m
 		static void inventoryUpdate();
 		static void shopInventoryUpdate();
 		static void pocketInventoryUpdate();
-		static void usePocketPosion();
+		static void usePocketPotion();
 
 		static Camera* mCurCamera;
 

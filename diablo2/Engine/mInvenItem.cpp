@@ -1,5 +1,6 @@
 #include "mInvenItem.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mInput.h"
 #include "../engine_source/mApplication.h"
 #include "../engine_source/mTransform.h"
@@ -13,7 +14,7 @@
 #include "mEmptyRect.h"
 #include "mInteractUI.h"
 #include "mInteractUIManager.h"
-#include "mPosionScript.h"
+#include "mPotionScript.h"
 
 
 namespace m
@@ -25,14 +26,16 @@ namespace m
 	{
 		eItemType type = itemTypeTable[(UINT)item];
 
-		if (type == eItemType::Posion)
+		if (type == eItemType::Potion)
 		{
-			PosionScript* pis = ADD_COMP(this, PosionScript);
+			PotionScript* pis = ADD_COMP(this, PotionScript);
 			pis->SetOwnerItem(item);
 		}
 
 		ADD_COMP(this, Collider2D);
 		ADD_COMP(this, MeshRenderer);
+
+		ADD_COMP(this, AudioSource);
 
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, itemNameTable[(UINT)item]);
@@ -53,7 +56,17 @@ namespace m
 	void InvenItem::Update()
 	{
 		Item::Update();
+		AudioSource* as = GET_COMP(this, AudioSource);
 
+		if(mPrevStashType != mStashType)
+		{
+		    if(mPrevStashType == StashManager::eStashType::Inventory
+				&& mStashType == StashManager::eStashType::Shop)
+		    {
+				as->PlayOnce(5, buttonSoundPaths[(int)eUISoundType::ItemSell], false, false, true);
+		    }
+		}
+		
 		if (GetHover())
 		{
 			if (bShopItem)
@@ -106,7 +119,16 @@ namespace m
 			if (Input::GetKeyDownOne(eKeyCode::LBUTTON))
 			{
 				if (!bShopItem)
+				{
 					SetMouseFollow(GetMouseFollow() ? false : true);
+				    if(GetMouseFollow())
+				    {
+						as->PlayOnce(5, buttonSoundPaths[(int)eUISoundType::InvenItemPickUp], false, false, true);
+				    }else
+				    {
+						as->PlayOnce(5, itemDropSoundPaths[(int)mItem], false, false, true);
+				    }
+				}
 				else
 				{
 					if(mPrevStashType != StashManager::eStashType::Inventory)
@@ -122,7 +144,19 @@ namespace m
 					else { mPrevStashType = mStashType; }
 				}
 			}
+			if(Input::GetKeyUp(eKeyCode::LBUTTON))
+			{
+				as->ResetSoundPlayed(5);
+			}
+		}else
+		{
+			if (Input::GetKeyUp(eKeyCode::LBUTTON))
+			{
+				as->ResetSoundPlayed(5);
+			}
+			as->ResetSoundPlayed(6);
 		}
+
 		if (!bShopItem)
 		{
 			if (GetMouseFollow())

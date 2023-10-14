@@ -1,5 +1,6 @@
 #include "mTorch.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mLight.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
@@ -18,6 +19,8 @@ namespace m
 
         ADD_COMP(this, MeshRenderer);
         ADD_COMP(this, Animator);
+
+        ADD_COMP(this, AudioSource);
 
         SET_MESH(this, L"BMesh");
         SET_MATERIAL(this, L"AnimationMaterial");
@@ -56,6 +59,15 @@ namespace m
     void Torch::Update()
     {
         GameObject::Update();
+        AudioSource* as = GET_COMP(this, AudioSource);
+
+        if(GetState() == RenderUpdate)
+        {
+            as->Play(0, fireSoundPath[0], true, true);
+        }else
+        {
+            as->Stop(0);
+        }
         if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
 
         Vector3 pos = GET_POS(this);

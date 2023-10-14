@@ -45,7 +45,30 @@ namespace m
             }
         }
     }
-
+    void SkillManager::AllSkillCrash()
+    {
+        for (Skill* skill : skills)
+        {
+            eSkillType type = skill->GetSkillType();
+            eSkillCrashType skillCrashType = skillCrashTypes[(int)type];
+            eCrashType crashType = crashFunction[(int)skillCrashType];
+            if (crashType != eCrashType::Collide)
+            {
+                if (dynamic_cast<SkillFollower*>(skill))
+                {
+                    skill->SetSkillCrash(true);
+                }
+                else
+                {
+                    skill->SetSkillCrash(true);
+                }
+            }
+            else
+            {
+                skill->SetSkillCrash(true);
+            }
+        }
+    }
     void SkillManager::SkillCrash(UINT skillId)
     {
         for (Skill* skill : skills)

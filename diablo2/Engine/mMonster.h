@@ -44,6 +44,9 @@ namespace m
         void SetMonsterName(const std::wstring monsterName) { wsMonsterName = monsterName; }
         void SetMonsterHp(float _hp) { hp = _hp; }
 
+        void SetMonsterType(eMonsterType type) { mMonsterType = type; }
+        eMonsterType GetMonsterType() { return mMonsterType; }
+
         const std::wstring& GetMonsterName() { return wsMonsterName;}
         float GetMonsterHp() { return hp; }
 
@@ -57,6 +60,7 @@ namespace m
     private:
         Collider2D* sightCollider;
         eMonsterClass mMonsterClass;
+        eMonsterType mMonsterType;
 
     	Vector2 mNextMoveCoord;
 

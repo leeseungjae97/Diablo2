@@ -1,5 +1,6 @@
 #include "mInteractUI.h"
 
+#include "../engine_source/mAudioSource.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mFontWrapper.h"
@@ -28,6 +29,7 @@ namespace m
 	    , mClickColors(clickColors)
 	    , mMenuCount(0)
 	{
+		ADD_COMP(this, AudioSource);
 		SET_MESH(this, L"RectMesh");
 		if(!exBack)
 		    SET_MATERIAL(this, L"talkUI");
@@ -64,6 +66,8 @@ namespace m
 	void InteractUI::Update()
 	{
 		UI::Update();
+		AudioSource* as = GET_COMP(this, AudioSource);
+
 		if (!textes.empty())
 		{
 			for (UI* ui : textes)
@@ -86,6 +90,9 @@ namespace m
 				{
 					if (PlayerManager::BuyItem(itemFunctionValue[(int)mBuyItem][0]))
 					{
+						as->PlayOnce(5, itemDropSoundPaths[(int)mBuyItem], false, false, true);
+
+
 						InvenItem* item = new InvenItem(mBuyItem);
 						item->SetCamera(GetCamera());
 						item->SetState(GameObject::RenderUpdate);
@@ -123,6 +130,8 @@ namespace m
 			else
 			    textes[i]->SetState(GetState());
 		}
+
+		as->ResetAllSoundPlayed();
 	}
 
 	void InteractUI::LateUpdate()
@@ -196,7 +205,11 @@ namespace m
 			if (!mClickColors.empty())
 			{
 				if (mClickColors[i] != Vector4::Zero)
+				{
 					menu->SetTextClickColor(mClickColors[i]);
+					menu->HoverMakeSound();
+				}
+				else menu->HoverSoundMute();
 			}
 
 			Vector2 fontSize = FontWrapper::GetTextSize(menuName.c_str(), 10.f);
@@ -240,7 +253,10 @@ namespace m
 			if (!mClickColors.empty())
 			{
 				if (mClickColors[i] != Vector4::Zero)
+				{
 					menu->SetTextClickColor(mClickColors[i]);
+					menu->HoverMakeSound();
+				}else menu->HoverSoundMute();
 			}
 
 			SET_MESH(menu, L"RectMesh");

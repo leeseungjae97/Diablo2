@@ -3,22 +3,92 @@
 
 namespace m
 {
-    enum class eButtonSoundType
+    enum class eAmbientType
     {
-        ButtonClick,
-        ButtonHover,
+        Lava,
+        End
+    };
+    static std::wstring ambientSoundPaths[(int)eAmbientType::End][3] = {
+        {
+          L"..\\Resources\\sound\\ambient\\scene\\lava.wav",
+          L"..\\Resources\\sound\\ambient\\scene\\lava.wav",
+          L"..\\Resources\\sound\\ambient\\scene\\lava.wav",
+        },
+    };
 
+    static std::wstring speachSoundPaths[4][3] = {
+        {
+            L"..\\Resources\\sound\\speach\\diablo\\diablotaunt1.wav",
+        L"..\\Resources\\sound\\speach\\diablo\\diablotaunt2.wav",
+        L"..\\Resources\\sound\\speach\\diablo\\diablotaunt2.wav",
+        },
+        {
+        L"..\\Resources\\sound\\speach\\andariel\\andarieltaunt1.wav",
+        L"..\\Resources\\sound\\speach\\andariel\\andarieltaunt2.wav",
+        L"..\\Resources\\sound\\speach\\andariel\\andarieltaunt3.wav",
+        },
+                {
+            L"..\\Resources\\sound\\speach\\duriel\\durieltaunt1.wav",
+        L"..\\Resources\\sound\\speach\\duriel\\durieltaunt2.wav",
+        L"..\\Resources\\sound\\speach\\duriel\\durieltaunt2.wav",
+        },
+                {
+            L"..\\Resources\\sound\\speach\\mephisto\\mephistotaunt1.wav",
+        L"..\\Resources\\sound\\speach\\mephisto\\mephistotaunt2.wav",
+        L"..\\Resources\\sound\\speach\\mephisto\\mephistotaunt2.wav",
+        },
+        
+    };
+    enum class eBGMType
+    {
+        Stage1,
+        Stage2,
+        Stage3,
+        Stage4,
         End,
     };
 
-    static std::wstring buttonAudioPaths[(int)eButtonSoundType::End] = {
-        L"..\\Resources\\sound\\cursor\\button.wav",
-        L"..\\Resources\\sound\\cursor\\pass.wav",
+    static std::wstring bgmSoundPaths[(int)eBGMType::End] = {
+        L"..\\Resources\\sound\\music\\wild.wav",
+        L"..\\Resources\\sound\\music\\tombs.wav",
+        L"..\\Resources\\sound\\music\\kurastsewer.wav",
+        L"..\\Resources\\sound\\music\\diablo.wav",
     };
 
-    static std::wstring buttonAudioMaterialNames[(int)eButtonSoundType::End] = {
-        L"buttonClick",
-        L"buttonHover",
+    enum class eSFXType
+    {
+        Quake,
+        End,
+    };
+
+    static std::wstring sfxSoundPaths[(int)eSFXType::End] = {
+        L"..\\Resources\\sound\\ambient\\Event\\quakeloop.wav",
+    };
+
+    enum class eUISoundType
+    {
+        ButtonClick,
+        ButtonHover,
+        InvenItemPickUp,
+        ItemSell,
+        PotionUse,
+        End,
+    };
+    static std::wstring buttonSoundPaths[(int)eUISoundType::End] = {
+        L"..\\Resources\\sound\\cursor\\button.wav",
+        L"..\\Resources\\sound\\cursor\\pass.wav",
+        L"..\\Resources\\sound\\cursor\\pickup.wav",
+        L"..\\Resources\\sound\\item\\gold.wav",
+        L"..\\Resources\\sound\\item\\potiondrink.wav",
+    };
+
+    static std::wstring itemDropSoundPaths[6] = {
+        L"..\\Resources\\sound\\item\\potion.wav",
+        L"..\\Resources\\sound\\item\\potion.wav",
+        L"..\\Resources\\sound\\item\\wand.wav",
+        L"..\\Resources\\sound\\item\\lightarmor.wav",
+        L"..\\Resources\\sound\\item\\cap.wav",
+        L"..\\Resources\\sound\\item\\flippy.wav",
     };
 
     enum class ePlayerRunSoundType

@@ -193,14 +193,14 @@ namespace m
 			{
 				std::wstring name = skillSoundPath[(int)mSkillType][0];
 				if (as)
-					as->Play(name, skillSoundLoop[(int)mSkillType], false);
+					as->Play(name, skillSoundLoop[(int)mSkillType], true);
 				SoundPlay(true);
 			}	
 		}else
 		{
 			std::wstring name = skillSoundPath[(int)mSkillType][0];
 			if (as)
-				as->Play(name, skillSoundLoop[(int)mSkillType], false);
+				as->Play(name, skillSoundLoop[(int)mSkillType], true);
 		}
 
 		if (mFireType == eFireType::Radial

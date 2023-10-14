@@ -46,26 +46,34 @@ namespace m
 		//mPFSS->SetPathFinder(this);
 		//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Tile, pathFinderOwner);
 
-		GameObject* drawPathTileObject = new GameObject();
-		SET_POS_XYZ(drawPathTileObject, 0.f, 0.f, 1.f);
-		SET_SCALE_XYZ(drawPathTileObject, TileManager::tileXSize, TileManager::tileYSize,1.f);
-		mTDS = ADD_COMP(drawPathTileObject, TileDrawSystem);
+		mDrawPathTileObject = new GameObject();
+		SET_POS_XYZ(mDrawPathTileObject, 0.f, 0.f, 1.f);
+		SET_SCALE_XYZ(mDrawPathTileObject, TileManager::tileXSize, TileManager::tileYSize,1.f);
+		mTDS = ADD_COMP(mDrawPathTileObject, TileDrawSystem);
 
-		drawPathTileObject->SetCamera(SceneManager::GetActiveScene()->GetSceneMainCamera());
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Tile, drawPathTileObject);
+		mDrawPathTileObject->SetCamera(SceneManager::GetActiveScene()->GetSceneMainCamera());
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Tile, mDrawPathTileObject);
 	}
 	PathFinder::~PathFinder()
 	{
-		pathVector.clear();
-		finalPathVector.clear();
-		openVector.clear();
-		closedVector.clear();
-		startTile = nullptr;
-		targetTile = nullptr;
-		curTile = nullptr;
+		
 	}
 
-	void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
+    void PathFinder::Release()
+    {
+		pathVector.clear();
+        finalPathVector.clear();
+        openVector.clear();
+        closedVector.clear();
+        startTile = nullptr;
+        targetTile = nullptr;
+        curTile = nullptr;
+
+		mTDS->Release();
+		mDrawPathTileObject->SetState(GameObject::eState::Delete);
+    }
+
+    void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
 	{
 		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
 		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;

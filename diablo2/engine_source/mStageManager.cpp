@@ -1,5 +1,5 @@
 #include "mStageManager.h"
 namespace m
 {
-    int StageManager::stageNum = 0;
+    int StageManager::stageNum = -1;
 }

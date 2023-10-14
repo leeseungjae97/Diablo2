@@ -393,12 +393,14 @@ namespace m
 			GetOwner()->SetBattleState(GameObject::Run);
 			mAnimationType = ePlayerAnimationType::Run;
 			ePlayerRunSoundType prst = ePlayerRunSoundType::End;
+			if (StageManager::stageNum == -1)
+				prst = ePlayerRunSoundType::PlayerStoneRun;
 			if (StageManager::stageNum == 0)
 				prst = ePlayerRunSoundType::PlayerStoneRun;
 			if (StageManager::stageNum == 1)
 				prst = ePlayerRunSoundType::PlayerSandRun;
 			if (StageManager::stageNum == 2)
-				prst = ePlayerRunSoundType::PlayerStoneRun;
+				prst = ePlayerRunSoundType::PlayerOStoneRun;
 			if (StageManager::stageNum == 3)
 				prst = ePlayerRunSoundType::PlayerOStoneRun;
 			mAudioSource->PlaySounds(prst);
@@ -474,7 +476,7 @@ namespace m
 			AudioSource* as = GET_COMP(GetOwner(), AudioSource);
 			std::wstring name = skillSoundPath[(int)skillType][0];
 			if (as)
-				as->Play(name, skillSoundLoop[(int)skillType], false);
+				as->Play(name, skillSoundLoop[(int)skillType], true);
 		}
 		
 

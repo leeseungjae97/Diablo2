@@ -82,9 +82,12 @@ namespace m
 				mShadow->SetState(eState::Delete);
 			}
 			Release();
+			
 
 			if (mPathFinder)
 			{
+				mPathFinder->Release();
+
 				StashManager::DropFieldItem(1, GET_POS(this));
 
 				delete mPathFinder;

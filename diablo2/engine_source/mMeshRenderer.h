@@ -29,6 +29,8 @@ namespace m
 		void SetTrappingColor(Vector4 color) { mTrappingColor.color = color; }
 		void SetSpriteOffsetCenter(Vector2 offset) { mSpriteOffsetCenter.offset = offset; }
 		void SetSpriteAlpha(float alpha) { mSpriteAlpha.alpha = alpha; }
+
+		Vector4 GetTrappingColor() { return mTrappingColor.color; }
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;

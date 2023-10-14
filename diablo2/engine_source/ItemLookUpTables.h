@@ -12,7 +12,7 @@ namespace m
 		Vitality,
 		Defense,
 		Damage,
-		Posion,
+		Potion,
 	};
 	enum class eItemType
 	{
@@ -27,15 +27,15 @@ namespace m
 		Shoes,
 		Glove,
 		Armor,
-		Posion,
+		Potion,
 		Scroll,
 		END,
 	};
 
 	enum class eItem
 	{
-		hpPosion1,
-		mpPosion1,
+		hpPotion1,
+		mpPotion1,
 
 		jaredsStone,
 
@@ -45,9 +45,9 @@ namespace m
 		END
 	};
 	static std::wstring itemNameTable[(int)eItem::END] = {
-		// posions
-		L"hpPosion1",
-		L"mpPosion1",
+		// potion
+		L"hpPotion1",
+		L"mpPotion1",
 
 		//weapons
 		L"jaredsStone",
@@ -66,8 +66,8 @@ namespace m
 		true,
 	};
 	static eItemIncreaseType itemIncTable[(int)eItem::END] = {
-		eItemIncreaseType::Posion,
-		eItemIncreaseType::Posion,
+		eItemIncreaseType::Potion,
+		eItemIncreaseType::Potion,
 
 		eItemIncreaseType::Damage,
 
@@ -75,15 +75,15 @@ namespace m
 		eItemIncreaseType::Defense,
 	};
 	static std::wstring fieldItemTable[(int)eItem::END] = {
-		L"hpPosionField",
-		L"mpPosionField",
+		L"hpPotionField",
+		L"mpPotionField",
 		L"jaredsStoneField",
 		L"leaderArmorField",
 		L"capField"
 	};
 	static std::wstring fieldItemAnimTable[(int)eItem::END] = {
-		L"hpPosionAnim",
-		L"mpPosionAnim",
+		L"hpPotionAnim",
+		L"mpPotionAnim",
 		L"jaredsStoneAnim",
 		L"leaderArmorAnim",
 		L"capAnim",
@@ -696,8 +696,8 @@ namespace m
 	};
 
 	static eItemType itemTypeTable[(int)eItem::END] = {
-		eItemType::Posion,
-		eItemType::Posion,
+		eItemType::Potion,
+		eItemType::Potion,
 
 		eItemType::RightWeapon,
 
@@ -726,7 +726,7 @@ namespace m
 
 		{2.f, 2.f},
 	};
-	// posion = 0 비용 1 회복량
+	// potion = 0 비용 1 회복량
 	// weapon = 0 비용 1 데미지 2 착용가능한 레벨
 	// armor = 0 비용 1 방어 2 착용가능한 레벨
 	static int itemFunctionValue[(int)eItem::END][4] = {

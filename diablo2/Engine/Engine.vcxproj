@@ -227,7 +227,7 @@
     <ClInclude Include="mPlayerScript.h" />
     <ClInclude Include="mPlayerStatus.h" />
     <ClInclude Include="mPlayScene.h" />
-    <ClInclude Include="mPosionScript.h" />
+    <ClInclude Include="mPotionScript.h" />
     <ClInclude Include="mSelectCharacterScene.h" />
     <ClInclude Include="mSkill.h" />
     <ClInclude Include="mSkillCurve.h" />
@@ -318,7 +318,7 @@
     <ClCompile Include="mPlayerScript.cpp" />
     <ClCompile Include="mPlayerStatus.cpp" />
     <ClCompile Include="mPlayScene.cpp" />
-    <ClCompile Include="mPosionScript.cpp" />
+    <ClCompile Include="mPotionScript.cpp" />
     <ClCompile Include="mSelectCharacterScene.cpp" />
     <ClCompile Include="mSkill.cpp" />
     <ClCompile Include="mSkillCurve.cpp" />

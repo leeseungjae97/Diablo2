@@ -7,8 +7,8 @@ namespace m
     AudioClip::AudioClip()
         : mSound(nullptr)
         , mChannel(nullptr)
-        , mMinDistance(1.0f)
-        , mMaxDistance(1000.0f)
+        , mMinDistance(0.0f)
+        , mMaxDistance(100.0f)
         , mbLoop(false)
     {
 
@@ -94,6 +94,18 @@ namespace m
 		mChannel->setVolume(45.f);
 		Fmod::SkillCrashSoundPlay(mSound, &mChannel);
 	}
+	void AudioClip::PlayExtern()
+    {
+		if (nullptr == mSound) return;
+
+		if (mbLoop)
+			mSound->setMode(FMOD_2D | FMOD_LOOP_NORMAL);
+		else
+			mSound->setMode(FMOD_2D | FMOD_LOOP_OFF);
+
+		mChannel->setVolume(45.f);
+		Fmod::SkillCrashSoundPlay(mSound, &mChannel);
+    }
 
 	void AudioClip::SetVolume(float vol)
     {

@@ -56,6 +56,11 @@ namespace m
 		Scene* curScene = SceneManager::GetActiveScene();
 		Monster* monster = dynamic_cast<Monster*>(GetOwner());
 
+		monster->SetMonsterClass(curMonsterData.mClass);
+		monster->SetMonsterType(curMonsterData.mMonsterType);
+		monster->SetMonsterName(curMonsterData.wsMonsterName);
+		monster->SetHpCapacity(curMonsterData.hpCapacity);
+
 		if (curMonsterData.passiveAura != eAuraType::End)
 		{
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
@@ -319,6 +324,9 @@ namespace m
 
 		MakeDirection();
 
+		int iRandIndex = rand() % 3;
+		
+
 		//if (!skillMake)
 
 		//if(mLeftHand)
@@ -327,12 +335,28 @@ namespace m
 		if (mMonster->GetBattleState() == GameObject::eBattleState::Dead)
 		{
 			mAnimationType = MonsterData::eAnimationType::Dead;
+
+			if(!GetOwner()->IsSoundPlayed())
+			{
+				std::wstring voice = monsterSoundPath[(int)curMonsterData.mMonsterType][(int)MonsterData::eAnimationType::Dead][iRandIndex];
+				if (mAudioSource)
+					mAudioSource->PlayNoDelay(1, voice);
+				GetOwner()->SoundPlay(true);
+			}
+			
+
 			return;
 		}
 
 		if (mMonster->GetMonsterHp() == 0)
 		{
 			DeadAnimation();
+
+			std::wstring voice = monsterSoundPath[(int)curMonsterData.mMonsterType][(int)MonsterData::eAnimationType::ToDead][iRandIndex];
+
+			if (mAudioSource)
+				mAudioSource->PlayOnce(1, voice, false, true, true);
+
 			return;
 		}
 
@@ -404,6 +428,9 @@ namespace m
 					mRightHand->SetAniType((int)mAnimationType);
 			}
 		}
+		std::wstring voice = monsterSoundPath[(int)curMonsterData.mMonsterType][(int)mAnimationType][iRandIndex];
+		if(mAudioSource)
+		    mAudioSource->PlayMonsterVoice(voice);
 	}
 	template <typename T>
 	void MonsterScript<T>::ElseAnimationPlay()

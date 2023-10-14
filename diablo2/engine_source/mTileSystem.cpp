@@ -106,12 +106,12 @@ namespace m
 	{
 		MeshRenderer::Update();
 
-		if(Input::GetKeyDown(eKeyCode::A))
+		if(Input::GetKeyDown(eKeyCode::E))
 		{
 			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"greenOutlineTileD");
 			SetMaterial(material);
 		}
-		if (Input::GetKeyDown(eKeyCode::D))
+		if (Input::GetKeyDown(eKeyCode::R))
 		{
 			std::shared_ptr<Material> material = RESOURCE_FIND(Material, L"noneRect");
 			SetMaterial(material);

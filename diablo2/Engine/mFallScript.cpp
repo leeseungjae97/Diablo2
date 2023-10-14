@@ -338,7 +338,7 @@ namespace m
 				AudioSource* as = GET_COMP(GetOwner(), AudioSource);
 				std::wstring name = skillSoundPath[(int)mType][0];
 				if (as)
-					as->Play(name, skillSoundLoop[(int)mType], false);
+					as->Play(name, skillSoundLoop[(int)mType], true);
 			}
 			
 

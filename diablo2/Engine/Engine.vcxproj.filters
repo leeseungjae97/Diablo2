@@ -123,8 +123,8 @@
     <ClCompile Include="mBackgroundScript.cpp">
       <Filter>Script\BackgroundScript</Filter>
     </ClCompile>
-    <ClCompile Include="mPosionScript.cpp">
-      <Filter>Script\PosionScript</Filter>
+    <ClCompile Include="mPotionScript.cpp">
+      <Filter>Script\PotionScript</Filter>
     </ClCompile>
     <ClCompile Include="mPlayerStatus.cpp" />
     <ClCompile Include="mSkillOrb.cpp">
@@ -383,8 +383,8 @@
     <ClInclude Include="mBackgroundScript.h">
       <Filter>Script\BackgroundScript</Filter>
     </ClInclude>
-    <ClInclude Include="mPosionScript.h">
-      <Filter>Script\PosionScript</Filter>
+    <ClInclude Include="mPotionScript.h">
+      <Filter>Script\PotionScript</Filter>
     </ClInclude>
     <ClInclude Include="mPlayerStatus.h" />
     <ClInclude Include="mSkillOrb.h">
@@ -650,9 +650,6 @@
     <Filter Include="UI\ItemPlaced\EmptyRect">
       <UniqueIdentifier>{6c844b8a-ce96-4cc3-b29e-0bedafbb137a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\PosionScript">
-      <UniqueIdentifier>{118d517c-507f-40cc-896d-b320bb78e071}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Objects\TileAffectOverlay">
       <UniqueIdentifier>{2ca29e00-20e9-4eb0-baa2-45c4019fef16}</UniqueIdentifier>
     </Filter>
@@ -811,6 +808,9 @@
     </Filter>
     <Filter Include="UI\CharacterStatus">
       <UniqueIdentifier>{2026225e-35fa-4e43-869f-6905fbbf2f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\PotionScript">
+      <UniqueIdentifier>{118d517c-507f-40cc-896d-b320bb78e071}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

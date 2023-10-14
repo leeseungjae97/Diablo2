@@ -11,6 +11,7 @@ namespace m
 		static void Update();
 		static void AddSkill(Skill* skill);
         static void EraseSkill(UINT skillId);
+		static void AllSkillCrash();
 		static void SkillCrash(UINT skillId);
         static Skill* GetSkill(UINT skillId);
 
