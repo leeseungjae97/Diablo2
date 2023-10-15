@@ -18,6 +18,7 @@
 #include <limits>
 #include <memory>
 #include <filesystem>
+#include <codecvt>
 
 #include <dwrite.h>
 #include <d2d1.h>

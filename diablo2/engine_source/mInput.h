@@ -16,6 +16,7 @@ namespace m
 		
 		UP, DOWN, LEFT, RIGHT, SPACE,
 		LBUTTON, RBUTTON, ESC, L_ALT,
+		BACKSPACE, SHIFT,
 		END,
 	};
 
@@ -40,6 +41,7 @@ namespace m
 		static void Initialize();
 		static void Update();
 		static void Render(HDC hdc);
+		static int GetInputKey();
 
 		inline static eKeyState GetKeyState(eKeyCode keyCode)
 		{

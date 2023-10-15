@@ -2,6 +2,9 @@
 #include "../engine_source/mScene.h"
 namespace m
 {
+    class Button;
+    class TextInputUI;
+    class UI;
     class Camera;
     class SelectCharacterScene :
         public Scene
@@ -14,6 +17,13 @@ namespace m
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
+
     private:
+        void makeUI();
+    private:
+        UI* mTextClass;
+        UI* mTextClassEx;
+        Button* mGameStart;
+        TextInputUI* mTIU;
     };
 }

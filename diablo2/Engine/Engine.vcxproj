@@ -204,6 +204,7 @@
     <ClInclude Include="mSummonsScript.h" />
     <ClInclude Include="mInteractUI.h" />
     <ClInclude Include="mTeleportScript.h" />
+    <ClInclude Include="mTextInputUI.h" />
     <ClInclude Include="mTileAffectOverlay.h" />
     <ClInclude Include="mGridScript.h" />
     <ClInclude Include="mHand.h" />
@@ -294,6 +295,7 @@
     <ClCompile Include="mSummonsScript.cpp" />
     <ClCompile Include="mInteractUI.cpp" />
     <ClCompile Include="mTeleportScript.cpp" />
+    <ClCompile Include="mTextInputUI.cpp" />
     <ClCompile Include="mTileAffectOverlay.cpp" />
     <ClCompile Include="mGridScript.cpp" />
     <ClCompile Include="mHand.cpp" />

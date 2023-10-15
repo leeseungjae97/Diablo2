@@ -396,12 +396,14 @@ namespace m
 			if (StageManager::stageNum == -1)
 				prst = ePlayerRunSoundType::PlayerStoneRun;
 			if (StageManager::stageNum == 0)
-				prst = ePlayerRunSoundType::PlayerStoneRun;
+				prst = ePlayerRunSoundType::PlayerDirtRun;
 			if (StageManager::stageNum == 1)
-				prst = ePlayerRunSoundType::PlayerSandRun;
+				prst = ePlayerRunSoundType::PlayerStoneRun;
 			if (StageManager::stageNum == 2)
-				prst = ePlayerRunSoundType::PlayerOStoneRun;
+				prst = ePlayerRunSoundType::PlayerSandRun;
 			if (StageManager::stageNum == 3)
+				prst = ePlayerRunSoundType::PlayerOStoneRun;
+			if (StageManager::stageNum == 4)
 				prst = ePlayerRunSoundType::PlayerOStoneRun;
 			mAudioSource->PlaySounds(prst);
 		}

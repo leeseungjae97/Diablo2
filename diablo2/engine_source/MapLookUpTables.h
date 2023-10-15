@@ -1,5 +1,9 @@
 #pragma once
 
+static m::math::Vector2 stage0Walls[1000] = {
+	m::math::Vector2(),
+};
+
 static m::math::Vector2 stage4Walls[1000] = {
 	{55, 66},
 	{56, 66},

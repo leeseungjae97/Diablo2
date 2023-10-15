@@ -37,7 +37,25 @@ namespace m
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameObject(eLayerType::UI, this);
 
+
+		remainPointer = new UI();
+		SET_MESH(remainPointer, L"RectMesh");
+		SET_MATERIAL(remainPointer, L"noneRect");
+		std::wstring skillpoint = L"스킬\n향상\n포인트\n\n";
+		skillpoint +=std::to_wstring(PlayerManager::skillPoint);
+		remainPointer->SetText(skillpoint);
+		remainPointer->SetTextSize(19.f);
+		remainPointer->SetTextOffset(Vector2(0.f, -28.f));
+		remainPointer->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		remainPointer->SetCamera(camera);
+		SET_POS_XYZ(remainPointer, RESOL_H_WID - 125.f * Texture::GetWidRatio(), RESOL_H_HEI - 122.f * Texture::GetHeiRatio(), 1.f);
+		
+		curScene->AddGameObject(eLayerType::UI, remainPointer);
+
 		coldBtn = new Button();
+		coldBtn->SetText(L"콜드\n스펠");
+		coldBtn->SetTextSize(19.f);
+		coldBtn->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
 		coldBtn->SetCamera(GetCamera());
 		// x 230 , y 170
 		coldBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -49,6 +67,9 @@ namespace m
 		curScene->AddGameObject(eLayerType::UI, coldBtn);
 
 		lightBtn = new Button();
+		lightBtn->SetTextSize(19.f);
+		lightBtn->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		lightBtn->SetText(L"라이트닝\n스펠");
 		lightBtn->SetCamera(GetCamera());
 		// x 230 , y 385
 		lightBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -59,6 +80,9 @@ namespace m
 		curScene->AddGameObject(eLayerType::UI, lightBtn);
 
 		fireBtn = new Button();
+		fireBtn->SetTextSize(19.f);
+		fireBtn->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		fireBtn->SetText(L"파이어\n스펠");
 		fireBtn->SetCamera(GetCamera());
 		// x 230 , y 278
 		fireBtn->GetComponent<MeshRenderer>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -85,6 +109,10 @@ namespace m
 			std::wstring clickSkillName = wsColdSkillClickNames[i];
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
 			skill->SetCamera(GetCamera());
+			skill->SetText(std::to_wstring(PlayerManager::learnedSkill[0][i]));
+			skill->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+			skill->SetTextSize(15.f);
+			skill->SetTextOffset(Vector2(55.f, 45.f));
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
 			skill->GetComponent<TrappingColor>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			skill->GetComponent<TrappingColor>()->SetMaterial(Resources::Find<Material>(skillName));
@@ -102,6 +130,10 @@ namespace m
 			std::wstring clickSkillName = wsLightningSkillClickNames[i];
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
 			skill->SetCamera(GetCamera());
+			skill->SetText(std::to_wstring(PlayerManager::learnedSkill[1][i]));
+			skill->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+			skill->SetTextSize(15.f);
+			skill->SetTextOffset(Vector2(55.f, 45.f));
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
 			skill->GetComponent<TrappingColor>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			skill->GetComponent<TrappingColor>()->SetMaterial(Resources::Find<Material>(skillName));
@@ -119,6 +151,10 @@ namespace m
 			std::wstring clickSkillName = wsFireSkillClickNames[i];
 			SkillButton* skill = new SkillButton(iX, iY, startX, startY, intervalX, intervalY, i);
 			skill->SetCamera(GetCamera());
+			skill->SetText(std::to_wstring(PlayerManager::learnedSkill[2][i]));
+			skill->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+			skill->SetTextSize(15.f);
+			skill->SetTextOffset(Vector2(55.f, 45.f));
 			skill->GetComponent<Transform>()->SetScale(Vector3(scaleX, scaleY, 0.f));
 			skill->GetComponent<TrappingColor>()->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			skill->GetComponent<TrappingColor>()->SetMaterial(Resources::Find<Material>(skillName));
@@ -145,7 +181,13 @@ namespace m
 		{
 			for (Button* btn : buttons)
 				btn->SetState(GetState());
+
+			remainPointer->SetState(GetState());
 		}
+		std::wstring skillpoint = L"스킬\n향상\n포인트\n\n";
+		skillpoint += std::to_wstring(PlayerManager::skillPoint);
+		remainPointer->SetText(skillpoint);
+
 		if (coldBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP1);
@@ -180,10 +222,11 @@ namespace m
 			noAntec = true;
 			for (int j = 0; j < 10; ++j)
 			{
+				int skillp = PlayerManager::learnedSkill[skillTreeSelectNum][j];
 				// 현재 스킬 활성화 위한 기반 스킬 활성화 확인
-				if (skillTree[i][j] > PlayerManager::learnedSkill[skillTreeSelectNum][j]) noAntec = false;
+				if (skillTree[i][j] > skillp) noAntec = false;
 			}
-
+			btn->SetText(std::to_wstring(PlayerManager::learnedSkill[skillTreeSelectNum][i]));
 			btn->SetState(GetState());
 
 			if (noAntec)

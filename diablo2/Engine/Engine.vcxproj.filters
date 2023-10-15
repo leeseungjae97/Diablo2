@@ -262,6 +262,7 @@
     <ClCompile Include="mCharacterStatus.cpp">
       <Filter>UI\CharacterStatus</Filter>
     </ClCompile>
+    <ClCompile Include="mTextInputUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -522,6 +523,7 @@
     <ClInclude Include="mCharacterStatus.h">
       <Filter>UI\CharacterStatus</Filter>
     </ClInclude>
+    <ClInclude Include="mTextInputUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -811,6 +813,9 @@
     </Filter>
     <Filter Include="Script\PotionScript">
       <UniqueIdentifier>{118d517c-507f-40cc-896d-b320bb78e071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TextInputUI">
+      <UniqueIdentifier>{2aab387a-dd19-4ee3-a38d-dceae3b7f0aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

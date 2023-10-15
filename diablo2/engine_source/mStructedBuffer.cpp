@@ -147,6 +147,7 @@ namespace m::graphics
 	void StructuredBuffer::GetData(T** data, UINT size)
 	{
 		//if (nullptr == mReadBuffer) return;
+		//if (nullptr == buffer) return;
 
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 

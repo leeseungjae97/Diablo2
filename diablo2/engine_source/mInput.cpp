@@ -15,6 +15,7 @@ namespace m
 
 		VK_UP, VK_DOWN, VK_LEFT ,VK_RIGHT, VK_SPACE,
 		VK_LBUTTON, VK_RBUTTON, VK_ESCAPE, VK_MENU,
+		VK_BACK, VK_SHIFT
 	};
 
 	std::vector<Input::Key> Input::mKeys;
@@ -97,4 +98,37 @@ namespace m
 	{
 
 	}
+
+    int Input::GetInputKey()
+    {
+		for (UINT i = 0; i < (UINT)eKeyCode::END; i++)
+		{
+			if (eKeyState::Down == mKeys[i].state)
+			{
+				if (ASCII[i] == VK_UP
+					|| ASCII[i] == VK_DOWN
+					|| ASCII[i] == VK_LEFT
+					|| ASCII[i] == VK_RIGHT
+					|| ASCII[i] == VK_SPACE
+					|| ASCII[i] == VK_LBUTTON
+					|| ASCII[i] == VK_RBUTTON
+					|| ASCII[i] == VK_ESCAPE
+					|| ASCII[i] == VK_SHIFT
+					|| ASCII[i] == VK_MENU)
+					continue;
+
+				if (eKeyState::Down == mKeys[(int)eKeyCode::SHIFT].state
+					|| eKeyState::Pressed == mKeys[(int)eKeyCode::SHIFT].state)
+				{
+					return ASCII[i];
+				}
+
+				if(ASCII[i] == VK_BACK)
+					return ASCII[i];
+
+				return ASCII[i] + 32;
+			}
+		}
+		return -1;
+    }
 }

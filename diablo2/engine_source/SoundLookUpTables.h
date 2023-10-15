@@ -41,17 +41,21 @@ namespace m
     };
     enum class eBGMType
     {
+        Stage0,
         Stage1,
         Stage2,
         Stage3,
+        StageB,
         Stage4,
         End,
     };
 
     static std::wstring bgmSoundPaths[(int)eBGMType::End] = {
         L"..\\Resources\\sound\\music\\wild.wav",
+        L"..\\Resources\\sound\\music\\wild.wav",
         L"..\\Resources\\sound\\music\\tombs.wav",
         L"..\\Resources\\sound\\music\\kurastsewer.wav",
+        L"..\\Resources\\sound\\music\\diablo.wav",
         L"..\\Resources\\sound\\music\\diablo.wav",
     };
 
@@ -93,12 +97,19 @@ namespace m
 
     enum class ePlayerRunSoundType
     {
+        PlayerDirtRun,
         PlayerStoneRun,
         PlayerOStoneRun,
         PlayerSandRun,
         End,
     };
     static std::wstring playerRunAudioPath[(int)ePlayerRunSoundType::End][4] = {
+        {
+            L"..\\Resources\\sound\\ambient\\footstep\\LightDirtRun1.wav",
+            L"..\\Resources\\sound\\ambient\\footstep\\LightDirtRun2.wav",
+            L"..\\Resources\\sound\\ambient\\footstep\\LightDirtRun3.wav",
+            L"..\\Resources\\sound\\ambient\\footstep\\LightDirtRun4.wav",
+        },
         {
             L"..\\Resources\\sound\\ambient\\footstep\\LightIStoneRun1.wav",
             L"..\\Resources\\sound\\ambient\\footstep\\LightIStoneRun2.wav",

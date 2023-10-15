@@ -17,6 +17,7 @@ namespace m
 		: bClick(false)
 		, bCanClick(true)
 	    , bClickSound(false)
+	    , bDisableClick(false)
 	{
 	}
 
@@ -42,48 +43,56 @@ namespace m
 
 		if (GetHover())
 		{
-			if (Input::GetKeyUp(eKeyCode::LBUTTON))
+			if(!bDisableClick)
 			{
-				bOneClick = true;
+				if (Input::GetKeyUp(eKeyCode::LBUTTON))
+				{
+					bOneClick = true;
+				}
 			}
+			
 		}
 		if (GetHover())
 		{
-			
-			if (Input::GetKey(eKeyCode::LBUTTON))
-			{
-				AudioSource* as = GET_COMP(this, AudioSource);
-				if(bClickSound)
-				{
-					if (!IsSoundPlayed())
-					{
-						as->Play(eUISoundType::ButtonClick, false, false);
-						SoundPlay(true);
-					}
-				}
-				
-				bClick = true;
 
-				if (mClickedMaterial)
-					mr->SetMaterial(mClickedMaterial);
-			}
-			if (Input::GetKeyUp(eKeyCode::LBUTTON))
+			if (!bDisableClick)
 			{
-				if (fClickFunctionPtr)
-					fClickFunctionPtr();
+				if (Input::GetKey(eKeyCode::LBUTTON))
+				{
+					AudioSource* as = GET_COMP(this, AudioSource);
+					if (bClickSound)
+					{
+						if (!IsSoundPlayed())
+						{
+							as->Play(eUISoundType::ButtonClick, false, false);
+							SoundPlay(true);
+						}
+					}
+
+					bClick = true;
+
+					if (mClickedMaterial)
+						mr->SetMaterial(mClickedMaterial);
+				}
+				if (Input::GetKeyUp(eKeyCode::LBUTTON))
+				{
+					if (fClickFunctionPtr)
+						fClickFunctionPtr();
+				}
 			}
+
 		}
 		else
 		{
 			SoundPlay(false);
 		}
-
 		if (!Input::GetKey(eKeyCode::LBUTTON))
 		{
 			bClick = false;
 			if (mNormalMaterial)
 				mr->SetMaterial(mNormalMaterial);
 		}
+		
 	}
 	void Button::LateUpdate()
 	{

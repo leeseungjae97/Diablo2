@@ -55,6 +55,7 @@ namespace m
 		, bStageStart(false)
 		, mEnterNameUI(nullptr)
 		, fAcc(0.f)
+	    , bPlaySceneFireUpdate(true)
 	{
 
 	}
@@ -146,7 +147,7 @@ namespace m
 			ADD_COMP(curMap, MeshRenderer);
 			AddGameObject(eLayerType::Background, curMap);
 			SET_MESH(curMap, L"RectMesh");
-			SET_MATERIAL(curMap, L"stage3");
+			SET_MATERIAL(curMap, L"stage0");
 			MAKE_GET_TEX(curMap, tex);
 			SET_SCALE_TEX_SIZE(curMap, tex, 1.f);
 			Vector3 scale = GET_SCALE(curMap);
@@ -157,8 +158,7 @@ namespace m
 			tilePos.y -= tileScale.y / 2.f;
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
-
-		//Stage1();
+		Stage1();
 	}
 	void PlayScene::Update()
 	{
@@ -201,9 +201,14 @@ namespace m
 
 		Scene::Update();
 
-		if (Input::GetKeyDown(eKeyCode::N))
+		//if (Input::GetKeyDown(eKeyCode::N))
+		//{
+		//	SceneManager::LoadScene(L"MainMenuScene");
+		//}
+		if(bPlaySceneFireUpdate)
 		{
-			SceneManager::LoadScene(L"MainMenuScene");
+			bPlaySceneFireUpdate = false;
+			//Stage0();
 		}
 		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inventory)
 		{
@@ -240,6 +245,16 @@ namespace m
 
 	void PlayScene::SystemUI()
 	{
+		{
+			dayLight = new GameObject();
+
+			Light* lightComp = dayLight->AddComponent<Light>();
+			dayLight->SetState(GameObject::NoRenderNoUpdate);
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+			AddGameObject(eLayerType::Light, dayLight);
+		}
+
 		GameObject* uiCamera = new GameObject();
 		SET_POS_XYZ(uiCamera, 0.0f, 0.0f, -1.f);
 		Camera* cameraComp2 = ADD_COMP(uiCamera, Camera);
@@ -1151,7 +1166,60 @@ namespace m
 		TileManager::TileIsWallChange();
 	}
 
-	void PlayScene::Stage1()
+    void PlayScene::MakeStage0Wall()
+    {
+		Camera* cameraComp = GetSceneMainCamera();
+		TileManager::TileIsWallReset();
+		{
+		    
+		}
+		TileManager::MakeStageWall(-1);
+		TileManager::TileIsWallChange();
+    }
+
+    void PlayScene::Stage0()
+    {
+		SoundManager::ResetAllPlayed();
+		//SkillManager::AllSkillCrash();
+		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
+		ScreenEffectManager::FadeIn();
+        MakeStage0Wall();
+		dayLight->SetState(GameObject::RenderUpdate);
+		StageManager::stageNum = (int)eBGMType::Stage0;
+		if (curMap)
+		{
+			SET_MATERIAL(curMap, L"stage0");
+		}
+
+		fAcc = 0.f;
+		bStageInit = false;
+		bStageStart = false;
+
+		mPortal->SetClickPortal(
+			[=]()
+			{
+				Stage1();
+			}
+		);
+		{
+			Tile* tile = TileManager::pathFindingTiles[55][73];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mNpc2, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[54][74];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mNpc1, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[53][76];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mPortal, pos);
+		}
+    }
+
+    void PlayScene::Stage1()
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
@@ -1159,7 +1227,8 @@ namespace m
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage1Wall();
-		StageManager::stageNum = 0;
+		dayLight->SetState(GameObject::NoRenderNoUpdate);
+		StageManager::stageNum = (int)eBGMType::Stage1;
 		
 		if (curMap)
 		{
@@ -1247,7 +1316,8 @@ namespace m
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
-		StageManager::stageNum = 1;
+		StageManager::stageNum = (int)eBGMType::Stage2;
+		dayLight->SetState(GameObject::NoRenderNoUpdate);
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
@@ -1308,9 +1378,10 @@ namespace m
 	void PlayScene::Stage3()
 	{
 		SoundManager::ResetAllPlayed();
-		StageManager::stageNum = 2;
+		StageManager::stageNum = (int)eBGMType::Stage3;
 		MonsterManager::EraseAll();
 		SkillManager::AllSkillCrash();
+		dayLight->SetState(GameObject::NoRenderNoUpdate);
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
 		MakeStage3Wall();
@@ -1378,7 +1449,8 @@ namespace m
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
-		StageManager::stageNum = 3;
+		StageManager::stageNum = (int)eBGMType::Stage4;
+		dayLight->SetState(GameObject::RenderUpdate);
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
@@ -1402,16 +1474,16 @@ namespace m
 		fAcc = 0.f;
 		bStageInit = false;
 		bStageStart = true;
-		{
-			GameObject* lavaLight = new GameObject();
+		//{
+		//	GameObject* lavaLight = new GameObject();
 
-			Light* lightComp = lavaLight->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetColor(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
-			AddGameObject(eLayerType::Light, lavaLight);
-			//lightComp->SetRadiusX(300.0f);
-			//lightComp->SetRadiusY(150.0f);
-		}
+		//	Light* lightComp = lavaLight->AddComponent<Light>();
+		//	lightComp->SetType(eLightType::Directional);
+		//	lightComp->SetColor(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+		//	AddGameObject(eLayerType::Light, lavaLight);
+		//	//lightComp->SetRadiusX(300.0f);
+		//	//lightComp->SetRadiusY(150.0f);
+		//}
 		{
 			//Tile* tile = TileManager::pathFindingTiles[24][24];
 			Tile* tile = TileManager::pathFindingTiles[60][60];

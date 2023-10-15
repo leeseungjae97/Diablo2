@@ -99,6 +99,9 @@ namespace m
 		if (stage == 0)
 			wall = stage1Walls;
 
+		if (stage == -1)
+			wall = stage0Walls;
+
 		for(int i = 0 ; i < 1000; ++i)
 		{
 			Vector2 wallCoord = wall[i];

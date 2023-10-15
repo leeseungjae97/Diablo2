@@ -32,10 +32,13 @@ namespace m
 		void SetNormalMaterial(std::shared_ptr<Material> material) { mNormalMaterial = material; }
 
 		void ClickMakeSound() { bClickSound = true; }
+		void ClickDisable() { bDisableClick = true; }
+		void Clickable() { bDisableClick = false; }
 	private:
 		bool bCanClick;
 		bool bClick;
 		bool bOneClick;
+		bool bDisableClick;
 
 		bool bClickSound;
 		void (*fClickFunctionPtr)();

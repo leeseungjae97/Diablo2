@@ -29,6 +29,8 @@ namespace m
         void MakeStage3Wall();
         void MakeStage2Wall();
         void MakeStage1Wall();
+        void MakeStage0Wall();
+        void Stage0();
         void Stage1();
         void Stage2();
         void Stage3();
@@ -44,6 +46,7 @@ namespace m
         Shop* shop;
 
         GameObject* curMap;
+        GameObject* dayLight;
         Monster* mBossMonster;
         Portal* mPortal;
 
@@ -51,7 +54,9 @@ namespace m
         NPC* mNpc2;
 
         UI* mEnterNameUI;
+
         float fAcc;
+        bool bPlaySceneFireUpdate;
 
         bool bStageInit;
         bool bStageStart;

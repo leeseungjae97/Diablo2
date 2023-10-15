@@ -743,6 +743,7 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"stage_3", L"..\\Resources\\texture\\map\\stage3\\stage3.png", L"stage3");
 		MAKE_MATERIAL(spriteShader, L"stage_2", L"..\\Resources\\texture\\map\\stage2\\stage2.png", L"stage2");
 		MAKE_MATERIAL(spriteShader, L"stage_1", L"..\\Resources\\texture\\map\\stage1\\stage1.png", L"stage1");
+		MAKE_MATERIAL(spriteShader, L"stage_0", L"..\\Resources\\texture\\map\\stage0\\stage0.png", L"stage0");
 
 		MAKE_MATERIAL_T(wallShader, L"s1_wall_1", L"..\\Resources\\texture\\map\\stage1\\wall_1.png", L"s1Wall1");
 		MAKE_MATERIAL_T(wallShader, L"s1_wall_2", L"..\\Resources\\texture\\map\\stage1\\wall_2.png", L"s1Wall2");
@@ -1080,6 +1081,9 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"btn_1_c", L"..\\Resources\\texture\\ui\\buttons\\btn_1_c.png", L"btn1Click");
 		MAKE_MATERIAL(noLightShader, L"btn_2", L"..\\Resources\\texture\\ui\\buttons\\btn_2.png", L"btn2");
 		MAKE_MATERIAL(noLightShader, L"btn_2_c", L"..\\Resources\\texture\\ui\\buttons\\btn_2_c.png", L"btn2Click");
+		MAKE_MATERIAL(noLightShader, L"btn_3_d", L"..\\Resources\\texture\\ui\\buttons\\btn_3_d.png", L"btn3Disable");
+		MAKE_MATERIAL(noLightShader, L"btn_3", L"..\\Resources\\texture\\ui\\buttons\\btn_3.png", L"btn3");
+		MAKE_MATERIAL(noLightShader, L"btn_3_c", L"..\\Resources\\texture\\ui\\buttons\\btn_3_c.png", L"btn3Click");
 
 #pragma endregion
 #pragma region Tiles
@@ -1230,6 +1234,12 @@ namespace renderer
 		MAKE_MATERIAL(noLightShader, L"character_status", L"..\\Resources\\texture\\ui\\play\\characterpanel_panel.png", L"characterStatus");
 		MAKE_MATERIAL(noLightShader, L"stat_point", L"..\\Resources\\texture\\ui\\play\\stat_point.png", L"statPoint");
 
+#pragma endregion
+#pragma region Character Select
+		MAKE_MATERIAL_PATH(spriteShader, L"sorceress_pick_loop", L"..\\Resources\\texture\\character_select\\sorceress_pick_loop"
+			, 120, 260, 12, L"sorceressPickLoop");
+		MAKE_MATERIAL_T(noLightShader, L"character_select_fire", L"..\\Resources\\texture\\character_select\\fire.png", L"characterSelectFire");
+		MAKE_MATERIAL_T(noLightShader, L"character_name_Input", L"..\\Resources\\texture\\character_select\\character_name_Input.png", L"characterNameInput");
 #pragma endregion
 #pragma region Inventory
 		{

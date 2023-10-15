@@ -101,13 +101,22 @@ namespace m::graphics
 
 		Clear();
 
-		mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
-		//mTileCoordBuffer->GetData(data, size);
+		if (nullptr == mTileCoordBuffer) return;
 
-		if(nullptr != mMonsterCoordBuffer && nullptr != mMonsterBuffer
-			&& mMonsterCoordBuffer->buffer
-			&& mMonsterBuffer->buffer)
-			mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
+		if (nullptr == mTileCoordBuffer->buffer) return;
+
+		mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
+
+		//mTileCoordBuffer->GetData(data, size);
+		if (nullptr == mMonsterCoordBuffer
+			|| nullptr == mMonsterBuffer)
+			return;
+
+		if (nullptr == mMonsterCoordBuffer->buffer
+			|| nullptr == mMonsterBuffer->buffer)
+			return;
+		
+		mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 			//mMonsterCoordBuffer->GetData(data2, size2);
 		
 	}

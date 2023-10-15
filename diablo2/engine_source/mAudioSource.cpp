@@ -273,7 +273,7 @@ namespace m
 				mAudioClips[(int)eAudioClipType::FootStep]->SetSound(sound);
 				mAudioClips[(int)eAudioClipType::FootStep]->SetVolume(10.f);
 				bActiveAudioClip[(int)eAudioClipType::FootStep] = true;
-				bAudioClip3DAtr[(int)eAudioClipType::FootStep] = true;
+				bAudioClip3DAtr[(int)eAudioClipType::FootStep] = false;
 				mAudioClips[(int)eAudioClipType::FootStep]->SetLoop(loop);
 				mAudioClips[(int)eAudioClipType::FootStep]->PlayRun();
 			}
