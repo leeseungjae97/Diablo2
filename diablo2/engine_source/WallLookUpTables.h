@@ -14,6 +14,8 @@ enum class eWallType
     Stage1Chair,
 
     Stage2Wall1,
+
+    Stage0Wall1,
     End,
 };
 enum class eWallDirection
@@ -39,6 +41,8 @@ static std::wstring wallMaterialNames[(int)eWallType::End] = {
     L"s1Chair1",
 
     L"s2Wall1",
+
+    L"s0Wall1",
 };
 static eWallDirection wallDirections[(int)eWallType::End] = {
     eWallDirection::LeftUpRightDown,
@@ -54,6 +58,8 @@ static eWallDirection wallDirections[(int)eWallType::End] = {
     eWallDirection::Tile,
 
     eWallDirection::Door,
+
+    eWallDirection::Door,
 };
 static int wallSizes[(int)eWallType::End][2] = {
     {3, 1},
@@ -67,6 +73,8 @@ static int wallSizes[(int)eWallType::End][2] = {
     {1, 1},
 
     {2, 2},
+
+    {1, 1},
 
     {1, 1},
 };

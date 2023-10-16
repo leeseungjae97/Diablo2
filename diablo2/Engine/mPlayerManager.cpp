@@ -69,7 +69,7 @@ namespace m
 		learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::teleport);
+		SetSkill(1, eSkillType::frozenOrb);
 	}
 
 	void PlayerManager::CalHpPercent()

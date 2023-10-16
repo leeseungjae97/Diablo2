@@ -3,6 +3,7 @@
 #include "MoveAbleObjectAnimLookUpTables.h"
 #include "mGameObject.h"
 #include "mMonster.h"
+#include "mShadowObject.h"
 #include "SkillAnimLookUpTables.h"
 
 #include "../engine_source/mSceneManager.h"
@@ -35,15 +36,23 @@ namespace m
 
 		SET_SCALE_XYZ(this,
 			100.f, 100.f, 1.f);
+
+		mShadow = new ShadowObject(this);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
 	}
 
 	MonsterHand::~MonsterHand()
 	{
+		//if (mShadow)
+		//	mShadow->SetState(eState::Delete);
 	}
 
 	void MonsterHand::Update()
 	{
 		Hand::Update();
+		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
+		mShadow->SetShadowOffset(monsterOffsets[(int)mMonsterType][mHandScript->GetHandDirection()]);
+
 		if (mOwner->GetBattleState() == eBattleState::ToDead)
 		{
 			SetState(Delete);
@@ -60,14 +69,20 @@ namespace m
 		{
 			if (direction == (int)ePathSixteenDirection::Left
 				|| direction == (int)ePathSixteenDirection::LeftUp1
-				|| direction == (int)ePathSixteenDirection::RightUp1
+				|| direction == (int)ePathSixteenDirection::LeftUp2
+				|| direction == (int)ePathSixteenDirection::LeftUp3
+				|| direction == (int)ePathSixteenDirection::RightDown1
+				|| direction == (int)ePathSixteenDirection::RightDown2
+				|| direction == (int)ePathSixteenDirection::RightDown3
 				|| direction == (int)ePathSixteenDirection::Up)
 			{
-				if (pos.z == 1.f) pos.z += 0.00001f;
+				//if (pos.z == 1.f) pos.z += 0.00001f;
+				pos.z += 0.0001f;
 			}
 			else
 			{
-				if (pos.z > 1.f) pos.z -= 0.00001f;;
+				//if (pos.z > 1.f) pos.z -= 0.00001f;;
+				pos.z -= 0.0001f;;
 			}
 		}
 

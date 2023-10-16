@@ -38,6 +38,7 @@ namespace m::enums
 
 		FieldItem,
 		Wall,
+		NoCullWall,
 		Summons,
 		Player,
 		Monster,

@@ -6,9 +6,9 @@
 #include "../External/DirectXTex/Include/DirectXTex.inl"
 
 #ifdef _DEBUG
-#pragma comment(lib, "..\\External\\DirectXTex\\Library_\\Debug_\\DirectXTex.lib")
+#pragma comment(lib, "..\\External\\DirectXTex\\_Library\\Debug_\\DirectXTex.lib")
 #else
-#pragma comment(lib, "..\\External\\DirectXTex\\Library_\\Release_\\DirectXTex.lib")
+#pragma comment(lib, "..\\External\\DirectXTex\\_Library\\Release_\\DirectXTex.lib")
 #endif
 
 namespace m::graphics
@@ -19,9 +19,6 @@ namespace m::graphics
 		Texture();
 		~Texture();
 
-		HRESULT GetTexturePathXY(std::wstring path, int x, int y);
-		HRESULT GetTextureInTexture(std::shared_ptr<Texture> texture, Vector2 splitPosition, UINT splitWidth, UINT splitHeight);
-        HRESULT MergeTex2(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT width, UINT height);
         HRESULT MergeTex(std::vector<std::shared_ptr<Texture>> mergeTextures, std::vector<Vector2> texturePosition, UINT perWidth, UINT perHeight, UINT oneLength, UINT addtionCount = 0, const std::wstring& mergedTextureName = L"");
 		HRESULT CreateTex(UINT avgFileWidth, UINT avgFileHeight, UINT oneAnimLength, const std::wstring& path);
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);

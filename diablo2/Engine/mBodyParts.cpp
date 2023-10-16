@@ -97,6 +97,8 @@ namespace m
 	}
 	BodyParts::~BodyParts()
 	{
+		if (mShadow)
+			mShadow->SetState(eState::Delete);
 	}
 
 	void BodyParts::Initialize()

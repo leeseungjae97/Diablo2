@@ -76,6 +76,7 @@ namespace m
         InvenItemPickUp,
         ItemSell,
         PotionUse,
+        PointUse,
         End,
     };
     static std::wstring buttonSoundPaths[(int)eUISoundType::End] = {
@@ -84,6 +85,7 @@ namespace m
         L"..\\Resources\\sound\\cursor\\pickup.wav",
         L"..\\Resources\\sound\\item\\gold.wav",
         L"..\\Resources\\sound\\item\\potiondrink.wav",
+        L"..\\Resources\\sound\\cursor\\pointdrop.wav",
     };
 
     static std::wstring itemDropSoundPaths[6] = {
@@ -417,7 +419,7 @@ namespace m
 
     };
 
-    static std::wstring monsterSoundPath[5][14][3] = {
+    static std::wstring monsterSoundPath[6][14][3] = {
         //diablo
         {
             {
@@ -788,5 +790,78 @@ namespace m
                 L"..\\Resources\\sound\\monster\\BloodLord\\death3.wav",//ToDead
             },
         },
+        {
+                 {
+            L"..\\Resources\\sound\\monster\\fallen\\flee1.wav",//Attack1    
+            L"..\\Resources\\sound\\monster\\fallen\\flee2.wav",//Attack1    
+            L"..\\Resources\\sound\\monster\\fallen\\flee3.wav",//Attack1    
+            },
+            {
+                L"..\\Resources\\sound\\monster\\fallen\\flee3.wav",//Attack2
+                L"..\\Resources\\sound\\monster\\fallen\\flee4.wav",//Attack2
+                L"..\\Resources\\sound\\monster\\fallen\\flee5.wav",//Attack2
+            },
+            {
+                L"",//Block
+                L"",//Block
+                L"",//Block
+            },
+            {
+                L"..\\Resources\\sound\\monster\\fallen\\gethit1.wav",//Hit
+                L"..\\Resources\\sound\\monster\\fallen\\gethit2.wav",//Hit
+                L"..\\Resources\\sound\\monster\\fallen\\gethit3.wav",//Hit
+            },
+            {
+                L"",//Natural
+            L"",//Natural
+            L"",//Natural
+            },
+            {
+                L"",//Run
+                L"",//Run
+                L"",//Run
+            },
+            {
+                L"",//Walk
+                L"",//Walk
+                L"",//Walk
+            },
+            {
+                L"",//SpecialCast
+                L"",//SpecialCast
+                L"",//SpecialCast
+            },
+            {
+                L"",//Special1
+                L"",//Special1
+                L"",//Special1
+            },
+            {
+                L"",//Special2
+                L"",//Special2
+                L"",//Special2
+            },
+            {
+                L"",//Special3
+                L"",//Special3
+                L"",//Special3
+            },
+
+            {
+                L"",//Special4
+                L"",//Special4
+                L"",//Special4
+            },
+            {
+                L"",//Dead
+                L"",//Dead
+                L"",//Dead
+            },
+            {
+                L"..\\Resources\\sound\\monster\\fallen\\death1.wav",//ToDead
+                L"..\\Resources\\sound\\monster\\fallen\\death2.wav",//ToDead
+                L"..\\Resources\\sound\\monster\\fallen\\death3.wav",//ToDead
+            },
+               },
     };
 }

@@ -5,6 +5,7 @@
 #include "mGameObject.h"
 
 #include "mFmod.h"
+#include "MoveAbleObjectAnimLookUpTables.h"
 #include "mStageManager.h"
 #include "SkillLookUpTables.h"
 
@@ -105,7 +106,7 @@ namespace m
 			if (nullptr != sound)
 				sounds.insert(std::make_pair(path, sound));
 		}
-		for(int i = 0 ; i < 4; ++i)
+		for(int i = 0 ; i < (int)eBGMType::End; ++i)
 		{
 			std::wstring path = bgmSoundPaths[i];
 			FMOD::Sound* sound = Load(path);
@@ -119,7 +120,7 @@ namespace m
 			if (nullptr != sound)
 				sounds.insert(std::make_pair(path, sound));
 		}
-		for(int i = 0 ; i < 4 ; ++i)
+		for(int i = 0 ; i < (int)eMonsterType::End ; ++i)
 		{
 			for(int j = 0 ; j < 3; ++j)
 			{
@@ -137,6 +138,19 @@ namespace m
 				FMOD::Sound* sound = Load(path);
 				if (nullptr != sound)
 					sounds.insert(std::make_pair(path, sound));
+			}
+		}
+		for(int i = 0 ; i < (int)eMonsterType::End; ++i)
+		{
+			for(int j = 0 ; j< (int)MonsterData::eAnimationType::End; ++j)
+			{
+			    for(int k = 0 ; k < 3; ++k)
+			    {
+					std::wstring path = monsterSoundPath[i][j][k];
+					FMOD::Sound* sound = Load(path);
+					if (nullptr != sound)
+						sounds.insert(std::make_pair(path, sound));
+			    }
 			}
 		}
 	}
@@ -222,7 +236,31 @@ namespace m
 			externAudioClips[(int)eExternAudioType::BGM]->PlayExtern();
 		}
 	}
-	void SoundManager::ExternAmbientSound(eAmbientType type, bool loop, float vol)
+
+    void SoundManager::ExternUISound(eUISoundType type, bool loop, float vol)
+    {
+		if (bPlayed[(int)eExternAudioType::UI]) return;
+
+		bPlayed[(int)eExternAudioType::UI] = true;
+
+		FMOD::Sound* sound = Get(buttonSoundPaths[(int)type]);
+
+		if (nullptr == sound) return;
+
+		if (nullptr == externAudioClips[(int)eExternAudioType::UI])
+		{
+			externAudioClips[(int)eExternAudioType::UI] = new AudioClip();
+		}
+
+		externAudioClips[(int)eExternAudioType::UI]->Stop();
+
+		externAudioClips[(int)eExternAudioType::UI]->SetSound(sound);
+		externAudioClips[(int)eExternAudioType::UI]->SetLoop(loop);
+		externAudioClips[(int)eExternAudioType::UI]->SetVolume(vol);
+		externAudioClips[(int)eExternAudioType::UI]->PlayExtern();
+    }
+
+    void SoundManager::ExternAmbientSound(eAmbientType type, bool loop, float vol)
 	{
 		if (bPlayed[(int)eExternAudioType::Ambient]) return;
 

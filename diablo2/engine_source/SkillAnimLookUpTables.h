@@ -724,7 +724,7 @@ namespace m
 		16, // clacialSpike
 		16, // blizzard
 		16, // chillingArmor
-		16, // frozenOrb
+		0, // frozenOrb
 		16, // coldMastery
 		//
 		16, // chargedBolt

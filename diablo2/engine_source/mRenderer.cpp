@@ -59,10 +59,11 @@ namespace renderer
 
 
 		//int iNumElement = sizeof(arrLayout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
-		std::shared_ptr<Shader> shader = m::Resources::Find<Shader>(L"TriangleShader");
-		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+		//m::Resources::Find<Shader>(L"TriangleShader");
+		//m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+		//	, shader->GetVSCode()
+		//	, shader->GetInputLayoutAddressOf());
+		std::shared_ptr<Shader> shader = nullptr;
 
 		shader = m::Resources::Find<Shader>(L"SpriteShader");
 		m::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
@@ -528,10 +529,10 @@ namespace renderer
 	void LoadShader()
 	{
 		//m::graphics::GetDevice()->CreateShader();
-		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
-		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
-		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
-		m::Resources::Insert(L"TriangleShader", shader);
+		//std::shared_ptr<Shader> shader = std::make_shared<Shader>();
+		//shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
+		//shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
+		//m::Resources::Insert(L"TriangleShader", shader);
 
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
@@ -744,6 +745,8 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"stage_2", L"..\\Resources\\texture\\map\\stage2\\stage2.png", L"stage2");
 		MAKE_MATERIAL(spriteShader, L"stage_1", L"..\\Resources\\texture\\map\\stage1\\stage1.png", L"stage1");
 		MAKE_MATERIAL(spriteShader, L"stage_0", L"..\\Resources\\texture\\map\\stage0\\stage0.png", L"stage0");
+
+		MAKE_MATERIAL_T(wallShader, L"s0_wall_1", L"..\\Resources\\texture\\map\\stage0\\wall_1.png", L"s0Wall1");
 
 		MAKE_MATERIAL_T(wallShader, L"s1_wall_1", L"..\\Resources\\texture\\map\\stage1\\wall_1.png", L"s1Wall1");
 		MAKE_MATERIAL_T(wallShader, L"s1_wall_2", L"..\\Resources\\texture\\map\\stage1\\wall_2.png", L"s1Wall2");
@@ -1039,6 +1042,32 @@ namespace renderer
 		MAKE_MATERIAL(spriteShader, L"mephisto_get_hit", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_get_hit.png", L"mephistoGetHit");
 		MAKE_MATERIAL(spriteShader, L"mephisto_to_dead", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_to_dead.png", L"mephistoToDead");
 		MAKE_MATERIAL(spriteShader, L"mephisto_walk", L"..\\Resources\\texture\\enemy\\mephisto\\mephisto_walk.png", L"mephistoWalk");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_run", L"..\\Resources\\texture\\enemy\\fallen\\body\\run"
+			, 54.f, 64.f, 10, L"fallenRun");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_attack1", L"..\\Resources\\texture\\enemy\\fallen\\body\\attack1"
+			, 61.f, 61.f, 10, L"fallenAttack1");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_attack2", L"..\\Resources\\texture\\enemy\\fallen\\body\\attack2"
+			, 65.f, 65.f, 15, L"fallenAttack2");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_get_hit", L"..\\Resources\\texture\\enemy\\fallen\\body\\get_hit"
+			, 66.f, 63.f, 7, L"fallenGetHit");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_natural", L"..\\Resources\\texture\\enemy\\fallen\\body\\natural"
+			, 53.f, 59.f, 20, L"fallenNatural");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_to_dead", L"..\\Resources\\texture\\enemy\\fallen\\body\\to_dead"
+			, 111.f, 104.f, 20, L"fallenToDead");
+
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_run_rh", L"..\\Resources\\texture\\enemy\\fallen\\rh\\run"
+			, 64.f, 43.f, 10, L"fallenRunRH");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_attack1_rh", L"..\\Resources\\texture\\enemy\\fallen\\rh\\attack1"
+			, 108.f, 91.f, 10, L"fallenAttack1RH");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_attack2_rh", L"..\\Resources\\texture\\enemy\\fallen\\rh\\attack2"
+			, 109.f, 67.f, 15, L"fallenAttack2RH");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_get_hit_rh", L"..\\Resources\\texture\\enemy\\fallen\\rh\\get_hit"
+			, 80.f, 60.f, 7, L"fallenGetHitRH");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_natural_rh", L"..\\Resources\\texture\\enemy\\fallen\\rh\\natural"
+			, 59.f, 46.f, 20, L"fallenNaturalRH");
+		MAKE_MATERIAL_PATH(spriteShader, L"fallen_to_dead_rh", L"..\\Resources\\texture\\enemy\\fallen\\rh\\to_dead"
+			, 118.f, 102.f, 20, L"fallenToDeadRH");
 #pragma endregion
 
 #pragma region Characters

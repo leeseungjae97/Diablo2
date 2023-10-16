@@ -17,7 +17,6 @@ namespace m
         , bFireCircle(false)
         , mMiType(layerType)   
     {
-        ADD_COMP(this, AudioSource);
         for(float i = 0.0f ; i <= 2.f ;)
         {
             SkillStraight* ss = new SkillStraight(eSkillType::iceBolt, iniPos, 400.f, true);

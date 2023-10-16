@@ -46,13 +46,13 @@ void main(uint3 DTid : SV_DispatchThreadID)
 
 
             vUV.y += sin((vUV.x + deltaTime) * 3.141592f + 2.f * 10.f) * 0.5f;
-            vRandom = float4
-            (
-                  GaussianBlur(vUV + float2(0.f, 0.f)).x
-                , GaussianBlur(vUV + float2(-deltaTime * 10.f, 0.f)).x
-                , GaussianBlur(vUV + float2(-deltaTime * 20.f, 0.f)).x
-                , GaussianBlur(vUV + float2(-deltaTime * 30.f, 0.f)).x
-            );
+            //vRandom = float4
+            //(
+            //      GaussianBlur(vUV + float2(0.f, 0.f)).x
+            //    , GaussianBlur(vUV + float2(-deltaTime * 10.f, 0.f)).x
+            //    , GaussianBlur(vUV + float2(-deltaTime * 20.f, 0.f)).x
+            //    , GaussianBlur(vUV + float2(-deltaTime * 30.f, 0.f)).x
+            //);
             float fTheta = cos(ParticleBuffer[DTid.x].alpha) * 3.14f;
             float fThetay = sin(ParticleBuffer[DTid.x].alpha2) * 3.14f;
             //vUV.x += vRandom.y;
@@ -80,13 +80,13 @@ void main(uint3 DTid : SV_DispatchThreadID)
     {
         //ParticleBuffer[DTid.x].alpha = 0.0f;
         float2 vUV = float2((float) DTid.x / elementCount, 0.5f);
-        vRandom = float4
-        (
-              GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
-            , GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
-            , GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
-            , GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
-        );
+        //vRandom = float4
+        //(
+        //      GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
+        //    , GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
+        //    , GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
+        //    , GaussianBlur(vUV + float2(elapsedTime, elapsedTime)).x
+        //);
         //ParticleSharedBuffer[0].
         //ParticleBuffer[DTid.x].
         //ParticleBuffer[DTid.x].direction = float4(vRandom.x, 0.f, 1.f, 1.f);

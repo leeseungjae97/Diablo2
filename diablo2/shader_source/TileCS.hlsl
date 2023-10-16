@@ -6,6 +6,7 @@ RWStructuredBuffer<TileComputedCoord> TileCoordBuffer : register(u2);
 RWStructuredBuffer<Monster> MonsterBuffer : register(u3);
 RWStructuredBuffer<MonsterComputedCoord> MonsterCoordBuffer : register(u4);
 RWStructuredBuffer<SkillWallCollision> SkillBuffer : register(u5);
+RWStructuredBuffer<SkillWallCollision> GSkillBuffer : register(u6);
 
 [numthreads(1000, 1, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
@@ -16,24 +17,6 @@ void main( uint3 DTid : SV_DispatchThreadID )
     {
         return;
     }
-    //float2 scale = TileBuffer[DTid.x].tileSize;
-    //float2 pos = TileBuffer[DTid.x].tilePosition.xy;
-    //float2 otherPos = float2(0.f, 0.f);
-    
-    //if (TileBuffer[DTid.x].isWall != false
-    //    && TileBuffer[DTid.x].isThrough == false)
-    //{
-    //    //SkillBuffer[1].crash = true;
-    //    for (uint i = 0; i < SkillBuffer[0].size; ++i)
-    //    {
-    //        otherPos = SkillBuffer[i].position.xy;
-        
-    //        if (PointIntersectRhombus(pos, scale, otherPos) == true)
-    //        {
-    //            SkillBuffer[i].crash = true;
-    //        }
-    //    }
-    //}
     
     if (TileSharedBuffer[0].hoverUI == true)
     {
@@ -65,14 +48,14 @@ void main( uint3 DTid : SV_DispatchThreadID )
     if (TileBuffer[DTid.x].isWall != false
         && TileBuffer[DTid.x].isThrough == false)
     {
-        //SkillBuffer[1].crash = true;
-        for (uint i = 0; i < SkillBuffer[0].size; ++i)
+        for (uint i = 0; i < TileSharedBuffer[0].skillCount; ++i)
         {
             otherPos = SkillBuffer[i].position.xy;
-        
+            GSkillBuffer[i].skillId = SkillBuffer[i].skillId;
+            
             if (PointIntersectRhombus(pos, scale, otherPos) == true)
             {
-                SkillBuffer[i].crash = true;
+                GSkillBuffer[i].crash = true;
             }
         }
     }

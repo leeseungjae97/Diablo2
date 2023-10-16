@@ -1,6 +1,9 @@
 #include "mPlayerStatus.h"
 
-#include "SkillLookUpTables.h"
+#include "../engine_source/mSoundManager.h"
+#include "../engine_source/SkillLookUpTables.h"
+
+#include "mPlayer.h"
 #include "mPlayerManager.h"
 
 namespace m
@@ -47,34 +50,51 @@ namespace m
         ++level;
         nextLevelUpexperiance *= 10;
         statusPoint += 10;
+        PlayerManager::skillPoint += 10;
     }
 
     void PlayerStatus::UpStrength()
     {
+        if (statusPoint == 0) return;
+
         --statusPoint;
         ++strength;
         StatusInteraction();
+        SoundManager::ExternUISound(eUISoundType::PointUse, false, 30.f);
+        SoundManager::ResetPlayed(SoundManager::eExternAudioType::UI);
     }
 
     void PlayerStatus::UpDexterity()
     {
+        if (statusPoint == 0) return;
+
         --statusPoint;
         ++dexterity;
         StatusInteraction();
+        SoundManager::ExternUISound(eUISoundType::PointUse, false, 30.f);
+        SoundManager::ResetPlayed(SoundManager::eExternAudioType::UI);
     }
 
     void PlayerStatus::UpVitality()
     {
+        if (statusPoint == 0) return;
+
         --statusPoint;
         ++vitality;
         StatusInteraction();
+        SoundManager::ExternUISound(eUISoundType::PointUse, false, 30.f);
+        SoundManager::ResetPlayed(SoundManager::eExternAudioType::UI);
     }
 
     void PlayerStatus::UpEnergy()
     {
+        if (statusPoint == 0) return;
+
         --statusPoint;
         ++energy;
         StatusInteraction();
+        SoundManager::ExternUISound(eUISoundType::PointUse, false, 30.f);
+        SoundManager::ResetPlayed(SoundManager::eExternAudioType::UI);
     }
 
     void PlayerStatus::GetDamage()
@@ -91,5 +111,11 @@ namespace m
 
         PlayerManager::hpCapacity = static_cast<float>(life);
         PlayerManager::mpCapacity = static_cast<float>(mana);
+        if (PlayerManager::player)
+        {
+            //UIUV update
+            PlayerManager::player->RestoreHp(0);
+            PlayerManager::player->RestoreMp(0);
+        }
     }
 }

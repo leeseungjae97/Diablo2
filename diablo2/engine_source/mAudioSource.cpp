@@ -116,10 +116,6 @@ namespace m
 		const std::wstring& name = playerVoiceAudioPath[(int)type][iRandPlayIndex];
 
 		FMOD::Sound* sound = SoundManager::Get(name);
-		if (nullptr == sound)
-		{
-			sound = SoundManager::Load(name);
-		}
 
 		return sound;
 	}
@@ -128,10 +124,6 @@ namespace m
 		const std::wstring& name = buttonSoundPaths[(int)type];
 		
 		FMOD::Sound* sound = SoundManager::Get(name);
-		if (nullptr == sound)
-		{
-			sound = SoundManager::Load(name);
-		}
 
 		return sound;
 	}
@@ -140,20 +132,12 @@ namespace m
 		const std::wstring& name = playerRunAudioPath[(int)type][iRunIndex];
 
 		FMOD::Sound* sound = SoundManager::Get(name);
-		if (nullptr == sound)
-		{
-			sound = SoundManager::Load(name);
-		}
 
 		return sound;
 	}
 	FMOD::Sound* AudioSource::FindSound(const std::wstring& name)
 	{
 		FMOD::Sound* sound = SoundManager::Get(name);
-		if (nullptr == sound)
-		{
-			sound = SoundManager::Load(name);
-		}
 
 		return sound;
 	}
@@ -399,7 +383,7 @@ namespace m
 				bActiveAudioClip[(int)eAudioClipType::Click] = true;
 				bAudioClip3DAtr[(int)eAudioClipType::Click] = b3DAt;
 				mAudioClips[(int)eAudioClipType::Click]->SetLoop(loop);
-				mAudioClips[(int)eAudioClipType::Click]->Play();
+				mAudioClips[(int)eAudioClipType::Click]->PlayExtern();
 			}
 		}
 	}

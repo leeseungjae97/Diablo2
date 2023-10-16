@@ -25,26 +25,32 @@ namespace m::graphics
 		if (buffer)
 		{
 			buffer->Release();
+			//buffer.Reset();
 		}
 		if (mWriteBuffer)
 		{
 			mWriteBuffer->Release();
+			//mWriteBuffer.Reset();
 		}
 		if (mReadBuffer)
 		{
 			mReadBuffer->Release();
+			//mReadBuffer.Reset();
 		}
 		if (mSRV)
 		{
-			mSRV->Release();
+			//mSRV->Release();
+			mSRV.Reset();
 		}
 		if (mUAV)
 		{
-			mUAV->Release();
+			mUAV.Reset();
+			//mUAV->Release();
 		}
 		mType = type;
 
 		mSize = size;
+		//mStride = stride == 0 ? 1 : stride;
 		mStride = stride;
 
 		desc.ByteWidth = mSize * mStride;
@@ -77,7 +83,7 @@ namespace m::graphics
 		}
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-		srvDesc.BufferEx.NumElements = mStride;
+		srvDesc.Buffer.NumElements = mStride;
 		srvDesc.ViewDimension = D3D_SRV_DIMENSION_BUFFEREX;
 
 		if (!(GetDevice()->CreateShaderResourceView(buffer.Get(), &srvDesc, mSRV.GetAddressOf())))

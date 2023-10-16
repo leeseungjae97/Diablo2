@@ -32,6 +32,7 @@ namespace m
 		graphics::StructuredBuffer* mMonsterBuffer;
 		graphics::StructuredBuffer* mGetMonsterComputedCoordBuffer;
 		graphics::StructuredBuffer* mSkillBuffer;
+		graphics::StructuredBuffer* mGSkillBuffer;
 
 		std::vector<ComputeTile> mTiles;
 
@@ -40,6 +41,7 @@ namespace m
 
 		ComputedTileCoord* mCoordData;
 		ComputedMonsterCoord* mComputedCoords;
+		SkillWallCollision* mSkills;
 	};
 }
 

@@ -29,6 +29,7 @@ namespace m
 
 		Vector2 vSize = GetTextSize(str, size);
 		x += vSize.x / 2.f;
+		//y += vSize.x / 2.f;
 		//RGB();
 		ID3D11DeviceContext* pContext = graphics::GetDevice()->GetID3D11DeviceContext();
 		mFontWrapper->DrawString(
@@ -38,8 +39,10 @@ namespace m
 			x,// X position
 			y,// Y position
 			rgb,// Text color, 0xAaBbGgRr
-			FW1_CENTER
+			FW1_CENTER | FW1_RESTORESTATE
 		);
+		//FW1_RESTORESTATE
+		//
 		dsState = renderer::depthStencilStates[(UINT)eDSType::LessEqua];
 		GetDevice()->BindDepthStencilState(dsState.Get());
 	}

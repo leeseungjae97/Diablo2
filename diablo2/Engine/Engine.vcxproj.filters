@@ -262,7 +262,9 @@
     <ClCompile Include="mCharacterStatus.cpp">
       <Filter>UI\CharacterStatus</Filter>
     </ClCompile>
-    <ClCompile Include="mTextInputUI.cpp" />
+    <ClCompile Include="mTextInputUI.cpp">
+      <Filter>UI\TextInputUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -523,7 +525,9 @@
     <ClInclude Include="mCharacterStatus.h">
       <Filter>UI\CharacterStatus</Filter>
     </ClInclude>
-    <ClInclude Include="mTextInputUI.h" />
+    <ClInclude Include="mTextInputUI.h">
+      <Filter>UI\TextInputUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

@@ -62,6 +62,8 @@ namespace m
 		SET_SCALE_TEX_SIZE(skillImages, texture, -1.f);
 
 		skillImages->SetState(NoRenderUpdate);
+
+		makeMa();
 	}
 	SkillShortCutButton::~SkillShortCutButton()
 	{
@@ -139,7 +141,17 @@ namespace m
 		}
 		return eSkillType::END;
 	}
-	void SkillShortCutButton::MakeSkillShortCutImage()
+
+    void SkillShortCutButton::makeMa()
+    {
+		//mF5 = new UI();
+		//mF4 = new UI();
+		//mF3 = new UI();
+		//mF2 = new UI();
+		//mF1 = new UI();
+    }
+
+    void SkillShortCutButton::MakeSkillShortCutImage()
 	{
 		bool right = false;
 		if (mSkillIndex == 1) right = true;

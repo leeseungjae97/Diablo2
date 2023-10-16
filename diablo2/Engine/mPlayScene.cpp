@@ -55,7 +55,7 @@ namespace m
 		, bStageStart(false)
 		, mEnterNameUI(nullptr)
 		, fAcc(0.f)
-	    , bPlaySceneFireUpdate(true)
+		, bPlaySceneFireUpdate(true)
 	{
 
 	}
@@ -147,7 +147,7 @@ namespace m
 			ADD_COMP(curMap, MeshRenderer);
 			AddGameObject(eLayerType::Background, curMap);
 			SET_MESH(curMap, L"RectMesh");
-			SET_MATERIAL(curMap, L"stage0");
+			SET_MATERIAL(curMap, L"stage1");
 			MAKE_GET_TEX(curMap, tex);
 			SET_SCALE_TEX_SIZE(curMap, tex, 1.f);
 			Vector3 scale = GET_SCALE(curMap);
@@ -158,7 +158,7 @@ namespace m
 			tilePos.y -= tileScale.y / 2.f;
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
-		Stage1();
+		Stage0();
 	}
 	void PlayScene::Update()
 	{
@@ -205,7 +205,7 @@ namespace m
 		//{
 		//	SceneManager::LoadScene(L"MainMenuScene");
 		//}
-		if(bPlaySceneFireUpdate)
+		if (bPlaySceneFireUpdate)
 		{
 			bPlaySceneFireUpdate = false;
 			//Stage0();
@@ -1166,25 +1166,31 @@ namespace m
 		TileManager::TileIsWallChange();
 	}
 
-    void PlayScene::MakeStage0Wall()
-    {
+	void PlayScene::MakeStage0Wall()
+	{
 		Camera* cameraComp = GetSceneMainCamera();
 		TileManager::TileIsWallReset();
 		{
-		    
+			{
+				Tile* tile = TileManager::pathFindingTiles[20][22];
+				Vector3 pos = tile->GetPos();
+
+				Wall* wall = new Wall(eWallType::Stage0Wall1, cameraComp, tile->GetCoord());
+				SET_POS_VEC(wall, pos);
+			}
 		}
 		TileManager::MakeStageWall(-1);
 		TileManager::TileIsWallChange();
-    }
+	}
 
-    void PlayScene::Stage0()
-    {
+	void PlayScene::Stage0()
+	{
 		SoundManager::ResetAllPlayed();
 		//SkillManager::AllSkillCrash();
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
-        MakeStage0Wall();
+		MakeStage0Wall();
 		dayLight->SetState(GameObject::RenderUpdate);
 		StageManager::stageNum = (int)eBGMType::Stage0;
 		if (curMap)
@@ -1194,7 +1200,7 @@ namespace m
 
 		fAcc = 0.f;
 		bStageInit = false;
-		bStageStart = false;
+		bStageStart = true;
 
 		mPortal->SetClickPortal(
 			[=]()
@@ -1217,9 +1223,29 @@ namespace m
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(mPortal, pos);
 		}
-    }
+		{
+			Tile* tile = TileManager::pathFindingTiles[25][27];
+			TileManager::playerStandTile = tile;
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(PlayerManager::player, pos);
+		}
 
-    void PlayScene::Stage1()
+		for(int i = 0 ; i < 20; ++i )
+		{
+			{
+				Tile* tile = TileManager::pathFindingTiles[30 + i][30];
+				Vector3 pos = tile->GetPos();
+				Monster* monster = new Monster(pos, MDFallen().fSpeed);
+				SET_MAIN_CAMERA(monster);
+				monster->SetCoord(tile->GetCoord());
+				AddGameObject(eLayerType::Monster, monster);
+				MonsterScript<MDFallen>* ms = ADD_COMP(monster, MonsterScript<MDFallen>);
+			}
+		}
+		
+	}
+
+	void PlayScene::Stage1()
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
@@ -1229,7 +1255,7 @@ namespace m
 		MakeStage1Wall();
 		dayLight->SetState(GameObject::NoRenderNoUpdate);
 		StageManager::stageNum = (int)eBGMType::Stage1;
-		
+
 		if (curMap)
 		{
 			SET_MATERIAL(curMap, L"stage1");
@@ -1449,7 +1475,8 @@ namespace m
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
-		StageManager::stageNum = (int)eBGMType::Stage4;
+		//StageManager::stageNum = (int)eBGMType::Stage4;
+		StageManager::stageNum = 4 ;
 		dayLight->SetState(GameObject::RenderUpdate);
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();

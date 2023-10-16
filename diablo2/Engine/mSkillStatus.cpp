@@ -4,10 +4,12 @@
 #include "../engine_source/mTransform.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/SkillLookUpTables.h"
+#include "../engine_source/mSoundManager.h"
 
 #include "mButton.h"
 #include "mSkillButton.h"
 #include "mPlayerManager.h"
+
 
 
 namespace m
@@ -247,6 +249,8 @@ namespace m
 			{
 				if (btn->GetOneClick())
 				{
+					SoundManager::ExternUISound(eUISoundType::PointUse, false, 30.f);
+					SoundManager::ResetPlayed(SoundManager::eExternAudioType::UI);
 					++PlayerManager::learnedSkill[skillTreeSelectNum][btn->GetSkillIndex()];
 					--PlayerManager::skillPoint;
 				}

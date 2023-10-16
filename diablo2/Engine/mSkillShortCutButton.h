@@ -23,11 +23,21 @@ namespace m
 
         eSkillType GetHoverClickSkill();
         int GetSkillIndex() { return mSkillIndex; }
+
+    private:
+        void makeMa();
+
     private:
         eSkillType mSkillType;
         int mSkillIndex;
         
         UI* skillImages;
+
+        UI* mF5;
+        UI* mF4;
+        UI* mF3;
+        UI* mF2;
+        UI* mF1;
 
         std::vector<Vector2> skillMatPos;
         std::vector<std::shared_ptr<Texture>> skillTexs;

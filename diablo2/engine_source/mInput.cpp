@@ -13,6 +13,8 @@ namespace m
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
 		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
 
+		VK_F1,VK_F2,VK_F3,VK_F4,VK_F5,
+
 		VK_UP, VK_DOWN, VK_LEFT ,VK_RIGHT, VK_SPACE,
 		VK_LBUTTON, VK_RBUTTON, VK_ESCAPE, VK_MENU,
 		VK_BACK, VK_SHIFT

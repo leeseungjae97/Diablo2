@@ -160,6 +160,7 @@ namespace m
 		Duriel,
 		Mephisto,
 		Balrog,
+		Fallen,
 		End,
 	};
 	enum class eMonsterClass
@@ -173,6 +174,7 @@ namespace m
 		eMonsterClass::Boss,
 		eMonsterClass::Boss,
 		eMonsterClass::Boss,
+		eMonsterClass::Normal,
 		eMonsterClass::Normal,
 	};
 
@@ -434,6 +436,207 @@ namespace m
 		int animProgressStartIndex[(UINT)eAnimationType::End] = {
 			12,// Attack
 			0,
+			0,
+			0, // Hit
+			0, // Natural
+			0, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0, // Dead
+		};
+	};
+	struct MDFallen : public MonsterData
+	{
+		MDFallen() {}
+		~MDFallen() {}
+
+		float fSpeed = 200.f;
+		float fAttackDelay = 2.5f;
+		float hp = 100.f;
+		float hpCapacity = hp;
+		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
+		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
+		eSkillType mSpecialSkills[5] = {
+			eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+			,eSkillType::END
+		};
+		m::enums::eColliderFunctionType mSkillActiveColliderType[5] = {
+		m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		,m::enums::eColliderFunctionType::End
+		};
+		eAuraType passiveAura = eAuraType::End;
+		m::math::Vector2 auraOffSet = m::math::Vector2(0.f, 0.f);
+
+		const std::wstring wsMonsterName = L"ÆÞ¸¥";
+
+		int mSpecialSkillAddFunction[5] = { 0,0,0,0 };
+
+		int mSpecialSkillCount[5] = { 0, 0, 0, 0 };
+		int iBehavior = 4;
+		eMonsterType mMonsterType = eMonsterType::Fallen;
+		eMonsterClass mClass = eMonsterClass::Normal;
+
+		bool bPathImage = true;
+		bool bHandAnim = true;
+
+		std::wstring textureString[(UINT)eAnimationType::End] = {
+			L"fallenAttack1",
+			L"fallenAttack2",
+			L"",
+			L"fallenGetHit",
+			L"fallenNatural",
+			L"fallenRun",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"fallenToDead",
+		};
+		std::wstring animationString[(UINT)eAnimationType::End] = {
+			L"fallenAttack1_anim@",
+			L"fallenAttack2_anim@",
+			L"",
+			L"fallenHit_anim@",
+			L"fallenNatural_anim@",
+			L"fallenRun_anim@",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"",
+			L"fallenToDead_anim@",
+		};
+		math::Vector2 animationOffset[(UINT)eAnimationType::End] = {
+			math::Vector2(0.f, 0.f), // Attack
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),	// Hit
+			math::Vector2(0.f, 0.f),	// Natural
+			math::Vector2(0.f, 0.f),	// Run
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationCenterPos[(UINT)eAnimationType::End] = {
+	    math::Vector2(0.f, 0.f), // Attack
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),	// Hit
+	    math::Vector2(0.f, 0.f),	// Natural
+	    math::Vector2(0.f, 0.f),	// Run
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),
+	    math::Vector2(0.f, 0.f),	// Dead
+		};
+		math::Vector2 animationSizes[(UINT)eAnimationType::End] = {
+			math::Vector2(61.f, 61.f),	// Attack
+			math::Vector2(65.f, 65.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(66.f, 63.f),	// Hit
+			math::Vector2(53.f, 59.f),	// Natural
+			math::Vector2(54.f, 64.f),	// Run
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(0.f, 0.f),
+			math::Vector2(111.f, 104.f),  // Dead
+		};
+		float animationDuration[(UINT)eAnimationType::End] = {
+			0.05f,   // Attack
+			0.05f,	// Attack2
+			0.f,	// block
+			0.05f,	// Hit
+			0.05f,	// Natural
+			0.05f,	// Run
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.f,
+			0.05f,	// Dead
+		};
+		int animationLength[(UINT)eAnimationType::End] = {
+			10,// Attack
+			15,
+			0,
+			7, //Hit
+			20,// Natural
+			10, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			20, // Dead
+		};
+		int animStartIndex[(UINT)eAnimationType::End] = {
+			0,// Attack1
+			0,
+			0,
+			0, // Hit
+			0,// Natural
+			0, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0, // Dead
+		};
+		int animEndIndex[(UINT)eAnimationType::End] = {
+			0,// Attack
+			0,
+			0,
+			0, // Hit
+			0,// Natural
+			0, // Run
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0, // Dead
+		};
+		int animProgressStartIndex[(UINT)eAnimationType::End] = {
+			7,// Attack
+			7,
 			0,
 			0, // Hit
 			0, // Natural

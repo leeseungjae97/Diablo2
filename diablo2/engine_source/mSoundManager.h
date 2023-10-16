@@ -20,6 +20,7 @@ namespace m
 		{
 			BGM,
 			Ambient,
+			UI,
 			SFX,
 			Voice,
 			Fire,
@@ -32,11 +33,14 @@ namespace m
 		static void Release();
 		static void FireAdd();
 		static void FireErase();
+
 		static void ExternFireSound();
 		static void ExternBGMSound();
+		static void ExternUISound(eUISoundType type, bool loop, float vol);
 		static void ExternSFXSound(int index);
 		static void ExternAmbientSound(eAmbientType type, bool loop, float vol);
         static void ExternVoiceSound(int index, bool loop);
+
         static void ResetPlayed(eExternAudioType type);
 		static void ResetAllPlayed();
         static void StopExtern(eExternAudioType sfx);

@@ -32,26 +32,27 @@ namespace m
         if(type == eWallType::Stage2Wall1)
         {
             mr->SetSpriteOffsetCenter(Vector2(0, (- scale.y / 3.f) / scale.y));
+            SceneManager::GetActiveScene()->AddGameObject(eLayerType::Wall, this);
         }
-        if(type == eWallType::Stage1Door)
+        else if(type == eWallType::Stage1Door)
         {
             mr->SetSpriteOffsetCenter(Vector2(0, (-TileManager::tileYSize - 18.f) / scale.y));
+            SceneManager::GetActiveScene()->AddGameObject(eLayerType::Wall, this);
         }
-        if (type == eWallType::Stage1Chair)
+        else if (type == eWallType::Stage1Chair)
         {
             mr->SetSpriteOffsetCenter(Vector2(0, 0));
+            SceneManager::GetActiveScene()->AddGameObject(eLayerType::Wall, this);
         }
-
-
+        else if(type == eWallType::Stage0Wall1)
+        {
+            mr->SetSpriteOffsetCenter(Vector2(0, 0.f));
+            SceneManager::GetActiveScene()->AddGameObject(eLayerType::NoCullWall, this);
+        }else
+        {
+            SceneManager::GetActiveScene()->AddGameObject(eLayerType::Wall, this);
+        }
         mr->AddSpriteAlphaBuffer();
-
-        //Collider2D* col =ADD_COMP(this, Collider2D);
-
-        //col->SetCenter(Vector2(0.f, (scale.y / 2.f) - TileManager::tileYSize));
-        //col->SetScale(Vector3(1.f, scale.y / 2.f, 1.f));
-
-        SceneManager::GetActiveScene()->AddGameObject(eLayerType::Wall, this);
-
         WallObjectManager::Add(this);
     }
 
@@ -67,18 +68,27 @@ namespace m
     void Wall::Update()
     {
         GameObject::Update();
-
         Vector3 pos = GET_POS(this);
         pos.z = 1.f + ((pos.x * 0.0001f) + (pos.y * 0.0001f));
         Vector3 playerPos = GET_POS(PlayerManager::player);
-        if(playerPos.z > pos.z)
-        {
-            MeshRenderer* mr =GET_COMP(this, MeshRenderer);
-            mr->SetSpriteAlpha(0.5f);
+
+        if(GetLayerType() == eLayerType::Wall)
+        {    
+            if (playerPos.z > pos.z)
+            {
+                MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+                mr->SetSpriteAlpha(0.5f);
+            }
+            else
+            {
+                MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+                mr->SetSpriteAlpha(1.f);
+            }
         }else
         {
             MeshRenderer* mr = GET_COMP(this, MeshRenderer);
             mr->SetSpriteAlpha(1.f);
+            pos.z -= playerPos.z;
         }
         SET_POS_VEC(this, pos);
     }

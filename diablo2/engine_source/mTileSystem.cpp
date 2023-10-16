@@ -18,6 +18,7 @@ namespace m
 		: mTileBuffer(nullptr)
 		, mTileSharedBuffer(nullptr)
 		, mCoordData(nullptr)
+	    , mSkills(nullptr)
 	{
 		std::shared_ptr<Mesh> mesh = RESOURCE_FIND(Mesh, L"PointMesh");
 		SetMesh(mesh);
@@ -63,6 +64,15 @@ namespace m
 
 		mSkillBuffer = new graphics::StructuredBuffer();
 		//mSkillBuffer->Create(sizeof(SkillWallCollision), 1, eViewType::UAV, nullptr, true);
+		mGSkillBuffer = new graphics::StructuredBuffer();
+
+		mCS->SetTileBuffer(mTileBuffer);
+		mCS->SetSharedBuffer(mTileSharedBuffer);
+		mCS->SetTileCoordBuffer(mComputedTileCoordBuffer);
+		mCS->SetMonsterBuffer(mMonsterBuffer);
+		mCS->SetMonsterCoordBuffer(mGetMonsterComputedCoordBuffer);
+		mCS->SetSkillBuffer(mSkillBuffer);
+		mCS->SetGSkillBuffer(mGSkillBuffer);
 	}
 
 	TileSystem::~TileSystem()
@@ -98,6 +108,11 @@ namespace m
 			delete mSkillBuffer;
 			mSkillBuffer = nullptr;
 		}
+		if (mGSkillBuffer)
+		{
+			delete mGSkillBuffer;
+			mGSkillBuffer = nullptr;
+		}
 		mCoordData = nullptr;
 		materials.clear();
 	}
@@ -128,6 +143,7 @@ namespace m
 		ComputeTileSharedData data = {};
 		data.monsterCount = MonsterManager::monsters.size();
 		data.tileCount = TileManager::pathFindingTiles.size() * TileManager::pathFindingTiles[0].size();
+		data.skillCount = SkillManager::skills.size();
 		data.hoverUI = MouseManager::GetMouseOnUI();
 
 		Vector3 mouseV3 = MouseManager::UnprojectionMousePos(1.f, GetOwner()->GetCamera());
@@ -163,43 +179,50 @@ namespace m
 				computeMonsters.push_back(cm);
 			}
 
-			mMonsterBuffer->Clear();
-			mMonsterBuffer->Create(sizeof(ComputeMonster), MonsterManager::monsters.size(), eViewType::UAV, computeMonsters.data(), true);
-			//mMonsterBuffer->SetData(computeMonsters.data(), 1);
+			//mMonsterBuffer->Clear();
+			mMonsterBuffer->Create(sizeof(ComputeMonster)
+				, MonsterManager::monsters.size() == 0 ? 1 : MonsterManager::monsters.size(), eViewType::UAV, computeMonsters.data(), true);
+			//mMonsterBuffer->SetData(&computeMonsters, computeMonsters.size() == 0 ? 1 : computeMonsters.size());
 
-			mGetMonsterComputedCoordBuffer->Clear();
-			mGetMonsterComputedCoordBuffer->Create(sizeof(ComputedMonsterCoord), MonsterManager::monsters.size(), eViewType::UAV, nullptr, true);
-			//mGetMonsterComputedCoordBuffer->SetData(&MonsterManager::monsters, 1);
+			//mGetMonsterComputedCoordBuffer->Clear();
+			mGetMonsterComputedCoordBuffer->Create(sizeof(ComputedMonsterCoord)
+				, MonsterManager::monsters.size() == 0 ? 1 : MonsterManager::monsters.size(), eViewType::UAV, nullptr, true);
+			//mGetMonsterComputedCoordBuffer->SetData(&MonsterManager::monsters
+			//	, MonsterManager::monsters.size() == 0 ? 1 : MonsterManager::monsters.size());
 
 			mCS->SetMonsterBuffer(mMonsterBuffer);
 			mCS->SetMonsterCoordBuffer(mGetMonsterComputedCoordBuffer);
 		}
 		if (!SkillManager::skills.empty())
 		{
-			std::vector<SkillWallCollision> mSkills;
+			std::vector<SkillWallCollision> skills;
 
 			for (Skill* skill : SkillManager::skills)
 			{
 				SkillWallCollision swc;
 				swc.skillPosition = GET_POS(skill);
 				swc.skillId = skill->GetSkillId();
-				swc.size = SkillManager::skills.size();
 				swc.crash = false;
 
-				mSkills.push_back(swc);
+				skills.push_back(swc);
 			}
 
-			mSkillBuffer->Clear();
-			mSkillBuffer->Create(sizeof(SkillWallCollision), mSkills.size(), eViewType::UAV, mSkills.data(), true);
-
+			//mSkillBuffer->Clear();
+			mSkillBuffer->Create(sizeof(SkillWallCollision)
+				, skills.size() == 0 ? 1 : skills.size(), eViewType::UAV, skills.data(), true);
+			//mGSkillBuffer->Clear();
+			mGSkillBuffer->Create(sizeof(SkillWallCollision)
+				, SkillManager::skills.size() == 0 ? 1 : SkillManager::skills.size(), eViewType::UAV, nullptr, true);
 			mCS->SetSkillBuffer(mSkillBuffer);
+			mCS->SetGSkillBuffer(mGSkillBuffer);
 		}
 
 		mCS->SetTileBuffer(mTileBuffer);
 		mCS->SetSharedBuffer(mTileSharedBuffer);
 		mCS->SetTileCoordBuffer(mComputedTileCoordBuffer);
 
-		mCS->OnExcute(&mCoordData, 1, &mComputedCoords, MonsterManager::monsters.size());
+		mCS->OnExcute(&mCoordData, 1, &mComputedCoords, MonsterManager::monsters.size()
+		, &mSkills, SkillManager::skills.size());
 
 		SetComputedData();
 	}
@@ -219,9 +242,10 @@ namespace m
 		mTileBuffer->Clear();
 		mTileSharedBuffer->Clear();
 		mComputedTileCoordBuffer->Clear();
-		mMonsterBuffer->Clear();
+		mMonsterBuffer->Clear(); GSkillBuffer
 		mGetMonsterComputedCoordBuffer->Clear();
 		mSkillBuffer->Clear();
+		mGSkillBuffer->Clear();
 		//ClearMaterials();
 	}
 	void TileSystem::BindsMaterials()
@@ -245,29 +269,19 @@ namespace m
 
 	void TileSystem::SetComputedData()
 	{
-
-		
 		if(!SkillManager::skills.empty())
 		{
-			SkillWallCollision* mData = nullptr;
-
-			if(nullptr != mSkillBuffer->buffer)
+			if(nullptr != mSkills)
 			{
-				mSkillBuffer->GetData(&mData, SkillManager::skills.size());
-
-				if (nullptr == mData) return;
-
 				for (int i = 0; i < SkillManager::skills.size(); ++i)
 				{
-					SkillWallCollision swc = mData[i];
-					//if(swc.crash == true)
-					if (swc.crash != 0)
+					SkillWallCollision swc = mSkills[i];
+					if (swc.crash == -1)
 					{
 						SkillManager::SkillCrash(swc.skillId);
 					}
 				}
 			}
-
 		}
 		//ComputeTile* tile = nullptr;
 		//mTileBuffer->GetData(&tile, 10000);

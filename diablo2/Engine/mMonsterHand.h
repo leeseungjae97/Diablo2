@@ -16,8 +16,10 @@ namespace m
         virtual void Initialize() override;
         void SetDirection(int direction);
         void SetAniType(int aniType);
+        void SetShadowOffset(Vector2 offset) { shadowOffset = offset; }
     private:
         eMonsterType mMonsterType;
         Monster* mOwner;
+        Vector2 shadowOffset;
     };
 }

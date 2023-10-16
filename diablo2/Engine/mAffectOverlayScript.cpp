@@ -106,17 +106,23 @@ namespace m
 
 	void AffectOverlayScript::OnCollisionEnter(Collider2D* other)
 	{
-		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
-		{
-			if (bAtive)
-			{
-				if (dynamic_cast<Monster*>(other->GetOwner()))
-					dynamic_cast<Monster*>(other->GetOwner())->Hit(PlayerStatus::damage);
+		Vector3 otherPos = GET_POS(other->GetOwner());
+		Vector3 thisPos = GET_POS(GetOwner());
 
-				if (dynamic_cast<Player*>(other->GetOwner()))
-					dynamic_cast<Player*>(other->GetOwner())->Hit(5);
+		if(math::areAlmostEqual(otherPos.z, thisPos.z, 0.01f))
+		{
+			if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
+			{
+				if (bAtive)
+				{
+					if (dynamic_cast<Monster*>(other->GetOwner()))
+						dynamic_cast<Monster*>(other->GetOwner())->Hit(PlayerStatus::damage);
+
+					if (dynamic_cast<Player*>(other->GetOwner()))
+						dynamic_cast<Player*>(other->GetOwner())->Hit(5);
+				}
+
 			}
-			
 		}
 	}
     //void AffectOverlayScript::OnCollisionExit(Collider2D* other)

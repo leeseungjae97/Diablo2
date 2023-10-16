@@ -34,7 +34,6 @@ enum class eShaderStage
 enum class eSamplerType
 {
 	Point,
-	Anisotropic,
 	End,
 };
 
@@ -163,8 +162,7 @@ struct DrawObject
 struct SkillWallCollision
 {
 	m::math::Vector3 skillPosition;
-	UINT skillId;
-	UINT size;
+	int skillId;
 	BOOL crash = false;
 };
 struct ComputeTile
@@ -207,6 +205,7 @@ struct ComputeTileSharedData
 	m::math::Vector4 playerPos;
 	UINT tileCount;
 	UINT monsterCount;
+	int skillCount;
 	BOOL hoverUI = false;
 };
 struct ComputedTileCoord

@@ -49,24 +49,11 @@ namespace m
     {
         for (Skill* skill : skills)
         {
-            eSkillType type = skill->GetSkillType();
-            eSkillCrashType skillCrashType = skillCrashTypes[(int)type];
-            eCrashType crashType = crashFunction[(int)skillCrashType];
-            if (crashType != eCrashType::Collide)
-            {
-                if (dynamic_cast<SkillFollower*>(skill))
-                {
-                    skill->SetSkillCrash(true);
-                }
-                else
-                {
-                    skill->SetSkillCrash(true);
-                }
-            }
-            else
-            {
+            //eSkillType type = skill->GetSkillType();
+            //eSkillCrashType skillCrashType = skillCrashTypes[(int)type];
+            //eCrashType crashType = crashFunction[(int)skillCrashType];
+            if(skill)
                 skill->SetSkillCrash(true);
-            }
         }
     }
     void SkillManager::SkillCrash(UINT skillId)
@@ -75,25 +62,27 @@ namespace m
         {
             if (skill->GetSkillId() == skillId)
             {
-                eSkillType type = skill->GetSkillType();
-                eSkillCrashType skillCrashType =skillCrashTypes[(int)type];
-                eCrashType crashType = crashFunction[(int)skillCrashType];
-                if (crashType != eCrashType::Collide)
-                {
-                    if(dynamic_cast<SkillFollower*>(skill))
-                    {
-                        skill->SetSkillCrash(true);
-                    }else
-                    {
-                        skill->SetSkillCrash(true);
-                        //skill->SetState(GameObject::eState::Delete);
-                    }
-                }
-                else
-                {
+                //eSkillType type = skill->GetSkillType();
+                //eSkillCrashType skillCrashType =skillCrashTypes[(int)type];
+                //eCrashType crashType = crashFunction[(int)skillCrashType];
+                //if (crashType != eCrashType::Collide)
+                //{
+                //    if(dynamic_cast<SkillFollower*>(skill))
+                //    {
+                //        skill->SetSkillCrash(true);
+                //    }else
+                //    {
+                //        skill->SetSkillCrash(true);
+                //        //skill->SetState(GameObject::eState::Delete);
+                //    }
+                //}
+                //else
+                //{
+                //    skill->SetSkillCrash(true);
+                //}
+
+                if(skill)
                     skill->SetSkillCrash(true);
-                }
-                    
             }
         }
     }
