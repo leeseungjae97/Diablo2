@@ -3,10 +3,12 @@
 
 ### Custom
 !_Library/
+!_Debug
 
 ### C++ ###
 # Prerequisites
 *.d
+
 
 # Compiled Object files
 *.slo

@@ -8,11 +8,11 @@
 #include "../External/Fmod/Include_/fmod_codec.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "..\\External\\Fmod\\_Library\\Debug\\fmodL_vc.lib")
-#pragma comment(lib, "..\\External\\Fmod\\_Library\\Debug\\fmodstudioL_vc.lib")
+#pragma comment(lib, "..\\External\\Fmod\\_Library\\Debug_\\fmodL_vc.lib")
+#pragma comment(lib, "..\\External\\Fmod\\_Library\\Debug_\\fmodstudioL_vc.lib")
 #else
-#pragma comment(lib, "..\\External\\Fmod\\_Library\\Debug\\fmod_vc.lib")
-#pragma comment(lib, "..\\External\\Fmod\\_Library\\Release\\fmodstudio_vc.lib")
+#pragma comment(lib, "..\\External\\Fmod\\_Library\\Debug_\\fmod_vc.lib")
+#pragma comment(lib, "..\\External\\Fmod\\_Library\\Release_\\fmodstudio_vc.lib")
 #endif
 
 namespace m

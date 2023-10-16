@@ -6,9 +6,9 @@
 //#include "..\\External\\Include\\Fmod\\common_platform.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "..\\External\\FW1FontWrapper\\_Library\\Debug\\FW1FontWrapperL.lib")
+#pragma comment(lib, "..\\External\\FW1FontWrapper\\_Library\\Debug_\\FW1FontWrapperL.lib")
 #else
-#pragma comment(lib, "..\\External\\FW1FontWrapper\\_Library\\Debug\\FW1FontWrapper.lib")
+#pragma comment(lib, "..\\External\\FW1FontWrapper\\_Library\\Debug_\\FW1FontWrapper.lib")
 #endif
 
 //#include <SpriteFont.h>
