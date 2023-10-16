@@ -6,7 +6,7 @@ RWStructuredBuffer<TileComputedCoord> TileCoordBuffer : register(u2);
 RWStructuredBuffer<Monster> MonsterBuffer : register(u3);
 RWStructuredBuffer<MonsterComputedCoord> MonsterCoordBuffer : register(u4);
 RWStructuredBuffer<SkillWallCollision> SkillBuffer : register(u5);
-RWStructuredBuffer<SkillWallCollision> GSkillBuffer : register(u6);
+//RWStructuredBuffer<SkillWallCollision> GSkillBuffer : register(u6);
 
 [numthreads(1000, 1, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
@@ -45,17 +45,30 @@ void main( uint3 DTid : SV_DispatchThreadID )
     float2 pos = TileBuffer[DTid.x].tilePosition.xy;
     float2 otherPos = float2(0.f, 0.f);
     
+    //if (TileBuffer[DTid.x].isWall != false
+    //    && TileBuffer[DTid.x].isThrough == false)
+    //{
+    //    for (uint i = 0; i < TileSharedBuffer[0].skillCount; ++i)
+    //    {
+    //        otherPos = SkillBuffer[i].position.xy;
+    //        GSkillBuffer[i].skillId = SkillBuffer[i].skillId;
+            
+    //        if (PointIntersectRhombus(pos, scale, otherPos) == true)
+    //        {
+    //            GSkillBuffer[i].crash = true;
+    //        }
+    //    }
+    //}
     if (TileBuffer[DTid.x].isWall != false
         && TileBuffer[DTid.x].isThrough == false)
     {
         for (uint i = 0; i < TileSharedBuffer[0].skillCount; ++i)
         {
             otherPos = SkillBuffer[i].position.xy;
-            GSkillBuffer[i].skillId = SkillBuffer[i].skillId;
             
             if (PointIntersectRhombus(pos, scale, otherPos) == true)
             {
-                GSkillBuffer[i].crash = true;
+                SkillBuffer[i].crash = true;
             }
         }
     }

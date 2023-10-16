@@ -58,10 +58,10 @@ namespace m::graphics
 			mSkillBuffer->buffer)
 			mSkillBuffer->BindUAV(5);
 
-		if (nullptr != mGSkillBuffer
-			&&
-			mGSkillBuffer->buffer)
-			mGSkillBuffer->BindUAV(6);
+		//if (nullptr != mGSkillBuffer
+		//	&&
+		//	mGSkillBuffer->buffer)
+		//	mGSkillBuffer->BindUAV(6);
 
 		mGroupX = 1000;
 		mGroupY = 1;
@@ -100,10 +100,10 @@ namespace m::graphics
 			mSkillBuffer->buffer)
 			mSkillBuffer->Clear();
 
-		if (nullptr != mGSkillBuffer
-			&&
-			mGSkillBuffer->buffer)
-			mGSkillBuffer->Clear();
+		//if (nullptr != mGSkillBuffer
+		//	&&
+		//	mGSkillBuffer->buffer)
+		//	mGSkillBuffer->Clear();
 	}
 
 	void TileComputeShader::OnExcute(ComputedTileCoord** data, int size, ComputedMonsterCoord** data2, int size2
@@ -123,11 +123,18 @@ namespace m::graphics
 		{
 			mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 		}
-		if(/*nullptr != mGSkillBuffer*/
-			/*&& */
+		//if(nullptr != mGSkillBuffer
+		//	&& 
+		//	nullptr != mSkillBuffer
+		//	&& nullptr != mSkillBuffer->buffer
+		//	&& nullptr != mGSkillBuffer->buffer)
+		//{
+		//	mGSkillBuffer->GetData<SkillWallCollision>(data3, size3);
+		//}
+
+		if (
 			nullptr != mSkillBuffer
-			&& nullptr != mSkillBuffer->buffer
-			/*&& nullptr != mGSkillBuffer->buffer*/)
+			&& nullptr != mSkillBuffer->buffer)
 		{
 			mSkillBuffer->GetData<SkillWallCollision>(data3, size3);
 		}

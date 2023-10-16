@@ -63,8 +63,10 @@ namespace m
 		//mGetMonsterComputedCoordBuffer->Create(sizeof(ComputedMonsterCoord), MonsterManager::monsters.size(), eViewType::UAV, nullptr, true);
 
 		mSkillBuffer = new graphics::StructuredBuffer();
+		mSkillBuffer->Create(sizeof(SkillWallCollision)
+			, 10000, eViewType::UAV, nullptr, true);
 		//mSkillBuffer->Create(sizeof(SkillWallCollision), 1, eViewType::UAV, nullptr, true);
-		mGSkillBuffer = new graphics::StructuredBuffer();
+		//mGSkillBuffer = new graphics::StructuredBuffer();
 
 		mCS->SetTileBuffer(mTileBuffer);
 		mCS->SetSharedBuffer(mTileSharedBuffer);
@@ -72,7 +74,7 @@ namespace m
 		mCS->SetMonsterBuffer(mMonsterBuffer);
 		mCS->SetMonsterCoordBuffer(mGetMonsterComputedCoordBuffer);
 		mCS->SetSkillBuffer(mSkillBuffer);
-		mCS->SetGSkillBuffer(mGSkillBuffer);
+		//mCS->SetGSkillBuffer(mGSkillBuffer);
 	}
 
 	TileSystem::~TileSystem()
@@ -108,11 +110,11 @@ namespace m
 			delete mSkillBuffer;
 			mSkillBuffer = nullptr;
 		}
-		if (mGSkillBuffer)
-		{
-			delete mGSkillBuffer;
-			mGSkillBuffer = nullptr;
-		}
+		//if (mGSkillBuffer)
+		//{
+		//	delete mGSkillBuffer;
+		//	mGSkillBuffer = nullptr;
+		//}
 		mCoordData = nullptr;
 		materials.clear();
 	}
@@ -208,13 +210,14 @@ namespace m
 			}
 
 			//mSkillBuffer->Clear();
-			mSkillBuffer->Create(sizeof(SkillWallCollision)
-				, skills.size() == 0 ? 1 : skills.size(), eViewType::UAV, skills.data(), true);
+			//mSkillBuffer->Create(sizeof(SkillWallCollision)
+			//	, 1000, eViewType::UAV, skills.data(), true);
+			mSkillBuffer->SetData(skills.data(), skills.size());
 			//mGSkillBuffer->Clear();
-			mGSkillBuffer->Create(sizeof(SkillWallCollision)
-				, SkillManager::skills.size() == 0 ? 1 : SkillManager::skills.size(), eViewType::UAV, nullptr, true);
+			//mGSkillBuffer->Create(sizeof(SkillWallCollision)
+			//	, skills.size() == 0 ? 1 : skills.size(), eViewType::UAV, nullptr, true);
 			mCS->SetSkillBuffer(mSkillBuffer);
-			mCS->SetGSkillBuffer(mGSkillBuffer);
+			//mCS->SetGSkillBuffer(mGSkillBuffer);
 		}
 
 		mCS->SetTileBuffer(mTileBuffer);
@@ -242,10 +245,10 @@ namespace m
 		mTileBuffer->Clear();
 		mTileSharedBuffer->Clear();
 		mComputedTileCoordBuffer->Clear();
-		mMonsterBuffer->Clear(); GSkillBuffer
+		mMonsterBuffer->Clear();
 		mGetMonsterComputedCoordBuffer->Clear();
-		mSkillBuffer->Clear();
-		mGSkillBuffer->Clear();
+		//mSkillBuffer->Clear();
+		//mGSkillBuffer->Clear();
 		//ClearMaterials();
 	}
 	void TileSystem::BindsMaterials()

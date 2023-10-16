@@ -39,13 +39,13 @@ namespace m::graphics
 		}
 		if (mSRV)
 		{
-			//mSRV->Release();
-			mSRV.Reset();
+			mSRV->Release();
+			//mSRV.Reset();
 		}
 		if (mUAV)
 		{
-			mUAV.Reset();
-			//mUAV->Release();
+			//mUAV.Reset();
+			mUAV->Release();
 		}
 		mType = type;
 

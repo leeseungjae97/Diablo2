@@ -1186,7 +1186,7 @@ namespace m
 	void PlayScene::Stage0()
 	{
 		SoundManager::ResetAllPlayed();
-		//SkillManager::AllSkillCrash();
+		SkillManager::AllSkillCrash();
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
 		ScreenEffectManager::FadeIn();
@@ -1242,6 +1242,15 @@ namespace m
 				MonsterScript<MDFallen>* ms = ADD_COMP(monster, MonsterScript<MDFallen>);
 			}
 		}
+		//{
+		//	Tile* tile = TileManager::pathFindingTiles[30][30];
+		//	Vector3 pos = tile->GetPos();
+		//	Monster* monster = new Monster(pos, MDFallen().fSpeed);
+		//	SET_MAIN_CAMERA(monster);
+		//	monster->SetCoord(tile->GetCoord());
+		//	AddGameObject(eLayerType::Monster, monster);
+		//	MonsterScript<MDFallen>* ms = ADD_COMP(monster, MonsterScript<MDFallen>);
+		//}
 		
 	}
 

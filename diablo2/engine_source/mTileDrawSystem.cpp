@@ -18,7 +18,7 @@ namespace m
 		SetMaterial(material);
 
 		mPathTileBuffer = new graphics::StructuredBuffer();
-
+		mPathTileBuffer->Create(sizeof(ComputeTile), 1, eViewType::UAV, nullptr, true);
 		//mCS = Resources::Find<TileDrawComputeShader>(L"TileDrawComputeShader");
 		//mSharedBuffer;
 	}
@@ -81,20 +81,24 @@ namespace m
 		//Update call
 
 		mTileSize = pathtiles.size();
-		ComputeTile* computeTiles = new ComputeTile[pathtiles.size()];
+		std::vector<ComputeTile> computeTiles;
+		//ComputeTile* computeTiles = new ComputeTile[pathtiles.size()];
 		for (int i = 0; i < pathtiles.size(); ++i)
 		{
+			ComputeTile tile;
 			Vector3 posV3 = pathtiles[i]->GetPos();
 			Vector4 pos = Vector4(posV3.x, posV3.y, posV3.z, 0.f);
-			computeTiles[i].tilePosition = pos;
-			computeTiles[i].tileSize = GET_VEC2_F_VEC3_D(pathtiles[i]->GetScale());
-			computeTiles[i].isWall = false;
-			computeTiles[i].tileCoord = pathtiles[i]->GetCoord();
+			tile.tilePosition = pos;
+			tile.tileSize = GET_VEC2_F_VEC3_D(pathtiles[i]->GetScale());
+			tile.isWall = false;
+			tile.tileCoord = pathtiles[i]->GetCoord();
+
+			computeTiles.push_back(tile);
 		}
 		
-		mPathTileBuffer->Create(sizeof(ComputeTile), pathtiles.size(), eViewType::UAV, computeTiles, true);
+		mPathTileBuffer->Create(sizeof(ComputeTile), pathtiles.size(), eViewType::UAV, computeTiles.data(), true);
 		
-		delete[] computeTiles;
+		//delete[] computeTiles;
 
 		//mCS->SetPathTileBuffer(mPathTileBuffer);
 		//mCS->OnExcute();

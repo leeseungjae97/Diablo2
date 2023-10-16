@@ -353,11 +353,10 @@ namespace m
 		//		mAnimator->PlayAnimation(sorceressAnimationString[(UINT)mAnimationType] + sixteenDirectionString[(UINT)mDirection], false);
 		//	}
 		//}
-		if (Input::GetKeyDown(eKeyCode::RBUTTON))
+		if (Input::GetKeyDownOne(eKeyCode::RBUTTON))
 		{
 			mAnimationType = ePlayerAnimationType::SpecialCast;
 		    SpecialCastAnimation(1);
-			bFire = true;
 		}
 
 		SpecialAttackAnimationConitnue();
@@ -705,6 +704,8 @@ namespace m
 	void PlayerScript::SpecialCastAnimation(int skillIndex)
 	{
 		if (GetOwner()->GetBattleState() == GameObject::Cast) return;
+
+		bFire = true;
 
 		if (castBack[(int)skillCastTypes[(UINT)PlayerManager::GetSkill(skillIndex)]])
 		{

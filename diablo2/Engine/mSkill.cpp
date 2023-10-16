@@ -10,7 +10,7 @@
 
 namespace m
 {
-	UINT Skill::uSkillIdDispender = 0;
+	int Skill::uSkillIdDispender = 0;
 	Skill::Skill(eSkillType type
 		, Vector3 iniPos
 		, bool useHitArea

@@ -523,7 +523,7 @@ namespace renderer
 		//constantBuffers[(UINT)eCBType::Tile]->Create(sizeof(TileDataCB));
 
 		lightsBuffer = new StructuredBuffer();
-		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
+		lightsBuffer->Create(sizeof(LightAttribute), 1000, eViewType::SRV, nullptr, true);
 	}
 
 	void LoadShader()

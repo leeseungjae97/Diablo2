@@ -30,7 +30,7 @@ namespace m
 
         skills.push_back(skill);
     }
-    void SkillManager::EraseSkill(UINT skillId)
+    void SkillManager::EraseSkill(int skillId)
     {
         std::vector<Skill*>::iterator iter = skills.begin();
 
@@ -56,7 +56,7 @@ namespace m
                 skill->SetSkillCrash(true);
         }
     }
-    void SkillManager::SkillCrash(UINT skillId)
+    void SkillManager::SkillCrash(int skillId)
     {
         for (Skill* skill : skills)
         {
@@ -87,7 +87,7 @@ namespace m
         }
     }
 
-    Skill* SkillManager::GetSkill(UINT skillId)
+    Skill* SkillManager::GetSkill(int skillId)
     {
         for(Skill* skill : skills)
         {

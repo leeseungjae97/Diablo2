@@ -43,8 +43,8 @@ namespace m
 
 	MonsterHand::~MonsterHand()
 	{
-		//if (mShadow)
-		//	mShadow->SetState(eState::Delete);
+		if (mShadow)
+			mShadow->SetState(eState::Delete);
 	}
 
 	void MonsterHand::Update()

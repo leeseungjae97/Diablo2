@@ -42,7 +42,7 @@ namespace m
         void SkillFire() { bSkillFire = true; }
         void HitWall();
 
-        UINT GetSkillId() { return mSkillId; }
+        int GetSkillId() { return mSkillId; }
 
     protected:
         eSkillType mSkillType;
@@ -50,9 +50,9 @@ namespace m
         bool bSkillCrash;
         eLayerType skillOwnerType;
 
-        UINT mSkillId;
+        int mSkillId;
     private:
-        static UINT uSkillIdDispender;
+        static int uSkillIdDispender;
     };
 }
 

@@ -10,10 +10,10 @@ namespace m
 	public:
 		static void Update();
 		static void AddSkill(Skill* skill);
-        static void EraseSkill(UINT skillId);
+        static void EraseSkill(int skillId);
 		static void AllSkillCrash();
-		static void SkillCrash(UINT skillId);
-        static Skill* GetSkill(UINT skillId);
+		static void SkillCrash(int skillId);
+        static Skill* GetSkill(int skillId);
 
 		static std::vector<Skill*> skills;
 	private:
