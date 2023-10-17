@@ -87,6 +87,12 @@ namespace m
 		Vector2* wall = nullptr;
 		Vector2* throughWall = nullptr;
 
+		if (stage == 5)
+			wall = stageEndWalls;
+
+		if (stage == 4)
+			wall = stageBWalls;
+
 		if(stage == 3)
 			wall = stage4Walls;
 
@@ -110,7 +116,7 @@ namespace m
 
 			if(stage == 1 || stage == -1)
 				pathFindingTiles[y][x]->SetThroughWall(false);
-			if (stage == 0 || stage == 2 || stage == 3)
+			if (stage == 0 || stage == 2 || stage == 3 || stage == 4 || stage == 5)
 				pathFindingTiles[y][x]->SetThroughWall(true);
 			
 			pathFindingTiles[y][x]->SetIsWall(true);

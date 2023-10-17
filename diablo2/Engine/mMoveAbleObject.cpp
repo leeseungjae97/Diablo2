@@ -97,8 +97,8 @@ namespace m
 	{
 		if (mPathFinder)
 			delete mPathFinder;
-		//if (mShadow)
-		//	mShadow->SetState(Delete);
+		if (mShadow)
+			mShadow->SetState(Delete);
 	}
 	void MoveAbleObject::Initialize()
 	{

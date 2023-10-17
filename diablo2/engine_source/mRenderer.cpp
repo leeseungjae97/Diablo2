@@ -731,8 +731,12 @@ namespace renderer
 		MAKE_MATERIAL_PATH(spriteShader, L"jareds_stone_anim", L"..\\Resources\\texture\\field_items\\jareds_stone_anim"
 			, 37, 153, 18, L"jaredsStoneAnim");
 
+		MAKE_MATERIAL_PATH(spriteShader, L"gold_anim", L"..\\Resources\\texture\\field_items\\gold_anim"
+			, 27, 165, 17, L"goldAnim");
+
 		MAKE_MATERIAL(spriteShader, L"hp_potion_field", L"..\\Resources\\texture\\field_items\\hp_potion_field.png", L"hpPotionField");
 		MAKE_MATERIAL(spriteShader, L"mp_potion_field", L"..\\Resources\\texture\\field_items\\mp_potion_field.png", L"mpPotionField");
+		MAKE_MATERIAL(spriteShader, L"gold_field", L"..\\Resources\\texture\\field_items\\gold_field.png", L"goldField");
 
 		MAKE_MATERIAL(spriteShader, L"leader_armor_field", L"..\\Resources\\texture\\field_items\\leader_armor_field.png", L"leaderArmorField");
 		MAKE_MATERIAL(spriteShader, L"bots_field", L"..\\Resources\\texture\\field_items\\bots_field.png", L"botsField");
@@ -741,10 +745,12 @@ namespace renderer
 #pragma endregion
 #pragma region Map
 		MAKE_MATERIAL(spriteShader, L"stage_4", L"..\\Resources\\texture\\map\\stage4\\stage4.png", L"stage4");
+		MAKE_MATERIAL(spriteShader, L"stage_b", L"..\\Resources\\texture\\map\\stageb\\stageb.png", L"stageb");
 		MAKE_MATERIAL(spriteShader, L"stage_3", L"..\\Resources\\texture\\map\\stage3\\stage3.png", L"stage3");
 		MAKE_MATERIAL(spriteShader, L"stage_2", L"..\\Resources\\texture\\map\\stage2\\stage2.png", L"stage2");
 		MAKE_MATERIAL(spriteShader, L"stage_1", L"..\\Resources\\texture\\map\\stage1\\stage1.png", L"stage1");
 		MAKE_MATERIAL(spriteShader, L"stage_0", L"..\\Resources\\texture\\map\\stage0\\stage0.png", L"stage0");
+		MAKE_MATERIAL(spriteShader, L"end_map", L"..\\Resources\\texture\\map\\end\\end.png", L"endMap");
 
 		MAKE_MATERIAL_T(wallShader, L"s0_wall_1", L"..\\Resources\\texture\\map\\stage0\\wall_1.png", L"s0Wall1");
 
@@ -820,7 +826,8 @@ namespace renderer
 #pragma region Overlay
 		MAKE_MATERIAL_PATH(spriteShader, L"holy_freeze", L"..\\Resources\\texture\\skill_effect\\overlay\\holy_freeze"
 			, 114, 93, 15, L"holyFreeze");
-
+		MAKE_MATERIAL_PATH(spriteShader, L"izual_skill", L"..\\Resources\\texture\\skill_effect\\izual_skill"
+			, 190, 175, 16, L"izualSkill");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_3", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_3"
 			, 127, 148, 16, L"iceCast3");
 		MAKE_MATERIAL_PATH(spriteShader, L"ice_cast_2", L"..\\Resources\\texture\\skill_effect\\overlay\\ice_cast_2"
@@ -973,6 +980,18 @@ namespace renderer
 
 #pragma endregion
 #pragma region Monster
+		MAKE_MATERIAL_PATH(spriteShader, L"izual_natural", L"..\\Resources\\texture\\enemy\\izual\\natural"
+			, 158, 119, 8, L"izualNatural");
+		MAKE_MATERIAL_PATH(spriteShader, L"izual_hit", L"..\\Resources\\texture\\enemy\\izual\\get_hit"
+			, 157, 123, 6, L"izualHit");
+		MAKE_MATERIAL_PATH(spriteShader, L"izual_run", L"..\\Resources\\texture\\enemy\\izual\\run"
+			, 153, 119, 8, L"izualRun");
+		MAKE_MATERIAL_PATH(spriteShader, L"izual_attack", L"..\\Resources\\texture\\enemy\\izual\\attack"
+			, 179, 176, 16, L"izualAttack");
+		MAKE_MATERIAL_T(spriteShader, L"izual_special", L"..\\Resources\\texture\\enemy\\izual\\special_cast.png",L"izualSpecialCast");
+		MAKE_MATERIAL_PATH(spriteShader, L"izual_to_dead", L"..\\Resources\\texture\\enemy\\izual\\to_dead"
+			, 253, 189, 20, L"izualToDead");
+
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_natural_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\natural"
 			, 191, 148, 8, L"balrogNatural");
 		MAKE_MATERIAL_PATH(spriteShader, L"balrog_hit_body", L"..\\Resources\\texture\\enemy\\balrog\\body\\hit"

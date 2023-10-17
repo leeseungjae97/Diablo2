@@ -15,10 +15,15 @@ namespace m
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
+
+        int GetMoneyAmount() { return moneyAmount; }
+        void SetMoneyAmount(int money) { moneyAmount = money; }
     private:
         UI* mNameUI;
         bool bDownAlt;
         bool bDropFirst;
+
+        int moneyAmount;
     };
 }
 

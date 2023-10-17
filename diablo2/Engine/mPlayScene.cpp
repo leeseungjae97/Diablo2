@@ -15,6 +15,7 @@
 #include "../engine_source/mFontWrapper.h"
 #include "../engine_source/mComputeShader.h"
 #include "../engine_source/mTileManager.h"
+#include "../engine_source/mVideoManager.h"
 
 #include "../engine_source/mSkillManager.h"
 #include "../engine_source/mSoundManager.h"
@@ -39,6 +40,7 @@
 #include "mPortal.h"
 #include "mShop.h"
 #include "mTorch.h"
+
 #include "mWall.h"
 
 extern m::Application application;
@@ -158,7 +160,7 @@ namespace m
 			tilePos.y -= tileScale.y / 2.f;
 			SET_POS_XYZ(curMap, tilePos.x, tilePos.y, 2.f);
 		}
-		Stage0();
+		//Stage0();
 	}
 	void PlayScene::Update()
 	{
@@ -201,14 +203,10 @@ namespace m
 
 		Scene::Update();
 
-		//if (Input::GetKeyDown(eKeyCode::N))
-		//{
-		//	SceneManager::LoadScene(L"MainMenuScene");
-		//}
 		if (bPlaySceneFireUpdate)
 		{
 			bPlaySceneFireUpdate = false;
-			//Stage0();
+			Stage0();
 		}
 		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inventory)
 		{
@@ -424,7 +422,19 @@ namespace m
 		TileManager::TileIsWallChange();
 	}
 
-	void PlayScene::MakeStage3Wall()
+    void PlayScene::MakeStageBWall()
+    {
+		Camera* cameraComp = GetSceneMainCamera();
+		TileManager::TileIsWallReset();
+		{
+		    
+		}
+		TileManager::MakeStageWall(4);
+
+		TileManager::TileIsWallChange();
+    }
+
+    void PlayScene::MakeStage3Wall()
 	{
 		Camera* cameraComp = GetSceneMainCamera();
 		TileManager::TileIsWallReset();
@@ -1183,7 +1193,16 @@ namespace m
 		TileManager::TileIsWallChange();
 	}
 
-	void PlayScene::Stage0()
+    void PlayScene::MakeStageEndWall()
+    {
+		Camera* cameraComp = GetSceneMainCamera();
+		TileManager::TileIsWallReset();
+
+		TileManager::MakeStageWall(5);
+		TileManager::TileIsWallChange();
+    }
+
+    void PlayScene::Stage0()
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
@@ -1209,17 +1228,17 @@ namespace m
 			}
 		);
 		{
-			Tile* tile = TileManager::pathFindingTiles[55][73];
+			Tile* tile = TileManager::pathFindingTiles[53][63];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(mNpc2, pos);
 		}
 		{
-			Tile* tile = TileManager::pathFindingTiles[54][74];
+			Tile* tile = TileManager::pathFindingTiles[58][58];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(mNpc1, pos);
 		}
 		{
-			Tile* tile = TileManager::pathFindingTiles[53][76];
+			Tile* tile = TileManager::pathFindingTiles[58][62];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(mPortal, pos);
 		}
@@ -1230,27 +1249,74 @@ namespace m
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
 
-		for(int i = 0 ; i < 20; ++i )
-		{
-			{
-				Tile* tile = TileManager::pathFindingTiles[30 + i][30];
-				Vector3 pos = tile->GetPos();
-				Monster* monster = new Monster(pos, MDFallen().fSpeed);
-				SET_MAIN_CAMERA(monster);
-				monster->SetCoord(tile->GetCoord());
-				AddGameObject(eLayerType::Monster, monster);
-				MonsterScript<MDFallen>* ms = ADD_COMP(monster, MonsterScript<MDFallen>);
-			}
-		}
+		//for(int i = 0 ; i < 20; ++i )
 		//{
-		//	Tile* tile = TileManager::pathFindingTiles[30][30];
-		//	Vector3 pos = tile->GetPos();
-		//	Monster* monster = new Monster(pos, MDFallen().fSpeed);
-		//	SET_MAIN_CAMERA(monster);
-		//	monster->SetCoord(tile->GetCoord());
-		//	AddGameObject(eLayerType::Monster, monster);
-		//	MonsterScript<MDFallen>* ms = ADD_COMP(monster, MonsterScript<MDFallen>);
+		//	{
+		//		Tile* tile = TileManager::pathFindingTiles[30 + i][30];
+		//		Vector3 pos = tile->GetPos();
+		//		Monster* monster = new Monster(pos, MDFallen().fSpeed);
+		//		SET_MAIN_CAMERA(monster);
+		//		monster->SetCoord(tile->GetCoord());
+		//		AddGameObject(eLayerType::Monster, monster);
+		//		MonsterScript<MDFallen>* ms = ADD_COMP(monster, MonsterScript<MDFallen>);
+		//	}
 		//}
+		{
+			Tile* tile = TileManager::pathFindingTiles[38][39];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDFallen().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDFallen>);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[42][53];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDFallen().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDFallen>);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[49][47];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDFallen().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDFallen>);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[50][63];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDFallen().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDFallen>);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[58][54];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDFallen().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDFallen>);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[61][65];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDBalrog>);
+
+			mBossMonster = monster;
+		}
 		
 	}
 
@@ -1403,7 +1469,7 @@ namespace m
 			monster->SetCoord(tile->GetCoord());
 			SET_MAIN_CAMERA(monster);
 			AddGameObject(eLayerType::Monster, monster);
-			MonsterScript<MDDuriel>* ms = monster->AddComponent<MonsterScript<MDDuriel>>();
+			monster->AddComponent<MonsterScript<MDDuriel>>();
 
 
 			mBossMonster = monster;
@@ -1432,7 +1498,7 @@ namespace m
 		mPortal->SetClickPortal(
 			[=]()
 			{
-				Stage4();
+				StageB();
 			}
 		);
 		{
@@ -1480,12 +1546,105 @@ namespace m
 		SoundManager::ExternVoiceSound((int)mBossMonster->GetMonsterType(), false);
 	}
 
-	void PlayScene::Stage4()
+    void PlayScene::StageB()
+    {
+		SoundManager::ResetAllPlayed();
+		SkillManager::AllSkillCrash();
+		//StageManager::stageNum = (int)eBGMType::Stage4;
+		StageManager::stageNum = 5;
+		dayLight->SetState(GameObject::RenderUpdate);
+		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
+		ScreenEffectManager::FadeIn();
+		MakeStageBWall();
+		if (curMap)
+		{
+			SET_MATERIAL(curMap, L"stageb");
+		}
+
+		{
+			Tile* tile = TileManager::pathFindingTiles[69][73];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mNpc2, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[73][69];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mNpc1, pos);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[73][73];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mPortal, pos);
+		}
+
+		mPortal->SetClickPortal(
+			[=]()
+			{
+				Stage4();
+			}
+		);
+
+		mEnterNameUI->SetText(L"타락한 천사");
+		fAcc = 0.f;
+		bStageInit = false;
+		bStageStart = true;
+
+		{
+			//Tile* tile = TileManager::pathFindingTiles[24][24];
+			Tile* tile = TileManager::pathFindingTiles[45][45];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(PlayerManager::player, pos);
+		}
+		{
+			floor = new Floor(Vector3(0.f, 0.f, 0.f));
+			Vector3 scale = GET_SCALE(floor);
+			Tile* tile = TileManager::pathFindingTiles[0][0];
+			Vector3 tilePos = tile->GetPos();
+			Vector3 tileScale = tile->GetScale();
+			tilePos.y += scale.y / 2.f;
+			tilePos.y -= tileScale.y / 2.f;
+			SET_POS_XYZ(floor, tilePos.x, tilePos.y, 2.1f);
+			SET_MAIN_CAMERA(floor);
+			AddGameObject(eLayerType::Floor, floor);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[61][68];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDBalrog>);
+		}
+		{
+			Tile* tile = TileManager::pathFindingTiles[68][61];
+			Vector3 pos = tile->GetPos();
+			Monster* monster = new Monster(pos, MDBalrog().fSpeed);
+			SET_MAIN_CAMERA(monster);
+			monster->SetCoord(tile->GetCoord());
+			AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDBalrog>);
+		}
+		{
+        	Tile* tile = TileManager::pathFindingTiles[73][73];
+        	Vector3 pos = tile->GetPos();
+        	Monster* monster = new Monster(pos, MDIzual().fSpeed);
+        	SET_MAIN_CAMERA(monster);
+        	monster->SetCoord(tile->GetCoord());
+        	AddGameObject(eLayerType::Monster, monster);
+			ADD_COMP(monster, MonsterScript<MDIzual>);
+			mBossMonster = monster;
+        }
+		SoundManager::ExternAmbientSound(eAmbientType::Lava, true, 10.f);
+    }
+
+    void PlayScene::Stage4()
 	{
 		SoundManager::ResetAllPlayed();
 		SkillManager::AllSkillCrash();
 		//StageManager::stageNum = (int)eBGMType::Stage4;
-		StageManager::stageNum = 4 ;
+		StageManager::stageNum = 4;
 		dayLight->SetState(GameObject::RenderUpdate);
 		MonsterManager::EraseAll();
 		FieldItemManager::EraseAll();
@@ -1521,23 +1680,23 @@ namespace m
 		//	//lightComp->SetRadiusY(150.0f);
 		//}
 		{
-			//Tile* tile = TileManager::pathFindingTiles[24][24];
-			Tile* tile = TileManager::pathFindingTiles[60][60];
+			Tile* tile = TileManager::pathFindingTiles[24][24];
+			//Tile* tile = TileManager::pathFindingTiles[60][60];
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
-		{
-			Floor* floor = new Floor(Vector3(0.f, 0.f, 0.f));
-			Vector3 scale = GET_SCALE(floor);
-			Tile* tile = TileManager::pathFindingTiles[0][0];
-			Vector3 tilePos = tile->GetPos();
-			Vector3 tileScale = tile->GetScale();
-			tilePos.y += scale.y / 2.f;
-			tilePos.y -= tileScale.y / 2.f;
-			SET_POS_XYZ(floor, tilePos.x, tilePos.y, 2.1f);
-			SET_MAIN_CAMERA(floor);
-			AddGameObject(eLayerType::Floor, floor);
-		}
+		//{
+		//	Floor* floor = new Floor(Vector3(0.f, 0.f, 0.f));
+		//	Vector3 scale = GET_SCALE(floor);
+		//	Tile* tile = TileManager::pathFindingTiles[0][0];
+		//	Vector3 tilePos = tile->GetPos();
+		//	Vector3 tileScale = tile->GetScale();
+		//	tilePos.y += scale.y / 2.f;
+		//	tilePos.y -= tileScale.y / 2.f;
+		//	SET_POS_XYZ(floor, tilePos.x, tilePos.y, 2.1f);
+		//	SET_MAIN_CAMERA(floor);
+		//	AddGameObject(eLayerType::Floor, floor);
+		//}
 		{
 			Tile* tile = TileManager::pathFindingTiles[62][62];
 			Vector3 pos = tile->GetPos();
@@ -1553,7 +1712,56 @@ namespace m
 		SoundManager::ExternAmbientSound(eAmbientType::Lava, true, 10.f);
 	}
 
-	void PlayScene::NPCRender()
+    void PlayScene::StageEnd()
+    {
+		SoundManager::ResetAllPlayed();
+		SkillManager::AllSkillCrash();
+		//StageManager::stageNum = (int)eBGMType::Stage4;
+		StageManager::stageNum = 6;
+		dayLight->SetState(GameObject::RenderUpdate);
+		MonsterManager::EraseAll();
+		FieldItemManager::EraseAll();
+	    ScreenEffectManager::FadeIn();
+
+		if(floor)
+		    floor->SetState(GameObject::NoRenderNoUpdate);
+		MakeStageEndWall();
+		if (curMap)
+		{
+			SET_MATERIAL(curMap, L"endMap");
+		}
+
+		//ScreenEffectManager::Shake(3.f);
+		{
+			Tile* tile = TileManager::pathFindingTiles[23][23];
+			TileManager::playerStandTile = tile;
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(mPortal, pos);
+		}
+
+		mEnterNameUI->SetText(L"월드스톤 방");
+		fAcc = 0.f;
+		bStageInit = false;
+		bStageStart = true;
+		//{
+		//	GameObject* lavaLight = new GameObject();
+
+		//	Light* lightComp = lavaLight->AddComponent<Light>();
+		//	lightComp->SetType(eLightType::Directional);
+		//	lightComp->SetColor(Vector4(0.7f, 0.7f, 0.7f, 1.0f));
+		//	AddGameObject(eLayerType::Light, lavaLight);
+		//	//lightComp->SetRadiusX(300.0f);
+		//	//lightComp->SetRadiusY(150.0f);
+		//}
+		{
+			Tile* tile = TileManager::pathFindingTiles[53][4];
+			//Tile* tile = TileManager::pathFindingTiles[60][60];
+			Vector3 pos = tile->GetPos();
+			SET_POS_VEC(PlayerManager::player, pos);
+		}
+    }
+
+    void PlayScene::NPCRender()
 	{
 		//Vector3 nPos = GET_POS(PlayerManager::player);
 		//SET_POS_VEC(mNpc1, nPos);

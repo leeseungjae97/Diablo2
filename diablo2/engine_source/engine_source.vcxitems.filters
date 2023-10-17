@@ -43,9 +43,6 @@
     <Filter Include="Script">
       <UniqueIdentifier>{d8166686-f955-4502-b52b-26cd1e5dbca0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager">
-      <UniqueIdentifier>{b93bd2f9-5bcd-4588-a00d-790acf7fbd92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{3e2c6742-6a99-4425-a4ac-e219a1acf00e}</UniqueIdentifier>
     </Filter>
@@ -60,15 +57,6 @@
     </Filter>
     <Filter Include="GameObject\Component\Collider">
       <UniqueIdentifier>{ea47ef6f-4836-4cf1-b8c3-bcc0687f768c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\CollisionManager">
-      <UniqueIdentifier>{b64f8ed7-fd32-412d-9b08-da4c609a0669}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\MouseManager">
-      <UniqueIdentifier>{329da398-4eea-4e32-af1c-1b3fa94aaf00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\SceneManager">
-      <UniqueIdentifier>{298d7060-a8c5-4719-950a-86b155ea6d2e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Resource\Material">
       <UniqueIdentifier>{c816c735-320e-4f4d-b69c-b5160cf655c0}</UniqueIdentifier>
@@ -103,20 +91,11 @@
     <Filter Include="Graphics\StructedBuffer">
       <UniqueIdentifier>{9ab7a41a-2e01-4625-919f-0702e988d3f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\TileManager">
-      <UniqueIdentifier>{1cfa52b2-0d5d-459d-9e6b-06b0a433510c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Resource\PaintShader">
       <UniqueIdentifier>{48e7aa5b-f2b5-49d0-a9d3-e644c6b9ea64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\MonsterManager">
-      <UniqueIdentifier>{41ffbdbe-247c-497f-9451-362e00e261ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Component\ParticleSystem">
       <UniqueIdentifier>{bde62044-036a-4f88-9c3e-963a7be9d9fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\SkillManager">
-      <UniqueIdentifier>{b69ae955-b702-4e86-ac22-f5506fddb418}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject\Component\TileSystem">
       <UniqueIdentifier>{fb29f9e4-64e4-480f-b1f8-9b21c04764e1}</UniqueIdentifier>
@@ -148,9 +127,6 @@
     <Filter Include="GameObject\Component\DrawMaterials">
       <UniqueIdentifier>{d9f44996-2134-4e61-a2e7-6049e6e30f0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\StashManager">
-      <UniqueIdentifier>{9aa8e472-4395-4e28-bfb1-ce0cb89039e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fmod">
       <UniqueIdentifier>{040bb018-746d-418c-8231-580cd34c00b6}</UniqueIdentifier>
     </Filter>
@@ -169,29 +145,59 @@
     <Filter Include="GameObject\Component\AnimationTrappingColor">
       <UniqueIdentifier>{7b63aeb9-6f69-4e4f-b956-2f9ae24c77a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\InteractUIManager">
-      <UniqueIdentifier>{34830b93-29f9-4207-85b2-78052e450197}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Component\Shadow">
       <UniqueIdentifier>{9e95a9da-05aa-4b6b-95f4-f2707dce7261}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\ScreenEffectManager">
+    <Filter Include="Input\Manager">
+      <UniqueIdentifier>{b93bd2f9-5bcd-4588-a00d-790acf7fbd92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\CollisionManager">
+      <UniqueIdentifier>{b64f8ed7-fd32-412d-9b08-da4c609a0669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\MouseManager">
+      <UniqueIdentifier>{329da398-4eea-4e32-af1c-1b3fa94aaf00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\SceneManager">
+      <UniqueIdentifier>{298d7060-a8c5-4719-950a-86b155ea6d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\TileManager">
+      <UniqueIdentifier>{1cfa52b2-0d5d-459d-9e6b-06b0a433510c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\MonsterManager">
+      <UniqueIdentifier>{41ffbdbe-247c-497f-9451-362e00e261ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\SkillManager">
+      <UniqueIdentifier>{b69ae955-b702-4e86-ac22-f5506fddb418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\StashManager">
+      <UniqueIdentifier>{9aa8e472-4395-4e28-bfb1-ce0cb89039e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\InteractUIManager">
+      <UniqueIdentifier>{34830b93-29f9-4207-85b2-78052e450197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\ScreenEffectManager">
       <UniqueIdentifier>{88909038-0080-4b7d-bbed-a3047a917cfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\WallObjectManager">
+    <Filter Include="Input\Manager\WallObjectManager">
       <UniqueIdentifier>{3111aac2-d9ea-42dd-8cd1-ffacf517c973}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\TileDrawManager">
+    <Filter Include="Input\Manager\TileDrawManager">
       <UniqueIdentifier>{424237e6-d694-4418-9017-c567a53b7847}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\FieldItemManager">
+    <Filter Include="Input\Manager\FieldItemManager">
       <UniqueIdentifier>{7a55cefe-1ba3-4ff8-a85a-4b16febc2ade}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\SoundManager">
+    <Filter Include="Input\Manager\SoundManager">
       <UniqueIdentifier>{8ecbb633-b321-4186-a708-4b34ee2b7b04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\StageManager">
+    <Filter Include="Input\Manager\StageManager">
       <UniqueIdentifier>{f620f529-0632-475e-b571-b459d7fa66d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\VideoManager">
+      <UniqueIdentifier>{a7cf8e0e-9fb5-4bc0-b113-ad49c3c7cbd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Manager\CheatManager">
+      <UniqueIdentifier>{1c0d4cb6-d786-4c62-b57a-2ceb782ec0fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -268,13 +274,13 @@
       <Filter>GameObject\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mCollisionManager.h">
-      <Filter>Manager\CollisionManager</Filter>
+      <Filter>Input\Manager\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mMouseManager.h">
-      <Filter>Manager\MouseManager</Filter>
+      <Filter>Input\Manager\MouseManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mSceneManager.h">
-      <Filter>Manager\SceneManager</Filter>
+      <Filter>Input\Manager\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mMaterial.h">
       <Filter>Resources\Resource\Material</Filter>
@@ -319,19 +325,19 @@
       <Filter>PathFinder</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileManager.h">
-      <Filter>Manager\TileManager</Filter>
+      <Filter>Input\Manager\TileManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mPaintShader.h">
       <Filter>Resources\Resource\PaintShader</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mMonsterManager.h">
-      <Filter>Manager\MonsterManager</Filter>
+      <Filter>Input\Manager\MonsterManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleSystem.h">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mSkillManager.h">
-      <Filter>Manager\SkillManager</Filter>
+      <Filter>Input\Manager\SkillManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mParticleComputeShader.h">
       <Filter>Resources\Resource\ParticleComputeShader</Filter>
@@ -370,7 +376,7 @@
       <Filter>Resources\Resource\PathFinderComputeShader</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mStashManager.h">
-      <Filter>Manager\StashManager</Filter>
+      <Filter>Input\Manager\StashManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mFmod.h">
       <Filter>Fmod</Filter>
@@ -406,10 +412,10 @@
       <Filter>GameObject\Component\Shadow</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mInteractUIManager.h">
-      <Filter>Manager\InteractUIManager</Filter>
+      <Filter>Input\Manager\InteractUIManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mScreenEffectManager.h">
-      <Filter>Manager\ScreenEffectManager</Filter>
+      <Filter>Input\Manager\ScreenEffectManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)WallLookUpTables.h">
       <Filter>Common</Filter>
@@ -424,25 +430,31 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mWallObjectManager.h">
-      <Filter>Manager\WallObjectManager</Filter>
+      <Filter>Input\Manager\WallObjectManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mTileDrawManager.h">
-      <Filter>Manager\TileDrawManager</Filter>
+      <Filter>Input\Manager\TileDrawManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)BodyPartsLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mFieldItemManager.h">
-      <Filter>Manager\FieldItemManager</Filter>
+      <Filter>Input\Manager\FieldItemManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SoundLookUpTables.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mSoundManager.h">
-      <Filter>Manager\SoundManager</Filter>
+      <Filter>Input\Manager\SoundManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)mStageManager.h">
-      <Filter>Manager\StageManager</Filter>
+      <Filter>Input\Manager\StageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mVideoManager.h">
+      <Filter>Input\Manager\VideoManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCheatManager.h">
+      <Filter>Input\Manager\CheatManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -498,13 +510,13 @@
       <Filter>GameObject\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mCollisionManager.cpp">
-      <Filter>Manager\CollisionManager</Filter>
+      <Filter>Input\Manager\CollisionManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mMouseManager.cpp">
-      <Filter>Manager\MouseManager</Filter>
+      <Filter>Input\Manager\MouseManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mSceneManager.cpp">
-      <Filter>Manager\SceneManager</Filter>
+      <Filter>Input\Manager\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mMaterial.cpp">
       <Filter>Resources\Resource\Material</Filter>
@@ -546,19 +558,19 @@
       <Filter>PathFinder</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileManager.cpp">
-      <Filter>Manager\TileManager</Filter>
+      <Filter>Input\Manager\TileManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mPaintShader.cpp">
       <Filter>Resources\Resource\PaintShader</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mMonsterManager.cpp">
-      <Filter>Manager\MonsterManager</Filter>
+      <Filter>Input\Manager\MonsterManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleSystem.cpp">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mSkillManager.cpp">
-      <Filter>Manager\SkillManager</Filter>
+      <Filter>Input\Manager\SkillManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mParticleComputeShader.cpp">
       <Filter>Resources\Resource\ParticleComputeShader</Filter>
@@ -588,7 +600,7 @@
       <Filter>Resources\Resource\PathFinderComputeShader</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mStashManager.cpp">
-      <Filter>Manager\StashManager</Filter>
+      <Filter>Input\Manager\StashManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mFmod.cpp">
       <Filter>Fmod</Filter>
@@ -612,25 +624,31 @@
       <Filter>GameObject\Component\Shadow</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mInteractUIManager.cpp">
-      <Filter>Manager\InteractUIManager</Filter>
+      <Filter>Input\Manager\InteractUIManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mScreenEffectManager.cpp">
-      <Filter>Manager\ScreenEffectManager</Filter>
+      <Filter>Input\Manager\ScreenEffectManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mWallObjectManager.cpp">
-      <Filter>Manager\WallObjectManager</Filter>
+      <Filter>Input\Manager\WallObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mTileDrawManager.cpp">
-      <Filter>Manager\TileDrawManager</Filter>
+      <Filter>Input\Manager\TileDrawManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mFieldItemManager.cpp">
-      <Filter>Manager\FieldItemManager</Filter>
+      <Filter>Input\Manager\FieldItemManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mSoundManager.cpp">
-      <Filter>Manager\SoundManager</Filter>
+      <Filter>Input\Manager\SoundManager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)mStageManager.cpp">
-      <Filter>Manager\StageManager</Filter>
+      <Filter>Input\Manager\StageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mVideoManager.cpp">
+      <Filter>Input\Manager\VideoManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCheatManager.cpp">
+      <Filter>Input\Manager\CheatManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

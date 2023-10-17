@@ -25,13 +25,18 @@ namespace m
         int GetSkillIndex() { return mSkillIndex; }
 
     private:
+        void skillChangeShortCut();
+        void setMaCamera();
         void makeMa();
+        void specifyShortcut();
+        void eraseSkillOverlap(int index);
 
     private:
         eSkillType mSkillType;
         int mSkillIndex;
         
         UI* skillImages;
+
 
         UI* mF5;
         UI* mF4;
@@ -43,6 +48,9 @@ namespace m
         std::vector<std::shared_ptr<Texture>> skillTexs;
         std::vector<eSkillType> skillTypes;
 
+        std::vector<eSkillType> saveShortCutSkillTypes;
+        std::vector<UI*> macroButtons;
+        std::vector<bool> bOverlaps;
         int prevSkillPoint;
     };
 }

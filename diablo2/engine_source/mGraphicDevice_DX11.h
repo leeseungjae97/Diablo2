@@ -77,10 +77,6 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext>		mContext;
 		std::shared_ptr<m::graphics::Texture> mRenderTarget;
 		std::shared_ptr<m::graphics::Texture> mDepthStencil;
-		//Microsoft::WRL::ComPtr<ID3D11Texture2D>			mRenderTarget;
-		//Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	mRenderTargetView;
-		//Microsoft::WRL::ComPtr<ID3D11Texture2D>			mDepthStencilBuffer;
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	mDepthStencilView;
 
 		ID2D1Factory* pFactory;
 		ID2D1HwndRenderTarget* pRenderTarget;

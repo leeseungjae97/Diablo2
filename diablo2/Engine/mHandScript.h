@@ -17,6 +17,7 @@ namespace m
         virtual void Initialize() override;
 
         int GetHandDirection() { return mHandDirection; }
+        int GetHandAnimationType() { return mHandAnimationType; }
         void SetHandDirection(int direction) { mHandDirection = direction; }
         void SetHandAnimation(int aniType) { mHandAnimationType = aniType; }
 

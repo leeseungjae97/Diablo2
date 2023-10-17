@@ -1,5 +1,6 @@
 #include "mMonster.h"
 
+#include "../engine_source/ItemLookUpTables.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
 #include "../engine_source/mSceneManager.h"
@@ -7,6 +8,7 @@
 
 #include "mPlayerManager.h"
 #include "mPlayer.h"
+#include "mPlayerStatus.h"
 #include "mShadowObject.h"
 #include "mSkillOverlay.h"
 
@@ -30,7 +32,8 @@ namespace m
 
 		sightCollider = ADD_COMP(this, Collider2D);
 		sightCollider->SetType(eColliderType::Circle);
-		sightCollider->SetSize(Vector3(5.f, 5.f, 1.f));
+		//sightCollider->SetSize(Vector3(5.f, 5.f, 1.f));
+		sightCollider->SetScale(Vector3(1000.f, 1000.f, 1.f));
 		sightCollider->AddExceptType(eLayerType::Skill);
 		sightCollider->AddExceptType(eLayerType::MonsterSkill);
 		sightCollider->AddExceptType(eLayerType::PlayerSkill);
@@ -88,7 +91,7 @@ namespace m
 			{
 				mPathFinder->Release();
 
-				StashManager::DropFieldItem(1, GET_POS(this));
+				getReward();
 
 				delete mPathFinder;
 				mPathFinder = nullptr;
@@ -216,6 +219,33 @@ namespace m
 			hpPercent = (hpCapacity - hp) / hpCapacity;
 			if(attackStun)
 			    SetHit(true);
+		}
+	}
+	void Monster::getReward()
+	{
+		PlayerStatus::experiance += 250;
+		Vector3 pos = GET_POS(this);
+		int iRandCount = rand() % 3;
+
+		int randTable[3] = {
+			(int)eItem::hpPotion1,
+			(int)eItem::mpPotion1,
+			(int)eItem::gold,
+		};
+		for(int i = 0 ; i < iRandCount; ++i )
+		{
+			int randDropItem = rand() % 3;
+			int index = randTable[randDropItem];
+			StashManager::DropFieldItem(index, pos);
+
+			int randXSign = rand() % 2;
+			int randYSign = rand() % 2;
+
+			if (randXSign) randXSign *= -1;
+			if (randYSign) randYSign *= -1;
+
+			pos.x += i + 10 * randXSign;
+			pos.y += i + 10 * randYSign;
 		}
 	}
 }

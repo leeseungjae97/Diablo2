@@ -148,14 +148,14 @@ namespace m::graphics
 			xidx++;
 		}
 
-		//if (path == L"..\\Resources\\texture\\character\\sorceress\\get_hit\\lg_gh")
+		//if (path == L"..\\Resources\\texture\\enemy\\izual\\special_cast")
 		//{
 		//	GUID format = GetWICCodec(WIC_CODEC_PNG);
 		//	hr = SaveToWICFile(
 		//		*atlasImage.GetImage(0, 0, 0)
 		//		, WIC_FLAGS::WIC_FLAGS_NONE
 		//		, format
-		//		, L"lg_gh.png"
+		//		, L"izur.png"
 		//		, nullptr
 		//	);
 		//}

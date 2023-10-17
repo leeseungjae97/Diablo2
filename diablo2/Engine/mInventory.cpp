@@ -62,7 +62,7 @@ namespace m
 		SET_SCALE_TEX_SIZE_WITH_RAT(closeBtn, tex, 0.0f);
 		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetMetaDataWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetMetaDataHeight() / 2.f), 0.f);
 
-		{
+	/*	{
 			InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
 
 			hpPotion->SetCamera(GetCamera());
@@ -143,7 +143,7 @@ namespace m
 			ADD_COMP(hpPotion, ItemScript);
 			curScene->AddGameObject(eLayerType::Item, hpPotion);
 			StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
-		}
+		}*/
 
 		StashManager::InitItems(StashManager::eStashType::Inventory);
 		StashManager::InitItems(StashManager::eStashType::PocketInven);

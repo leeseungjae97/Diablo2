@@ -1,5 +1,6 @@
 #include "mSkillShortCutButton.h"
 
+#include "mFontWrapper.h"
 #include "mMouseManager.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
@@ -18,6 +19,7 @@ namespace m
 	{
 		//SetClickMaterial(RESOURCE_FIND(Material, L"normalAttackClickIcon"));
 		//SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
+		saveShortCutSkillTypes.resize(5);
 
 		for(int i = 0; i < 10; ++i)
 		{
@@ -80,6 +82,7 @@ namespace m
 
 		if(nullptr == skillImages->GetCamera())
 			skillImages->SetCamera(GetCamera());
+		setMaCamera();
 
 		if(GetOneClick())
 		{
@@ -88,6 +91,10 @@ namespace m
 		if (skillImages->GetState() == RenderUpdate)
 		{
 			GetHoverClickSkill();
+			specifyShortcut();
+		}else
+		{
+			skillChangeShortCut();
 		}
 
 		if(!GetHover())
@@ -99,8 +106,18 @@ namespace m
 		{
 			mSkillType = PlayerManager::GetSkill(mSkillIndex);
 			SET_MATERIAL(this, wsSkillIconNames[(int)mSkillType]);
-			//SetNormalMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
-			//SetClickMaterial(RESOURCE_FIND(Material, wsSkillClickIconNames[(int)mSkillType]));
+		}
+		int i = 0;
+		for (UI* ui : macroButtons)
+		{
+			if(bOverlaps[i])
+			{
+				ui->SetState(NoRenderUpdate);
+			}else
+			{
+				ui->SetState(skillImages->GetState());
+			}
+			++i;
 		}
 	}
 	void SkillShortCutButton::LateUpdate()
@@ -142,14 +159,222 @@ namespace m
 		return eSkillType::END;
 	}
 
+    void SkillShortCutButton::skillChangeShortCut()
+    {
+		if(mSkillIndex == 1)
+		{
+			if (Input::GetKeyDown(eKeyCode::F1))
+			{
+				if(eSkillType::END == saveShortCutSkillTypes[0])
+					return;
+
+				PlayerManager::SetSkill(mSkillIndex, saveShortCutSkillTypes[0]);
+			}
+			if (Input::GetKeyDown(eKeyCode::F2))
+			{
+				if (eSkillType::END == saveShortCutSkillTypes[1])
+					return;
+				PlayerManager::SetSkill(mSkillIndex, saveShortCutSkillTypes[1]);
+			}
+			if (Input::GetKeyDown(eKeyCode::F3))
+			{
+				if (eSkillType::END == saveShortCutSkillTypes[2])
+					return;
+				PlayerManager::SetSkill(mSkillIndex, saveShortCutSkillTypes[2]);
+			}
+			if (Input::GetKeyDown(eKeyCode::F4))
+			{
+				if (eSkillType::END == saveShortCutSkillTypes[3])
+					return;
+				PlayerManager::SetSkill(mSkillIndex, saveShortCutSkillTypes[3]);
+			}
+			if (Input::GetKeyDown(eKeyCode::F5))
+			{
+				if (eSkillType::END == saveShortCutSkillTypes[4])
+					return;
+				PlayerManager::SetSkill(mSkillIndex, saveShortCutSkillTypes[4]);
+			}
+		}
+    }
+
+	void SkillShortCutButton::setMaCamera()
+	{
+		if (mF5 && nullptr == mF5->GetCamera()) mF5->SetCamera(GetCamera());
+		if (mF4 && nullptr == mF4->GetCamera()) mF4->SetCamera(GetCamera());
+		if (mF3 && nullptr == mF3->GetCamera()) mF3->SetCamera(GetCamera());
+		if (mF2 && nullptr == mF2->GetCamera()) mF2->SetCamera(GetCamera());
+		if (mF1 && nullptr == mF1->GetCamera()) mF1->SetCamera(GetCamera());
+	}
     void SkillShortCutButton::makeMa()
     {
-		//mF5 = new UI();
-		//mF4 = new UI();
-		//mF3 = new UI();
-		//mF2 = new UI();
-		//mF1 = new UI();
+		Vector3 pos = GET_POS(this);
+		Vector3 imageScale = GET_SCALE(skillImages);
+
+	    mF5 = new UI();
+	    mF4 = new UI();
+	    mF3 = new UI();
+	    mF2 = new UI();
+	    mF1 = new UI();
+
+		mF5->HoverSoundMute();
+		mF4->HoverSoundMute();
+		mF3->HoverSoundMute();
+		mF2->HoverSoundMute();
+		mF1->HoverSoundMute();
+
+		mF5->SetState(GameObject::eState::NoRenderUpdate);
+		mF4->SetState(GameObject::eState::NoRenderUpdate);
+		mF3->SetState(GameObject::eState::NoRenderUpdate);
+		mF2->SetState(GameObject::eState::NoRenderUpdate);
+		mF1->SetState(GameObject::eState::NoRenderUpdate);
+
+		mF5->SetText(L"F5");
+		mF4->SetText(L"F4");
+		mF3->SetText(L"F3");
+		mF2->SetText(L"F2");
+		mF1->SetText(L"F1");
+
+		mF5->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mF4->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mF3->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mF2->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+		mF1->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+
+		mF5->SetTextSize(15.f);
+		mF4->SetTextSize(15.f);
+		mF3->SetTextSize(15.f);
+		mF2->SetTextSize(15.f);
+		mF1->SetTextSize(15.f);
+
+		Vector2 size =FontWrapper::GetTextSize(L"F5", 15.f);
+
+		mF5->SetTextOffset(Vector2(-size.x / 2.f, size.y / 2.f));
+		mF4->SetTextOffset(Vector2(-size.x / 2.f, size.y / 2.f));
+		mF3->SetTextOffset(Vector2(-size.x / 2.f, size.y / 2.f));
+		mF2->SetTextOffset(Vector2(-size.x / 2.f, size.y / 2.f));
+		mF1->SetTextOffset(Vector2(-size.x / 2.f, size.y / 2.f));
+
+	    SET_MESH(mF5, L"RectMesh");
+	    SET_MESH(mF4, L"RectMesh");
+	    SET_MESH(mF3, L"RectMesh");
+	    SET_MESH(mF2, L"RectMesh");
+	    SET_MESH(mF1, L"RectMesh");
+
+		SET_MATERIAL(mF5, L"noneRect");
+		SET_MATERIAL(mF4, L"noneRect");
+		SET_MATERIAL(mF3, L"noneRect");
+		SET_MATERIAL(mF2, L"noneRect");
+		SET_MATERIAL(mF1, L"noneRect");
+		
+		SET_POS_XYZ(mF5, 0.f, 0.f, -1.f);
+		SET_POS_XYZ(mF4, 0.f, 0.f, -1.f);
+		SET_POS_XYZ(mF3, 0.f, 0.f, -1.f);
+		SET_POS_XYZ(mF2, 0.f, 0.f, -1.f);
+		SET_POS_XYZ(mF1, 0.f, 0.f, -1.f);
+
+		SET_SCALE_XYZ(mF5, 48, 48, 1.f);
+		SET_SCALE_XYZ(mF4, 48, 48, 1.f);
+		SET_SCALE_XYZ(mF3, 48, 48, 1.f);
+		SET_SCALE_XYZ(mF2, 48, 48, 1.f);
+		SET_SCALE_XYZ(mF1, 48, 48, 1.f);
+
+	    SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mF5);
+	    SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mF4);
+	    SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mF3);
+	    SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mF2);
+	    SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mF1);
+
+		macroButtons.push_back(mF1);
+		macroButtons.push_back(mF2);
+		macroButtons.push_back(mF3);
+		macroButtons.push_back(mF4);
+		macroButtons.push_back(mF5);
+
+		bOverlaps.resize(macroButtons.size(), false);
     }
+	void SkillShortCutButton::specifyShortcut()
+	{
+
+		Vector3 posV3 = GET_POS(skillImages);
+		Vector3 imageScale = GET_SCALE(skillImages);
+
+		Vector2 scale = Vector2(48.f, 48.f);
+
+		Vector3 mouseV3 = MouseManager::UnprojectionMousePos(-1, GetCamera());
+		MAKE_VEC2_F_VEC3(posV2, posV3);
+		MAKE_VEC2_F_VEC3(mouseV2, mouseV3);
+
+		for (int i = 0; i < skillMatPos.size(); ++i)
+		{
+			if (skillMatPos[i] == Vector2(-1.f, -1.f)) continue;
+
+			Vector2 skillPos;
+			skillPos.x = (posV2.x - (imageScale.x / 2.f)) + (((skillMatPos[i].x + 1) * scale.x) - scale.x / 2.f);
+			skillPos.y = (posV2.y + (imageScale.y / 2.f)) - (((skillMatPos[i].y + 1) * scale.y) - scale.y / 2.f);
+
+			if (Vector2::PointIntersectRect(skillPos, scale, mouseV2))
+			{
+				if (Input::GetKeyDown(eKeyCode::F1))
+				{
+					saveShortCutSkillTypes[0] = skillTypes[i];
+					SET_POS_XYZ(macroButtons[0], skillPos.x + (scale.x / 2.f)
+						, skillPos.y + (scale.y / 2.f), -1.f);
+					eraseSkillOverlap(0);
+					return;
+				}
+				if (Input::GetKeyDown(eKeyCode::F2))
+				{
+					saveShortCutSkillTypes[1] = skillTypes[i];
+					SET_POS_XYZ(macroButtons[1], skillPos.x + (scale.x / 2.f)
+						, skillPos.y + (scale.y / 2.f), -1.f);
+					eraseSkillOverlap(1);
+					return;
+				}
+				if (Input::GetKeyDown(eKeyCode::F3))
+				{
+					saveShortCutSkillTypes[2] = skillTypes[i];
+					SET_POS_XYZ(macroButtons[2], skillPos.x + (scale.x / 2.f)
+						, skillPos.y + (scale.y / 2.f), -1.f);
+					eraseSkillOverlap(2);
+					return;
+				}
+				if (Input::GetKeyDown(eKeyCode::F4))
+				{
+					saveShortCutSkillTypes[3] = skillTypes[i];
+					SET_POS_XYZ(macroButtons[3], skillPos.x + (scale.x / 2.f)
+						, skillPos.y + (scale.y / 2.f), -1.f);
+					eraseSkillOverlap(3);
+					return;
+				}
+				if (Input::GetKeyDown(eKeyCode::F5))
+				{
+					saveShortCutSkillTypes[4] = skillTypes[i];
+					SET_POS_XYZ(macroButtons[4], skillPos.x + (scale.x / 2.f)
+						, skillPos.y + (scale.y / 2.f), -1.f);
+					eraseSkillOverlap(4);
+					return ;
+				}
+			}
+		}
+	}
+	void SkillShortCutButton::eraseSkillOverlap(int index)
+	{
+		bOverlaps[index] = false;
+		eSkillType type =saveShortCutSkillTypes[index];
+
+	    for(int i =0 ; i < 5; ++i)
+	    {
+			if (i == index) continue;
+
+			eSkillType onType = saveShortCutSkillTypes[i];
+			if(type == onType)
+			{
+				saveShortCutSkillTypes[i] = eSkillType::END;
+				bOverlaps[i] = true;
+				macroButtons[i]->SetState(NoRenderUpdate);
+			}
+	    }
+	}
 
     void SkillShortCutButton::MakeSkillShortCutImage()
 	{

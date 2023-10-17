@@ -18,7 +18,7 @@ namespace m
     int PlayerStatus::vitality = 10;
     int PlayerStatus::energy = 35;
 
-    int PlayerStatus::statusPoint = 100;
+    int PlayerStatus::statusPoint = 0;
 
     int PlayerStatus::defense = 6;
     int PlayerStatus::stanmina = 74;
@@ -38,6 +38,10 @@ namespace m
         if(experiance >= nextLevelUpexperiance)
         {
             LevelUp();
+            SoundManager::ExternUISound(eUISoundType::LevelUp, false, 30.f);
+        }else
+        {
+            SoundManager::ResetPlayed(SoundManager::eExternAudioType::UI);
         }
     }
 
@@ -48,7 +52,7 @@ namespace m
     void PlayerStatus::LevelUp()
     {
         ++level;
-        nextLevelUpexperiance *= 10;
+        nextLevelUpexperiance += 250;
         statusPoint += 10;
         PlayerManager::skillPoint += 10;
     }

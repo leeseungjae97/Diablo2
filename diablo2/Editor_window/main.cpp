@@ -14,6 +14,7 @@
 
 #include "guiEditor.h"
 #include "LoadScenes.h"
+#include "engine_source/mVideoManager.h"
 
 
 #ifdef _DEBUG

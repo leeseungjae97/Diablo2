@@ -21,6 +21,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mAudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mAudioSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mCheatManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mDrawMaterials.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mFieldItemManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mFmod.cpp" />
@@ -75,6 +76,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)mTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mTrappingColor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)mVideoManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)mWallObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +88,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mAudioSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mCheatManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mDrawMaterials.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mFieldItemManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mFmod.h" />
@@ -149,6 +152,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)mTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mTrappingColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)mVideoManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mWallObjectManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NPCLookUpTables.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)OverlayLookUpTables.h" />

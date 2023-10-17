@@ -16,7 +16,7 @@ namespace m
         },
     };
 
-    static std::wstring speachSoundPaths[4][3] = {
+    static std::wstring speachSoundPaths[7][3] = {
         {
             L"..\\Resources\\sound\\speach\\diablo\\diablotaunt1.wav",
         L"..\\Resources\\sound\\speach\\diablo\\diablotaunt2.wav",
@@ -37,6 +37,9 @@ namespace m
         L"..\\Resources\\sound\\speach\\mephisto\\mephistotaunt2.wav",
         L"..\\Resources\\sound\\speach\\mephisto\\mephistotaunt2.wav",
         },
+        {},
+        {},
+        {},
         
     };
     enum class eBGMType
@@ -47,6 +50,7 @@ namespace m
         Stage3,
         StageB,
         Stage4,
+        EndMap,
         End,
     };
 
@@ -55,8 +59,9 @@ namespace m
         L"..\\Resources\\sound\\music\\wild.wav",
         L"..\\Resources\\sound\\music\\tombs.wav",
         L"..\\Resources\\sound\\music\\kurastsewer.wav",
+        L"..\\Resources\\sound\\music\\mesa.wav",
         L"..\\Resources\\sound\\music\\diablo.wav",
-        L"..\\Resources\\sound\\music\\diablo.wav",
+        L"",
     };
 
     enum class eSFXType
@@ -77,6 +82,7 @@ namespace m
         ItemSell,
         PotionUse,
         PointUse,
+        LevelUp,
         End,
     };
     static std::wstring buttonSoundPaths[(int)eUISoundType::End] = {
@@ -86,14 +92,16 @@ namespace m
         L"..\\Resources\\sound\\item\\gold.wav",
         L"..\\Resources\\sound\\item\\potiondrink.wav",
         L"..\\Resources\\sound\\cursor\\pointdrop.wav",
+        L"..\\Resources\\sound\\cursor\\levelup.wav",
     };
 
-    static std::wstring itemDropSoundPaths[6] = {
+    static std::wstring itemDropSoundPaths[7] = {
         L"..\\Resources\\sound\\item\\potion.wav",
         L"..\\Resources\\sound\\item\\potion.wav",
         L"..\\Resources\\sound\\item\\wand.wav",
         L"..\\Resources\\sound\\item\\lightarmor.wav",
         L"..\\Resources\\sound\\item\\cap.wav",
+        L"..\\Resources\\sound\\item\\gold.wav",
         L"..\\Resources\\sound\\item\\flippy.wav",
     };
 
@@ -419,7 +427,7 @@ namespace m
 
     };
 
-    static std::wstring monsterSoundPath[6][14][3] = {
+    static std::wstring monsterSoundPath[7][14][3] = {
         //diablo
         {
             {
@@ -862,6 +870,79 @@ namespace m
                 L"..\\Resources\\sound\\monster\\fallen\\death2.wav",//ToDead
                 L"..\\Resources\\sound\\monster\\fallen\\death3.wav",//ToDead
             },
-               },
+        },
+           {
+                 {
+            L"..\\Resources\\sound\\monster\\izual\\attack1.wav",//Attack1    
+            L"..\\Resources\\sound\\monster\\izual\\attack2.wav",//Attack1    
+            L"..\\Resources\\sound\\monster\\izual\\attack3.wav",//Attack1    
+            },
+            {
+                L"",//Attack2
+                L"",//Attack2
+                L"",//Attack2
+            },
+            {
+                L"",//Block
+                L"",//Block
+                L"",//Block
+            },
+            {
+                L"..\\Resources\\sound\\monster\\izual\\gethit1.wav",//Hit
+                L"..\\Resources\\sound\\monster\\izual\\gethit2.wav",//Hit
+                L"..\\Resources\\sound\\monster\\izual\\gethit3.wav",//Hit
+            },
+            {
+                L"",//Natural
+            L"",//Natural
+            L"",//Natural
+            },
+            {
+                L"",//Run
+                L"",//Run
+                L"",//Run
+            },
+            {
+                L"",//Walk
+                L"",//Walk
+                L"",//Walk
+            },
+            {
+                L"..\\Resources\\sound\\monster\\izual\\attack2.wav",//SpecialCast
+                L"..\\Resources\\sound\\monster\\izual\\attack3.wav",//SpecialCast
+                L"..\\Resources\\sound\\monster\\izual\\attack4.wav",//SpecialCast
+            },
+            {
+                L"",//Special1
+                L"",//Special1
+                L"",//Special1
+            },
+            {
+                L"",//Special2
+                L"",//Special2
+                L"",//Special2
+            },
+            {
+                L"",//Special3
+                L"",//Special3
+                L"",//Special3
+            },
+
+            {
+                L"",//Special4
+                L"",//Special4
+                L"",//Special4
+            },
+            {
+                L"",//Dead
+                L"",//Dead
+                L"",//Dead
+            },
+            {
+                L"..\\Resources\\sound\\monster\\izual\\death.wav",//ToDead
+                L"..\\Resources\\sound\\monster\\izual\\death.wav",//ToDead
+                L"..\\Resources\\sound\\monster\\izual\\death.wav",//ToDead
+            },
+           },
     };
 }

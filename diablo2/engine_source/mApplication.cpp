@@ -11,6 +11,7 @@
 
 #include "../Engine/mPlayerManager.h"
 #include "../Engine/mPlayer.h"
+#include "../Engine/mPlayerStatus.h"
 
 #include "../editor_source/guiEditor.h"
 
@@ -19,6 +20,8 @@
 #include "mScreenEffectManager.h"
 #include "mSoundManager.h"
 #include "mTileDrawManager.h"
+#include "mCheatManager.h"
+#include "mVideoManager.h"
 
 namespace m
 {
@@ -58,6 +61,7 @@ namespace m
 		Input::Initialize();
 		Fmod::Initialize();
         FontWrapper::Initialize();
+		//VideoManager::Initialize();
 
 		renderer::Initialize();
 		StashManager::Initialize();
@@ -68,17 +72,17 @@ namespace m
 
 	void Application::Update()
 	{
-		
-
 		Time::Update();
 		Input::Update();
 		
 		MouseManager::Update();
 		StashManager::Update();
 		SceneManager::Update();
+		PlayerStatus::Update();
 		CollisionManager::Update();
 		InteractUIManager::Update();
 		ScreenEffectManager::Update();
+		CheatManager::Update();
 
 		TileDrawManager::Update();
 		SoundManager::Update();

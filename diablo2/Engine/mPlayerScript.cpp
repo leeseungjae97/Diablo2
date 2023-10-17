@@ -394,6 +394,10 @@ namespace m
 			ePlayerRunSoundType prst = ePlayerRunSoundType::End;
 			if (StageManager::stageNum == -1)
 				prst = ePlayerRunSoundType::PlayerStoneRun;
+			if (StageManager::stageNum == 5)
+				prst = ePlayerRunSoundType::PlayerOStoneRun;
+			if (StageManager::stageNum == 6)
+				prst = ePlayerRunSoundType::PlayerOStoneRun;
 			if (StageManager::stageNum == 0)
 				prst = ePlayerRunSoundType::PlayerDirtRun;
 			if (StageManager::stageNum == 1)

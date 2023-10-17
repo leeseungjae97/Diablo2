@@ -56,6 +56,8 @@ namespace m
 
         void SetCenterPosY(float centerPosY) { fCenterPosY = centerPosY; }
         float GetCenterPosY() { return fCenterPosY; }
+    private:
+        void getReward();
 
     private:
         Collider2D* sightCollider;

@@ -13,6 +13,7 @@ namespace m
 		: Item(item)
 	    , bDownAlt(false)
 	    , bDropFirst(true)
+	    , moneyAmount(0)
 	{
 		MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
 		mr->AddTrappingColorBuffer();
@@ -59,11 +60,22 @@ namespace m
 
 		SET_MESH(mNameUI, L"RectMesh");
 		SET_MATERIAL(mNameUI, L"itemExBack");
-
 		mNameUI->SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
 		mNameUI->SetTextSize(15.f);
-		mNameUI->SetText(itemCostFunctionNames[(int)item][0]);
-		Vector2 size = FontWrapper::GetTextSize(itemCostFunctionNames[(int)item][0].c_str(), 15.f);
+		Vector2 size = Vector2::Zero;
+		if (item == eItem::gold)
+		{
+			moneyAmount += rand() % 250;
+			moneyAmount += 100;
+			std::wstring text = std::to_wstring(moneyAmount) + L"°ñµå";
+			mNameUI->SetText(text);
+			size = FontWrapper::GetTextSize(text.c_str(), 15.f);
+		}
+		else
+		{
+			mNameUI->SetText(itemCostFunctionNames[(int)item][0]);
+			size = FontWrapper::GetTextSize(itemCostFunctionNames[(int)item][0].c_str(), 15.f);
+		}
 
 		SET_SCALE_XYZ(mNameUI, size.x, size.y, 1.f);
 		initPos.z -= 0.1;
@@ -71,7 +83,7 @@ namespace m
 		SET_POS_XYZ(mNameUI, initPos.x, initPos.y, initPos.z);
 		mNameUI->SetState(eState::NoRenderNoUpdate);
 
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::CanMoveUI, mNameUI);	
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::CanMoveUI, mNameUI);
 	}
 	FieldItem::~FieldItem()
 	{

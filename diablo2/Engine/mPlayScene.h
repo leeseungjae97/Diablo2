@@ -2,6 +2,7 @@
 #include "../engine_source/mScene.h"
 namespace m
 {
+    class Floor;
     class CharacterStatus;
     class UI;
     class NPC;
@@ -26,15 +27,19 @@ namespace m
 
         void SystemUI();
         void MakeStage4Wall();
+        void MakeStageBWall();
         void MakeStage3Wall();
         void MakeStage2Wall();
         void MakeStage1Wall();
         void MakeStage0Wall();
+        void MakeStageEndWall();
         void Stage0();
         void Stage1();
         void Stage2();
         void Stage3();
+        void StageB();
         void Stage4();
+        void StageEnd();
         void NPCRender();
         void NPCNoRender();
     private:
@@ -49,6 +54,8 @@ namespace m
         GameObject* dayLight;
         Monster* mBossMonster;
         Portal* mPortal;
+
+        Floor* floor;
 
         NPC* mNpc1;
         NPC* mNpc2;

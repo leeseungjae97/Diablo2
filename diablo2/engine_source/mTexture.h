@@ -54,8 +54,7 @@ namespace m::graphics
 		UINT GetMultiTextureSize() { return mMultiTextureSize; }
 		std::vector<Microsoft::WRL::ComPtr<ID3D11Texture2D>> GetTextures() { return mTextures; }
 		std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> GetSRVs() { return mSRVs; }
-
-		//void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
+		
 	private:
 
 	private:

@@ -13,6 +13,7 @@ namespace m
 		Defense,
 		Damage,
 		Potion,
+		Gold,
 	};
 	enum class eItemType
 	{
@@ -29,6 +30,7 @@ namespace m
 		Armor,
 		Potion,
 		Scroll,
+		Gold,
 		END,
 	};
 
@@ -42,6 +44,8 @@ namespace m
 		leaderArmor,
 
 		cap,
+
+		gold,
 		END
 	};
 	static std::wstring itemNameTable[(int)eItem::END] = {
@@ -57,6 +61,8 @@ namespace m
 
 		//helmet
 		L"cap",
+
+		L"",
 	};
 	static bool bodyChange[(int)eItem::END] = {
 		false,
@@ -64,6 +70,7 @@ namespace m
 		true,
 		false,
 		true,
+		false,
 	};
 	static eItemIncreaseType itemIncTable[(int)eItem::END] = {
 		eItemIncreaseType::Potion,
@@ -73,13 +80,16 @@ namespace m
 
 		eItemIncreaseType::Defense,
 		eItemIncreaseType::Defense,
+
+		eItemIncreaseType::Gold,
 	};
 	static std::wstring fieldItemTable[(int)eItem::END] = {
 		L"hpPotionField",
 		L"mpPotionField",
 		L"jaredsStoneField",
 		L"leaderArmorField",
-		L"capField"
+		L"capField",
+		L"goldField",
 	};
 	static std::wstring fieldItemAnimTable[(int)eItem::END] = {
 		L"hpPotionAnim",
@@ -87,11 +97,13 @@ namespace m
 		L"jaredsStoneAnim",
 		L"leaderArmorAnim",
 		L"capAnim",
+		L"goldAnim",
 	};
 	static int fieldItemAnimLenght[(int)eItem::END] = {
 		17,
 		17,
 		18,
+		17,
 		17,
 		17,
 	};
@@ -705,6 +717,8 @@ namespace m
 
 		eItemType::Helmet,
 
+		eItemType::Gold,
+
 	};
 	static m::math::Vector2 itemFieldAnimSpaceTable[(int)eItem::END] = {
 		{20.f, 159.f}
@@ -712,6 +726,7 @@ namespace m
 		,{37.f, 153.f}
 		,{38.f, 173.f}
 		,{21.f, 149.f}
+		,{27.f, 165.f}
 	};
 	//float itemFieldSpaceTable[(int)eItem::END][2] = {
 

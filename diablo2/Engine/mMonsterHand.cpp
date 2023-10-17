@@ -43,18 +43,19 @@ namespace m
 
 	MonsterHand::~MonsterHand()
 	{
-		if (mShadow)
-			mShadow->SetState(eState::Delete);
 	}
 
 	void MonsterHand::Update()
 	{
 		Hand::Update();
 		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
-		mShadow->SetShadowOffset(monsterOffsets[(int)mMonsterType][mHandScript->GetHandDirection()]);
+		mShadow->SetShadowOffset(monsterHandShadowOffsets[(int)mMonsterType][mHandScript->GetHandAnimationType()]);
 
 		if (mOwner->GetBattleState() == eBattleState::ToDead)
 		{
+			if (mShadow)
+		        mShadow->SetState(eState::Delete);
+
 			SetState(Delete);
 			return;
 		}

@@ -723,30 +723,34 @@ namespace m
 	void StashManager::ChangeFieldItemToInvenItem(FieldItem* item)
 	{
 		eItem ei = item->GetEItem();
-		Scene* curScene = SceneManager::GetActiveScene();
 
-		InvenItem* inven = new InvenItem(ei);
-		inven->SetCamera(mCurCamera);
-		inven->SetState(eInventoryState);
+		if(item->GetItemType() == eItemType::Gold)
+		{
+			PlayerManager::money += item->GetMoneyAmount();
+		}else
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
 
-		ADD_COMP(inven, ItemScript);
+			InvenItem* inven = new InvenItem(ei);
+			inven->SetCamera(mCurCamera);
+			inven->SetState(eInventoryState);
 
-		curScene->AddGameObject(eLayerType::Item, inven);
+			ADD_COMP(inven, ItemScript);
 
+			curScene->AddGameObject(eLayerType::Item, inven);
+
+			if (eInventoryState != GameObject::eState::NoRenderUpdate)
+			{
+				MouseManager::SetMouseFollow(inven);
+				inven->SetMouseFollow(true);
+			}
+			else
+			{
+				AddItemTetris(inven, eStashType::Inventory);
+			}
+		}
 
 		item->SetState(GameObject::Delete);
-
-		if (eInventoryState != GameObject::eState::NoRenderUpdate)
-		{
-			MouseManager::SetMouseFollow(inven);
-			inven->SetMouseFollow(true);
-		}
-		else
-		{
-			//AddItem(inven, eStashType::Inventory);
-			AddItemTetris(inven, eStashType::Inventory);
-		}
-
 	}
 	bool StashManager::ChangeInvenItemToFieldItem(InvenItem* item)
 	{

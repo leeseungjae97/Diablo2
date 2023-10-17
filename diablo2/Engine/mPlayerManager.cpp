@@ -11,7 +11,7 @@ namespace m
 {
 	int PlayerManager::learnedSkill[3][10]= {};
 	int PlayerManager::skillPoint = 0;
-	int PlayerManager::money = 100;
+	int PlayerManager::money = 0;
 
 	float PlayerManager::hp = 40.f;
 	float PlayerManager::hpCapacity = 40.f;
@@ -25,51 +25,50 @@ namespace m
 
 	void PlayerManager::Initialize()
 	{
-		skillPoint = 100;
+		skillPoint = 0;
 		Tile* tile2 = TileManager::pathFindingTiles[48][57];
 		Vector3 pos2 = tile2->GetPos();
 
 		player = new Player(pos2);
-		//player->SetState(GameObject::eState::NoRenderUpdate);
 
 		learnedSkill[2][(int)eFireSkillType::fireBolt] = 1;
-		learnedSkill[2][(int)eFireSkillType::meteor] = 1;
-        learnedSkill[2][(int)eFireSkillType::fireWall] = 1;
-		learnedSkill[2][(int)eFireSkillType::fireBall] = 1;
-		learnedSkill[2][(int)eFireSkillType::hydra] = 1;
-		learnedSkill[2][(int)eFireSkillType::blaze] = 1;
-		learnedSkill[2][(int)eFireSkillType::inferno] = 1;
+		//learnedSkill[2][(int)eFireSkillType::meteor] = 1;
+  //      learnedSkill[2][(int)eFireSkillType::fireWall] = 1;
+		//learnedSkill[2][(int)eFireSkillType::fireBall] = 1;
+		//learnedSkill[2][(int)eFireSkillType::hydra] = 1;
+		//learnedSkill[2][(int)eFireSkillType::blaze] = 1;
+		//learnedSkill[2][(int)eFireSkillType::inferno] = 1;
 
-		learnedSkill[2][(int)eFireSkillType::fireMastery] = 0;
-		learnedSkill[2][(int)eFireSkillType::warmth] = 0;
-		learnedSkill[2][(int)eFireSkillType::enchant] = 0;
+		//learnedSkill[2][(int)eFireSkillType::fireMastery] = 0;
+		//learnedSkill[2][(int)eFireSkillType::warmth] = 0;
+		//learnedSkill[2][(int)eFireSkillType::enchant] = 0;
 
-		learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
-		learnedSkill[1][(int)eLightningSkillType::nova] = 1;
-		learnedSkill[1][(int)eLightningSkillType::lightning] = 1;
-		learnedSkill[1][(int)eLightningSkillType::chargedBolt] = 1;
-		learnedSkill[1][(int)eLightningSkillType::telekinesis] = 1;
-		learnedSkill[1][(int)eLightningSkillType::staticField] = 1;
-		learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 1;
-		learnedSkill[1][(int)eLightningSkillType::chainLightning] = 0;
+		//learnedSkill[1][(int)eLightningSkillType::teleport] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::nova] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::lightning] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::chargedBolt] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::telekinesis] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::staticField] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::thunderStorm] = 1;
+		//learnedSkill[1][(int)eLightningSkillType::chainLightning] = 0;
 
-		learnedSkill[1][(int)eLightningSkillType::lightningMastery] = 0;
-		learnedSkill[1][(int)eLightningSkillType::energyShield] = 0;
+		//learnedSkill[1][(int)eLightningSkillType::lightningMastery] = 0;
+		//learnedSkill[1][(int)eLightningSkillType::energyShield] = 0;
 
-		learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
-		learnedSkill[0][(int)eColdSkillType::frostNova] = 1;
-		learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
-		learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
-		learnedSkill[0][(int)eColdSkillType::clacialSpike] = 1;
-		learnedSkill[0][(int)eColdSkillType::iceBlast] = 1;
+		//learnedSkill[0][(int)eColdSkillType::blizzard] = 1;
+		//learnedSkill[0][(int)eColdSkillType::frostNova] = 1;
+		//learnedSkill[0][(int)eColdSkillType::frozenOrb] = 1;
+		//learnedSkill[0][(int)eColdSkillType::iceBolt] = 1;
+		//learnedSkill[0][(int)eColdSkillType::clacialSpike] = 1;
+		//learnedSkill[0][(int)eColdSkillType::iceBlast] = 1;
 
-		learnedSkill[0][(int)eColdSkillType::chillingArmor] = 0;
-		learnedSkill[0][(int)eColdSkillType::coldMastery] = 0;
-		learnedSkill[0][(int)eColdSkillType::frozenArmor] = 0;
-		learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
+		//learnedSkill[0][(int)eColdSkillType::chillingArmor] = 0;
+		//learnedSkill[0][(int)eColdSkillType::coldMastery] = 0;
+		//learnedSkill[0][(int)eColdSkillType::frozenArmor] = 0;
+		//learnedSkill[0][(int)eColdSkillType::shiverArmor] = 0;
 
 		SetSkill(0, eSkillType::normalAttack);
-		SetSkill(1, eSkillType::frozenOrb);
+		SetSkill(1, eSkillType::iceBolt);
 	}
 
 	void PlayerManager::CalHpPercent()

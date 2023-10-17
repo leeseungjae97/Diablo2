@@ -75,10 +75,6 @@ namespace m::graphics
 			return;
 		mDepthStencil->SetDSV(mDepthStencilView);
 
-		/*D3D11_SUBRESOURCE_DATA data;
-		if (!CreateTexture2D(&depthStencilDesc, &data))
-			return;*/
-
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
 
@@ -92,45 +88,9 @@ namespace m::graphics
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTarget->GetRTV().GetAddressOf(), mDepthStencil->GetDSV().Get());
 
-		//pBrush = nullptr;
-		//pTextFormat_ = nullptr;
-		//pDWriteFactory = nullptr;
-		//pRenderTarget = nullptr;
-		//pFactory = nullptr;
-
-		//D2D1_RENDER_TARGET_PROPERTIES mm1 = D2D1::RenderTargetProperties();
-		//D2D1_HWND_RENDER_TARGET_PROPERTIES mm2 = D2D1::HwndRenderTargetProperties(hWnd, D2D1::SizeU(100, 100));
-		//D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
-		//pFactory->CreateHwndRenderTarget(
-		//	mm1,
-		//	mm2,
-		//	&pRenderTarget
-		//);
-
-		//DWriteCreateFactory(
-		//	DWRITE_FACTORY_TYPE_SHARED,
-		//	__uuidof(IDWriteFactory),
-		//	reinterpret_cast<IUnknown**>(&pDWriteFactory)
-		//);
-		//pDWriteFactory->CreateTextFormat(
-		//	L"Gabriola",
-		//	NULL,
-		//	DWRITE_FONT_WEIGHT_REGULAR,
-		//	DWRITE_FONT_STYLE_NORMAL,
-		//	DWRITE_FONT_STRETCH_NORMAL,
-		//	72.0f,
-		//	L"en-us",
-		//	&pTextFormat_
-		//);
-		//pRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &pBrush);
 	}
 	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
-		//pBrush->Release();
-		//pTextFormat_->Release();
-		//pDWriteFactory->Release();
-		//pRenderTarget->Release();
-		//pFactory->Release();
 	}
 	bool GraphicDevice_DX11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
