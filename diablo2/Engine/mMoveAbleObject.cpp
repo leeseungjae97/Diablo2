@@ -57,6 +57,8 @@ namespace m
 		, fAccStun(0.f)
 		, fStunSecond(0.f)
 
+	    , mPathFinder(nullptr)
+
 		, mCoord(Vector2(0.f, 0.f))
 
 		, bAdjustmentDegree(false)
@@ -95,8 +97,9 @@ namespace m
 	}
 	MoveAbleObject::~MoveAbleObject()
 	{
-		if (mPathFinder)
+		if (nullptr != mPathFinder)
 			delete mPathFinder;
+
 		if (mShadow)
 			mShadow->SetState(Delete);
 	}

@@ -28,35 +28,6 @@ namespace m
         Scene* curScene = SceneManager::GetActiveScene();
         curScene->AddGameObject(eLayerType::UI, this);
 
-        {
-            InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
-
-            hpPotion->SetCamera(GetCamera());
-            hpPotion->SetState(GameObject::RenderUpdate);
-            ADD_COMP(hpPotion, ItemScript);
-            curScene->AddGameObject(eLayerType::Item, hpPotion);
-            StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
-        }
-        {
-            InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
-
-            hpPotion->SetCamera(GetCamera());
-            hpPotion->SetState(GameObject::RenderUpdate);
-            ADD_COMP(hpPotion, ItemScript);
-            curScene->AddGameObject(eLayerType::Item, hpPotion);
-            StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
-        }
-        {
-            InvenItem* hpPotion = new InvenItem(eItem::jaredsStone);
-
-            hpPotion->SetCamera(GetCamera());
-            hpPotion->SetState(GameObject::RenderUpdate);
-            ADD_COMP(hpPotion, ItemScript);
-            curScene->AddGameObject(eLayerType::Item, hpPotion);
-            StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
-        }
-
-        StashManager::InitItems(StashManager::eStashType::Shop);
         SetState(NoRenderUpdate);
     }
 
@@ -93,5 +64,63 @@ namespace m
     void Shop::Render()
     {
         UI::Render();
+    }
+
+    void Shop::ItemInit(eNPCType type)
+    {
+        Scene* curScene = SceneManager::GetActiveScene();
+        StashManager::ClearItems(StashManager::eStashType::Shop);
+        if(type == eNPCType::ConsumNPC)
+        {
+            {
+                InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
+
+                hpPotion->SetCamera(GetCamera());
+                hpPotion->SetState(GameObject::RenderUpdate);
+                ADD_COMP(hpPotion, ItemScript);
+                curScene->AddGameObject(eLayerType::Item, hpPotion);
+                StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
+            }
+            {
+                InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
+
+                hpPotion->SetCamera(GetCamera());
+                hpPotion->SetState(GameObject::RenderUpdate);
+                ADD_COMP(hpPotion, ItemScript);
+                curScene->AddGameObject(eLayerType::Item, hpPotion);
+                StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
+            }
+
+        }else
+        {
+            {
+                InvenItem* hpPotion = new InvenItem(eItem::jaredsStone);
+
+                hpPotion->SetCamera(GetCamera());
+                hpPotion->SetState(GameObject::RenderUpdate);
+                ADD_COMP(hpPotion, ItemScript);
+                curScene->AddGameObject(eLayerType::Item, hpPotion);
+                StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
+            }
+            {
+                InvenItem* hpPotion = new InvenItem(eItem::leaderArmor);
+
+                hpPotion->SetCamera(GetCamera());
+                hpPotion->SetState(GameObject::RenderUpdate);
+                ADD_COMP(hpPotion, ItemScript);
+                curScene->AddGameObject(eLayerType::Item, hpPotion);
+                StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
+            }
+            {
+                InvenItem* hpPotion = new InvenItem(eItem::cap);
+                hpPotion->SetCamera(GetCamera());
+                hpPotion->SetState(GameObject::RenderUpdate);
+                ADD_COMP(hpPotion, ItemScript);
+                curScene->AddGameObject(eLayerType::Item, hpPotion);
+                StashManager::AddItem(hpPotion, StashManager::eStashType::Shop);
+            }
+        }
+
+        StashManager::InitItems(StashManager::eStashType::Shop);
     }
 }

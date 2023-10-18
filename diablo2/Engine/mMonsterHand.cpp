@@ -51,7 +51,7 @@ namespace m
 		if (mShadow && nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
 		mShadow->SetShadowOffset(monsterHandShadowOffsets[(int)mMonsterType][mHandScript->GetHandAnimationType()]);
 
-		if (mOwner->GetBattleState() == eBattleState::ToDead)
+		if (nullptr == mOwner || mOwner->GetState() == NoRenderNoUpdate || mOwner->GetBattleState() == eBattleState::ToDead)
 		{
 			if (mShadow)
 		        mShadow->SetState(eState::Delete);

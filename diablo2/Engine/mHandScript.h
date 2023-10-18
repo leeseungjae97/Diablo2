@@ -18,7 +18,7 @@ namespace m
 
         int GetHandDirection() { return mHandDirection; }
         int GetHandAnimationType() { return mHandAnimationType; }
-        void SetHandDirection(int direction) { mHandDirection = direction; }
+        void SetHandDirection(int direction);
         void SetHandAnimation(int aniType) { mHandAnimationType = aniType; }
 
         void SetHandSizes(Vector2* vector2s) { mAnimationSize = vector2s; }

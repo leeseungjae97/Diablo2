@@ -84,6 +84,7 @@ namespace m
 				if (text.compare(L"°Å·¡") == 0)
 				{
 					mShop->SetState(eState::RenderUpdate);
+					mShop->ItemInit(mNPCType);
 					SetState(eState::NoRenderUpdate);
 				}
 				if (text.compare(L"³×") == 0)

@@ -7,7 +7,6 @@ namespace m
 	EmptyRect::EmptyRect()
 		: mPos(Vector2::Zero)
 		, mSize(Vector2::One)
-		, mFillItem(nullptr)
 		, mState()
 		, bFill(false)
 	    , mEquimentItemType(0)

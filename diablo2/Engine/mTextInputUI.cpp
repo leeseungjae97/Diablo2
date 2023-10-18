@@ -11,6 +11,8 @@ namespace m
         SET_MATERIAL(this, L"characterNameInput");
         MAKE_GET_TEX(this, tex);
         SET_SCALE_TEX_SIZE_WITH_RAT(this, tex, 1.f);
+        SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
+        SetTextSize(15.f);
     }
 
     TextInputUI::~TextInputUI()
@@ -63,7 +65,5 @@ namespace m
         Vector2 size = FontWrapper::GetTextSize(mInputText.c_str(), 15.f);
         Vector3 scale = GET_SCALE(this);
         SetTextOffset(Vector2(((- scale.x / 2.f) + size.x / 2.f) + 5.f, 5.f));
-        SetTextNormalColor(Vector4(255.f, 255.f, 255.f, 255.f));
-        SetTextSize(15.f);
     }
 }

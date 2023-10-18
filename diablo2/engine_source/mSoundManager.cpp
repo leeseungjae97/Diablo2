@@ -347,4 +347,13 @@ namespace m
 			externAudioClips[(int)sfx]->Stop();
 		}
     }
+
+    void SoundManager::StopAllExtern()
+    {
+		for(int i = 0; i < (int)eExternAudioType::End; ++i )
+		{
+			if(externAudioClips[i])
+			    externAudioClips[i]->Stop();
+		}
+    }
 }

@@ -162,6 +162,7 @@ namespace m
 
 		mInteractUI = new InteractUI(uiPos, texts, vColors, vClickColors);
 		mInteractUI->SetState(eState::NoRenderUpdate);
+		mInteractUI->SetNPCType(mNPCType);
 	}
 
     void NPC::remakeUI()

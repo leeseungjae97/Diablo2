@@ -20,6 +20,7 @@ namespace m
         void SetAuraOwner(GameObject* owner) { mAuraOwner = owner; }
         void AuraActive() { bAuraActive = true; }
         void SetAura(eAuraType type, float auraDuration, eLayerType layerType);
+        void SetDuration(float duration) { mDuration = duration; }
     private:
         void colliderCollided();
         void targetDamage();

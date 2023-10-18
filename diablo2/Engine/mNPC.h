@@ -1,4 +1,5 @@
 #pragma once
+#include "ItemLookUpTables.h"
 #include "mMoveAbleObject.h"
 
 #include "../engine_source/NPCLookUpTables.h"
@@ -29,6 +30,8 @@ namespace m
 
     private:
         //std::vector<Button*> textes;
+        std::vector<eItem> sellItemList;
+
         InteractUI* mInteractUI;
         eNPCType mNPCType;
         Shop* mShop;

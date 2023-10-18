@@ -25,18 +25,27 @@
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dwrite.lib")
 
+
+#include <mfplay.h>
+#pragma comment(lib, "mfplay.lib")
 //#include <mfapi.h>
 //#include <mfidl.h>
-//#include <mfreadwrite.h>
-//#include <shlwapi.h>
-//#include <evr.h>
-//#include <mfreadwrite.h>
-//#include <mferror.h>
-//
+
+//#pragma comment(lib, "mf.lib")
 //#pragma comment(lib, "mfplat.lib")
 //#pragma comment(lib, "mfuuid.lib")
+
+//#include <mfreadwrite.h>
+//#include <evr.h>
+//#include <mferror.h>
+//#include <mfmediaengine.h>
+//#include <shlwapi.h>
+
+//#pragma comment(lib, "mfplat.lib")
+//#pragma comment(lib, "mfuuid.lib")
+
+
 //#pragma comment(lib, "mfreadwrite.lib")
-//#pragma comment(lib, "mf.lib")
 //#pragma comment(lib, "shlwapi.lib")
 
 #include "Commoninclude.h"

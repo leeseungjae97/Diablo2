@@ -49,6 +49,7 @@ namespace m
 		static void DropFieldItem(int item, Vector3 initPos);
         static void EquimentEmptyRectItemClear(InvenItem* item);
 		static void MoveOtherStash(InvenItem* item, eStashType stashTypeMove);
+		static void ClearItems(eStashType type);
 
 		static void SetCamera(Camera* camera) { mCurCamera = camera; }
 
@@ -110,6 +111,7 @@ namespace m
 		static int GetShoesItem();
 		static int GetGloveItem();
 		static int GetArmorItem();
+
     private:
 		static InvenItem* getPocketPosItem(int index);
 		static InvenItem* getExPocketPosItem(int index);

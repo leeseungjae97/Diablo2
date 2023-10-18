@@ -193,7 +193,7 @@ namespace m
 		if (coldBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP1);
-			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
+			for (SkillButton* btn : skills) btn->SetState(NoRenderNoUpdate);
 			skills = coldSkills;
 			skillTreeSelectNum = 0;
 			GetSkillTree(iColdAdjacencyMatrix);
@@ -202,7 +202,7 @@ namespace m
 		if (lightBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP2);
-			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
+			for (SkillButton* btn : skills) btn->SetState(NoRenderNoUpdate);
 			skills = lightSkills;
 			skillTreeSelectNum = 1;
 			GetSkillTree(iLightAdjacencyMatrix);
@@ -211,7 +211,7 @@ namespace m
 		if (fireBtn->GetClick())
 		{
 			GetComponent<MeshRenderer>()->SetMaterial(skillP3);
-			for (SkillButton* btn : skills) btn->SetState(NoRenderUpdate);
+			for (SkillButton* btn : skills) btn->SetState(NoRenderNoUpdate);
 			skills = fireSkills;
 			skillTreeSelectNum = 2;
 			GetSkillTree(iFireAdjacencyMatrix);

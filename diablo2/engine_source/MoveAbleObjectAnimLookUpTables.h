@@ -256,8 +256,8 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1
-	    ;
+		float hp = 250.f;
+
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -458,7 +458,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 20;
+		float hp = 1500.f;
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -659,7 +659,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 20.f;
+		float hp = 30.f;
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };
 		bool bSpecialSkillStopInProgress[5] = { false, false, false, false, false };
@@ -860,7 +860,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1;
+		float hp = 3000.f;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
@@ -1069,7 +1069,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1.f;
+		float hp = 2000.f;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
@@ -1274,7 +1274,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1;
+		float hp = 3000.f;
 		float hpCapacity = hp;
 
 		eSkillType mSpecialSkills[5] = {
@@ -1477,7 +1477,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 1;
+		float hp = 2800.f;
 		float hpCapacity = hp;
 
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };

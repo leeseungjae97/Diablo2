@@ -1,5 +1,7 @@
 #pragma once
 #include "mUI.h"
+#include "../engine_source/NPCLookUpTables.h"
+
 namespace m
 {
     class Button;
@@ -14,6 +16,8 @@ namespace m
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
+
+        void ItemInit(eNPCType type);
     private:
         std::vector<Button*> shopTabs;
         Button* mButtonBuy;

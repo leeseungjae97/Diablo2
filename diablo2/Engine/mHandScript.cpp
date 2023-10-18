@@ -49,7 +49,21 @@ namespace m
 			}
 		}
 	}
-	void HandScript::Update()
+
+    void HandScript::SetHandDirection(int direction)
+    {
+		if(mAnimator->GetActiveAnimation())
+		{
+			if(mAnimator->GetActiveAnimation()->GetAltasLength() - 1 < direction)
+			{
+				direction = mAnimator->GetActiveAnimation()->GetAltasLength() - 1;
+			}
+		}
+
+		mHandDirection = direction;
+    }
+
+    void HandScript::Update()
 	{
 		Script::Update();
 

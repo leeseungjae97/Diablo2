@@ -1,5 +1,5 @@
 #pragma once
-#include "ItemLookUpTables.h"
+#include "../engine_source/ItemLookUpTables.h"
 #include "mUI.h"
 
 #include "../engine_source/NPCLookUpTables.h"
@@ -42,6 +42,8 @@ namespace m
         void ReMakeInteractContents();
         void MakeInteractContents();
 
+        void SetNPCType(eNPCType type) { mNPCType = type; }
+
     private:
         std::vector<std::wstring> mMenus;
         std::vector<Vector4> mColors;
@@ -52,8 +54,9 @@ namespace m
         Shop* mShop;
 
         float fFontSize;
-
         eItem mBuyItem;
+
+        eNPCType mNPCType;
 
     };
 }

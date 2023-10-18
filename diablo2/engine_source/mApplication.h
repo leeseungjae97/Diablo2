@@ -21,6 +21,8 @@ namespace m
 		void Present();
 
 		void SetWindow(HWND hwnd, UINT width, UINT height);
+		void SetHInstance(HINSTANCE inst) { mHInst = inst; }
+		HINSTANCE GetHInstance() { return mHInst; }
 		//void SetViewport(UINT width, UINT height);
 
 		UINT GetWidth() { return mWidth; }
@@ -36,7 +38,7 @@ namespace m
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
-
+		HINSTANCE mHInst;
 		static Viewport mViewPort;
 		//Viewport mViewport;
 	};

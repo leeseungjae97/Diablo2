@@ -67,6 +67,7 @@ namespace m
 		StashManager::Initialize();
 		SceneManager::Initialize();
 		SoundManager::Initialize();
+		MouseManager::Initialize();
 		//gui::Editor::Initialize();
 	}
 
@@ -87,6 +88,7 @@ namespace m
 		TileDrawManager::Update();
 		SoundManager::Update();
 		Fmod::Update();
+		VideoManager::Update();
 	}
 
 	void Application::LateUpdate()
@@ -125,7 +127,7 @@ namespace m
 
 		RECT rt = { 0, 0, (LONG)width , (LONG)height };
 		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-
+		
 		//SetWindowPos(mHwnd, nullptr, 2570, 1440 - 1080, rt.right - rt.left, rt.bottom - rt.top, 0);
 		SetWindowPos(mHwnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 		ShowWindow(mHwnd, true);

@@ -637,7 +637,7 @@ namespace m
 		case m::eSkillFunctionType::Aura:
 		{
 			eAuraType aType = skillAuraTypes[(int)skillType];
-			mAura->SetAura(aType, fireLayerType);
+			mAura->SetAura(aType, fireLayerType, 10.f);
 			mAura->AuraActive();
 		}
 		break;

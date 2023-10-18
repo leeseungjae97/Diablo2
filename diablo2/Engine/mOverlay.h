@@ -26,7 +26,7 @@ namespace m
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		void MakeOverlay(const std::wstring& overlayName
+		void MakeOverlay(std::wstring overlayName
 			, Vector2 size = Vector2::Zero
 			, Vector2 offset = Vector2::Zero
 			, Vector2 centerPos = Vector2::Zero
@@ -40,7 +40,6 @@ namespace m
 		void SetMoveAbleObject(MoveAbleObject* mao) { mOwnerObject = mao; }
 		void OverDraw() { bOverDraw = true; }
 	private:
-		std::wstring wsOverlayName;
 		MoveAbleObject* mOwnerObject;
 		bool bOverDraw;
 	};

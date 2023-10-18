@@ -76,10 +76,13 @@ namespace m
             mAS->AuraActive();
     }
 
-    void Aura::SetAura(eAuraType type, eLayerType layerType)
+    void Aura::SetAura(eAuraType type, eLayerType layerType, float duration)
     {
         if(mAS)
+        {
             mAS->SetAura(type, auraFunctionValue[(int)type][1], layerType);
+            mAS->SetDuration(duration);
+        }
 
         if (mCol)
             mCol->SetScale(auraColliderSizes[(int)type]);

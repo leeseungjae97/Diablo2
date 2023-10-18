@@ -42,6 +42,8 @@ namespace m
     private:
         UVUI* mHp;
         UVUI* mMp;
+
+        bool bPlayEndVideo;
     };
 }
 

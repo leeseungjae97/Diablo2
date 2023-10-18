@@ -58,25 +58,28 @@ namespace m
 		GameObject::Render();
 	}
 
-    void Overlay::MakeOverlay(const std::wstring& overlayName, Vector2 size, Vector2 offset,
+    void Overlay::MakeOverlay(std::wstring overlayName, Vector2 size, Vector2 offset,
         Vector2 centerPos, int length, float duration, bool loop)
     {
-		wsOverlayName = overlayName;
+		//wsOverlayName = overlayName;
 		
 		//if (nullptr == mat->GetTexture()) return;
 		
 		OverlayScript* os = GET_COMP(this, OverlayScript);
-		os->MakeOverlayAnimation(overlayName, size, offset, centerPos, length, duration, loop);
+		if(os)
+		    os->MakeOverlayAnimation(overlayName, size, offset, centerPos, length, duration, loop);
     }
 
     void Overlay::SetDirection(int direction)
     {
 		OverlayScript* os = GET_COMP(this, OverlayScript);
-		os->SetDirection(direction);
+		if(os)
+		    os->SetDirection(direction);
     }
 	void Overlay::SetSyncPlay(Animator* animator)
 	{
 		OverlayScript* os = GET_COMP(this, OverlayScript);
-		os->SetSyncPlay(animator);
+		if(os)
+		    os->SetSyncPlay(animator);
 	}
 }

@@ -1,7 +1,6 @@
 #pragma once
-
-#include "mInvenItem.h"
-
+#include "_Engine.h"
+#include "../engine_source/mGameObject.h"
 namespace m
 {
 	class EmptyRect
@@ -12,9 +11,6 @@ namespace m
 
 		bool GetFill() { return bFill; }
 		void SetFill(bool fill) { bFill = fill; }
-
-		InvenItem* GetFillItem() { return mFillItem; }
-		void SetFillItem(InvenItem* item) { mFillItem = item; }
 
 		void SetSize(Vector2 size) { mSize = size; }
 		void SetSize(float x, float y) { mSize = Vector2(x, y); }
@@ -35,11 +31,12 @@ namespace m
 		void SetItem(int item) { mEqumentItem = item; }
 		int GetItem() { return mEqumentItem; }
 
+		void SetXY(int x, int y) { xy.x = x; xy.y = y; }
+		Vector2 GetXY() { return xy; }
     private:
 		Vector2 mPos;
 		Vector2 mSize;
-
-		InvenItem* mFillItem;
+		Vector2 xy;
 		GameObject::eState mState;
 
 		int mEquimentItemType;

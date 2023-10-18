@@ -55,6 +55,11 @@ namespace m
         nextLevelUpexperiance += 250;
         statusPoint += 10;
         PlayerManager::skillPoint += 10;
+        PlayerManager::hp = PlayerManager::hpCapacity;
+        PlayerManager::mp = PlayerManager::mpCapacity;
+        //UIUV update
+        PlayerManager::player->RestoreHp(0);
+        PlayerManager::player->RestoreMp(0);
     }
 
     void PlayerStatus::UpStrength()

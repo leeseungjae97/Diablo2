@@ -40,7 +40,7 @@ namespace m
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, itemNameTable[(UINT)item]);
 
-		SET_POS_XYZ(this, -10.f, -10.f, -1.f);
+		SET_POS_XYZ(this, -9999.f, -9999.f, -1.f);
 		SET_SCALE_XYZ(this, 25.f * itemInvenDisplayScale[(UINT)item][0] * Texture::GetWidRatio()
 			, 25.f * itemInvenDisplayScale[(UINT)item][1] * Texture::GetHeiRatio(), 0.f);
 

@@ -17,7 +17,7 @@ namespace m
         virtual void Render() override;
 
         void AuraActive();
-        void SetAura(eAuraType type, eLayerType layerType = eLayerType::End);
+        void SetAura(eAuraType type, eLayerType layerType = eLayerType::End, float duration = -1);
         void FrontAura() { bFront = true; }
     private:
         bool bFront;

@@ -13,6 +13,8 @@
 #include "../engine_source/mMonsterManager.h"
 #include "../engine_source/mMouseManager.h"
 #include "../engine_source/mSceneManager.h"
+#include "../engine_source/mStageManager.h"
+#include "../engine_source/mVideoManager.h"
 
 #include "mTrappingColor.h"
 #include "mShadowObject.h"
@@ -24,6 +26,7 @@ namespace m
 		: MoveAbleObject(iniPos, 500.f)
 		, mHp(nullptr)
 		, mMp(nullptr)
+	    , bPlayEndVideo(false)
 	{
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"noneRect");
@@ -42,9 +45,9 @@ namespace m
 		lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 0.5f));
 		lightComp->SetRadiusX(300.0f);
 		lightComp->SetRadiusY(150.0f);
-
-		//mShadow = new ShadowObject(this, false);
-		//SceneManager::GetActiveScene()->AddGameObject(eLayerType::Shadow, mShadow);
+		//51 30
+		
+		
 	}
 	Player::~Player()
 	{
@@ -57,7 +60,12 @@ namespace m
 	void Player::Update()
 	{
 		//if (nullptr == mShadow->GetCamera()) mShadow->SetCamera(GetCamera());
-
+		if(TileManager::GetPlayerPositionCoord() == Vector2(30, 51)
+			&& StageManager::stageNum == 6 && !bPlayEndVideo)
+		{
+			bPlayEndVideo = true;
+			VideoManager::PlayVideo(application.GetHwnd());
+		}
 		playerMove();
 		updateColliderPos();
 		MoveAbleObject::Update();

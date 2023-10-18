@@ -19,7 +19,7 @@ namespace m
 	{
 		//SetClickMaterial(RESOURCE_FIND(Material, L"normalAttackClickIcon"));
 		//SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
-		saveShortCutSkillTypes.resize(5);
+		saveShortCutSkillTypes.resize(5, eSkillType::END);
 
 		for(int i = 0; i < 10; ++i)
 		{
@@ -86,7 +86,7 @@ namespace m
 
 		if(GetOneClick())
 		{
-			skillImages->SetState(skillImages->GetState() == NoRenderUpdate ? RenderUpdate : NoRenderUpdate);
+			skillImages->SetState(skillImages->GetState() == NoRenderNoUpdate ? RenderUpdate : NoRenderNoUpdate);
 		}
 		if (skillImages->GetState() == RenderUpdate)
 		{
@@ -99,7 +99,7 @@ namespace m
 
 		if(!GetHover())
 		{
-			if(Input::GetKeyDown(eKeyCode::LBUTTON)) skillImages->SetState(NoRenderUpdate);
+			if(Input::GetKeyDown(eKeyCode::LBUTTON)) skillImages->SetState(NoRenderNoUpdate);
 		}
 
 		if (PlayerManager::GetSkill(mSkillIndex) != mSkillType)
@@ -110,9 +110,10 @@ namespace m
 		int i = 0;
 		for (UI* ui : macroButtons)
 		{
-			if(bOverlaps[i])
+			if(bOverlaps[i]
+				|| saveShortCutSkillTypes[i] == eSkillType::END)
 			{
-				ui->SetState(NoRenderUpdate);
+				ui->SetState(NoRenderNoUpdate);
 			}else
 			{
 				ui->SetState(skillImages->GetState());
@@ -371,7 +372,7 @@ namespace m
 			{
 				saveShortCutSkillTypes[i] = eSkillType::END;
 				bOverlaps[i] = true;
-				macroButtons[i]->SetState(NoRenderUpdate);
+				macroButtons[i]->SetState(NoRenderNoUpdate);
 			}
 	    }
 	}

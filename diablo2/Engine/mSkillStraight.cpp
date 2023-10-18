@@ -56,6 +56,10 @@ namespace m
 		{
 			SET_MATERIAL(this, L"noneRect");
 		}
+		if(type ==eSkillType::DiabloLightning)
+		{
+			rangeCollider->SetScale(Vector3(100.f, 50.f, 1.f));
+		}
 		if(type != eSkillType::fireWall)
 		{
 			Light* lightComp = AddComponent<Light>();

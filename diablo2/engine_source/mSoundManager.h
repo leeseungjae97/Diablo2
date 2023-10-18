@@ -44,6 +44,7 @@ namespace m
         static void ResetPlayed(eExternAudioType type);
 		static void ResetAllPlayed();
         static void StopExtern(eExternAudioType sfx);
+        static void StopAllExtern();
 
         static int iFireCount;
 		static int iCurPlayMusic;

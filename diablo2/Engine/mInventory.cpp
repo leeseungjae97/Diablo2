@@ -62,88 +62,88 @@ namespace m
 		SET_SCALE_TEX_SIZE_WITH_RAT(closeBtn, tex, 0.0f);
 		SET_POS_XYZ(closeBtn, 18.f * Texture::GetWidRatio() + tex->GetMetaDataWidth(), (-RESOL_H_HEI + 124.f * Texture::GetHeiRatio() + tex->GetMetaDataHeight() / 2.f), 0.f);
 
-	/*	{
-			InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
+		//{
+		//	InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
 
-			hpPotion->SetCamera(GetCamera());
-			hpPotion->SetState(GameObject::NoRenderUpdate);
-			ADD_COMP(hpPotion, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, hpPotion);
-			StashManager::AddItem(hpPotion, StashManager::eStashType::Inventory);
-		}
-		{
-			InvenItem* mpPotion = new InvenItem(eItem::mpPotion1);
+		//	hpPotion->SetCamera(GetCamera());
+		//	hpPotion->SetState(GameObject::NoRenderUpdate);
+		//	ADD_COMP(hpPotion, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, hpPotion);
+		//	StashManager::AddItem(hpPotion, StashManager::eStashType::Inventory);
+		//}
+		//{
+		//	InvenItem* mpPotion = new InvenItem(eItem::mpPotion1);
 
-			mpPotion->SetState(GameObject::RenderUpdate);
-			mpPotion->SetCamera(GetCamera());
-			ADD_COMP(mpPotion, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, mpPotion);
-			StashManager::AddItem(mpPotion, StashManager::eStashType::Inventory);
-		}
-		{
-			InvenItem* orb1 = new InvenItem(eItem::jaredsStone);
+		//	mpPotion->SetState(GameObject::RenderUpdate);
+		//	mpPotion->SetCamera(GetCamera());
+		//	ADD_COMP(mpPotion, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, mpPotion);
+		//	StashManager::AddItem(mpPotion, StashManager::eStashType::Inventory);
+		//}
+		//{
+		//	InvenItem* orb1 = new InvenItem(eItem::jaredsStone);
 
-			orb1->SetState(GameObject::NoRenderUpdate);
-			orb1->SetCamera(GetCamera());
-			ADD_COMP(orb1, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, orb1);
-			StashManager::AddItem(orb1, StashManager::eStashType::Inventory);
-		}
-		{
-			InvenItem* leaderArmor = new InvenItem(eItem::leaderArmor);
+		//	orb1->SetState(GameObject::NoRenderUpdate);
+		//	orb1->SetCamera(GetCamera());
+		//	ADD_COMP(orb1, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, orb1);
+		//	StashManager::AddItem(orb1, StashManager::eStashType::Inventory);
+		//}
+		//{
+		//	InvenItem* leaderArmor = new InvenItem(eItem::leaderArmor);
 
-			leaderArmor->SetState(GameObject::NoRenderUpdate);
-			leaderArmor->SetCamera(GetCamera());
-			ADD_COMP(leaderArmor, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, leaderArmor);
-			StashManager::AddItem(leaderArmor, StashManager::eStashType::Inventory);
-		}
-		{
-			InvenItem* cap = new InvenItem(eItem::cap);
+		//	leaderArmor->SetState(GameObject::NoRenderUpdate);
+		//	leaderArmor->SetCamera(GetCamera());
+		//	ADD_COMP(leaderArmor, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, leaderArmor);
+		//	StashManager::AddItem(leaderArmor, StashManager::eStashType::Inventory);
+		//}
+		//{
+		//	InvenItem* cap = new InvenItem(eItem::cap);
 
-			cap->SetState(GameObject::NoRenderUpdate);
-			cap->SetCamera(GetCamera());
-			ADD_COMP(cap, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, cap);
-			StashManager::AddItem(cap, StashManager::eStashType::Inventory);
-		}
+		//	cap->SetState(GameObject::NoRenderUpdate);
+		//	cap->SetCamera(GetCamera());
+		//	ADD_COMP(cap, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, cap);
+		//	StashManager::AddItem(cap, StashManager::eStashType::Inventory);
+		//}
 
-		{
-			InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
+		//{
+		//	InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
 
-			hpPotion->SetCamera(GetCamera());
-			hpPotion->SetState(GameObject::RenderUpdate);
-			ADD_COMP(hpPotion, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, hpPotion);
-			StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
-		}
-		{
-			InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
+		//	hpPotion->SetCamera(GetCamera());
+		//	hpPotion->SetState(GameObject::RenderUpdate);
+		//	ADD_COMP(hpPotion, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, hpPotion);
+		//	StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
+		//}
+		//{
+		//	InvenItem* hpPotion = new InvenItem(eItem::hpPotion1);
 
-			hpPotion->SetCamera(GetCamera());
-			hpPotion->SetState(GameObject::RenderUpdate);
-			ADD_COMP(hpPotion, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, hpPotion);
-			StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
-		}
-		{
-			InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
+		//	hpPotion->SetCamera(GetCamera());
+		//	hpPotion->SetState(GameObject::RenderUpdate);
+		//	ADD_COMP(hpPotion, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, hpPotion);
+		//	StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
+		//}
+		//{
+		//	InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
 
-			hpPotion->SetCamera(GetCamera());
-			hpPotion->SetState(GameObject::RenderUpdate);
-			ADD_COMP(hpPotion, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, hpPotion);
-			StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
-		}
-		{
-			InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
+		//	hpPotion->SetCamera(GetCamera());
+		//	hpPotion->SetState(GameObject::RenderUpdate);
+		//	ADD_COMP(hpPotion, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, hpPotion);
+		//	StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
+		//}
+		//{
+		//	InvenItem* hpPotion = new InvenItem(eItem::mpPotion1);
 
-			hpPotion->SetCamera(GetCamera());
-			hpPotion->SetState(GameObject::RenderUpdate);
-			ADD_COMP(hpPotion, ItemScript);
-			curScene->AddGameObject(eLayerType::Item, hpPotion);
-			StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
-		}*/
+		//	hpPotion->SetCamera(GetCamera());
+		//	hpPotion->SetState(GameObject::RenderUpdate);
+		//	ADD_COMP(hpPotion, ItemScript);
+		//	curScene->AddGameObject(eLayerType::Item, hpPotion);
+		//	StashManager::AddItem(hpPotion, StashManager::eStashType::PocketInven);
+		//}
 
 		StashManager::InitItems(StashManager::eStashType::Inventory);
 		StashManager::InitItems(StashManager::eStashType::PocketInven);

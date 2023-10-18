@@ -154,6 +154,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
    application.SetWindow(hWnd, 1600, 900);
+   application.SetHInstance(hInstance);
    //application.SetViewport(1600, 900);
 
    //application.SetWindow(hWnd, 1540, 845);
@@ -186,6 +187,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message)
     {
+    case WM_SETCURSOR:
+        {
+            //HCURSOR hCursor = LoadCursorFromFile(L"..\\Resources\\Texture\\cursor.cur");
+            //SetCursor(hCursor);
+        }
+        break;
+    case WM_MOUSEMOVE:
+        {
+            //HCURSOR hCursor = LoadCursorFromFile(L"..\\Resources\\Texture\\cursor.cur");
+            //SetCursor(hCursor);
+        }
+        break;
     case WM_SYSKEYDOWN:
     case WM_SYSKEYUP:
         {
@@ -214,6 +227,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            //FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
             EndPaint(hWnd, &ps);
         }
         break;
