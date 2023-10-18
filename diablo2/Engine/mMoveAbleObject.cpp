@@ -167,7 +167,7 @@ namespace m
 		if (!bCanDamaged)
 			fCanDamagedDelay += Time::fDeltaTime();
 
-		if (fCanDamagedDelay >= 0.5f)
+		if (fCanDamagedDelay >= 0.1f)
 		{
 			bCanDamaged = true;
 			fCanDamagedDelay = 0.f;

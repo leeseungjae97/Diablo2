@@ -679,7 +679,7 @@ namespace m
 		true, // clacialSpike
 		true, // blizzard
 		true, // chillingArmor
-		true, // frozenOrb
+		false, // frozenOrb
 		true, // coldMastery
 		//
 		false, // chargedBolt

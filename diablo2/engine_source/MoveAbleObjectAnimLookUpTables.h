@@ -256,7 +256,7 @@ namespace m
 
 		float fSpeed = 200.f;
 		float fAttackDelay = 2.5f;
-		float hp = 250.f;
+		float hp = 150.f;
 
 		float hpCapacity = hp;
 		bool bSpecialSkillLoop[5] = { false,false, false, false, false };

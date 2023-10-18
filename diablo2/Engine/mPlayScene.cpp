@@ -204,7 +204,7 @@ namespace m
 		if (bPlaySceneFireUpdate)
 		{
 			bPlaySceneFireUpdate = false;
-			Stage0();
+			Stage3();
 		}
 		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inventory)
 		{
@@ -1196,7 +1196,7 @@ namespace m
 		Camera* cameraComp = GetSceneMainCamera();
 		TileManager::TileIsWallReset();
 
-		TileManager::MakeStageWall(5);
+		//TileManager::MakeStageWall(5);
 		TileManager::TileIsWallChange();
     }
 
@@ -1654,6 +1654,7 @@ namespace m
 		
 		if(floor)
 		    floor->SetState(GameObject::NoRenderNoUpdate);
+
 		MakeStageEndWall();
 		if (curMap)
 		{

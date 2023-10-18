@@ -20,5 +20,9 @@ namespace m
         {
             PlayerManager::skillPoint = 50;
         }
+        if (Input::GetKeyDown(eKeyCode::V))
+        {
+            PlayerStatus::damage = 1000;
+        }
     }
 }

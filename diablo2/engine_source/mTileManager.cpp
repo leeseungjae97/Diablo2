@@ -87,9 +87,6 @@ namespace m
 		Vector2* wall = nullptr;
 		Vector2* throughWall = nullptr;
 
-		if (stage == 5)
-			wall = stageEndWalls;
-
 		if (stage == 4)
 			wall = stageBWalls;
 

@@ -64,7 +64,7 @@ namespace m
 
 		mSkillBuffer = new graphics::StructuredBuffer();
 		mSkillBuffer->Create(sizeof(SkillWallCollision)
-			, 10000, eViewType::UAV, nullptr, true);
+			, 1, eViewType::UAV, nullptr, true);
 		//mSkillBuffer->Create(sizeof(SkillWallCollision), 1, eViewType::UAV, nullptr, true);
 		//mGSkillBuffer = new graphics::StructuredBuffer();
 

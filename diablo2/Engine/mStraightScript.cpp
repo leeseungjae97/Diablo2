@@ -195,7 +195,7 @@ namespace m
 			if(mSkillCrashType == eSkillCrashType::END)
 			{
 				mAudioSource->StopAll();
-				GetOwner()->SetState(GameObject::eState::Delete);
+				//GetOwner()->SetState(GameObject::eState::Delete);
 			}
 		}
 
@@ -277,12 +277,12 @@ namespace m
 
 		if (other->GetColliderFunctionType() == eColliderFunctionType::HitArea)
 		{
-			if (bNoHit)
-			{
-				mAudioSource->StopAll();
-				GetOwner()->SetState(GameObject::eState::Delete);
-			}
-			else
+			//if (bNoHit)
+			//{
+			//	mAudioSource->StopAll();
+			//	GetOwner()->SetState(GameObject::eState::Delete);
+			//}
+			//else
 			{
 				switch (dynamic_cast<Skill*>(GetOwner())->GetLayerType())
 				{
