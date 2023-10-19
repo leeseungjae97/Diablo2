@@ -12,7 +12,7 @@
 - Key I : Inventory\n
 - Key ESC : Close Inventory, Close Shop\n
 you can bind skill shortcut Key F1 ~ F5\n\n
-###Cheat Key
+### Cheat Key
 - Key L : Money 10000\n
 - Key K : Player Status Point 50\n
 - Key J : Skill Status Point 50\n
