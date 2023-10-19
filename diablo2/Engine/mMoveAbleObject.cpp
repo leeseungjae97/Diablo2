@@ -57,6 +57,8 @@ namespace m
 		, fAccStun(0.f)
 		, fStunSecond(0.f)
 
+	    , mShadow(nullptr)
+
 	    , mPathFinder(nullptr)
 
 		, mCoord(Vector2(0.f, 0.f))

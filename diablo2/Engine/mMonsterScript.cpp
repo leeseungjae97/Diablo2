@@ -46,6 +46,9 @@ namespace m
 	{
 		if (mAura)
 			mAura->SetState(GameObject::eState::Delete);
+
+		if (mRightHand)
+			mRightHand->SetState(GameObject::eState::Delete);
 	}
 	template <typename T>
 	void MonsterScript<T>::Initialize()

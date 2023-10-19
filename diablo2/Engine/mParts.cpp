@@ -1,6 +1,7 @@
 #include "mParts.h"
 
 #include "mMeshRenderer.h"
+#include "mShadowObject.h"
 
 namespace m
 {
@@ -17,6 +18,8 @@ namespace m
 
     Parts::~Parts()
     {
+        if (mShadow)
+            mShadow->SetState(Delete);
     }
 
     void Parts::Initialize()

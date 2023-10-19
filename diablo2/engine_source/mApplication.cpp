@@ -21,6 +21,7 @@
 #include "mSoundManager.h"
 #include "mTileDrawManager.h"
 #include "mCheatManager.h"
+#include "mSkillManager.h"
 #include "mVideoManager.h"
 
 namespace m
@@ -89,6 +90,8 @@ namespace m
 		SoundManager::Update();
 		Fmod::Update();
 		VideoManager::Update();
+
+		SkillManager::Update();
 	}
 
 	void Application::LateUpdate()

@@ -8,7 +8,10 @@ namespace m
 
     void SkillManager::Update()
     {
-
+        if(Input::GetKeyDownOne(eKeyCode::P))
+        {
+            AllSkillCrash();
+        }
     }
     void SkillManager::AddSkill(Skill* skill)
     {
