@@ -177,6 +177,11 @@ namespace m
 	}
 	void StraightScript::Update()
 	{
+		if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash())
+		{
+			mAudioSource->StopAll();
+		}
+
 		if (bSkillFire
 			&& !skillLoops[(int)mType]
 			&& mAnimator->GetActiveAnimation())
@@ -185,7 +190,8 @@ namespace m
 				GetOwner()->SetState(GameObject::eState::Delete);
 		}
 		if (dynamic_cast<Skill*>(GetOwner())->GetSkillCrash()
-			&& mCrashType == eCrashType::Overlay)
+			&& (mCrashType == eCrashType::Overlay || mCrashType == eCrashType::Addiction)
+			)
 		{
 			mAudioSource->StopAll();
 			GetOwner()->SetState(GameObject::eState::Delete);
@@ -222,7 +228,7 @@ namespace m
 				std::wstring rand = L"";
 				rand = skillSoundPath[(int)mType][iRandIndex];
 				if (rand != L"")
-					mAudioSource->Play(rand, bSoundLoop, true);
+					mAudioSource->PlayNoDelay(rand, bSoundLoop, true, 30.f, true);
 				bMute = true;
 			}
 			

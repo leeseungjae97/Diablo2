@@ -39,7 +39,7 @@ namespace m
 		void PlayMonsterVoice(std::wstring name, bool loop = false, bool b3DAt = true);
 		void PlayGroup(const std::wstring& name, bool loop = false, bool b3DAt = true);
 		void PlayNoDelay(int type, const std::wstring& name, bool loop = false, bool b3DAt = true, float vol = 30.f);
-		void PlayNoDelay(const std::wstring& name, bool loop = false, bool b3DAt = true, float vol = 30.f);
+		void PlayNoDelay(const std::wstring& name, bool loop = false, bool b3DAt = true, float vol = 30.f, bool bCG = false);
 		void PlaySounds(ePlayerRunSoundType type, bool loop = false, bool b3DAt = true);
 		void Stop();
 		void Stop(eAudioClipType type);

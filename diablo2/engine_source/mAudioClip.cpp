@@ -6,7 +6,7 @@ namespace m
 {
     AudioClip::AudioClip()
         : mSound(nullptr)
-        , mChannel(nullptr)
+        , mChannel(0)
         , mMinDistance(0.0f)
         , mMaxDistance(100.0f)
         , mbLoop(false)

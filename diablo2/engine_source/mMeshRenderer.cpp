@@ -92,18 +92,18 @@ namespace m
     void MeshRenderer::AddTrappingColorBuffer()
     {
 		mTrappingColorBuffer = new graphics::StructuredBuffer();
-		mTrappingColorBuffer->Create(sizeof(TrapColor), 1, eViewType::SRV, nullptr, true);
+		mTrappingColorBuffer->Create(sizeof(TrapColor), 1, eViewType::SRV, &mTrappingColor, true);
     }
 
     void MeshRenderer::AddSpriteOffSetCenterBuffer()
     {
 		mSpriteOffSetCenterBuffer = new graphics::StructuredBuffer();
-		mSpriteOffSetCenterBuffer->Create(sizeof(SpriteOffsetCenter), 1, eViewType::SRV, nullptr, true);
+		mSpriteOffSetCenterBuffer->Create(sizeof(SpriteOffsetCenter), 1, eViewType::SRV, &mSpriteOffsetCenter, true);
     }
 
     void MeshRenderer::AddSpriteAlphaBuffer()
     {
 		mSpriteAlphaBuffer = new graphics::StructuredBuffer();
-		mSpriteAlphaBuffer->Create(sizeof(SpriteAlpha), 1, eViewType::SRV, nullptr, true);
+		mSpriteAlphaBuffer->Create(sizeof(SpriteAlpha), 1, eViewType::SRV, &mSpriteAlpha, true);
     }
 }

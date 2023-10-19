@@ -6,6 +6,7 @@
 - Key S : Toggle Collider
 - Key F : Draw Astar Path Tile
 - Key D : Erase Astar Path Tile
+- Key P : Erase All Skill
 ### Play Key
 - Key A : Player Status
 - Key T : Skill Status

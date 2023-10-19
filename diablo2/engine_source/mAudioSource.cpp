@@ -1,5 +1,6 @@
 #include "mAudioSource.h"
 #include "mAudioClip.h"
+#include "mFmod.h"
 #include "mTransform.h"
 #include "mGameObject.h"
 #include "mSoundManager.h"
@@ -148,7 +149,8 @@ namespace m
 		{
 			for (AudioClip* ac : mAudioClipGroup)
 			{
-				ac->Stop();
+				if(ac)
+				    ac->Stop();
 			}
 		}
 
@@ -344,7 +346,7 @@ namespace m
 			mAudioClips[type]->Play();
 		}
 	}
-    void AudioSource::PlayNoDelay(const std::wstring& name, bool loop, bool b3DAt, float vol)
+    void AudioSource::PlayNoDelay(const std::wstring& name, bool loop, bool b3DAt, float vol, bool bCG)
     {
 		if(mAudioClips[(int)eAudioClipType::Fire])
 		    mAudioClips[(int)eAudioClipType::Fire]->Stop();
@@ -362,7 +364,15 @@ namespace m
 			bAudioClip3DAtr[(int)eAudioClipType::Fire] = true;
 			mAudioClips[(int)eAudioClipType::Fire]->SetVolume(vol);
 			mAudioClips[(int)eAudioClipType::Fire]->SetLoop(loop);
-			mAudioClips[(int)eAudioClipType::Fire]->Play();
+			if(bCG)
+			{
+				mAudioClips[(int)eAudioClipType::Fire]->PlayFire();
+			    
+			}else
+			{
+				mAudioClips[(int)eAudioClipType::Fire]->Play();
+			}
+			
 		}
     }
 

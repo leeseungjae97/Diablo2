@@ -91,8 +91,7 @@ namespace m
 
 		if (useAstar)
 			mPathFinder = new PathFinder();
-		MeshRenderer* mr = ADD_COMP(this, MeshRenderer);
-		mr->AddTrappingColorBuffer();
+		ADD_COMP(this, MeshRenderer);
 
 		fXAdjustSpeed = fSpeed;
 		fYAdjustSpeed = fSpeed / 2.f;

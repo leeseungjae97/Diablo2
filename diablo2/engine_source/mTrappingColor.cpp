@@ -7,7 +7,7 @@ namespace m
 		, mTrappingColorBuffer(nullptr)
 	{
 		mTrappingColorBuffer = new graphics::StructuredBuffer();
-		mTrappingColorBuffer->Create(sizeof(TrapColor), 1, eViewType::SRV, nullptr, true);
+		mTrappingColorBuffer->Create(sizeof(TrapColor), 1, eViewType::SRV, &mTrappingColor, true);
 	}
 
 	TrappingColor::~TrappingColor()

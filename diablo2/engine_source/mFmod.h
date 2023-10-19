@@ -30,8 +30,9 @@ namespace m
 		static void SkillFireSoundPlay(FMOD::Sound* sound, FMOD::Channel** channel);
 		static void SkillCrashSoundPlay(FMOD::Sound* sound, FMOD::Channel** channel);
 		static void RunSoundPlay(FMOD::Sound* sound, FMOD::Channel** channel);
+        static void StopFireChannelGroup();
 
-	private:
+    private:
 		static FMOD::Studio::System* mSystem;
 		static FMOD::System* mCoreSystem;
 

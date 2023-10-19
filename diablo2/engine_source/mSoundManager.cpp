@@ -337,7 +337,7 @@ namespace m
 		{
 			bPlayed[i] = false;
 		}
-		
+		Fmod::StopFireChannelGroup();
 	}
 
     void SoundManager::StopExtern(eExternAudioType sfx)

@@ -51,6 +51,10 @@ namespace m
 	{
 		mCoreSystem->playSound(sound, mFootStepGroup, false, channel);
 	}
+	void Fmod::StopFireChannelGroup()
+	{
+		mSkillFireGroup->stop();
+	}
 
 	void Fmod::Set3DListenerAttributes(const Vector3* pos, const Vector3* vel, const Vector3* forward, const Vector3* up)
 	{

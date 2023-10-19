@@ -1,5 +1,6 @@
 #include "mSkillManager.h"
 
+#include "mFmod.h"
 #include "../Engine/mSkillFollower.h"
 
 namespace m
@@ -11,6 +12,7 @@ namespace m
         if(Input::GetKeyDownOne(eKeyCode::P))
         {
             AllSkillCrash();
+            Fmod::StopFireChannelGroup();
         }
     }
     void SkillManager::AddSkill(Skill* skill)

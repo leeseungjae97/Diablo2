@@ -88,39 +88,56 @@ namespace m
 	{
 		MousePosHoverGameObject();
 
-		for (Component* comp : mComponents)
+		if(!mComponents.empty())
 		{
-			comp->Update();
+			for (Component* comp : mComponents)
+			{
+				comp->Update();
+			}
 		}
-		for (Script* script : mScripts)
+		if (!mScripts.empty())
 		{
-			script->Update();
-		}
+			for (Script* script : mScripts)
+			{
+				script->Update();
+			}
+		}	
 	}
 
 	void GameObject::LateUpdate()
 	{
-		for (Component* comp : mComponents)
+		if (!mComponents.empty())
 		{
-			comp->LateUpdate();
+			for (Component* comp : mComponents)
+			{
+				comp->LateUpdate();
+			}
 		}
-		for (Script* script : mScripts)
+		if (!mScripts.empty())
 		{
-			script->LateUpdate();
+			for (Script* script : mScripts)
+			{
+				script->LateUpdate();
+			}
 		}
 	}
 
 	void GameObject::Render()
 	{
-		for (Component* comp : mComponents)
+		if (!mComponents.empty())
 		{
-			comp->Render();
+			for (Component* comp : mComponents)
+			{
+				comp->Render();
+			}
 		}
-		for (Script* script : mScripts)
+		if (!mScripts.empty())
 		{
-			script->Render();
+			for (Script* script : mScripts)
+			{
+				script->Render();
+			}
 		}
-
 	}
 	void GameObject::MousePosHoverGameObject()
 	{

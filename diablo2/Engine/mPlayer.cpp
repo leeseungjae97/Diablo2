@@ -47,7 +47,8 @@ namespace m
 		lightComp->SetRadiusY(150.0f);
 		//51 30
 		
-		
+		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+		mr->AddTrappingColorBuffer();
 	}
 	Player::~Player()
 	{

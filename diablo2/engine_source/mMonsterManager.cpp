@@ -23,7 +23,7 @@ namespace m
 		{
 			for (Monster* monster : deadMonsters)
 			{
-				monster->SetState(GameObject::eState::Delete);
+				monster->SetState(GameObject::eState::NoRenderNoUpdate);
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace m
 		{
 			for (Monster* monster : monsters)
 			{
-				monster->SetState(GameObject::eState::Delete);
+				monster->SetState(GameObject::eState::NoRenderNoUpdate);
 			}
 		}
 		EraseDeadMonster();

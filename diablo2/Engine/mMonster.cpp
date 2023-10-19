@@ -30,6 +30,9 @@ namespace m
 
 		MonsterManager::AddMonster(this);
 
+		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
+		mr->AddTrappingColorBuffer();
+
 		sightCollider = ADD_COMP(this, Collider2D);
 		sightCollider->SetType(eColliderType::Circle);
 		//sightCollider->SetSize(Vector3(5.f, 5.f, 1.f));

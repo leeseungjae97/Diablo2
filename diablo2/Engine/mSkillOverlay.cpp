@@ -65,7 +65,7 @@ namespace m
 		if(mActiveOwner)
 		    pos = GET_POS(mActiveOwner);
 
-		pos.z -= 0.00001f;
+		pos.z -= 0.0001f;
 		SET_POS_VEC(this, pos);
 	}
 	void SkillOverlay::LateUpdate()
