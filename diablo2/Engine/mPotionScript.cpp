@@ -32,10 +32,10 @@ namespace m
             as->PlayOnce(0, buttonSoundPaths[(int)eUISoundType::PotionUse], false, false, true);
 
             if (mOwnerItem == eItem::hpPotion1)
-                PlayerManager::player->RestoreHp(10);
+                PlayerManager::player->RestoreHp(30);
 
             if (mOwnerItem == eItem::mpPotion1)
-                PlayerManager::player->RestoreMp(10);
+                PlayerManager::player->RestoreMp(40);
 
             GetOwner()->SetState(GameObject::eState::Delete);
         }

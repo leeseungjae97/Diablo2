@@ -204,7 +204,7 @@ namespace m
 		if (bPlaySceneFireUpdate)
 		{
 			bPlaySceneFireUpdate = false;
-			Stage3();
+			Stage0();
 		}
 		if (Input::GetKeyDown(eKeyCode::I) && nullptr != inventory)
 		{

@@ -239,7 +239,7 @@ namespace m
 					{
 						if (bFire)
 						{
-							PlayerManager::player->UseMana(10);
+							PlayerManager::player->UseMana(1);
 							makeSkill(PlayerManager::GetSkill(activeSkillIndex)
 								, activeSkillIndex
 								, GET_POS(PlayerManager::player)
@@ -252,7 +252,7 @@ namespace m
 				{
 					if (bFire)
 					{
-						PlayerManager::player->UseMana(10);
+						PlayerManager::player->UseMana(1);
 						makeSkill(PlayerManager::GetSkill(activeSkillIndex)
 							, activeSkillIndex
 							, GET_POS(PlayerManager::player)

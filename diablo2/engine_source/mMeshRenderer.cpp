@@ -9,7 +9,8 @@ namespace m
 	    , mTrappingColorBuffer(nullptr)
 	    , mSpriteOffSetCenterBuffer(nullptr)
 	    , mSpriteAlphaBuffer(nullptr)
-	{}
+	{
+	}
 	MeshRenderer::~MeshRenderer()
 	{
 		if (mTrappingColorBuffer)

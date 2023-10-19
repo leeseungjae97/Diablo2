@@ -35,6 +35,10 @@ namespace m
 			return;
 
 		mTime += Time::DeltaTime();
+		if(mCurIndex >= mSprites.size())
+		{
+			mCurIndex = 0;
+		}
 		if (mSprites[mCurIndex].duration <= mTime)
 		{
 			mTime = 0.0f;

@@ -145,6 +145,7 @@ namespace m
 			}
 		}
 		if (bAddiction) mHp->SetAddiction();
+		else mHp->SetOrigin();
 
 		if (bCallSetNumericalAdjustmentSpeed)
 		{
@@ -174,12 +175,6 @@ namespace m
 			Vector3 unprojMousePos = MouseManager::UnprojectionMousePos(destPosition.z, GetCamera());
 			Vector3 tempPrev = GET_POS(this);
 			Vector3 tempDest = Vector3(unprojMousePos.x, unprojMousePos.y, destPosition.z);
-
-			//float maxX = max(tempDest.x, tempPrev.x);
-			//float maxY = max(tempDest.y, tempPrev.y);
-
-			//float minX = min(tempDest.x, tempPrev.x);
-			//float minY = min(tempDest.y, tempPrev.y);
 
 			vDirection = tempDest - tempPrev;
 			vDirection.Normalize();
@@ -219,14 +214,6 @@ namespace m
 		float minY = min(curPosition.y, prevPosition.y);
 
 		fRemainDistance = (Vector2(maxX, maxY) - Vector2(minX, minY)).Length();
-
-		//if (GetBattleState() == eBattleState::Dead
-		//	|| GetBattleState() == eBattleState::Attack
-		//	|| GetBattleState() == eBattleState::Cast
-		//	|| GetBattleState() == eBattleState::Hit)
-		//{
-		//	fSpeed = 0.0f;
-		//}
 
 
 		if (fRemainDistance < fStartDistance && !bStun)

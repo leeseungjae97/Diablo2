@@ -25,6 +25,7 @@ namespace m
 
     private:
         GameObject* mOwner;
+        bool bTeleport;
     };
 }
 

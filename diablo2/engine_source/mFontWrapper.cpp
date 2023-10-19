@@ -23,9 +23,9 @@ namespace m
 
 	void FontWrapper::DrawFont(const wchar_t* str, float x, float y, float size, UINT rgb)
 	{
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
-			= renderer::depthStencilStates[(UINT)eDSType::None];
-		GetDevice()->BindDepthStencilState(nullptr);
+		//Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+		//	= renderer::depthStencilStates[(UINT)eDSType::None];
+		//GetDevice()->BindDepthStencilState(nullptr);
 
 		Vector2 vSize = GetTextSize(str, size);
 		x += vSize.x / 2.f;
@@ -43,8 +43,8 @@ namespace m
 		);
 		//FW1_RESTORESTATE
 		//
-		dsState = renderer::depthStencilStates[(UINT)eDSType::LessEqua];
-		GetDevice()->BindDepthStencilState(dsState.Get());
+		//dsState = renderer::depthStencilStates[(UINT)eDSType::LessEqua];
+		//GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 
     Vector2 FontWrapper::GetTextSize(const wchar_t* str, float size)

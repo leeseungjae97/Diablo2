@@ -195,7 +195,9 @@ namespace m
 			if(mSkillCrashType == eSkillCrashType::END)
 			{
 				mAudioSource->StopAll();
-				//GetOwner()->SetState(GameObject::eState::Delete);
+
+				if(mType != eSkillType::frozenOrb)
+				    GetOwner()->SetState(GameObject::eState::Delete);
 			}
 		}
 

@@ -96,7 +96,8 @@ namespace m
 			computeTiles.push_back(tile);
 		}
 		
-		mPathTileBuffer->Create(sizeof(ComputeTile), pathtiles.size(), eViewType::UAV, computeTiles.data(), true);
+		//mPathTileBuffer->Create(sizeof(ComputeTile), pathtiles.size(), eViewType::UAV, computeTiles.data(), true);
+		mPathTileBuffer->SetData(computeTiles.data(), computeTiles.size());
 		
 		//delete[] computeTiles;
 

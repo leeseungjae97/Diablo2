@@ -8,21 +8,25 @@ namespace m
 {
     void CheatManager::Update()
     {
-        if(Input::GetKeyDown(eKeyCode::M))
+        if(Input::GetKeyDown(eKeyCode::L))
         {
             PlayerManager::money = 10000;
         }
-        if (Input::GetKeyDown(eKeyCode::N))
+        if (Input::GetKeyDown(eKeyCode::K))
         {
             PlayerStatus::statusPoint = 50;
         }
-        if (Input::GetKeyDown(eKeyCode::B))
+        if (Input::GetKeyDown(eKeyCode::J))
         {
             PlayerManager::skillPoint = 50;
         }
-        if (Input::GetKeyDown(eKeyCode::V))
+        if (Input::GetKeyDown(eKeyCode::H))
         {
             PlayerStatus::damage = 1000;
+        }
+        if (Input::GetKeyDown(eKeyCode::G))
+        {
+            PlayerStatus::damage = 10;
         }
     }
 }

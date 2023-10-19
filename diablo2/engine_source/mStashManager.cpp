@@ -1319,10 +1319,13 @@ namespace m
 			if (itemInvenDisplayScale[(UINT)mItem][0] > 1.f
 				|| itemInvenDisplayScale[(UINT)mItem][1] > 1.f)
 			{
-				Vector2 invenLeftTop = invenPos + (invenSize / 2.f);
-				Vector2 centerPosFromInvenLeftTop = Vector2(invenLeftTop.x + subScale.x, invenLeftTop.y - subScale.y);
+				invenPos.x -= invenSize.x / 2.f;
+				invenPos.y += invenSize.y / 2.f;
+
+				Vector2 centerPosFromInvenLeftTop = Vector2(invenPos.x + subScale.x, invenPos.y - subScale.y);
 
 				if (CheckItemCenterPosIntersectItem(centerPosFromInvenLeftTop, item, type)) continue;
+				if (CheckItemSizeIntersectOutline(centerPosFromInvenLeftTop, item, type)) continue;
 
 				item->SetPrevPosition(Vector3(centerPosFromInvenLeftTop.x + 5.f, centerPosFromInvenLeftTop.y - 5.f, curPos.z));
 				SET_POS_XYZ(item, centerPosFromInvenLeftTop.x + 5.f, centerPosFromInvenLeftTop.y - 5.f, curPos.z);

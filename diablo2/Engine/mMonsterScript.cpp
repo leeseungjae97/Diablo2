@@ -37,6 +37,7 @@ namespace m
 		, degree(0)
 	    , fSkillCenterPosY(0.f)
 	{
+		//curMonsterData{};
 		mClass = curMonsterData.mClass;
 	}
 
