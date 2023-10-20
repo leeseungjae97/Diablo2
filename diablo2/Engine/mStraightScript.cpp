@@ -159,7 +159,7 @@ namespace m
 			    std::wstring rand = L"";
 			    rand = skillCrashSoundPath[(int)mType][iRandIndex];
 			    if (rand != L"")
-				    mAudioSource->PlayNoDelay(rand, false, false);
+				    mAudioSource->PlayNoDelay(rand, false, true, 30.f, false);
 				
 
 				if (dynamic_cast<SkillStraight*>(GetOwner()))

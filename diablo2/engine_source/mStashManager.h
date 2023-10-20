@@ -115,7 +115,7 @@ namespace m
     private:
 		static InvenItem* getPocketPosItem(int index);
 		static InvenItem* getExPocketPosItem(int index);
-		static void reArrangePocket();
+		static void reArrangePocket(int index);
 		static void reArrangeExPocket();
 		static void inventoryUpdate();
 		static void shopInventoryUpdate();

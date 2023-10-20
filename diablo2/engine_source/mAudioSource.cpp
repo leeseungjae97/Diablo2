@@ -361,7 +361,7 @@ namespace m
 
 			mAudioClips[(int)eAudioClipType::Fire]->SetSound(sound);
 			bActiveAudioClip[(int)eAudioClipType::Fire] = true;
-			bAudioClip3DAtr[(int)eAudioClipType::Fire] = true;
+			bAudioClip3DAtr[(int)eAudioClipType::Fire] = b3DAt;
 			mAudioClips[(int)eAudioClipType::Fire]->SetVolume(vol);
 			mAudioClips[(int)eAudioClipType::Fire]->SetLoop(loop);
 			if(bCG)

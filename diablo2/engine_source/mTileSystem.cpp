@@ -163,6 +163,9 @@ namespace m
 			data.playerPos = Vector4(0.f, 0.f, 1.f, 0.f);
 		}
 		mTileSharedBuffer->SetData(&data, 1);
+		//mTileSharedBuffer->Create(sizeof(ComputeMonster)
+		//, 1, eViewType::UAV, &data, true);
+		//mTileSharedBuffer->SetData(&data, 1);
 
 
 		if (!MonsterManager::monsters.empty())

@@ -762,7 +762,7 @@ namespace m
 	void StashManager::ChangeFieldItemToInvenItem(FieldItem* item)
 	{
 		eItem ei = item->GetEItem();
-
+		FieldItemManager::Erase(item);
 		if (item->GetItemType() == eItemType::Gold)
 		{
 			PlayerManager::money += item->GetMoneyAmount();
@@ -1008,7 +1008,7 @@ namespace m
 
 	InvenItem* StashManager::getPocketPosItem(int index)
 	{
-		if (pocketItems.size() < index) return nullptr;
+		if (pockets.size() < index) return nullptr;
 
 		Vector2 pocketInvenPos = pockets[index]->GetPos();
 		Vector2 pocketInvenSize = pockets[index]->GetSize();
@@ -1063,34 +1063,33 @@ namespace m
 			if (item)
 			{
 				EraseItem(item, true);
-				reArrangePocket();
+				reArrangePocket(keyIndex);
 			}
 		}
 	}
-	void StashManager::reArrangePocket()
+	void StashManager::reArrangePocket(int index)
 	{
-		for (int i = 0; i < pockets.size(); ++i)
-		{
-			InvenItem* item = getPocketPosItem(i);
-			Vector2 pocketPos = pockets[i]->GetPos();
-			if (nullptr == item)
-			{
-				InvenItem* item1 = getExPocketPosItem(i);
-				if (nullptr != item1)
-				{
-					MoveOtherStash(item1, eStashType::PocketInven);
-					item1->SetState(GameObject::eState::RenderUpdate);
-					Vector3 exPocketPos = GET_POS(item1);
-					SET_POS_XYZ(item1, pocketPos.x, pocketPos.y, -1.f);
+		//InvenItem* item = getPocketPosItem(index);
+		
+		//if (nullptr == item
+		//	|| item->GetState() == GameObject::eState::NoRenderUpdate)
+		//{
+		//	
+		//}
 
-					InvenItem* item2 = getExPocketPosItem(i + 4);
-					if (nullptr != item2)
-					{
-						//MoveOtherStash(item2, eStashType::PocketInven);
-						item2->SetState(GameObject::eState::RenderUpdate);
-						SET_POS_XYZ(item2, exPocketPos.x, exPocketPos.y, -1.f);
-					}
-				}
+		Vector2 pocketPos = pockets[index]->GetPos();
+		InvenItem* item = getExPocketPosItem(index);
+		if (nullptr != item)
+		{
+			MoveOtherStash(item, eStashType::PocketInven);
+			item->SetState(GameObject::eState::RenderUpdate);
+			Vector3 exPocketPos = GET_POS(item);
+			SET_POS_XYZ(item, pocketPos.x, pocketPos.y, -1.f);
+
+			InvenItem* item1 = getExPocketPosItem(index + 4);
+			if (nullptr != item1)
+			{
+				SET_POS_XYZ(item1, exPocketPos.x, exPocketPos.y, -1.f);
 			}
 		}
 	}

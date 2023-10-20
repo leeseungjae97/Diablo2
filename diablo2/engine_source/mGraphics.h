@@ -156,20 +156,20 @@ struct DebugMesh
 
 struct DrawObject
 {
-	m::math::Vector4 position;
-	m::math::Vector2 size;
+	m::math::Vector4 position = m::math::Vector4::Zero;
+	m::math::Vector2 size = m::math::Vector2::Zero;
 };
 struct SkillWallCollision
 {
-	m::math::Vector3 skillPosition;
-	int skillId;
+	m::math::Vector3 skillPosition = m::math::Vector3::Zero;
+	int skillId = 0;
 	BOOL crash = false;
 };
 struct ComputeTile
 {
-	m::math::Vector4 tilePosition;
-	m::math::Vector2 tileSize;
-	m::math::Vector2 tileCoord;
+	m::math::Vector4 tilePosition = m::math::Vector4::Zero;
+	m::math::Vector2 tileSize = m::math::Vector2::Zero;
+	m::math::Vector2 tileCoord = m::math::Vector2::Zero;
 
 	BOOL isWall = false;
 	BOOL isThrough = false;
@@ -189,23 +189,23 @@ struct ComputeTile
 };
 struct TrapColor
 {
-	m::math::Vector4 color;
+	m::math::Vector4 color = m::math::Vector4(1.f, 1.f, 1.f, 1.f);
 };
 struct SpriteOffsetCenter
 {
-	m::math::Vector2 offset;
+	m::math::Vector2 offset = m::math::Vector2(0.f, 0.f);
 };
 struct SpriteAlpha
 {
-	float alpha;
+	float alpha = 1.f;
 };
 struct ComputeTileSharedData
 {
-	m::math::Vector4 mousePos;
-	m::math::Vector4 playerPos;
-	UINT tileCount;
-	UINT monsterCount;
-	int skillCount;
+	m::math::Vector4 mousePos = m::math::Vector4::Zero;
+	m::math::Vector4 playerPos = m::math::Vector4::Zero;
+	UINT tileCount = 0;
+	UINT monsterCount = 0;
+	int skillCount = 0;
 	BOOL hoverUI = false;
 };
 struct ComputedTileCoord
@@ -218,10 +218,10 @@ struct ComputedTileCoord
 };
 struct ComputeMonster
 {
-	m::math::Vector4 monsterPos;
-	m::math::Vector3 monsterSize;
-	m::math::Vector2 monsterNextCoord;
-	int monsterCount;
+	m::math::Vector4 monsterPos = m::math::Vector4::Zero;
+	m::math::Vector3 monsterSize = m::math::Vector3::Zero;
+	m::math::Vector2 monsterNextCoord = m::math::Vector2::Zero;
+	int monsterCount = 0;
 };
 struct ComputedMonsterCoord
 {
