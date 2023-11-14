@@ -21,4 +21,4 @@
 - Key G : Player Damage 10
 
 Game play Video
-https://www.youtube.com/watch?v=XqzxtB7Yp88&t=298s
+https://www.youtube.com/watch?v=XqzxtB7Yp88&t
