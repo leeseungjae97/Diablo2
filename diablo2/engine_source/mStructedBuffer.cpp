@@ -53,7 +53,10 @@ namespace m::graphics
 		//mStride = stride == 0 ? 1 : stride;
 		mStride = stride;
 
-		desc.ByteWidth = mSize * mStride;
+		UINT iBufferSize = mSize * mStride;
+		assert(!(iBufferSize % 16));
+
+		desc.ByteWidth = iBufferSize;
 		desc.StructureByteStride = mSize;
 
 		desc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;

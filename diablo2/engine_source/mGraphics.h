@@ -114,8 +114,9 @@ struct LightAttribute
 	float radiusX;
 	float radiusY;
 	float angle;
-	int pad;
+
 	int size;
+	int pad[3];
 };
 struct DebugMesh
 {
@@ -126,6 +127,7 @@ struct DebugMesh
 	m::math::Matrix view;
 	m::math::Matrix projection;
 	m::enums::eColor color;
+	float pad;
 
 	BOOL visible;
 	float radius;
@@ -158,12 +160,15 @@ struct DrawObject
 {
 	m::math::Vector4 position = m::math::Vector4::Zero;
 	m::math::Vector2 size = m::math::Vector2::Zero;
+	float pad[2];
 };
 struct SkillWallCollision
 {
 	m::math::Vector3 skillPosition = m::math::Vector3::Zero;
 	int skillId = 0;
+
 	BOOL crash = false;
+	int pad[3];
 };
 struct ComputeTile
 {
@@ -173,10 +178,11 @@ struct ComputeTile
 
 	BOOL isWall = false;
 	BOOL isThrough = false;
+	int pad[2];
 
 	//m::math::Vector2 parentCoord;
 
-	
+
 	//BOOL onMonster;
 
 	//UINT willOnMonsterCount;
@@ -194,15 +200,18 @@ struct TrapColor
 struct SpriteOffsetCenter
 {
 	m::math::Vector2 offset = m::math::Vector2(0.f, 0.f);
+	float pad[2];
 };
 struct SpriteAlpha
 {
 	float alpha = 1.f;
+	float pad[3];
 };
 struct ComputeTileSharedData
 {
 	m::math::Vector4 mousePos = m::math::Vector4::Zero;
 	m::math::Vector4 playerPos = m::math::Vector4::Zero;
+
 	UINT tileCount = 0;
 	UINT monsterCount = 0;
 	int skillCount = 0;
@@ -212,20 +221,26 @@ struct ComputedTileCoord
 {
 	m::math::Vector2 mouseHoverTileCoord = m::math::Vector2(-1.f, -1.f);
 	m::math::Vector2 playerStandTileCoord = m::math::Vector2(-1.f, -1.f);
+
 	m::math::Vector2 hoverMonsterTileCoord = m::math::Vector2(-1.f, -1.f);
+	float pad[2];
+
 	int hoverMonsterId = -1;
 	BOOL hoverMonster = false;
+	int pad2[2];
 };
 struct ComputeMonster
 {
 	m::math::Vector4 monsterPos = m::math::Vector4::Zero;
 	m::math::Vector3 monsterSize = m::math::Vector3::Zero;
 	m::math::Vector2 monsterNextCoord = m::math::Vector2::Zero;
+	float pad[2];
 	int monsterCount = 0;
 };
 struct ComputedMonsterCoord
 {
 	m::math::Vector2 monsterStandTileCoord = m::math::Vector2(-1.f, -1.f);
+	float pad[2];
 };
 struct Vertex
 {
@@ -242,13 +257,16 @@ struct Particle
 	float alpha2;
 	float alpha3;
 	float endTime;
+
 	float time;
 	float speed;
 	UINT active;
+	int pad;
 };
 struct ParticleShared
 {
 	UINT sharedActiveCount;
+	int pad[3];
 };
 //struct BoundingSphere
 //{

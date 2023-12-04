@@ -35,7 +35,7 @@ cbuffer ParticleSystem : register(b5)
     float elapsedTime;
     float deltaTime;
     float alpha;
-    int padd2;
+    //int padd2;
 }
 cbuffer Noise : register(b6)
 {
@@ -46,6 +46,7 @@ struct DrawObject
 {
     float4 position;
     float2 size;
+    float2 pad;
 };
 struct Tile
 {
@@ -55,6 +56,7 @@ struct Tile
     
     bool isWall;
     bool isThrough;
+    int2 pad;
     
     //float2 parentCoord;
     
@@ -73,6 +75,7 @@ struct TileShared
 {
     float4 mousePos;
     float4 playerPos;
+    
     uint tileCount;
     uint monsterCount;
     int skillCount;
@@ -83,11 +86,14 @@ struct Monster
     float4 monsterPos;
     float3 monsterSize;
     float2 monsterNextCoord;
+    
     int monsterCount;
+    int pad[2];
 };
 struct MonsterComputedCoord
 {
     float2 monsterCoord;
+    float2 pad;
 };
 struct TileComputedCoord
 {
@@ -128,8 +134,9 @@ struct LightAttribute
     float radiusX;
     float radiusY;
     float angle;
-    int pad;
+    
     int size;
+    int pad[3];
 };
 struct TrappingColor
 {
@@ -138,10 +145,12 @@ struct TrappingColor
 struct SpriteOffsetCenter
 {
     float2 offset;
+    float2 pad;
 };
 struct SpriteAlpha
 {
     float alpha;
+    float3 pad;
 };
 struct Particle
 {
@@ -152,15 +161,19 @@ struct Particle
     float alpha2;
     float alpha3;
     float endTime;
+    
     float time;
     float speed;
     uint active;
+    int pad;
 };
 struct SkillWallCollision
 {
     float3 position;
     int skillId;
+    
     bool crash;
+    int3 pad;
 };
 StructuredBuffer<Tile> tiles : register(t11);
 StructuredBuffer<Monster> monsters : register(t12);

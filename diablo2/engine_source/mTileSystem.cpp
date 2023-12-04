@@ -303,7 +303,8 @@ namespace m
 			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
 			{
 				Vector2 coord = MonsterManager::monsters[i]->GetCoord();
-				if (coord != Vector2(-1.f, -1.f)
+				if (coord.x > -1.f
+					&& coord.y > -1.f
 					&& coord.x < TileManager::tileXLen
 					&& coord.y < TileManager::tileYLen)
 				{
@@ -318,7 +319,8 @@ namespace m
 			for (int i = 0; i < MonsterManager::monsters.size(); ++i)
 			{
 				Vector2 coord = mComputedCoords[i].monsterStandTileCoord;
-				if (coord != Vector2(-1.f, -1.f)
+				if (coord.x > -1.f
+					&& coord.y > -1.f
 					&& coord.x < TileManager::tileXLen
 					&& coord.y < TileManager::tileYLen)
 				{
@@ -332,7 +334,8 @@ namespace m
 		{
 			
 			Vector2 mouseCoord = mCoordData->mouseHoverTileCoord;
-			if (mouseCoord != Vector2(-1.f, -1.f)
+			if (mouseCoord.x > -1.f
+				&&mouseCoord.y > -1.f
 				&& mouseCoord.x < TileManager::tileXLen
 				&& mouseCoord.y < TileManager::tileYLen)
 			{
@@ -340,7 +343,8 @@ namespace m
 			}
 
 			Vector2 playerCoord = mCoordData->playerStandTileCoord;
-			if (playerCoord != Vector2(-1.f, -1.f)
+			if (playerCoord.x > -1.f
+				&& playerCoord.y > -1.f
 				&& playerCoord.x < TileManager::tileXLen
 				&& playerCoord.y < TileManager::tileYLen)
 			{
