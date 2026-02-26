@@ -37,8 +37,14 @@ namespace m
 			mPosition = GET_POS(GetOwner());
 		}
 	}
+	void Collider2D::CheckCircleEllipse()
+	{
+
+	}
 	void Collider2D::Update()
 	{
+		//CheckCircleEllipse();
+
 		if (bRelease) return;
 
 		if (collidereds.empty())
@@ -196,10 +202,27 @@ namespace m
 			script->OnCollisionExit(other);
 		}
 	}
-
+	void Collider2D::SetType(eColliderType type)
+	{
+		mType = type;
+		if (mType == eColliderType::Circle)
+		{
+			if (mScale.x != mScale.y)
+			{
+				//mType = eColliderType::Ellipse;
+			}
+		}
+	}
     void Collider2D::SetScale(Vector3 scale)
     {
 		mScale = scale;
+		if (mType == eColliderType::Circle)
+		{
+			if (mScale.x != mScale.y)
+			{
+				//mType = eColliderType::Ellipse;
+			}
+		}
 		bCustomSize = true;
     }
 	Monster* Collider2D::SearchCollideredMonster()

@@ -33,7 +33,7 @@ namespace m
 		, mWidth(-1)
 		, mHeight(-1)
 	{
-
+		int a = 0;
 	}
 
 	Application::~Application()

@@ -101,7 +101,7 @@ struct TileComputedCoord
     float2 playerStandTileCoord;
     float2 hoverMonsterTileCoord;
     float2 pad;
-
+    
     int hoverMonsterId;
     bool hoverMonster;
     int pad2[2];

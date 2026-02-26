@@ -153,7 +153,6 @@ namespace m
 				if(Input::GetKeyDown(eKeyCode::LBUTTON))
 				{
 					PlayerManager::SetSkill(mSkillIndex, skillTypes[i]);
-					//return ;
 				}
 			}
 		}

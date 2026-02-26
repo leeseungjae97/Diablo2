@@ -221,7 +221,6 @@ struct ComputedTileCoord
 {
 	m::math::Vector2 mouseHoverTileCoord = m::math::Vector2(-1.f, -1.f);
 	m::math::Vector2 playerStandTileCoord = m::math::Vector2(-1.f, -1.f);
-
 	m::math::Vector2 hoverMonsterTileCoord = m::math::Vector2(-1.f, -1.f);
 	float pad[2];
 

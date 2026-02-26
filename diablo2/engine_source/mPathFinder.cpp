@@ -6,6 +6,7 @@
 #include "mMonsterManager.h"
 #include "mTileSystem.h"
 #include "mSceneManager.h"
+#include "../Engine/mMonster.h"
 
 #include "../Engine/mMoveAbleObject.h"
 namespace m

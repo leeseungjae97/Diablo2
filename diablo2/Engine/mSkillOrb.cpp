@@ -102,9 +102,6 @@ namespace m
     }
     void SkillOrb::fireThreeWayDegreeSkill(SkillStraight* skill)
     {
-        //if (nullptr == skill) return;
-        //if (skill->GetSkillCrash()) return;
-
         if (iLock >= 3)
         {
             iLock = 0;
@@ -112,7 +109,6 @@ namespace m
         if(iNumUse == 3)
         {
             for (int i = 0; i < 3; ++i)iNDuplicates[i] = 0;
-            //for (int i = 0; i < 3; ++i)iMDuplicates[i] = 0;
             iNumUse = 0;
         }
         if(iLock == 0)
@@ -128,10 +124,6 @@ namespace m
             iNDuplicates[n] = 1;
 
             mAddCircleDegree = iAddDegrees[n];
-
-            //n = 0;
-            //while (iMDuplicates[n] != 0) n = rand() % 3;
-            //iMDuplicates[n] = 1;
 
             mAccDegree = iInitDegrees[n];
         }

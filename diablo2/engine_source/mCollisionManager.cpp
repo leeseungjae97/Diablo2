@@ -120,6 +120,7 @@ namespace m
 
 		eColliderType leftType = left->GetType();
 		eColliderType rightType = right->GetType();
+
 		if (leftType == eColliderType::Dot) leftType = eColliderType::Circle;
 		if (rightType == eColliderType::Dot) rightType = eColliderType::Circle;
 
@@ -234,7 +235,86 @@ namespace m
 		}
 
 
-		// circle intersect
+		// Ellipse intersect
+		//if (leftType == eColliderType::Ellipse
+		//	&& rightType == eColliderType::Ellipse)
+		//{
+		//	float centerDistance = sqrt(pow(leftPos.x - rightPos.x, 2) + pow(leftPos.y - rightPos.y, 2));
+		//	float ellipseDistance = max(leftScale.x, leftScale.y) + max(rightScale.x, rightScale.y);
+
+		//	return centerDistance <= ellipseDistance;
+		//}
+
+		//if (leftType == eColliderType::Ellipse
+		//	|| rightType == eColliderType::Ellipse)
+		//{
+		//	float ellipseX, ellipseY;
+		//	float otherX, otherY;
+		//	Vector2 ellipseScale, otherScale;
+		//	if (leftType == eColliderType::Ellipse)
+		//	{
+		//		ellipseX = leftPos.x;
+		//		ellipseY = leftPos.y;
+		//		ellipseScale.x = leftScale.x;
+		//		ellipseScale.y = leftScale.y;
+
+		//		otherX = rightPos.x;
+		//		otherY = rightPos.y;
+		//		otherScale.x = rightScale.x;
+		//		otherScale.y = rightScale.y;
+		//	}
+		//	else
+		//	{
+		//		ellipseX = rightPos.x;
+		//		ellipseY = rightPos.y;
+		//		ellipseScale.x = rightScale.x;
+		//		ellipseScale.y = rightScale.y;
+
+		//		otherX = leftPos.x;
+		//		otherY = leftPos.y;
+		//		otherScale.x = leftScale.x;
+		//		otherScale.y = leftScale.y;
+		//	}
+
+		//	if (leftType == eColliderType::Circle
+		//		|| rightType == eColliderType::Circle)
+		//	{
+		//		float dX = otherX - ellipseX;
+		//		float dY = otherY - ellipseY;
+
+		//		float length = sqrt(dX * dX + dY * dY);
+
+		//		float ellipseRadius = sqrt(ellipseScale.x * ellipseScale.x + ellipseScale.y * ellipseScale.y);
+		//		float distance = ellipseRadius + otherScale.x;
+
+		//		return length <= distance;
+		//	}
+		//	else if (leftType == eColliderType::Rect
+		//		|| rightType == eColliderType::Rect)
+		//	{
+
+		//	}
+		//	else if (leftType == eColliderType::Dot
+		//		|| rightType == eColliderType::Dot)
+		//	{
+
+		//	}
+		//	else
+		//	{
+		//		float dX = otherX - ellipseX;
+		//		float dY = otherY - ellipseY;
+
+		//		float length = sqrt(dX * dX + dY * dY);
+
+		//		float ellipseDistance = max(ellipseScale.x, ellipseScale.y) + max(otherScale.x, otherScale.y);
+
+		//		return length <= ellipseDistance;
+		//	}
+
+		//	return false;
+		//}
+
+
 		if (leftType == eColliderType::Circle
 			&& rightType == eColliderType::Circle)
 		{
