@@ -721,11 +721,9 @@ namespace m
 					{
 						if (item != (*_invenItems)[i])
 						{
-							// 한개만 충돌한 경우
 							if ((*_invenItems)[i]->GetComponent<Collider2D>()->GetOnEnter() ||
 								(*_invenItems)[i]->GetComponent<Collider2D>()->GetOnStay())
 							{
-								// 이미 hover인 경우 예외처리.
 								if (!(*_invenItems)[i]->GetHover())
 									(*_invenItems)[i]->SetMouseFollow(true);
 

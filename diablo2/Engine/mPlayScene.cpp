@@ -121,8 +121,8 @@ namespace m
 				Stage1();
 			});
 
-
 		Monster* initMonster = new Monster(Vector3(-9999.f, -9999.f, 0.f), 0.f);
+		//Monster* initMonster = MonsterManager::AddMonster(Vector3(-9999.f, -9999.f, 0.f), 0.f);
 		SET_MAIN_CAMERA(initMonster);
 		SET_SCALE_XYZ(initMonster, 0.1f, 0.1f, 1.f);
 		SET_POS_XYZ(initMonster, 0.f, 0.f, 1.f);
@@ -1246,15 +1246,18 @@ namespace m
 			Vector3 pos = tile->GetPos();
 			SET_POS_VEC(PlayerManager::player, pos);
 		}
-	    {
-			Tile* tile = TileManager::pathFindingTiles[38][39];
-			Vector3 pos = tile->GetPos();
-			Monster* monster = new Monster(pos, MDFallen().fSpeed);
-			SET_MAIN_CAMERA(monster);
-			monster->SetCoord(tile->GetCoord());
-			AddGameObject(eLayerType::Monster, monster);
-			ADD_COMP(monster, MonsterScript<MDFallen>);
-		}
+		//for (int i = 0; i < 100; ++i)
+		//{
+		//	{
+		//		Tile* tile = TileManager::pathFindingTiles[38][39];
+		//		Vector3 pos = tile->GetPos();
+		//		Monster* monster = new Monster(pos, MDFallen().fSpeed);
+		//		SET_MAIN_CAMERA(monster);
+		//		monster->SetCoord(tile->GetCoord());
+		//		AddGameObject(eLayerType::Monster, monster);
+		//		ADD_COMP(monster, MonsterScript<MDFallen>);
+		//	}
+		//}
 		{
 			Tile* tile = TileManager::pathFindingTiles[42][53];
 			Vector3 pos = tile->GetPos();

@@ -74,6 +74,7 @@ namespace m
         //bool bPathChange;
 
         int monsterId;
+        int frameCount;
         float hp;
         float hpCapacity;
         float hpPercent;

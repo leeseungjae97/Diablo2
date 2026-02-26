@@ -20,15 +20,13 @@ namespace m
 		, hp(100.f)
 		, hpCapacity(100.f)
 	    , fCenterPosY(0.f)
+		, frameCount(0)
+		, hpPercent((hpCapacity - hp) / hpCapacity)
 	{
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
 		ADD_COMP(this, Animator);
 		ADD_COMP(this, AudioSource);
-
-		hpPercent = (hpCapacity - hp) / hpCapacity;
-
-		MonsterManager::AddMonster(this);
 
 		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
 		mr->AddTrappingColorBuffer();
@@ -75,6 +73,7 @@ namespace m
 	{
 		
 		MoveAbleObject::Update();
+		frameCount++;
 		if (GetBattleState() == eBattleState::ToDead)
 		{
 			MonsterManager::AddDeadMonster(this);
@@ -135,13 +134,17 @@ namespace m
 			{
 				//bool move = mPathFinder->MonsterMove(this);
 
-				if (mMonsterClass == eMonsterClass::Boss)
+				if (frameCount >= 30)
 				{
-					mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
-				}
-				else
-				{
-					mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
+					if (mMonsterClass == eMonsterClass::Boss)
+					{
+						mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
+					}
+					else
+					{
+						mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
+					}
+					frameCount = 0;
 				}
 
 				prevCurCoord = curCoord;

@@ -17,7 +17,7 @@ namespace m
 		virtual void Render() override;
 		void Release();
 
-		void SetType(eColliderType type) { mType = type; }
+		void SetType(eColliderType type);
 		void SetSize(Vector3 size) { mSize = size; }
 		void SetCenter(Vector2 size) { mCenter = size; }
 
@@ -25,6 +25,8 @@ namespace m
 		void OnCollisionEnter(Collider2D* other);
 		void OnCollisionStay(Collider2D* other);
 		void OnCollisionExit(Collider2D* other);
+
+		void CheckCircleEllipse();
 
 		UINT GetColliderID() { return mColliderID; }
 

@@ -69,7 +69,7 @@ namespace m::enums
 		Dot,
 		Rect,
 		Circle,
-		Sphere,
+		Ellipse,
 		Rhombus,
 		Cube,
 		End,

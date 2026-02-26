@@ -6,6 +6,23 @@ namespace m
 {
 	std::vector<Monster*> MonsterManager::monsters = {};
 	std::vector<Monster*> MonsterManager::deadMonsters = {};
+	int MonsterManager::reserveSize = 50;
+	int MonsterManager::monstersSize = 0;
+
+	void MonsterManager::Init()
+	{
+		monsters.reserve(reserveSize);
+		deadMonsters.reserve(reserveSize);
+	}
+
+	Monster& MonsterManager::AddMonster(Vector3 pos)
+	{
+		int index = monstersSize;
+		++monstersSize;
+		//monsters[index];
+		monsters[index]->SetMonsterId(index);
+		return *(monsters[index]);
+	}
 
     void MonsterManager::AddMonster(Monster* monster)
     {
