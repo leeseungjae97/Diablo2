@@ -1,5 +1,7 @@
 #include "mSoundManager.h"
 
+#include <filesystem>
+
 #include "mAudioClip.h"
 #include "mResources.h"
 #include "mGameObject.h"
@@ -18,11 +20,15 @@ namespace m
 	bool SoundManager::bPlayed[(int)eExternAudioType::End] = { false, false, false, false, false, };
 	FMOD::Sound* SoundManager::Load(const std::wstring& path)
 	{
-		std::string cPath(path.begin(), path.end());
+		std::wstring resolvedPath = Resources::ResolvePath(path);
+		std::string cPath = std::filesystem::path(resolvedPath).string();
+
 		FMOD::Sound* sound = nullptr;
 		if (!Fmod::CreateSound(cPath, &sound))
+		{
+			Resources::LogLoadFailure(path, path, resolvedPath);
 			return nullptr;
-
+		}
 
 		sound->set3DMinMaxDistance(0.f, 500.f);
 		return sound;
@@ -357,3 +363,8 @@ namespace m
 		}
     }
 }
+
+
+
+
+

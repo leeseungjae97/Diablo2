@@ -1,10 +1,11 @@
-#include "mMonster.h"
+﻿#include "mMonster.h"
 
 #include "../engine_source/ItemLookUpTables.h"
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mTime.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mStashManager.h"
+#include "../engine_source/mTileManager.h"
 
 #include "mPlayerManager.h"
 #include "mPlayer.h"
@@ -20,14 +21,20 @@ namespace m
 		, hp(100.f)
 		, hpCapacity(100.f)
 	    , fCenterPosY(0.f)
-		, frameCount(0)
 		, hpPercent((hpCapacity - hp) / hpCapacity)
+		, mNextMoveCoord(Vector2(-1.f, -1.f))
+		, mReservedNextMoveCoord(Vector2(-1.f, -1.f))
+		, bHasNextMoveReservation(false)
+		, bNeedPathRebuild(true)
+		, fPathRebuildAcc(0.f)
+		, fStuckAcc(0.f)
 	{
 		SET_MESH(this, L"RectMesh");
 		SET_MATERIAL(this, L"AnimationMaterial");
 		ADD_COMP(this, Animator);
 		ADD_COMP(this, AudioSource);
 
+		MonsterManager::AddMonster(this);
 		MeshRenderer* mr = GET_COMP(this, MeshRenderer);
 		mr->AddTrappingColorBuffer();
 
@@ -64,6 +71,113 @@ namespace m
 		if (mShadow)
 			mShadow->SetState(Delete);
 	}
+	bool Monster::Arrival()
+	{
+		return CanMeleeAttackPlayerByTile();
+	}
+
+	bool Monster::CanMeleeAttackPlayerByTile()
+	{
+		Vector2 curCoord = GetCoord();
+		Vector2 playerCoord = TileManager::GetPlayerPositionCoord();
+
+		int dx = abs(static_cast<int>(curCoord.x) - static_cast<int>(playerCoord.x));
+		int dy = abs(static_cast<int>(curCoord.y) - static_cast<int>(playerCoord.y));
+
+		return dx <= 1 && dy <= 1 && (dx != 0 || dy != 0);
+	}
+	void Monster::ReserveNextMoveCoord(Vector2 coord)
+	{
+		if (bHasNextMoveReservation && mReservedNextMoveCoord == coord)
+			return;
+
+		ClearNextMoveReservation();
+		if (!MonsterManager::ReserveMoveTile(this, coord))
+		{
+			RequestPathRebuild();
+			return;
+		}
+
+		mReservedNextMoveCoord = coord;
+		mNextMoveCoord = coord;
+		bHasNextMoveReservation = true;
+	}
+
+	void Monster::ClearNextMoveReservation()
+	{
+		if (!bHasNextMoveReservation && !MonsterManager::HasMoveTileReservation(this))
+			return;
+
+		MonsterManager::ReleaseMoveTile(this);
+		mReservedNextMoveCoord = Vector2(-1.f, -1.f);
+		bHasNextMoveReservation = false;
+	}
+
+	Vector2 Monster::selectApproachCoord(Vector2 playerCoord, Vector2 curCoord)
+	{
+		static const int offsets[][2] = {
+			{ 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 },
+			{ 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 }
+		};
+
+		const int count = sizeof(offsets) / sizeof(offsets[0]);
+		int startIndex = monsterId < 0 ? 0 : monsterId % count;
+		Vector2 bestCoord = CanMeleeAttackPlayerByTile() ? curCoord : playerCoord;
+		int bestScore = INT_MAX;
+
+		for (int n = 0; n < count; ++n)
+		{
+			int index = (startIndex + n) % count;
+			int x = static_cast<int>(playerCoord.x) + offsets[index][0];
+			int y = static_cast<int>(playerCoord.y) + offsets[index][1];
+
+			if (y < 0 || x < 0
+				|| y >= TileManager::pathFindingTiles.size()
+				|| x >= TileManager::pathFindingTiles[y].size())
+				continue;
+
+			Tile* tile = TileManager::pathFindingTiles[y][x];
+			Vector2 candidate = Vector2(x, y);
+			bool ownCurrent = candidate == curCoord;
+
+			if (tile->GetIsWall())
+				continue;
+			if (tile->GetOnMonster() && !ownCurrent)
+				continue;
+			if (MonsterManager::IsMoveTileReservedByOther(this, candidate))
+				continue;
+
+			int dist = static_cast<int>(abs(candidate.x - curCoord.x) + abs(candidate.y - curCoord.y));
+			int score = dist * 10 + n;
+
+			if (score < bestScore)
+			{
+				bestScore = score;
+				bestCoord = candidate;
+			}
+		}
+
+		return bestCoord;
+	}
+
+	bool Monster::shouldRebuildPath(Vector2 curCoord, Vector2 targetCoord)
+	{
+		if (bNeedPathRebuild)
+			return true;
+		if (curCoord != prevCurCoord)
+			return true;
+		if (targetCoord != prevTargetCoord)
+			return true;
+		if (mPathFinder && mPathFinder->GetPath().empty())
+			return true;
+		if (fStuckAcc > 0.25f)
+			return true;
+		if (fPathRebuildAcc > 0.5f)
+			return true;
+
+		return false;
+	}
+
 	void Monster::Initialize()
 	{
 		MoveAbleObject::Initialize();
@@ -73,7 +187,6 @@ namespace m
 	{
 		
 		MoveAbleObject::Update();
-		frameCount++;
 		if (GetBattleState() == eBattleState::ToDead)
 		{
 			MonsterManager::AddDeadMonster(this);
@@ -91,6 +204,7 @@ namespace m
 
 			if (mPathFinder)
 			{
+				ClearNextMoveReservation();
 				mPathFinder->Release();
 
 				getReward();
@@ -124,38 +238,54 @@ namespace m
 		Vector3 curPosition = GET_POS(this);
 
 		Vector2 curCoord = GetCoord();
-		Vector2 targetCoord = TileManager::GetPlayerPositionCoord();
-		
-		
-		if (targetCoord != prevTargetCoord
-			|| destCoord != mPathFinder->GetTargetCoord())
+		Vector2 playerCoord = TileManager::GetPlayerPositionCoord();
+		Vector2 targetCoord = selectApproachCoord(playerCoord, curCoord);
+		bool canMeleeAttack = CanMeleeAttackPlayerByTile();
+		fPathRebuildAcc += Time::fDeltaTime();
+
+		if (canMeleeAttack)
+		{
+			ClearNextMoveReservation();
+			mPathFinder->ClearPath();
+		}
+
+		if (!canMeleeAttack && shouldRebuildPath(curCoord, targetCoord))
 		{
 			if (sightCollider->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
 			{
-				//bool move = mPathFinder->MonsterMove(this);
+				ClearNextMoveReservation();
+				mPathFinder->ClearPath();
 
-				if (frameCount >= 30)
+				if (mMonsterClass == eMonsterClass::Boss)
 				{
-					if (mMonsterClass == eMonsterClass::Boss)
-					{
-						mPathFinder->AstarPathFinding(curCoord, targetCoord, 20);
-					}
-					else
-					{
-						mPathFinder->AstarPathFinding(curCoord, targetCoord, 10);
-					}
-					frameCount = 0;
+					mPathFinder->AstarPathFinding(curCoord, targetCoord, 20, true);
+				}
+				else
+				{
+					mPathFinder->AstarPathFinding(curCoord, targetCoord, 10, true);
 				}
 
 				prevCurCoord = curCoord;
 				prevTargetCoord = targetCoord;
 
-				mPathFinder->PathChange(true);
-				destCoord = mPathFinder->GetTargetCoord();
+				bool moveAdjacent = targetCoord == playerCoord;
+				if (mPathFinder->PathChange(moveAdjacent))
+				{
+					destCoord = mPathFinder->GetTargetCoord();
+					ClearPathRebuildRequest();
+					fPathRebuildAcc = 0.f;
+				}
+				else
+				{
+					RequestPathRebuild();
+				}
 			}
 		}
-		bMove = true;
-		mPathFinder->MonsterMove(this);
+		bMove = !canMeleeAttack;
+		if (bMove)
+		{
+			mPathFinder->MonsterMove(this);
+		}
 		
 		if (mMonsterClass != eMonsterClass::Boss
 			&& GetBattleState() == eBattleState::Hit)
@@ -163,6 +293,12 @@ namespace m
 			fStartDistance = fRemainDistance;
 			destPosition = TileManager::GetPlayerPosition();
 			bMove = false;
+		}
+		if (GetBattleState() == eBattleState::Attack
+			&& !CanMeleeAttackPlayerByTile())
+		{
+			SetBattleState(eBattleState::Idle);
+			RequestPathRebuild();
 		}
 		if (GetBattleState() == eBattleState::Dead
 			|| GetBattleState() == eBattleState::Attack
@@ -184,6 +320,14 @@ namespace m
 		if(!bMove)
 		{
 			destPosition = TileManager::GetPlayerPosition();
+		}
+		if (bMove && fStartDistance > 0.f && fRemainDistance >= fStartDistance)
+		{
+			fStuckAcc += Time::fDeltaTime();
+		}
+		else
+		{
+			fStuckAcc = 0.f;
 		}
 		if (fRemainDistance < fStartDistance && bMove)
 		{
@@ -255,3 +399,8 @@ namespace m
 		}
 	}
 }
+
+
+
+
+

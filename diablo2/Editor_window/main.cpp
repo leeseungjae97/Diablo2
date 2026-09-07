@@ -1,4 +1,4 @@
-﻿// Editor_window.cpp : 애플리케이션에 대한 진입점을 정의합니다.
+// Editor_window.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
 #include "framework.h"
@@ -27,6 +27,7 @@
 m::Application application;
 
 #define MAX_LOADSTRING 100
+
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -162,7 +163,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
-   application.Initialize();
+   if (!application.Initialize())
+   {
+       MessageBoxW(hWnd, L"Application initialization failed.", L"Editor_window", MB_OK | MB_ICONERROR);
+       return FALSE;
+   }
    m::InitializeScenes();
    gui::Editor::Initialize();
    return TRUE;

@@ -23,6 +23,7 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+
 	std::vector<Light*> lights = {};
 	StructuredBuffer* lightsBuffer = nullptr;
 	m::Camera* mainCamera = nullptr;
@@ -32,7 +33,7 @@ namespace renderer
 	void SetupState()
 	{
 #pragma region InputLayout
-		// Input layout Á¤Á¡ ±¸Á¶ Á¤º¸¸¦ ³Ñ°ÜÁà¾ßÇÑ´Ù.
+		// Input layout ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		D3D11_INPUT_ELEMENT_DESC arrLayout[3] = {};
 
 		arrLayout[0].AlignedByteOffset = 0;
@@ -1379,6 +1380,7 @@ namespace renderer
 		LoadShader();
 		SetupState();
 		LoadTexture();
+
 		LoadMaterial();
 	}
 
@@ -1435,6 +1437,3 @@ namespace renderer
 		lightsBuffer = nullptr;
 	}
 }
-
-
-

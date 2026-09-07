@@ -22,6 +22,7 @@
 #include "mTileDrawManager.h"
 #include "mCheatManager.h"
 #include "mSkillManager.h"
+
 #include "mVideoManager.h"
 
 namespace m
@@ -41,14 +42,24 @@ namespace m
 
 	void Application::Run()
 	{
+		if (!mbInitialize)
+			return;
+
 		Update();
 		LateUpdate();
 		Render();
 		Destroy();
 	}
 
-	void Application::Initialize()
+	bool Application::Initialize()
 	{
+		if (graphicDevice == nullptr || !graphicDevice->IsValid())
+		{
+			OutputDebugStringW(L"Application initialization failed: invalid graphic device.\n");
+			mbInitialize = false;
+			return false;
+		}
+
 		mViewPort = {
         0.f,
         0.f,
@@ -70,6 +81,8 @@ namespace m
 		SoundManager::Initialize();
 		MouseManager::Initialize();
 		//gui::Editor::Initialize();
+		mbInitialize = true;
+		return true;
 	}
 
 	void Application::Update()
@@ -113,6 +126,9 @@ namespace m
 	}
 	void Application::Present()
 	{
+		if (!mbInitialize)
+			return;
+
 		graphicDevice->Present();
 	}
 

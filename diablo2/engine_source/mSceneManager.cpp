@@ -39,7 +39,8 @@ namespace m
 	}
 	void SceneManager::Destroy()
 	{
-		mActiveScene->Destroy();
+		if (mActiveScene)
+			mActiveScene->Destroy();
 	}
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{

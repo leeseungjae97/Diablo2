@@ -6,6 +6,12 @@
 namespace m
 {
 	class Monster;
+	struct MoveTileReservation
+	{
+		Monster* owner;
+		Vector2 coord;
+	};
+
 	class MonsterManager
 	{
 	public:
@@ -18,13 +24,19 @@ namespace m
 		static Monster* GetMonster(int monsterId);
 		static void ClearMonster();
 		static void Init();
+		static bool ReserveMoveTile(Monster* monster, Vector2 coord);
+		static void ReleaseMoveTile(Monster* monster);
+		static bool IsMoveTileReservedByOther(Monster* monster, Vector2 coord);
+		static bool HasMoveTileReservation(Monster* monster);
 
 		static std::vector<Monster*> monsters;
 		static std::vector<Monster*> deadMonsters;
 
 		static int reserveSize;
 		static int monstersSize;
+
 	private:
+		static std::vector<MoveTileReservation> moveReservations;
 	};
 }
 

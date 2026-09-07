@@ -9,17 +9,32 @@ namespace m::graphics
 {
 	GraphicDevice_DX11::GraphicDevice_DX11()
 	{
-		// Device, Context »ý¼º
+		// Device, Context ï¿½ï¿½ï¿½ï¿½
 		HWND hWnd = application.GetHwnd();
 		UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 		D3D_FEATURE_LEVEL featureLevel = (D3D_FEATURE_LEVEL)0;
 
-		// GPU¿¡ device, contextÀÇ ÁÖ¼Ò ÇÒ´ç
-		D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr
+		// GPUï¿½ï¿½ device, contextï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½Ò´ï¿½
+		HRESULT hr = D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr
 			, deviceFlag, nullptr, 0
 			, D3D11_SDK_VERSION
 			, mDevice.GetAddressOf(), &featureLevel
-			, mContext.GetAddressOf()); // ComPtrÀÇ ÁÖ¼Ò¸¦ °¡Á®¿À´Â ÇÔ¼ö (**)
+			, mContext.GetAddressOf()); // ComPtrï¿½ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ (**)
+		if (FAILED(hr))
+		{
+			OutputDebugStringW(L"D3D11 debug device creation failed. Retrying without debug layer.\n");
+			deviceFlag = 0;
+			hr = D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr
+				, deviceFlag, nullptr, 0
+				, D3D11_SDK_VERSION
+				, mDevice.GetAddressOf(), &featureLevel
+				, mContext.GetAddressOf());
+			if (FAILED(hr))
+			{
+				OutputDebugStringW(L"D3D11 device creation failed.\n");
+				return;
+			}
+		}
 
 		// swapChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
@@ -27,7 +42,7 @@ namespace m::graphics
 		swapChainDesc.BufferDesc.Width = application.GetWidth();
 		swapChainDesc.BufferDesc.Height = application.GetHeight();
 
-		// ½º¿ÒÃ¼ÀÎ¿¡ ´ëÇÑ °ª ¼³Á¤
+		// ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		if (!CreateSwapChain(&swapChainDesc, hWnd))
 			return;
@@ -78,7 +93,7 @@ namespace m::graphics
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
 
-		mViewPort = 
+		mViewPort =
 		{
 			0.0f, 0.0f
 			,(float)(winRect.right - winRect.left)
@@ -97,8 +112,8 @@ namespace m::graphics
 
 		DXGI_SWAP_CHAIN_DESC dxgiDesc = {};
 
-		dxgiDesc.OutputWindow = hWnd;										// Front Buffer ¸¦ Ãâ·Â½ÃÅ³ À©µµ¿ì ÇÚµé
-		dxgiDesc.Windowed = true;											// À©µµ¿ì, ÀüÃ¼È­¸é ¸ðµå
+		dxgiDesc.OutputWindow = hWnd;										// Front Buffer ï¿½ï¿½ ï¿½ï¿½Â½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+		dxgiDesc.Windowed = true;											// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½ï¿½
 		dxgiDesc.BufferCount = desc->BufferCount;
 		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
@@ -108,8 +123,8 @@ namespace m::graphics
 		dxgiDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
 		dxgiDesc.BufferDesc.RefreshRate.Numerator = 240;
 		dxgiDesc.BufferDesc.RefreshRate.Denominator = 1;
-		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;							// ±×·¡ÇÈ 
-		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// ÀÌ¹ÌÁö »ý¼º ¹æÇâ.
+		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;							// ï¿½×·ï¿½ï¿½ï¿½
+		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 		dxgiDesc.SampleDesc.Count = 1;
 		dxgiDesc.SampleDesc.Quality = 0;
@@ -117,6 +132,8 @@ namespace m::graphics
 		Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
 		Microsoft::WRL::ComPtr<IDXGIAdapter> pAdapter = nullptr;
 		Microsoft::WRL::ComPtr<IDXGIFactory> pFactory = nullptr;
+		if (mDevice == nullptr)
+			return false;
 
 		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)pDXGIDevice.GetAddressOf())))
 			return false;
@@ -149,7 +166,7 @@ namespace m::graphics
 	bool GraphicDevice_DX11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;
-		D3DCompileFromFile(fileName.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		HRESULT hr = D3DCompileFromFile(fileName.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 			, funcName.c_str(), version.c_str(), 0, 0, ppCode, &errorBlob);
 
 		if (errorBlob)
@@ -159,7 +176,14 @@ namespace m::graphics
 			errorBlob = nullptr;
 		}
 
-		return false;
+		if (FAILED(hr))
+		{
+			std::wstring message = L"Shader compile failed: " + fileName + L"\n";
+			OutputDebugStringW(message.c_str());
+			return false;
+		}
+
+		return ppCode != nullptr && *ppCode != nullptr;
 	}
 	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader)
 	{
@@ -269,10 +293,10 @@ namespace m::graphics
 	//	dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
 	//	dxgiDesc.SampleDesc.Quality = 0;
 
-	//	dxgiDesc.MipLevels = desc->MipLevels; // ¹Ì¸® ÅØ½ºÃÄ »çÀÌÁî¸¦ Å©±âº°·Î ¸¸µé¾î³õÀº °æ¿ì ·¹º§ »çÀÌÁî¸¦ Á¤ÇÔ.
+	//	dxgiDesc.MipLevels = desc->MipLevels; // ï¿½Ì¸ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ Å©ï¿½âº°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½.
 	//	dxgiDesc.MiscFlags = desc->MiscFlags;
 
-	//	//D3D11_SUBRESOURCE_DATA data; // µ¥ÀÌÅÍ ³Ñ°ÜÁÙ¶§ form
+	//	//D3D11_SUBRESOURCE_DATA data; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ù¶ï¿½ form
 	//	if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
 	//		return false;
 
@@ -283,6 +307,9 @@ namespace m::graphics
 	//}
 	bool GraphicDevice_DX11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, ID3DBlob* byteCode, ID3D11InputLayout** ppInputLayout)
 	{
+		if (mDevice == nullptr || byteCode == nullptr)
+			return false;
+
 		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
 			, byteCode->GetBufferPointer()
 			, byteCode->GetBufferSize()
@@ -425,7 +452,15 @@ namespace m::graphics
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_READ, 0, &sub);
-		*data = static_cast<T*>(sub.pData);
+
+		delete[] *data;
+		*data = nullptr;
+		if (size > 0)
+		{
+			*data = new T[size];
+			memcpy(*data, sub.pData, sizeof(T) * size);
+		}
+
 		mContext->Unmap(buffer, 0);
 	}
 	template <typename T>
@@ -512,17 +547,17 @@ namespace m::graphics
 	}
 	void GraphicDevice_DX11::DrawStringText(std::wstring str)
 	{
-		//HWND hWnd = application.GetHwnd();	
-		//// ÅØ½ºÆ® Ãâ·Â
+		//HWND hWnd = application.GetHwnd();
+		//// ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½
 		//
 		//pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
 		//pRenderTarget->DrawTextW(
 		//	str.c_str(),
-		//	str.size(), // ÅØ½ºÆ® ±æÀÌ
-		//	pTextFormat_, // ÅØ½ºÆ® Æ÷¸Ë (IDWriteTextFormat)
-		//	D2D1::RectF(0, 0, 800, 600), // ÅØ½ºÆ® ¿µ¿ª
-		//	pBrush // ºê·¯½Ã (ID2D1Brush)
+		//	str.size(), // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+		//	pTextFormat_, // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ (IDWriteTextFormat)
+		//	D2D1::RectF(0, 0, 800, 600), // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+		//	pBrush // ï¿½ê·¯ï¿½ï¿½ (ID2D1Brush)
 		//);
 		//pRenderTarget->EndDraw();
 	}

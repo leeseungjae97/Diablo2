@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../engine_source/mGameObject.h"
 #include "../engine_source/mMonsterManager.h"
 
@@ -30,11 +30,17 @@ namespace m
         void SetMonsterClass(eMonsterClass _class) { mMonsterClass = _class; }
         eMonsterClass GetMonsterClass() { return mMonsterClass; }
 
-        bool Arrival() { return bMove; }
+        bool Arrival();
 
         void SetNextMoveCoord(Vector2 coord) { mNextMoveCoord = coord; }
         Vector2 GetNextMoveCoord() { return mNextMoveCoord; }
-
+        void ReserveNextMoveCoord(Vector2 coord);
+        void ClearNextMoveReservation();
+        bool HasNextMoveReservation() { return bHasNextMoveReservation; }
+        Vector2 GetReservedNextMoveCoord() { return mReservedNextMoveCoord; }
+        void RequestPathRebuild() { bNeedPathRebuild = true; }
+        bool NeedPathRebuild() { return bNeedPathRebuild; }
+        void ClearPathRebuildRequest() { bNeedPathRebuild = false; }
         Vector2 GetPrevCurCoord() { return prevCurCoord; }
         Vector2 GetTargetCoord() { return prevTargetCoord; }
 
@@ -56,8 +62,11 @@ namespace m
 
         void SetCenterPosY(float centerPosY) { fCenterPosY = centerPosY; }
         float GetCenterPosY() { return fCenterPosY; }
+        bool CanMeleeAttackPlayerByTile();
     private:
         void getReward();
+        Vector2 selectApproachCoord(Vector2 playerCoord, Vector2 curCoord);
+        bool shouldRebuildPath(Vector2 curCoord, Vector2 targetCoord);
 
     private:
         Collider2D* sightCollider;
@@ -65,6 +74,11 @@ namespace m
         eMonsterType mMonsterType;
 
     	Vector2 mNextMoveCoord;
+        Vector2 mReservedNextMoveCoord;
+        bool bHasNextMoveReservation;
+        bool bNeedPathRebuild;
+        float fPathRebuildAcc;
+        float fStuckAcc;
 
         Vector2 prevCurCoord;
         Vector2 prevTargetCoord;
@@ -74,7 +88,6 @@ namespace m
         //bool bPathChange;
 
         int monsterId;
-        int frameCount;
         float hp;
         float hpCapacity;
         float hpPercent;
@@ -84,4 +97,6 @@ namespace m
         float fCenterPosY;
     };
 }
+
+
 

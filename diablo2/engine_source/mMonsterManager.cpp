@@ -6,6 +6,7 @@ namespace m
 {
 	std::vector<Monster*> MonsterManager::monsters = {};
 	std::vector<Monster*> MonsterManager::deadMonsters = {};
+	std::vector<MoveTileReservation> MonsterManager::moveReservations = {};
 	int MonsterManager::reserveSize = 50;
 	int MonsterManager::monstersSize = 0;
 
@@ -13,8 +14,68 @@ namespace m
 	{
 		monsters.reserve(reserveSize);
 		deadMonsters.reserve(reserveSize);
+		moveReservations.reserve(reserveSize);
 	}
 
+	
+	bool MonsterManager::ReserveMoveTile(Monster* monster, Vector2 coord)
+	{
+		if (monster == nullptr)
+			return false;
+
+		for (MoveTileReservation& reservation : moveReservations)
+		{
+			if (reservation.owner != monster && reservation.coord == coord)
+				return false;
+		}
+
+		for (MoveTileReservation& reservation : moveReservations)
+		{
+			if (reservation.owner == monster)
+			{
+				reservation.coord = coord;
+				return true;
+			}
+		}
+
+		moveReservations.push_back({ monster, coord });
+		return true;
+	}
+
+	void MonsterManager::ReleaseMoveTile(Monster* monster)
+	{
+		if (monster == nullptr)
+			return;
+
+		auto iter = moveReservations.begin();
+		while (iter != moveReservations.end())
+		{
+			if (iter->owner == monster)
+				iter = moveReservations.erase(iter);
+			else
+				++iter;
+		}
+	}
+
+	bool MonsterManager::IsMoveTileReservedByOther(Monster* monster, Vector2 coord)
+	{
+		for (const MoveTileReservation& reservation : moveReservations)
+		{
+			if (reservation.owner != monster && reservation.coord == coord)
+				return true;
+		}
+		return false;
+	}
+
+	bool MonsterManager::HasMoveTileReservation(Monster* monster)
+	{
+		for (const MoveTileReservation& reservation : moveReservations)
+		{
+			if (reservation.owner == monster)
+				return true;
+		}
+		return false;
+	}
 	Monster& MonsterManager::AddMonster(Vector3 pos)
 	{
 		int index = monstersSize;
@@ -31,6 +92,7 @@ namespace m
     }
 	void MonsterManager::AddDeadMonster(Monster* monster)
     {
+		ReleaseMoveTile(monster);
 		EraseMonster(monster);
 		deadMonsters.push_back(monster);
     }
@@ -48,6 +110,7 @@ namespace m
     }
 	void MonsterManager::EraseMonster(Monster* monster)
 	{
+		ReleaseMoveTile(monster);
 		auto iter = monsters.begin();
 		int eraseMonsterId = monster->GetMonsterId();
 		while(iter != monsters.end())
@@ -85,5 +148,6 @@ namespace m
     void MonsterManager::ClearMonster()
 	{
 		if (!monsters.empty()) monsters.clear();
+		moveReservations.clear();
 	}
 }

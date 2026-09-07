@@ -3,6 +3,27 @@
 
 namespace m
 {
+
+	namespace
+	{
+		std::filesystem::path GetGraphicsShaderSourcePath()
+		{
+			wchar_t modulePath[MAX_PATH] = {};
+			GetModuleFileNameW(nullptr, modulePath, MAX_PATH);
+
+			std::filesystem::path current = std::filesystem::path(modulePath).parent_path();
+			for (int i = 0; i < 4 && !current.empty(); ++i)
+			{
+				std::filesystem::path candidate = current / L"shader_source";
+				if (std::filesystem::exists(candidate))
+					return candidate;
+
+				current = current.parent_path();
+			}
+
+			return std::filesystem::current_path().parent_path() / L"shader_source";
+		}
+	}
 	Shader::Shader()
 		: Resource(enums::eResourceType::Shader)
 		, mInputLayout(nullptr)
@@ -14,7 +35,11 @@ namespace m
 	{}
 	Shader::~Shader()
 	{
-		mInputLayout->Release();
+		if (mInputLayout)
+		{
+			mInputLayout->Release();
+			mInputLayout = nullptr;
+		}
 	}
 	HRESULT Shader::Load(const std::wstring& path)
 	{
@@ -24,35 +49,36 @@ namespace m
 		, const std::wstring& fileName
 		, const std::string& funcName)
 	{
-		std::filesystem::path shaderPath
-			= std::filesystem::current_path().parent_path();
-		shaderPath += L"\\shader_source\\";
-
-		std::filesystem::path fullPath(shaderPath.c_str());
-		fullPath += fileName;
+		std::filesystem::path fullPath = GetGraphicsShaderSourcePath() / fileName;
 
 		ID3DBlob* errorBlob = nullptr;
 		if (stage == eShaderStage::VS)
 		{
-			GetDevice()->CompileFromfile(fullPath, funcName, "vs_5_0", mVSBlob.GetAddressOf());
-			GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer()
+			if (!GetDevice()->CompileFromfile(fullPath, funcName, "vs_5_0", mVSBlob.GetAddressOf()))
+				return false;
+
+			return GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer()
 				, mVSBlob->GetBufferSize(), mVS.GetAddressOf());
 		}
 		else if (stage == eShaderStage::GS)
 		{
-			GetDevice()->CompileFromfile(fullPath, funcName, "gs_5_0", mGSBlob.GetAddressOf());
-			GetDevice()->CreateGeometryShader(mGSBlob->GetBufferPointer()
+			if (!GetDevice()->CompileFromfile(fullPath, funcName, "gs_5_0", mGSBlob.GetAddressOf()))
+				return false;
+
+			return GetDevice()->CreateGeometryShader(mGSBlob->GetBufferPointer()
 											  , mGSBlob->GetBufferSize(), mGS.GetAddressOf());
 		}
 		else if (stage == eShaderStage::PS)
 		{
-			GetDevice()->CompileFromfile(fullPath, funcName, "ps_5_0", mPSBlob.GetAddressOf());
-			GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
+			if (!GetDevice()->CompileFromfile(fullPath, funcName, "ps_5_0", mPSBlob.GetAddressOf()))
+				return false;
+
+			return GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
 				, mPSBlob->GetBufferSize(), mPS.GetAddressOf());
 		}
 
 
-		return true;
+		return false;
 	}
 	void Shader::Binds()
 	{

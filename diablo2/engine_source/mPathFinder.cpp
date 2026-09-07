@@ -29,6 +29,7 @@ namespace m
 		, dy(0)
 		, dx(0)
 		, searchTileSize(20)
+		, mMonsterOwner(nullptr)
 		//, mPFSS(nullptr)
 	{
 		bfsPathFinderExcept.reserve(5);
@@ -74,7 +75,7 @@ namespace m
 		mDrawPathTileObject->SetState(GameObject::eState::Delete);
     }
 
-    void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize)
+    void PathFinder::AstarPathFinding(Vector2 startCoord, Vector2 targetCoord, float searchSize, bool forceRebuild)
 	{
 		if (TileManager::pathFindingTiles[targetCoord.y][targetCoord.x]->GetIsWall()) return;
 		if (TileManager::pathFindingTiles[startCoord.y][startCoord.x]->GetIsWall()) return;
@@ -82,7 +83,7 @@ namespace m
 
 		//if(nullptr == mMonsterOwner)
 		//{
-		//	if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
+		//	if (!forceRebuild && mStartCoord == startCoord && mTargetCoord == targetCoord) return;
 		//}
 		//else
 		//{
@@ -92,7 +93,7 @@ namespace m
 		//		return;
 		//	}
 		//}
-		if (mStartCoord == startCoord && mTargetCoord == targetCoord) return;
+		if (!forceRebuild && mStartCoord == startCoord && mTargetCoord == targetCoord) return;
 
 		mStartCoord = startCoord;
 		mTargetCoord = targetCoord;
@@ -102,6 +103,8 @@ namespace m
 		else searchTileSize = searchSize;
 
 		pathVector.clear();
+		openVector.clear();
+		closedVector.clear();
 
 		startTile = TileManager::pathFindingTiles[mStartCoord.y][mStartCoord.x];
 		targetTile = TileManager::pathFindingTiles[mTargetCoord.y][mTargetCoord.x];
@@ -178,45 +181,49 @@ namespace m
 
 	void PathFinder::openVectorAdd(int y, int x)
 	{
-		if (mMonsterOwner
-			&& mMonsterOwner->GetNextMoveCoord() == Vector2(x, y)
-			&& TileManager::pathFindingTiles[y][x]->GetMonsterNext() != 0)
+		Tile* neighborTile = TileManager::pathFindingTiles[y][x];
+		Vector2 candidateCoord = Vector2(x, y);
+		bool ownCurrentTile = mMonsterOwner && mMonsterOwner->GetCoord() == candidateCoord;
+
+		if (x < (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
+			|| x >= mTargetCoord.x + searchTileSize
+			|| y < (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
+			|| y >= mTargetCoord.y + searchTileSize)
 			return;
 
-		if (x >= (mTargetCoord.x - searchTileSize < 0 ? 0 : mTargetCoord.x - searchTileSize)
-			&& x < mTargetCoord.x + searchTileSize
-			&& y >= (mTargetCoord.y - searchTileSize < 0 ? 0 : mTargetCoord.y - searchTileSize)
-			&& y < mTargetCoord.y + searchTileSize
-			&& !TileManager::pathFindingTiles[y][x]->GetIsWall()
-			&& !TileManager::pathFindingTiles[y][x]->GetOnMonster()
-			&& !TileManager::pathFindingTiles[y][x]->GetInClosed())
+		if (neighborTile->GetIsWall()
+			|| neighborTile->GetInClosed())
+			return;
+
+		if (neighborTile->GetOnMonster() && !ownCurrentTile)
+			return;
+		if (MonsterManager::IsMoveTileReservedByOther(mMonsterOwner, candidateCoord))
+			return;
+
+		if (allowDiagonal)
 		{
+			if (TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()
+				&& TileManager::pathFindingTiles[y][curTile->GetCoord().x]->GetIsWall()) return;
+		}
+		if (dontCrossCorner)
+		{
+			if (TileManager::pathFindingTiles[y][curTile->GetCoord().x]->GetIsWall()
+				|| TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()) return;
+		}
 
-			if (allowDiagonal)
-			{
-				if (TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()
-					&& TileManager::pathFindingTiles[y][curTile->GetCoord().x]->GetIsWall()) return;
-			}
-			if (dontCrossCorner)
-			{
-				if (TileManager::pathFindingTiles[y][curTile->GetCoord().x]->GetIsWall()
-					|| TileManager::pathFindingTiles[curTile->GetCoord().y][x]->GetIsWall()) return;
-			}
-			Tile* neighborTile = TileManager::pathFindingTiles[y][x];
-			int moveCost = curTile->GetG()
-						 + (curTile->GetCoord().x - x == 0 
-						 || curTile->GetCoord().y - y == 0 ? 10 : 14);
+		int moveCost = curTile->GetG()
+			+ (curTile->GetCoord().x - x == 0
+			|| curTile->GetCoord().y - y == 0 ? 10 : 14);
 
-			if (moveCost < neighborTile->GetG() || !neighborTile->GetInOpen())
-			{
-				neighborTile->SetG(moveCost);
-				neighborTile->SetH((abs(neighborTile->GetCoord().x - targetTile->GetCoord().x)
-									+ abs(neighborTile->GetCoord().y - targetTile->GetCoord().y)) * 10);
-				neighborTile->SetParentTile(curTile);
+		if (moveCost < neighborTile->GetG() || !neighborTile->GetInOpen())
+		{
+			neighborTile->SetG(moveCost);
+			neighborTile->SetH((abs(neighborTile->GetCoord().x - targetTile->GetCoord().x)
+				+ abs(neighborTile->GetCoord().y - targetTile->GetCoord().y)) * 10);
+			neighborTile->SetParentTile(curTile);
 
-				neighborTile->SetInOpen(true);
-				openVector.push_back(neighborTile);
-			}
+			neighborTile->SetInOpen(true);
+			openVector.push_back(neighborTile);
 		}
 	}
 	void PathFinder::InSightPathFinding(Vector2 startCoord, Vector2 targetCoord)
@@ -318,21 +325,31 @@ namespace m
 	}
 	bool PathFinder::MonsterMove(Monster* mOwner)
 	{
-		if (finalPathVector.empty()) return false;
+		if (finalPathVector.empty())
+		{
+			mOwner->ClearNextMoveReservation();
+			return false;
+		}
 
 		Tile* subTargetTile = finalPathVector.front();
-		mOwner->SetNextMoveCoord(subTargetTile->GetCoord());
-		subTargetTile->SetMonsterNext();
+		Vector2 subTargetCoord = subTargetTile->GetCoord();
+		mOwner->SetNextMoveCoord(subTargetCoord);
 
 		mTDS->MakePathTileBuffer(finalPathVector);
 
-		if (subTargetTile->GetCoord() != mOwner->GetCoord())
+		if (subTargetCoord != mOwner->GetCoord())
 		{
-			if (subTargetTile->GetOnMonster())
+			if (subTargetTile->GetOnMonster()
+				|| MonsterManager::IsMoveTileReservedByOther(mOwner, subTargetCoord))
 			{
-				subTargetTile->UnSetMonsterNext();
-				ClearPath();
+				mOwner->RequestPathRebuild();
 				return false;
+			}
+
+			if (!mOwner->HasNextMoveReservation()
+				|| mOwner->GetReservedNextMoveCoord() != subTargetCoord)
+			{
+				mOwner->ReserveNextMoveCoord(subTargetCoord);
 			}
 
 			Vector3 subPos = subTargetTile->GetPos();
@@ -359,7 +376,7 @@ namespace m
 		}
 		else
 		{
-			subTargetTile->UnSetMonsterNext();
+			mOwner->ClearNextMoveReservation();
 			std::erase(finalPathVector, finalPathVector.front());
 			return true;
 		}
@@ -367,16 +384,9 @@ namespace m
 	}
 	void PathFinder::ClearPath()
 	{
-		for(int i = 0 ; i < finalPathVector.size() ;++i)
-		{
-			finalPathVector[i]->SetOnMonster(false);
-			//finalPathVector[i]->SetMonsterNext(false);
-		}
-		for(int i = 0 ; i < pathVector.size(); ++i)
-		{
-			pathVector[i]->SetOnMonster(false);
-			//pathVector[i]->SetMonsterNext(false);
-		}
+		if (mMonsterOwner)
+			mMonsterOwner->ClearNextMoveReservation();
+
 		finalPathVector.clear();
 		pathVector.clear();
 	}

@@ -63,7 +63,8 @@ namespace m::graphics
 		//	mGSkillBuffer->buffer)
 		//	mGSkillBuffer->BindUAV(6);
 
-		mGroupX = 1000;
+		UINT tileCount = mTileBuffer == nullptr ? 0 : mTileBuffer->GetStride();
+		mGroupX = tileCount == 0 ? 1 : (tileCount + 999) / 1000;
 		mGroupY = 1;
 		mGroupZ = 1;
 	}
@@ -116,10 +117,10 @@ namespace m::graphics
 		{
 			mTileCoordBuffer->GetData<ComputedTileCoord>(data, size);
 		}
-		if (nullptr != mMonsterCoordBuffer->buffer
-			&& nullptr != mMonsterBuffer->buffer
-			&& nullptr != mMonsterCoordBuffer
-			&& nullptr != mMonsterBuffer)
+		if (nullptr != mMonsterCoordBuffer
+			&& nullptr != mMonsterBuffer
+			&& nullptr != mMonsterCoordBuffer->buffer
+			&& nullptr != mMonsterBuffer->buffer)
 		{
 			mMonsterCoordBuffer->GetData<ComputedMonsterCoord>(data2, size2);
 		}
@@ -143,3 +144,4 @@ namespace m::graphics
 		
 	}
 }
+

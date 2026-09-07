@@ -13,7 +13,7 @@ void main( uint3 DTid : SV_DispatchThreadID )
 {    
 
     
-    if (TileSharedBuffer[0].tileCount < DTid.x)
+    if (DTid.x >= TileSharedBuffer[0].tileCount)
     {
         return;
     }

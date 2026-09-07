@@ -79,17 +79,27 @@ namespace m::graphics
 		UINT fileCount = 0;
 
 		wchar_t ext[_MAX_EXT] = {};
-		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, _MAX_EXT);
+		std::wstring resolvedPath = Resources::ResolvePath(path);
+		_wsplitpath_s(resolvedPath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, _MAX_EXT);
 		ScratchImage image;
 
-		std::filesystem::path fs(path);
+		std::filesystem::path fs(resolvedPath);
+		if (!std::filesystem::exists(fs))
+		{
+			std::wstring message = L"Texture::CreateTex failed: directory not found\r\npath: " + path
+				+ L"\r\nresolved: " + resolvedPath + L"\r\n";
+			OutputDebugStringW(message.c_str());
+			return HRESULT_FROM_WIN32(ERROR_PATH_NOT_FOUND);
+		}
 
 		mPerWidth = perWidth;
 		mPerHeight = perHeight;
 
-		for (const auto& p : std::filesystem::recursive_directory_iterator(path)) fileCount++;
+		for (const auto& p : std::filesystem::recursive_directory_iterator(fs)) fileCount++;
+		if (fileCount == 0 || oneAnimLength == 0)
+			return E_FAIL;
 
-		UINT column = fileCount / oneAnimLength;
+		UINT column = (fileCount + oneAnimLength - 1) / oneAnimLength;
 		//column += 1;
 
 		hr = atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, mPerWidth * oneAnimLength, mPerHeight * column, 1, 1);
@@ -104,7 +114,7 @@ namespace m::graphics
 		int yidx = 0;
 
 		int tt = 0;
-		for (const auto& p : std::filesystem::recursive_directory_iterator(path))
+		for (const auto& p : std::filesystem::recursive_directory_iterator(fs))
 		{
 			std::wstring fileName = p.path().filename();
 			std::wstring fullName = p.path().wstring();
@@ -180,6 +190,8 @@ namespace m::graphics
 
 		mWidth = mImage.GetMetadata().width;
 		mHeight = mImage.GetMetadata().height;
+
+		return S_OK;
 	}
 	bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
 	{

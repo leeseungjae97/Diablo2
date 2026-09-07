@@ -13,7 +13,7 @@ namespace m
 
 		void Run();
 
-		void Initialize();
+		bool Initialize();
 		void Update();
 		void LateUpdate();
 		void Render();
@@ -29,6 +29,7 @@ namespace m
 		UINT GetHeight() { return mHeight; }
 		HWND GetHwnd() { return mHwnd; }
 		static Viewport GetViewPort() { return mViewPort; }
+		bool IsInitialized() const { return mbInitialize; }
 
 	private:
 		bool mbInitialize = false;

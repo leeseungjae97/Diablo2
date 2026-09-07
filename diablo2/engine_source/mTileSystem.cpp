@@ -18,6 +18,7 @@ namespace m
 		: mTileBuffer(nullptr)
 		, mTileSharedBuffer(nullptr)
 		, mCoordData(nullptr)
+		, mComputedCoords(nullptr)
 	    , mSkills(nullptr)
 	{
 		std::shared_ptr<Mesh> mesh = RESOURCE_FIND(Mesh, L"PointMesh");
@@ -115,7 +116,12 @@ namespace m
 		//	delete mGSkillBuffer;
 		//	mGSkillBuffer = nullptr;
 		//}
+		delete[] mCoordData;
 		mCoordData = nullptr;
+		delete[] mComputedCoords;
+		mComputedCoords = nullptr;
+		delete[] mSkills;
+		mSkills = nullptr;
 		materials.clear();
 	}
 
@@ -380,3 +386,4 @@ namespace m
 		mCS->SetTileBuffer(mTileBuffer);
     }
 }
+

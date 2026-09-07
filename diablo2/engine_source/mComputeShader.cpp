@@ -2,6 +2,27 @@
 #include "mGraphicDevice_DX11.h"
 namespace m::graphics
 {
+
+	namespace
+	{
+		std::filesystem::path GetComputeShaderSourcePath()
+		{
+			wchar_t modulePath[MAX_PATH] = {};
+			GetModuleFileNameW(nullptr, modulePath, MAX_PATH);
+
+			std::filesystem::path current = std::filesystem::path(modulePath).parent_path();
+			for (int i = 0; i < 4 && !current.empty(); ++i)
+			{
+				std::filesystem::path candidate = current / L"shader_source";
+				if (std::filesystem::exists(candidate))
+					return candidate;
+
+				current = current.parent_path();
+			}
+
+			return std::filesystem::current_path().parent_path() / L"shader_source";
+		}
+	}
 	ComputeShader::ComputeShader(int x, int y, int z)
 		: Resource(enums::eResourceType::ComputeShader)
 	{
@@ -21,19 +42,14 @@ namespace m::graphics
 	}
 	bool ComputeShader::Create(const std::wstring& name, const std::string& methodName)
 	{
-		std::filesystem::path shaderPath
-			= std::filesystem::current_path().parent_path();
-		shaderPath += L"\\shader_source\\";
-
-		std::filesystem::path fullPath(shaderPath.c_str());
-		fullPath += name;
+		std::filesystem::path fullPath = GetComputeShaderSourcePath() / name;
 
 		ID3DBlob* errorBlob = nullptr;
-		graphics::GetDevice()->CompileFromfile(fullPath, methodName, "cs_5_0", mCSBlob.GetAddressOf());
-		graphics::GetDevice()->CreateComputeShader(mCSBlob->GetBufferPointer()
-												   , mCSBlob->GetBufferSize(), mCS.GetAddressOf());
+		if (!graphics::GetDevice()->CompileFromfile(fullPath, methodName, "cs_5_0", mCSBlob.GetAddressOf()))
+			return false;
 
-		return true;
+		return graphics::GetDevice()->CreateComputeShader(mCSBlob->GetBufferPointer()
+											   , mCSBlob->GetBufferSize(), mCS.GetAddressOf());
 	}
 	void ComputeShader::OnExcute()
 	{

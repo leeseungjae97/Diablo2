@@ -167,7 +167,6 @@ namespace m
 
 		}
 
-		mPathFinder->AstarPathFinding(curCoord, targetCoord);
 		if (!MouseManager::GetMouseOnUI()
 			&& 
 			(Input::GetKeyDown(eKeyCode::RBUTTON)
@@ -185,6 +184,8 @@ namespace m
 			&& !bStun
 			&& Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
+			mPathFinder->ClearPath();
+			mPathFinder->AstarPathFinding(curCoord, targetCoord, -1, true);
 			if (!mPathFinder->PathChange(false))
 			{
 				/*if (!TileManager::hoverTile->GetIsWall())

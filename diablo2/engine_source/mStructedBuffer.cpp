@@ -62,7 +62,7 @@ namespace m::graphics
 		desc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
 		desc.CPUAccessFlags = 0;
 		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;	// Texture Register Binding
-		desc.MiscFlags = D3D11_RESOURCE_MISC_FLAG::D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // ±¸Á¶È­ ¹öÆÛ Ãß°¡ ÇÃ·¡±× ¼³Á¤
+		desc.MiscFlags = D3D11_RESOURCE_MISC_FLAG::D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		if (mType == eViewType::UAV)
 		{
@@ -111,7 +111,7 @@ namespace m::graphics
 	{
 		D3D11_BUFFER_DESC wDesc(desc);
 
-		wDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // ±¸Á¶È­ ¹öÆÛ Ãß°¡ ÇÃ·¡±× ¼³Á¤
+		wDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		wDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;	// Texture Register Binding	
 
 		wDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -122,7 +122,7 @@ namespace m::graphics
 
 		D3D11_BUFFER_DESC rDesc(desc);
 
-		rDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // ±¸Á¶È­ ¹öÆÛ Ãß°¡ ÇÃ·¡±× ¼³Á¤
+		rDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED; // ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		rDesc.BindFlags = 0;
 
 		rDesc.Usage = D3D11_USAGE_STAGING;
@@ -161,7 +161,7 @@ namespace m::graphics
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
 		if (size == 0)
-			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, mSize * mStride);
+			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, mStride);
 		else
 			GetDevice()->ReadBuffer<T>(mReadBuffer.Get(), data, size);
 	}

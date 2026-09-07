@@ -5,6 +5,7 @@
 #include "../engine_source/mMeshRenderer.h"
 #include "../engine_source/mSceneManager.h"
 #include "../engine_source/mTexture.h"
+#include "../engine_source/mInput.h"
 
 #include "mPlayerManager.h"
 #include "mTileManager.h"
@@ -16,6 +17,8 @@ namespace m
 		, mSkillIndex(skillIndex)
 		, skillImages(nullptr)
 		, prevSkillPoint(0)
+		, mbSkillOutputOpen(false)
+		, mbUseIndividualSkillOutput(false)
 	{
 		//SetClickMaterial(RESOURCE_FIND(Material, L"normalAttackClickIcon"));
 		//SetNormalMaterial(RESOURCE_FIND(Material, L"normalAttackIcon"));
@@ -63,12 +66,20 @@ namespace m
 
 		SET_SCALE_TEX_SIZE(skillImages, texture, -1.f);
 
-		skillImages->SetState(NoRenderUpdate);
+		skillImages->SetState(NoRenderNoUpdate);
+
+		makeIndividualSkillImages();
+		applySkillOutputState();
 
 		makeMa();
 	}
 	SkillShortCutButton::~SkillShortCutButton()
 	{
+		for (UI* ui : individualSkillImages)
+		{
+			if (ui)
+				ui->SetState(Delete);
+		}
 	}
 	void SkillShortCutButton::Initialize()
 	{
@@ -82,13 +93,21 @@ namespace m
 
 		if(nullptr == skillImages->GetCamera())
 			skillImages->SetCamera(GetCamera());
+		setIndividualSkillCamera();
 		setMaCamera();
+
+		if (Input::GetKeyDown(eKeyCode::M))
+		{
+			mbUseIndividualSkillOutput = !mbUseIndividualSkillOutput;
+			applySkillOutputState();
+		}
 
 		if(GetOneClick())
 		{
-			skillImages->SetState(skillImages->GetState() == NoRenderNoUpdate ? RenderUpdate : NoRenderNoUpdate);
+			mbSkillOutputOpen = !mbSkillOutputOpen;
+			applySkillOutputState();
 		}
-		if (skillImages->GetState() == RenderUpdate)
+		if (mbSkillOutputOpen)
 		{
 			GetHoverClickSkill();
 			specifyShortcut();
@@ -99,7 +118,11 @@ namespace m
 
 		if(!GetHover())
 		{
-			if(Input::GetKeyDown(eKeyCode::LBUTTON)) skillImages->SetState(NoRenderNoUpdate);
+			if(Input::GetKeyDown(eKeyCode::LBUTTON))
+			{
+				mbSkillOutputOpen = false;
+				applySkillOutputState();
+			}
 		}
 
 		if (PlayerManager::GetSkill(mSkillIndex) != mSkillType)
@@ -116,7 +139,7 @@ namespace m
 				ui->SetState(NoRenderNoUpdate);
 			}else
 			{
-				ui->SetState(skillImages->GetState());
+				ui->SetState(mbSkillOutputOpen ? RenderUpdate : NoRenderNoUpdate);
 			}
 			++i;
 		}
@@ -142,7 +165,7 @@ namespace m
 
 		for(int i = 0 ; i < skillMatPos.size(); ++i)
 		{
-			if (skillMatPos[i] == Vector2(-1.f, -1.f)) continue;
+			if (skillMatPos[i] == Vector2(-99.f, -99.f)) continue;
 
 			Vector2 skillPos;
 			skillPos.x = (posV2.x - (imageScale.x / 2.f)) + (((skillMatPos[i].x + 1) * scale.x) - scale.x / 2.f);
@@ -197,6 +220,68 @@ namespace m
 		}
     }
 
+	void SkillShortCutButton::setIndividualSkillCamera()
+	{
+		for (UI* ui : individualSkillImages)
+		{
+			if (ui && nullptr == ui->GetCamera())
+				ui->SetCamera(GetCamera());
+		}
+	}
+	void SkillShortCutButton::makeIndividualSkillImages()
+	{
+		individualSkillImages.reserve(skillTexs.size());
+		for (std::shared_ptr<Texture> tex : skillTexs)
+		{
+			UI* ui = new UI();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, ui);
+
+			SET_MESH(ui, L"RectMesh");
+
+			SHARED_MAT mat = std::make_shared<Material>();
+			mat->SetShader(RESOURCE_FIND(Shader, L"NoLightShader"));
+			mat->SetTexture(tex);
+			SET_MATERIAL_D(ui, mat);
+
+			SET_SCALE_XYZ(ui, 48.f, 48.f, -1.f);
+			ui->SetState(NoRenderNoUpdate);
+			individualSkillImages.push_back(ui);
+		}
+	}
+	void SkillShortCutButton::updateIndividualSkillImages(bool right)
+	{
+		Vector3 posV3 = GET_POS(skillImages);
+		Vector3 imageScale = GET_SCALE(skillImages);
+		Vector2 scale = Vector2(48.f, 48.f);
+		MAKE_VEC2_F_VEC3(posV2, posV3);
+
+		for (int i = 0; i < individualSkillImages.size() && i < skillMatPos.size(); ++i)
+		{
+			UI* ui = individualSkillImages[i];
+			if (nullptr == ui) continue;
+
+			Vector2 skillPos;
+			skillPos.x = (posV2.x - (imageScale.x / 2.f)) + (((skillMatPos[i].x + 1) * scale.x) - scale.x / 2.f);
+			skillPos.y = (posV2.y + (imageScale.y / 2.f)) - (((skillMatPos[i].y + 1) * scale.y) - scale.y / 2.f);
+			SET_POS_XYZ(ui, skillPos.x, skillPos.y, -1.f);
+		}
+	}
+	void SkillShortCutButton::applySkillOutputState()
+	{
+		skillImages->SetState(mbSkillOutputOpen && !mbUseIndividualSkillOutput ? RenderUpdate : NoRenderNoUpdate);
+
+		for (int i = 0; i < individualSkillImages.size(); ++i)
+		{
+			UI* ui = individualSkillImages[i];
+			if (nullptr == ui) continue;
+
+			bool visible = mbSkillOutputOpen
+				&& mbUseIndividualSkillOutput
+				&& i < skillMatPos.size()
+				&& skillMatPos[i] != Vector2(-99.f, -99.f);
+			ui->SetState(visible ? RenderUpdate : NoRenderNoUpdate);
+		}
+	}
 	void SkillShortCutButton::setMaCamera()
 	{
 		if (mF5 && nullptr == mF5->GetCamera()) mF5->SetCamera(GetCamera());
@@ -306,7 +391,7 @@ namespace m
 
 		for (int i = 0; i < skillMatPos.size(); ++i)
 		{
-			if (skillMatPos[i] == Vector2(-1.f, -1.f)) continue;
+			if (skillMatPos[i] == Vector2(-99.f, -99.f)) continue;
 
 			Vector2 skillPos;
 			skillPos.x = (posV2.x - (imageScale.x / 2.f)) + (((skillMatPos[i].x + 1) * scale.x) - scale.x / 2.f);
@@ -398,7 +483,12 @@ namespace m
 			}else mSkillPos.x += mScale.x / 2.f;
 			SET_POS_XYZ(skillImages, mSkillPos.x, mSkillPos.y, -1.f);
 		}
-		if (prevSkillPoint == PlayerManager::skillPoint) return;
+		if (prevSkillPoint == PlayerManager::skillPoint)
+		{
+			updateIndividualSkillImages(right);
+			applySkillOutputState();
+			return;
+		}
 
 		prevSkillPoint = PlayerManager::skillPoint;
 		
@@ -414,6 +504,8 @@ namespace m
 
 		//SET_MATERIAL_D(skillImages, mat);
 		SET_SCALE_TEX_SIZE(skillImages, texture, -1.f);
+		updateIndividualSkillImages(right);
+		applySkillOutputState();
 	}
 	void SkillShortCutButton::SetSkillBtnPos(bool right)
 	{
@@ -452,3 +544,4 @@ namespace m
 		}
 	}
 }
+

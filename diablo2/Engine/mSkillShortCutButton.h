@@ -30,12 +30,17 @@ namespace m
         void makeMa();
         void specifyShortcut();
         void eraseSkillOverlap(int index);
+        void makeIndividualSkillImages();
+        void updateIndividualSkillImages(bool right);
+        void applySkillOutputState();
+        void setIndividualSkillCamera();
 
     private:
         eSkillType mSkillType;
         int mSkillIndex;
         
         UI* skillImages;
+        std::vector<UI*> individualSkillImages;
 
 
         UI* mF5;
@@ -52,6 +57,9 @@ namespace m
         std::vector<UI*> macroButtons;
         std::vector<bool> bOverlaps;
         int prevSkillPoint;
+        bool mbSkillOutputOpen;
+        bool mbUseIndividualSkillOutput;
     };
 }
+
 

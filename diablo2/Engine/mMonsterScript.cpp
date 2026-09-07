@@ -1,4 +1,4 @@
-#include "mMonsterScript.h"
+癤�#include "mMonsterScript.h"
 
 #include "../engine_source/MoveAbleObjectAnimLookUpTables.h"
 #include "../engine_source/mSceneManager.h"
@@ -68,7 +68,7 @@ namespace m
 		if (curMonsterData.passiveAura != eAuraType::End)
 		{
 			mAura = new Aura(GetOwner(), curMonsterData.passiveAura, curMonsterData.auraOffSet);
-			if (curMonsterData.wsMonsterName.compare(L"메피스토") == 0)
+			if (curMonsterData.wsMonsterName.compare(L"\uBA54\uD53C\uC2A4\uD1A0") == 0)
 				mAura->FrontAura();
 
 			mAura->AuraActive();
@@ -97,7 +97,7 @@ namespace m
 			SHARED_MAT mat = RESOURCE_FIND(Material, curMonsterData.textureString[i]);
 
 			float centerPosY = 0.f;
-			if (curMonsterData.wsMonsterName.compare(L"메피스토") == 0)
+			if (curMonsterData.wsMonsterName.compare(L"\uBA54\uD53C\uC2A4\uD1A0") == 0)
 			{
 				//if (i == (UINT)T::eAnimationType::SpecialCast)
 				//{
@@ -108,7 +108,7 @@ namespace m
 				dynamic_cast<MoveAbleObject*>(GetOwner())->GetShadowObject()->SetShadowOffset(Vector2(50.f, 50.f));
 
 			}
-			else if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0)
+			else if (curMonsterData.wsMonsterName.compare(L"\uB514\uC544\uBE14\uB85C") == 0)
 			{
 				if (i == (UINT)T::eAnimationType::SpecialCast)
 				{
@@ -126,7 +126,7 @@ namespace m
 				centerPosY = curMonsterData.animationCenterPos[i].y + (curMonsterData.animationSizes[i].y * 3.f);
 			}
 
-			if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0
+			if (curMonsterData.wsMonsterName.compare(L"\uB514\uC544\uBE14\uB85C") == 0
 				&& i == (UINT)MonsterData::eAnimationType::ToDead)
 			{
 				//diabloToDead2;
@@ -496,10 +496,11 @@ namespace m
 	template <typename T>
 	void MonsterScript<T>::AttackAnimation()
 	{
-		if (mMonster->GetBattleState() != GameObject::eBattleState::Idle) return;
+		if (mMonster->GetBattleState() != GameObject::eBattleState::Idle
+			&& mMonster->GetBattleState() != GameObject::eBattleState::Run) return;
 
 
-		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if (mMonster->CanMeleeAttackPlayerByTile())
 		{
 			fAttackDelay += Time::fDeltaTime();
 			if (curMonsterData.fAttackDelay <= fAttackDelay)
@@ -604,7 +605,7 @@ namespace m
 		SET_SCALE_XYZ(GetOwner(), curMonsterData.animationSizes[(UINT)mAnimationType].x
 			, curMonsterData.animationSizes[(UINT)mAnimationType].y, 0.f);
 
-		if (curMonsterData.wsMonsterName.compare(L"디아블로") == 0)
+		if (curMonsterData.wsMonsterName.compare(L"\uB514\uC544\uBE14\uB85C") == 0)
 		{
 			if (mAnimator->GetActiveAnimation()->GetKey() != wsDiabloDeadAnimationName)
 				mAnimator->PlayAnimation(wsDiabloDeadAnimationName, false);
@@ -688,9 +689,14 @@ namespace m
 	template<typename T>
 	void MonsterScript<T>::AttackProgress()
 	{
-		if (mMonster->GetRangeCollider()->SearchObjectGameObjectId(PlayerManager::player->GetGameObjectId()))
+		if (mMonster->CanMeleeAttackPlayerByTile())
 		{
 			PlayerManager::player->Hit(5);
+		}
+		else
+		{
+			GetOwner()->SetBattleState(GameObject::Idle);
+			mMonster->RequestPathRebuild();
 		}
 	}
 
@@ -904,3 +910,6 @@ namespace m
 		}
 	}
 }
+
+
+
